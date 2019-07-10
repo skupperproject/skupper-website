@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Getting started with ActiveMQ Artemis on OpenShift</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,600,600italic|Ubuntu+Mono:400" type="text/css"/>
+    <link rel="stylesheet" href="https://www.ssorj.net/amq-io/main.css" type="text/css"/>
+    <link rel="icon" href="" type="image/png"/>
+    <script type="text/javascript" src="https://www.ssorj.net/amq-io/main.js" defer="defer"></script>
+
+
+
+  </head>
+  <body>
+
+<header>
+  <div>
+    <div id="-top-left-nav">
+      <a href="https://www.ssorj.net/amq-io/index.html">
+        <svg height="20" width="20" style="position: relative; top: 4; margin-right: 3;">
+          <circle cx="10" cy="10" r="8" stroke="#fff" stroke-width="2" fill="none"/>
+        </svg>
+        AMQ
+      </a>
+    </div>
+    <div id="-top-right-nav">
+      Red Hat
+    </div>
+  </div>
+</header>
+
+<section>
+  <div>
+
+<h1 id="getting-started-with-activemq-artemis-on-openshift">Getting started with ActiveMQ Artemis on OpenShift</h1>
+
+<p>This article guides you through the steps to run ActiveMQ Artemis on
+OpenShift.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+<li>Access to a running instance of OpenShift.
+<a href="https://docs.okd.io/latest/minishift/getting-started/index.html">Minishift</a>
+is one way to do this in your local environment.</li>
+</ul>
+
+<h2 id="steps">Steps</h2>
+
+<ol>
+<li><p>Log in to your OpenShift instance.  Use the <code>`7</code> command
+provided by the OpenShift web interface under .</p>
+
+<pre><code>`5
+</code></pre></li>
+<li><p>Create a new project in OpenShift.</p>
+
+<pre><code>`8
+</code></pre></li>
+<li><p>Get the example project source from GitHub.</p></li>
+<li><p>Apply the project OpenShift templates.</p>
+
+<pre><code>*0
+</code></pre></li>
+<li><p>Deploy the broker.</p>
+
+<pre><code>*2
+</code></pre></li>
+<li><p>Deploy the message producer.</p>
+
+<pre><code>*4
+</code></pre></li>
+<li><p>Deploy the message consumer.</p>
+
+<pre><code>*6
+</code></pre></li>
+<li><p>See the result in your browser.</p></li>
+</ol>
+
+
+  </div>
+</section>
+
+<footer>
+  <div>
+  </div>
+</footer>
+
+
+
+
+  </body>
+</html>
