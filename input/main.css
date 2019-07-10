@@ -278,24 +278,26 @@ section.component > div > h1 > a{
     color: inherit;
 }
 
-#-intro-section h1 {
-    font-size: 3em;
-}
-
-#-intro-section p {
-    max-width: 28em;
-}
-
 #-intro-section > div {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+#-intro-section > div > h1 {
+    font-size: 3em;
+    margin-bottom: 0.4em;
+}
+
+#-intro-section > div > img {
+    margin: 0;
+}
+
 #-intro-section > div > p {
     font-size: 1.4em;
     font-weight: 300;
     line-height: 1.4em;
+    max-width: 28em;
 }
 
 header > div {

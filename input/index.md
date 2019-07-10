@@ -11,7 +11,7 @@ body_template: none
     </div>
     <div id="-top-right-nav">
        {{circle(20)}}
-      Red Hat
+      GitHub
     </div>
   </div>
 </header>
