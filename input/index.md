@@ -7,11 +7,11 @@ body_template: none
   <div>
     <div id="-top-left-nav">
       {{circle(20)}}
-      <span class="nameplate">Skuba</span>
+      <a href="{{site_url}}/index.html" class="nameplate">Skuba</a>
     </div>
     <div id="-top-right-nav">
        {{circle(20)}}
-      GitHub
+      <a href="https://github.com/skubaproject">GitHub</a>
     </div>
   </div>
 </header>
