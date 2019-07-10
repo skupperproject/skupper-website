@@ -24,8 +24,8 @@ export PYTHONPATH := python
 .PHONY: render
 render: site_url := "file:${CURDIR}/output"
 render: clean
-	python3 -m transom render --quiet input output
-	python3 -m transom render --quiet --site-url "https://www.ssorj.net/amq-io" input docs
+	python3 -m transom render --force --quiet input output
+	python3 -m transom render --force --quiet --site-url "https://www.ssorj.net/skuba-io" input docs
 	@echo "See the output at ${site_url}/index.html"
 
 .PHONY: watch
