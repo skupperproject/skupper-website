@@ -292,3 +292,7 @@ header a, footer a {
 li > *:last-child {
     margin-bottom: 1em;
 }
+
+header.active {
+    background-color: #fff;
+}

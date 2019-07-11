@@ -1,5 +1,5 @@
 ---
-title: Home
+title: Skuba
 body_template: none
 extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/css" async="async"/>
 ---
@@ -8,7 +8,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
   <div>
     <nav id="-top-left-nav">
       <a href="{{site_url}}/index.html" class="nameplate">{{circle(20)}} Skuba</a>
-      <a href="{{site_url}}/start/index.html">{{circle(20)}} Get started</a>
+      <a href="{{site_url}}/get-started/index.html">{{circle(20)}} Get started</a>
       <a href="{{site_url}}/docs/index.html">{{circle(20)}} Documentation</a>
     </nav>
     <nav id="-top-right-nav">
@@ -26,17 +26,19 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
     <h2>Multi-site application networking for Kubernetes</h2>
 
     <p>Skuba connects services from multiple Kubernetes clusters to a
-      secure Layer 7 network.  It works with any IP network topology,
-      including subnets behind firewalls or NAT, so you can host your
-      services anywhere.</p>
+      secure Layer 7 interconnect.  It works with any IP network
+      topology, including subnets behind firewalls or NAT, so you can
+      host your services anywhere.</p>
 
     <div>
       <h3>Level up your networking with</h3>
       
       <ul>
-        <li>Transparent TCP and HTTP communication across IP network boundaries</li>
+        <li>Interconnection among multiple clusters, data centers, and regions</li>
+        <li>Transparent TCP and HTTP communication across public and private IP networks</li>
         <li>Dynamic HTTP load balancing that responds to changes in service capacity</li>
         <li>Centralized network administration and easy cluster onboarding</li>
+        <li>New communication powers: multicast and cost-based routing</li>
       </ul>
     </div>
   </div>
