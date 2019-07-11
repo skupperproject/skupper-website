@@ -34,7 +34,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
       <h3>Level up your networking with</h3>
       
       <ul>
-        <li>Interconnection among multiple clusters, data centers, and regions</li>
+        <li>Secure interconnection among multiple clusters, data centers, and regions</li>
         <li>Transparent TCP and HTTP communication across public and private IP networks</li>
         <li>Dynamic HTTP load balancing that responds to changes in service capacity</li>
         <li>Centralized network administration and easy cluster onboarding</li>
