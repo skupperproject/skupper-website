@@ -225,7 +225,8 @@ footer {
 }
 
 nav.links > a {
-    display: block;
+    display: inline-block;
+    margin-right: 1em;
 }
 
 nav.links > a::before,

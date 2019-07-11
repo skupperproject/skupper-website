@@ -52,6 +52,10 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
     <div>
       <h2>Connect multi-site services to a shared database</h2>
       <p>{{lipsum_25}}</p>
+      <nav class="links">
+        <a href="">Tutorial</a>
+        <a href="">Example code</a>
+      </nav>
     </div>
   </div>
 </section>
@@ -61,6 +65,10 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
     <div>
       <h2>Load-balance API calls across clusters</h2>
       <p>{{lipsum_25}}</p>
+      <nav class="links">
+        <a href="">Tutorial</a>
+        <a href="">Example code</a>
+      </nav>
     </div>
     <iframe width="320" height="180" src="https://www.youtube.com/embed/AjPau5QYtYs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
@@ -72,6 +80,10 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
     <div>
       <h2>Centrally manage your global application network</h2>
       <p>{{lipsum_25}}</p>
+      <nav class="links">
+        <a href="">Tutorial</a>
+        <a href="">Example code</a>
+      </nav>
     </div>
   </div>
 </section>
