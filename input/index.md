@@ -7,9 +7,9 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
 <header>
   <div>
     <nav id="-top-left-nav">
-      <a href="{{site_url}}/index.html" class="nameplate">{{circle(20)}} Skuba</a>
-      <a href="{{site_url}}/get-started/index.html">{{circle(20)}} Get started</a>
-      <a href="{{site_url}}/docs/index.html">{{circle(20)}} Documentation</a>
+      <a href="{{site_url}}/index.html" class="nameplate"><img class="inline-icon" src="{{site_url}}/images/circle.svg"/> Skuba</a>
+      <a href="{{site_url}}/get-started/index.html">Get started</a>
+      <a href="{{site_url}}/docs/index.html">Documentation</a>
     </nav>
     <nav id="-top-right-nav">
       <a href="https://github.com/skubaproject"><img class="inline-icon" src="{{site_url}}/images/github.svg"/> GitHub</a>
