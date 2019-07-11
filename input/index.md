@@ -6,14 +6,14 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
 
 <header>
   <div>
-    <div id="-top-left-nav">
-      {{circle(20)}}
-      <a href="{{site_url}}/index.html" class="nameplate">Skuba</a>
-    </div>
-    <div id="-top-right-nav">
-       {{circle(20)}}
-      <a href="https://github.com/skubaproject">GitHub</a>
-    </div>
+    <nav id="-top-left-nav">
+      <a href="{{site_url}}/index.html" class="nameplate">{{circle(20)}} Skuba</a>
+      <a href="{{site_url}}/start/index.html">{{circle(20)}} Get started</a>
+      <a href="{{site_url}}/docs/index.html">{{circle(20)}} Documentation</a>
+    </nav>
+    <nav id="-top-right-nav">
+      <a href="https://github.com/skubaproject"><img class="inline-icon" src="{{site_url}}/images/github.svg"/> GitHub</a>
+    </nav>
   </div>
 </header>
 
@@ -23,8 +23,22 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
 
     {{include("includes/globe.svg")}}
 
-    <h2>Multi-site, multi-cloud application networking for Kubernetes</h2>
-    <p>{{lipsum_25}}</p>
+    <h2>Multi-site application networking for Kubernetes</h2>
+
+    <p>Skuba connects services from multiple Kubernetes clusters to a
+      secure Layer 7 network.  It works with any IP network topology,
+      including subnets behind firewalls or NAT, so you can host your
+      services anywhere.</p>
+
+    <div>
+      <h3>Level up your networking with</h3>
+      
+      <ul>
+        <li>Transparent TCP and HTTP communication across IP network boundaries</li>
+        <li>Dynamic HTTP load balancing that responds to changes in service capacity</li>
+        <li>Centralized network administration and easy cluster onboarding</li>
+      </ul>
+    </div>
   </div>
 </section><svg id="-wave" height="6em" width="100%" xmlns="http://www.w3.org/2000/svg">
   <path d="M 0 0 L 0 50 Q 400 100, 800 50 T 1600 50 T 2400 50 T 3200 50 L 3200 0 Z" fill="#fff"/>

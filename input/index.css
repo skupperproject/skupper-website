@@ -39,16 +39,6 @@ footer {
     background-color: var(--bg-color-3);
 }
 
-
-h1.selected,
-h2.selected,
-h3.selected,
-h4.selected,
-h5.selected,
-h6.selected {
-    color: var(--fg-color-2);
-}
-
 h2 {
     font-weight: 400;
 }
@@ -58,7 +48,7 @@ h2 > a {
 }
 
 #-intro-section {
-    padding-top: 3em;
+    padding-top: 5em;
     background-color: var(--bg-color-2);
     color: var(--fg-color-2);
 }
@@ -87,7 +77,21 @@ h2 > a {
     font-size: 1.4em;
     font-weight: 300;
     line-height: 1.4em;
-    max-width: 28em;
+    max-width: 30em;
+    text-align: center;
+}
+
+#-intro-section > div > div {
+    margin-top: 1em;
+    text-align: center;
+}
+
+#-intro-section > div > div > ul {
+    list-style: none;
+}
+
+#-intro-section > div > div > ul > li {
+    margin-bottom: 0.4em;
 }
 
 header > div {
@@ -97,6 +101,10 @@ header > div {
 
 .video {
     display: flex;
+}
+
+.video > * {
+    margin: 0;
 }
 
 .video > *:first-child {

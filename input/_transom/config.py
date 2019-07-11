@@ -29,7 +29,7 @@ consequat condimentum. Integer tempus sem.
 """
 
 def circle(diameter, color="#000"):
-    position = .15 * diameter
+    position = .2 * diameter
     cx = .5 * diameter
     cy = .5 * diameter
     radius = .4 * diameter

@@ -238,6 +238,12 @@ a[href=""] {
     color: var(--accent-color-1);
 }
 
+img.inline-icon {
+    height: 1.2em;
+    position: relative;
+    top: 0.25em;
+}
+
 .nameplate {
     font-family: "Alegreya Sans";
     font-weight: 800;
@@ -268,7 +274,17 @@ header a, footer a {
     color: inherit;
 }
 
+#-top-left-nav {
+    margin: 0;
+    flex-grow: 1;
+}
+
+#-top-left-nav > a {
+    margin-right: 2em;
+}
+
 #-top-right-nav {
+    margin: 0;
     flex-grow: 1;
     text-align: right;
 }
