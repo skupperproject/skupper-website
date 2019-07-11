@@ -157,7 +157,7 @@ blockquote {
 
 :root {
   --bg-color-1: rgba(0, 117, 199, 1.0);
-  --bg-color-2: rgba(247, 247, 247, 1.0);
+  --bg-color-2: rgba(239, 239, 239, 1.0);
   --bg-color-3: rgba(0, 117, 199, 1.0);
   --fg-color-1: rgba(255, 255, 255, 0.9);
   --fg-color-2: rgba(0, 0, 0, 0.9);
@@ -264,61 +264,8 @@ ul.bullets {
     font-size: 0.9em;
 }
 
-section.component > div > h1 > a{
-    font-weight: 600;
-}
-
-#-intro-section {
-    background-color: var(--bg-color-2);
-    color: var(--fg-color-2);
-    border-bottom: var(--accent-color-2);
-}
-
-#-intro-section a {
-    color: inherit;
-}
-
-#-intro-section > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#-intro-section > div > h1 {
-    font-size: 3em;
-    margin-bottom: 0.6em;
-}
-
-#-intro-section > div > img {
-    margin: 0;
-}
-
-#-intro-section > div > p {
-    font-size: 1.4em;
-    font-weight: 300;
-    line-height: 1.4em;
-    max-width: 28em;
-}
-
-header > div {
-    display: flex;
-    align-items: center;
-}
-
 header a, footer a {
     color: inherit;
-}
-
-.video {
-    display: flex;
-}
-
-.video > *:first-child {
-    margin-right: 2em;
-}
-
-.video > div {
-    width: 100%;
 }
 
 #-top-right-nav {
@@ -326,59 +273,6 @@ header a, footer a {
     text-align: right;
 }
 
-#-component-toc {
-    display: flex;
-    margin: 2em 0 1em 0;
-}
-
-#-component-toc > div {
-    width: 16em;
-}
-
-#-component-toc h2 {
-    font-size: 1.6em;
-}
-
-#-component-toc nav {
-    font-size: 1.2em;
-    font-weight: 300;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#-component-toc nav > a {
-    display: block;
-    margin-bottom: 0.4em;
-}
-
-#-component-toc nav > a:last-child {
-    margin-bottom: 0;
-}
-
-#-component-toc-apis {
-    margin-left: 4em;
-    padding-right: 1em;
-}
-
-#-component-toc-apis nav {
-    column-count: 2;
-}
-
-#-product-link {
-    font-weight: 400;
-}
-
 li > *:last-child {
     margin-bottom: 1em;
 }
-
-#-wave {
-    margin: 0;
-}
-
-#-wave > path {
-    fill: var(--bg-color-2);
-}
-
-            

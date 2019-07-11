@@ -1,0 +1,113 @@
+/*
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ *
+ */
+
+body {
+    color: var(--fg-color-1);
+    background-color: var(--bg-color-3);
+}
+
+
+header {
+    color: var(--fg-color-2);
+    background-color: var(--bg-color-2);
+}
+
+section,
+footer {
+    color: var(--fg-color-3);
+    background-color: var(--bg-color-3);
+}
+
+
+h1.selected,
+h2.selected,
+h3.selected,
+h4.selected,
+h5.selected,
+h6.selected {
+    color: var(--fg-color-2);
+}
+
+h2 {
+    font-weight: 400;
+}
+
+h2 > a {
+    font-weight: 600;
+}
+
+#-intro-section {
+    background-color: var(--bg-color-2);
+    color: var(--fg-color-2);
+    border-bottom: var(--accent-color-2);
+}
+
+#-intro-section a {
+    color: inherit;
+}
+
+#-intro-section > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#-intro-section > div > h1 {
+    font-size: 3em;
+    margin-bottom: 0.6em;
+}
+
+#-intro-section > div > svg {
+    margin: 0;
+    height: 400;
+}
+
+#-intro-section > div > p {
+    font-size: 1.4em;
+    font-weight: 300;
+    line-height: 1.4em;
+    max-width: 28em;
+}
+
+header > div {
+    display: flex;
+    align-items: center;
+}
+
+.video {
+    display: flex;
+}
+
+.video > *:first-child {
+    margin-right: 2em;
+}
+
+.video > div {
+    width: 100%;
+}
+
+#-wave {
+    margin: 0;
+}
+
+#-wave > path {
+    fill: var(--bg-color-2);
+}

@@ -39,3 +39,9 @@ def circle(diameter, color="#000"):
         f"<svg height=\"{diameter}\" width=\"{diameter}\" style=\"position: relative; top: {position}; margin: 0;\">" \
         f"  <circle cx=\"{cx}\" cy=\"{cy}\" r=\"{radius}\" stroke=\"{color}\" stroke-width=\"{stroke}\" fill=\"none\"/>" \
         "</svg>"
+
+def include(path):
+    import os
+
+    with open(path, "r") as f:
+        return f.read()

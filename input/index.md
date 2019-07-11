@@ -1,6 +1,7 @@
 ---
 title: Home
 body_template: none
+extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/css" async="async"/>
 ---
 
 <header>
@@ -19,7 +20,9 @@ body_template: none
 <section id="-intro-section">
   <div>
     <h1 class="nameplate">Skuba</h1>
-    <img src="world.svg" height="400"/>
+
+    {{include("includes/globe.svg")}}
+
     <h2>Multi-site, multi-cloud application networking for Kubernetes</h2>
     <p>{{lipsum_25}}</p>
   </div>
