@@ -1,0 +1,15 @@
+#!/usr/bin/python3
+
+from plano import *
+
+if which("livereload") is None:
+    exit("I can't find livereload.  See https://www.npmjs.com/package/livereload.")
+
+proc = start_process("livereload output")
+
+try:
+    call("python3 -m transom render --quiet --watch input output")
+except KeyboardInterrupt:
+    pass
+finally:
+    terminate_process(proc)

@@ -30,12 +30,16 @@ render: clean
 
 .PHONY: watch
 watch:
-	python3 -m transom render --quiet --watch input output
+	scripts/watch
 
 .PHONY: clean
 clean:
 	rm -rf output
 	rm -rf python/__pycache__
+
+.PHONY: update-plano
+update-plano:
+	curl -sfo scripts/plano.py "https://raw.githubusercontent.com/ssorj/plano/master/python/plano.py"
 
 .PHONY: update-%
 update-%:
