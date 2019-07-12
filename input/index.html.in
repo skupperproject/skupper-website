@@ -30,38 +30,26 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
       topology, including subnets behind firewalls or NAT, so you can
       host your services anywhere.</p>
 
-    <!-- <div>
-      <h3>Level up your networking with</h3>
-
-      <ul>
-        <li>Secure interconnection among multiple clusters, data centers, and regions</li>
-        <li>Transparent TCP and HTTP communication across public and private IP networks</li>
-        <li>Dynamic HTTP load balancing that responds to changes in service capacity</li>
-        <li>Centralized network administration and easy cluster onboarding</li>
-        <li>New communication powers: multicast and cost-based routing</li>
-      </ul>
-    </div> -->
-  </div>
-</section>
-
-<section id="-features-section">
-  <div>
-    <div>
-      <h3>Secure interconnect</h3>
-      <p>Connects multiple clusters, data centers, and regions</p>
-      <p>Transparent TCP and HTTP communication across public and private IP networks</p>
-    </div>
-    <div>
-      <h3>Enhanced communication</h3>
-      <p>Dynamic load balancing that responds to changes in service capacity</p>
-      <p>Multicast request forwarding</p>
-      <p>Cost-based request routing</p>
-    </div>
-    <div>
-      <h3>Network control</h3>
-      <p>Centralized network administration</p>
-      <p>Application-level access control and resource limits</p>
-      <p>Easy cluster onboarding</p>
+    <div id="-features-section">
+      <div>
+        <div>
+          <h3>Secure interconnect</h3>
+          <p>Connects multiple clusters, data centers, and regions</p>
+          <p>Transparent TCP and HTTP communication across public and private IP networks</p>
+        </div>
+        <div>
+          <h3>New capabilities</h3>
+          <p>Dynamic load balancing that responds to changes in service capacity</p>
+          <p>Multicast request forwarding</p>
+          <p>Cost-based request routing</p>
+        </div>
+        <div>
+          <h3>Network command</h3>
+          <p>Centralized network administration</p>
+          <p>Application-level access control and resource limits</p>
+          <p>Easy cluster onboarding</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
