@@ -42,8 +42,8 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
       </ul>
     </div>
   </div>
-</section><svg id="-wave" height="6em" width="100%" xmlns="http://www.w3.org/2000/svg">
-  <path d="M 0 0 L 0 50 Q 400 100, 800 50 T 1600 50 T 2400 50 T 3200 50 L 3200 0 Z" fill="#fff"/>
+</section><svg id="-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 40" preserveAspectRatio="none">
+  <path d="M 0 0 L 0 20 Q 400 60 800 20 T 1600 20 L 1600 0 Z" fill="#fff"/>
 </svg>
 
 <section>
