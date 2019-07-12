@@ -108,7 +108,7 @@ form button {
 }
 
 form input {
-    width: 16em;
+    max-width: 16em;
 }
 
 form button {
@@ -190,7 +190,7 @@ section {
 header > div,
 footer > div,
 section > div {
-    width: 960px;
+    max-width: 960px;
     margin: 0 auto;
     padding: 2em 1em;
 }

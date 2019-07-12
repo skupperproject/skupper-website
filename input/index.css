@@ -24,7 +24,6 @@ body {
     background-color: var(--bg-color-3);
 }
 
-
 header {
     color: var(--fg-color-2);
     background-color: var(--bg-color-2);
@@ -88,9 +87,8 @@ footer {
     display: flex;
     font-size: 0.95em;
     margin: 1em 0;
-    width: 50em;
+    max-width: 50em;
     color: var(--fg-color-2);
-    background-color: var(--bg-color-2);
 }
 
 #-features a {
