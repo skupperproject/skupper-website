@@ -720,11 +720,16 @@ class _HtmlInFile(_OutputFile):
     def process_input(self):
         super().process_input()
 
-        match = _html_title_regex.search(self.content)
+        self.attributes.update(self._extract_metadata())
 
-        if match:
-            self.title = match.group(2).strip()
-            self.title = _html_tag_regex.sub("", self.title)
+        try:
+            self.title = self.attributes["title"]
+        except KeyError:
+            match = _html_title_regex.search(self.content)
+
+            if match:
+                self.title = match.group(2).strip()
+                self.title = _html_tag_regex.sub("", self.title)
 
     def render_output(self, force=False):
         if self.modified() or force:
@@ -733,6 +738,21 @@ class _HtmlInFile(_OutputFile):
             self._apply_template()
             self._replace_variables()
             self._save_output()
+
+    def _extract_metadata(self):
+        attributes = dict()
+
+        if self.content.startswith("---\n"):
+            end = self.content.index("---\n", 4)
+            lines = self.content[4:end].strip().split("\n")
+
+            for line in lines:
+                key, value = line.split(":", 1)
+                attributes[key.strip()] = value.strip()
+
+            self.content = self.content[end + 4:]
+
+        return attributes
 
 class _InFile(_OutputFile):
     __slots__ = ()
