@@ -30,7 +30,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
       topology, including subnets behind firewalls or NAT, so you can
       host your services anywhere.</p>
 
-    <div>
+    <!-- <div>
       <h3>Level up your networking with</h3>
 
       <ul>
@@ -40,12 +40,33 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
         <li>Centralized network administration and easy cluster onboarding</li>
         <li>New communication powers: multicast and cost-based routing</li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </section>
 
-<svg id="-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 40" preserveAspectRatio="none">
-  <path d="M 0 0 L 0 20 Q 400 60 800 20 T 1600 20 L 1600 0 Z" fill="#fff"/>
+<section id="-features-section">
+  <div>
+    <div>
+      <h3>Secure interconnect</h3>
+      <p>Connects multiple clusters, data centers, and regions</p>
+      <p>Transparent TCP and HTTP communication across public and private IP networks</p>
+    </div>
+    <div>
+      <h3>Enhanced communication</h3>
+      <p>Dynamic load balancing that responds to changes in service capacity</p>
+      <p>Multicast request forwarding</p>
+      <p>Cost-based request routing</p>
+    </div>
+    <div>
+      <h3>Network control</h3>
+      <p>Centralized network administration</p>
+      <p>Application-level access control and resource limits</p>
+      <p>Easy cluster onboarding</p>
+    </div>
+  </div>
+</section>
+<svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 50" preserveAspectRatio="none">
+  <path d="M 0 0 L 0 25 Q 400 60 800 25 T 1600 25 L 1600 0 Z"/>
 </svg>
 
 <section>

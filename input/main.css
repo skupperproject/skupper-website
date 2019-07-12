@@ -46,7 +46,7 @@ pre {
 
 h1,
 h2 {
-    font-weight: 400;
+    font-weight: 600;
 }
 
 h1 a,
@@ -156,12 +156,13 @@ blockquote {
 /* -------------------------------------------- */
 
 :root {
-  --bg-color-1: rgba(0, 117, 199, 1.0);
+  --bg-color-1: rgba(255, 255, 255, 1.0);
   --bg-color-2: rgba(239, 239, 239, 1.0);
   --bg-color-3: rgba(0, 117, 199, 1.0);
-  --fg-color-1: rgba(255, 255, 255, 0.9);
-  --fg-color-2: rgba(0, 0, 0, 0.9);
-  --fg-color-3: rgba(255, 255, 255, 0.9);
+  --fg-color-2: rgba(0, 0, 0, 1.0);
+  --fg-color-2: rgba(0, 0, 0, 1.0);
+  --fg-color-2: rgba(0, 0, 0, 1.0);
+  --fg-color-3: rgba(255, 255, 255, 1.0);
   --accent-color-1: rgba(240, 231, 51, 1.0);
   --accent-color-2: rgba(63, 191, 127, 1.0);
   --accent-color-3: rgba(240, 231, 51, 1.0);
@@ -257,14 +258,6 @@ h4.selected,
 h5.selected,
 h6.selected {
     color: var(--fg-color-2);
-}
-
-h2 {
-    font-weight: 400;
-}
-
-h2 > a {
-    font-weight: 600;
 }
 
 ul.bullets {

@@ -43,14 +43,6 @@ footer {
     background-color: var(--bg-color-3);
 }
 
-h2 {
-    font-weight: 400;
-}
-
-h2 > a {
-    font-weight: 600;
-}
-
 #-intro-section {
     padding-top: 5em;
     background-color: var(--bg-color-2);
@@ -77,6 +69,10 @@ h2 > a {
     height: 400;
 }
 
+#-intro-section > div > h2 {
+    margin-bottom: 0;
+}
+
 #-intro-section > div > p {
     font-size: 1.4em;
     font-weight: 300;
@@ -96,6 +92,21 @@ h2 > a {
 
 #-intro-section > div > div > ul > li {
     margin-bottom: 0.4em;
+}
+
+#-features-section {
+    margin: 0;
+    color: var(--fg-color-1);
+    background-color: var(--bg-color-1);
+}
+
+#-features-section > div {
+    display: flex;
+}
+
+#-features-section > div > div {
+    flex: 1 1 0;
+    margin: 0 1em;
 }
 
 header > div {
@@ -119,11 +130,12 @@ header > div {
     width: 100%;
 }
 
-#-wave {
+svg.wave {
+    display: block;
     margin: 0;
     width: 100%;
 }
 
-#-wave > path {
-    fill: var(--bg-color-2);
+svg.wave > path {
+    fill: var(--bg-color-1);
 }
