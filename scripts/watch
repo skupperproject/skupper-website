@@ -3,7 +3,7 @@
 from plano import *
 
 if which("livereload") is None:
-    exit("I can't find livereload.  See https://www.npmjs.com/package/livereload.")
+    exit("I can't find livereload: https://www.npmjs.com/package/livereload")
 
 proc = start_process("livereload output")
 

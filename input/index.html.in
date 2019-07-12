@@ -64,7 +64,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
   <div class="video">
     <iframe width="320" height="180" src="https://www.youtube.com/embed/AjPau5QYtYs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <div>
-      <h2>Connect multi-site services to a shared database</h2>
+      <h2>Share a database across clusters</h2>
       <p>{{lipsum_25}}</p>
       <nav class="links">
         <a href="">Tutorial</a>
@@ -77,7 +77,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
 <section>
   <div class="video">
     <div>
-      <h2>Load-balance API calls across clusters</h2>
+      <h2>Route API calls to multiple clusters</h2>
       <p>{{lipsum_25}}</p>
       <nav class="links">
         <a href="">Tutorial</a>
@@ -92,7 +92,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
   <div class="video">
     <iframe width="320" height="180" src="https://www.youtube.com/embed/AjPau5QYtYs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <div>
-      <h2>Centrally manage your global application network</h2>
+      <h2>Define your network and onboard new clusters</h2>
       <p>{{lipsum_25}}</p>
       <nav class="links">
         <a href="">Tutorial</a>
