@@ -70,7 +70,8 @@ footer {
 }
 
 #-intro-section > div > h2 {
-    margin-bottom: 0;
+    font-size: 1.6em;
+    margin-bottom: 0.4em;
 }
 
 #-intro-section > div > p {
@@ -95,9 +96,11 @@ footer {
 }
 
 #-features-section {
+    font-size: 0.95em;
     margin: 0;
+    width: 50em;
     color: var(--fg-color-1);
-    background-color: var(--bg-color-1);
+    background-color: var(--bg-color-2);
 }
 
 #-features-section > div {
@@ -106,7 +109,14 @@ footer {
 
 #-features-section > div > div {
     flex: 1 1 0;
-    margin: 0 1em;
+    margin: 0 2em 0 0;
+    padding: 1.6em 2em;
+    background-color: var(--bg-color-1);
+    text-align: left;
+}
+
+#-features-section > div > div:last-child {
+    margin: 0;
 }
 
 header > div {
@@ -137,5 +147,5 @@ svg.wave {
 }
 
 svg.wave > path {
-    fill: var(--bg-color-1);
+    fill: var(--bg-color-2);
 }
