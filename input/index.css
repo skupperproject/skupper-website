@@ -43,38 +43,40 @@ footer {
     background-color: var(--bg-color-3);
 }
 
-#-intro-section {
+#-intro {
     padding-top: 5em;
     background-color: var(--bg-color-2);
     color: var(--fg-color-2);
 }
 
-#-intro-section a {
+#-intro a {
     color: inherit;
 }
 
-#-intro-section > div {
+#-intro > div {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#-intro-section > div > h1 {
+#-title {
+    font-family: "Alegreya Sans";
+    font-weight: 800;
     font-size: 3em;
     margin-bottom: 0.6em;
 }
 
-#-intro-section > div > svg {
+#-globe {
     margin: 0;
     height: 400;
 }
 
-#-intro-section > div > h2 {
+#-subtitle {
     font-size: 1.6em;
     margin-bottom: 0.4em;
 }
 
-#-intro-section > div > p {
+#-summary {
     font-size: 1.4em;
     font-weight: 300;
     line-height: 1.4em;
@@ -82,40 +84,35 @@ footer {
     text-align: center;
 }
 
-#-intro-section > div > div {
-    margin-top: 1em;
-    text-align: center;
-}
-
-#-intro-section > div > div > ul {
-    list-style: none;
-}
-
-#-intro-section > div > div > ul > li {
-    margin-bottom: 0.4em;
-}
-
-#-features-section {
+#-features {
+    display: flex;
     font-size: 0.95em;
-    margin: 0;
+    margin: 1em 0;
     width: 50em;
-    color: var(--fg-color-1);
+    color: var(--fg-color-2);
     background-color: var(--bg-color-2);
 }
 
-#-features-section > div {
-    display: flex;
+#-features a {
+    display: block;
+    color: var(--accent-color-1);
+    font-weight: 600;
 }
 
-#-features-section > div > div {
+#-features > div:first-child > a {
+    margin-top: 2em;
+}
+
+#-features > div {
     flex: 1 1 0;
     margin: 0 2em 0 0;
     padding: 1.6em 2em;
     background-color: var(--bg-color-1);
     text-align: left;
+    font-weight: 300;
 }
 
-#-features-section > div > div:last-child {
+#-features > div:last-child {
     margin: 0;
 }
 
@@ -140,12 +137,12 @@ header > div {
     width: 100%;
 }
 
-svg.wave {
+#-wave {
     display: block;
-    margin: 0;
+    margin: 0 0 1em 0;
     width: 100%;
 }
 
-svg.wave > path {
+#-wave > path {
     fill: var(--bg-color-2);
 }

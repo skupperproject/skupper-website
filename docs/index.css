@@ -43,38 +43,40 @@ footer {
     background-color: var(--bg-color-3);
 }
 
-#-intro-section {
+#-intro {
     padding-top: 5em;
     background-color: var(--bg-color-2);
     color: var(--fg-color-2);
 }
 
-#-intro-section a {
+#-intro a {
     color: inherit;
 }
 
-#-intro-section > div {
+#-intro > div {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#-intro-section > div > h1 {
+#-title {
+    font-family: "Alegreya Sans";
+    font-weight: 800;
     font-size: 3em;
     margin-bottom: 0.6em;
 }
 
-#-intro-section > div > svg {
+#-globe {
     margin: 0;
     height: 400;
 }
 
-#-intro-section > div > h2 {
+#-intro > div > h2 {
     font-size: 1.6em;
     margin-bottom: 0.4em;
 }
 
-#-intro-section > div > p {
+#-intro > div > p {
     font-size: 1.4em;
     font-weight: 300;
     line-height: 1.4em;
@@ -82,20 +84,20 @@ footer {
     text-align: center;
 }
 
-#-intro-section > div > div {
+#-intro > div > div {
     margin-top: 1em;
     text-align: center;
 }
 
-#-intro-section > div > div > ul {
+#-intro > div > div > ul {
     list-style: none;
 }
 
-#-intro-section > div > div > ul > li {
+#-intro > div > div > ul > li {
     margin-bottom: 0.4em;
 }
 
-#-features-section {
+#-features {
     font-size: 0.95em;
     margin: 0;
     width: 50em;
@@ -103,11 +105,11 @@ footer {
     background-color: var(--bg-color-2);
 }
 
-#-features-section > div {
+#-features > div {
     display: flex;
 }
 
-#-features-section > div > div {
+#-features > div > div {
     flex: 1 1 0;
     margin: 0 2em 0 0;
     padding: 1.6em 2em;
@@ -115,7 +117,7 @@ footer {
     text-align: left;
 }
 
-#-features-section > div > div:last-child {
+#-features > div > div:last-child {
     margin: 0;
 }
 

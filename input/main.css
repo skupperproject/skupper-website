@@ -163,7 +163,7 @@ blockquote {
   --fg-color-2: rgba(0, 0, 0, 1.0);
   --fg-color-2: rgba(0, 0, 0, 1.0);
   --fg-color-3: rgba(255, 255, 255, 1.0);
-  --accent-color-1: rgba(240, 231, 51, 1.0);
+  --accent-color-1: rgba(251, 111, 52, 1.0);
   --accent-color-2: rgba(63, 191, 127, 1.0);
   --accent-color-3: rgba(240, 231, 51, 1.0);
 }
@@ -238,7 +238,7 @@ a.nav::before {
 
 a:not([href]),
 a[href=""] {
-    color: var(--accent-color-1);
+    color: var(--accent-color-3);
 }
 
 img.inline-icon {
