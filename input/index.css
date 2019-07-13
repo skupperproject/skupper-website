@@ -25,13 +25,11 @@ body {
 }
 
 header {
-    color: var(--fg-color-2);
-    background-color: var(--bg-color-2);
+    border-bottom: 0.2em solid transparent;
 }
 
 header.active {
-    color: var(--fg-color-1);
-    background-color: var(--bg-color-1);
+    border-bottom: 0.2em solid var(--bg-color-2);
 }
 
 section,
@@ -42,8 +40,8 @@ footer {
 
 #-intro {
     padding-top: 5em;
-    background-color: var(--bg-color-2);
     color: var(--fg-color-2);
+    background: linear-gradient(var(--bg-color-1), var(--bg-color-2));
 }
 
 #-intro a {
