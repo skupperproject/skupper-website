@@ -25,13 +25,12 @@ body {
 }
 
 header {
-    color: var(--fg-color-1);
-    position: fixed;
-    z-index: 1;
-    width: 100%;
+    color: var(--fg-color-2);
+    background-color: var(--bg-color-2);
 }
 
 header.active {
+    color: var(--fg-color-1);
     background-color: var(--bg-color-1);
 }
 
@@ -111,11 +110,6 @@ footer {
 
 #-features > div:last-child {
     margin: 0;
-}
-
-header > div {
-    display: flex;
-    align-items: center;
 }
 
 .video {

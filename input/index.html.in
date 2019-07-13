@@ -8,7 +8,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
   <div>
     <nav id="-top-left-nav">
       <a href="{{site_url}}/index.html" id="-logotype"><img class="inline-icon" src="{{site_url}}/images/circle.svg"/> Skuba</a>
-      <a href="{{site_url}}/get-started/index.html">Get started</a>
+      <a href="{{site_url}}/get-started.html">Get started</a>
       <a href="{{site_url}}/docs/index.html">Documentation</a>
     </nav>
     <nav id="-top-right-nav">

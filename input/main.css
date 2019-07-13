@@ -188,19 +188,24 @@ section > div {
     padding: 2em 1em;
 }
 
-header > div {
-    padding: 1em;
+header {
+    color: var(--fg-color-1);
+    background-color: var(--bg-color-1);
+    position: fixed;
+    z-index: 1;
+    width: 100%;
 }
 
-header {
-    color: var(--fg-color-2);
-    background-color: var(--bg-color-2);
+header > div {
+    padding: 1em;
+    display: flex;
+    align-items: center;
 }
 
 section,
 footer {
-    color: var(--fg-color-3);
-    background-color: var(--bg-color-3);
+    color: var(--fg-color-2);
+    background-color: var(--bg-color-2);
 }
 
 .columns {
@@ -248,11 +253,12 @@ header a, footer a {
 
 #-top-left-nav {
     margin: 0;
-    flex-grow: 1;
+    flex: 1 1 0;
 }
 
 #-logotype {
     font-family: "Alegreya Sans";
+    font-weight: 800;
 }
 
 #-top-left-nav > a {
@@ -261,7 +267,7 @@ header a, footer a {
 
 #-top-right-nav {
     margin: 0;
-    flex-grow: 1;
+    flex: 1 1 0;
     text-align: right;
 }
 
