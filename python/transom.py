@@ -237,6 +237,9 @@ class Transom:
             if event.name.startswith("#"):
                 return True
 
+            if _is_dir(event.pathname):
+                return True
+
             if (event.pathname.startswith(self.config_dir)):
                 self.render(force=True)
             else:
