@@ -19,11 +19,9 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
 
 <section id="-intro">
   <div>
-    <h1 id="-title">Skuba</h1>
+    <h2 id="-banner">Multi-site application networking for Kubernetes</h2>
 
     {{include("includes/globe.svg")}}
-
-    <h2 id="-subtitle">Multi-site application networking for Kubernetes</h2>
 
     <p id="-summary">Skuba connects services from multiple Kubernetes clusters to a
       secure Layer 7 interconnect.  It works with any IP network

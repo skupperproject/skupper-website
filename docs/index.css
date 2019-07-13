@@ -24,17 +24,15 @@ body {
     background-color: var(--bg-color-3);
 }
 
-
 header {
-    color: var(--fg-color-2);
-    background-color: var(--bg-color-2);
+    color: var(--fg-color-1);
     position: fixed;
     z-index: 1;
     width: 100%;
 }
 
 header.active {
-    background-color: #fff;
+    background-color: var(--bg-color-2);
 }
 
 section,
@@ -59,10 +57,10 @@ footer {
     align-items: center;
 }
 
-#-title {
+#-banner {
     font-family: "Alegreya Sans";
     font-weight: 800;
-    font-size: 3em;
+    font-size: 2em;
     margin-bottom: 0.6em;
 }
 
@@ -88,9 +86,8 @@ footer {
     display: flex;
     font-size: 0.95em;
     margin: 1em 0;
-    width: 50em;
+    max-width: 50em;
     color: var(--fg-color-2);
-    background-color: var(--bg-color-2);
 }
 
 #-features a {

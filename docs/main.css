@@ -45,6 +45,15 @@ pre {
 }
 
 h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Alegreya Sans";
+}
+
+h1,
 h2 {
     font-weight: 600;
 }
@@ -108,7 +117,7 @@ form button {
 }
 
 form input {
-    width: 16em;
+    max-width: 16em;
 }
 
 form button {
@@ -157,7 +166,7 @@ blockquote {
 
 :root {
   --bg-color-1: rgba(255, 255, 255, 1.0);
-  --bg-color-2: rgba(239, 239, 239, 1.0);
+  --bg-color-2: rgba(234, 239, 241, 1.0);
   --bg-color-3: rgba(0, 117, 199, 1.0);
   --fg-color-2: rgba(0, 0, 0, 1.0);
   --fg-color-2: rgba(0, 0, 0, 1.0);
@@ -190,7 +199,7 @@ section {
 header > div,
 footer > div,
 section > div {
-    width: 960px;
+    max-width: 960px;
     margin: 0 auto;
     padding: 2em 1em;
 }
@@ -289,5 +298,5 @@ li > *:last-child {
 }
 
 header.active {
-    background-color: #fff;
+    background-color: var(--bg-color-1);
 }
