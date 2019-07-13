@@ -21,8 +21,8 @@
 
 :root {
   --bg-color-1: rgba(255, 255, 255, 1.0);
-  --bg-color-2: rgba(234, 239, 241, 1.0);
-  --bg-color-3: rgba(0, 117, 199, 1.0);
+  --bg-color-2: rgba(230, 235, 240, 1.0);
+  --bg-color-3: rgba(70, 130, 200, 1.0);
   --fg-color-2: rgba(0, 0, 0, 1.0);
   --fg-color-2: rgba(0, 0, 0, 1.0);
   --fg-color-2: rgba(0, 0, 0, 1.0);
@@ -104,20 +104,6 @@ dd {
     page-break-inside: avoid;
 }
 
-/*
-li > ul,
-li > ol,
-dd > dl {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-li > p:last-child,
-dd > p:last-child {
-    margin-bottom: 1em;
-}
-*/
-
 form input,
 form button {
     font-family: inherit;
@@ -188,22 +174,29 @@ section > div {
     padding: 2em 1em;
 }
 
-header > div {
-    padding: 1em;
-}
-
 header {
     color: var(--fg-color-1);
     background-color: var(--bg-color-1);
     position: fixed;
     z-index: 1;
     width: 100%;
+    border-bottom: 0.2em solid var(--bg-color-2);
+}
+
+header > div {
+    padding: 1em;
+    display: flex;
+    align-items: center;
 }
 
 section,
 footer {
-    color: var(--fg-color-3);
-    background-color: var(--bg-color-3);
+    color: var(--fg-color-1);
+    background-color: var(--bg-color-1);
+}
+
+section:first-of-type {
+    padding-top: 4em;
 }
 
 .columns {
@@ -251,11 +244,12 @@ header a, footer a {
 
 #-top-left-nav {
     margin: 0;
-    flex-grow: 1;
+    flex: 1 1 0;
 }
 
 #-logotype {
     font-family: "Alegreya Sans";
+    font-weight: 800;
 }
 
 #-top-left-nav > a {
@@ -264,7 +258,7 @@ header a, footer a {
 
 #-top-right-nav {
     margin: 0;
-    flex-grow: 1;
+    flex: 1 1 0;
     text-align: right;
 }
 

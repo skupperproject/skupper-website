@@ -82,7 +82,7 @@ footer {
 #-features {
     display: flex;
     font-size: 0.95em;
-    margin: 1em 0;
+    margin: 1.4em 0 1em 0;
     max-width: 50em;
     color: var(--fg-color-2);
 }
@@ -100,7 +100,7 @@ footer {
 #-features > div {
     flex: 1 1 0;
     margin: 0 2em 0 0;
-    padding: 1.6em 2em;
+    padding: 1.4em 1.8em;
     background-color: var(--bg-color-1);
     text-align: left;
     font-weight: 300;
