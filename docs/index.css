@@ -119,14 +119,15 @@ footer {
 .video > div {
     display: flex;
     width: 100%;
+    padding: 2em 1em;
 }
 
 .video > div > * {
     margin-top: 0;
 }
 
-.video > div > *:first-child {
-    margin-right: 2em;
+.video > div > iframe {
+    margin: 0 2em 0 0;
 }
 
 #-wave {
@@ -149,18 +150,17 @@ footer {
     }
 
     #-features > div {
-        margin: 0 1em 1em 1em;
+        margin: 0 1em 2em 1em;
     }
 
     #-features > div:last-child {
-        margin: 0 2em;
+        margin: 0 1em;
     }
     
     .video > div {
         display: block;
         width: auto;
-        margin: 0 1em 3em 1em;
-        padding: 0;
+        padding: 1em 2em;
     }
 
     .video:first-child {
