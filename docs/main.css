@@ -192,6 +192,10 @@ header a, footer a {
     margin-right: 2em;
 }
 
+#-top-left-nav > a:last-child {
+    margin-right: 0;
+}
+
 #-top-right-nav {
     margin: 0;
     width: 5em;
