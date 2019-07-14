@@ -9,7 +9,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
     <nav id="-top-left-nav">
       <a href="{{site_url}}/index.html" id="-logotype"><img class="inline-icon" src="{{site_url}}/images/circle.svg"/> Skuba</a>
       <a href="{{site_url}}/get-started.html">Get started</a>
-      <a href="{{site_url}}/docs/index.html">Documentation</a>
+      <a href="{{site_url}}/docs/index.html">Docs</a>
     </nav>
     <nav id="-top-right-nav">
       <a href="https://github.com/skubaproject"><img class="inline-icon" src="{{site_url}}/images/github.svg"/> GitHub</a>
@@ -58,8 +58,8 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
   <path d="M 0 0 L 0 25 Q 400 60 800 25 T 1600 25 L 1600 0 Z"/>
 </svg>
 
-<section>
-  <div class="video">
+<section class="video">
+  <div>
     <iframe width="320" height="180" src="https://www.youtube.com/embed/AjPau5QYtYs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <div>
       <h2>Share a database across clusters</h2>
@@ -72,8 +72,8 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
   </div>
 </section>
 
-<section>
-  <div class="video">
+<section class="video">
+  <div>
     <div>
       <h2>Route API calls to multiple clusters</h2>
       <p>{{lipsum_25}}</p>
@@ -86,8 +86,8 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
   </div>
 </section>
 
-<section>
-  <div class="video">
+<section class="video">
+  <div>
     <iframe width="320" height="180" src="https://www.youtube.com/embed/AjPau5QYtYs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <div>
       <h2>Define your network and onboard new clusters</h2>

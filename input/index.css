@@ -58,6 +58,7 @@ footer {
     font-family: "Alegreya Sans";
     font-weight: 800;
     font-size: 2em;
+    line-height: 1.2em;
     margin-bottom: 0.6em;
 }
 
@@ -110,20 +111,21 @@ footer {
     margin: 0;
 }
 
-.video {
-    display: flex;
-}
-
-.video > * {
-    margin: 0;
-}
-
-.video > *:first-child {
-    margin-right: 2em;
+.video a {
+    color: var(--accent-color-3);
 }
 
 .video > div {
+    display: flex;
     width: 100%;
+}
+
+.video > div > * {
+    margin-top: 0;
+}
+
+.video > div > *:first-child {
+    margin-right: 2em;
 }
 
 #-wave {
@@ -134,4 +136,37 @@ footer {
 
 #-wave > path {
     fill: var(--bg-color-2);
+}
+
+@media screen and (max-width: 800px) {
+    #-globe {
+        height: 300px;
+    }
+    
+    #-features {
+        display: block;
+    }
+
+    #-features > div {
+        margin: 0 2em 2em 2em;
+    }
+
+    #-features > div:last-child {
+        margin: 0 2em;
+    }
+    
+    .video > div {
+        display: block;
+        width: auto;
+        margin: 0 1em 3em 1em;
+        padding: 0;
+    }
+
+    .video:first-child {
+        margin-top: 0;
+    }
+    
+    .video > div > iframe {
+        margin: 1em 0;
+    }
 }
