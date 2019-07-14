@@ -202,9 +202,3 @@ header a, footer a {
 header.active {
     background-color: var(--bg-color-1);
 }
-
-@media screen and (max-width: 800px) {
-    #-top-left-nav {
-        
-    }
-}
