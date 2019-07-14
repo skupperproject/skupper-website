@@ -90,63 +90,8 @@ a {
     text-decoration: none;
 }
 
-ol,
-ul,
-dd {
-    padding-left: 1.2em;
-}
-
-li,
-dt,
-dd {
-    margin: 0;
-    -webkit-column-break-inside: avoid;
-    page-break-inside: avoid;
-}
-
-form input,
-form button {
-    font-family: inherit;
-    font-size: inherit;
-    border: 1px solid #ccc;
-    margin-bottom: 0;
-}
-
-form input {
-    max-width: 16em;
-}
-
-form button {
-    background-color: #eee;
-    padding: 0 0.4em;
-    font-weight: 300;
-}
-
-table {
-    border-collapse: collapse;
-}
-
-td,
-th {
-    border-bottom: 1px solid #ddd;
-    padding: 0.3em 0.5em 0.3em 0;
-    vertical-align: top;
-    text-align: left;
-}
-
-td em,
-th {
-    font-weight: 300;
-    font-style: normal;
-}
-
 hr {
     border-bottom: 1px solid #ddd;
-}
-
-code,
-pre {
-    background-color: #eee;
 }
 
 pre {
@@ -156,6 +101,30 @@ pre {
 
 blockquote {
     margin-left: 2em;
+}
+
+.columns {
+    display: flex;
+}
+
+.columns > div {
+    flex: 1 1 0;
+    margin-right: 1em;
+}
+
+.columns > div:last-child {
+    margin-right: 0;
+}
+
+nav.links > a {
+    display: inline-block;
+    margin-right: 1em;
+    font-weight: 600;
+}
+
+nav.links > a::before,
+a.nav::before {
+    content: "\2BC8  ";
 }
 
 /* --- */
@@ -199,43 +168,10 @@ section:first-of-type {
     padding-top: 4em;
 }
 
-.columns {
-    display: flex;
-}
-
-.columns > div {
-    flex: 1 1 0;
-    margin-right: 1em;
-}
-
-.columns > div:last-child {
-    margin-right: 0;
-}
-
-nav.links > a {
-    display: inline-block;
-    margin-right: 1em;
-    font-weight: 600;
-}
-
-nav.links > a::before,
-a.nav::before {
-    content: "\2BC8  ";
-}
-
-a:not([href]),
-a[href=""] {
-    color: var(--accent-color-3);
-}
-
 img.inline-icon {
     height: 1.2em;
     position: relative;
     top: 0.25em;
-}
-
-ul.bullets {
-    font-size: 0.9em;
 }
 
 header a, footer a {
@@ -244,7 +180,7 @@ header a, footer a {
 
 #-top-left-nav {
     margin: 0;
-    flex: 1 1 0;
+    flex: 4;
 }
 
 #-logotype {
@@ -258,14 +194,17 @@ header a, footer a {
 
 #-top-right-nav {
     margin: 0;
-    flex: 1 1 0;
+    width: 5em;
+    flex: 1;
     text-align: right;
-}
-
-li > *:last-child {
-    margin-bottom: 1em;
 }
 
 header.active {
     background-color: var(--bg-color-1);
+}
+
+@media screen and (max-width: 800px) {
+    #-top-left-nav {
+        
+    }
 }
