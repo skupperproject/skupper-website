@@ -4,7 +4,7 @@
 
 {{lipsum_50}}
 
-## Step 1: Install Skuba in your Kubernetes clusters
+## Step 1: Install Skupper in your Kubernetes clusters
 
 {{lipsum_50}}
 

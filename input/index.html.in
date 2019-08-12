@@ -1,5 +1,5 @@
 ---
-title: Skuba
+title: Skupper
 body_template: none
 extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/css" async="async"/>
 ---
@@ -7,12 +7,12 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
 <header>
   <div>
     <nav id="-top-left-nav">
-      <a href="{{site_url}}/index.html" id="-logotype"><img class="inline-icon" src="{{site_url}}/images/circle.svg"/> Skuba</a>
+      <a href="{{site_url}}/index.html" id="-logotype"><img class="inline-icon" src="{{site_url}}/images/circle.svg"/> Skupper</a>
       <a href="{{site_url}}/get-started.html">Get started</a>
       <a href="{{site_url}}/docs/index.html">Docs</a>
     </nav>
     <nav id="-top-right-nav">
-      <a href="https://github.com/skubaproject"><img class="inline-icon" src="{{site_url}}/images/github.svg"/> GitHub</a>
+      <a href="https://github.com/skupperproject"><img class="inline-icon" src="{{site_url}}/images/github.svg"/> GitHub</a>
     </nav>
   </div>
 </header>
@@ -23,7 +23,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
 
     {{include("includes/globe.svg")}}
 
-    <p id="-summary">Skuba is a Layer 7 service interconnect.  It
+    <p id="-summary">Skupper is a Layer 7 service interconnect.  It
       securely connects services from multiple Kubernetes clusters to
       a shared application network.  It works with any IP network
       topology, including subnets behind firewalls or NAT, so you can
