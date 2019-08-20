@@ -37,9 +37,10 @@ clean:
 	rm -rf output
 	rm -rf python/__pycache__
 
-.PHONY: update-plano
-update-plano:
-	curl -sfo scripts/plano.py "https://raw.githubusercontent.com/ssorj/plano/master/python/plano.py"
+.PHONY: update-transom
+update-transom:
+	curl -sfo python/markdown2.py "https://raw.githubusercontent.com/ssorj/transom/master/python/markdown2.py"
+	curl -sfo python/transom.py "https://raw.githubusercontent.com/ssorj/transom/master/python/transom.py"
 
 .PHONY: update-%
 update-%:
