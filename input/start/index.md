@@ -1,3 +1,9 @@
+---
+title: Getting started
+---
+
+# Getting started with Skupper
+
 {{lipsum_25}}
 
 ## Prerequisites

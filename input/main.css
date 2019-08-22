@@ -206,3 +206,9 @@ header a, footer a {
 header.active {
     background-color: var(--bg-color-1);
 }
+
+.example-category {
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
