@@ -37,7 +37,7 @@
   <a href="#step-1-install-the-skupper-command">Step 1: Install the <code>skupper</code> command</a>
   <a href="#step-2-initialize-your-namespaces">Step 2: Initialize your namespaces</a>
   <a href="#step-3-connect-your-namespaces">Step 3: Connect your namespaces</a>
-  <a href="#step-5-access-your-services">Step 5: Access your services</a>
+  <a href="#step-4-access-your-services">Step 4: Access your services</a>
   <a href="#the-condensed-version">The condensed version</a>
   <a href="#next-steps">Next steps</a>
 </nav>
@@ -52,10 +52,10 @@ namespaces.</p>
 
 <h2 id="step-1-install-the-skupper-command">Step 1: Install the <code>skupper</code> command</h2>
 
-<p>Get the latest release of the Skupper command-line tool for your platform:
-Extract the executable using tar or unzip.
-Put the binary on your path.
-(You only need to do this once for each developer environment.)</p>
+<p>Get the latest release of the Skupper command-line tool for your
+platform: Extract the executable using tar or unzip.  Put the binary
+on your path.  (You only need to do this once for each new developer
+environment.)</p>
 
 <p>On Linux:</p>
 
@@ -83,9 +83,10 @@ usage: skupper &lt;command&gt; &lt;args&gt;
 <p>The <code>skupper init</code> command establishes the Skupper infrastructure in a
 target namespace.</p>
 
-<pre><code>$ skupper --context &lt;ns1&gt; init # XXX use KUBE_CONFIG instead
-Infrastructure has been created.  Use 'skupper status' to check ....
-$ skupper --context &lt;ns2&gt; init --auto-expose
+<pre><code>$ skupper --context &lt;ns1&gt; init --auto-expose
+Skupper is now installed in '&lt;ns1&gt;'.  See 'skupper --context &lt;ns1&gt; status' for more information.
+$ skupper --context &lt;ns2&gt; init
+Skupper is now installed in '&lt;ns2&gt;'.  See 'skupper --context &lt;ns2&gt; status' for more information.
 </code></pre>
 
 <p>To check the status of each namespace, use the <code>skupper status</code>
@@ -104,7 +105,7 @@ is connected.  To securely form a connection between namespaces, we
 first need a secret that signifies permission to connect.  Use the
 <code>skupper secret</code> command to generate a secret for another namespace:</p>
 
-<pre><code>$ skupper --context &lt;ns1&gt; secret &lt;ns2&gt; ~/secret.yaml
+<pre><code>$ skupper --context &lt;ns1&gt; secret ~/secret.yaml
 </code></pre>
 
 <p>With the secret in hand, we're ready to connect.  Pass the secret to
@@ -119,24 +120,17 @@ should see the following:</p>
 <pre><code>$ skupper --context &lt;ns1&gt; status
 Namespace '&lt;ns1&gt;' is ready.  It is connected to 1 other namespace.
 $ skupper --context &lt;ns2&gt; status
-Namespace '&lt;ns2&gt;' is ready.  It is connected to 1 other namespaces.
+Namespace '&lt;ns2&gt;' is ready.  It is connected to 1 other namespace.
 </code></pre>
 
-<h2 id="step-4-expose-your-services">Step 4: Expose your services</h2>
-
-<pre><code>$ skupper --context &lt;ns2&gt;  &lt;ns1&gt; &lt;service-name&gt;
-# ^^ expose the named service on remote namespace 1 here on the current namespace (ns2)
-$ skupper --context &lt;ns2&gt; proxy
-$ skupper --context &lt;ns2&gt; expose &lt;service-name&gt; [--all]
-
-$ kubectl --context &lt;ns2&gt; get services
-</code></pre>
-
-<h2 id="step-5-access-your-services">Step 5: Access your services</h2>
+<h2 id="step-4-access-your-services">Step 4: Access your services</h2>
 
 <p>Now we are ready to communicate across clusters.</p>
 
-<pre><code>$ kubectl exec -- ...
+<pre><code>$ kubectl --context &lt;ns1&gt; run hello-world-backend --image quay.io/skupper/hello-world-backend
+deployment.apps/hello-world created
+$ kubectl --context &lt;ns2&gt; run hello-world-frontend --image quay.io/skupper/hello-world-frontend
+$ [...]
 </code></pre>
 
 <h2 id="the-condensed-version">The condensed version</h2>
@@ -145,6 +139,7 @@ $ kubectl --context &lt;ns2&gt; get services
 
 <pre><code>$ skupper -c &lt;ns1&gt; init --auto-expose
 $ skupper -c &lt;ns1&gt; secret ~/secret.yaml
+$ skupper -c
 </code></pre>
 
 <p>Namespace 2:</p>
@@ -154,6 +149,8 @@ $ skupper -c &lt;ns2&gt; connect ~/secret.yaml
 </code></pre>
 
 <h2 id="next-steps">Next steps</h2>
+
+<p>[...]</p>
 
 
   </div>
