@@ -136,27 +136,12 @@ log = logging.getLogger("markdown")
 
 DEFAULT_TAB_WIDTH = 4
 
-# XXX JR - Replaced!
 
-# SECRET_SALT = bytes(randint(0, 1000000))
-# # MD5 function was previously used for this; the "md5" prefix was kept for
-# # backwards compatibility.
-# def _hash_text(s):
-#     return 'md5-' + sha256(SECRET_SALT + s.encode("utf-8")).hexdigest()[32:]
-
-import uuid
-import threading
-
-unique_id = str(uuid.uuid4())[:8]
-sequence = 0
-lock = threading.Lock()
-
+SECRET_SALT = bytes(randint(0, 1000000))
+# MD5 function was previously used for this; the "md5" prefix was kept for
+# backwards compatibility.
 def _hash_text(s):
-    global sequence
-    with lock: sequence += 1
-    return "{}-{}".format(unique_id, sequence)
-
-# XXX JR - End of replacement
+    return 'md5-' + sha256(SECRET_SALT + s.encode("utf-8")).hexdigest()[32:]
 
 # Table of hash values for escaped characters:
 g_escape_table = dict([(ch, _hash_text(ch))

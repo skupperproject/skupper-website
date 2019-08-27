@@ -64,7 +64,20 @@ body {
 
 code,
 pre {
-    font-family: "Ubuntu Mono", monospace;
+    font: 0.95em "Inconsolata", monospace;
+}
+
+p code {
+    background-color: var(--bg-color-2);
+    padding: 0 0.1em;
+}
+
+pre {
+    padding: 0.4em 0.6em;
+    background-color: var(--bg-color-2);
+    overflow: auto;
+}
+
 }
 
 h1,
@@ -94,11 +107,6 @@ hr {
     border-bottom: 1px solid #ddd;
 }
 
-pre {
-    overflow: auto;
-    padding: 1em;
-}
-
 blockquote {
     margin-left: 2em;
 }
@@ -119,13 +127,20 @@ blockquote {
 nav.links > a {
     display: inline-block;
     margin-right: 1em;
-    font-weight: 600;
 }
 
 nav.links > a::before,
 a.nav::before {
     content: "\2BC8  ";
 }
+
+nav.toc > a {
+    display: block;
+}
+
+/* nav.toc > a::before { */
+/*     content: "\2BC8  "; */
+/* } */
 
 /* --- */
 

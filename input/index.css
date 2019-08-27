@@ -114,6 +114,7 @@ footer {
 
 .video a {
     color: var(--accent-color-3);
+    font-weight: 600;
 }
 
 .video > div {
@@ -144,7 +145,7 @@ footer {
     #-globe {
         height: 300px;
     }
-    
+
     #-features {
         display: block;
     }
@@ -156,7 +157,7 @@ footer {
     #-features > div:last-child {
         margin: 0 1em;
     }
-    
+
     .video > div {
         display: block;
         width: auto;
@@ -166,7 +167,7 @@ footer {
     .video:first-child {
         margin-top: 0;
     }
-    
+
     .video > div > iframe {
         margin: 1em 0;
     }
