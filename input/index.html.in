@@ -20,15 +20,15 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
 
 <section id="-intro">
   <div>
-    <h2 id="-banner">Multi-site application networking for Kubernetes</h2>
+    <h2 id="-banner">Multi-cluster application networking for Kubernetes</h2>
 
     {{include("includes/globe.svg")}}
 
-    <p id="-summary">Skupper is a Layer 7 service interconnect.  It
-      securely connects services from multiple Kubernetes clusters to
-      a shared application network.  It works with any IP network
-      topology, including subnets behind firewalls or NAT, so you can
-      host your services anywhere.</p>
+    <p id="-summary">Skupper is a layer 7 service interconnect.  It
+      securely connects services from multiple Kubernetes clusters
+      without the need for VPNs or SDN.
+      Public and private cloud - host your services anywhere.
+    </p>
 
     <div id="-features">
       <div>
