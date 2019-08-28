@@ -27,7 +27,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
     <p id="-summary">Skupper is a layer 7 service interconnect.  It
       securely connects services from multiple Kubernetes clusters
       without the need for VPNs or SDN.
-      Public and private cloud - host your services anywhere.
+      <!-- Public and private cloud - host your services anywhere. -->
     </p>
 
     <div id="-features">

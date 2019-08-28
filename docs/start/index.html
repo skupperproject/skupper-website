@@ -151,16 +151,21 @@ Namespace '&lt;ns1&gt;' is ready.  It is connected to 1 other namespace.
 Namespace '&lt;ns2&gt;' is ready.  It is connected to 1 other namespace.
 </code></pre>
 
+<p>You can connect as many namespaces as you wish.  Once a namespace is
+connected, it can access services on any other connected namespace.</p>
+
 <h2 id="step-4-expose-and-access-your-services">Step 4: Expose and access your services</h2>
 
 <p>We now have a network for cross-cluster communication, but our
-services are not yet available there.  Use the <code>skupper expose</code>
-command to ... .</p>
+services are not yet exposed on the network.  Use the <code>skupper expose</code>
+command to make a Kubernetes service or deployment available on the
+network:</p>
 
-<p>Now we are ready to communicate across clusters.</p>
+<pre><code>$ skupper expose (&lt;service&gt;|&lt;deployment&gt;) --protocol (http|tcp)
+</code></pre>
 
-<p>Here we are using a simple hello world application with a frontend and
-a backend.</p>
+<p>For example, here are the commands for a simple HTTP hello world
+application with a frontend and a backend:</p>
 
 <p>Namespace 1:</p>
 
@@ -195,6 +200,7 @@ $ skupper init
 $ skupper connect ~/secret.yaml
 $ kubectl run hello-frontend --image quay.io/skupper/hello-frontend
 $ curl &lt;hello-frontend-url&gt;
+Hello from hello-backend!
 </code></pre>
 
 <h2 id="next-steps">Next steps</h2>
