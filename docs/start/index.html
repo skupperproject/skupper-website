@@ -37,7 +37,7 @@
   <a href="#step-1-install-the-skupper-command">Step 1: Install the <code>skupper</code> command</a>
   <a href="#step-2-initialize-your-namespaces">Step 2: Initialize your namespaces</a>
   <a href="#step-3-connect-your-namespaces">Step 3: Connect your namespaces</a>
-  <a href="#step-4-access-your-services">Step 4: Access your services</a>
+  <a href="#step-4-expose-and-access-your-services">Step 4: Expose and access your services</a>
   <a href="#the-condensed-version">The condensed version</a>
   <a href="#next-steps">Next steps</a>
 </nav>
@@ -53,21 +53,22 @@ namespaces.</p>
 <h2 id="step-1-install-the-skupper-command">Step 1: Install the <code>skupper</code> command</h2>
 
 <p>Get the latest release of the Skupper command-line tool for your
-platform: Extract the executable using tar or unzip.  Put the binary
-on your path.  (You only need to do this once for each new developer
-environment.)</p>
+platform.  Extract the executable using tar or unzip and put it on
+your path:</p>
 
 <p>On Linux:</p>
 
 <pre><code>$ curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy/linux.tgz -o skupper.tgz
-$ tar -xf skupper.tgz --directory ~/bin
+$ tar -xf skupper.tgz --directory $HOME/bin
+$ export PATH=$PATH:$HOME/bin
 </code></pre>
 
 <p>On Mac:</p>
 
 <pre><code>$ curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy/darwin.zip -o skupper.zip
-$ unzip skupper.zip -d ~/bin
+$ unzip skupper.zip -d $HOME/bin
 $ cd ~/bin &amp;&amp; ln -s release/darwin/skupper
+$ export PATH=$PATH:$HOME/bin
 </code></pre>
 
 <p>To test your installation, run the <code>skupper</code> command with no
@@ -78,23 +79,40 @@ usage: skupper &lt;command&gt; &lt;args&gt;
 [...]
 </code></pre>
 
+<p>You only need to do install the Skupper command once for each new
+developer environment.</p>
+
 <h2 id="step-2-initialize-your-namespaces">Step 2: Initialize your namespaces</h2>
 
-<p>The <code>skupper init</code> command establishes the Skupper infrastructure in a
-target namespace.</p>
+<p>The <code>skupper init</code> command establishes the Skupper infrastructure in the
+current namespace.</p>
 
-<pre><code>$ skupper --context &lt;ns1&gt; init --auto-expose
-Skupper is now installed in '&lt;ns1&gt;'.  See 'skupper --context &lt;ns1&gt; status' for more information.
-$ skupper --context &lt;ns2&gt; init
-Skupper is now installed in '&lt;ns2&gt;'.  See 'skupper --context &lt;ns2&gt; status' for more information.
+<p>Namespace 1:</p>
+
+<pre><code>$ export KUBECONFIG=XXX
+$ skupper init
+Skupper is now installed in '&lt;ns1&gt;'.  Use 'skupper status' to get more information.
+</code></pre>
+
+<p>Namespace 2:</p>
+
+<pre><code>$ export KUBECONFIG=XXX
+$ skupper init
+Skupper is now installed in '&lt;ns2&gt;'.  Use 'skupper status' to get more information.
 </code></pre>
 
 <p>To check the status of each namespace, use the <code>skupper status</code>
 command:</p>
 
-<pre><code>$ skupper --context &lt;ns1&gt; status
+<p>Namespace 1:</p>
+
+<pre><code>$ skupper status
 Namespace '&lt;ns1&gt;' is ready.  It is connected to 0 other namespaces.
-$ skupper --context &lt;ns2&gt; status
+</code></pre>
+
+<p>Namespace 2:</p>
+
+<pre><code>$ skupper status
 Namespace '&lt;ns2&gt;' is ready.  It is connected to 0 other namespaces.
 </code></pre>
 
@@ -105,46 +123,78 @@ is connected.  To securely form a connection between namespaces, we
 first need a secret that signifies permission to connect.  Use the
 <code>skupper secret</code> command to generate a secret for another namespace:</p>
 
-<pre><code>$ skupper --context &lt;ns1&gt; secret ~/secret.yaml
+<p>Namespace 1:</p>
+
+<pre><code>$ skupper secret ~/secret.yaml
 </code></pre>
 
-<p>With the secret in hand, we're ready to connect.  Pass the secret to
-the <code>skupper connect</code> command:</p>
+<p>With the secret in hand, we're ready to connect.  Pass the secret from
+namespace 1 to the <code>skupper connect</code> command in namespace 2:</p>
 
-<pre><code>$ skupper --context &lt;ns2&gt; connect ~/secret.yaml
+<p>Namespace 2:</p>
+
+<pre><code>$ skupper connect ~/secret.yaml
 </code></pre>
 
 <p>Let's see if the status has changed.  If the connection is made, you
 should see the following:</p>
 
-<pre><code>$ skupper --context &lt;ns1&gt; status
+<p>Namespace 1:</p>
+
+<pre><code>$ skupper status
 Namespace '&lt;ns1&gt;' is ready.  It is connected to 1 other namespace.
-$ skupper --context &lt;ns2&gt; status
+</code></pre>
+
+<p>Namespace 2:</p>
+
+<pre><code>$ skupper status
 Namespace '&lt;ns2&gt;' is ready.  It is connected to 1 other namespace.
 </code></pre>
 
-<h2 id="step-4-access-your-services">Step 4: Access your services</h2>
+<h2 id="step-4-expose-and-access-your-services">Step 4: Expose and access your services</h2>
+
+<p>We now have a network for cross-cluster communication, but our
+services are not yet available there.  Use the <code>skupper expose</code>
+command to ... .</p>
 
 <p>Now we are ready to communicate across clusters.</p>
 
-<pre><code>$ kubectl --context &lt;ns1&gt; run hello-world-backend --image quay.io/skupper/hello-world-backend
-deployment.apps/hello-world created
-$ kubectl --context &lt;ns2&gt; run hello-world-frontend --image quay.io/skupper/hello-world-frontend
-$ [...]
+<p>Here we are using a simple hello world application with a frontend and
+a backend.</p>
+
+<p>Namespace 1:</p>
+
+<pre><code>$ kubectl run hello-backend --image quay.io/skupper/hello-backend
+deployment.apps/hello-backend created
+$ skupper expose hello-backend --protocol http
+</code></pre>
+
+<p>Namespace 2:</p>
+
+<pre><code>$ kubectl run hello-frontend --image quay.io/skupper/hello-frontend
+deployment.apps/hello-frontend created
+$ curl &lt;hello-frontend-url&gt;
+Hello from hello-backend!
 </code></pre>
 
 <h2 id="the-condensed-version">The condensed version</h2>
 
 <p>Namespace 1:</p>
 
-<pre><code>$ skupper -c &lt;ns1&gt; init --auto-expose
-$ skupper -c &lt;ns1&gt; secret ~/secret.yaml
+<pre><code>$ export KUBECONFIG=XXX
+$ skupper init
+$ skupper secret ~/secret.yaml
+$ kubectl run hello-backend --image quay.io/skupper/hello-backend
+$ skupper expose hello-backend --protocol http
 </code></pre>
 
 <p>Namespace 2:</p>
 
-<pre><code>$ skupper -c &lt;ns2&gt; init
-$ skupper -c &lt;ns2&gt; connect ~/secret.yaml
+<pre><code>$ export KUBECONFIG=XXX
+$ skupper init
+$ skupper connect ~/secret.yaml
+$ kubectl run hello-frontend --image quay.io/skupper/hello-frontend
+$ curl &lt;hello-frontend-url&gt;
 </code></pre>
 
 <h2 id="next-steps">Next steps</h2>
