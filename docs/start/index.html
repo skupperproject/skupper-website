@@ -35,9 +35,10 @@
 <nav class="toc">
   <a href="#prerequisites">Prerequisites</a>
   <a href="#step-1-install-the-skupper-command">Step 1: Install the <code>skupper</code> command</a>
-  <a href="#step-2-initialize-your-namespaces">Step 2: Initialize your namespaces</a>
-  <a href="#step-3-connect-your-namespaces">Step 3: Connect your namespaces</a>
-  <a href="#step-4-expose-and-access-your-services">Step 4: Expose and access your services</a>
+  <a href="#step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</a>
+  <a href="#step-3-initialize-your-namespaces">Step 3: Initialize your namespaces</a>
+  <a href="#step-4-connect-your-namespaces">Step 4: Connect your namespaces</a>
+  <a href="#step-5-expose-and-access-your-services">Step 5: Expose and access your services</a>
   <a href="#the-condensed-version">The condensed version</a>
   <a href="#next-steps">Next steps</a>
 </nav>
@@ -79,51 +80,79 @@ usage: skupper &lt;command&gt; &lt;args&gt;
 [...]
 </code></pre>
 
-<p>You only need to do install the Skupper command once for each new
+<p>You only need to install the Skupper command once for each new
 developer environment.</p>
 
-<h2 id="step-2-initialize-your-namespaces">Step 2: Initialize your namespaces</h2>
+<h2 id="step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</h2>
+
+<p>You will be working with multiple namespaces, typically on distinct
+clusters.  To avoid getting your wires crossed, you must set your
+development environment to operate with a distinct configuration for
+each namespace.  The easiest way is to use separate console sessions:</p>
+
+<p class="code-block-label">Console session for namespace 1</p>
+
+<pre><code>$ export KUBECONFIG=$HOME/.kube/config-&lt;ns1&gt;
+$ &lt;provider-login-command&gt;
+</code></pre>
+
+<p class="code-block-label">Console session for namespace 2</p>
+
+<pre><code>$ export KUBECONFIG=$HOME/.kube/config-&lt;ns2&gt;
+$ &lt;provider-login-command&gt;
+</code></pre>
+
+<p>The methods for logging in and setting the active namespace are
+specific to your Kubernetes provider.  See the following links for
+more information:</p>
+
+<ul>
+<li>Amazon EKS</li>
+<li>Google GKE</li>
+<li>Red Hat OpenShift</li>
+<li><a href="https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/">Vanilla Kubernetes</a></li>
+</ul>
+
+<h2 id="step-3-initialize-your-namespaces">Step 3: Initialize your namespaces</h2>
 
 <p>The <code>skupper init</code> command establishes the Skupper infrastructure in the
 current namespace.</p>
 
-<p>Namespace 1:</p>
+<p class="code-block-label">Namespace 1</p>
 
-<pre><code>$ export KUBECONFIG=XXX
-$ skupper init
+<pre><code>$ skupper init
 Skupper is now installed in '&lt;ns1&gt;'.  Use 'skupper status' to get more information.
 </code></pre>
 
-<p>Namespace 2:</p>
+<p class="code-block-label">Namespace 2</p>
 
-<pre><code>$ export KUBECONFIG=XXX
-$ skupper init
+<pre><code>$ skupper init
 Skupper is now installed in '&lt;ns2&gt;'.  Use 'skupper status' to get more information.
 </code></pre>
 
 <p>To check the status of each namespace, use the <code>skupper status</code>
 command:</p>
 
-<p>Namespace 1:</p>
+<p class="code-block-label">Namespace 1</p>
 
 <pre><code>$ skupper status
 Namespace '&lt;ns1&gt;' is ready.  It is connected to 0 other namespaces.
 </code></pre>
 
-<p>Namespace 2:</p>
+<p class="code-block-label">Namespace 2</p>
 
 <pre><code>$ skupper status
 Namespace '&lt;ns2&gt;' is ready.  It is connected to 0 other namespaces.
 </code></pre>
 
-<h2 id="step-3-connect-your-namespaces">Step 3: Connect your namespaces</h2>
+<h2 id="step-4-connect-your-namespaces">Step 4: Connect your namespaces</h2>
 
 <p>After initialization, we have the infrastructure we need, but nothing
 is connected.  To securely form a connection between namespaces, we
 first need a secret that signifies permission to connect.  Use the
 <code>skupper secret</code> command to generate a secret for another namespace:</p>
 
-<p>Namespace 1:</p>
+<p class="code-block-label">Namespace 1</p>
 
 <pre><code>$ skupper secret ~/secret.yaml
 </code></pre>
@@ -131,7 +160,7 @@ first need a secret that signifies permission to connect.  Use the
 <p>With the secret in hand, we're ready to connect.  Pass the secret from
 namespace 1 to the <code>skupper connect</code> command in namespace 2:</p>
 
-<p>Namespace 2:</p>
+<p class="code-block-label">Namespace 2</p>
 
 <pre><code>$ skupper connect ~/secret.yaml
 </code></pre>
@@ -139,13 +168,13 @@ namespace 1 to the <code>skupper connect</code> command in namespace 2:</p>
 <p>Let's see if the status has changed.  If the connection is made, you
 should see the following:</p>
 
-<p>Namespace 1:</p>
+<p class="code-block-label">Namespace 1</p>
 
 <pre><code>$ skupper status
 Namespace '&lt;ns1&gt;' is ready.  It is connected to 1 other namespace.
 </code></pre>
 
-<p>Namespace 2:</p>
+<p class="code-block-label">Namespace 2</p>
 
 <pre><code>$ skupper status
 Namespace '&lt;ns2&gt;' is ready.  It is connected to 1 other namespace.
@@ -154,7 +183,7 @@ Namespace '&lt;ns2&gt;' is ready.  It is connected to 1 other namespace.
 <p>You can connect as many namespaces as you wish.  Once a namespace is
 connected, it can access services on any other connected namespace.</p>
 
-<h2 id="step-4-expose-and-access-your-services">Step 4: Expose and access your services</h2>
+<h2 id="step-5-expose-and-access-your-services">Step 5: Expose and access your services</h2>
 
 <p>We now have a network for cross-cluster communication, but our
 services are not yet exposed on the network.  Use the <code>skupper expose</code>
@@ -167,14 +196,14 @@ network:</p>
 <p>For example, here are the commands for a simple HTTP hello world
 application with a frontend and a backend:</p>
 
-<p>Namespace 1:</p>
+<p class="code-block-label">Namespace 1</p>
 
 <pre><code>$ kubectl run hello-backend --image quay.io/skupper/hello-backend
 deployment.apps/hello-backend created
 $ skupper expose hello-backend --protocol http
 </code></pre>
 
-<p>Namespace 2:</p>
+<p class="code-block-label">Namespace 2</p>
 
 <pre><code>$ kubectl run hello-frontend --image quay.io/skupper/hello-frontend
 deployment.apps/hello-frontend created
@@ -184,18 +213,17 @@ Hello from hello-backend!
 
 <h2 id="the-condensed-version">The condensed version</h2>
 
-<p>Namespace 1:</p>
+<p class="code-block-label">Namespace 1</p>
 
-<pre><code>$ export KUBECONFIG=XXX
-$ skupper init
+<pre><code>$ export KUBECONFIG=~/.kube/config-&lt;ns1&gt;
 $ skupper secret ~/secret.yaml
 $ kubectl run hello-backend --image quay.io/skupper/hello-backend
 $ skupper expose hello-backend --protocol http
 </code></pre>
 
-<p>Namespace 2:</p>
+<p class="code-block-label">Namespace 2</p>
 
-<pre><code>$ export KUBECONFIG=XXX
+<pre><code>$ export KUBECONFIG=~/.kube/config-&lt;ns2&gt;
 $ skupper init
 $ skupper connect ~/secret.yaml
 $ kubectl run hello-frontend --image quay.io/skupper/hello-frontend
