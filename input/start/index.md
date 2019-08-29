@@ -22,6 +22,8 @@ choose.  (For convenience, you can put them all on one cluster.)  In
 the steps below, replace `<ns1>` and `<ns2>` with your chosen
 namespaces.
 
+https://kubernetes.io/docs/tasks/tools/install-minikube/
+
 ## Step 1: Install the `skupper` command
 
 Get the latest release of the Skupper command-line tool for your
