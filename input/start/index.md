@@ -30,13 +30,13 @@ your path:
 
 On Linux:
 
-    $ curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy/linux.tgz -o skupper.tgz
+    $ curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy2/linux.tgz -o skupper.tgz
     $ tar -xf skupper.tgz --directory $HOME/bin
     $ export PATH=$PATH:$HOME/bin
 
 On Mac:
 
-    $ curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy/darwin.zip -o skupper.zip
+    $ curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy2/darwin.zip -o skupper.zip
     $ unzip skupper.zip -d $HOME/bin
     $ cd ~/bin && ln -s release/darwin/skupper
     $ export PATH=$PATH:$HOME/bin
