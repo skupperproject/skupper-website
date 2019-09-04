@@ -33,22 +33,24 @@ your path:
 
 On Linux:
 
-    $ curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy2/linux.tgz -o skupper.tgz
+    $ curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy3/linux.tgz -o skupper.tgz
     $ tar -xf skupper.tgz --directory $HOME/bin
     $ export PATH=$PATH:$HOME/bin
 
 On Mac:
 
-    $ curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy2/darwin.zip -o skupper.zip
+    $ curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy3/darwin.zip -o skupper.zip
     $ unzip skupper.zip -d $HOME/bin
-    $ cd ~/bin && ln -s release/darwin/skupper
     $ export PATH=$PATH:$HOME/bin
 
 To test your installation, run the `skupper` command with no
 arguments.  If it's working, it will print a usage summary.
 
     $ skupper
-    usage: skupper <command> <args>
+    Usage:
+      skupper [command]
+
+    Available Commands:
     [...]
 
 You only need to install the Skupper command once for each new
@@ -61,12 +63,12 @@ clusters.  To avoid getting your wires crossed, you must set your
 development environment to operate with a distinct configuration for
 each namespace.  The easiest way is to use separate console sessions:
 
-<p class="code-block-label">Console session for namespace 1</p>
+<div class="code-block-label">Console session for namespace 1</div>
 
     $ export KUBECONFIG=$HOME/.kube/config-<ns1>
     $ <provider-login-command>
 
-<p class="code-block-label">Console session for namespace 2</p>
+<div class="code-block-label">Console session for namespace 2</div>
 
     $ export KUBECONFIG=$HOME/.kube/config-<ns2>
     $ <provider-login-command>
@@ -85,12 +87,12 @@ more information:
 The `skupper init` command establishes the Skupper infrastructure in the
 current namespace.
 
-<p class="code-block-label">Namespace 1</p>
+<div class="code-block-label">Namespace 1</div>
 
     $ skupper init
     Skupper is now installed in '<ns1>'.  Use 'skupper status' to get more information.
 
-<p class="code-block-label">Namespace 2</p>
+<div class="code-block-label">Namespace 2</div>
 
     $ skupper init
     Skupper is now installed in '<ns2>'.  Use 'skupper status' to get more information.
@@ -98,12 +100,12 @@ current namespace.
 To check the status of each namespace, use the `skupper status`
 command:
 
-<p class="code-block-label">Namespace 1</p>
+<div class="code-block-label">Namespace 1</div>
 
     $ skupper status
     Namespace '<ns1>' is ready.  It is connected to 0 other namespaces.
 
-<p class="code-block-label">Namespace 2</p>
+<div class="code-block-label">Namespace 2</div>
 
     $ skupper status
     Namespace '<ns2>' is ready.  It is connected to 0 other namespaces.
@@ -111,30 +113,36 @@ command:
 ## Step 4: Connect your namespaces
 
 After initialization, we have the infrastructure we need, but nothing
-is connected.  To securely form a connection between namespaces, we
-first need a secret that signifies permission to connect.  Use the
-`skupper secret` command to generate a secret for another namespace:
+is connected.  To create the connection, we'll use two Skupper
+commands in concert:
 
-<p class="code-block-label">Namespace 1</p>
+    skupper generate-secret <output-secret-file>
+    skupper connect <input-secret-file>
 
-    $ skupper secret ~/secret.yaml
+To securely form a connection between namespaces, we first need a
+secret that signifies permission to connect.  Use the `skupper
+generate-secret` command to generate a secret for another namespace:
+
+<div class="code-block-label">Namespace 1</div>
+
+    $ skupper generate-secret ~/secret.yaml
 
 With the secret in hand, we're ready to connect.  Pass the secret from
 namespace 1 to the `skupper connect` command in namespace 2:
 
-<p class="code-block-label">Namespace 2</p>
+<div class="code-block-label">Namespace 2</div>
 
     $ skupper connect ~/secret.yaml
 
 Let's see if the status has changed.  If the connection is made, you
 should see the following:
 
-<p class="code-block-label">Namespace 1</p>
+<div class="code-block-label">Namespace 1</div>
 
     $ skupper status
     Namespace '<ns1>' is ready.  It is connected to 1 other namespace.
 
-<p class="code-block-label">Namespace 2</p>
+<div class="code-block-label">Namespace 2</div>
 
     $ skupper status
     Namespace '<ns2>' is ready.  It is connected to 1 other namespace.
@@ -149,18 +157,18 @@ services are not yet exposed on the network.  Use the `skupper expose`
 command to make a Kubernetes service or deployment available on the
 network:
 
-    $ skupper expose (<service>|<deployment>) --protocol (http|tcp)
+    skupper expose (<service>|<deployment>) --protocol (http|tcp)
 
 For example, here are the commands for a simple HTTP hello world
 application with a frontend and a backend:
 
-<p class="code-block-label">Namespace 1</p>
+<div class="code-block-label">Namespace 1</div>
 
     $ kubectl run hello-backend --image quay.io/skupper/hello-backend
     deployment.apps/hello-backend created
     $ skupper expose hello-backend --protocol http
 
-<p class="code-block-label">Namespace 2</p>
+<div class="code-block-label">Namespace 2</div>
 
     $ kubectl run hello-frontend --image quay.io/skupper/hello-frontend
     deployment.apps/hello-frontend created
@@ -169,16 +177,18 @@ application with a frontend and a backend:
 
 ## The condensed version
 
-<p class="code-block-label">Namespace 1</p>
+<div class="code-block-label">Namespace 1</div>
 
     $ export KUBECONFIG=~/.kube/config-<ns1>
+    $ <provider-login-command>
     $ skupper secret ~/secret.yaml
     $ kubectl run hello-backend --image quay.io/skupper/hello-backend
     $ skupper expose hello-backend --protocol http
 
-<p class="code-block-label">Namespace 2</p>
+<div class="code-block-label">Namespace 2</div>
 
     $ export KUBECONFIG=~/.kube/config-<ns2>
+    $ <provider-login-command>
     $ skupper init
     $ skupper connect ~/secret.yaml
     $ kubectl run hello-frontend --image quay.io/skupper/hello-frontend
