@@ -116,18 +116,18 @@ After initialization, we have the infrastructure we need, but nothing
 is connected.  To create the connection, we'll use two Skupper
 commands in concert:
 
-    skupper generate-secret <output-secret-file>
-    skupper connect <input-secret-file>
+    skupper connection-token <output-token-file>
+    skupper connect <input-token-file>
 
 To securely form a connection between namespaces, we first need a
 secret that signifies permission to connect.  Use the `skupper
-generate-secret` command to generate a secret for another namespace:
+connection-token` command to generate a token for another namespace:
 
 <div class="code-block-label">Namespace 1</div>
 
-    $ skupper generate-secret ~/secret.yaml
+    $ skupper connection-token ~/secret.yaml
 
-With the secret in hand, we're ready to connect.  Pass the secret from
+With the token in hand, we're ready to connect.  Pass the token from
 namespace 1 to the `skupper connect` command in namespace 2:
 
 <div class="code-block-label">Namespace 2</div>

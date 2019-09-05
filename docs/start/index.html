@@ -153,20 +153,20 @@ Namespace '&lt;ns2&gt;' is ready.  It is connected to 0 other namespaces.
 is connected.  To create the connection, we'll use two Skupper
 commands in concert:</p>
 
-<pre><code>skupper generate-secret &lt;output-secret-file&gt;
-skupper connect &lt;input-secret-file&gt;
+<pre><code>skupper connection-token &lt;output-token-file&gt;
+skupper connect &lt;input-token-file&gt;
 </code></pre>
 
 <p>To securely form a connection between namespaces, we first need a
 secret that signifies permission to connect.  Use the <code>skupper
-generate-secret</code> command to generate a secret for another namespace:</p>
+connection-token</code> command to generate a token for another namespace:</p>
 
 <div class="code-block-label">Namespace 1</div>
 
-<pre><code>$ skupper generate-secret ~/secret.yaml
+<pre><code>$ skupper connection-token ~/secret.yaml
 </code></pre>
 
-<p>With the secret in hand, we're ready to connect.  Pass the secret from
+<p>With the token in hand, we're ready to connect.  Pass the token from
 namespace 1 to the <code>skupper connect</code> command in namespace 2:</p>
 
 <div class="code-block-label">Namespace 2</div>
