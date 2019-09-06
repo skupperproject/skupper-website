@@ -226,6 +226,7 @@ Hello from hello-backend!
 
 <pre><code>$ export KUBECONFIG=~/.kube/config-&lt;ns1&gt;
 $ &lt;provider-login-command&gt;
+$ skupper init
 $ skupper secret ~/secret.yaml
 $ kubectl run hello-backend --image quay.io/skupper/hello-backend
 $ skupper expose hello-backend --protocol http

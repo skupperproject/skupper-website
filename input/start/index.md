@@ -177,13 +177,20 @@ application with a frontend and a backend:
 
 ## The condensed version
 
+<div class="code-block-label">Once for your development environment</div>
+
+    $ curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy3/linux.tgz -o skupper.tgz
+    $ tar -xf skupper.tgz --directory $HOME/bin
+    $ export PATH=$PATH:$HOME/bin
+
 <div class="code-block-label">Namespace 1</div>
 
     $ export KUBECONFIG=~/.kube/config-<ns1>
     $ <provider-login-command>
-    $ skupper secret ~/secret.yaml
-    $ kubectl run hello-backend --image quay.io/skupper/hello-backend
-    $ skupper expose hello-backend --protocol http
+    $ skupper init
+    $ skupper connection-token ~/secret.yaml
+    $ kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend
+    $ skupper expose hello-world-backend --protocol http
 
 <div class="code-block-label">Namespace 2</div>
 
@@ -191,9 +198,9 @@ application with a frontend and a backend:
     $ <provider-login-command>
     $ skupper init
     $ skupper connect ~/secret.yaml
-    $ kubectl run hello-frontend --image quay.io/skupper/hello-frontend
-    $ curl <hello-frontend-url>
-    Hello from hello-backend!
+    $ kubectl run hello-world-frontend --image quay.io/skupper/hello-world-frontend
+    $ curl <hello-world-frontend-url>
+    The backend says 'Hello 1'
 
 ## Next steps
 
