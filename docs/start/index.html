@@ -36,7 +36,7 @@
   <a href="#prerequisites">Prerequisites</a>
   <a href="#step-1-install-the-skupper-command">Step 1: Install the <code>skupper</code> command</a>
   <a href="#step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</a>
-  <a href="#step-3-initialize-your-namespaces">Step 3: Initialize your namespaces</a>
+  <a href="#step-3-install-skupper-in-your-namespaces">Step 3: Install Skupper in your namespaces</a>
   <a href="#step-4-connect-your-namespaces">Step 4: Connect your namespaces</a>
   <a href="#step-5-expose-and-access-your-services">Step 5: Expose and access your services</a>
   <a href="#the-condensed-version">The condensed version</a>
@@ -60,6 +60,7 @@ your path:</p>
 <p>On Linux:</p>
 
 <pre><code>$ curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy3/linux.tgz -o skupper.tgz
+$ mkdir -p $HOME/bin
 $ tar -xf skupper.tgz --directory $HOME/bin
 $ export PATH=$PATH:$HOME/bin
 </code></pre>
@@ -67,6 +68,7 @@ $ export PATH=$PATH:$HOME/bin
 <p>On Mac:</p>
 
 <pre><code>$ curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy3/darwin.zip -o skupper.zip
+$ mkdir -p $HOME/bin
 $ unzip skupper.zip -d $HOME/bin
 $ export PATH=$PATH:$HOME/bin
 </code></pre>
@@ -115,7 +117,7 @@ more information:</p>
 <li><a href="https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/">Vanilla Kubernetes</a></li>
 </ul>
 
-<h2 id="step-3-initialize-your-namespaces">Step 3: Initialize your namespaces</h2>
+<h2 id="step-3-install-skupper-in-your-namespaces">Step 3: Install Skupper in your namespaces</h2>
 
 <p>The <code>skupper init</code> command establishes the Skupper infrastructure in the
 current namespace.</p>
@@ -222,14 +224,19 @@ Hello from hello-backend!
 
 <h2 id="the-condensed-version">The condensed version</h2>
 
+<div class="code-block-label">Skupper command installation</div>
+
+<pre><code>$ curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy3/linux.tgz | tar -C ~/bin -xzf -
+</code></pre>
+
 <div class="code-block-label">Namespace 1</div>
 
 <pre><code>$ export KUBECONFIG=~/.kube/config-&lt;ns1&gt;
 $ &lt;provider-login-command&gt;
 $ skupper init
-$ skupper secret ~/secret.yaml
-$ kubectl run hello-backend --image quay.io/skupper/hello-backend
-$ skupper expose hello-backend --protocol http
+$ skupper connection-token ~/secret.yaml
+$ kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend
+$ skupper expose hello-world-backend --protocol http
 </code></pre>
 
 <div class="code-block-label">Namespace 2</div>
@@ -238,9 +245,9 @@ $ skupper expose hello-backend --protocol http
 $ &lt;provider-login-command&gt;
 $ skupper init
 $ skupper connect ~/secret.yaml
-$ kubectl run hello-frontend --image quay.io/skupper/hello-frontend
-$ curl &lt;hello-frontend-url&gt;
-Hello from hello-backend!
+$ kubectl run hello-world-frontend --image quay.io/skupper/hello-world-frontend
+$ curl &lt;hello-world-frontend-url&gt;
+The backend says 'Hello 1'
 </code></pre>
 
 <h2 id="next-steps">Next steps</h2>

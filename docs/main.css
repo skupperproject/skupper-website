@@ -89,8 +89,13 @@ h3,
 h4,
 h5,
 h6 {
+    color: red;
     font-family: "Alegreya Sans";
     font-weight: 600;
+    /* display: block; */
+    /* position: relative; */
+    /* top: -250px; */
+    /* visibility: hidden; */
 }
 
 h1 a,
