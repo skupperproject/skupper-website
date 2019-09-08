@@ -38,15 +38,17 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
       <div>
         <h3>Easy and secure setup</h3>
         <p>Installation requires no administrator privileges</p>
-        <p>Skupper runs on any flavor of Kubernetes</p>
+        <p>Runs on any flavor of Kubernetes and works with your
+        existing applications</p>
         <p>The network is secured by mutual TLS authentication</p>
         <!-- <p>Application-level access control and resource limits</p> -->
-        <a class="nav" href="{{site_url}}/start/index.html">Try it</a>
+        <a class="nav" href="{{site_url}}/start/index.html">Get started</a>
       </div>
       <div>
         <h3>Advanced networking</h3>
-        <p>Connects multiple clusters, data centers, and regions</p>
-        <p>Low latency HTTP and TCP communication</p>
+        <p>Connects multiple clusters, data centers, and regions for
+        hybrid-cloud and edge-to-edge communication</p>
+        <p>Transparent, low latency HTTP and TCP</p>
         <p>Redundant routes for self-healing networks</p>
         <!-- <a class="nav" href="">Learn more</a> -->
       </div>
@@ -85,7 +87,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
   <div>
     <iframe width="320" height="180" src="https://www.youtube.com/embed/AjPau5QYtYs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <div>
-      <h2>Access a database across clusters</h2>
+      <h2>Access a database on the private cloud</h2>
       <p>{{lipsum_25}}</p>
       <nav class="links">
         <a href="">Tutorial</a>

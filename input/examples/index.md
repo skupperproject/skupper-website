@@ -5,7 +5,7 @@ title: Examples
 # Skupper examples
 
 <nav class="toc">
-  <a href="#hello-world">Hello world</a>
+  <a href="#hello-world">Hello World</a>
   <a href="#communicating-over-tcp-between-two-clusters">Communicating over TCP between two clusters</a>
   <a href="#deploying-istios-bookinfo-example">Deploying Istio's Bookinfo example</a>
   <a href="#accessing-a-postgresql-databse">Accessing a PostgreSQL database</a>
@@ -15,14 +15,14 @@ title: Examples
 
 ;;<h2 class="example-category">Minimal examples</h2>
 
-### Hello world
+### Hello World
 
 A really simple HTTP service on one cluster accessed from a client on
 another.  This is our most elemental HTTP example.
 
 <nav class="links">
-  <a href="https://github.com/skupperproject/skupper-example-helloworld">Tutorial</a>
-  <a href="https://github.com/skupperproject/skupper-example-helloworld">Example code</a>
+  <a href="https://github.com/skupperproject/skupper-example-hello-world">Tutorial</a>
+  <a href="https://github.com/skupperproject/skupper-example-hello-world">Example code</a>
 </nav>
 
 ### Communicating over TCP between two clusters

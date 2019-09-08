@@ -6,9 +6,9 @@ title: Getting started
 
 <nav class="toc">
   <a href="#prerequisites">Prerequisites</a>
-  <a href="#step-1-install-the-skupper-command">Step 1: Install the <code>skupper</code> command</a>
+  <a href="#step-1-install-the-skupper-command">Step 1: Install the Skupper command</a>
   <a href="#step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</a>
-  <a href="#step-3-establish-the-skupper-infrastructure">Step 3: Establish the Skupper infrastructure</a>
+  <a href="#step-3-establish-the-skupper-infrastructure-in-each-namespace">Step 3: Establish the Skupper infrastructure in each namespace</a>
   <a href="#step-4-connect-your-namespaces">Step 4: Connect your namespaces</a>
   <a href="#step-5-expose-your-services">Step 5: Expose your services</a>
   <a href="#the-condensed-version">The condensed version</a>
@@ -35,7 +35,7 @@ options for setting up namespaces:
  - [Microsoft AKS](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes)
  - [Red Hat OpenShift](https://www.openshift.com/learn/get-started/)
 
-## Step 1: Install the `skupper` command
+## Step 1: Install the Skupper command
 
 The `skupper` command-line tool is the primary entrypoint for
 installing and configuring the Skupper infrastructure.  You need to
@@ -50,12 +50,12 @@ download it from GitHub and extract the executable using `tar` or
 
 <div class="code-block-label">Linux</div>
 
-    $ curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy3/linux.tgz | tar -xzf -
+    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy3/linux.tgz | tar -xzf -
 
 <div class="code-block-label">macOS</div>
 
-    $ curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy3/darwin.zip -o skupper.zip
-    $ unzip skupper.zip
+    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy3/darwin.zip -o skupper.zip
+    unzip skupper.zip
 
 This produces an executable file named `skupper` in your current
 directory.
@@ -65,9 +65,9 @@ directory.
 The subsequent steps assume `skupper` is on your path.  As an
 example, this is how you might install it in your home directory:
 
-    $ mkdir -p ~/bin
-    $ export PATH=$PATH:~/bin
-    $ mv skupper ~/bin
+    mkdir -p ~/bin
+    export PATH=$PATH:~/bin
+    mv skupper ~/bin
 
 ### Check the command
 
@@ -98,11 +98,11 @@ Start a console session for each of your namespaces.  Set the
 
 <div class="code-block-label">Console session for namespace 1</div>
 
-    $ export KUBECONFIG=~/.kube/config-<ns1>
+    export KUBECONFIG=~/.kube/config-<ns1>
 
 <div class="code-block-label">Console session for namespace 2</div>
 
-    $ export KUBECONFIG=~/.kube/config-<ns2>
+    export KUBECONFIG=~/.kube/config-<ns2>
 
 ### Log in and set your namespaces
 
@@ -132,7 +132,7 @@ following output:
     $ skupper status
     Skupper is not installed in '<ns2>'.  Use 'skupper init' to install.
 
-## Step 3: Establish the Skupper infrastructure
+## Step 3: Establish the Skupper infrastructure in each namespace
 
 The `skupper init` command installs the Skupper router, proxy, and
 related resources in the current namespace.
@@ -186,7 +186,7 @@ Use the `skupper connection-token` command to generate a token.
 
 <div class="code-block-label">Namespace 1</div>
 
-    $ skupper connection-token ~/secret.yaml
+    skupper connection-token ~/secret.yaml
 
 ### Use the token to form a connection
 
@@ -195,7 +195,7 @@ namespace 1 to the `skupper connect` command in namespace 2.
 
 <div class="code-block-label">Namespace 2</div>
 
-    $ skupper connect ~/secret.yaml
+    skupper connect ~/secret.yaml
 
 ### Check the connection
 
@@ -229,17 +229,15 @@ frontend.  Use `kubectl run` to start the backend on namespace 1.
 
 <div class="code-block-label">Namespace 1</div>
 
-    $ kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend --port 8080
-    deployment.apps/hello-world-backend created
+    kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend --port 8080
 
 Use `kubectl run` to start the frontend on namespace 2.  Use `kubectl
 expose` to make the frontend externally accessible.
 
 <div class="code-block-label">Namespace 2</div>
 
-    $ kubectl run hello-world-frontend --image quay.io/skupper/hello-world-frontend --port 8080
-    deployment.apps/hello-world-frontend created
-    $ kubectl expose deployment/hello-world-frontend
+    kubectl run hello-world-frontend --image quay.io/skupper/hello-world-frontend --port 8080
+    kubectl expose deployment/hello-world-frontend
 
 ### Expose the service
 
@@ -248,7 +246,7 @@ Use the `skupper expose` command on namespace 1 to make
 
 <div class="code-block-label">Namespace 1</div>
 
-    $ skupper expose hello-world-backend
+    skupper expose hello-world-backend
 
 ### Check the service
 
@@ -275,34 +273,36 @@ see it in action.
 
 <div class="code-block-label">Namespace 2</div>
 
-    $ curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}/')
+    curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}/')
+
+You should see output like this:
+
     I am the frontend.  The backend says 'Hello 1'.
 
 ## The condensed version
 
 <div class="code-block-label">Skupper command installation</div>
 
-    $ curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy3/linux.tgz | tar -xzf -
+    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/dummy3/linux.tgz | tar -xzf -
 
 <div class="code-block-label">Namespace 1</div>
 
-    $ export KUBECONFIG=~/.kube/config-<ns1>
-    $ <provider-login-command>
-    $ skupper init
-    $ skupper connection-token ~/secret.yaml
-    $ kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend --port 8080
-    $ skupper expose hello-world-backend
+    export KUBECONFIG=~/.kube/config-<ns1>
+    <provider-login-command>
+    skupper init
+    skupper connection-token ~/secret.yaml
+    kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend --port 8080
+    skupper expose hello-world-backend
 
 <div class="code-block-label">Namespace 2</div>
 
-    $ export KUBECONFIG=~/.kube/config-<ns2>
-    $ <provider-login-command>
-    $ skupper init
-    $ skupper connect ~/secret.yaml
-    $ kubectl run hello-world-frontend --image quay.io/skupper/hello-world-frontend --port 8080
-    $ kubectl expose deployment/hello-world-frontend
-    $ curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}/')
-    I am the frontend.  The backend says 'Hello 1'.
+    export KUBECONFIG=~/.kube/config-<ns2>
+    <provider-login-command>
+    skupper init
+    skupper connect ~/secret.yaml
+    kubectl run hello-world-frontend --image quay.io/skupper/hello-world-frontend --port 8080
+    kubectl expose deployment/hello-world-frontend
+    curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}/')
 
 ## Next steps
 
@@ -311,4 +311,4 @@ clusters, here are a few more things to look at:
 
  - [Use and modify the HTTP Hello World example](https://github.com/skupperproject/skupper-example-hello-world)
  - [See how you can connect any TCP-based service](https://github.com/skupperproject/skupper-example-tcp-echo)
- - [Browse the complete set of examples]({{site_url}}/examples/index.html)
+ - [Explore the examples]({{site_url}}/examples/index.html)
