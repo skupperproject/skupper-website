@@ -273,4 +273,4 @@ Now that you know how to connect services running on multiple
 clusters, here are a few more things to try:
 
  - [Go into more detail with the Hello World example](https://github.com/skupperproject/skupper-example-hello-world)
- - Learn how to remove the Skupper from your namespaces
+ - Learn how to remove Skupper from your namespaces
