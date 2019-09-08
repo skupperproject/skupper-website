@@ -93,9 +93,8 @@ directory.</p>
 
 <h3 id="place-the-command-on-your-path">Place the command on your path</h3>
 
-<p>The steps that follow assume <code>skupper</code> is on your path.  You can
-achieve this however you prefer.  For example, this is how you might
-install it in your home directory:</p>
+<p>The steps that follow assume <code>skupper</code> is on your path.  As an
+example, this is how you might install it in your home directory:</p>
 
 <pre><code>$ mkdir -p ~/bin
 $ export PATH=$PATH:~/bin
@@ -121,9 +120,9 @@ Available Commands:
 different clusters.  The <code>skupper</code> command uses your kubeconfig and
 current context to select the namespace where it operates.</p>
 
-<p>To avoid getting your wires crossed, you must set your development
-environment to use a distinct kubeconfig or context for each
-namespace.  The easiest way is to use separate console sessions.</p>
+<p>To avoid getting your wires crossed, you must use a distinct
+kubeconfig or context for each namespace.  The easiest way is to use
+separate console sessions.</p>
 
 <h3 id="configure-separate-console-sessions">Configure separate console sessions</h3>
 
@@ -156,8 +155,8 @@ more information:</p>
 <h3 id="check-your-configurations">Check your configurations</h3>
 
 <p>Once you have logged in, use the <code>skupper status</code> command to check
-that each namespace is correctly configured.  You should the following
-output:</p>
+that each namespace is correctly configured.  You should see the
+following output:</p>
 
 <div class="code-block-label">Namespace 1</div>
 
@@ -222,7 +221,7 @@ skupper connect &lt;input-token-file&gt;
 <p>To securely form a connection between namespaces, Skupper requires a
 secret token that signifies permission to connect.  The <code>skupper
 connection-token</code> command generates a token, and the <code>skupper connect</code>
-command uses the token to authorize a new connection.</p>
+command uses the token to establish a new connection.</p>
 
 <p>You can connect as many namespaces as you wish.  Once a namespace is
 connected, it can access services on any other connected namespace.</p>
@@ -273,7 +272,7 @@ available on all the connected namespaces.</p>
 <pre><code>skupper expose (&lt;service&gt;|&lt;deployment&gt;) [--protocol (http|tcp)]
 </code></pre>
 
-<p>For example, here are the commands for a simple HTTP hello world
+<p>For example, here are the commands for a simple HTTP Hello World
 application with a frontend and a backend:</p>
 
 <div class="code-block-label">Namespace 1</div>
@@ -322,11 +321,12 @@ I am the frontend.  The backend says 'Hello 1'.
 <h2 id="next-steps">Next steps</h2>
 
 <p>Now that you know how to connect services running on multiple
-clusters, here are a few more things to try:</p>
+clusters, here are a few more things to consider:</p>
 
 <ul>
 <li><a href="https://github.com/skupperproject/skupper-example-hello-world">Go into more detail with the Hello World example</a></li>
-<li>Learn how to remove Skupper from your namespaces</li>
+<li><a href="https://github.com/skupperproject/skupper-example-tcp-echo">See how you can connect any TCP-based service</a></li>
+<li><a href="https://skupperproject.github.io/skupper-website/examples/index.html">Browse all of the examples</a></li>
 </ul>
 
 

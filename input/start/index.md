@@ -61,15 +61,14 @@ directory.
 
 ### Place the command on your path
 
-The steps that follow assume `skupper` is on your path.  You can
-achieve this however you prefer.  For example, this is how you might
-install it in your home directory:
+The subsequent steps assume `skupper` is on your path.  As an
+example, this is how you might install it in your home directory:
 
     $ mkdir -p ~/bin
     $ export PATH=$PATH:~/bin
     $ mv skupper ~/bin
 
-### Check that the command works
+### Check the command
 
 To test your installation, run the `skupper` command with no
 arguments.  You should see a usage summary.
@@ -87,9 +86,9 @@ Skupper is designed for use with multiple namespaces, typically on
 different clusters.  The `skupper` command uses your kubeconfig and
 current context to select the namespace where it operates.
 
-To avoid getting your wires crossed, you must set your development
-environment to use a distinct kubeconfig or context for each
-namespace.  The easiest way is to use separate console sessions.
+To avoid getting your wires crossed, you must use a distinct
+kubeconfig or context for each namespace.  The easiest way is to use
+separate console sessions.
 
 ### Configure separate console sessions
 
@@ -133,8 +132,8 @@ following output:
 
 ## Step 3: Establish the Skupper infrastructure
 
-The `skupper init` command installs the Skupper infrastructure in the
-current namespace.
+The `skupper init` command installs the Skupper router, proxy, and
+related resources in the current namespace.
 
 ### Install the infrastructure
 
@@ -150,7 +149,7 @@ Run `skupper init` once for each namespace you wish to connect.
     $ skupper init
     Skupper is now installed in '<ns2>'.  Use 'skupper status' to get more information.
 
-### Check that the infrastructure is ready
+### Check the infrastructure
 
 To check the status of each namespace, use the `skupper status`
 command.
@@ -168,19 +167,16 @@ command.
 ## Step 4: Connect your namespaces
 
 After installation, you have the infrastructure you need, but your
-namespaces are not yet connected.  Creating a connection requires use
-of two `skupper` commands in conjunction.
+namespaces are not connected.  Creating a connection requires use of
+two `skupper` commands in conjunction:
 
     skupper connection-token <output-token-file>
     skupper connect <input-token-file>
 
-To securely form a connection between namespaces, Skupper requires a
-secret token that signifies permission to connect.  The `skupper
-connection-token` command generates a token, and the `skupper connect`
-command uses the token to establish a new connection.
-
-You can connect as many namespaces as you wish.  Once a namespace is
-connected, it can access services on any other connected namespace.
+The `skupper connection-token` command generates a secret token that
+signifies permission to connect.  The token also carries the
+connection details.  Anyone who has it can use the `skupper connect`
+command to establish a connection from another namespace.
 
 ### Generate a connection token
 
@@ -201,8 +197,8 @@ namespace 1 to the `skupper connect` command in namespace 2.
 
 ### Check the connection
 
-Use the `skupper status` command to see if the status has changed.  If
-the connection is made, you should see the following output:
+Use the `skupper status` command again to see if things have changed.
+If the connection is made, you should see the following output:
 
 <div class="code-block-label">Namespace 1</div>
 
@@ -216,27 +212,67 @@ the connection is made, you should see the following output:
 
 ## Step 5: Expose your services
 
-You now have a network capable of multi-cluster communication, but
-your services are not yet exposed on the network.  This step uses the
-`skupper expose` command to make a Kubernetes service on one namespace
-available on all the connected namespaces.
+You now have a network capable of multi-cluster communication, but no
+services are attached to it.  This step uses the `skupper expose`
+command to make a Kubernetes service on one namespace available on all
+the connected namespaces.
 
-    skupper expose (<service>|<deployment>) [--protocol (http|tcp)]
+    skupper expose (<service>|<deployment>)
 
-For example, here are the commands for a simple HTTP hello world
-application with a frontend and a backend:
+### Deploy your application
+
+To demonstrate service exposure, we need an application to work with.
+This guide uses an HTTP Hello World application with a backend and a
+frontend.  Use `kubectl run` to start the backend on namespace 1.
 
 <div class="code-block-label">Namespace 1</div>
 
-    $ kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend
+    $ kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend --port 8080
     deployment.apps/hello-world-backend created
-    $ skupper expose hello-world-backend
+
+Use `kubectl run` to start the frontend on namespace 2.  Use `kubectl
+expose` to make the frontend externally accessible.
 
 <div class="code-block-label">Namespace 2</div>
 
-    $ kubectl run hello-world-frontend --image quay.io/skupper/hello-world-frontend
+    $ kubectl run hello-world-frontend --image quay.io/skupper/hello-world-frontend --port 8080
     deployment.apps/hello-world-frontend created
-    $ curl <hello-world-frontend-url>
+    $ kubectl expose deployment/hello-world-frontend
+
+### Expose the service
+
+Use the `skupper expose` command on namespace 1 to make
+`hello-world-backend` available on namespace 2.
+
+<div class="code-block-label">Namespace 1</div>
+
+    $ skupper expose hello-world-backend
+
+### Check the service
+
+Use the `kubectl get services` command on namespace 2 to make sure the
+`hello-world-backend` service from namespace 1 is represented.  You
+should see output like this:
+
+<div class="code-block-label">Namespace 2</div>
+
+    $ kubectl get services
+    NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)          AGE
+    hello-world-backend    ClusterIP      10.106.92.175    <none>           8080/TCP         11h
+    hello-world-frontend   LoadBalancer   10.111.133.137   10.111.133.137   8080:31313/TCP   6m31s
+    [...]
+
+Note: If you are using Minikube and the external IP shows `<pending>`,
+you need to use the `minikube tunnel` command to provide ingress.
+
+### Test your application
+
+Now your multi-cluster application is up and running.  Use `curl` to
+see it in action.
+
+<div class="code-block-label">Namespace 2</div>
+
+    $ curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}/')
     I am the frontend.  The backend says 'Hello 1'.
 
 ## The condensed version
@@ -251,7 +287,7 @@ application with a frontend and a backend:
     $ <provider-login-command>
     $ skupper init
     $ skupper connection-token ~/secret.yaml
-    $ kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend
+    $ kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend --port 8080
     $ skupper expose hello-world-backend
 
 <div class="code-block-label">Namespace 2</div>
@@ -260,17 +296,16 @@ application with a frontend and a backend:
     $ <provider-login-command>
     $ skupper init
     $ skupper connect ~/secret.yaml
-    $ kubectl run hello-world-frontend --image quay.io/skupper/hello-world-frontend
-    $ curl <hello-world-frontend-url>
+    $ kubectl run hello-world-frontend --image quay.io/skupper/hello-world-frontend --port 8080
+    $ kubectl expose deployment/hello-world-frontend
+    $ curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}/')
     I am the frontend.  The backend says 'Hello 1'.
-
-;;    $ curl $(minikube service hello-world-frontend --url)
-;;    $ curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.spec.clusterIP}:{.spec.ports[0].nodePort}')
 
 ## Next steps
 
 Now that you know how to connect services running on multiple
-clusters, here are a few more things to try:
+clusters, here are a few more things to look at:
 
- - [Go into more detail with the Hello World example](https://github.com/skupperproject/skupper-example-hello-world)
- - Learn how to remove Skupper from your namespaces
+ - [Use and modify the HTTP Hello World example](https://github.com/skupperproject/skupper-example-hello-world)
+ - [See how you can connect any TCP-based service](https://github.com/skupperproject/skupper-example-tcp-echo)
+ - [Browse the complete set of examples]({{site_url}}/examples/index.html)
