@@ -123,7 +123,11 @@ blockquote {
 }
 
 ul {
-    padding: 0 0 0 1.6em;
+    padding: 0 0 0 1em;
+}
+
+ul:last-child {
+    margin-bottom: 1em;
 }
 
 li {
@@ -255,5 +259,7 @@ header.active {
     text-transform: uppercase;
     font-weight: 600;
     font-size: 0.8em;
-    color: var(--bg-color-3);
+    color: #888;
+    background-color: #ddd;
+    padding: 0.1em 0.6em 0 0.6em;
 }
