@@ -30,16 +30,16 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
     </p>
 
     <p id="-summary-2">With Skupper you can host your services
-      anywhere&mdash;on the public cloud, the private cloud, or the
+      anywhere&mdash;the public cloud, the private cloud, or the
       edge&mdash;and they remain transparently connected.
     </p>
 
     <div id="-features">
       <div>
         <h3>Easy and secure setup</h3>
-        <p>Installation does not require administrator privileges</p>
+        <p>Installation requires no administrator privileges</p>
         <p>Skupper runs on any flavor of Kubernetes</p>
-        <p>Inter-cluster connections use mutual TLS authentication</p>
+        <p>The network is secured by mutual TLS authentication</p>
         <!-- <p>Application-level access control and resource limits</p> -->
         <a class="nav" href="{{site_url}}/start/index.html">Try it</a>
       </div>
@@ -71,7 +71,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
   <div>
     <iframe width="320" height="180" src="https://www.youtube.com/embed/AjPau5QYtYs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <div>
-      <h2>Share a database across clusters</h2>
+      <h2>Deploy a multi-cluster network</h2>
       <p>{{lipsum_25}}</p>
       <nav class="links">
         <a href="">Tutorial</a>
@@ -85,7 +85,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
   <div>
     <iframe width="320" height="180" src="https://www.youtube.com/embed/AjPau5QYtYs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <div>
-      <h2>Route API calls to multiple clusters</h2>
+      <h2>Access a database across clusters</h2>
       <p>{{lipsum_25}}</p>
       <nav class="links">
         <a href="">Tutorial</a>
@@ -99,7 +99,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
   <div>
     <iframe width="320" height="180" src="https://www.youtube.com/embed/AjPau5QYtYs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <div>
-      <h2>Define your network and onboard new clusters</h2>
+      <h2>Load balance API calls across clusters</h2>
       <p>{{lipsum_25}}</p>
       <nav class="links">
         <a href="">Tutorial</a>
