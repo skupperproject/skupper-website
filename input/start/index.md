@@ -23,7 +23,8 @@ Kubernetes namespaces.  In the steps below, replace `<ns1>` and
 
 Each namespace can reside on **any cluster you choose**, and **you are
 not limited to two**.  You can have one on your laptop, another on
-Amazon, another on Google, and so on.
+Amazon, another on Google, and so on.  For convenience, you can have
+them all on one cluster.
 
 Skupper works with any flavor of Kubernetes.  Here are some of your
 options for setting up namespaces:
