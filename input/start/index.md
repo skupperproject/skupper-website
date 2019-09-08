@@ -104,7 +104,7 @@ Start a console session for each of your namespaces.  Set the
 
     $ export KUBECONFIG=~/.kube/config-<ns2>
 
-### Log in to your namespaces
+### Log in and set your namespaces
 
 The methods for logging in and setting the current namespace are
 specific to your Kubernetes provider.  See the following links for
@@ -118,8 +118,8 @@ more information:
 ### Check your configurations
 
 Once you have logged in, use the `skupper status` command to check
-that each namespace is correctly configured.  You should the following
-output:
+that each namespace is correctly configured.  You should see the
+following output:
 
 <div class="code-block-label">Namespace 1</div>
 
@@ -177,7 +177,7 @@ of two `skupper` commands in conjunction.
 To securely form a connection between namespaces, Skupper requires a
 secret token that signifies permission to connect.  The `skupper
 connection-token` command generates a token, and the `skupper connect`
-command uses the token to authorize a new connection.
+command uses the token to establish a new connection.
 
 You can connect as many namespaces as you wish.  Once a namespace is
 connected, it can access services on any other connected namespace.
