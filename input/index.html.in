@@ -10,7 +10,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
       <a href="{{site_url}}/index.html" id="-logotype"><img class="inline-icon" src="{{site_url}}/images/circle.svg"/> Skupper</a>
       <a href="{{site_url}}/start/index.html">Getting started</a>
       <a href="{{site_url}}/examples/index.html">Examples</a>
-      <a href="{{site_url}}/docs/index.html">Documentation</a>
+      <!-- <a href="{{site_url}}/docs/index.html">Documentation</a> -->
     </nav>
     <nav id="-top-right-nav">
       <a href="https://github.com/skupperproject"><img class="inline-icon" src="{{site_url}}/images/github.svg"/> GitHub</a>
@@ -20,36 +20,43 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
 
 <section id="-intro">
   <div>
-    <h2 id="-banner">Multi-cluster application networking for Kubernetes</h2>
+    <h2 id="-banner">Multi-cluster networking for Kubernetes, simplified</h2>
 
     {{include("includes/globe.svg")}}
 
-    <p id="-summary">Skupper is a layer 7 service interconnect.  It
+    <p id="-summary-1">Skupper is a layer 7 service interconnect.  It
       securely connects services from multiple Kubernetes clusters
-      without the need for VPNs or SDN.
-      <!-- Public and private cloud - host your services anywhere. -->
+      without using VPNs, SDN, or firewalls.
+    </p>
+
+    <p id="-summary-2">With Skupper you can host your services
+      anywhere&mdash;on the public cloud, the private cloud, or the
+      edge&mdash;and they remain transparently connected.
     </p>
 
     <div id="-features">
       <div>
-        <h3>Secure interconnect</h3>
+        <h3>Easy and secure setup</h3>
+        <p>Installation does not require administrator privileges</p>
+        <p>Skupper runs on any flavor of Kubernetes</p>
+        <p>Inter-cluster connections use mutual TLS authentication</p>
+        <!-- <p>Application-level access control and resource limits</p> -->
+        <a class="nav" href="{{site_url}}/start/index.html">Try it</a>
+      </div>
+      <div>
+        <h3>Advanced networking</h3>
         <p>Connects multiple clusters, data centers, and regions</p>
-        <p>Transparent TCP and HTTP communication across public and private IP networks</p>
-        <a class="nav" href="">Learn more</a>
+        <p>Low latency HTTP and TCP communication</p>
+        <p>Redundant routes for self-healing networks</p>
+        <!-- <a class="nav" href="">Learn more</a> -->
       </div>
       <div>
-        <h3>Network control</h3>
-        <p>Centralized network administration</p>
-        <p>Application-level access control and resource limits</p>
-        <p>Easy and secure cluster onboarding</p>
-        <a class="nav" href="">Learn more</a>
-      </div>
-      <div>
-        <h3>New capabilities</h3>
-        <p>Dynamic load balancing that responds to changes in service capacity</p>
-        <p>Multicast HTTP request forwarding</p>
+        <h3>Unique capabilities</h3>
+        <p>Global load balancing that responds to changes in service capacity</p>
         <p>Cost-based request routing</p>
-        <a class="nav" href="">Learn more</a>
+        <p>Enables secure access to private cloud services from any connected cluster</p>
+        <!-- <p>Multicast HTTP request forwarding</p> -->
+        <!-- <a class="nav" href="">Learn more</a> -->
       </nav>
       </div>
     </div>

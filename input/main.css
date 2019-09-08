@@ -30,7 +30,9 @@
   --accent-color-2: rgba(63, 191, 127, 1.0);
   --accent-color-3: rgba(240, 231, 51, 1.0);
   --link-color: rgba(60, 90, 180, 1.0);
-  --code-bg-color: rgba(0, 0, 0, 0.06);
+  --code-label-fg-color: rgba(0, 0, 0, 0.9);
+  --code-label-bg-color: rgba(0, 0, 0, 0.06);
+  --code-bg-color: rgba(0, 0, 0, 0.02);
 }
 
 * {
@@ -65,7 +67,7 @@ body {
 
 code,
 pre {
-    font: 0.95em "Inconsolata", monospace;
+    font: 0.975em "Inconsolata", monospace;
 }
 
 p code {
@@ -76,9 +78,18 @@ p code {
 pre {
     padding: 0.4em 0.6em;
     margin-top: 0;
-    background-color: var(--code-bg-color); /* code-bg-color); */
-    box-shadow: inset 0 0 0.1em 0 rgba(0, 0, 0, 0.08);
+    background-color: var(--code-bg-color);
+    box-shadow: inset 0 0 0.15em 0 rgba(0, 0, 0, 0.15);
     overflow: auto;
+}
+
+.code-block-label {
+    margin-bottom: 0;
+    text-transform: uppercase;
+    font-size: 0.7em;
+    color: var(--code-label-fg-color);
+    background-color: var(--code-label-bg-color);
+    padding: 0.1em 0.6em 0 0.6em;
 }
 
 h1,
@@ -252,14 +263,4 @@ header.active {
     font-weight: 300;
     text-transform: uppercase;
     font-size: 0.9em;
-}
-
-.code-block-label {
-    margin-bottom: 0;
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: 0.8em;
-    color: #888;
-    background-color: #ddd;
-    padding: 0.1em 0.6em 0 0.6em;
 }

@@ -29,9 +29,10 @@ them all on one cluster.
 Skupper works with any flavor of Kubernetes.  Here are some of your
 options for setting up namespaces:
 
- - [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/)
+ - [Minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/)
  - [Amazon EKS](https://aws.amazon.com/eks/getting-started/)
  - [Google GKE](https://cloud.google.com/kubernetes-engine/docs/quickstart)
+ - [Microsoft AKS](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes)
  - [Red Hat OpenShift](https://www.openshift.com/learn/get-started/)
 
 ## Step 1: Install the `skupper` command
@@ -109,9 +110,10 @@ The methods for logging in and setting the current namespace are
 specific to your Kubernetes provider.  See the following links for
 more information:
 
- - [Vanilla Kubernetes (including Minikube)](https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+ - [Vanilla Kubernetes (including Minikube)](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
  - [Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html)
  - [Google GKE](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl)
+ - [Microsoft AKS](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster)
  - [Red Hat OpenShift](https://docs.openshift.com/container-platform/4.1/cli_reference/getting-started-cli.html#cli-logging-in_cli-developer-commands)
 
 ### Check your configurations
@@ -258,6 +260,7 @@ should see output like this:
 
     $ kubectl get services
     NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)          AGE
+    [...]
     hello-world-backend    ClusterIP      10.106.92.175    <none>           8080/TCP         11h
     hello-world-frontend   LoadBalancer   10.111.133.137   10.111.133.137   8080:31313/TCP   6m31s
     [...]
