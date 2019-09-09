@@ -177,20 +177,26 @@ Skupper is not installed in '&lt;ns2&gt;'.  Use 'skupper init' to install.
 <p>The <code>skupper init</code> command installs the Skupper router, proxy, and
 related resources in the current namespace.</p>
 
+<pre><code>skupper init [--id &lt;installation-name&gt;]
+</code></pre>
+
 <h3 id="install-the-infrastructure">Install the infrastructure</h3>
 
 <p>Run <code>skupper init</code> once for each namespace you wish to connect.</p>
 
 <div class="code-block-label">Namespace 1</div>
 
-<pre><code>$ skupper init
-Skupper is now installed in '&lt;ns1&gt;'.  Use 'skupper status' to get more information.
+<pre><code>skupper init
 </code></pre>
 
 <div class="code-block-label">Namespace 2</div>
 
-<pre><code>$ skupper init
-Skupper is now installed in '&lt;ns2&gt;'.  Use 'skupper status' to get more information.
+<pre><code>skupper init
+</code></pre>
+
+<p>You should see output like this:</p>
+
+<pre><code>Skupper is now installed in '&lt;ns&gt;'.  Use 'skupper status' to get more information.
 </code></pre>
 
 <h3 id="check-the-infrastructure">Check the infrastructure</h3>
@@ -298,7 +304,7 @@ kubectl expose deployment/hello-world-frontend
 
 <div class="code-block-label">Namespace 1</div>
 
-<pre><code>skupper expose hello-world-backend
+<pre><code>skupper expose deployment/hello-world-backend
 </code></pre>
 
 <h3 id="check-the-service">Check the service</h3>
@@ -349,7 +355,7 @@ see it in action.</p>
 skupper init
 skupper connection-token ~/secret.yaml
 kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend --port 8080
-skupper expose hello-world-backend
+skupper expose deployment/hello-world-backend
 </code></pre>
 
 <div class="code-block-label">Namespace 2</div>

@@ -137,19 +137,23 @@ following output:
 The `skupper init` command installs the Skupper router, proxy, and
 related resources in the current namespace.
 
+    skupper init [--id <installation-name>]
+
 ### Install the infrastructure
 
 Run `skupper init` once for each namespace you wish to connect.
 
 <div class="code-block-label">Namespace 1</div>
 
-    $ skupper init
-    Skupper is now installed in '<ns1>'.  Use 'skupper status' to get more information.
+    skupper init
 
 <div class="code-block-label">Namespace 2</div>
 
-    $ skupper init
-    Skupper is now installed in '<ns2>'.  Use 'skupper status' to get more information.
+    skupper init
+
+You should see output like this:
+
+    Skupper is now installed in '<ns>'.  Use 'skupper status' to get more information.
 
 ### Check the infrastructure
 
@@ -246,7 +250,7 @@ Use the `skupper expose` command on namespace 1 to make
 
 <div class="code-block-label">Namespace 1</div>
 
-    skupper expose hello-world-backend
+    skupper expose deployment/hello-world-backend
 
 ### Check the service
 
@@ -292,7 +296,7 @@ You should see output like this:
     skupper init
     skupper connection-token ~/secret.yaml
     kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend --port 8080
-    skupper expose hello-world-backend
+    skupper expose deployment/hello-world-backend
 
 <div class="code-block-label">Namespace 2</div>
 
