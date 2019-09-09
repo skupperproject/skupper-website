@@ -270,46 +270,49 @@ Namespace '&lt;ns2&gt;' is ready.  It is connected to 1 other namespace.
 <h2 id="step-5-expose-your-services">Step 5: Expose your services</h2>
 
 <p>You now have a network capable of multi-cluster communication, but no
-services are attached to it.  This step uses the <code>skupper expose</code>
+services are attached to it.  This step uses the <code>kubectl annotate</code>
 command to make a Kubernetes service on one namespace available on all
 the connected namespaces.</p>
 
-<pre><code>skupper expose (&lt;service&gt;|&lt;deployment&gt;)
+<pre><code>kubectl annotate &lt;service&gt; skupper.io/proxy=(http|tcp)
 </code></pre>
 
 <h3 id="deploy-your-application">Deploy your application</h3>
 
 <p>To demonstrate service exposure, we need an application to work with.
 This guide uses an HTTP Hello World application with a backend and a
-frontend.  Use <code>kubectl run</code> to start the backend on namespace 1.</p>
+frontend.  Use <code>kubectl run</code> and <code>kubectl expose</code> to start the backend
+on namespace 1 and create a service for it.</p>
 
 <div class="code-block-label">Namespace 1</div>
 
 <pre><code>kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend --port 8080
+kubectl expose deployment/hello-world-backend
 </code></pre>
 
 <p>Use <code>kubectl run</code> to start the frontend on namespace 2.  Use <code>kubectl
-expose</code> to make the frontend externally accessible.</p>
+expose</code> with <code>--type LoadBalancer</code> to make the frontend externally
+accessible.</p>
 
 <div class="code-block-label">Namespace 2</div>
 
 <pre><code>kubectl run hello-world-frontend --image quay.io/skupper/hello-world-frontend --port 8080
-kubectl expose deployment/hello-world-frontend
+kubectl expose deployment/hello-world-frontend --type LoadBalancer
 </code></pre>
 
 <h3 id="expose-the-service">Expose the service</h3>
 
-<p>Use the <code>skupper expose</code> command on namespace 1 to make
+<p>Use the <code>kubectl annotate</code> command on namespace 1 to make
 <code>hello-world-backend</code> available on namespace 2.</p>
 
 <div class="code-block-label">Namespace 1</div>
 
-<pre><code>skupper expose deployment/hello-world-backend
+<pre><code>kubectl annotate service/hello-world-backend skupper.io/proxy=http
 </code></pre>
 
 <h3 id="check-the-service">Check the service</h3>
 
-<p>Use the <code>kubectl get services</code> command on namespace 2 to make sure the
+<p>Use <code>kubectl get services</code> on namespace 2 to make sure the
 <code>hello-world-backend</code> service from namespace 1 is represented.  You
 should see output like this:</p>
 
@@ -355,7 +358,8 @@ see it in action.</p>
 skupper init
 skupper connection-token ~/secret.yaml
 kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend --port 8080
-skupper expose deployment/hello-world-backend
+kubectl expose deployment/hello-world-backend
+kubectl annotate deployment/hello-world-backend skupper.io/proxy=http
 </code></pre>
 
 <div class="code-block-label">Namespace 2</div>
@@ -365,7 +369,7 @@ skupper expose deployment/hello-world-backend
 skupper init
 skupper connect ~/secret.yaml
 kubectl run hello-world-frontend --image quay.io/skupper/hello-world-frontend --port 8080
-kubectl expose deployment/hello-world-frontend
+kubectl expose deployment/hello-world-frontend --type LoadBalancer
 curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}/')
 </code></pre>
 
