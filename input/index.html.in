@@ -46,9 +46,12 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
       </div>
       <div>
         <h3>Advanced networking</h3>
-        <p>Connects multiple clusters, data centers, and regions for
-        hybrid-cloud and edge-to-edge communication</p>
-        <p>Transparent, low latency HTTP and TCP</p>
+        <p>Spans clusters, data centers, and regions</p>
+
+        <!--   for hybrid-cloud -->
+        <!-- and edge-to-edge communication</p> -->
+        <p>Transparent HTTP and TCP communication across public and
+        on-premise clouds</p>
         <p>Redundant routes for self-healing networks</p>
         <!-- <a class="nav" href="">Learn more</a> -->
       </div>
@@ -56,7 +59,8 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
         <h3>Unique capabilities</h3>
         <p>Global load balancing that responds to changes in service capacity</p>
         <p>Cost-based request routing</p>
-        <p>Enables secure access to private cloud services from any connected cluster</p>
+
+        <!-- <p>Enables secure access to private cloud services from any connected cluster</p> -->
         <!-- <p>Multicast HTTP request forwarding</p> -->
         <!-- <a class="nav" href="">Learn more</a> -->
       </nav>

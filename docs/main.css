@@ -32,6 +32,7 @@
   --link-color: rgba(60, 90, 180, 1.0);
   --code-label-fg-color: rgba(0, 0, 0, 0.9);
   --code-label-bg-color: rgba(0, 0, 0, 0.06);
+  --code-fg-color: rgba(0, 0, 0, 0.95);
   --code-bg-color: rgba(0, 0, 0, 0.02);
 }
 
@@ -67,12 +68,15 @@ body {
 
 code,
 pre {
-    font: 0.975em "Inconsolata", monospace;
+    color: var(--code-fg-color);
+    font: 0.9em "Roboto Mono", monospace;
+    font-weight: 400;
 }
 
 p code {
-    background-color: var(--code-bg-color);
+    background-color: rgba(0, 0, 0, 0.06);
     padding: 0 0.1em;
+    font-size: 0.8em;
 }
 
 pre {
@@ -101,6 +105,7 @@ h6 {
     font-family: "Alegreya Sans";
     font-weight: 600;
     position: relative;
+    margin-top: 1.2em;
 }
 
 /* h2 { */
@@ -205,6 +210,11 @@ header > div {
     padding: 1em;
     display: flex;
     align-items: center;
+}
+
+/* Should be just html, but chrome currently requires body */
+html, body {
+    scroll-padding-top: 5.5em;
 }
 
 section,

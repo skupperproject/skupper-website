@@ -73,11 +73,21 @@ footer {
     margin-bottom: 0.4em;
 }
 
-#-summary {
+#-summary-1 {
     font-size: 1.2em;
     font-weight: 400;
     line-height: 1.6em;
-    max-width: 28em;
+    max-width: 30em;
+    text-align: center;
+    margin-bottom: 0.4em;
+}
+
+#-summary-2 {
+    margin-top: 0.4em;
+    font-size: 1.2em;
+    font-weight: 400;
+    line-height: 1.6em;
+    max-width: 32em;
     text-align: center;
 }
 

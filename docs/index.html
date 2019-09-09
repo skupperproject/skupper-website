@@ -3,7 +3,7 @@
   <head>
     <title>Skupper - Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200italic,300,300italic,400,400italic,600,700,900|Inconsolata|Alegreya+Sans:400,600,700,800,900" type="text/css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200italic,300,300italic,400,400italic,600,700,900|Roboto+Mono:300,400,500,700|Alegreya+Sans:400,600,700,800,900" type="text/css"/>
     <link rel="stylesheet" href="https://skupperproject.github.io/skupper-website/main.css" type="text/css"/>
     <link rel="icon" href="" type="image/png"/>
     <script type="text/javascript" src="https://skupperproject.github.io/skupper-website/main.js" defer="defer"></script>
@@ -74,26 +74,34 @@
 </svg>
 
 
-    <p id="-summary">Skupper is a layer 7 service interconnect.  It
+    <p id="-summary-1">Skupper is a layer 7 service interconnect.  It
       securely connects services from multiple Kubernetes clusters
-      without using VPNs, SDN, or firewalls.  With Skupper you can
-      host your services anywhere: on the public cloud, the private
-      cloud, or the edge.
+      without using VPNs, SDN, or firewalls.
+    </p>
+
+    <p id="-summary-2">With Skupper you can host your services
+      anywhere&mdash;the public cloud, the private cloud, or the
+      edge&mdash;and they remain transparently connected.
     </p>
 
     <div id="-features">
       <div>
         <h3>Easy and secure setup</h3>
-        <p>Installation does not require administrator privileges</p>
-        <p>Skupper runs on any flavor of Kubernetes</p>
-        <p>Inter-cluster connections use mutual TLS authentication</p>
+        <p>Installation requires no administrator privileges</p>
+        <p>Runs on any flavor of Kubernetes and works with your
+        existing applications</p>
+        <p>The network is secured by mutual TLS authentication</p>
         <!-- <p>Application-level access control and resource limits</p> -->
-        <a class="nav" href="https://skupperproject.github.io/skupper-website/start/index.html">Try it</a>
+        <a class="nav" href="https://skupperproject.github.io/skupper-website/start/index.html">Get started</a>
       </div>
       <div>
         <h3>Advanced networking</h3>
-        <p>Connects multiple clusters, data centers, and regions</p>
-        <p>Low latency HTTP and TCP communication</p>
+        <p>Spans clusters, data centers, and regions</p>
+
+        <!--   for hybrid-cloud -->
+        <!-- and edge-to-edge communication</p> -->
+        <p>Transparent HTTP and TCP communication across public and
+        on-premise clouds</p>
         <p>Redundant routes for self-healing networks</p>
         <!-- <a class="nav" href="">Learn more</a> -->
       </div>
@@ -101,7 +109,8 @@
         <h3>Unique capabilities</h3>
         <p>Global load balancing that responds to changes in service capacity</p>
         <p>Cost-based request routing</p>
-        <p>Enables public cloud services to connect to private cloud services</p>
+
+        <!-- <p>Enables secure access to private cloud services from any connected cluster</p> -->
         <!-- <p>Multicast HTTP request forwarding</p> -->
         <!-- <a class="nav" href="">Learn more</a> -->
       </nav>
@@ -118,7 +127,7 @@
   <div>
     <iframe width="320" height="180" src="https://www.youtube.com/embed/AjPau5QYtYs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <div>
-      <h2>Share a database across clusters</h2>
+      <h2>Deploy a multi-cluster network</h2>
       <p>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
 interdum orci eget metus dapibus, dictum mollis est porta. Nullam eget
@@ -136,7 +145,7 @@ vestibulum ex. Proin lobortis urna.
   <div>
     <iframe width="320" height="180" src="https://www.youtube.com/embed/AjPau5QYtYs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <div>
-      <h2>Route API calls to multiple clusters</h2>
+      <h2>Access a database on the private cloud</h2>
       <p>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
 interdum orci eget metus dapibus, dictum mollis est porta. Nullam eget
@@ -154,7 +163,7 @@ vestibulum ex. Proin lobortis urna.
   <div>
     <iframe width="320" height="180" src="https://www.youtube.com/embed/AjPau5QYtYs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <div>
-      <h2>Define your network and onboard new clusters</h2>
+      <h2>Load balance API calls across clusters</h2>
       <p>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
 interdum orci eget metus dapibus, dictum mollis est porta. Nullam eget

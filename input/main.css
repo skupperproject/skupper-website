@@ -70,12 +70,13 @@ code,
 pre {
     color: var(--code-fg-color);
     font: 0.9em "Roboto Mono", monospace;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 p code {
     background-color: rgba(0, 0, 0, 0.06);
     padding: 0 0.1em;
+    font-size: 0.8em;
 }
 
 pre {
