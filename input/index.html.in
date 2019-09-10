@@ -56,7 +56,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
         <h3>Advanced routing</h3>
         <p>Redundant routes for high availability in the face of network failures</p>
         <p>Global load balancing that responds to changes in service capacity</p>
-        <p>Cost-based and locality-aware traffic control</p>
+        <p>Cost-based and locality-aware traffic forwarding</p>
         <!-- <p>Enables secure access to private cloud services from any connected cluster</p> -->
         <!-- <p>Multicast HTTP request forwarding</p> -->
         <!-- <a class="nav" href="">Learn more</a> -->
