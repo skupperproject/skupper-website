@@ -50,11 +50,11 @@ download it from GitHub and extract the executable using `tar` or
 
 <div class="code-block-label">Linux</div>
 
-    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.0.1-alpha/linux.tgz | tar -xzf -
+    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/linux.tgz | tar -xzf -
 
 <div class="code-block-label">macOS</div>
 
-    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.0.1-alpha/darwin.zip -o skupper.zip
+    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/darwin.zip -o skupper.zip
     unzip skupper.zip
 
 This produces an executable file named `skupper` in your current
@@ -290,7 +290,7 @@ You should see output like this:
 
 <div class="code-block-label">Skupper command installation</div>
 
-    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.0.1-alpha/linux.tgz | tar -xzf -
+    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/linux.tgz | tar -xzf -
 
 <div class="code-block-label">Namespace 1</div>
 
