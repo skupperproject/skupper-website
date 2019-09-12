@@ -133,12 +133,12 @@ Once you have logged in and set the current namespaces, use the
 `skupper status` command to check that each namespace is correctly
 configured.  You should see the following output:
 
-<div class="code-block-label">Namespace 1</div>
+<div class="code-block-label">Console for namespace 1</div>
 
     $ skupper status
     Skupper is not installed in 'ns1'.  Use 'skupper init' to install.
 
-<div class="code-block-label">Namespace 2</div>
+<div class="code-block-label">Console for namespace 2</div>
 
     $ skupper status
     Skupper is not installed in 'ns2'.  Use 'skupper init' to install.
