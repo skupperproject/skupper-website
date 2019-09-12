@@ -6,9 +6,9 @@ title: Getting started
 
 <nav class="toc">
   <a href="#prerequisites">Prerequisites</a>
-  <a href="#step-1-install-the-skupper-command-in-your-environment">Step 1: Install the Skupper command in your environment</a>
+  <a href="#step-1-install-the-skupper-command-line-tool-in-your-environment">Step 1: Install the Skupper command-line tool in your environment</a>
   <a href="#step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</a>
-  <a href="#step-3-install-skupper-in-each-namespace">Step 3: Install Skupper in each namespace</a>
+  <a href="#step-3-install-the-skupper-resources-in-each-namespace">Step 3: Install the Skupper resources in each namespace</a>
   <a href="#step-4-connect-your-namespaces">Step 4: Connect your namespaces</a>
   <a href="#step-5-expose-your-services">Step 5: Expose your services</a>
   <a href="#the-condensed-version">The condensed version</a>
@@ -18,8 +18,8 @@ title: Getting started
 ## Prerequisites
 
 To get started with Skupper, you must have access to at least two
-Kubernetes namespaces.  In the steps below, replace `ns1` and
-`ns2` with your chosen namespaces.
+Kubernetes namespaces.  In the steps below, replace `us-east` and
+`eu-north` with your chosen namespaces.
 
 Each namespace can reside on **any cluster you choose**, and **you are
 not limited to two**.  You can have one on your laptop, another on
@@ -27,15 +27,17 @@ Amazon, another on Google, and so on.  For convenience, you can have
 them all on one cluster.
 
 Skupper works with any flavor of Kubernetes.  Here are some of your
-options for setting up namespaces:
+options for setting up Kubernetes clusters:
 
  - [Minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/)
  - [Amazon EKS](https://aws.amazon.com/eks/getting-started/)
  - [Google GKE](https://cloud.google.com/kubernetes-engine/docs/quickstart)
  - [Microsoft AKS](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes)
+ - [OKD](https://www.okd.io/)
  - [Red Hat OpenShift](https://www.openshift.com/learn/get-started/)
+ - [More cloud providers](https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/)
 
-## Step 1: Install the Skupper command in your environment
+## Step 1: Install the Skupper command-line tool in your environment
 
 The `skupper` command-line tool is the primary entrypoint for
 installing and configuring the Skupper infrastructure.  You need to
@@ -92,13 +94,13 @@ separate console sessions.
 Start a console session for each of your namespaces.  Set the
 `KUBECONFIG` environment variable to a different path in each session.
 
-<div class="code-block-label">Console session for namespace 1</div>
+<div class="code-block-label">Console session for US East</div>
 
-    export KUBECONFIG=$HOME/.kube/config-ns1
+    export KUBECONFIG=$HOME/.kube/config-us-east
 
-<div class="code-block-label">Console session for namespace 2</div>
+<div class="code-block-label">Console session for EU North</div>
 
-    export KUBECONFIG=$HOME/.kube/config-ns2
+    export KUBECONFIG=$HOME/.kube/config-eu-north
 
 ### Log in to your clusters
 
@@ -109,23 +111,24 @@ See the following links for more information:
  - [Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html)
  - [Google GKE](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl)
  - [Microsoft AKS](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster)
+ - [OKD](https://docs.okd.io/latest/cli_reference/get_started_cli.html#basic-setup-and-login)
  - [Red Hat OpenShift](https://docs.openshift.com/container-platform/4.1/cli_reference/getting-started-cli.html#cli-logging-in_cli-developer-commands)
 
 ### Set the current namespaces
 
-If necessary, use `kubectl create namespace` to create the namespaces
-you wish to use.  Use `kubectl config set-context` to set the current
-namespace for each session.
+Use `kubectl create namespace` to create the namespaces you wish to
+use.  Use `kubectl config set-context` to set the current namespace
+for each session.
 
-<div class="code-block-label">Console for namespace 1</div>
+<div class="code-block-label">Console for US East</div>
 
-    kubectl create namespace ns1
-    kubectl config set-context --current --namespace ns1
+    kubectl create namespace us-east
+    kubectl config set-context --current --namespace us-east
 
-<div class="code-block-label">Console for namespace 2</div>
+<div class="code-block-label">Console for EU North</div>
 
-    kubectl create namespace ns2
-    kubectl config set-context --current --namespace ns2
+    kubectl create namespace eu-north
+    kubectl config set-context --current --namespace eu-north
 
 ### Check your configurations
 
@@ -133,82 +136,77 @@ Once you have logged in and set the current namespaces, use the
 `skupper status` command to check that each namespace is correctly
 configured.  You should see the following output:
 
-<div class="code-block-label">Console for namespace 1</div>
+<div class="code-block-label">Console for US East</div>
 
     $ skupper status
-    Skupper is not installed in 'ns1'.  Use 'skupper init' to install.
+    Skupper is not installed in 'us-east'.  Use 'skupper init' to install.
 
-<div class="code-block-label">Console for namespace 2</div>
+<div class="code-block-label">Console for EU North</div>
 
     $ skupper status
-    Skupper is not installed in 'ns2'.  Use 'skupper init' to install.
+    Skupper is not installed in 'eu-north'.  Use 'skupper init' to install.
 
-## Step 3: Install Skupper in each namespace
+## Step 3: Install the Skupper resources in each namespace
 
 The `skupper init` command installs the Skupper router, proxy, and
 related resources in the current namespace.
 
     skupper init [--id <installation-name>]
 
-### Install the infrastructure
+### Install the resources
 
 Run `skupper init` once for each namespace you wish to connect.
 
-<div class="code-block-label">Namespace 1</div>
+<div class="code-block-label">US East</div>
 
     skupper init
 
-<div class="code-block-label">Namespace 2</div>
+<div class="code-block-label">EU North</div>
 
     skupper init
 
-You should see output like this:
-
-    Skupper is now installed in '<ns>'.  Use 'skupper status' to get more information.
-
-### Check the infrastructure
+### Check the installation
 
 To check the status of each namespace, use the `skupper status`
 command.
 
-<div class="code-block-label">Namespace 1</div>
+<div class="code-block-label">US East</div>
 
     $ skupper status
-    Namespace 'ns1' is ready.  It is connected to 0 other namespaces.
+    Namespace 'us-east' is ready.  It is connected to 0 other namespaces.
 
-<div class="code-block-label">Namespace 2</div>
+<div class="code-block-label">EU North</div>
 
     $ skupper status
-    Namespace 'ns2' is ready.  It is connected to 0 other namespaces.
+    Namespace 'eu-north' is ready.  It is connected to 0 other namespaces.
 
 ## Step 4: Connect your namespaces
 
 After installation, you have the infrastructure you need, but your
 namespaces are not connected.  Creating a connection requires use of
-two `skupper` commands in conjunction:
-
-    skupper connection-token <output-token-file>
-    skupper connect <input-token-file>
+two `skupper` commands in conjunction, `skupper connection-token` and
+`skupper connect`.
 
 The `skupper connection-token` command generates a secret token that
 signifies permission to connect.  The token also carries the
-connection details.  Anyone who has it can use the `skupper connect`
-command to establish a connection from another namespace.
+connection details.  The `skupper connect` command uses the connection
+token to establish a connection to the namespace that generated it.
 
 ### Generate a connection token
 
-Use the `skupper connection-token` command to generate a token.
+On `us-east`, use the `skupper connection-token` command to generate a
+token.
 
-<div class="code-block-label">Namespace 1</div>
+<div class="code-block-label">US East</div>
 
     skupper connection-token $HOME/secret.yaml
 
 ### Use the token to form a connection
 
 With the token in hand, you are ready to connect.  Pass the token from
-namespace 1 to the `skupper connect` command in namespace 2.
+`us-east` to the `skupper connect` command on `eu-north`.
 
-<div class="code-block-label">Namespace 2</div>
+<div class="code-block-label">EU North</div>
 
     skupper connect $HOME/secret.yaml
 
@@ -217,22 +215,22 @@ namespace 1 to the `skupper connect` command in namespace 2.
 Use the `skupper status` command again to see if things have changed.
 If the connection is made, you should see the following output:
 
-<div class="code-block-label">Namespace 1</div>
+<div class="code-block-label">US East</div>
 
     $ skupper status
-    Namespace 'ns1' is ready.  It is connected to 1 other namespace.
+    Namespace 'us-east' is ready.  It is connected to 1 other namespace.
 
-<div class="code-block-label">Namespace 2</div>
+<div class="code-block-label">EU North</div>
 
     $ skupper status
-    Namespace 'ns2' is ready.  It is connected to 1 other namespace.
+    Namespace 'eu-north' is ready.  It is connected to 1 other namespace.
 
 ## Step 5: Expose your services
 
-You now have a network capable of multi-cluster communication, but no
-services are attached to it.  This step uses the `kubectl annotate`
-command to make a Kubernetes service on one namespace available on all
-the connected namespaces.
+You now have a Skupper network capable of multi-cluster communication,
+but no services are attached to it.  This step uses the `kubectl
+annotate` command to make a Kubernetes service on one namespace
+available on all the connected namespaces.
 
     kubectl annotate <service> skupper.io/proxy=(http|tcp)
 
@@ -241,38 +239,38 @@ the connected namespaces.
 To demonstrate service exposure, we need an application to work with.
 This guide uses an HTTP Hello World application with a backend and a
 frontend.  Use `kubectl run` and `kubectl expose` to start the backend
-on namespace 1 and create a service for it.
+on `us-east` and create a service for it.
 
-<div class="code-block-label">Namespace 1</div>
+<div class="code-block-label">US East</div>
 
     kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend --port 8080
     kubectl expose deployment/hello-world-backend
 
-Use `kubectl run` to start the frontend on namespace 2.  Use `kubectl
+Use `kubectl run` to start the frontend on `eu-north`.  Use `kubectl
 expose` with `--type LoadBalancer` to make the frontend externally
 accessible.
 
-<div class="code-block-label">Namespace 2</div>
+<div class="code-block-label">EU North</div>
 
     kubectl run hello-world-frontend --image quay.io/skupper/hello-world-frontend --port 8080
     kubectl expose deployment/hello-world-frontend --type LoadBalancer
 
 ### Expose the service
 
-Use the `kubectl annotate` command on namespace 1 to make
-`hello-world-backend` available on namespace 2.
+Use the `kubectl annotate` command on `us-east` to make
+`hello-world-backend` available on `eu-north`.
 
-<div class="code-block-label">Namespace 1</div>
+<div class="code-block-label">US East</div>
 
     kubectl annotate service/hello-world-backend skupper.io/proxy=http
 
 ### Check the service
 
-Use `kubectl get services` on namespace 2 to make sure the
-`hello-world-backend` service from namespace 1 is represented.  You
+Use `kubectl get services` on `eu-north` to make sure the
+`hello-world-backend` service from `us-east` is represented.  You
 should see output like this:
 
-<div class="code-block-label">Namespace 2</div>
+<div class="code-block-label">EU North</div>
 
     $ kubectl get services
     NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)          AGE
@@ -289,7 +287,7 @@ you need to use the `minikube tunnel` command to provide ingress.
 Now your multi-cluster application is up and running.  Use `curl` to
 see it in action.
 
-<div class="code-block-label">Namespace 2</div>
+<div class="code-block-label">EU North</div>
 
     curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}/')
 
@@ -303,24 +301,24 @@ You should see output like this:
 
     curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/linux.tgz | tar -xzf -
 
-<div class="code-block-label">Namespace 1</div>
+<div class="code-block-label">US East</div>
 
-    export KUBECONFIG=~/.kube/config-ns1
+    export KUBECONFIG=~/.kube/config-us-east
     <provider-login-command>
-    kubectl create namespace ns1
-    kubectl config set-context --current --namespace ns1
+    kubectl create namespace us-east
+    kubectl config set-context --current --namespace us-east
     skupper init
     skupper connection-token ~/secret.yaml
     kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend --port 8080
     kubectl expose deployment/hello-world-backend
     kubectl annotate service/hello-world-backend skupper.io/proxy=http
 
-<div class="code-block-label">Namespace 2</div>
+<div class="code-block-label">EU North</div>
 
-    export KUBECONFIG=~/.kube/config-ns2
+    export KUBECONFIG=~/.kube/config-eu-north
     <provider-login-command>
-    kubectl create namespace ns2
-    kubectl config set-context --current --namespace ns2
+    kubectl create namespace eu-north
+    kubectl config set-context --current --namespace eu-north
     skupper init
     skupper connect ~/secret.yaml
     kubectl run hello-world-frontend --image quay.io/skupper/hello-world-frontend --port 8080
