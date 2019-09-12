@@ -34,9 +34,9 @@
 
 <nav class="toc">
   <a href="#prerequisites">Prerequisites</a>
-  <a href="#step-1-install-the-skupper-command">Step 1: Install the Skupper command</a>
+  <a href="#step-1-install-the-skupper-command-in-your-environment">Step 1: Install the Skupper command in your environment</a>
   <a href="#step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</a>
-  <a href="#step-3-establish-the-skupper-infrastructure-in-each-namespace">Step 3: Establish the Skupper infrastructure in each namespace</a>
+  <a href="#step-3-install-skupper-in-each-namespace">Step 3: Install Skupper in each namespace</a>
   <a href="#step-4-connect-your-namespaces">Step 4: Connect your namespaces</a>
   <a href="#step-5-expose-your-services">Step 5: Expose your services</a>
   <a href="#the-condensed-version">The condensed version</a>
@@ -65,7 +65,7 @@ options for setting up namespaces:</p>
 <li><a href="https://www.openshift.com/learn/get-started/">Red Hat OpenShift</a></li>
 </ul>
 
-<h2 id="step-1-install-the-skupper-command">Step 1: Install the Skupper command</h2>
+<h2 id="step-1-install-the-skupper-command-in-your-environment">Step 1: Install the Skupper command in your environment</h2>
 
 <p>The <code>skupper</code> command-line tool is the primary entrypoint for
 installing and configuring the Skupper infrastructure.  You need to
@@ -104,15 +104,11 @@ mv skupper $HOME/bin
 
 <h3 id="check-the-command">Check the command</h3>
 
-<p>To test your installation, run the <code>skupper</code> command with no
-arguments.  You should see a usage summary.</p>
+<p>To test your installation, run the <code>skupper --version</code> command.  You
+should see output like this:</p>
 
-<pre><code>$ skupper
-Usage:
-  skupper [command]
-
-Available Commands:
-[...]
+<pre><code>$ skupper --version
+skupper version &lt;version&gt;
 </code></pre>
 
 <h2 id="step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</h2>
@@ -140,7 +136,7 @@ separate console sessions.</p>
 <pre><code>export KUBECONFIG=$HOME/.kube/config-ns2
 </code></pre>
 
-<h3 id="log-in-and-set-your-namespaces">Log in and set your namespaces</h3>
+<h3 id="log-in-to-your-clusters">Log in to your clusters</h3>
 
 <p>The methods for logging in are specific to your Kubernetes provider.
 See the following links for more information:</p>
@@ -153,24 +149,29 @@ See the following links for more information:</p>
 <li><a href="https://docs.openshift.com/container-platform/4.1/cli_reference/getting-started-cli.html#cli-logging-in_cli-developer-commands">Red Hat OpenShift</a></li>
 </ul>
 
-<p>Some providers have conveniences for setting the current namespace,
-but you can also set it (somewhat laboriously) using <code>kubectl</code>.</p>
+<h3 id="set-the-current-namespaces">Set the current namespaces</h3>
 
-<div class="code-block-label">Namespace 1</div>
+<p>If necessary, use <code>kubectl create namespace</code> to create the namespaces
+you wish to use.  Use <code>kubectl config set-context</code> to set the current
+namespace for each session.</p>
 
-<pre><code>kubectl config set-context --current --namespace ns1
+<div class="code-block-label">Console for namespace 1</div>
+
+<pre><code>kubectl create namespace ns1
+kubectl config set-context --current --namespace ns1
 </code></pre>
 
-<div class="code-block-label">Namespace 2</div>
+<div class="code-block-label">Console for namespace 2</div>
 
-<pre><code>kubectl config set-context --current --namespace ns2
+<pre><code>kubectl create namespace ns2
+kubectl config set-context --current --namespace ns2
 </code></pre>
 
 <h3 id="check-your-configurations">Check your configurations</h3>
 
-<p>Once you have logged in, use the <code>skupper status</code> command to check
-that each namespace is correctly configured.  You should see the
-following output:</p>
+<p>Once you have logged in and set the current namespaces, use the
+<code>skupper status</code> command to check that each namespace is correctly
+configured.  You should see the following output:</p>
 
 <div class="code-block-label">Namespace 1</div>
 
@@ -184,7 +185,7 @@ Skupper is not installed in 'ns1'.  Use 'skupper init' to install.
 Skupper is not installed in 'ns2'.  Use 'skupper init' to install.
 </code></pre>
 
-<h2 id="step-3-establish-the-skupper-infrastructure-in-each-namespace">Step 3: Establish the Skupper infrastructure in each namespace</h2>
+<h2 id="step-3-install-skupper-in-each-namespace">Step 3: Install Skupper in each namespace</h2>
 
 <p>The <code>skupper init</code> command installs the Skupper router, proxy, and
 related resources in the current namespace.</p>
@@ -367,6 +368,8 @@ see it in action.</p>
 
 <pre><code>export KUBECONFIG=~/.kube/config-ns1
 &lt;provider-login-command&gt;
+kubectl create namespace ns1
+kubectl config set-context --current --namespace ns1
 skupper init
 skupper connection-token ~/secret.yaml
 kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend --port 8080
@@ -378,6 +381,8 @@ kubectl annotate service/hello-world-backend skupper.io/proxy=http
 
 <pre><code>export KUBECONFIG=~/.kube/config-ns2
 &lt;provider-login-command&gt;
+kubectl create namespace ns2
+kubectl config set-context --current --namespace ns2
 skupper init
 skupper connect ~/secret.yaml
 kubectl run hello-world-frontend --image quay.io/skupper/hello-world-frontend --port 8080
