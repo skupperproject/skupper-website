@@ -62,12 +62,12 @@ directory.
 
 ### Place the command on your path
 
-The subsequent steps assume `skupper` is on your path.  As an
-example, this is how you might install it in your home directory:
+The subsequent steps assume `skupper` is on your path.  For example,
+this is how you might install it in your home directory:
 
-    mkdir -p ~/bin
-    export PATH=$PATH:~/bin
-    mv skupper ~/bin
+    mkdir -p $HOME/bin
+    export PATH=$PATH:$HOME/bin
+    mv skupper $HOME/bin
 
 ### Check the command
 
@@ -94,27 +94,37 @@ separate console sessions.
 ### Configure separate console sessions
 
 Start a console session for each of your namespaces.  Set the
-`KUBECONFIG` environment variable to a different path in each session:
+`KUBECONFIG` environment variable to a different path in each session.
 
 <div class="code-block-label">Console session for namespace 1</div>
 
-    export KUBECONFIG=~/.kube/config-ns1
+    export KUBECONFIG=$HOME/.kube/config-ns1
 
 <div class="code-block-label">Console session for namespace 2</div>
 
-    export KUBECONFIG=~/.kube/config-ns2
+    export KUBECONFIG=$HOME/.kube/config-ns2
 
 ### Log in and set your namespaces
 
-The methods for logging in and setting the current namespace are
-specific to your Kubernetes provider.  See the following links for
-more information:
+The methods for logging in are specific to your Kubernetes provider.
+See the following links for more information:
 
  - [Vanilla Kubernetes (including Minikube)](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
  - [Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html)
  - [Google GKE](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl)
  - [Microsoft AKS](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster)
  - [Red Hat OpenShift](https://docs.openshift.com/container-platform/4.1/cli_reference/getting-started-cli.html#cli-logging-in_cli-developer-commands)
+
+Some providers have conveniences for setting the current namespace,
+but you can also set it (somewhat laboriously) using `kubectl`.
+
+<div class="code-block-label">Namespace 1</div>
+
+    kubectl config set-context --current --namespace ns1
+
+<div class="code-block-label">Namespace 2</div>
+
+    kubectl config set-context --current --namespace ns2
 
 ### Check your configurations
 
@@ -190,7 +200,7 @@ Use the `skupper connection-token` command to generate a token.
 
 <div class="code-block-label">Namespace 1</div>
 
-    skupper connection-token ~/secret.yaml
+    skupper connection-token $HOME/secret.yaml
 
 ### Use the token to form a connection
 
@@ -199,7 +209,7 @@ namespace 1 to the `skupper connect` command in namespace 2.
 
 <div class="code-block-label">Namespace 2</div>
 
-    skupper connect ~/secret.yaml
+    skupper connect $HOME/secret.yaml
 
 ### Check the connection
 
@@ -300,7 +310,7 @@ You should see output like this:
     skupper connection-token ~/secret.yaml
     kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend --port 8080
     kubectl expose deployment/hello-world-backend
-    kubectl annotate deployment/hello-world-backend skupper.io/proxy=http
+    kubectl annotate service/hello-world-backend skupper.io/proxy=http
 
 <div class="code-block-label">Namespace 2</div>
 
