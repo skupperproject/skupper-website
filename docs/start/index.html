@@ -46,8 +46,8 @@
 <h2 id="prerequisites">Prerequisites</h2>
 
 <p>To get started with Skupper, you must have access to at least two
-Kubernetes namespaces.  In the steps below, replace <code>&lt;ns1&gt;</code> and
-<code>&lt;ns2&gt;</code> with your chosen namespaces.</p>
+Kubernetes namespaces.  In the steps below, replace <code>ns1</code> and
+<code>ns2</code> with your chosen namespaces.</p>
 
 <p>Each namespace can reside on <strong>any cluster you choose</strong>, and <strong>you are
 not limited to two</strong>.  You can have one on your laptop, another on
@@ -132,12 +132,12 @@ separate console sessions.</p>
 
 <div class="code-block-label">Console session for namespace 1</div>
 
-<pre><code>export KUBECONFIG=~/.kube/config-&lt;ns1&gt;
+<pre><code>export KUBECONFIG=~/.kube/config-ns1
 </code></pre>
 
 <div class="code-block-label">Console session for namespace 2</div>
 
-<pre><code>export KUBECONFIG=~/.kube/config-&lt;ns2&gt;
+<pre><code>export KUBECONFIG=~/.kube/config-ns2
 </code></pre>
 
 <h3 id="log-in-and-set-your-namespaces">Log in and set your namespaces</h3>
@@ -163,13 +163,13 @@ following output:</p>
 <div class="code-block-label">Namespace 1</div>
 
 <pre><code>$ skupper status
-Skupper is not installed in '&lt;ns1&gt;'.  Use 'skupper init' to install.
+Skupper is not installed in 'ns1'.  Use 'skupper init' to install.
 </code></pre>
 
 <div class="code-block-label">Namespace 2</div>
 
 <pre><code>$ skupper status
-Skupper is not installed in '&lt;ns2&gt;'.  Use 'skupper init' to install.
+Skupper is not installed in 'ns2'.  Use 'skupper init' to install.
 </code></pre>
 
 <h2 id="step-3-establish-the-skupper-infrastructure-in-each-namespace">Step 3: Establish the Skupper infrastructure in each namespace</h2>
@@ -207,13 +207,13 @@ command.</p>
 <div class="code-block-label">Namespace 1</div>
 
 <pre><code>$ skupper status
-Namespace '&lt;ns1&gt;' is ready.  It is connected to 0 other namespaces.
+Namespace 'ns1' is ready.  It is connected to 0 other namespaces.
 </code></pre>
 
 <div class="code-block-label">Namespace 2</div>
 
 <pre><code>$ skupper status
-Namespace '&lt;ns2&gt;' is ready.  It is connected to 0 other namespaces.
+Namespace 'ns2' is ready.  It is connected to 0 other namespaces.
 </code></pre>
 
 <h2 id="step-4-connect-your-namespaces">Step 4: Connect your namespaces</h2>
@@ -258,13 +258,13 @@ If the connection is made, you should see the following output:</p>
 <div class="code-block-label">Namespace 1</div>
 
 <pre><code>$ skupper status
-Namespace '&lt;ns1&gt;' is ready.  It is connected to 1 other namespace.
+Namespace 'ns1' is ready.  It is connected to 1 other namespace.
 </code></pre>
 
 <div class="code-block-label">Namespace 2</div>
 
 <pre><code>$ skupper status
-Namespace '&lt;ns2&gt;' is ready.  It is connected to 1 other namespace.
+Namespace 'ns2' is ready.  It is connected to 1 other namespace.
 </code></pre>
 
 <h2 id="step-5-expose-your-services">Step 5: Expose your services</h2>
@@ -353,7 +353,7 @@ see it in action.</p>
 
 <div class="code-block-label">Namespace 1</div>
 
-<pre><code>export KUBECONFIG=~/.kube/config-&lt;ns1&gt;
+<pre><code>export KUBECONFIG=~/.kube/config-ns1
 &lt;provider-login-command&gt;
 skupper init
 skupper connection-token ~/secret.yaml
@@ -364,7 +364,7 @@ kubectl annotate deployment/hello-world-backend skupper.io/proxy=http
 
 <div class="code-block-label">Namespace 2</div>
 
-<pre><code>export KUBECONFIG=~/.kube/config-&lt;ns2&gt;
+<pre><code>export KUBECONFIG=~/.kube/config-ns2
 &lt;provider-login-command&gt;
 skupper init
 skupper connect ~/secret.yaml
