@@ -238,22 +238,22 @@ available on all the connected namespaces.
 
 To demonstrate service exposure, we need an application to work with.
 This guide uses an HTTP Hello World application with a backend and a
-frontend.  Use `kubectl run` and `kubectl expose` to start the backend
-on `us-east` and create a service for it.
+frontend.  Use `kubectl create deployment` and `kubectl expose` to
+start the backend on `us-east` and create a service for it.
 
 <div class="code-block-label">US East</div>
 
-    kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend --port 8080
-    kubectl expose deployment/hello-world-backend
+    kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
+    kubectl expose deployment/hello-world-backend --port 8080
 
-Use `kubectl run` to start the frontend on `eu-north`.  Use `kubectl
-expose` with `--type LoadBalancer` to make the frontend externally
-accessible.
+Then, use `kubectl create deployment` to start the frontend on
+`eu-north`.  Use `kubectl expose` with `--type LoadBalancer` to make
+the frontend externally accessible.
 
 <div class="code-block-label">EU North</div>
 
-    kubectl run hello-world-frontend --image quay.io/skupper/hello-world-frontend --port 8080
-    kubectl expose deployment/hello-world-frontend --type LoadBalancer
+    kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
+    kubectl expose deployment/hello-world-frontend --type LoadBalancer --port 8080
 
 ### Expose the service
 
@@ -309,8 +309,8 @@ You should see output like this:
     kubectl config set-context --current --namespace us-east
     skupper init
     skupper connection-token ~/secret.yaml
-    kubectl run hello-world-backend --image quay.io/skupper/hello-world-backend --port 8080
-    kubectl expose deployment/hello-world-backend
+    kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
+    kubectl expose deployment/hello-world-backend --port 8080
     kubectl annotate service/hello-world-backend skupper.io/proxy=http
 
 <div class="code-block-label">EU North</div>
@@ -321,8 +321,8 @@ You should see output like this:
     kubectl config set-context --current --namespace eu-north
     skupper init
     skupper connect ~/secret.yaml
-    kubectl run hello-world-frontend --image quay.io/skupper/hello-world-frontend --port 8080
-    kubectl expose deployment/hello-world-frontend --type LoadBalancer
+    kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
+    kubectl expose deployment/hello-world-frontend --type LoadBalancer --port 8080
     curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}/')
 
 ## Next steps
