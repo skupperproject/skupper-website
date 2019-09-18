@@ -10,7 +10,7 @@ title: Examples
   <a href="#accessing-a-postgresql-database">Accessing a PostgreSQL database</a>
   <a href="#deploying-a-mongodb-replica-set">Deploying a MongoDB replica set</a>
   <a href="#deploying-the-istio-bookinfo-example">Deploying the Istio Bookinfo example</a>
-  <a href="#measuring-tcp-throughput-with-iperf">Measuring TCP throughput with iperf</a>
+  <!-- <a href="#measuring-tcp-throughput-with-iperf">Measuring TCP throughput with iperf</a> -->
 </nav>
 
 ### Hello World
@@ -64,15 +64,15 @@ running in several public and private clouds.
   <a href="https://github.com/skupperproject/skupper-example-bookinfo">Example code</a>
 </nav>
 
-### Measuring TCP throughput with iperf
+<!-- ### Measuring TCP throughput with iperf -->
 
-Learn how to perform real-time network throughput measurements on an
-application router network using the `iperf3` tool.
+<!-- Learn how to perform real-time network throughput measurements on an -->
+<!-- application router network using the `iperf3` tool. -->
 
-<nav class="links">
-  <a href="https://github.com/skupperproject/skupper-example-iperf">Tutorial</a>
-  <a href="https://github.com/skupperproject/skupper-example-iperf">Example code</a>
-</nav>
+<!-- <nav class="links"> -->
+<!--   <a href="https://github.com/skupperproject/skupper-example-iperf">Tutorial</a> -->
+<!--   <a href="https://github.com/skupperproject/skupper-example-iperf">Example code</a> -->
+<!-- </nav> -->
 
 ;;<h2 class="example-category">Performance and load testing</h2>
 ;;<h2 class="example-category">Minimal examples</h2>
