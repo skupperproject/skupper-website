@@ -77,7 +77,7 @@ To test your installation, run the `skupper --version` command.  You
 should see output like this:
 
     $ skupper --version
-    skupper version <version>
+    skupper version {{skupper_cli_release}}
 
 ## Step 2: Configure access to multiple namespaces
 
