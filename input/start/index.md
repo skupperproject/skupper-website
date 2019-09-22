@@ -53,11 +53,11 @@ To get the latest release of the Skupper command for your platform,
 download it from GitHub and extract the executable using `tar` or
 `unzip`.
 
-<div class="code-block-label">Linux</div>
+<div class="code-label">Linux</div>
 
     curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/linux.tgz | tar -xzf -
 
-<div class="code-block-label">macOS</div>
+<div class="code-label">macOS</div>
 
     curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/darwin.zip -o skupper.zip
     unzip skupper.zip
@@ -97,11 +97,11 @@ separate console sessions.
 Start a console session for each of your namespaces.  Set the
 `KUBECONFIG` environment variable to a different path in each session.
 
-<div class="code-block-label">Console session for US East</div>
+<div class="code-label session-1">Console session for US East</div>
 
     export KUBECONFIG=$HOME/.kube/config-us-east
 
-<div class="code-block-label">Console session for EU North</div>
+<div class="code-label session-2">Console session for EU North</div>
 
     export KUBECONFIG=$HOME/.kube/config-eu-north
 
@@ -126,12 +126,12 @@ Use `kubectl create namespace` to create the namespaces you wish to
 use.  Use `kubectl config set-context` to set the current namespace
 for each session.
 
-<div class="code-block-label">Console for US East</div>
+<div class="code-label session-1">Console for US East</div>
 
     kubectl create namespace us-east
     kubectl config set-context --current --namespace us-east
 
-<div class="code-block-label">Console for EU North</div>
+<div class="code-label session-2">Console for EU North</div>
 
     kubectl create namespace eu-north
     kubectl config set-context --current --namespace eu-north
@@ -142,12 +142,12 @@ Once you have logged in and set the current namespaces, use the
 `skupper status` command to check that each namespace is correctly
 configured.  You should see the following output:
 
-<div class="code-block-label">Console for US East</div>
+<div class="code-label session-1">Console for US East</div>
 
     $ skupper status
     Skupper is not installed in 'us-east'.  Use 'skupper init' to install.
 
-<div class="code-block-label">Console for EU North</div>
+<div class="code-label session-2">Console for EU North</div>
 
     $ skupper status
     Skupper is not installed in 'eu-north'.  Use 'skupper init' to install.
@@ -163,11 +163,11 @@ related resources in the current namespace.
 
 Run `skupper init` once for each namespace you wish to connect.
 
-<div class="code-block-label">US East</div>
+<div class="code-label session-1">US East</div>
 
     skupper init
 
-<div class="code-block-label">EU North</div>
+<div class="code-label session-2">EU North</div>
 
     skupper init
 
@@ -176,12 +176,12 @@ Run `skupper init` once for each namespace you wish to connect.
 To check the status of each namespace, use the `skupper status`
 command.
 
-<div class="code-block-label">US East</div>
+<div class="code-label session-1">US East</div>
 
     $ skupper status
     Namespace 'us-east' is ready.  It is connected to 0 other namespaces.
 
-<div class="code-block-label">EU North</div>
+<div class="code-label session-2">EU North</div>
 
     $ skupper status
     Namespace 'eu-north' is ready.  It is connected to 0 other namespaces.
@@ -203,7 +203,7 @@ token to establish a connection to the namespace that generated it.
 On `us-east`, use the `skupper connection-token` command to generate a
 token.
 
-<div class="code-block-label">US East</div>
+<div class="code-label session-1">US East</div>
 
     skupper connection-token $HOME/secret.yaml
 
@@ -212,7 +212,7 @@ token.
 With the token in hand, you are ready to connect.  Pass the token from
 `us-east` to the `skupper connect` command on `eu-north`.
 
-<div class="code-block-label">EU North</div>
+<div class="code-label session-2">EU North</div>
 
     skupper connect $HOME/secret.yaml
 
@@ -221,12 +221,12 @@ With the token in hand, you are ready to connect.  Pass the token from
 Use the `skupper status` command again to see if things have changed.
 If the connection is made, you should see the following output:
 
-<div class="code-block-label">US East</div>
+<div class="code-label session-1">US East</div>
 
     $ skupper status
     Namespace 'us-east' is ready.  It is connected to 1 other namespace.
 
-<div class="code-block-label">EU North</div>
+<div class="code-label session-2">EU North</div>
 
     $ skupper status
     Namespace 'eu-north' is ready.  It is connected to 1 other namespace.
@@ -251,7 +251,7 @@ namespace, and the frontend in the `eu-north` namespace.
 Use `kubectl create deployment` and `kubectl expose` to
 start the backend on `us-east` and create a service for it.
 
-<div class="code-block-label">US East</div>
+<div class="code-label session-1">US East</div>
 
     kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
     kubectl expose deployment/hello-world-backend --port 8080
@@ -260,7 +260,7 @@ Then, use `kubectl create deployment` to start the frontend on
 `eu-north`.  Use `kubectl expose` with `--type LoadBalancer` to make
 the frontend externally accessible.
 
-<div class="code-block-label">EU North</div>
+<div class="code-label session-2">EU North</div>
 
     kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
     kubectl expose deployment/hello-world-frontend --port 8080 --type LoadBalancer
@@ -276,7 +276,7 @@ Skupper uses an annotation to select services for availability on the
 Skupper network.  Use the `kubectl annotate` command on `us-east` to
 make `hello-world-backend` available on `eu-north`.
 
-<div class="code-block-label">US East</div>
+<div class="code-label session-1">US East</div>
 
     kubectl annotate service/hello-world-backend skupper.io/proxy=http
 
@@ -286,7 +286,7 @@ Use `kubectl get services` on `eu-north` to make sure the
 `hello-world-backend` service from `us-east` is represented.  You
 should see output like this:
 
-<div class="code-block-label">EU North</div>
+<div class="code-label session-2">EU North</div>
 
     $ kubectl get services
     NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)          AGE
@@ -300,7 +300,7 @@ should see output like this:
 Now your multi-cluster application is up and running.  Use `curl` to
 see it in action.
 
-<div class="code-block-label">EU North</div>
+<div class="code-label session-2">EU North</div>
 
     curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}/')
 
@@ -316,11 +316,11 @@ you need to use the `minikube tunnel` command to provide ingress.
 
 ## The condensed version
 
-<div class="code-block-label">Skupper command installation</div>
+<div class="code-label">Skupper command installation</div>
 
     curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/linux.tgz | tar -xzf -
 
-<div class="code-block-label">US East</div>
+<div class="code-label session-1">US East</div>
 
     export KUBECONFIG=~/.kube/config-us-east
     <provider-login-command>
@@ -332,7 +332,7 @@ you need to use the `minikube tunnel` command to provide ingress.
     kubectl expose deployment/hello-world-backend --port 8080
     kubectl annotate service/hello-world-backend skupper.io/proxy=http
 
-<div class="code-block-label">EU North</div>
+<div class="code-label session-2">EU North</div>
 
     export KUBECONFIG=~/.kube/config-eu-north
     <provider-login-command>
@@ -349,13 +349,13 @@ you need to use the `minikube tunnel` command to provide ingress.
 To remove Skupper and the other resources from this exercise, use
 the following commands:
 
-<div class="code-block-label">US East</div>
+<div class="code-label session-1">US East</div>
 
     skupper delete
     kubectl delete service/hello-world-backend
     kubectl delete deployment/hello-world-backend
 
-<div class="code-block-label">EU North</div>
+<div class="code-label session-2">EU North</div>
 
     skupper delete
     kubectl delete service/hello-world-frontend
