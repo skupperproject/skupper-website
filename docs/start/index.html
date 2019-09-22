@@ -47,6 +47,7 @@
   <a href="#step-4-connect-your-namespaces">Step 4: Connect your namespaces</a>
   <a href="#step-5-expose-your-services">Step 5: Expose your services</a>
   <a href="#the-condensed-version">The condensed version</a>
+  <a href="#cleaning-up">Cleaning up</a>
   <a href="#next-steps">Next steps</a>
 </nav>
 
@@ -73,6 +74,8 @@ options for setting up Kubernetes clusters:</p>
 <li><a href="https://www.openshift.com/learn/get-started/">Red Hat OpenShift</a></li>
 <li><a href="https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/">More cloud providers</a></li>
 </ul>
+
+<p>These instructions require <code>kubectl</code> version 1.15 or later.</p>
 
 <h2 id="step-1-install-the-skupper-command-line-tool-in-your-environment">Step 1: Install the Skupper command-line tool in your environment</h2>
 
@@ -147,8 +150,11 @@ separate console sessions.</p>
 
 <h3 id="log-in-to-your-clusters">Log in to your clusters</h3>
 
-<p>The methods for logging in are specific to your Kubernetes provider.
-See the following links for more information:</p>
+<p>The methods for logging in vary by Kubernetes provider.  Find the
+instructions for your chosen provider or providers and use them to
+authenticate and establish access for each console session.</p>
+
+<p>See the following links for more information:</p>
 
 <ul>
 <li><a href="https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/">Vanilla Kubernetes (including Minikube)</a></li>
@@ -297,7 +303,10 @@ available on all the connected namespaces.</p>
 
 <p>To demonstrate service exposure, we need an application to work with.
 This guide uses an HTTP Hello World application with a backend and a
-frontend.  Use <code>kubectl create deployment</code> and <code>kubectl expose</code> to
+frontend.  The backend is deployed in the <code>us-east</code> namespace, and the
+frontend in the <code>eu-north</code> namespace.</p>
+
+<p>Use <code>kubectl create deployment</code> and <code>kubectl expose</code> to
 start the backend on <code>us-east</code> and create a service for it.</p>
 
 <div class="code-block-label">US East</div>
@@ -313,13 +322,20 @@ the frontend externally accessible.</p>
 <div class="code-block-label">EU North</div>
 
 <pre><code>kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
-kubectl expose deployment/hello-world-frontend --type LoadBalancer --port 8080
+kubectl expose deployment/hello-world-frontend --port 8080 --type LoadBalancer
 </code></pre>
 
 <h3 id="expose-the-service">Expose the service</h3>
 
-<p>Use the <code>kubectl annotate</code> command on <code>us-east</code> to make
-<code>hello-world-backend</code> available on <code>eu-north</code>.</p>
+<p>At this point, we have the frontend and backend services running, but
+the frontend has no way to contact the backend.  The frontend and
+backend are in different namespaces (and potentially different
+clusters), and the backend has no public ingress.</p>
+
+<p>Skupper uses an annotation to mark services that should be represented
+on the cross-cluster Skupper network.  Use the <code>kubectl annotate</code>
+command on <code>us-east</code> to make <code>hello-world-backend</code> available on
+<code>eu-north</code>.</p>
 
 <div class="code-block-label">US East</div>
 
@@ -342,9 +358,6 @@ hello-world-frontend   LoadBalancer   10.111.133.137   10.111.133.137   8080:313
 [...]
 </code></pre>
 
-<p>Note: If you are using Minikube and the external IP shows <code>&lt;pending&gt;</code>,
-you need to use the <code>minikube tunnel</code> command to provide ingress.</p>
-
 <h3 id="test-your-application">Test your application</h3>
 
 <p>Now your multi-cluster application is up and running.  Use <code>curl</code> to
@@ -355,10 +368,16 @@ see it in action.</p>
 <pre><code>curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}/')
 </code></pre>
 
+<p>The embedded <code>kubectl</code> command above looks up the IP address and port
+for the frontend service and generates a URL for use with <code>curl</code>.</p>
+
 <p>You should see output like this:</p>
 
 <pre><code>I am the frontend.  The backend says 'Hello 1'.
 </code></pre>
+
+<p><em>Note:</em> If you are using Minikube and the frontend has no external IP,
+you need to use the <code>minikube tunnel</code> command to provide ingress.</p>
 
 <h2 id="the-condensed-version">The condensed version</h2>
 
@@ -389,8 +408,27 @@ kubectl config set-context --current --namespace eu-north
 skupper init
 skupper connect ~/secret.yaml
 kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
-kubectl expose deployment/hello-world-frontend --type LoadBalancer --port 8080
+kubectl expose deployment/hello-world-frontend --port 8080 --type LoadBalancer
 curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}/')
+</code></pre>
+
+<h2 id="cleaning-up">Cleaning up</h2>
+
+<p>To remove Skupper and the other resources from this exercise, use
+the following commands:</p>
+
+<div class="code-block-label">US East</div>
+
+<pre><code>skupper delete
+kubectl delete service/hello-world-backend
+kubectl delete deployment/hello-world-backend
+</code></pre>
+
+<div class="code-block-label">EU North</div>
+
+<pre><code>skupper delete
+kubectl delete service/hello-world-frontend
+kubectl delete deployment/hello-world-frontend
 </code></pre>
 
 <h2 id="next-steps">Next steps</h2>
