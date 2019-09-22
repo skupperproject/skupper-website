@@ -60,7 +60,7 @@ br {
 }
 
 body {
-    font: 13pt/19pt "Source Sans Pro", sans-serif;
+    font: 14pt/19pt "Alegreya Sans", sans-serif;
     font-weight: 400;
     color: var(--fg-color-1);
     background-color: var(--bg-color-1);

@@ -3,7 +3,7 @@
   <head>
     <title>Skupper - Getting started</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200italic,300,300italic,400,400italic,600,700,900|Roboto+Mono:300,400,500,700|Alegreya+Sans:400,600,700,800,900" type="text/css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic" type="text/css"/>
     <link rel="stylesheet" href="https://skupper.io/main.css" type="text/css"/>
     <link rel="icon" href="" type="image/png"/>
     <script type="text/javascript" src="https://skupper.io/main.js" defer="defer"></script>
@@ -40,15 +40,15 @@
 <h1 id="getting-started-with-skupper">Getting started with Skupper</h1>
 
 <nav class="toc">
-  <a href="#prerequisites">Prerequisites</a>
-  <a href="#step-1-install-the-skupper-command-line-tool-in-your-environment">Step 1: Install the Skupper command-line tool in your environment</a>
-  <a href="#step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</a>
-  <a href="#step-3-install-the-skupper-resources-in-each-namespace">Step 3: Install the Skupper resources in each namespace</a>
-  <a href="#step-4-connect-your-namespaces">Step 4: Connect your namespaces</a>
-  <a href="#step-5-expose-your-services">Step 5: Expose your services</a>
-  <a href="#the-condensed-version">The condensed version</a>
-  <a href="#cleaning-up">Cleaning up</a>
-  <a href="#next-steps">Next steps</a>
+  <div><a href="#prerequisites">Prerequisites</a></div>
+  <div><a href="#step-1-install-the-skupper-command-line-tool-in-your-environment">Step 1: Install the Skupper command-line tool in your environment</a></div>
+  <div><a href="#step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</a></div>
+  <div><a href="#step-3-install-the-skupper-resources-in-each-namespace">Step 3: Install the Skupper resources in each namespace</a></div>
+  <div><a href="#step-4-connect-your-namespaces">Step 4: Connect your namespaces</a></div>
+  <div><a href="#step-5-expose-your-services">Step 5: Expose your services</a></div>
+  <div><a href="#the-condensed-version">The condensed version</a></div>
+  <div><a href="#cleaning-up">Cleaning up</a></div>
+  <div><a href="#next-steps">Next steps</a></div>
 </nav>
 
 <h2 id="prerequisites">Prerequisites</h2>
@@ -302,9 +302,10 @@ available on all the connected namespaces.</p>
 <h3 id="deploy-your-application">Deploy your application</h3>
 
 <p>To demonstrate service exposure, we need an application to work with.
-This guide uses an HTTP Hello World application with a backend and a
-frontend.  The backend is deployed in the <code>us-east</code> namespace, and the
-frontend in the <code>eu-north</code> namespace.</p>
+This guide uses an HTTP Hello World application with a backend service
+and a frontend service.  The frontend uses the backend to process
+requests.  In this scenario, the backend is deployed in the <code>us-east</code>
+namespace, and the frontend in the <code>eu-north</code> namespace.</p>
 
 <p>Use <code>kubectl create deployment</code> and <code>kubectl expose</code> to
 start the backend on <code>us-east</code> and create a service for it.</p>
@@ -329,13 +330,12 @@ kubectl expose deployment/hello-world-frontend --port 8080 --type LoadBalancer
 
 <p>At this point, we have the frontend and backend services running, but
 the frontend has no way to contact the backend.  The frontend and
-backend are in different namespaces (and potentially different
-clusters), and the backend has no public ingress.</p>
+backend are in different namespaces (and perhaps different clusters),
+and the backend has no public ingress.</p>
 
-<p>Skupper uses an annotation to mark services that should be represented
-on the cross-cluster Skupper network.  Use the <code>kubectl annotate</code>
-command on <code>us-east</code> to make <code>hello-world-backend</code> available on
-<code>eu-north</code>.</p>
+<p>Skupper uses an annotation to select services for availability on the
+Skupper network.  Use the <code>kubectl annotate</code> command on <code>us-east</code> to
+make <code>hello-world-backend</code> available on <code>eu-north</code>.</p>
 
 <div class="code-block-label">US East</div>
 
@@ -368,13 +368,13 @@ see it in action.</p>
 <pre><code>curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}/')
 </code></pre>
 
-<p>The embedded <code>kubectl</code> command above looks up the IP address and port
-for the frontend service and generates a URL for use with <code>curl</code>.</p>
-
 <p>You should see output like this:</p>
 
 <pre><code>I am the frontend.  The backend says 'Hello 1'.
 </code></pre>
+
+<p>The embedded <code>kubectl</code> command above looks up the IP address and port
+for the frontend service and generates a URL for use with <code>curl</code>.</p>
 
 <p><em>Note:</em> If you are using Minikube and the frontend has no external IP,
 you need to use the <code>minikube tunnel</code> command to provide ingress.</p>
