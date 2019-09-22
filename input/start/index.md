@@ -112,6 +112,14 @@ The methods for logging in vary by Kubernetes provider.  Find the
 instructions for your chosen provider or providers and use them to
 authenticate and establish access for each console session.
 
+<div class="code-label session-1">Console session for US East</div>
+
+    $ <login-command-from-your-provider>
+
+<div class="code-label session-2">Console session for EU North</div>
+
+    $ <login-command-from-your-provider>
+
 See the following links for more information:
 
 <ul class="column-list">
