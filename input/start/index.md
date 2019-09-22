@@ -30,13 +30,14 @@ them all on one cluster.
 Skupper works with any flavor of Kubernetes.  Here are some of your
 options for setting up Kubernetes clusters:
 
- - [Minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/)
- - [Amazon EKS](https://aws.amazon.com/eks/getting-started/)
- - [Google GKE](https://cloud.google.com/kubernetes-engine/docs/quickstart)
- - [Microsoft AKS](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes)
- - [OKD](https://www.okd.io/)
- - [Red Hat OpenShift](https://www.openshift.com/learn/get-started/)
- - [More cloud providers](https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/)
+<ul class="column-list">
+  <li><a href="https://kubernetes.io/docs/setup/learning-environment/minikube/">Minikube</a></li>
+  <li><a href="https://aws.amazon.com/eks/getting-started/">Amazon EKS</a></li>
+  <li><a href="https://cloud.google.com/kubernetes-engine/docs/quickstart">Google GKE</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes">Microsoft AKS</a></li>
+  <li><a href="https://www.openshift.com/learn/get-started/">Red Hat OpenShift</a> or <a href="https://www.okd.io/">OKD</a></li>
+  <li><a href="https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/">More providers</a></li>
+</ul>
 
 These instructions require `kubectl` version 1.15 or later.
 
@@ -113,12 +114,13 @@ authenticate and establish access for each console session.
 
 See the following links for more information:
 
- - [Vanilla Kubernetes (including Minikube)](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
- - [Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html)
- - [Google GKE](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl)
- - [Microsoft AKS](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster)
- - [OKD](https://docs.okd.io/latest/cli_reference/get_started_cli.html#basic-setup-and-login)
- - [Red Hat OpenShift](https://docs.openshift.com/container-platform/4.1/cli_reference/getting-started-cli.html#cli-logging-in_cli-developer-commands)
+<ul class="column-list">
+  <li><a href="https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/">Vanilla Kubernetes (including Minikube)</a></li>
+  <li><a href="https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html">Amazon EKS</a></li>
+  <li><a href="https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl">Google GKE</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster">Microsoft AKS</a></li>
+  <li><a href="https://docs.openshift.com/container-platform/4.1/cli_reference/getting-started-cli.html#cli-logging-in_cli-developer-commands">Red Hat OpenShift</a> or <a href="https://docs.okd.io/latest/cli_reference/get_started_cli.html#basic-setup-and-login">OKD</a></li>
+</ul>
 
 ### Set the current namespaces
 

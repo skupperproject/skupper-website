@@ -76,7 +76,7 @@ body {
 code,
 pre {
     color: var(--code-fg-color);
-    font: 0.9em "Roboto Mono", monospace;
+    font: 0.85em "Roboto Mono", monospace;
     font-weight: 400;
 }
 
@@ -87,7 +87,7 @@ p code {
 }
 
 pre {
-    padding: 0.4em 0.6em;
+    padding: 0.9em 1em 1em 1em;
     margin-top: 0;
     background-color: var(--code-bg-color);
     overflow: auto;
@@ -293,4 +293,8 @@ header.active {
     font-weight: 300;
     text-transform: uppercase;
     font-size: 0.9em;
+}
+
+.column-list {
+    column-count: 2;
 }
