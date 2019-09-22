@@ -102,7 +102,11 @@ footer {
 #-features a {
     display: block;
     color: var(--accent-color-1);
-    font-weight: 600;
+    font-weight: 700;
+}
+
+#-features h3 {
+    font-weight: 700;
 }
 
 #-features > div {
