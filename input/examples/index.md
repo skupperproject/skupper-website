@@ -13,7 +13,7 @@ title: Examples
   <!-- <a href="#measuring-tcp-throughput-with-iperf">Measuring TCP throughput with iperf</a> -->
 </nav>
 
-### Hello World
+## Hello World
 
 A really simple HTTP service on one cluster accessed from a client on
 another.  This is our most elemental HTTP example.
@@ -23,7 +23,7 @@ another.  This is our most elemental HTTP example.
   <a href="https://github.com/skupperproject/skupper-example-hello-world">Example code</a>
 </nav>
 
-### Communicating over TCP between two clusters
+## Communicating over TCP between two clusters
 
 Learn how to transmit raw TCP data across clusters.
 
@@ -32,7 +32,7 @@ Learn how to transmit raw TCP data across clusters.
   <a href="https://github.com/skupperproject/skupper-example-tcp-echo">Example code</a>
 </nav>
 
-### Accessing a PostgreSQL database
+## Accessing a PostgreSQL database
 
 Learn how to share a PostgreSQL database across multiple Kubernetes
 clusters that are located in different public and private cloud
@@ -43,7 +43,7 @@ providers.
   <a href="https://github.com/skupperproject/skupper-example-postgresql">Example code</a>
 </nav>
 
-### Deploying a MongoDB replica set
+## Deploying a MongoDB replica set
 
 Learn how to share a MongoDB database across multiple Kubernetes
 clusters that are located in different public and private cloud
@@ -54,7 +54,7 @@ providers.
   <a href="https://github.com/skupperproject/skupper-example-mongodb-replica-set">Example code</a>
 </nav>
 
-### Deploying the Istio Bookinfo example
+## Deploying the Istio Bookinfo example
 
 Learn how to share Istio Bookinfo Application web microservices
 running in several public and private clouds.

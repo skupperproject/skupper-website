@@ -145,6 +145,8 @@ footer {
 .big-video > div > iframe {
     margin: 0 auto;
     display: block;
+    height: 27em;
+    width: 48em;
 }
 
 #-wave {
@@ -186,5 +188,10 @@ footer {
 
     .video > div > iframe {
         margin: 1em 0;
+    }
+
+    .big-video > div > iframe {
+        height: 9em;
+        width: 16em;
     }
 }
