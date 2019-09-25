@@ -2,9 +2,9 @@
 
 ## Prerequisites
 
-Skupper requires external network access in order to form connections
-between clusters.  Make sure you have `minikube tunnel` running in the
-background when using Skupper so that those connections are possible.
+Skupper requires cluster-external network access in order to form
+connections between clusters.  Run `minikube tunnel` in the background
+to enable this access.
 
     minikube tunnel
 
@@ -23,9 +23,8 @@ the `minikube start` command in each console you wish to configure.
     export KUBECONFIG=$HOME/.kube/config-eu-north
     minikube start
 
-<!-- ## More information -->
+## More information
 
-<!-- <ul class="column-list"> -->
-<!--   <li><a href="https://kubernetes.io/docs/setup/learning-environment/minikube/">Minikube</a></li> -->
-  <!-- <li><a href="https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/">Vanilla Kubernetes (including Minikube)</a></li> -->
-<!-- </ul> -->
+* [Installing Kubernetes with Minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/)
+* [Getting started with Minikube on Linux](https://opensource.com/article/18/10/getting-started-minikube)
+* [Getting started with Kubernetes](https://kubernetes.io/docs/setup/)
