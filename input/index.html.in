@@ -37,7 +37,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
         <h3>Simple and secure</h3>
         <p>Transparent HTTP and TCP communication</p>
         <p>Installation requires no administrator privileges</p>
-        <p>No changes to your existing TCP/IP network</p>
+        <p>No changes to your existing application code or network</p>
         <p>Secured by mutual TLS</p>
         <!-- <p>Application-level access control and resource limits</p> -->
         <a class="nav" href="{{site_url}}/start/index.html">Get started</a>
