@@ -20,7 +20,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
 
 <section id="-intro">
   <div>
-    <h2 id="-banner">Multi-cluster communication for Kubernetes</h2>
+    <h2 id="-banner">Multi-cloud communication for Kubernetes</h2>
 
     {{include("includes/globe.svg")}}
 
@@ -44,7 +44,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
       </div>
       <div>
         <h3>Flexible connectivity</h3>
-        <p>Hybrid-cloud and edge-to-edge communication</p>
+        <p>Multi-cloud, hybrid-cloud, and edge-to-edge</p>
         <p>Secure access to private cloud services without VPNs</p>
         <p>Connect and disconnect new clusters dynamically</p>
         <p>Seamless service discovery</p>
