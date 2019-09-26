@@ -102,11 +102,11 @@ separate console sessions.
 Start a console session for each of your namespaces.  Set the
 `KUBECONFIG` environment variable to a different path in each session.
 
-<div class="code-label session-1">Console session for US East</div>
+<div class="code-label session-1">Console for US East</div>
 
     export KUBECONFIG=$HOME/.kube/config-us-east
 
-<div class="code-label session-2">Console session for EU North</div>
+<div class="code-label session-2">Console for EU North</div>
 
     export KUBECONFIG=$HOME/.kube/config-eu-north
 
@@ -116,11 +116,11 @@ The methods for logging in vary by Kubernetes provider.  Find the
 instructions for your chosen provider or providers and use them to
 authenticate and establish access for each console session.
 
-<div class="code-label session-1">Console session for US East</div>
+<div class="code-label session-1">Console for US East</div>
 
     $ <login-command-from-your-provider>
 
-<div class="code-label session-2">Console session for EU North</div>
+<div class="code-label session-2">Console for EU North</div>
 
     $ <login-command-from-your-provider>
 
@@ -128,9 +128,9 @@ See the following links for more information:
 
 <ul class="column-list">
   <li><a href="minikube.html#logging-in">Minikube</a></li>
-  <li><a href="https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html">Amazon EKS</a></li>
-  <li><a href="https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl">Google GKE</a></li>
-  <li><a href="https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster">Microsoft AKS</a></li>
+  <li><a href="https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html">Amazon Elastic Kubernetes Service</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster">Azure Kubernetes Service</a></li>
+  <li><a href="https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl">Google Kubernetes Engine</a></li>
   <li><a href="https://docs.openshift.com/container-platform/4.1/cli_reference/getting-started-cli.html#cli-logging-in_cli-developer-commands">Red Hat OpenShift</a> or <a href="https://docs.okd.io/latest/cli_reference/get_started_cli.html#basic-setup-and-login">OKD</a></li>
 </ul>
 
@@ -324,9 +324,6 @@ You should see output like this:
 
 The embedded `kubectl` command above looks up the IP address and port
 for the frontend service and generates a URL for use with `curl`.
-
-*Note:* If you are using Minikube and the frontend has no external IP,
-you need to use the `minikube tunnel` command to provide ingress.
 
 ## The condensed version
 

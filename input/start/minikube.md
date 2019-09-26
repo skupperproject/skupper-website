@@ -13,12 +13,12 @@ to enable this access.
 Minikube does not offer a dedicated login command, but you can re-run
 the `minikube start` command in each console you wish to configure.
 
-<div class="code-label session-1">Console session for US East</div>
+<div class="code-label session-1">Console for US East</div>
 
     export KUBECONFIG=$HOME/.kube/config-us-east
     minikube start
 
-<div class="code-label session-2">Console session for EU North</div>
+<div class="code-label session-2">Console for EU North</div>
 
     export KUBECONFIG=$HOME/.kube/config-eu-north
     minikube start

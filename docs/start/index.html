@@ -141,12 +141,12 @@ separate console sessions.</p>
 <p>Start a console session for each of your namespaces.  Set the
 <code>KUBECONFIG</code> environment variable to a different path in each session.</p>
 
-<div class="code-label session-1">Console session for US East</div>
+<div class="code-label session-1">Console for US East</div>
 
 <pre><code>export KUBECONFIG=$HOME/.kube/config-us-east
 </code></pre>
 
-<div class="code-label session-2">Console session for EU North</div>
+<div class="code-label session-2">Console for EU North</div>
 
 <pre><code>export KUBECONFIG=$HOME/.kube/config-eu-north
 </code></pre>
@@ -157,12 +157,12 @@ separate console sessions.</p>
 instructions for your chosen provider or providers and use them to
 authenticate and establish access for each console session.</p>
 
-<div class="code-label session-1">Console session for US East</div>
+<div class="code-label session-1">Console for US East</div>
 
 <pre><code>$ &lt;login-command-from-your-provider&gt;
 </code></pre>
 
-<div class="code-label session-2">Console session for EU North</div>
+<div class="code-label session-2">Console for EU North</div>
 
 <pre><code>$ &lt;login-command-from-your-provider&gt;
 </code></pre>
@@ -171,9 +171,9 @@ authenticate and establish access for each console session.</p>
 
 <ul class="column-list">
   <li><a href="minikube.html#logging-in">Minikube</a></li>
-  <li><a href="https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html">Amazon EKS</a></li>
-  <li><a href="https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl">Google GKE</a></li>
-  <li><a href="https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster">Microsoft AKS</a></li>
+  <li><a href="https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html">Amazon Elastic Kubernetes Service</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster">Azure Kubernetes Service</a></li>
+  <li><a href="https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl">Google Kubernetes Engine</a></li>
   <li><a href="https://docs.openshift.com/container-platform/4.1/cli_reference/getting-started-cli.html#cli-logging-in_cli-developer-commands">Red Hat OpenShift</a> or <a href="https://docs.okd.io/latest/cli_reference/get_started_cli.html#basic-setup-and-login">OKD</a></li>
 </ul>
 
@@ -387,9 +387,6 @@ see it in action.</p>
 
 <p>The embedded <code>kubectl</code> command above looks up the IP address and port
 for the frontend service and generates a URL for use with <code>curl</code>.</p>
-
-<p><em>Note:</em> If you are using Minikube and the frontend has no external IP,
-you need to use the <code>minikube tunnel</code> command to provide ingress.</p>
 
 <h2 id="the-condensed-version">The condensed version</h2>
 
