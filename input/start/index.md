@@ -118,11 +118,11 @@ authenticate and establish access for each console session.
 
 <div class="code-label session-1">Console for US East</div>
 
-    $ <login-command-from-your-provider>
+    $ <login-command-for-your-provider>
 
 <div class="code-label session-2">Console for EU North</div>
 
-    $ <login-command-from-your-provider>
+    $ <login-command-for-your-provider>
 
 See the following links for more information:
 
@@ -377,6 +377,6 @@ the following commands:
 Now that you know how to connect services running on multiple
 clusters, here are a few more things to look at:
 
- - [Use and modify the HTTP Hello World example](https://github.com/skupperproject/skupper-example-hello-world)
+ - [Check out the HTTP Hello World example in more detail](https://github.com/skupperproject/skupper-example-hello-world)
  - [See how you can connect any TCP-based service](https://github.com/skupperproject/skupper-example-tcp-echo)
  - [Explore the examples]({{site_url}}/examples/index.html)

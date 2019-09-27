@@ -4,65 +4,34 @@ title: Examples
 
 # Skupper examples
 
-<nav class="toc">
-  <a href="#hello-world">Hello World</a>
-  <a href="#communicating-over-tcp-between-two-clusters">Communicating over TCP between two clusters</a>
-  <a href="#accessing-a-postgresql-database">Accessing a PostgreSQL database</a>
-  <a href="#deploying-a-mongodb-replica-set">Deploying a MongoDB replica set</a>
-  <a href="#deploying-the-istio-bookinfo-example">Deploying the Istio Bookinfo example</a>
-  <!-- <a href="#measuring-tcp-throughput-with-iperf">Measuring TCP throughput with iperf</a> -->
-</nav>
+### [Hello World](https://github.com/skupperproject/skupper-example-hello-world)
 
-## Hello World
+A simple multi-service HTTP application that can be deployed across
+multiple Kubernetes clusters using Skupper.  This is our most
+elemental HTTP example.
 
-A really simple HTTP service on one cluster accessed from a client on
-another.  This is our most elemental HTTP example.
+### [Communicating over TCP between two clusters](https://github.com/skupperproject/skupper-example-tcp-echo)
 
-<nav class="links">
-  <a href="https://github.com/skupperproject/skupper-example-hello-world/blob/master/README.md">Tutorial</a>
-  <a href="https://github.com/skupperproject/skupper-example-hello-world">Example code</a>
-</nav>
+Our most basic TCP example.  It demonstrates TCP communication
+tunneled through a Skupper network from a private to a public
+namespace and back again.
 
-## Communicating over TCP between two clusters
-
-Learn how to transmit raw TCP data across clusters.
-
-<nav class="links">
-  <a href="https://github.com/skupperproject/skupper-example-tcp-echo/blob/master/README.md">Tutorial</a>
-  <a href="https://github.com/skupperproject/skupper-example-tcp-echo">Example code</a>
-</nav>
-
-## Accessing a PostgreSQL database
+### [Accessing a PostgreSQL database in the private cloud](https://github.com/skupperproject/skupper-example-postgresql)
 
 Learn how to share a PostgreSQL database across multiple Kubernetes
 clusters that are located in different public and private cloud
 providers.
 
-<nav class="links">
-  <a href="https://github.com/skupperproject/skupper-example-postgresql/blob/master/README.md">Tutorial</a>
-  <a href="https://github.com/skupperproject/skupper-example-postgresql">Example code</a>
-</nav>
-
-## Deploying a MongoDB replica set
+### [Deploying a MongoDB replica set across clusters](https://github.com/skupperproject/skupper-example-mongodb-replica-set)
 
 Learn how to share a MongoDB database across multiple Kubernetes
 clusters that are located in different public and private cloud
 providers.
 
-<nav class="links">
-  <a href="https://github.com/skupperproject/skupper-example-mongodb-replica-set/blob/master/README.md">Tutorial</a>
-  <a href="https://github.com/skupperproject/skupper-example-mongodb-replica-set">Example code</a>
-</nav>
+### [Deploying the Istio Bookinfo example across clusters](https://github.com/skupperproject/skupper-example-bookinfo)
 
-## Deploying the Istio Bookinfo example
-
-Learn how to share Istio Bookinfo Application web microservices
-running in several public and private clouds.
-
-<nav class="links">
-  <a href="https://github.com/skupperproject/skupper-example-bookinfo/blob/master/README.md">Tutorial</a>
-  <a href="https://github.com/skupperproject/skupper-example-bookinfo">Example code</a>
-</nav>
+See how you can use Skupper to distribute the microservices of the
+Istio Bookinfo application to multiple public and private clouds.
 
 <!-- ### Measuring TCP throughput with iperf -->
 
@@ -74,7 +43,7 @@ running in several public and private clouds.
 <!--   <a href="https://github.com/skupperproject/skupper-example-iperf">Example code</a> -->
 <!-- </nav> -->
 
-;;<h2 class="example-category">Performance and load testing</h2>
-;;<h2 class="example-category">Minimal examples</h2>
-;;<h2 class="example-category">TCP-based applications</h2>
-;;<h2 class="example-category">HTTP-based applications</h2>
+<!-- <h2 class="example-category">Performance and load testing</h2> -->
+<!-- <h2 class="example-category">Minimal examples</h2> -->
+<!-- <h2 class="example-category">TCP-based applications</h2> -->
+<!-- <h2 class="example-category">HTTP-based applications</h2> -->

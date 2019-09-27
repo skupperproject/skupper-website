@@ -39,65 +39,34 @@
 
 <h1 id="skupper-examples">Skupper examples</h1>
 
-<nav class="toc">
-  <a href="#hello-world">Hello World</a>
-  <a href="#communicating-over-tcp-between-two-clusters">Communicating over TCP between two clusters</a>
-  <a href="#accessing-a-postgresql-database">Accessing a PostgreSQL database</a>
-  <a href="#deploying-a-mongodb-replica-set">Deploying a MongoDB replica set</a>
-  <a href="#deploying-the-istio-bookinfo-example">Deploying the Istio Bookinfo example</a>
-  <!-- <a href="#measuring-tcp-throughput-with-iperf">Measuring TCP throughput with iperf</a> -->
-</nav>
+<h3 id="hello-worldhttpsgithubcomskupperprojectskupper-example-hello-world"><a href="https://github.com/skupperproject/skupper-example-hello-world">Hello World</a></h3>
 
-<h2 id="hello-world">Hello World</h2>
+<p>A simple multi-service HTTP application that can be deployed across
+multiple Kubernetes clusters using Skupper.  This is our most
+elemental HTTP example.</p>
 
-<p>A really simple HTTP service on one cluster accessed from a client on
-another.  This is our most elemental HTTP example.</p>
+<h3 id="communicating-over-tcp-between-two-clustershttpsgithubcomskupperprojectskupper-example-tcp-echo"><a href="https://github.com/skupperproject/skupper-example-tcp-echo">Communicating over TCP between two clusters</a></h3>
 
-<nav class="links">
-  <a href="https://github.com/skupperproject/skupper-example-hello-world/blob/master/README.md">Tutorial</a>
-  <a href="https://github.com/skupperproject/skupper-example-hello-world">Example code</a>
-</nav>
+<p>Our most basic TCP example.  It demonstrates TCP communication
+tunneled through a Skupper network from a private to a public
+namespace and back again.</p>
 
-<h2 id="communicating-over-tcp-between-two-clusters">Communicating over TCP between two clusters</h2>
-
-<p>Learn how to transmit raw TCP data across clusters.</p>
-
-<nav class="links">
-  <a href="https://github.com/skupperproject/skupper-example-tcp-echo/blob/master/README.md">Tutorial</a>
-  <a href="https://github.com/skupperproject/skupper-example-tcp-echo">Example code</a>
-</nav>
-
-<h2 id="accessing-a-postgresql-database">Accessing a PostgreSQL database</h2>
+<h3 id="accessing-a-postgresql-database-in-the-private-cloudhttpsgithubcomskupperprojectskupper-example-postgresql"><a href="https://github.com/skupperproject/skupper-example-postgresql">Accessing a PostgreSQL database in the private cloud</a></h3>
 
 <p>Learn how to share a PostgreSQL database across multiple Kubernetes
 clusters that are located in different public and private cloud
 providers.</p>
 
-<nav class="links">
-  <a href="https://github.com/skupperproject/skupper-example-postgresql/blob/master/README.md">Tutorial</a>
-  <a href="https://github.com/skupperproject/skupper-example-postgresql">Example code</a>
-</nav>
-
-<h2 id="deploying-a-mongodb-replica-set">Deploying a MongoDB replica set</h2>
+<h3 id="deploying-a-mongodb-replica-set-across-clustershttpsgithubcomskupperprojectskupper-example-mongodb-replica-set"><a href="https://github.com/skupperproject/skupper-example-mongodb-replica-set">Deploying a MongoDB replica set across clusters</a></h3>
 
 <p>Learn how to share a MongoDB database across multiple Kubernetes
 clusters that are located in different public and private cloud
 providers.</p>
 
-<nav class="links">
-  <a href="https://github.com/skupperproject/skupper-example-mongodb-replica-set/blob/master/README.md">Tutorial</a>
-  <a href="https://github.com/skupperproject/skupper-example-mongodb-replica-set">Example code</a>
-</nav>
+<h3 id="deploying-the-istio-bookinfo-example-across-clustershttpsgithubcomskupperprojectskupper-example-bookinfo"><a href="https://github.com/skupperproject/skupper-example-bookinfo">Deploying the Istio Bookinfo example across clusters</a></h3>
 
-<h2 id="deploying-the-istio-bookinfo-example">Deploying the Istio Bookinfo example</h2>
-
-<p>Learn how to share Istio Bookinfo Application web microservices
-running in several public and private clouds.</p>
-
-<nav class="links">
-  <a href="https://github.com/skupperproject/skupper-example-bookinfo/blob/master/README.md">Tutorial</a>
-  <a href="https://github.com/skupperproject/skupper-example-bookinfo">Example code</a>
-</nav>
+<p>See how you can use Skupper to distribute the microservices of the
+Istio Bookinfo application to multiple public and private clouds.</p>
 
 <!-- ### Measuring TCP throughput with iperf -->
 
@@ -108,6 +77,11 @@ running in several public and private clouds.</p>
 <!--   <a href="https://github.com/skupperproject/skupper-example-iperf">Tutorial</a> -->
 <!--   <a href="https://github.com/skupperproject/skupper-example-iperf">Example code</a> -->
 <!-- </nav> --></p>
+
+<p><!-- <h2 class="example-category">Performance and load testing</h2> -->
+<!-- <h2 class="example-category">Minimal examples</h2> -->
+<!-- <h2 class="example-category">TCP-based applications</h2> -->
+<!-- <h2 class="example-category">HTTP-based applications</h2> --></p>
 
 
   </div>
