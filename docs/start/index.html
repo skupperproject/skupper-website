@@ -311,13 +311,16 @@ available on all the connected namespaces.</p>
 <pre><code>kubectl annotate &lt;service&gt; skupper.io/proxy=(http|tcp)
 </code></pre>
 
-<h3 id="deploy-your-application">Deploy your application</h3>
-
 <p>To demonstrate service exposure, we need an application to work with.
-This guide uses an HTTP Hello World application with a backend service
-and a frontend service.  The frontend uses the backend to process
-requests.  In this scenario, the backend is deployed in the <code>us-east</code>
-namespace, and the frontend in the <code>eu-north</code> namespace.</p>
+This guide uses an HTTP Hello World application with a frontend service
+and a backend service.  The frontend uses the backend to process
+requests.  In this scenario, the frontend is deployed in the
+<code>eu-north</code> namespace, and the backend is deployed in the <code>us-east</code>
+namespace.</p>
+
+<p><img style="margin: 2em; width: 80%;" src="https://skupper.io/images/hello-world-entities.svg"/></p>
+
+<h3 id="deploy-your-application">Deploy your application</h3>
 
 <p>Use <code>kubectl create deployment</code> and <code>kubectl expose</code> to
 start the backend on <code>us-east</code> and create a service for it.</p>

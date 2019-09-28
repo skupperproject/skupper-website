@@ -254,13 +254,16 @@ available on all the connected namespaces.
 
     kubectl annotate <service> skupper.io/proxy=(http|tcp)
 
-### Deploy your application
-
 To demonstrate service exposure, we need an application to work with.
-This guide uses an HTTP Hello World application with a backend service
-and a frontend service.  The frontend uses the backend to process
-requests.  In this scenario, the backend is deployed in the `us-east`
-namespace, and the frontend in the `eu-north` namespace.
+This guide uses an HTTP Hello World application with a frontend service
+and a backend service.  The frontend uses the backend to process
+requests.  In this scenario, the frontend is deployed in the
+`eu-north` namespace, and the backend is deployed in the `us-east`
+namespace.
+
+<img style="margin: 2em; width: 80%;" src="{{site_url}}/images/hello-world-entities.svg"/>
+
+### Deploy your application
 
 Use `kubectl create deployment` and `kubectl expose` to
 start the backend on `us-east` and create a service for it.
