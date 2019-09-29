@@ -78,7 +78,10 @@ options for setting up Kubernetes clusters:</p>
   <!-- <li><a href="openshift.html">Red Hat OpenShift</a> or <a href="okd.html">OKD</a></li> -->
 </ul>
 
-<p>These instructions require <code>kubectl</code> version 1.15 or later.</p>
+<p>These instructions require <code>kubectl</code> version 1.15 or later.  See the
+<a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl installation
+guide</a> for
+more information.</p>
 
 <h2 id="step-1-install-the-skupper-command-line-tool-in-your-environment">Step 1: Install the Skupper command-line tool in your environment</h2>
 
@@ -264,6 +267,10 @@ signifies permission to connect.  The token also carries the
 connection details.  The <code>skupper connect</code> command uses the connection
 token to establish a connection to the namespace that generated it.</p>
 
+<p><strong>Note:</strong> The connection token is truly a <em>secret</em>.  Anyone who has
+the token can connect to your namespace.  Make sure that only those
+you trust have access to it.</p>
+
 <h3 id="generate-a-connection-token">Generate a connection token</h3>
 
 <p>On <code>us-east</code>, use the <code>skupper connection-token</code> command to generate a
@@ -283,6 +290,9 @@ token.</p>
 
 <pre><code>skupper connect $HOME/secret.yaml
 </code></pre>
+
+<p>If your console sessions are on different machines, you may need to
+use <code>scp</code> or a similar tool to transfer the token.</p>
 
 <h3 id="check-the-connection">Check the connection</h3>
 
