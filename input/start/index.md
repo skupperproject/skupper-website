@@ -351,7 +351,7 @@ virtual application network that connects the services across cluster
 boundaries.
 
 See the [Hello World
-example](https://github.com/skupperproject/skupper-example-hello-world#what-just-happened)
+example](https://github.com/skupperproject/skupper-example-hello-world/blob/master/README.md#what-just-happened)
 for more detail.
 
 ## The condensed version
