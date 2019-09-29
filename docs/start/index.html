@@ -386,7 +386,9 @@ hello-world-frontend   LoadBalancer   10.111.133.137   10.111.133.137   8080:313
 <h3 id="test-your-application">Test your application</h3>
 
 <p>Now your multi-cluster application is up and running.  Use <code>curl</code> to
-see it in action.</p>
+see it in action.  The embedded <code>kubectl</code> command below looks up the
+IP address and port for the frontend service and generates a URL for
+use with <code>curl</code>.</p>
 
 <div class="code-label session-2">EU North</div>
 
@@ -398,8 +400,18 @@ see it in action.</p>
 <pre><code>I am the frontend.  The backend says 'Hello 1'.
 </code></pre>
 
-<p>The embedded <code>kubectl</code> command above looks up the IP address and port
-for the frontend service and generates a URL for use with <code>curl</code>.</p>
+<h3 id="summary">Summary</h3>
+
+<p>Our simple HTTP application has two services.  We deployed each
+service to a different Kubernetes cluster.</p>
+
+<p>Ordinarily, a multic-cluster deployment of this sort means that the
+services have no way to communicate unless they are exposed to the
+public internet.</p>
+
+<p>By introducing Skupper into each namespace, we were able to create a
+virtual application network that connects the services across cluster
+boundaries.</p>
 
 <h2 id="the-condensed-version">The condensed version</h2>
 

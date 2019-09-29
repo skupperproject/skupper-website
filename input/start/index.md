@@ -325,7 +325,9 @@ should see output like this:
 ### Test your application
 
 Now your multi-cluster application is up and running.  Use `curl` to
-see it in action.
+see it in action.  The embedded `kubectl` command below looks up the
+IP address and port for the frontend service and generates a URL for
+use with `curl`.
 
 <div class="code-label session-2">EU North</div>
 
@@ -335,8 +337,18 @@ You should see output like this:
 
     I am the frontend.  The backend says 'Hello 1'.
 
-The embedded `kubectl` command above looks up the IP address and port
-for the frontend service and generates a URL for use with `curl`.
+### Summary
+
+Our simple HTTP application has two services.  We deployed each
+service to a different Kubernetes cluster.
+
+Ordinarily, a multic-cluster deployment of this sort means that the
+services have no way to communicate unless they are exposed to the
+public internet.
+
+By introducing Skupper into each namespace, we were able to create a
+virtual application network that connects the services across cluster
+boundaries.
 
 ## The condensed version
 
