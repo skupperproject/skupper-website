@@ -228,7 +228,7 @@ header {
 }
 
 header > div {
-    padding: 1em;
+    padding: 0 1em;
     display: flex;
     align-items: center;
 }
@@ -236,7 +236,7 @@ header > div {
 /* Should be just html, but chrome currently requires body */
 html,
 body {
-    scroll-padding-top: 5.5em;
+    scroll-padding-top: 5.6em;
 }
 
 section,
@@ -250,9 +250,10 @@ section:first-of-type {
 }
 
 img.inline-icon {
-    height: 1.2em;
+    height: 1.15em;
+    vertical-align: middle;
     position: relative;
-    top: 0.25em;
+    top: -0.1em;
 }
 
 header a,
@@ -262,17 +263,32 @@ footer a:visited {
     color: inherit;
 }
 
-#-top-left-nav {
+#-top-left-nav,
+#-top-right-nav {
+    display: flex;
+    align-items: center;
     margin: 0;
+}
+
+#-top-left-nav {
+    font-weight: 400;
     flex: 4;
 }
 
-#-logotype {
-    font-family: "Alegreya Sans";
-    font-weight: 800;
+#-top-right-nav {
+    margin: 0;
+    flex: 1;
+    flex-direction: row-reverse;
+}
+
+#-top-left-nav > a,
+#-top-right-nav > a {
+    border-bottom: 0.2em solid transparent;
+    padding: 1.2em 0 1em 0;
 }
 
 #-top-left-nav > a {
+    flex: 0 1 auto;
     margin-right: 2em;
 }
 
@@ -280,11 +296,18 @@ footer a:visited {
     margin-right: 0;
 }
 
-#-top-right-nav {
-    margin: 0;
-    width: 5em;
-    flex: 1;
-    text-align: right;
+#-top-left-nav > a:hover,
+#-top-left-nav a.selected {
+    border-bottom: 0.2em solid var(--bg-color-2);
+}
+
+#-top-left-nav a.selected {
+    font-weight: 700;
+}
+
+#-logotype {
+    font-weight: 700;
+    color: var(--fg-color-1);
 }
 
 header.active {
@@ -304,13 +327,7 @@ header.active {
 @media screen and (max-width: 800px) {
     html,
     body {
-        scroll-padding-top: 4.5em;
-    }
-
-    header > div,
-    footer > div,
-    section > div {
-        padding: 1em;
+        scroll-padding-top: 5em;
     }
 
     header {

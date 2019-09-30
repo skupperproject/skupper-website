@@ -39,7 +39,6 @@ footer {
 }
 
 #-intro {
-    padding-top: 5em;
     color: var(--fg-color-2);
     background: linear-gradient(var(--bg-color-1), var(--bg-color-2));
 }
