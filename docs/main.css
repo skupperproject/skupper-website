@@ -298,7 +298,7 @@ footer a:visited {
 
 #-top-left-nav > a:hover,
 #-top-left-nav a.selected {
-    border-bottom: 0.2em solid var(--bg-color-2);
+    border-bottom: 0.2em solid var(--accent-color-2);
 }
 
 #-top-left-nav a.selected {

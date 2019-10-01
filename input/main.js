@@ -24,16 +24,12 @@ window.addEventListener("load", () => {
     let child = $("#-top-left-nav").firstChild;
 
     if (path.charAt(path.length - 1) === "/") {
-        path = "/index.html";
-    }
-
-    if (path === "/index.html") {
-        return;
+        path += "index.html";
     }
 
     while (child) {
         if (child.nodeType === 1) {
-            if (new URL(child.href).pathname === path) {
+            if (child.id !== "-logotype" && new URL(child.href).pathname === path) {
                 child.classList.add("selected");
             }
         }
