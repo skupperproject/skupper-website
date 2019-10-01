@@ -297,17 +297,21 @@ footer a:visited {
 }
 
 #-top-left-nav > a:hover,
-#-top-left-nav a.selected {
+#-top-left-nav > a.selected {
     border-bottom: 0.2em solid var(--accent-color-2);
 }
 
-#-top-left-nav a.selected {
+#-top-left-nav > a.selected {
     font-weight: 700;
 }
 
-#-logotype {
+a#-logotype {
     font-weight: 700;
     color: var(--fg-color-1);
+}
+
+a:hover#-logotype {
+    border-bottom: 0.2em solid transparent;
 }
 
 header.active {
