@@ -296,13 +296,12 @@ footer a:visited {
     margin-right: 0;
 }
 
-#-top-left-nav > a:hover,
-#-top-left-nav > a.selected {
-    border-bottom: 0.2em solid var(--accent-color-2);
+#-top-left-nav > a:hover {
+    border-bottom: 0.2em solid rgba(0, 0, 0, 0.12);
 }
 
 #-top-left-nav > a.selected {
-    font-weight: 700;
+    border-bottom: 0.2em solid var(--accent-color-2);
 }
 
 a#-logotype {
