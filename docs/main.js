@@ -35,7 +35,7 @@ window.addEventListener("load", () => {
 
     while (child) {
         if (child.nodeType === 1) {
-            if (child.href === path) {
+            if (new URL(child.href).pathname === path) {
                 child.classList.add("selected");
             }
         }

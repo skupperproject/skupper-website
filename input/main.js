@@ -27,15 +27,13 @@ window.addEventListener("load", () => {
         path = "/index.html";
     }
 
-    console.log(path);
-
     if (path === "/index.html") {
         return;
     }
 
     while (child) {
         if (child.nodeType === 1) {
-            if (child.href === path) {
+            if (new URL(child.href).pathname === path) {
                 child.classList.add("selected");
             }
         }
