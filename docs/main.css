@@ -224,7 +224,7 @@ header {
     position: fixed;
     z-index: 1;
     width: 100%;
-    border-bottom: 0.2em solid var(--bg-color-2);
+    border-bottom: 0.2em solid rgba(0, 0, 0, 0.06);
 }
 
 header > div {
