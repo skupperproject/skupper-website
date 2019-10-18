@@ -29,7 +29,15 @@ header {
 }
 
 header.active {
-    border-bottom: 0.2em solid var(--bg-color-2);
+    border-bottom: 0.2em solid var(--bg-color-2-1);
+}
+
+#-top-left-nav > a:hover {
+    border-bottom: 0.2em solid var(--bg-color-2-1);
+}
+
+#-top-left-nav > a#-logotype:hover {
+    border-bottom: 0.2em solid transparent;
 }
 
 section,
@@ -112,7 +120,7 @@ footer {
     flex: 1 1 0;
     margin: 0 2em 0 0;
     padding: 1.4em 1.8em;
-    border: 0.2em solid var(--bg-color-2);
+    border: 0.2em solid var(--bg-color-2-1);
     background-color: var(--bg-color-1);
     text-align: left;
     font-weight: 300;

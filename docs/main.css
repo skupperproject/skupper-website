@@ -20,27 +20,29 @@
  */
 
 :root {
-  --bg-color-1: rgba(255, 255, 255, 1.0);
-  --bg-color-2: rgba(230, 235, 240, 1.0);
-  --bg-color-3: rgba(70, 130, 200, 1.0);
-  --fg-color-1: rgba(0, 0, 0, 1.0);
-  --fg-color-2: rgba(0, 0, 0, 1.0);
-  --fg-color-3: rgba(255, 255, 255, 1.0);
-  --accent-color-1: rgba(251, 111, 52, 1.0);
-  --accent-color-2: rgba(63, 191, 127, 1.0);
-  --accent-color-3: rgba(240, 231, 51, 1.0);
-  --link-color: rgba(60, 90, 180, 1.0);
-  --code-label-fg-color: rgba(0, 0, 0, 0.7);
-  --code-label-bg-color: rgba(0, 0, 0, 0.06);
-  --code-label-border-color: rgba(0, 0, 0, 0.2);
-  --code-label-fg-color-session-1: rgba(127, 64, 0, 0.7);
-  --code-label-bg-color-session-1: rgba(127, 64, 0, 0.06);
-  --code-label-border-color-session-1: rgba(127, 64, 0, 0.3);
-  --code-label-fg-color-session-2: rgba(0, 64, 127, 0.7);
-  --code-label-bg-color-session-2: rgba(0, 64, 127, 0.06);
-  --code-label-border-color-session-2: rgba(0, 64, 127, 0.3);
-  --code-fg-color: rgba(0, 0, 0, 0.95);
-  --code-bg-color: rgba(0, 0, 0, 0.03);
+    --bg-color-1: white;
+    --bg-color-2: hsla(210, 25%, 90%, 1.0);
+    --bg-color-2-1: hsla(210, 25%, 85%, 1.0);
+    --bg-color-3: rgba(70, 130, 200, 1.0);
+    --fg-color-1: black;
+    --fg-color-2: black;
+    --fg-color-3: white;
+    --accent-color-1: rgba(251, 111, 52, 1.0);
+    --accent-color-2: hsla(150, 50%, 50%, 1.0);
+    --accent-color-2-1: hsla(150, 40%, 90%, 1.0);
+    --accent-color-3: rgba(240, 231, 51, 1.0);
+    --link-color: rgba(60, 90, 180, 1.0);
+    --code-label-fg-color: rgba(0, 0, 0, 0.7);
+    --code-label-bg-color: rgba(0, 0, 0, 0.06);
+    --code-label-border-color: rgba(0, 0, 0, 0.2);
+    --code-label-fg-color-session-1: rgba(127, 64, 0, 0.7);
+    --code-label-bg-color-session-1: rgba(127, 64, 0, 0.06);
+    --code-label-border-color-session-1: rgba(127, 64, 0, 0.3);
+    --code-label-fg-color-session-2: rgba(0, 64, 127, 0.7);
+    --code-label-bg-color-session-2: rgba(0, 64, 127, 0.06);
+    --code-label-border-color-session-2: rgba(0, 64, 127, 0.3);
+    --code-fg-color: rgba(0, 0, 0, 0.95);
+    --code-bg-color: rgba(0, 0, 0, 0.03);
 }
 
 * {
@@ -297,7 +299,7 @@ footer a:visited {
 }
 
 #-top-left-nav > a:hover {
-    border-bottom: 0.2em solid rgba(0, 0, 0, 0.12);
+    border-bottom: 0.2em solid var(--accent-color-2-1);
 }
 
 #-top-left-nav > a.selected {
