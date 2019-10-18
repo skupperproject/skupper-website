@@ -63,12 +63,11 @@ download it from GitHub and extract the executable using `tar` or
 
 <div class="code-label">Linux</div>
 
-    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/linux.tgz | tar -xzf -
+    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/skupper-cli-{{skupper_cli_release}}-linux-amd64.tgz | tar -xzf -
 
 <div class="code-label">macOS</div>
 
-    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/darwin.zip -o skupper.zip
-    unzip skupper.zip
+    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/skupper-cli-{{skupper_cli_release}}-mac-amd64.tgz | tar -xzf -
 
 This produces an executable file named `skupper` in your current
 directory.

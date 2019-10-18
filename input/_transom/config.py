@@ -46,4 +46,4 @@ def include(path):
     with open(path, "r") as f:
         return f.read()
 
-skupper_cli_release = "0.0.1-beta3"
+skupper_cli_release = "0.0.1"

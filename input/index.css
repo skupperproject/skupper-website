@@ -122,6 +122,36 @@ footer {
     margin: 0;
 }
 
+.topology {
+    color: black;
+    background-color: white;
+}
+
+.topology > div {
+    display: flex;
+}
+
+.topology > div > div {
+    width: 50%;
+}
+
+.topology > div > div:first-of-type {
+    display: flex;
+}
+
+.topology > div > div:first-of-type > svg {
+    margin: 0 auto;
+}
+
+.topology > div > div:last-of-type {
+    font-size: 1.2em;
+    line-height: 1.4em;
+}
+
+#-one-cluster > svg {
+    /* height: 80%; */
+}
+
 .video a {
     color: var(--accent-color-3);
     font-weight: 600;
@@ -141,6 +171,10 @@ footer {
     margin: 0 2em 0 0;
 }
 
+.big-video {
+    background-color: white;
+}
+
 .big-video > div > iframe {
     margin: 0 auto;
     display: block;
@@ -148,14 +182,23 @@ footer {
     width: 48em;
 }
 
-#-wave {
+#-wave-1,
+#-wave-2 {
     display: block;
-    margin: 0 0 1em 0;
+    margin: 0;
     width: 100%;
 }
 
-#-wave > path {
+#-wave-1 {
+    background-color: white;
+}
+
+#-wave-1 > path {
     fill: var(--bg-color-2);
+}
+
+#-wave-2 > path {
+    fill: white;
 }
 
 @media screen and (max-width: 800px) {
