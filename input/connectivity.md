@@ -28,7 +28,7 @@
       {{include("includes/two-clusters.svg")}}
     </div>
     <div>
-      <p><strong>Hybrid cloud:</strong> Deploy your application across
+      <p><strong>Hybrid-cloud:</strong> Deploy your application across
         public and private clusters.</p>
 
       <p>For example, you can host your database services on a private
@@ -44,12 +44,12 @@
       {{include("includes/five-clusters.svg")}}
     </div>
     <div>
-      <p><strong>Edge:</strong> Distribute your application across
+      <p><strong>Edge-to-edge:</strong> Distribute your application across
         geographic regions.</p>
 
-      <p>For instance, you can connect retail locations to a central
-      office.  Once connected, each edge location can contact any
-      other edge.</p>
+      <p>For instance, you can connect multiple retail locations to a
+      central office.  Once connected, each edge location can contact
+      any other edge.  You can add and remove locations on demand.</p>
     </div>
   </div>
 </div>
@@ -64,7 +64,7 @@
         networks of connected clusters.</p>
 
       <p>Skupper uses redundant network paths and smart routing to
-      provide highly available connectivity at scale.</p>
+        provide highly available connectivity at scale.</p>
     </div>
   </div>
 </div>
