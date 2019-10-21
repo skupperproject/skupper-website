@@ -130,36 +130,6 @@ footer {
     margin: 0;
 }
 
-.topology {
-    color: black;
-    background-color: white;
-}
-
-.topology > div {
-    display: flex;
-}
-
-.topology > div > div {
-    width: 50%;
-}
-
-.topology > div > div:first-of-type {
-    display: flex;
-}
-
-.topology > div > div:first-of-type > svg {
-    margin: 0 auto;
-}
-
-.topology > div > div:last-of-type {
-    font-size: 1.2em;
-    line-height: 1.4em;
-}
-
-#-one-cluster > svg {
-    /* height: 80%; */
-}
-
 .video a {
     color: var(--accent-color-3);
     font-weight: 600;

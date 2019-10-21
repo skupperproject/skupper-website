@@ -329,6 +329,30 @@ header.active {
     column-count: 2;
 }
 
+.topology {
+    margin: 4em 0 6em 0;
+}
+
+.topology > div {
+    display: flex;
+}
+
+.topology > div > div {
+}
+
+.topology > div > div:first-of-type {
+}
+
+.topology > div > div:first-of-type > svg {
+    width: 20em;
+}
+
+.topology > div > div:last-of-type {
+    margin-left: 2em;
+    font-size: 1.2em;
+    line-height: 1.4em;
+}
+
 @media screen and (max-width: 800px) {
     html,
     body {

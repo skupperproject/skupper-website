@@ -1,53 +1,70 @@
 # Skupper connectivity
 
-<section class="topology">
+<div class="topology">
   <div>
     <div id="-one-cluster">
       {{include("includes/one-cluster.svg")}}
     </div>
     <div>
       <p>Kubernetes <strong>services</strong> provide a virtual
-        network address and name for each functional element of your
-        distributed application.</p>
+        network address for each element of your distributed
+        application.  Service "A" can contact service "B", "B" can
+        contact "C", and so on.</p>
 
-      <p>As long as your application remains inside a single cluster,
-        services are powerful and convenient.  But when you want to
-        use multiple clusters, XXX.</p>
+      <p>But if you want to deploy your application across multiple
+        clusters, your options are limited.  You have to either expose
+        your services to the public internet or set up a VPN.</p>
 
-      <p>Skupper enables services to span multiple clusters.</p>
+      <p>Skupper offers a third way.  It connects clusters to a secure
+        layer 7 network.  It uses the network to forward local service
+        traffic to remote clusters.</p>
     </div>
   </div>
-</section>
+</div>
 
-<section class="topology">
+<div class="topology">
   <div>
     <div>
       {{include("includes/two-clusters.svg")}}
     </div>
     <div>
-      <p>Hybrid-cloud XXX</p>
+      <p><strong>Hybrid cloud:</strong> Deploy your application across
+        public and private clusters.</p>
+
+      <p>For example, you can host your database services on a private
+        cluster and retain full connectivity with services running on
+        the public cloud.</p>
     </div>
   </div>
-</section>
+</div>
 
-<section class="topology">
+<div class="topology">
   <div>
     <div>
       {{include("includes/five-clusters.svg")}}
     </div>
     <div>
-      <p>Edge XXX</p>
+      <p><strong>Edge:</strong> Distribute your application across
+        geographic regions.</p>
+
+      <p>For instance, you can connect retail locations to a central
+      office.  Once connected, each edge location can contact any
+      other edge.</p>
     </div>
   </div>
-</section>
+</div>
 
-<section class="topology">
+<div class="topology">
   <div>
     <div>
       {{include("includes/many-clusters.svg")}}
     </div>
     <div>
-      <p>Skupper scales XXX</p>
+      <p><strong>Scale out:</strong> Skupper supports very large
+        networks of connected clusters.</p>
+
+      <p>Skupper uses redundant network paths and smart routing to
+      provide highly available connectivity at scale.</p>
     </div>
   </div>
-</section>
+</div>
