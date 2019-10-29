@@ -98,12 +98,12 @@ download it from GitHub and extract the executable using <code>tar</code> or
 
 <div class="code-label">Linux</div>
 
-<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.0.1/skupper-cli-0.0.1-linux-amd64.tgz | tar -xzf -
+<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.0.2/skupper-cli-0.0.2-linux-amd64.tgz | tar -xzf -
 </code></pre>
 
 <div class="code-label">macOS</div>
 
-<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.0.1/skupper-cli-0.0.1-mac-amd64.tgz | tar -xzf -
+<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.0.2/skupper-cli-0.0.2-mac-amd64.tgz | tar -xzf -
 </code></pre>
 
 <p>This produces an executable file named <code>skupper</code> in your current
@@ -125,7 +125,7 @@ mv skupper $HOME/bin
 should see output like this:</p>
 
 <pre><code>$ skupper --version
-skupper version 0.0.1
+skupper version 0.0.2
 </code></pre>
 
 <h2 id="step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</h2>
@@ -219,9 +219,6 @@ Skupper is not installed in 'eu-north'.  Use 'skupper init' to install.
 
 <p>The <code>skupper init</code> command installs the Skupper router, proxy, and
 related resources in the current namespace.</p>
-
-<pre><code>skupper init [--id &lt;installation-name&gt;]
-</code></pre>
 
 <h3 id="install-the-resources">Install the resources</h3>
 
@@ -404,7 +401,7 @@ use with <code>curl</code>.</p>
 <p>Our simple HTTP application has two services.  We deployed each
 service to a different Kubernetes cluster.</p>
 
-<p>Ordinarily, a multic-cluster deployment of this sort means that the
+<p>Ordinarily, a multi-cluster deployment of this sort means that the
 services have no way to communicate unless they are exposed to the
 public internet.</p>
 
@@ -420,7 +417,7 @@ for more detail.</p>
 
 <div class="code-label">Skupper command installation</div>
 
-<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.0.1/linux.tgz | tar -xzf -
+<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.0.2/skupper-cli-0.0.2-linux-amd64.tgz | tar -xzf -
 </code></pre>
 
 <div class="code-label session-1">US East</div>

@@ -173,8 +173,6 @@ configured.  You should see the following output:
 The `skupper init` command installs the Skupper router, proxy, and
 related resources in the current namespace.
 
-    skupper init [--id <installation-name>]
-
 ### Install the resources
 
 Run `skupper init` once for each namespace you wish to connect.
@@ -341,7 +339,7 @@ You should see output like this:
 Our simple HTTP application has two services.  We deployed each
 service to a different Kubernetes cluster.
 
-Ordinarily, a multic-cluster deployment of this sort means that the
+Ordinarily, a multi-cluster deployment of this sort means that the
 services have no way to communicate unless they are exposed to the
 public internet.
 
@@ -357,7 +355,7 @@ for more detail.
 
 <div class="code-label">Skupper command installation</div>
 
-    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/linux.tgz | tar -xzf -
+    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/skupper-cli-{{skupper_cli_release}}-linux-amd64.tgz | tar -xzf -
 
 <div class="code-label session-1">US East</div>
 
