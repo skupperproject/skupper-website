@@ -191,15 +191,6 @@ nav.links > a {
     margin-right: 1em;
 }
 
-a.nav {
-    font-weight: 700;
-    display: inline-block;
-    padding: 0.5em 1em 0.4em 1em;
-    color: white;
-    background-color: var(--accent-color-2);
-    border-radius: 0.2em;
-}
-
 nav.toc > a {
     display: block;
 }

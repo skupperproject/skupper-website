@@ -1,4 +1,4 @@
-# Skupper connectivity
+# Skupper routing
 
 <div class="topology">
   <div>
@@ -68,3 +68,8 @@
     </div>
   </div>
 </div>
+
+## More information
+
+ - [Skupper connectivity](connectivity.html)
+ - [Skupper architecture](architecture.html)

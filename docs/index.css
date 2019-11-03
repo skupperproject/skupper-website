@@ -114,10 +114,29 @@ footer {
     background-color: var(--bg-color-1);
     text-align: left;
     font-weight: 300;
+    border-radius: 0.6em;
 }
 
 #-features > div:last-child {
     margin: 0;
+}
+
+#-features > div > div {
+    min-height: 14.5em;
+}
+
+a.nav {
+    font-weight: 700;
+    display: inline-block;
+    padding: 0.5em 1em 0.4em 1em;
+    color: white;
+    background-color: var(--accent-color-2);
+    border-radius: 0.2em;
+}
+
+a.nav > img {
+    height: 0.6em;
+    margin-left: 0.4em;
 }
 
 .video a {
@@ -184,6 +203,11 @@ footer {
 
     #-features > div:last-child {
         margin: 0 1em;
+    }
+
+    #-features > div > div {
+        min-height: inherit;
+        margin-bottom: 1em;
     }
 
     .video > div {
