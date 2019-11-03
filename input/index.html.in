@@ -47,7 +47,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
       <div>
         <h3>Flexible connectivity</h3>
         <div>
-          <p>Multicloud, hybrid-cloud, and edge-to-edge</p>
+          <p>Multicloud, hybrid cloud, and edge-to-edge</p>
           <p>Secure access to private cloud services without VPNs</p>
           <p>Connect and disconnect new clusters dynamically</p>
           <p>Seamless service propagation</p>

@@ -1,5 +1,10 @@
 # Skupper connectivity
 
+<p style="font-size: 1.2em; line-height: 1.4em;">Skupper is a new
+  approach to connecting services across multiple Kubernetes clusters.
+  See how Skupper can give you the flexibility to deploy your services
+  where you need them.</p>
+
 <div class="topology">
   <div>
     <div id="-one-cluster">
@@ -28,12 +33,13 @@
       {{include("includes/two-clusters.svg")}}
     </div>
     <div>
-      <p><strong>Hybrid-cloud:</strong> Deploy your application across
-        public and private clusters.</p>
+      <p><strong>Secure hybrid cloud communication.</strong> Deploy
+        your application across public and private clusters.</p>
 
-      <p>For example, you can host your database services on a private
-        cluster and retain full connectivity with services running on
-        the public cloud.</p>
+      <p>You can host your database on a private cluster and retain
+        full connectivity with services running on the public cloud.
+        All communication is secured by mutual TLS authentication and
+        encryption.</p>
     </div>
   </div>
 </div>
@@ -44,12 +50,12 @@
       {{include("includes/five-clusters.svg")}}
     </div>
     <div>
-      <p><strong>Edge-to-edge:</strong> Distribute your application across
-        geographic regions.</p>
+      <p><strong>Edge-to-edge connectivity.</strong> Distribute
+        application services across geographic regions.</p>
 
-      <p>For instance, you can connect multiple retail locations to a
-      central office.  Once connected, each edge location can contact
-      any other edge.  You can add and remove locations on demand.</p>
+      <p>You can connect multiple retail sites to a central office.
+      Once connected, each edge location can contact any other edge.
+      You can add and remove sites on demand.</p>
     </div>
   </div>
 </div>
@@ -60,7 +66,7 @@
       {{include("includes/many-clusters.svg")}}
     </div>
     <div>
-      <p><strong>Scale out:</strong> Skupper supports very large
+      <p><strong>Scale up and out.</strong> Build large, robust
         networks of connected clusters.</p>
 
       <p>Skupper uses redundant network paths and smart routing to
@@ -72,4 +78,4 @@
 <!-- ## More information -->
 
 <!--  - [Skupper routing](routing.html) -->
-<!--  - [Skupper architecture](architecture.html) -->
+<!--  <\!-- - [Skupper architecture](architecture.html) -\-> -->

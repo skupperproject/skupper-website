@@ -2,8 +2,7 @@
 
 <div class="topology">
   <div>
-    <div id="-one-cluster">
-      {{include("includes/one-cluster.svg")}}
+    <div>
     </div>
     <div>
       <p>Kubernetes <strong>services</strong> provide a virtual
@@ -25,7 +24,6 @@
 <div class="topology">
   <div>
     <div>
-      {{include("includes/two-clusters.svg")}}
     </div>
     <div>
       <p><strong>Hybrid-cloud:</strong> Deploy your application across
@@ -41,7 +39,6 @@
 <div class="topology">
   <div>
     <div>
-      {{include("includes/five-clusters.svg")}}
     </div>
     <div>
       <p><strong>Edge-to-edge:</strong> Distribute your application across
@@ -57,7 +54,6 @@
 <div class="topology">
   <div>
     <div>
-      {{include("includes/many-clusters.svg")}}
     </div>
     <div>
       <p><strong>Scale out:</strong> Skupper supports very large
@@ -72,4 +68,4 @@
 ## More information
 
  - [Skupper connectivity](connectivity.html)
- - [Skupper architecture](architecture.html)
+ <!-- - [Skupper architecture](architecture.html) -->

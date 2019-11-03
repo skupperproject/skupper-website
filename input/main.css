@@ -321,7 +321,7 @@ header.active {
 }
 
 .topology {
-    margin: 4em 0 6em 0;
+    margin: 3em 0 5em 0;
 }
 
 .topology > div {
@@ -336,6 +336,9 @@ header.active {
 
 .topology > div > div:first-of-type > svg {
     width: 20em;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .topology > div > div:last-of-type {
