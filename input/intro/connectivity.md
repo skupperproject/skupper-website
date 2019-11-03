@@ -1,9 +1,9 @@
 # Skupper connectivity
 
-<p style="font-size: 1.2em; line-height: 1.4em;">Skupper is a new
-  approach to connecting services across multiple Kubernetes clusters.
-  See how Skupper can give you the flexibility to deploy your services
-  where you need them.</p>
+<p style="font-size: 1.2em; line-height: 1.4em;">Skupper represents a
+  new approach to connecting services across multiple Kubernetes
+  clusters.  See how Skupper can give you the flexibility to deploy
+  your services where you need them.</p>
 
 <div class="topology">
   <div>
@@ -54,8 +54,8 @@
         application services across geographic regions.</p>
 
       <p>You can connect multiple retail sites to a central office.
-      Once connected, each edge location can contact any other edge.
-      You can add and remove sites on demand.</p>
+        Once connected, each edge location can contact any other edge.
+        You can add and remove sites on demand.</p>
     </div>
   </div>
 </div>
