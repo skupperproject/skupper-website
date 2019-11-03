@@ -23,7 +23,7 @@
     --bg-color-1: white;
     --bg-color-2: hsla(210, 25%, 90%, 1.0);
     --bg-color-2-1: hsla(210, 25%, 85%, 1.0);
-    --bg-color-3: rgba(70, 130, 200, 1.0);
+    --bg-color-3: hsla(210, 25%, 50%, 1.0);
     --fg-color-1: black;
     --fg-color-2: black;
     --fg-color-3: white;
@@ -191,18 +191,18 @@ nav.links > a {
     margin-right: 1em;
 }
 
-nav.links > a::before,
-a.nav::before {
-    content: "\2BC8  ";
+a.nav {
+    font-weight: 700;
+    display: inline-block;
+    padding: 0.5em 1em 0.4em 1em;
+    color: white;
+    background-color: var(--accent-color-2);
+    border-radius: 0.2em;
 }
 
 nav.toc > a {
     display: block;
 }
-
-/* nav.toc > a::before { */
-/*     content: "\2BC8  "; */
-/* } */
 
 /* --- */
 

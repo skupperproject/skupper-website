@@ -51,10 +51,6 @@ footer {
     background: linear-gradient(var(--bg-color-1), var(--bg-color-2));
 }
 
-#-intro a {
-    color: inherit;
-}
-
 #-intro > div {
     display: flex;
     flex-direction: column;
@@ -104,12 +100,6 @@ footer {
     margin: 1.4em 0 1em 0;
     max-width: 50em;
     color: var(--fg-color-2);
-}
-
-#-features a {
-    display: block;
-    color: var(--accent-color-1);
-    font-weight: 700;
 }
 
 #-features h3 {
