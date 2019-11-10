@@ -78,4 +78,4 @@
 <!-- ## More information -->
 
 <!--  - [Skupper routing](routing.html) -->
-<!--  <\!-- - [Skupper architecture](architecture.html) -\-> -->
+<!--  - [Skupper architecture](architecture.html) -->
