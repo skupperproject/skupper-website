@@ -5,7 +5,7 @@
   clusters.  See how Skupper can give you the flexibility to deploy
   your services where you need them.</p>
 
-<div class="topology">
+<div class="pattern">
   <div>
     <div id="-one-cluster">
       {{include("includes/one-cluster.svg")}}
@@ -27,7 +27,7 @@
   </div>
 </div>
 
-<div class="topology">
+<div class="pattern">
   <div>
     <div>
       {{include("includes/two-clusters.svg")}}
@@ -44,7 +44,7 @@
   </div>
 </div>
 
-<div class="topology">
+<div class="pattern">
   <div>
     <div>
       {{include("includes/five-clusters.svg")}}
@@ -60,7 +60,7 @@
   </div>
 </div>
 
-<div class="topology">
+<div class="pattern">
   <div>
     <div>
       {{include("includes/many-clusters.svg")}}
@@ -75,7 +75,9 @@
   </div>
 </div>
 
-<!-- ## More information -->
-
-<!--  - [Skupper routing](routing.html) -->
-<!--  - [Skupper architecture](architecture.html) -->
+<p style="font-size: 1.2em; line-height: 1.4em;">In addition to
+  connectivity, Skupper offers
+  <a href="routing.html">new ways to route application traffic</a>.
+  To learn more about how Skupper achieves this and other benefits,
+  see the <a href="architecture.html">Skupper architecture
+  overview</a>.</p>

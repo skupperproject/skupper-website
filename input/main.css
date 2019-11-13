@@ -320,28 +320,28 @@ header.active {
     column-count: 2;
 }
 
-.topology {
+.pattern {
     margin: 3em 0 5em 0;
 }
 
-.topology > div {
+.pattern > div {
     display: flex;
 }
 
-.topology > div > div {
+.pattern > div > div {
 }
 
-.topology > div > div:first-of-type {
+.pattern > div > div:first-of-type {
 }
 
-.topology > div > div:first-of-type > svg {
+.pattern > div > div:first-of-type > svg {
     width: 20em;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
 }
 
-.topology > div > div:last-of-type {
+.pattern > div > div:last-of-type {
     margin-left: 2em;
     font-size: 1.2em;
     line-height: 1.4em;
