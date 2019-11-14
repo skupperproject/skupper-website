@@ -320,6 +320,11 @@ header.active {
     column-count: 2;
 }
 
+.benefits {
+    font-size: 1.2em;
+    line-height: 1.4em;
+}
+
 .pattern {
     margin: 3em 0 5em 0;
 }
@@ -343,8 +348,6 @@ header.active {
 
 .pattern > div > div:last-of-type {
     margin-left: 2em;
-    font-size: 1.2em;
-    line-height: 1.4em;
 }
 
 @media screen and (max-width: 800px) {

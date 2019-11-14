@@ -62,7 +62,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
           <p>Redundant routes for high availability in the face of network failures</p>
           <!-- <p>Multicast HTTP request forwarding</p> -->
         </div>
-        <!-- <a class="nav" href="{{site_url}}/intro/routing.html">Routing <img src="{{site_url}}/images/right-arrow.svg"/></a> -->
+        <a class="nav" href="{{site_url}}/intro/routing.html">Routing <img src="{{site_url}}/images/right-arrow.svg"/></a>
       </nav>
       </div>
     </div>
