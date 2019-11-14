@@ -7,12 +7,13 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
 <header>
   <div>
     <nav id="-top-left-nav">
-      <a href="{{site_url}}/index.html" id="-logotype"><img class="inline-icon" src="{{site_url}}/images/circle.svg"/> Skupper</a>
+      <a href="{{site_url}}/index.html" id="-logotype"><img src="{{site_url}}/images/skupper-logo.svg"/> Skupper</a>
       <a href="{{site_url}}/start/index.html">Getting started</a>
       <a href="{{site_url}}/examples/index.html">Examples</a>
       <!-- <a href="{{site_url}}/docs/index.html">Documentation</a> -->
     </nav>
     <nav id="-top-right-nav">
+      <a href="https://groups.google.com/d/forum/skupper"><img class="inline-icon" src="{{site_url}}/images/at-sign.svg"/> Mailing list</a>
       <a href="https://github.com/skupperproject"><img class="inline-icon" src="{{site_url}}/images/github.svg"/> GitHub</a>
     </nav>
   </div>

@@ -254,6 +254,7 @@ header a:visited,
 footer a,
 footer a:visited {
     color: inherit;
+    line-height: 2.2em;
 }
 
 #-top-left-nav,
@@ -270,23 +271,16 @@ footer a:visited {
 
 #-top-right-nav {
     margin: 0;
-    flex: 1;
-    flex-direction: row-reverse;
 }
 
 #-top-left-nav > a,
 #-top-right-nav > a {
     border-bottom: 0.2em solid transparent;
-    padding: 1.2em 0 1em 0;
+    padding: 0.8em 0 0.6em 0;
 }
 
 #-top-left-nav > a {
-    flex: 0 1 auto;
     margin-right: 2em;
-}
-
-#-top-left-nav > a:last-child {
-    margin-right: 0;
 }
 
 #-top-left-nav > a:hover {
@@ -297,6 +291,11 @@ footer a:visited {
     border-bottom: 0.2em solid var(--accent-color-2);
 }
 
+#-top-right-nav > a {
+    flex: 0 1 auto;
+    margin-left: 2em;
+}
+
 a#-logotype {
     font-weight: 700;
     color: var(--fg-color-1);
@@ -304,6 +303,14 @@ a#-logotype {
 
 a:hover#-logotype {
     border-bottom: 0.2em solid transparent;
+}
+
+a#-logotype > img {
+    height: 2em;
+    margin-right: 0.2em;
+    vertical-align: middle;
+    position: relative;
+    top: -0.15em;
 }
 
 header.active {
