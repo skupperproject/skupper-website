@@ -21,17 +21,14 @@
 
 :root {
     --bg-color-1: white;
-    --bg-color-2: hsla(210, 25%, 90%, 1.0);
-    --bg-color-2-1: hsla(210, 25%, 85%, 1.0);
-    --bg-color-3: hsla(210, 25%, 50%, 1.0);
-    --fg-color-1: black;
-    --fg-color-2: black;
-    --fg-color-3: white;
-    --accent-color-1: rgba(251, 111, 52, 1.0);
-    --accent-color-2: hsla(150, 50%, 50%, 1.0);
-    --accent-color-2-1: hsla(150, 40%, 90%, 1.0);
-    --accent-color-3: rgba(240, 231, 51, 1.0);
-    --link-color: rgba(60, 90, 180, 1.0);
+    --bg-color-2: hsla(203, 30%, 90%, 1.0);
+    --bg-color-3: hsla(203, 30%, 30%, 1.0);
+    --fg-color-1: hsla(0, 0%, 0%, 0.95);
+    --fg-color-1: hsla(0, 0%, 0%, 0.95);
+    --fg-color-3: hsla(0, 0%, 100%, 0.95);
+    --accent-color-1: hsla(6, 80%, 70%, 1.0);
+    --accent-color-2: hsla(140, 40%, 55%, 1.0);
+    --link-color: hsla(203, 90%, 30%, 1.0);
     --code-label-fg-color: rgba(0, 0, 0, 0.7);
     --code-label-bg-color: rgba(0, 0, 0, 0.06);
     --code-label-border-color: rgba(0, 0, 0, 0.2);
@@ -254,7 +251,7 @@ header a:visited,
 footer a,
 footer a:visited {
     color: inherit;
-    line-height: 2.2em;
+    line-height: 2.6em;
 }
 
 #-top-left-nav,
@@ -276,7 +273,7 @@ footer a:visited {
 #-top-left-nav > a,
 #-top-right-nav > a {
     border-bottom: 0.2em solid transparent;
-    padding: 0.8em 0 0.6em 0;
+    padding: 0.7em 0 0.3em 0;
 }
 
 #-top-left-nav > a {
@@ -284,10 +281,12 @@ footer a:visited {
 }
 
 #-top-left-nav > a:hover {
-    border-bottom: 0.2em solid var(--accent-color-2-1);
+    color: hsla(0, 0%, 0%, 0.6);
+    border-bottom: 0.2em solid #eee;
 }
 
 #-top-left-nav > a.selected {
+    color: var(--fg-color-1);
     border-bottom: 0.2em solid var(--accent-color-2);
 }
 
@@ -302,11 +301,12 @@ a#-logotype {
 }
 
 a:hover#-logotype {
+    color: var(--fg-color-1);
     border-bottom: 0.2em solid transparent;
 }
 
 a#-logotype > img {
-    height: 2em;
+    height: 2.4em;
     margin-right: 0.2em;
     vertical-align: middle;
     position: relative;
