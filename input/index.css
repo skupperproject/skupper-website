@@ -29,12 +29,12 @@ header {
 }
 
 header.active {
-    border-bottom: 0.2em solid hsla(203, 32%, 85%, 1.0);
+    border-bottom: 0.2em solid hsla(203, 30%, 94%, 1.0);
 }
 
 #-top-left-nav > a:hover {
     color: var(--bg-color-3);
-    border-bottom: 0.2em solid hsla(203, 32%, 85%, 1.0);
+    border-bottom: 0.2em solid hsla(203, 30%, 94%, 1.0);
 }
 
 #-top-left-nav > a#-logotype:hover {
@@ -112,7 +112,7 @@ footer {
     flex: 1 1 0;
     margin: 0 2em 0 0;
     padding: 1.4em 1.8em;
-    border: 0.2em solid hsla(203, 32%, 85%, 1.0);
+    border: 0.2em solid hsla(203, 30%, 88%, 1.0);
     background-color: var(--bg-color-1);
     text-align: left;
     font-weight: 300;

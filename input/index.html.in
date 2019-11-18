@@ -23,7 +23,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
   <div>
     <h2 id="-banner">Multicloud communication for Kubernetes</h2>
 
-    {{include("includes/globe.svg")}}
+    <img id="-globe" src="{{site_url}}/images/globe.svg"/>
 
     <p id="-summary-1">Skupper is a layer 7 service interconnect.  It
       enables secure communication across Kubernetes clusters with no
@@ -46,9 +46,9 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
         <a class="nav" href="{{site_url}}/start/index.html">Get started <img src="{{site_url}}/images/right-arrow.svg"/></a>
       </div>
       <div>
-        <h3>Flexible connectivity</h3>
+        <h3>Connect anywhere</h3>
         <div>
-          <p>Multicloud, hybrid cloud, and edge-to-edge</p>
+          <p>Multicloud, hybrid cloud, and edge-to-edge connectivity</p>
           <p>Secure access to private cloud services without VPNs</p>
           <p>Connect and disconnect new clusters dynamically</p>
           <p>Seamless service propagation</p>
