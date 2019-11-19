@@ -33,7 +33,9 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
 
     <p id="-summary-2">With Skupper, your application is not confined
       to one cluster.  It can span multiple cloud providers, data
-      centers, and regions.</p>
+      centers, and
+      regions.  <a href="{{site_url}}/intro/index.html">Learn
+      more</a>.</p>
 
     <div id="-features">
       <div>

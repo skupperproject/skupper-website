@@ -2,12 +2,12 @@
 
 Hybrid clouds enable organizations to combine on-premise, private
 cloud, and public cloud resources. While such a solution provides many
-benefits, it also presents a unique challenge to enable these
+benefits, it also presents a unique challenge: enabling these
 resources to communicate with each other.
 
 Skupper provides a solution to this challenge with a Virtual
-Application Network (VAN) that simply and securely connects
-applications running in different network locations.
+Application Network that simply and securely connects applications
+running in different network locations.
 
 ## Virtual Application Networks
 
