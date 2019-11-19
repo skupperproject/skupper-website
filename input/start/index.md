@@ -5,6 +5,7 @@ title: Getting started
 # Getting started with Skupper
 
 <nav class="toc">
+  <div><a href="#overview">Overview</a></div>
   <div><a href="#prerequisites">Prerequisites</a></div>
   <div><a href="#step-1-install-the-skupper-command-line-tool-in-your-environment">Step 1: Install the Skupper command-line tool in your environment</a></div>
   <div><a href="#step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</a></div>
@@ -16,11 +17,25 @@ title: Getting started
   <div><a href="#next-steps">Next steps</a></div>
 </nav>
 
+## Overview
+
+To show Skupper in action, we need an application to work with.  This
+guide uses an HTTP Hello World application with a frontend service and
+a backend service.  The frontend uses the backend to process requests.
+In this scenario, the frontend is deployed in the `eu-north`
+namespace, and the backend is deployed in the `us-east` namespace.
+
+<img style="margin: 2em; width: 80%;" src="{{site_url}}/images/hello-world-entities.svg"/>
+
+While these instructions use this particular application for
+demonstration purposes, the steps are the same for any Skupper
+deployment.
+
 ## Prerequisites
 
-To get started with Skupper, you must have access to at least two
-Kubernetes namespaces.  In the steps below, replace `us-east` and
-`eu-north` with your chosen namespaces.
+You must have access to at least two Kubernetes namespaces.  In the
+steps below, replace `us-east` and `eu-north` with your chosen
+namespaces.
 
 Each namespace can reside on **any cluster you choose**, and **you are
 not limited to two**.  You can have one on your laptop, another on
@@ -260,15 +275,6 @@ annotate` command to make a Kubernetes service on one namespace
 available on all the connected namespaces.
 
     kubectl annotate <service> skupper.io/proxy=(http|tcp)
-
-To demonstrate service exposure, we need an application to work with.
-This guide uses an HTTP Hello World application with a frontend service
-and a backend service.  The frontend uses the backend to process
-requests.  In this scenario, the frontend is deployed in the
-`eu-north` namespace, and the backend is deployed in the `us-east`
-namespace.
-
-<img style="margin: 2em; width: 80%;" src="{{site_url}}/images/hello-world-entities.svg"/>
 
 ### Deploy your application
 
