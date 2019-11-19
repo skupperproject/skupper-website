@@ -87,6 +87,10 @@ download it from GitHub and extract the executable using `tar` or
 This produces an executable file named `skupper` in your current
 directory.
 
+**Note:** See the [Skupper CLI release
+page](https://github.com/skupperproject/skupper-cli/releases) to get
+artifacts for other platforms.
+
 ### Place the command on your path
 
 The subsequent steps assume `skupper` is on your path.  For example,
