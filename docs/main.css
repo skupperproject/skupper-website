@@ -317,6 +317,10 @@ header.active {
     background-color: var(--bg-color-1);
 }
 
+img.diagram {
+    max-width: 100%;
+}
+
 .example-category {
     font-weight: 300;
     text-transform: uppercase;
@@ -365,5 +369,9 @@ header.active {
 
     header {
         font-size: 0.8em;
+    }
+
+    #-top-left-nav > a:nth-child(3) {
+        display: none;
     }
 }

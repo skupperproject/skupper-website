@@ -62,12 +62,12 @@ they were all running in the same site. In this diagram, a VAN
 connects three services, each of which is running in a different
 cloud:</p>
 
-<p><img src="https://skupper.io/images/overview-clouds.png" alt="" /></p>
+<p><img class="diagram" src="https://skupper.io/images/overview-clouds.png"/></p>
 
 <p>In essence, the VAN connects the services in a distributed application
 with a microservice architecture.</p>
 
-<p><img src="https://skupper.io/images/overview-application.png" alt="" /></p>
+<p><img class="diagram" src="https://skupper.io/images/overview-application.png"/></p>
 
 <p>VANs are able to provide connectivity across the hybrid cloud because
 they operate at Layer 7 (the application layer). They use <strong>Layer 7
@@ -95,7 +95,7 @@ application address to its local application router. <strong>Service A</strong> 
 router routes copies of the message through the VAN until they arrive
 at each destination.</p>
 
-<p><img src="https://skupper.io/images/overview-routers.png" alt="" /></p>
+<p><img class="diagram" src="https://skupper.io/images/overview-routers.png"/></p>
 
 <p>VANs provide multiple routing patterns, so communications can be
 distributed in anycast (balanced or closest) or multicast patterns.</p>
@@ -109,7 +109,7 @@ microservices running in different Kubernetes clusters.</p>
 <p>This diagram illustrates a Skupper network that connects three
 services running in three different Kubernetes clusters:</p>
 
-<p><img src="https://skupper.io/images/overview-clusters.png" alt="" /></p>
+<p><img class="diagram" src="https://skupper.io/images/overview-clusters.png"/></p>
 
 <p>In a Skupper network, each namespace contains a Skupper instance. When
 these Skupper instances connect, they continually share information
