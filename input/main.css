@@ -368,10 +368,6 @@ img.diagram {
     }
 
     header {
-        font-size: 0.8em;
-    }
-
-    #-top-left-nav > a:nth-child(3) {
-        display: none;
+        font-size: 0.7em;
     }
 }
