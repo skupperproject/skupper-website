@@ -119,6 +119,7 @@ class Transom:
             "ignored_files": self.ignored_file_patterns,
             "ignored_links": self.ignored_link_patterns,
             "include": self._include,
+            "lipsum": _lipsum,
         }
 
         if _is_file(self.config_file):
@@ -992,6 +993,32 @@ def _pprint(*args, **kwargs):
     import pprint as _pprint
     kwargs["stream"] = _sys.stderr
     _pprint.pprint(*args, **kwargs)
+
+_lipsum_words = [
+    "Lorem", "ipsum", "dolor", "sit", "amet,", "consectetur", "adipiscing", "elit.",
+    "Vestibulum", "enim", "urna,", "ornare", "pellentesque", "felis", "eget,", "maximus", "lacinia", "lorem.",
+    "Nulla", "auctor", "massa", "vitae", "ultricies", "varius.",
+    "Curabitur", "consectetur", "lacus", "sapien,", "a", "lacinia", "urna", "tempus", "quis.",
+    "Vestibulum", "vitae", "augue", "non", "augue", "lobortis", "semper.",
+    "Nullam", "fringilla", "odio", "quis", "ligula", "consequat", "condimentum.",
+    "Integer", "tempus", "sem.",
+]
+
+def _lipsum(count=50):
+    words = list()
+
+    for i in range(count):
+        words.append(_lipsum_words[i % len(_lipsum_words)])
+
+    text = " ".join(words)
+
+    if text.endswith(","):
+        text = text[:-1] + "."
+
+    if not text.endswith("."):
+        text = text + "."
+
+    return text
 
 if __name__ == "__main__":
     command = TransomCommand()

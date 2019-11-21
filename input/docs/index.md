@@ -4,4 +4,4 @@ title: Documentation
 
 # Skupper documentation
 
-{{lipsum_50}}
+{{lipsum(50)}}
