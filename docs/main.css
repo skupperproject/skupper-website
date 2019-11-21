@@ -370,4 +370,8 @@ img.diagram {
     header {
         font-size: 0.7em;
     }
+
+    section:first-of-type {
+        padding-top: 4em;
+    }
 }
