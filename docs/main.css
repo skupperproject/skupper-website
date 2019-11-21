@@ -205,7 +205,7 @@ footer > div,
 section > div {
     max-width: 960px;
     margin: 0 auto;
-    padding: 2em 1em;
+    padding: 1em;
 }
 
 header {
@@ -236,7 +236,7 @@ footer {
 }
 
 section:first-of-type {
-    padding-top: 4em;
+    padding-top: 5em;
 }
 
 img.inline-icon {

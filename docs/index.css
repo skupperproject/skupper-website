@@ -141,38 +141,32 @@ a.nav > img {
     margin-left: 0.4em;
 }
 
+.video {
+    background-color: var(--bg-color-1);
+    color: var(--fg-color-1);
+}
+
 .video a {
-    color: var(--accent-color-3);
+    color: var(--link-color);
     font-weight: 600;
 }
 
 .video > div {
     display: flex;
     width: 100%;
-    padding: 2em 1em;
+    padding: 3em 1em;
 }
 
 .video > div > * {
     margin-top: 0;
+    width: 50%;
 }
 
 .video > div > iframe {
     margin: 0 2em 0 0;
 }
 
-.big-video {
-    background-color: white;
-}
-
-.big-video > div > iframe {
-    margin: 0 auto;
-    display: block;
-    height: 27em;
-    width: 48em;
-}
-
-#-wave-1,
-#-wave-2 {
+#-wave-1 {
     display: block;
     margin: 0;
     width: 100%;
@@ -184,10 +178,6 @@ a.nav > img {
 
 #-wave-1 > path {
     fill: var(--bg-color-2);
-}
-
-#-wave-2 > path {
-    fill: white;
 }
 
 @media screen and (max-width: 800px) {
@@ -218,6 +208,9 @@ a.nav > img {
         padding: 1em 2em;
     }
 
+    .video > div > * {
+        width: 100%;
+    }
     .video:first-child {
         margin-top: 0;
     }
