@@ -56,11 +56,11 @@ _variable_regex = _re.compile("({{.+?}})")
 _reload_script = "<script src=\"http://localhost:35729/livereload.js\"></script>"
 
 class Transom:
-    def __init__(self, input_dir, output_dir, home=None, site_url=None):
+    def __init__(self, input_dir, output_dir, home=None, url=None):
         self.input_dir = _os.path.abspath(input_dir)
         self.output_dir = output_dir
         self.home = home
-        self.site_url = site_url
+        self.url = url
 
         self.verbose = False
         self.quiet = False
@@ -101,8 +101,8 @@ class Transom:
             if not _is_file(self.body_template_path):
                 self.body_template_path = _join(self.home, "files", "body.html")
 
-        if self.site_url is None:
-            self.site_url = "file:{}".format(_os.path.abspath(self.output_dir))
+        if self.url is None:
+            self.url = "file:{}".format(_os.path.abspath(self.output_dir))
 
         if not _is_file(self.page_template_path):
             raise Exception(f"No page template found at {self.page_template_path}")
@@ -114,10 +114,11 @@ class Transom:
         self.body_template = _read_file(self.body_template_path)
 
         self.config = {
-            "site_url": self.site_url,
+            "site_url": self.url,
             "extra_headers": None,
             "ignored_files": self.ignored_file_patterns,
             "ignored_links": self.ignored_link_patterns,
+            "include": self._include,
         }
 
         if _is_file(self.config_file):
@@ -259,6 +260,41 @@ class Transom:
 
         _os.utime(self.output_dir)
 
+    def _replace_variables(self, text, vars=None, input_path=None):
+        out = list()
+        tokens = _variable_regex.split(text)
+
+        for token in tokens:
+            if token[:2] != "{{" or token[-2:] != "}}":
+                out.append(token)
+                continue
+
+            expr = token[2:-2]
+
+            if vars and expr in vars:
+                out.append(vars[expr])
+                continue
+
+            try:
+                result = eval(expr, self.config)
+            except Exception as e:
+                msg = "Expression '{}'; file '{}'; {}"
+                args = expr, input_path, e
+
+                print(msg.format(*args))
+
+                out.append(token)
+                continue
+
+            if result is not None:
+                out.append(str(result))
+
+        return "".join(out)
+
+    def _include(self, path):
+        with open(path, "r") as f:
+            return self._replace_variables(f.read())
+
     def check_files(self):
         with _Phase(self, "Finding input files"):
             input_paths = self.find_input_files()
@@ -317,11 +353,11 @@ class Transom:
             links = self._filter_links(self.links)
 
             for link in links:
-                if internal and link.startswith(self.site_url):
+                if internal and link.startswith(self.url):
                     if link not in self.link_targets:
                         errors_by_link[link].append("Link has no target")
 
-                if external and not link.startswith(self.site_url):
+                if external and not link.startswith(self.url):
                     code, error = self._check_external_link(link)
 
                     if code >= 400:
@@ -345,7 +381,7 @@ class Transom:
     def _filter_links(self, links):
         def retain(link):
             for pattern in self.ignored_link_patterns:
-                path = link[len(self.site_url):]
+                path = link[len(self.url):]
 
                 if _fnmatch.fnmatch(path, pattern):
                     return False
@@ -372,7 +408,7 @@ class Transom:
         path = output_path[len(self.output_dir) + 1:]
         path = path.replace(_os.path.sep, "/")
 
-        return "{}/{}".format(self.site_url, path)
+        return "{}/{}".format(self.url, path)
 
     def info(self, message, *args):
         if self.verbose:
@@ -555,37 +591,7 @@ class _OutputFile(_InputFile):
             "path_navigation": self._render_path_navigation(),
         }
 
-        out = list()
-        tokens = _variable_regex.split(self.content)
-
-        for token in tokens:
-            if token[:2] != "{{" or token[-2:] != "}}":
-                out.append(token)
-                continue
-
-            token_content = token[2:-2]
-
-            if page_vars and token_content in page_vars:
-                out.append(page_vars[token_content])
-                continue
-
-            expr = token_content
-
-            try:
-                result = eval(expr, self.site.config)
-            except Exception as e:
-                msg = "Expression '{}'; file '{}'; {}"
-                args = expr, self.input_path, e
-
-                print(msg.format(*args))
-
-                out.append(token)
-                continue
-
-            if result is not None:
-                out.append(str(result))
-
-        self.content = "".join(out)
+        self.content = self.site._replace_variables(self.content, page_vars, self.input_path)
 
     def _render_link(self):
         return "<a href=\"{}\">{}</a>".format(self.url, self.title)
@@ -880,7 +886,7 @@ class TransomCommand(_commandant.Command):
             site_url = self.args.site_url
 
         self.lib = Transom(self.args.input_dir, self.args.output_dir,
-                           home=self.home, site_url=site_url)
+                           home=self.home, url=site_url)
         self.lib.verbose = self.args.verbose
         self.lib.quiet = self.args.quiet
 

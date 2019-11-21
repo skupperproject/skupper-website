@@ -40,10 +40,4 @@ def circle(diameter, color="#000"):
         f"  <circle cx=\"{cx}\" cy=\"{cy}\" r=\"{radius}\" stroke=\"{color}\" stroke-width=\"{stroke}\" fill=\"none\"/>" \
         "</svg>"
 
-def include(path):
-    import os
-
-    with open(path, "r") as f:
-        return f.read()
-
 skupper_cli_release = "0.0.2"
