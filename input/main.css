@@ -374,4 +374,24 @@ img.diagram {
     section:first-of-type {
         padding-top: 4em;
     }
+
+    .pattern {
+        margin: 0;
+    }
+
+    .pattern > div {
+        display: block;
+    }
+
+    .pattern > div > div:first-of-type > svg {
+        width: 100%;
+        position: intial;
+        transform: initial;
+        margin-top: 2em;
+        margin-bottom: 1em;
+    }
+
+    .pattern > div > div:last-of-type {
+        margin: 0;
+    }
 }
