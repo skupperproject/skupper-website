@@ -154,7 +154,11 @@ a.nav > img {
 .video > div {
     display: flex;
     width: 100%;
-    padding: 3em 1em;
+    padding-top: 3em;
+}
+
+.video:last-of-type > div {
+    padding-bottom: 3em;
 }
 
 .video > div > * {
@@ -211,16 +215,8 @@ a.nav > img {
     .video > div > * {
         width: 100%;
     }
-    .video:first-child {
-        margin-top: 0;
-    }
 
     .video > div > iframe {
         margin: 1em 0;
-    }
-
-    .big-video > div > iframe {
-        height: 9em;
-        width: 16em;
     }
 }
