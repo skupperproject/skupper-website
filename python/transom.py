@@ -279,11 +279,7 @@ class Transom:
             try:
                 result = eval(expr, self.config)
             except Exception as e:
-                msg = "Expression '{}'; file '{}'; {}"
-                args = expr, input_path, e
-
-                print(msg.format(*args))
-
+                print(f"Expression '{expr}'; file '{input_path}'; {e}")
                 out.append(token)
                 continue
 
@@ -319,13 +315,13 @@ class Transom:
             print("Missing output files:")
 
             for path in sorted(missing_files):
-                print("  {}".format(path))
+                print(f"  {path}")
 
         if extra_files:
             print("Extra output files:")
 
             for path in sorted(extra_files):
-                print("  {}".format(path))
+                print(f"  {path}")
 
         return len(missing_files), len(extra_files)
 
@@ -362,20 +358,19 @@ class Transom:
                     code, error = self._check_external_link(link)
 
                     if code >= 400:
-                        msg = "HTTP error code {}".format(code)
-                        errors_by_link[link].append(msg)
+                        errors_by_link[link].append(f"HTTP error code {code}")
 
                     if error:
                         errors_by_link[link].append(error.message)
 
         for link in errors_by_link:
-            print("Link: {}".format(link))
+            print(f"Link: {link}")
 
             for error in errors_by_link[link]:
-                print("  Error: {}".format(error))
+                print(f"  Error: {error}")
 
             for source in self.links[link]:
-                print("  Source: {}".format(source))
+                print(f"  Source: {source}")
 
         return len(errors_by_link)
 
@@ -409,7 +404,7 @@ class Transom:
         path = output_path[len(self.output_dir) + 1:]
         path = path.replace(_os.path.sep, "/")
 
-        return "{}/{}".format(self.url, path)
+        return f"{self.url}/{path}"
 
     def info(self, message, *args):
         if self.verbose:
@@ -421,7 +416,7 @@ class Transom:
 
     def warn(self, message, *args):
         message = message.format(*args)
-        print("Warning! {}".format(message))
+        print(f"Warning! {message}")
 
 class _Phase:
     def __init__(self, site, message, *args):
@@ -560,7 +555,7 @@ class _OutputFile(_InputFile):
             if _is_file(page_template_path):
                 page_template = _read_file(page_template_path)
             else:
-                raise Exception("Page template {} not found".format(page_template_path))
+                raise Exception(f"Page template {page_template_path} not found")
 
         if "body_template" in self.attributes:
             body_template_path = self.attributes["body_template"]
@@ -570,7 +565,7 @@ class _OutputFile(_InputFile):
             elif _is_file(body_template_path):
                 body_template = _read_file(body_template_path)
             else:
-                raise Exception("Body template {} not found".format(body_template_path))
+                raise Exception(f"Body template {body_template_path} not found")
 
         extra_headers = self.attributes.get("extra_headers", "")
 
@@ -595,7 +590,7 @@ class _OutputFile(_InputFile):
         self.content = self.site._replace_variables(self.content, page_vars, self.input_path)
 
     def _render_link(self):
-        return "<a href=\"{}\">{}</a>".format(self.url, self.title)
+        return f"<a href=\"{self.url}\">{self.title}</a>"
 
     def _render_path_navigation(self):
         links = list()
@@ -605,9 +600,7 @@ class _OutputFile(_InputFile):
             links.append(file_._render_link())
             file_ = file_.parent
 
-        links = "".join(reversed(links))
-
-        return "<nav id=\"-path-navigation\">{}</nav>".format(links)
+        return f"<nav id=\"-path-navigation\">{''.join(reversed(links))}</nav>"
 
     def _save_output(self):
         self.site.info("Saving {}", self)
@@ -677,7 +670,7 @@ class _OutputFile(_InputFile):
             except KeyError:
                 continue
 
-            target = "{}#{}".format(self.url, id)
+            target = f"{self.url}#{id}"
 
             if target in link_targets:
                 self.site.info("Duplicate link target in '{}'", target)
@@ -692,7 +685,7 @@ class _MarkdownFile(_OutputFile):
     def __init__(self, site, input_path):
         super().__init__(site, input_path)
 
-        self.output_path = "{}.html".format(self.output_path[:-3])
+        self.output_path = f"{self.output_path[:-3]}.html"
 
     def process_input(self):
         super().process_input()
@@ -983,7 +976,7 @@ def _copy_file(from_path, to_path):
 def _format_repr(obj, *args):
     cls = obj.__class__.__name__
     strings = [str(x) for x in args]
-    return "{}({})".format(cls, ",".join(strings))
+    return f"{cls}({','.join(strings)})"
 
 def _eprint(*args, **kwargs):
     kwargs["file"] = _sys.stderr
