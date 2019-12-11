@@ -97,7 +97,7 @@ section:first-of-type {
 #-features {
     display: flex;
     font-size: 0.95em;
-    margin: 2em 0 1em 0;
+    margin: 2em 0;
     max-width: 50em;
     color: var(--fg-color-2);
 }
