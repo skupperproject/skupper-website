@@ -87,9 +87,9 @@ section:first-of-type {
 }
 
 #-graphic-and-summary > div:last-of-type > p {
-    font-size: 1.2em;
+    font-size: 1.1em;
     font-weight: 400;
-    line-height: 1.6em;
+    line-height: 1.5em;
     margin-bottom: 0.4em;
     max-width: 34em;
 }
@@ -97,7 +97,7 @@ section:first-of-type {
 #-features {
     display: flex;
     font-size: 0.95em;
-    margin: 1.4em 0 1em 0;
+    margin: 2em 0 1em 0;
     max-width: 50em;
     color: var(--fg-color-2);
 }
