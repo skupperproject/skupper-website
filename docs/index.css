@@ -192,7 +192,7 @@ a.nav > img {
     }
 
     #-graphic-and-summary > div:first-of-type {
-        margin-right: 2em;
+        margin-right: 0;
     }
 
     #-graphic-and-summary > div:first-of-type > svg {
