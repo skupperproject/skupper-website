@@ -223,12 +223,6 @@ header > div {
     align-items: center;
 }
 
-/* Should be just html, but chrome currently requires body */
-html,
-body {
-    scroll-padding-top: 5.6em;
-}
-
 section,
 footer {
     color: var(--fg-color-1);
