@@ -42,14 +42,23 @@ header.active {
     border-bottom: 0.2em solid transparent;
 }
 
-section,
 footer {
     color: var(--fg-color-3);
     background-color: var(--bg-color-3);
 }
 
-section:first-of-type {
-    padding-top: 4em;
+div.body {
+    background-color: var(--bg-color-1);
+    color: var(--fg-color-1);
+}
+
+div.body a {
+    color: var(--link-color);
+    font-weight: 600;
+}
+
+div.body:first-of-type {
+    padding-top: 4.5em;
 }
 
 #-intro {
@@ -65,6 +74,7 @@ section:first-of-type {
 
 #-graphic-and-summary {
     display: flex;
+    align-items: center;
 }
 
 #-graphic-and-summary > div:nth-child(1) {
@@ -76,41 +86,39 @@ section:first-of-type {
 }
 
 #-graphic-and-summary > div:nth-child(2) {
-    max-width: 24em;
-    margin-right: 2.8em;
+    max-width: 28em;
+    margin-right: 4em;
 }
 
 #-graphic-and-summary > div:nth-child(2) > h1 {
-    font-size: 2em;
+    font-size: 2.4em;
     line-height: 1.2em;
 }
 
 #-graphic-and-summary > div:nth-child(2) > p {
-    font-size: 1.2em;
+    font: var(--heading-font);
+    font-size: 1.4em;
     font-weight: 400;
     line-height: 1.6em;
 }
 
 #-graphic-and-summary > div:nth-child(3) {
-    padding-top: 0.4em;
-    max-width: 11em;
-    font-weight: 600;
+    max-width: 12em;
     color: var(--bg-color-3);
 }
 
 #-graphic-and-summary > div:nth-child(3) > p {
-    margin-bottom: 1.2em;
+    margin-bottom: 1.4em;
+}
+
+#-graphic-and-summary > div:nth-child(3) > p:last-of-type {
+    margin-bottom: 0;
 }
 
 #-features {
     display: flex;
-    font-size: 0.95em;
     margin: 2em 0;
     color: var(--fg-color-2);
-}
-
-#-features h3 {
-    font-weight: 700;
 }
 
 #-features > div {
@@ -129,20 +137,43 @@ section:first-of-type {
 }
 
 #-features > div > div {
-    min-height: 13.2em;
+    min-height: 13em;
+    margin-bottom: 1em;
 }
 
-a.button {
+#-videos {
+    display: flex;
+    padding-top: 3em;
+    padding-bottom: 3em;
+    color: var(--fg-color-2);
+}
+
+#-videos > div {
+    flex: 1 1 0;
+    margin-right: 3em;
+}
+
+#-videos > div:last-child {
+    margin-right: 0;
+}
+
+#-videos > div > iframe {
+    width: 20em;
+    height: 12em;
+    border-radius: 0.6em;
+}
+
+div.body a.button {
     font-weight: 700;
     display: inline-block;
-    padding: 0.5em 1em 0.4em 1em;
+    padding: 0.5em 1em;
     color: white;
     background-color: var(--accent-color-2);
     border-radius: 0.2em;
     cursor: pointer;
 }
 
-a.button > i.material-icons {
+div.body a.button > i.material-icons {
     vertical-align: -0.24em;
     margin-left: -0.1em;
     margin-right: 0.2em;
@@ -158,34 +189,24 @@ a.nav > i.material-icons {
     margin-left: -0.2em;
 }
 
-.video {
-    background-color: var(--bg-color-1);
-    color: var(--fg-color-1);
-}
+/* .video > div { */
+/*     display: flex; */
+/*     width: 100%; */
+/*     padding-top: 3em; */
+/* } */
 
-.video a {
-    color: var(--link-color);
-    font-weight: 600;
-}
+/* .video:last-of-type > div { */
+/*     padding-bottom: 3em; */
+/* } */
 
-.video > div {
-    display: flex;
-    width: 100%;
-    padding-top: 3em;
-}
+/* .video > div > * { */
+/*     margin-top: 0; */
+/*     width: 50%; */
+/* } */
 
-.video:last-of-type > div {
-    padding-bottom: 3em;
-}
-
-.video > div > * {
-    margin-top: 0;
-    width: 50%;
-}
-
-.video > div > iframe {
-    margin: 0 2em 0 0;
-}
+/* .video > div > iframe { */
+/*     margin: 0 2em 0 0; */
+/* } */
 
 #-wave-1 {
     display: block;
@@ -223,7 +244,7 @@ a.nav > i.material-icons {
 }
 
 @media screen and (max-width: 800px) {
-    section:first-of-type {
+    div.body:first-of-type {
         padding-top: 2em;
     }
 

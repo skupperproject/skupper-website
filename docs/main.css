@@ -24,7 +24,7 @@
     --bg-color-2: hsla(203, 30%, 90%, 1.0);
     --bg-color-3: hsla(203, 30%, 30%, 1.0);
     --fg-color-1: hsla(0, 0%, 0%, 0.95);
-    --fg-color-1: hsla(0, 0%, 0%, 0.95);
+    --fg-color-2: hsla(0, 0%, 0%, 0.95);
     --fg-color-3: hsla(0, 0%, 100%, 0.95);
     --accent-color-1: hsla(6, 80%, 70%, 1.0);
     --accent-color-2: hsla(140, 40%, 55%, 1.0);
@@ -40,6 +40,9 @@
     --code-label-border-color-session-2: rgba(0, 64, 127, 0.3);
     --code-fg-color: rgba(0, 0, 0, 0.95);
     --code-bg-color: rgba(0, 0, 0, 0.03);
+    --heading-font: 14pt/19pt "Alegreya Sans", sans-serif;
+    --body-font: 12pt/18pt "Lato", sans-serif;
+    --mono-font: 10pt "Roboto Mono", monospace;
 }
 
 * {
@@ -56,6 +59,10 @@
     margin-bottom: 0;
 }
 
+html {
+    overflow-y: scroll;
+}
+
 html,
 body,
 div,
@@ -65,17 +72,17 @@ br {
 }
 
 body {
-    font: 14pt/19pt "Alegreya Sans", sans-serif;
+    font: var(--body-font);
     font-weight: 400;
     color: var(--fg-color-1);
-    background-color: var(--bg-color-1);
+    background-color: var(--bg-color-3);
 }
 
 code,
 pre {
-    color: var(--code-fg-color);
-    font: 0.85em "Roboto Mono", monospace;
+    font: var(--mono-font);
     font-weight: 400;
+    color: var(--code-fg-color);
 }
 
 p code {
@@ -95,7 +102,6 @@ pre {
     margin-bottom: 0;
     text-transform: uppercase;
     font-size: 0.7em;
-    font-weight: 500;
     padding: 0.2em 0.6em 0 0.6em;
     color: var(--code-label-fg-color);
     background-color: var(--code-label-bg-color);
@@ -120,24 +126,23 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Alegreya Sans";
-    font-weight: 600;
+    font: var(--heading-font);
+    font-weight: 700;
     position: relative;
     margin-top: 1.2em;
     line-height: 1.2em;
 }
 
 h1 {
-    font-size: 1.7em;
+    font-size: 1.8em;
 }
 
 h2 {
-    font-size: 1.4em;
+    font-size: 1.6em;
 }
 
 h3 {
-    font-size: 1.2em;
-    font-weight: 500;
+    font-size: 1.3em;
 }
 
 a {
@@ -194,14 +199,13 @@ nav.toc > a {
 /* --- */
 
 header,
-footer,
-section {
+footer {
     margin: 0;
 }
 
 header > div,
 footer > div,
-section > div {
+div.body > div {
     max-width: 1200px;
     margin: 0 auto;
     padding: 1em;
@@ -222,16 +226,6 @@ header > div {
     align-items: center;
 }
 
-section,
-footer {
-    color: var(--fg-color-1);
-    background-color: var(--bg-color-1);
-}
-
-section:first-of-type {
-    padding-top: 5em;
-}
-
 img.inline-icon {
     height: 1.2em;
     vertical-align: -0.25em;
@@ -239,11 +233,9 @@ img.inline-icon {
 }
 
 header a,
-header a:visited,
-footer a,
-footer a:visited {
+header a:visited {
     color: inherit;
-    line-height: 2.6em;
+    line-height: 3em;
 }
 
 #-top-left-nav,
@@ -288,6 +280,7 @@ footer a:visited {
 }
 
 a#-logotype {
+    font: var(--heading-font);
     font-weight: 700;
     color: var(--fg-color-1);
 }
@@ -305,8 +298,41 @@ a#-logotype > img {
     top: -0.15em;
 }
 
-header.active {
+div.body {
+    color: var(--fg-color-1);
     background-color: var(--bg-color-1);
+}
+
+div.body:first-of-type {
+    padding-top: 5.5em;
+}
+
+div.body > div {
+    display: flex;
+}
+
+div.body > div > article {
+    width: 800px;
+}
+
+div.body > div > aside {
+    width: 400px;
+    padding-left: 3em;
+}
+
+footer {
+    color: var(--fg-color-3);
+    background-color: var(--bg-color-3);
+}
+
+footer a,
+footer a:visited {
+    color: inherit;
+}
+
+footer > div {
+    padding-top: 2em;
+    padding-bottom: 2em;
 }
 
 img.diagram {
@@ -363,7 +389,7 @@ img.diagram {
         font-size: 0.7em;
     }
 
-    section:first-of-type {
+    div.body:first-of-type {
         padding-top: 4em;
     }
 

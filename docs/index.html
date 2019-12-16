@@ -4,7 +4,7 @@
     <title>Skupper - Multicloud communication</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic" type="text/css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional" type="text/css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
     <link rel="stylesheet" href="https://skupper.io/main.css" type="text/css"/>
     <link rel="icon" type="image/png" sizes="32x32" href="https://skupper.io/images/skupper-icon-32.png">
@@ -30,6 +30,7 @@
       <a href="https://skupper.io/index.html" id="-logotype"><img src="https://skupper.io/images/skupper-logo.svg"/> Skupper</a>
       <a href="https://skupper.io/start/index.html">Getting started</a>
       <a href="https://skupper.io/examples/index.html">Examples</a>
+      <a href="https://skupper.io/community/index.html">Community</a>
       <!-- <a href="https://skupper.io/docs/index.html">Documentation</a> -->
     </nav>
     <nav id="-top-right-nav">
@@ -40,7 +41,7 @@
 </header>
 
 
-<section id="-intro">
+<div class="body" id="-intro">
   <div>
     <div id="-graphic-and-summary">
       <div>
@@ -297,8 +298,8 @@
           secure communication across Kubernetes clusters with no VPNs
           or special firewall rules.</p>
 
-        <p>With Skupper, your application can <strong>span multiple
-          cloud providers, data centers, and regions</strong>.</p>
+        <p>With Skupper, your application can span multiple cloud
+          providers, data centers, and regions.</p>
       </div>
       <div>
         <p>100% open source</p>
@@ -325,12 +326,14 @@
         <a class="nav" href="https://skupper.io/start/index.html">Try Skupper out <i class="material-icons">chevron_right</i></a>
       </div>
       <div>
-        <h3>Secure by default</h3>
+        <h3>Security is built in</h3>
         <div>
+          <p>Connect services without exposing them to the public
+            internet</p>
           <p>All communication is secured by mutual TLS</p>
           <p>Application-level access control and resource limits</p>
-          <p>Supports standard end-to-end authentication between
-            clients and servers</p>
+          <!-- <p>Supports standard end-to-end authentication between -->
+          <!--   clients and servers</p> -->
         </div>
         <a class="nav" href="https://skupper.io/intro/security.html">Skupper security <i class="material-icons">chevron_right</i></a>
       </div>
@@ -338,7 +341,7 @@
         <h3>Connect anywhere</h3>
         <div>
           <p>Multicloud, hybrid cloud, and edge-to-edge connectivity</p>
-          <p>Secure access to private cloud services without VPNs</p>
+          <p>Secure access from the public cloud to private cloud services without VPNs</p>
           <p>Connect and disconnect new clusters dynamically</p>
         </div>
         <a class="nav" href="https://skupper.io/intro/connectivity.html">Skupper connectivity <i class="material-icons">chevron_right</i></a>
@@ -356,43 +359,46 @@
       </div>
     </div>
   </div>
-</section>
+</div>
 
 <svg id="-wave-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 50" preserveAspectRatio="none">
   <path d="M 0 0 L 0 25 Q 400 60 800 25 T 1600 25 L 1600 0 Z"/>
 </svg>
 
-<section class="video">
-  <div>
-    <iframe width="360" height="240" src="https://www.youtube.com/embed/bL-BvHEQuXs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="body">
+  <div id="-videos">
     <div>
+      <iframe src="https://www.youtube.com/embed/bL-BvHEQuXs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       <h2>Deploy a multi-cluster network</h2>
       <p>See how you can use Skupper to create a network of clusters
         in which a Kubernetes service on one cluster can be accessed
         from any other.</p>
     </div>
-  </div>
-</section>
 
-<section class="video">
-  <div>
-    <iframe width="360" height="240" src="https://www.youtube.com/embed/Oa0aVpb0v7U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <div>
+      <iframe src="https://www.youtube.com/embed/Oa0aVpb0v7U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       <h2>Access data in a private cluster</h2>
       <p>See how Skupper can enable you to host a PostgreSQL database
         in a private cluster and then access it from two other public
         clusters.</p>
-      <nav class="links">
-        <a href="https://github.com/skupperproject/skupper-example-postgresql">Example code and tutorial</a>
-      </nav>
+      <p><a class="nav" href="https://github.com/skupperproject/skupper-example-postgresql">Example
+        code and tutorial</a></p>
+    </div>
+
+    <div>
+      <iframe src="https://www.youtube.com/embed/HiYeSfuOHm4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <h2>Lorem ipsum</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum enim urna, ornare pellentesque felis eget.</p>
     </div>
   </div>
-</section>
+</div>
 
 <footer>
   <div>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum enim urna, ornare pellentesque felis eget, maximus lacinia lorem. Nulla auctor massa vitae ultricies varius. Curabitur consectetur lacus sapien, a lacinia urna tempus quis. Vestibulum vitae augue non augue lobortis semper. Nullam fringilla odio quis ligula consequat condimentum. Integer tempus sem.
   </div>
 </footer>
+
 
 <div id="-popup-video">
   <div>XXX</div>
