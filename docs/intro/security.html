@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Skupper - Skupper security</title>
+    <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic" type="text/css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
+    <link rel="stylesheet" href="https://skupper.io/main.css" type="text/css"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://skupper.io/images/skupper-icon-32.png">
+    <link rel="icon" type="image/png" sizes="256x256" href="https://skupper.io/images/skupper-icon-256.png">
+    <script type="text/javascript" src="https://skupper.io/main.js" defer="defer"></script>
+
+
+
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-147980770-1');
+    </script>
+  </head>
+  <body>
+
+<header>
+  <div>
+    <nav id="-top-left-nav">
+      <a href="https://skupper.io/index.html" id="-logotype"><img src="https://skupper.io/images/skupper-logo.svg"/> Skupper</a>
+      <a href="https://skupper.io/start/index.html">Getting started</a>
+      <a href="https://skupper.io/examples/index.html">Examples</a>
+      <!-- <a href="https://skupper.io/docs/index.html">Documentation</a> -->
+    </nav>
+    <nav id="-top-right-nav">
+      <!-- <a href="https://groups.google.com/d/forum/skupper"><img class="inline-icon" src="https://skupper.io/images/at-sign.svg"/> Mailing list</a> -->
+      <a href="https://github.com/skupperproject"><img class="inline-icon" src="https://skupper.io/images/github.svg"/> GitHub</a>
+    </nav>
+  </div>
+</header>
+
+
+<section>
+  <div>
+
+<h1 id="skupper-security">Skupper security</h1>
+
+<p>The Skupper network is secured through mutual tls, with each router
+deployment uniquely identified by its own certificate.  The proxies
+also use mutual TLS with the routers in the network they are connected
+to.</p>
+
+<p>One option is to use end-to-end authentication between application
+clients and servers.</p>
+
+<h2 id="tls-from-router-to-router">TLS from router to router</h2>
+
+<p>The Skupper network is secured through mutual tls, with each router
+deployment uniquely identified by its own certificate.</p>
+
+<p>XXX</p>
+
+<h2 id="tls-from-clients-to-routers">TLS from clients to routers</h2>
+
+<p>Could use openshift service certificates for proxy. Clients would then
+automatically have the CA made available to them. Application would
+still need to enable TLS, i.e. not completely transparent. Also only
+available on openshift.</p>
+
+<p>The deployer could also generate a certificate for each proxy and
+place the CA certificate with which it could be verified in a secret
+linked to the service in some way. Alternatively the CA key and cert
+could be passed into the deployer.</p>
+
+<h2 id="tls-from-routers-to-clients">TLS from routers to clients</h2>
+
+<p>Have application give the secret to use for credentials in the service
+definition? Or else allow application to be configured with
+credentials it uses? Former seems more workable.</p>
+
+<p>These approaches could even allow mutual tls between the application
+and proxies. (Though with the application having to be concerned with
+managing credentials and using them on both client and
+server. I.e. this can be a way of retaining the benefits of mutual tls
+from direct communication when moving to intermediated
+communication. That is a separate case, but possibly still a useful
+one, from the objective of trying to absolve the application from
+needing to be directly concerned with security).</p>
+
+<h2 id="access-control-and-resource-limits">Access control and resource limits</h2>
+
+<p>XXX</p>
+
+<h2 id="access-from-external-clients">Access from external clients</h2>
+
+<p>The second case to consider is access from external clients. This will
+require an 'ingress proxy'. The proxy could be enhanced to allow it to
+be configured to do authentication, remove the need for the
+application itself to handle this.</p>
+
+
+  </div>
+</section>
+
+<footer>
+  <div>
+  </div>
+</footer>
+
+
+
+
+  </body>
+</html>

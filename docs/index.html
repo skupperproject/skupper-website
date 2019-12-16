@@ -5,12 +5,13 @@
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic" type="text/css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
     <link rel="stylesheet" href="https://skupper.io/main.css" type="text/css"/>
     <link rel="icon" type="image/png" sizes="32x32" href="https://skupper.io/images/skupper-icon-32.png">
     <link rel="icon" type="image/png" sizes="256x256" href="https://skupper.io/images/skupper-icon-256.png">
     <script type="text/javascript" src="https://skupper.io/main.js" defer="defer"></script>
 
-<link rel="stylesheet" href="https://skupper.io/index.css" type="text/css" async="async"/>
+<link rel="stylesheet" href="https://skupper.io/index.css" type="text/css" async="async"/> <script type="text/javascript" src="https://skupper.io/index.js" defer="defer"></script>
 
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
     <script>
@@ -296,25 +297,42 @@
           secure communication across Kubernetes clusters with no VPNs
           or special firewall rules.</p>
 
-        <p>With Skupper, your application is not confined to one
-          cluster.  It can span multiple cloud providers, data
-          centers, and
-          regions.  <a href="https://skupper.io/intro/index.html">Learn
-          more</a>.</p>
+        <p>With Skupper, your application can <strong>span multiple
+          cloud providers, data centers, and regions</strong>.</p>
+      </div>
+      <div>
+        <p>100% open source</p>
+
+        <p>Works with any flavor of Kubernetes</p>
+
+        <p><a class="button" id="-popup-video-button"><i class="material-icons">play_circle_filled</i> Watch the video</a></p>
+
+        <p><a class="button" href="https://skupper.io/intro/index.html">Learn more</a></p>
+
+        <p><a class="button" href="https://skupper.io/start/index.html">Get started</a></p>
       </div>
     </div>
 
     <div id="-features">
       <div>
-        <h3>Simple and secure</h3>
+        <h3>Works with your app</h3>
         <div>
-          <p>Transparent HTTP and TCP communication</p>
-          <p>Installation requires no administrator privileges</p>
-          <p>No changes to your existing application code or network</p>
-          <p>Secured by mutual TLS</p>
-          <!-- <p>Application-level access control and resource limits</p> -->
+          <p>Transparent HTTP/1.1, HTTP/2, and TCP communication</p>
+          <p>No administrator privileges required</p>
+          <p>No changes to your existing application code or
+            network</p>
         </div>
-        <a class="nav" href="https://skupper.io/start/index.html">Get started <img src="https://skupper.io/images/right-arrow.svg"/></a>
+        <a class="nav" href="https://skupper.io/start/index.html">Try Skupper out <i class="material-icons">chevron_right</i></a>
+      </div>
+      <div>
+        <h3>Secure by default</h3>
+        <div>
+          <p>All communication is secured by mutual TLS</p>
+          <p>Application-level access control and resource limits</p>
+          <p>Supports standard end-to-end authentication between
+            clients and servers</p>
+        </div>
+        <a class="nav" href="https://skupper.io/intro/security.html">Skupper security <i class="material-icons">chevron_right</i></a>
       </div>
       <div>
         <h3>Connect anywhere</h3>
@@ -322,19 +340,18 @@
           <p>Multicloud, hybrid cloud, and edge-to-edge connectivity</p>
           <p>Secure access to private cloud services without VPNs</p>
           <p>Connect and disconnect new clusters dynamically</p>
-          <p>Seamless service propagation</p>
         </div>
-        <a class="nav" href="https://skupper.io/intro/connectivity.html">Connectivity <img src="https://skupper.io/images/right-arrow.svg"/></a>
+        <a class="nav" href="https://skupper.io/intro/connectivity.html">Skupper connectivity <i class="material-icons">chevron_right</i></a>
       </div>
       <div>
-        <h3>Advanced routing</h3>
+        <h3>Smart routing</h3>
         <div>
-          <p>Global load balancing that responds to changes in service capacity</p>
-          <p>Cost-based and locality-aware traffic forwarding</p>
+          <p>Dynamic load balancing based on service capacity</p>
+          <p>Cost- and locality-aware traffic forwarding</p>
           <p>Redundant routes for high availability in the face of network failures</p>
           <!-- <p>Multicast HTTP request forwarding</p> -->
         </div>
-        <a class="nav" href="https://skupper.io/intro/routing.html">Routing <img src="https://skupper.io/images/right-arrow.svg"/></a>
+        <a class="nav" href="https://skupper.io/intro/routing.html">Skupper routing <i class="material-icons">chevron_right</i></a>
       </nav>
       </div>
     </div>
@@ -376,6 +393,10 @@
   <div>
   </div>
 </footer>
+
+<div id="-popup-video">
+  <div>XXX</div>
+</div>
 
 
 

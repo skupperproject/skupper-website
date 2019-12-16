@@ -43,7 +43,6 @@
 }
 
 * {
-    margin: 1em 0;
     padding: 0;
     box-sizing: border-box;
     border-style: none;
@@ -203,7 +202,7 @@ section {
 header > div,
 footer > div,
 section > div {
-    max-width: 960px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 1em;
 }
@@ -234,10 +233,9 @@ section:first-of-type {
 }
 
 img.inline-icon {
-    height: 1.15em;
-    vertical-align: middle;
-    position: relative;
-    top: -0.1em;
+    height: 1.2em;
+    vertical-align: -0.25em;
+    margin-right: 0.2em;
 }
 
 header a,
@@ -301,7 +299,7 @@ a:hover#-logotype {
 
 a#-logotype > img {
     height: 2.4em;
-    margin-right: 0.2em;
+    margin-right: 0.3em;
     vertical-align: middle;
     position: relative;
     top: -0.15em;

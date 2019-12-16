@@ -1,7 +1,7 @@
 ---
 title: Multicloud communication
 body_template: none
-extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/css" async="async"/>
+extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/css" async="async"/> <script type="text/javascript" src="{{site_url}}/index.js" defer="defer"></script>
 ---
 
 {{include("includes/header.html")}}
@@ -19,25 +19,42 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
           secure communication across Kubernetes clusters with no VPNs
           or special firewall rules.</p>
 
-        <p>With Skupper, your application is not confined to one
-          cluster.  It can span multiple cloud providers, data
-          centers, and
-          regions.  <a href="{{site_url}}/intro/index.html">Learn
-          more</a>.</p>
+        <p>With Skupper, your application can <strong>span multiple
+          cloud providers, data centers, and regions</strong>.</p>
+      </div>
+      <div>
+        <p>100% open source</p>
+
+        <p>Works with any flavor of Kubernetes</p>
+
+        <p><a class="button" id="-popup-video-button"><i class="material-icons">play_circle_filled</i> Watch the video</a></p>
+
+        <p><a class="button" href="{{site_url}}/intro/index.html">Learn more</a></p>
+
+        <p><a class="button" href="{{site_url}}/start/index.html">Get started</a></p>
       </div>
     </div>
 
     <div id="-features">
       <div>
-        <h3>Simple and secure</h3>
+        <h3>Works with your app</h3>
         <div>
-          <p>Transparent HTTP and TCP communication</p>
-          <p>Installation requires no administrator privileges</p>
-          <p>No changes to your existing application code or network</p>
-          <p>Secured by mutual TLS</p>
-          <!-- <p>Application-level access control and resource limits</p> -->
+          <p>Transparent HTTP/1.1, HTTP/2, and TCP communication</p>
+          <p>No administrator privileges required</p>
+          <p>No changes to your existing application code or
+            network</p>
         </div>
-        <a class="nav" href="{{site_url}}/start/index.html">Get started <img src="{{site_url}}/images/right-arrow.svg"/></a>
+        <a class="nav" href="{{site_url}}/start/index.html">Try Skupper out <i class="material-icons">chevron_right</i></a>
+      </div>
+      <div>
+        <h3>Secure by default</h3>
+        <div>
+          <p>All communication is secured by mutual TLS</p>
+          <p>Application-level access control and resource limits</p>
+          <p>Supports standard end-to-end authentication between
+            clients and servers</p>
+        </div>
+        <a class="nav" href="{{site_url}}/intro/security.html">Skupper security <i class="material-icons">chevron_right</i></a>
       </div>
       <div>
         <h3>Connect anywhere</h3>
@@ -45,19 +62,18 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
           <p>Multicloud, hybrid cloud, and edge-to-edge connectivity</p>
           <p>Secure access to private cloud services without VPNs</p>
           <p>Connect and disconnect new clusters dynamically</p>
-          <p>Seamless service propagation</p>
         </div>
-        <a class="nav" href="{{site_url}}/intro/connectivity.html">Connectivity <img src="{{site_url}}/images/right-arrow.svg"/></a>
+        <a class="nav" href="{{site_url}}/intro/connectivity.html">Skupper connectivity <i class="material-icons">chevron_right</i></a>
       </div>
       <div>
-        <h3>Advanced routing</h3>
+        <h3>Smart routing</h3>
         <div>
-          <p>Global load balancing that responds to changes in service capacity</p>
-          <p>Cost-based and locality-aware traffic forwarding</p>
+          <p>Dynamic load balancing based on service capacity</p>
+          <p>Cost- and locality-aware traffic forwarding</p>
           <p>Redundant routes for high availability in the face of network failures</p>
           <!-- <p>Multicast HTTP request forwarding</p> -->
         </div>
-        <a class="nav" href="{{site_url}}/intro/routing.html">Routing <img src="{{site_url}}/images/right-arrow.svg"/></a>
+        <a class="nav" href="{{site_url}}/intro/routing.html">Skupper routing <i class="material-icons">chevron_right</i></a>
       </nav>
       </div>
     </div>
@@ -99,3 +115,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
   <div>
   </div>
 </footer>
+
+<div id="-popup-video">
+  <div>XXX</div>
+</div>
