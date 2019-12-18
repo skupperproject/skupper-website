@@ -173,7 +173,7 @@ div.body a.button {
     cursor: pointer;
 }
 
-div.body a.button > i.material-icons {
+div.body a.button > span.material-icons {
     vertical-align: -0.24em;
     margin-left: -0.1em;
     margin-right: 0.2em;
@@ -184,29 +184,10 @@ a.nav {
     color: var(--bg-color-3);
 }
 
-a.nav > i.material-icons {
+a.nav > span.material-icons {
     vertical-align: -0.25em;
     margin-left: -0.2em;
 }
-
-/* .video > div { */
-/*     display: flex; */
-/*     width: 100%; */
-/*     padding-top: 3em; */
-/* } */
-
-/* .video:last-of-type > div { */
-/*     padding-bottom: 3em; */
-/* } */
-
-/* .video > div > * { */
-/*     margin-top: 0; */
-/*     width: 50%; */
-/* } */
-
-/* .video > div > iframe { */
-/*     margin: 0 2em 0 0; */
-/* } */
 
 #-wave-1 {
     display: block;
@@ -240,7 +221,12 @@ a.nav > i.material-icons {
     margin: 2em;
     padding: 2em;
     background-color: white;
+    border-radius: 0.8em;
     /* pointer-events: all; */
+}
+
+#-popup-video > div > iframe {
+    border-radius: 0.6em;
 }
 
 @media screen and (max-width: 800px) {

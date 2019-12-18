@@ -226,12 +226,6 @@ header > div {
     align-items: center;
 }
 
-img.inline-icon {
-    height: 1.2em;
-    vertical-align: -0.25em;
-    margin-right: 0.2em;
-}
-
 header a,
 header a:visited {
     color: inherit;
@@ -377,6 +371,11 @@ img.diagram {
 
 .pattern > div > div:last-of-type {
     margin-left: 2em;
+}
+
+span.fab,
+span.fas {
+    margin-right: 0.2em;
 }
 
 @media screen and (max-width: 800px) {

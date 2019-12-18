@@ -27,7 +27,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
 
         <p>Works with any flavor of Kubernetes</p>
 
-        <p><a class="button" id="-popup-video-button"><i class="material-icons">play_circle_filled</i> Watch the video</a></p>
+        <p><a class="button" id="-popup-video-button"><span class="material-icons">play_circle_filled</span> Watch the video</a></p>
 
         <p><a class="button" href="{{site_url}}/intro/index.html">Learn more</a></p>
 
@@ -37,26 +37,22 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
 
     <div id="-features">
       <div>
-        <h3>Works with your app</h3>
+        <h3>Simple to set up</h3>
         <div>
-          <p>Transparent HTTP/1.1, HTTP/2, and TCP communication</p>
+          <p>No changes to your existing application required</p>
           <p>No administrator privileges required</p>
-          <p>No changes to your existing application code or
-            network</p>
+          <p>Transparent HTTP/1.1, HTTP/2, gRPC, and TCP communication</p>
         </div>
-        <a class="nav" href="{{site_url}}/start/index.html">Try Skupper out <i class="material-icons">chevron_right</i></a>
+        <a class="nav" href="{{site_url}}/start/index.html">Try Skupper out <span class="material-icons">chevron_right</span></a>
       </div>
       <div>
         <h3>Security is built in</h3>
         <div>
-          <p>Connect services without exposing them to the public
-            internet</p>
-          <p>All communication is secured by mutual TLS</p>
-          <p>Application-level access control and resource limits</p>
-          <!-- <p>Supports standard end-to-end authentication between -->
-          <!--   clients and servers</p> -->
+          <p>Connect services across clusters without exposing them to the public internet</p>
+          <p>All inter-cluster communication is secured by two-way TLS authentication and encryption</p>
+          <!-- <p>Application-level access control and resource limits</p> -->
         </div>
-        <a class="nav" href="{{site_url}}/intro/security.html">Skupper security <i class="material-icons">chevron_right</i></a>
+        <a class="nav" href="{{site_url}}/intro/security.html">Skupper security <span class="material-icons">chevron_right</span></a>
       </div>
       <div>
         <h3>Connect anywhere</h3>
@@ -65,7 +61,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
           <p>Secure access from the public cloud to private cloud services without VPNs</p>
           <p>Connect and disconnect new clusters dynamically</p>
         </div>
-        <a class="nav" href="{{site_url}}/intro/connectivity.html">Skupper connectivity <i class="material-icons">chevron_right</i></a>
+        <a class="nav" href="{{site_url}}/intro/connectivity.html">Skupper connectivity <span class="material-icons">chevron_right</span></a>
       </div>
       <div>
         <h3>Smart routing</h3>
@@ -75,7 +71,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
           <p>Redundant routes for high availability in the face of network failures</p>
           <!-- <p>Multicast HTTP request forwarding</p> -->
         </div>
-        <a class="nav" href="{{site_url}}/intro/routing.html">Skupper routing <i class="material-icons">chevron_right</i></a>
+        <a class="nav" href="{{site_url}}/intro/routing.html">Skupper routing <span class="material-icons">chevron_right</span></a>
       </nav>
       </div>
     </div>
@@ -117,5 +113,5 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
 {{include("includes/footer.html")}}
 
 <div id="-popup-video">
-  <div>XXX</div>
+  <div><iframe width="960px" height="540" src="https://www.youtube.com/embed/bL-BvHEQuXs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 </div>

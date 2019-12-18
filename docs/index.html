@@ -4,9 +4,10 @@
     <title>Skupper - Multicloud communication</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional" type="text/css"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
-    <link rel="stylesheet" href="https://skupper.io/main.css" type="text/css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" defer/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" defer/>
+    <link rel="stylesheet" href="https://skupper.io/main.css"/>
     <link rel="icon" type="image/png" sizes="32x32" href="https://skupper.io/images/skupper-icon-32.png">
     <link rel="icon" type="image/png" sizes="256x256" href="https://skupper.io/images/skupper-icon-256.png">
     <script type="text/javascript" src="https://skupper.io/main.js" defer="defer"></script>
@@ -34,8 +35,7 @@
       <!-- <a href="https://skupper.io/docs/index.html">Documentation</a> -->
     </nav>
     <nav id="-top-right-nav">
-      <!-- <a href="https://groups.google.com/d/forum/skupper"><img class="inline-icon" src="https://skupper.io/images/at-sign.svg"/> Mailing list</a> -->
-      <a href="https://github.com/skupperproject"><img class="inline-icon" src="https://skupper.io/images/github.svg"/> GitHub</a>
+      <a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span> GitHub</a>
     </nav>
   </div>
 </header>
@@ -306,7 +306,7 @@
 
         <p>Works with any flavor of Kubernetes</p>
 
-        <p><a class="button" id="-popup-video-button"><i class="material-icons">play_circle_filled</i> Watch the video</a></p>
+        <p><a class="button" id="-popup-video-button"><span class="material-icons">play_circle_filled</span> Watch the video</a></p>
 
         <p><a class="button" href="https://skupper.io/intro/index.html">Learn more</a></p>
 
@@ -316,26 +316,22 @@
 
     <div id="-features">
       <div>
-        <h3>Works with your app</h3>
+        <h3>Simple to set up</h3>
         <div>
-          <p>Transparent HTTP/1.1, HTTP/2, and TCP communication</p>
+          <p>No changes to your existing application required</p>
           <p>No administrator privileges required</p>
-          <p>No changes to your existing application code or
-            network</p>
+          <p>Transparent HTTP/1.1, HTTP/2, gRPC, and TCP communication</p>
         </div>
-        <a class="nav" href="https://skupper.io/start/index.html">Try Skupper out <i class="material-icons">chevron_right</i></a>
+        <a class="nav" href="https://skupper.io/start/index.html">Try Skupper out <span class="material-icons">chevron_right</span></a>
       </div>
       <div>
         <h3>Security is built in</h3>
         <div>
-          <p>Connect services without exposing them to the public
-            internet</p>
-          <p>All communication is secured by mutual TLS</p>
-          <p>Application-level access control and resource limits</p>
-          <!-- <p>Supports standard end-to-end authentication between -->
-          <!--   clients and servers</p> -->
+          <p>Connect services across clusters without exposing them to the public internet</p>
+          <p>All inter-cluster communication is secured by two-way TLS authentication and encryption</p>
+          <!-- <p>Application-level access control and resource limits</p> -->
         </div>
-        <a class="nav" href="https://skupper.io/intro/security.html">Skupper security <i class="material-icons">chevron_right</i></a>
+        <a class="nav" href="https://skupper.io/intro/security.html">Skupper security <span class="material-icons">chevron_right</span></a>
       </div>
       <div>
         <h3>Connect anywhere</h3>
@@ -344,7 +340,7 @@
           <p>Secure access from the public cloud to private cloud services without VPNs</p>
           <p>Connect and disconnect new clusters dynamically</p>
         </div>
-        <a class="nav" href="https://skupper.io/intro/connectivity.html">Skupper connectivity <i class="material-icons">chevron_right</i></a>
+        <a class="nav" href="https://skupper.io/intro/connectivity.html">Skupper connectivity <span class="material-icons">chevron_right</span></a>
       </div>
       <div>
         <h3>Smart routing</h3>
@@ -354,7 +350,7 @@
           <p>Redundant routes for high availability in the face of network failures</p>
           <!-- <p>Multicast HTTP request forwarding</p> -->
         </div>
-        <a class="nav" href="https://skupper.io/intro/routing.html">Skupper routing <i class="material-icons">chevron_right</i></a>
+        <a class="nav" href="https://skupper.io/intro/routing.html">Skupper routing <span class="material-icons">chevron_right</span></a>
       </nav>
       </div>
     </div>
@@ -395,13 +391,17 @@
 
 <footer>
   <div>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum enim urna, ornare pellentesque felis eget, maximus lacinia lorem. Nulla auctor massa vitae ultricies varius. Curabitur consectetur lacus sapien, a lacinia urna tempus quis. Vestibulum vitae augue non augue lobortis semper. Nullam fringilla odio quis ligula consequat condimentum. Integer tempus sem.
+    <p><a href="https://www.youtube.com/channel/UCQxHN2Qq8koCatcmKCJ4OEA"><span class="fab fa-youtube fa-lg"></span> YouTube</a></p>
+    <p><a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span> GitHub</a></p>
+    <p><a href="https://twitter.com/SkupperIO"><span class="fab fa-twitter fa-lg"></span> Twitter</a></p>
+    <p><a href="https://groups.google.com/forum/#!forum/skupper"><span class="fas fa-envelope fa-lg"></span> Mailing list</a></p>
+    <!-- <p><a href="https://stackoverflow.com/questions/tagged/skupper"><span class="fab fa-stack-overflow fa-lg"></span> Stack Overflow</a></p> -->
   </div>
 </footer>
 
 
 <div id="-popup-video">
-  <div>XXX</div>
+  <div><iframe width="960px" height="540" src="https://www.youtube.com/embed/bL-BvHEQuXs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 </div>
 
 
