@@ -105,7 +105,9 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
     <div>
       <iframe src="https://www.youtube.com/embed/H80GLl-KdTc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       <h2>A multi-cluster microservices app</h2>
-      <p>{{lipsum(15)}}</p>
+      <p>See how you can deploy the HTTP-based Bookinfo application
+        from the Istio project with no changes to the application
+        code.</p>
       <p><a class="nav" href="https://github.com/skupperproject/skupper-example-bookinfo">Example
         code and tutorial</a></p>
     </div>
