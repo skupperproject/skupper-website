@@ -49,7 +49,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
         <h3>Security is built in</h3>
         <div>
           <p>Connect services across clusters without exposing them to the public internet</p>
-          <p>All inter-cluster communication is secured by two-way TLS authentication and encryption</p>
+          <p>All inter-cluster communication is secured by mutual TLS authentication and encryption</p>
           <!-- <p>Application-level access control and resource limits</p> -->
         </div>
         <a class="nav" href="{{site_url}}/intro/security.html">Skupper security <span class="material-icons">chevron_right</span></a>
@@ -103,9 +103,11 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
     </div>
 
     <div>
-      <iframe src="https://www.youtube.com/embed/HiYeSfuOHm4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <h2>Lorem ipsum</h2>
+      <iframe src="https://www.youtube.com/embed/H80GLl-KdTc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <h2>A multi-cluster microservices app</h2>
       <p>{{lipsum(15)}}</p>
+      <p><a class="nav" href="https://github.com/skupperproject/skupper-example-bookinfo">Example
+        code and tutorial</a></p>
     </div>
   </div>
 </div>
