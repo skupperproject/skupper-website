@@ -196,8 +196,7 @@ a.nav > img {
     }
 
     #-graphic-and-summary > div:first-of-type > svg {
-        margin: 0 auto;
-        height: 300px;
+        display: none;
     }
 
     #-graphic-and-summary > div:last-of-type > h1 {
