@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Using Skupper with Amazon Elastic Kubernetes Service</title>
+    <title>Skupper - Routing</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -54,9 +54,9 @@
   </nav>
   <nav id="-path-nav">
     <div>
-      <a href="/skupper-website/start/index.html">Getting started</a>
+      <a href="/skupper-website/docs/index.html">Documentation</a>
       <span class="path-separator">&rsaquo;</span>
-      Using Skupper with Amazon Elastic Kubernetes Service
+      Routing
     </div>
   </nav>
 </header>
@@ -75,7 +75,7 @@
     <div>
       
       <span class="path-separator">&rsaquo;</span>
-      Using Skupper with Amazon Elastic Kubernetes Service
+      Routing
     </div>
   </nav>
   <nav id="-site-menu-layer">
@@ -94,7 +94,51 @@
   <div>
     <main>
 
-<h1 id="using-skupper-with-amazon-elastic-kubernetes-service">Using Skupper with Amazon Elastic Kubernetes Service</h1>
+<h1 id="skupper-routing">Skupper routing</h1>
+
+<p>Skupper uses layer 7 addressing and routing to connect services.  See
+how the power of application-layer addressing can bring new
+capabilities to your applications.</p>
+
+<h2 id="multi-cluster-services">Multi-cluster services</h2>
+
+<p>Deploy a single logical service across multiple clusters.</p>
+
+<p>Skupper can route requests to instances of a single service running on
+multiple clusters.  If a provider or data center fails, the service
+instances running at unaffected sites can scale to meet the need and
+maintain availability.</p>
+
+<h2 id="dynamic-load-balancing">Dynamic load balancing</h2>
+
+<p>Balance requests across clusters according to service capacity.</p>
+
+<p>The Skupper network has cross-cluster visibility.  It can see which
+services are already loaded and which have spare capacity, and it
+directs requests accordingly.</p>
+
+<p>You can assign a cost to each inter-cluster connection.  This enables
+you to configure a preference for one resource over another.  If
+demand is normal, you can keep all traffic on your private cloud.  If
+demand peaks, you can dynamically spill over to public cloud
+resources.</p>
+
+<!-- ## Multicast request forwarding -->
+
+<!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum enim urna, ornare pellentesque felis eget, maximus lacinia lorem. Nulla auctor massa vitae ultricies varius. Curabitur consectetur lacus sapien, a lacinia urna tempus quis. Vestibulum vitae augue non augue lobortis semper. Nullam fringilla odio quis ligula consequat condimentum. Integer tempus sem. -->
+
+<h2 id="reliable-networks">Reliable networks</h2>
+
+<p>Skupper uses redundant network paths and smart routing to provide
+highly available connectivity at scale.</p>
+
+<h2 id="more-information">More information</h2>
+
+<ul>
+<li><a href="overview.html">Skupper overview</a>
+<!-- - <a href="security.html">Skupper security</a> --></li>
+<li><a href="connectivity.html">Skupper connectivity</a></li>
+</ul>
 
 
     </main>

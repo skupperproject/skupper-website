@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Skupper overview</title>
+    <title>Skupper - Overview</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic" type="text/css"/>
-    <link rel="stylesheet" href="https://skupper.io/main.css" type="text/css"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="https://skupper.io/images/skupper-icon-32.png">
-    <link rel="icon" type="image/png" sizes="256x256" href="https://skupper.io/images/skupper-icon-256.png">
-    <script type="text/javascript" src="https://skupper.io/main.js" defer="defer"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" defer/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" defer/>
+    <link rel="stylesheet" href="/skupper-website/main.css"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/skupper-website/images/skupper-icon-32.png">
+    <link rel="icon" type="image/png" sizes="256x256" href="/skupper-website/images/skupper-icon-256.png">
+    <script type="text/javascript" src="/skupper-website/main.js" defer="defer"></script>
 
 
 
@@ -22,24 +24,75 @@
   </head>
   <body>
 
-<header>
-  <div>
-    <nav id="-top-left-nav">
-      <a href="https://skupper.io/index.html" id="-logotype"><img src="https://skupper.io/images/skupper-logo.svg"/> Skupper</a>
-      <a href="https://skupper.io/start/index.html">Getting started</a>
-      <a href="https://skupper.io/examples/index.html">Examples</a>
-      <!-- <a href="https://skupper.io/docs/index.html">Documentation</a> -->
-    </nav>
-    <nav id="-top-right-nav">
-      <!-- <a href="https://groups.google.com/d/forum/skupper"><img class="inline-icon" src="https://skupper.io/images/at-sign.svg"/> Mailing list</a> -->
-      <a href="https://github.com/skupperproject"><img class="inline-icon" src="https://skupper.io/images/github.svg"/> GitHub</a>
-    </nav>
-  </div>
+<header id="-large-device-header">
+  <nav id="-site-nav">
+    <div>
+      <div id="-left-site-nav">
+        <a href="/skupper-website/index.html" id="-logotype">
+          <img src="/skupper-website/images/skupper-logo.svg"/>
+          <div>Skupper</div>
+        </a>
+        <a href="/skupper-website/start/index.html">
+          <div>Getting started</div>
+        </a>
+        <a href="/skupper-website/examples/index.html">
+          <div>Examples</div>
+        </a>
+        <a href="/skupper-website/docs/index.html">
+          <div>Documentation</div>
+        </a>
+        <a href="/skupper-website/community/index.html">
+          <div>Community</div>
+        </a>
+      </div>
+      <div id="-right-site-nav">
+        <a href="https://github.com/skupperproject">
+          <div><span class="fab fa-github fa-lg"></span> GitHub</div>
+        </a>
+      </div>
+    </div>
+  </nav>
+  <nav id="-path-nav">
+    <div>
+      <a href="/skupper-website/docs/index.html">Documentation</a>
+      <span class="path-separator">&rsaquo;</span>
+      Overview
+    </div>
+  </nav>
+</header>
+<header id="-small-device-header">
+  <nav id="-site-nav">
+    <a id="-site-menu-button">
+      <span class="material-icons">menu</span>
+    </a>
+    <a href="/skupper-website/index.html" id="-logotype">
+      <img src="/skupper-website/images/skupper-logo.svg"/>
+      <div>Skupper</div>
+    </a>
+    <a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span></a>
+  </nav>
+  <nav id="-path-nav">
+    <div>
+      
+      <span class="path-separator">&rsaquo;</span>
+      Overview
+    </div>
+  </nav>
+  <nav id="-site-menu-layer">
+    <div>
+      <a href="/skupper-website/index.html">Home</a>
+      <a href="/skupper-website/start/index.html">Getting started</a>
+      <a href="/skupper-website/examples/index.html">Examples</a>
+      <a href="/skupper-website/docs/index.html">Documentation</a>
+      <a href="/skupper-website/community/index.html">Community</a>
+    </div>
+  </nav>
 </header>
 
 
 <section>
   <div>
+    <main>
 
 <h1 id="skupper-overview">Skupper overview</h1>
 
@@ -64,12 +117,12 @@ they were all running in the same site. In this diagram, a VAN
 connects three services, each of which is running in a different
 cloud:</p>
 
-<p><img class="diagram" src="https://skupper.io/images/overview-clouds.png"/></p>
+<p><img class="diagram" src="/skupper-website/images/overview-clouds.png"/></p>
 
 <p>In essence, the VAN connects the services in a distributed application
 with a microservice architecture.</p>
 
-<p><img class="diagram" src="https://skupper.io/images/overview-application.png"/></p>
+<p><img class="diagram" src="/skupper-website/images/overview-application.png"/></p>
 
 <p>VANs are able to provide connectivity across the hybrid cloud because
 they operate at Layer 7 (the application layer). They use <strong>Layer 7
@@ -97,7 +150,7 @@ application address to its local application router. <strong>Service A</strong> 
 router routes copies of the message through the VAN until they arrive
 at each destination.</p>
 
-<p><img class="diagram" src="https://skupper.io/images/overview-routers.png"/></p>
+<p><img class="diagram" src="/skupper-website/images/overview-routers.png"/></p>
 
 <p>VANs provide multiple routing patterns, so communications can be
 distributed in anycast (balanced or closest) or multicast patterns.</p>
@@ -111,7 +164,7 @@ microservices running in different Kubernetes clusters.</p>
 <p>This diagram illustrates a Skupper network that connects three
 services running in three different Kubernetes clusters:</p>
 
-<p><img class="diagram" src="https://skupper.io/images/overview-clusters.png"/></p>
+<p><img class="diagram" src="/skupper-website/images/overview-clusters.png"/></p>
 
 <p>In a Skupper network, each namespace contains a Skupper instance. When
 these Skupper instances connect, they continually share information
@@ -128,19 +181,47 @@ the Skupper network.</p>
 
 <h2 id="more-information">More information</h2>
 
+<!-- - [Skupper security](security.html) -->
+
 <ul>
 <li><a href="connectivity.html">Skupper connectivity</a></li>
 <li><a href="routing.html">Skupper routing</a></li>
 </ul>
 
 
+    </main>
+    <nav id="-toc">
+      <h4>Contents</h4>
+      <div></div>
+    </nav>
   </div>
 </section>
 
 <footer>
   <div>
+    <div>
+      <p><a href="https://twitter.com/SkupperIO"><span class="fab fa-twitter fa-lg"></span> Twitter</a></p>
+      <p><a href="https://www.youtube.com/channel/UCQxHN2Qq8koCatcmKCJ4OEA"><span class="fab fa-youtube fa-lg"></span> YouTube</a></p>
+      <!-- <p><a href="https://stackoverflow.com/questions/tagged/skupper"><span class="fab fa-stack-overflow fa-lg"></span> Stack Overflow</a></p> -->
+      <p><a href="https://groups.google.com/forum/#!forum/skupper"><span class="fas fa-envelope fa-lg"></span> Mailing list</a></p>
+      <p><a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span> GitHub</a></p>
+    </div>
+    <div>
+      <h4>Skupper - Multicloud communication for Kubernetes</h4>
+      <p>Skupper enables secure communication across Kubernetes
+        clusters with no VPNs or special firewall rules</p>
+      <p>Copyright &#169; 2020 the Skupper authors</p>
+    </div>
+    <div>
+      <p>All code and documentation is licensed under
+        the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache
+        License version 2.0</a></p>
+      <p>Marks may be trademarks or registered trademarks of their
+        respective owners</p>
+    </div>
   </div>
 </footer>
+
 
 
 

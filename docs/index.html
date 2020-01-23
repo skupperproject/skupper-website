@@ -4,13 +4,15 @@
     <title>Skupper - Multicloud communication</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic" type="text/css"/>
-    <link rel="stylesheet" href="https://skupper.io/main.css" type="text/css"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="https://skupper.io/images/skupper-icon-32.png">
-    <link rel="icon" type="image/png" sizes="256x256" href="https://skupper.io/images/skupper-icon-256.png">
-    <script type="text/javascript" src="https://skupper.io/main.js" defer="defer"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" defer/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" defer/>
+    <link rel="stylesheet" href="/skupper-website/main.css"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/skupper-website/images/skupper-icon-32.png">
+    <link rel="icon" type="image/png" sizes="256x256" href="/skupper-website/images/skupper-icon-256.png">
+    <script type="text/javascript" src="/skupper-website/main.js" defer="defer"></script>
 
-<link rel="stylesheet" href="https://skupper.io/index.css" type="text/css" async="async"/>
+<link rel="stylesheet" href="/skupper-website/index.css" type="text/css" async="async"/> <script type="text/javascript" src="/skupper-website/index.js" defer="defer"></script>
 
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
     <script>
@@ -23,19 +25,69 @@
   <body>
 
 
-<header>
-  <div>
-    <nav id="-top-left-nav">
-      <a href="https://skupper.io/index.html" id="-logotype"><img src="https://skupper.io/images/skupper-logo.svg"/> Skupper</a>
-      <a href="https://skupper.io/start/index.html">Getting started</a>
-      <a href="https://skupper.io/examples/index.html">Examples</a>
-      <!-- <a href="https://skupper.io/docs/index.html">Documentation</a> -->
-    </nav>
-    <nav id="-top-right-nav">
-      <!-- <a href="https://groups.google.com/d/forum/skupper"><img class="inline-icon" src="https://skupper.io/images/at-sign.svg"/> Mailing list</a> -->
-      <a href="https://github.com/skupperproject"><img class="inline-icon" src="https://skupper.io/images/github.svg"/> GitHub</a>
-    </nav>
-  </div>
+<header id="-large-device-header">
+  <nav id="-site-nav">
+    <div>
+      <div id="-left-site-nav">
+        <a href="/skupper-website/index.html" id="-logotype">
+          <img src="/skupper-website/images/skupper-logo.svg"/>
+          <div>Skupper</div>
+        </a>
+        <a href="/skupper-website/start/index.html">
+          <div>Getting started</div>
+        </a>
+        <a href="/skupper-website/examples/index.html">
+          <div>Examples</div>
+        </a>
+        <a href="/skupper-website/docs/index.html">
+          <div>Documentation</div>
+        </a>
+        <a href="/skupper-website/community/index.html">
+          <div>Community</div>
+        </a>
+      </div>
+      <div id="-right-site-nav">
+        <a href="https://github.com/skupperproject">
+          <div><span class="fab fa-github fa-lg"></span> GitHub</div>
+        </a>
+      </div>
+    </div>
+  </nav>
+  <nav id="-path-nav">
+    <div>
+      
+      <span class="path-separator">&rsaquo;</span>
+      Multicloud communication
+    </div>
+  </nav>
+</header>
+<header id="-small-device-header">
+  <nav id="-site-nav">
+    <a id="-site-menu-button">
+      <span class="material-icons">menu</span>
+    </a>
+    <a href="/skupper-website/index.html" id="-logotype">
+      <img src="/skupper-website/images/skupper-logo.svg"/>
+      <div>Skupper</div>
+    </a>
+    <a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span></a>
+  </nav>
+  <nav id="-path-nav">
+    <div>
+      
+      <span class="path-separator">&rsaquo;</span>
+      Multicloud communication
+    </div>
+  </nav>
+  <nav id="-site-menu-layer">
+    <div>
+      <a href="/skupper-website/index.html">Home</a>
+      <a href="/skupper-website/start/index.html">Getting started</a>
+      <a href="/skupper-website/examples/index.html">Examples</a>
+      <a href="/skupper-website/docs/index.html">Documentation</a>
+      <a href="/skupper-website/community/index.html">Community</a>
+    </div>
+  </nav>
 </header>
 
 
@@ -296,45 +348,55 @@
           secure communication across Kubernetes clusters with no VPNs
           or special firewall rules.</p>
 
-        <p>With Skupper, your application is not confined to one
-          cluster.  It can span multiple cloud providers, data
-          centers, and
-          regions.  <a href="https://skupper.io/intro/index.html">Learn
-          more</a>.</p>
+        <p>With Skupper, your application can span multiple cloud
+          providers, data centers, and regions.</p>
+      </div>
+      <div>
+        <p>100% open source</p>
+        <p>Works with any flavor of Kubernetes</p>
+        <p><a class="button" id="-popup-video-button"><span class="material-icons">play_circle_filled</span> Watch the video</a></p>
+        <p><a class="button" href="/skupper-website/docs/overview.html">Learn more</a></p>
+        <p><a class="button" href="/skupper-website/start/index.html">Get started</a></p>
       </div>
     </div>
 
     <div id="-features">
       <div>
-        <h3>Simple and secure</h3>
+        <h3>Simple to set up</h3>
         <div>
-          <p>Transparent HTTP and TCP communication</p>
-          <p>Installation requires no administrator privileges</p>
-          <p>No changes to your existing application code or network</p>
-          <p>Secured by mutual TLS</p>
+          <p>No changes to your existing application required</p>
+          <p>No administrator privileges required</p>
+          <p>Transparent HTTP/1.1, HTTP/2, gRPC, and TCP communication</p>
+        </div>
+        <a class="nav" href="/skupper-website/start/index.html">Try Skupper out <span class="material-icons">chevron_right</span></a>
+      </div>
+      <div>
+        <h3>Security is built in</h3>
+        <div>
+          <p>Connect services across clusters without exposing them to the public internet</p>
+          <p>All inter-cluster communication is secured by mutual TLS authentication and encryption</p>
           <!-- <p>Application-level access control and resource limits</p> -->
         </div>
-        <a class="nav" href="https://skupper.io/start/index.html">Get started <img src="https://skupper.io/images/right-arrow.svg"/></a>
+        <!-- <a class="nav" href="/skupper-website/docs/security.html">Skupper security <span class="material-icons">chevron_right</span></a> -->
       </div>
       <div>
         <h3>Connect anywhere</h3>
         <div>
           <p>Multicloud, hybrid cloud, and edge-to-edge connectivity</p>
-          <p>Secure access to private cloud services without VPNs</p>
+          <p>Secure access from the public cloud to private cloud services without VPNs</p>
           <p>Connect and disconnect new clusters dynamically</p>
-          <p>Seamless service propagation</p>
         </div>
-        <a class="nav" href="https://skupper.io/intro/connectivity.html">Connectivity <img src="https://skupper.io/images/right-arrow.svg"/></a>
+        <a class="nav" href="/skupper-website/docs/connectivity.html">Skupper connectivity <span class="material-icons">chevron_right</span></a>
       </div>
       <div>
-        <h3>Advanced routing</h3>
+        <h3>Smart routing</h3>
         <div>
-          <p>Global load balancing that responds to changes in service capacity</p>
-          <p>Cost-based and locality-aware traffic forwarding</p>
+          <p>Dynamic load balancing based on service capacity</p>
+          <p>Cost- and locality-aware traffic forwarding</p>
           <p>Redundant routes for high availability in the face of network failures</p>
           <!-- <p>Multicast HTTP request forwarding</p> -->
         </div>
-        <a class="nav" href="https://skupper.io/intro/routing.html">Routing <img src="https://skupper.io/images/right-arrow.svg"/></a>
+        <a class="nav" href="/skupper-website/docs/routing.html">Skupper routing <span class="material-icons">chevron_right</span></a>
       </nav>
       </div>
     </div>
@@ -345,37 +407,68 @@
   <path d="M 0 0 L 0 25 Q 400 60 800 25 T 1600 25 L 1600 0 Z"/>
 </svg>
 
-<section class="video">
+<section id="-videos">
   <div>
-    <iframe width="360" height="240" src="https://www.youtube.com/embed/bL-BvHEQuXs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <div>
+      <iframe src="https://www.youtube.com/embed/bL-BvHEQuXs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       <h2>Deploy a multi-cluster network</h2>
       <p>See how you can use Skupper to create a network of clusters
         in which a Kubernetes service on one cluster can be accessed
         from any other.</p>
+      <p><a class="nav" href="/skupper-website/docs/overview.html">Learn more about Skupper</a></p>
     </div>
-  </div>
-</section>
 
-<section class="video">
-  <div>
-    <iframe width="360" height="240" src="https://www.youtube.com/embed/Oa0aVpb0v7U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <div>
+      <iframe src="https://www.youtube.com/embed/Oa0aVpb0v7U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       <h2>Access data in a private cluster</h2>
       <p>See how Skupper can enable you to host a PostgreSQL database
         in a private cluster and then access it from two other public
         clusters.</p>
-      <nav class="links">
-        <a href="https://github.com/skupperproject/skupper-example-postgresql">Example code and tutorial</a>
-      </nav>
+      <p><a class="nav" href="https://github.com/skupperproject/skupper-example-postgresql">Example
+        code and tutorial</a></p>
+    </div>
+
+    <div>
+      <iframe src="https://www.youtube.com/embed/H80GLl-KdTc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <h2>A multi-cluster microservices app</h2>
+      <p>See how you can deploy the HTTP-based Bookinfo application
+        from the Istio project with no changes to the application
+        code.</p>
+      <p><a class="nav" href="https://github.com/skupperproject/skupper-example-bookinfo">Example
+        code and tutorial</a></p>
     </div>
   </div>
 </section>
 
 <footer>
   <div>
+    <div>
+      <p><a href="https://twitter.com/SkupperIO"><span class="fab fa-twitter fa-lg"></span> Twitter</a></p>
+      <p><a href="https://www.youtube.com/channel/UCQxHN2Qq8koCatcmKCJ4OEA"><span class="fab fa-youtube fa-lg"></span> YouTube</a></p>
+      <!-- <p><a href="https://stackoverflow.com/questions/tagged/skupper"><span class="fab fa-stack-overflow fa-lg"></span> Stack Overflow</a></p> -->
+      <p><a href="https://groups.google.com/forum/#!forum/skupper"><span class="fas fa-envelope fa-lg"></span> Mailing list</a></p>
+      <p><a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span> GitHub</a></p>
+    </div>
+    <div>
+      <h4>Skupper - Multicloud communication for Kubernetes</h4>
+      <p>Skupper enables secure communication across Kubernetes
+        clusters with no VPNs or special firewall rules</p>
+      <p>Copyright &#169; 2020 the Skupper authors</p>
+    </div>
+    <div>
+      <p>All code and documentation is licensed under
+        the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache
+        License version 2.0</a></p>
+      <p>Marks may be trademarks or registered trademarks of their
+        respective owners</p>
+    </div>
   </div>
 </footer>
+
+
+<div id="-popup-video-layer">
+  <div><iframe src="https://www.youtube.com/embed/bL-BvHEQuXs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+</div>
 
 
 

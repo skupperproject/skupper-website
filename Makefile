@@ -25,7 +25,7 @@ export PYTHONPATH := python
 render: site_url := "file:${CURDIR}/output"
 render: clean
 	python3 -m transom render --force --quiet input output
-	python3 -m transom render --force --quiet --site-url "https://skupper.io" input docs
+	python3 -m transom render --force --quiet --site-url /skupper-website input docs
 	@echo "See the output at:"
 	@echo ${site_url}/index.html
 

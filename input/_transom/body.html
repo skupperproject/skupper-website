@@ -1,14 +1,17 @@
-{{include("includes/header.html")}}
+{{include(page, "includes/header.html")}}
 
 <section>
   <div>
+    <main>
 
 @content@
 
+    </main>
+    <nav id="-toc">
+      <h4>Contents</h4>
+      <div></div>
+    </nav>
   </div>
 </section>
 
-<footer>
-  <div>
-  </div>
-</footer>
+{{include(page, "includes/footer.html")}}

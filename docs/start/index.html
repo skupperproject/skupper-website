@@ -4,11 +4,13 @@
     <title>Skupper - Getting started</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic" type="text/css"/>
-    <link rel="stylesheet" href="https://skupper.io/main.css" type="text/css"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="https://skupper.io/images/skupper-icon-32.png">
-    <link rel="icon" type="image/png" sizes="256x256" href="https://skupper.io/images/skupper-icon-256.png">
-    <script type="text/javascript" src="https://skupper.io/main.js" defer="defer"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" defer/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" defer/>
+    <link rel="stylesheet" href="/skupper-website/main.css"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/skupper-website/images/skupper-icon-32.png">
+    <link rel="icon" type="image/png" sizes="256x256" href="/skupper-website/images/skupper-icon-256.png">
+    <script type="text/javascript" src="/skupper-website/main.js" defer="defer"></script>
 
 
 
@@ -22,39 +24,77 @@
   </head>
   <body>
 
-<header>
-  <div>
-    <nav id="-top-left-nav">
-      <a href="https://skupper.io/index.html" id="-logotype"><img src="https://skupper.io/images/skupper-logo.svg"/> Skupper</a>
-      <a href="https://skupper.io/start/index.html">Getting started</a>
-      <a href="https://skupper.io/examples/index.html">Examples</a>
-      <!-- <a href="https://skupper.io/docs/index.html">Documentation</a> -->
-    </nav>
-    <nav id="-top-right-nav">
-      <!-- <a href="https://groups.google.com/d/forum/skupper"><img class="inline-icon" src="https://skupper.io/images/at-sign.svg"/> Mailing list</a> -->
-      <a href="https://github.com/skupperproject"><img class="inline-icon" src="https://skupper.io/images/github.svg"/> GitHub</a>
-    </nav>
-  </div>
+<header id="-large-device-header">
+  <nav id="-site-nav">
+    <div>
+      <div id="-left-site-nav">
+        <a href="/skupper-website/index.html" id="-logotype">
+          <img src="/skupper-website/images/skupper-logo.svg"/>
+          <div>Skupper</div>
+        </a>
+        <a href="/skupper-website/start/index.html">
+          <div>Getting started</div>
+        </a>
+        <a href="/skupper-website/examples/index.html">
+          <div>Examples</div>
+        </a>
+        <a href="/skupper-website/docs/index.html">
+          <div>Documentation</div>
+        </a>
+        <a href="/skupper-website/community/index.html">
+          <div>Community</div>
+        </a>
+      </div>
+      <div id="-right-site-nav">
+        <a href="https://github.com/skupperproject">
+          <div><span class="fab fa-github fa-lg"></span> GitHub</div>
+        </a>
+      </div>
+    </div>
+  </nav>
+  <nav id="-path-nav">
+    <div>
+      
+      <span class="path-separator">&rsaquo;</span>
+      Getting started
+    </div>
+  </nav>
+</header>
+<header id="-small-device-header">
+  <nav id="-site-nav">
+    <a id="-site-menu-button">
+      <span class="material-icons">menu</span>
+    </a>
+    <a href="/skupper-website/index.html" id="-logotype">
+      <img src="/skupper-website/images/skupper-logo.svg"/>
+      <div>Skupper</div>
+    </a>
+    <a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span></a>
+  </nav>
+  <nav id="-path-nav">
+    <div>
+      
+      <span class="path-separator">&rsaquo;</span>
+      Getting started
+    </div>
+  </nav>
+  <nav id="-site-menu-layer">
+    <div>
+      <a href="/skupper-website/index.html">Home</a>
+      <a href="/skupper-website/start/index.html">Getting started</a>
+      <a href="/skupper-website/examples/index.html">Examples</a>
+      <a href="/skupper-website/docs/index.html">Documentation</a>
+      <a href="/skupper-website/community/index.html">Community</a>
+    </div>
+  </nav>
 </header>
 
 
 <section>
   <div>
+    <main>
 
 <h1 id="getting-started-with-skupper">Getting started with Skupper</h1>
-
-<nav class="toc">
-  <div><a href="#overview">Overview</a></div>
-  <div><a href="#prerequisites">Prerequisites</a></div>
-  <div><a href="#step-1-install-the-skupper-command-line-tool-in-your-environment">Step 1: Install the Skupper command-line tool in your environment</a></div>
-  <div><a href="#step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</a></div>
-  <div><a href="#step-3-install-the-skupper-resources-in-each-namespace">Step 3: Install the Skupper resources in each namespace</a></div>
-  <div><a href="#step-4-connect-your-namespaces">Step 4: Connect your namespaces</a></div>
-  <div><a href="#step-5-expose-your-services">Step 5: Expose your services</a></div>
-  <div><a href="#the-condensed-version">The condensed version</a></div>
-  <div><a href="#cleaning-up">Cleaning up</a></div>
-  <div><a href="#next-steps">Next steps</a></div>
-</nav>
 
 <h2 id="overview">Overview</h2>
 
@@ -64,7 +104,7 @@ a backend service.  The frontend uses the backend to process requests.
 In this scenario, the frontend is deployed in the <code>eu-north</code>
 namespace, and the backend is deployed in the <code>us-east</code> namespace.</p>
 
-<p><img style="margin: 2em; width: 80%;" src="https://skupper.io/images/hello-world-entities.svg"/></p>
+<p><img style="margin: 2em; width: 80%;" src="/skupper-website/images/hello-world-entities.svg"/></p>
 
 <p>While these instructions use this particular application for
 demonstration purposes, the steps are the same for any Skupper
@@ -229,13 +269,13 @@ configured.  You should see the following output:</p>
 <div class="code-label session-1">Console for US East</div>
 
 <pre><code>$ skupper status
-Skupper is not installed in 'us-east'.  Use 'skupper init' to install.
+skupper not enabled for us-east
 </code></pre>
 
 <div class="code-label session-2">Console for EU North</div>
 
 <pre><code>$ skupper status
-Skupper is not installed in 'eu-north'.  Use 'skupper init' to install.
+skupper not enabled for eu-north
 </code></pre>
 
 <h2 id="step-3-install-the-skupper-resources-in-each-namespace">Step 3: Install the Skupper resources in each namespace</h2>
@@ -249,12 +289,14 @@ related resources in the current namespace.</p>
 
 <div class="code-label session-1">US East</div>
 
-<pre><code>skupper init
+<pre><code>$ skupper init
+Skupper is now installed in namespace 'us-east'.  Use 'skupper status' to get more information.
 </code></pre>
 
 <div class="code-label session-2">EU North</div>
 
-<pre><code>skupper init
+<pre><code>$ skupper init
+Skupper is now installed in namespace 'eu-north'.  Use 'skupper status' to get more information.
 </code></pre>
 
 <h3 id="check-the-installation">Check the installation</h3>
@@ -265,13 +307,13 @@ command.</p>
 <div class="code-label session-1">US East</div>
 
 <pre><code>$ skupper status
-Namespace 'us-east' is ready.  It is connected to 0 other namespaces.
+Skupper enabled for namespace 'us-east'. It is not connected to any other sites.
 </code></pre>
 
 <div class="code-label session-2">EU North</div>
 
 <pre><code>$ skupper status
-Namespace 'eu-north' is ready.  It is connected to 0 other namespaces.
+Skupper enabled for namespace 'eu-north'. It is not connected to any other sites.
 </code></pre>
 
 <h2 id="step-4-connect-your-namespaces">Step 4: Connect your namespaces</h2>
@@ -321,47 +363,44 @@ If the connection is made, you should see the following output:</p>
 <div class="code-label session-1">US East</div>
 
 <pre><code>$ skupper status
-Namespace 'us-east' is ready.  It is connected to 1 other namespace.
+Skupper enabled for namespace 'us-east'. It is connected to 1 other site.
 </code></pre>
 
 <div class="code-label session-2">EU North</div>
 
 <pre><code>$ skupper status
-Namespace 'eu-north' is ready.  It is connected to 1 other namespace.
+Skupper enabled for namespace 'eu-north'. It is connected to 1 other site.
 </code></pre>
 
 <h2 id="step-5-expose-your-services">Step 5: Expose your services</h2>
 
 <p>You now have a Skupper network capable of multi-cluster communication,
-but no services are attached to it.  This step uses the <code>kubectl
-annotate</code> command to make a Kubernetes service on one namespace
+but no services are attached to it.  This step uses the <code>skupper
+expose</code> command to make a Kubernetes deployment on one namespace
 available on all the connected namespaces.</p>
 
-<pre><code>kubectl annotate &lt;service&gt; skupper.io/proxy=(http|tcp)
-</code></pre>
+<p>In the examples below, we use the Hello World application to
+demonstrate service exposure.  The same steps apply for your own
+application.</p>
 
-<h3 id="deploy-your-application">Deploy your application</h3>
+<h3 id="deploy-the-frontend-and-backend-services">Deploy the frontend and backend services</h3>
 
-<p>Use <code>kubectl create deployment</code> and <code>kubectl expose</code> to
-start the backend on <code>us-east</code> and create a service for it.</p>
+<p>Use <code>kubectl create deployment</code> to start the backend on <code>us-east</code>.</p>
 
 <div class="code-label session-1">US East</div>
 
 <pre><code>kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
-kubectl expose deployment/hello-world-backend --port 8080
 </code></pre>
 
-<p>Then, use <code>kubectl create deployment</code> to start the frontend on
-<code>eu-north</code>.  Use <code>kubectl expose</code> with <code>--type LoadBalancer</code> to make
-the frontend externally accessible.</p>
+<p>Likewise, use <code>kubectl create deployment</code> to start the frontend on
+<code>eu-north</code>.</p>
 
 <div class="code-label session-2">EU North</div>
 
 <pre><code>kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
-kubectl expose deployment/hello-world-frontend --port 8080 --type LoadBalancer
 </code></pre>
 
-<h3 id="expose-the-service">Expose the service</h3>
+<h3 id="expose-the-backend-service">Expose the backend service</h3>
 
 <p>At this point, we have the frontend and backend services running, but
 the frontend has no way to contact the backend.  The frontend and
@@ -369,45 +408,63 @@ backend are in different namespaces (and perhaps different clusters),
 and the backend has no public ingress.</p>
 
 <p>Skupper uses an annotation to select services for availability on the
-Skupper network.  Use the <code>kubectl annotate</code> command on <code>us-east</code> to
-make <code>hello-world-backend</code> available on <code>eu-north</code>.</p>
+Skupper network.  On <code>us-east</code>, use <code>kubectl expose</code> to create a
+service for <code>hello-world-backend</code> and then use the <code>kubectl annotate</code>
+command to make the service available on <code>eu-north</code>.</p>
+
+<p><!-- Use the <code>skupper expose</code> command on <code>us-east</code> to make -->
+<!-- <code>hello-world-backend</code> available on <code>eu-north</code>. --></p>
+
+<p><!-- <div class="code-label session-1">US East</div> --></p>
+
+<p><!--     skupper expose deployment hello-world-backend --port 8080 --protocol http --></p>
 
 <div class="code-label session-1">US East</div>
 
-<pre><code>kubectl annotate service/hello-world-backend skupper.io/proxy=http
+<pre><code>kubectl expose deployment hello-world-backend --port 8080
+kubectl annotate service hello-world-backend skupper.io/proxy=http
 </code></pre>
 
-<h3 id="check-the-service">Check the service</h3>
+<h3 id="check-the-backend-service">Check the backend service</h3>
 
 <p>Use <code>kubectl get services</code> on <code>eu-north</code> to make sure the
 <code>hello-world-backend</code> service from <code>us-east</code> is represented.  You
-should see output like this:</p>
+should see output like this (along with some other services):</p>
 
 <div class="code-label session-2">EU North</div>
 
 <pre><code>$ kubectl get services
-NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)          AGE
-[...]
-hello-world-backend    ClusterIP      10.106.92.175    &lt;none&gt;           8080/TCP         11h
-hello-world-frontend   LoadBalancer   10.111.133.137   10.111.133.137   8080:31313/TCP   6m31s
-[...]
+NAME                   TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)       AGE
+hello-world-backend    ClusterIP      10.96.175.18    &lt;none&gt;          8080/TCP      11h
 </code></pre>
 
 <h3 id="test-your-application">Test your application</h3>
 
-<p>Now your multi-cluster application is up and running.  Use <code>curl</code> to
-see it in action.  The embedded <code>kubectl</code> command below looks up the
-IP address and port for the frontend service and generates a URL for
-use with <code>curl</code>.</p>
+<p>To test our Hello World, we need external access to the frontend (not
+the backend).  Use <code>kubectl expose</code> with <code>--type LoadBalancer</code> to make
+the frontend accessible using a conventional Kubernetes ingress.</p>
 
 <div class="code-label session-2">EU North</div>
 
-<pre><code>curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}/')
+<pre><code>kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
 </code></pre>
+
+<p>Use <code>curl</code> to see it in action.  The embedded <code>kubectl get</code> command
+below looks up the IP address for the frontend service and generates a
+URL for use with <code>curl</code>.</p>
+
+<div class="code-label session-2">EU North</div>
+
+<pre><code>curl $(kubectl get service hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:8080/')
+</code></pre>
+
+<p><strong>Note:</strong> If the embedded <code>kubectl get</code> command fails to get the IP,
+you can find it manually by running <code>kubectl get services</code> and looking
+up the external IP of the <code>hello-world-frontend</code> service.</p>
 
 <p>You should see output like this:</p>
 
-<pre><code>I am the frontend.  The backend says 'Hello 1'.
+<pre><code>I am the frontend.  The backend says 'Hello from hello-world-backend-869cd94f69-wh6zt (1)'.
 </code></pre>
 
 <h3 id="summary">Summary</h3>
@@ -443,9 +500,11 @@ kubectl config set-context --current --namespace us-east
 skupper init
 skupper connection-token ~/secret.yaml
 kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
-kubectl expose deployment/hello-world-backend --port 8080
-kubectl annotate service/hello-world-backend skupper.io/proxy=http
+kubectl expose deployment hello-world-backend --port 8080
+kubectl annotate service hello-world-backend skupper.io/proxy=http
 </code></pre>
+
+<p><!-- skupper expose deployment hello-world-backend --port 8080 --protocol http --></p>
 
 <div class="code-label session-2">EU North</div>
 
@@ -456,8 +515,8 @@ kubectl config set-context --current --namespace eu-north
 skupper init
 skupper connect ~/secret.yaml
 kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
-kubectl expose deployment/hello-world-frontend --port 8080 --type LoadBalancer
-curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}/')
+kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
+curl $(kubectl get service hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:8080/')
 </code></pre>
 
 <h2 id="cleaning-up">Cleaning up</h2>
@@ -468,15 +527,14 @@ the following commands:</p>
 <div class="code-label session-1">US East</div>
 
 <pre><code>skupper delete
-kubectl delete service/hello-world-backend
-kubectl delete deployment/hello-world-backend
+kubectl delete deployment hello-world-backend
 </code></pre>
 
 <div class="code-label session-2">EU North</div>
 
 <pre><code>skupper delete
-kubectl delete service/hello-world-frontend
-kubectl delete deployment/hello-world-frontend
+kubectl delete service hello-world-frontend
+kubectl delete deployment hello-world-frontend
 </code></pre>
 
 <h2 id="next-steps">Next steps</h2>
@@ -487,17 +545,43 @@ clusters, here are a few more things to look at:</p>
 <ul>
 <li><a href="https://github.com/skupperproject/skupper-example-hello-world">Check out the HTTP Hello World example in more detail</a></li>
 <li><a href="https://github.com/skupperproject/skupper-example-tcp-echo">See how you can connect any TCP-based service</a></li>
-<li><a href="https://skupper.io/examples/index.html">Explore the examples</a></li>
+<li><a href="/skupper-website/examples/index.html">Explore the examples</a></li>
 </ul>
 
 
+    </main>
+    <nav id="-toc">
+      <h4>Contents</h4>
+      <div></div>
+    </nav>
   </div>
 </section>
 
 <footer>
   <div>
+    <div>
+      <p><a href="https://twitter.com/SkupperIO"><span class="fab fa-twitter fa-lg"></span> Twitter</a></p>
+      <p><a href="https://www.youtube.com/channel/UCQxHN2Qq8koCatcmKCJ4OEA"><span class="fab fa-youtube fa-lg"></span> YouTube</a></p>
+      <!-- <p><a href="https://stackoverflow.com/questions/tagged/skupper"><span class="fab fa-stack-overflow fa-lg"></span> Stack Overflow</a></p> -->
+      <p><a href="https://groups.google.com/forum/#!forum/skupper"><span class="fas fa-envelope fa-lg"></span> Mailing list</a></p>
+      <p><a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span> GitHub</a></p>
+    </div>
+    <div>
+      <h4>Skupper - Multicloud communication for Kubernetes</h4>
+      <p>Skupper enables secure communication across Kubernetes
+        clusters with no VPNs or special firewall rules</p>
+      <p>Copyright &#169; 2020 the Skupper authors</p>
+    </div>
+    <div>
+      <p>All code and documentation is licensed under
+        the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache
+        License version 2.0</a></p>
+      <p>Marks may be trademarks or registered trademarks of their
+        respective owners</p>
+    </div>
   </div>
 </footer>
+
 
 
 

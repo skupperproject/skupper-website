@@ -1,3 +1,7 @@
+---
+title: Overview
+---
+
 # Skupper overview
 
 Hybrid clouds enable organizations to combine on-premise, private
@@ -84,6 +88,8 @@ proxy endpoints to make that service available on each namespace in
 the Skupper network.
 
 ## More information
+
+<!-- - [Skupper security](security.html) -->
 
  - [Skupper connectivity](connectivity.html)
  - [Skupper routing](routing.html)

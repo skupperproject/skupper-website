@@ -64,34 +64,30 @@ class Transom:
 
         self.verbose = False
         self.quiet = False
+        self.reload = False
 
         self.config_dir = _join(self.input_dir, "_transom")
         self.config_file = _join(self.config_dir, "config.py")
-        self.config = None
+        self._config = None
 
-        self.page_template_path = _join(self.config_dir, "page.html")
         self.body_template_path = _join(self.config_dir, "body.html")
+        self.page_template_path = _join(self.config_dir, "page.html")
+        self._body_template = None
+        self._page_template = None
 
-        self.reload = False
+        self._input_files = dict()
+        self._output_files = dict()
+        self._config_files = dict()
 
-        self.input_files = dict()
-        self.output_files = dict()
-        self.config_files = dict()
+        self._links = _defaultdict(set)
+        self._link_targets = set()
 
-        self.links = _defaultdict(set)
-        self.link_targets = set()
-
-        self.ignored_file_patterns = [
-            "*/.git",
-            "*/.svn",
-            "*/.#*",
-        ]
-
-        self.ignored_link_patterns = list()
+        self._ignored_file_patterns = ["*/.git", "*/.svn", "*/.#*"]
+        self._ignored_link_patterns = list()
 
         self._markdown_converter = _markdown.Markdown(extras=_markdown_extras)
 
-        self.start_time = None
+        self._start_time = None
 
     def init(self):
         if self.home is not None:
@@ -110,27 +106,35 @@ class Transom:
         if not _is_file(self.body_template_path):
             raise Exception(f"No body template found at {self.body_template_path}")
 
-        self.page_template = _read_file(self.page_template_path)
-        self.body_template = _read_file(self.body_template_path)
+        self._page_template = _read_file(self.page_template_path)
+        self._body_template = _read_file(self.body_template_path)
 
-        self.config = {
+        self._config = {
+            "site": self,
             "site_url": self.url,
             "extra_headers": None,
-            "ignored_files": self.ignored_file_patterns,
-            "ignored_links": self.ignored_link_patterns,
+            "ignored_files": self._ignored_file_patterns,
+            "ignored_links": self._ignored_link_patterns,
             "include": self._include,
             "lipsum": _lipsum,
         }
 
         if _is_file(self.config_file):
-            exec(_read_file(self.config_file), self.config)
+            exec(_read_file(self.config_file), self._config)
 
-        self.start_time = _time.time()
+        self._start_time = _time.time()
 
     def find_input_files(self):
         input_paths = list()
 
         for root, dirs, files in _os.walk(self.input_dir):
+            # Process index files before the others in the same directory
+            for file_ in files:
+                if file_.startswith("index."):
+                    input_paths.append(_join(root, file_))
+                    files.remove(file_)
+                    break
+
             for file_ in files:
                 input_paths.append(_join(root, file_))
 
@@ -145,7 +149,7 @@ class Transom:
         index_files = dict()
         other_files = _defaultdict(list)
 
-        for file_ in self.output_files.values():
+        for file_ in self._output_files.values():
             path = file_.output_path[len(self.output_dir):]
             dir_, name = _split(path)
 
@@ -172,7 +176,7 @@ class Transom:
     def _is_ignored_file(self, input_path):
         path = input_path[len(self.input_dir):]
 
-        for pattern in self.ignored_file_patterns:
+        for pattern in self._ignored_file_patterns:
             if _fnmatch.fnmatch(path, pattern):
                 return True
 
@@ -186,11 +190,15 @@ class Transom:
 
         name, ext = _os.path.splitext(input_path)
 
-        if ext == ".md":               return _MarkdownFile(self, input_path)
+        if ext == ".md":
+            return _MarkdownFile(self, input_path)
         elif ext == ".in":
-            if name.endswith(".html"): return _HtmlInFile(self, input_path)
-            else:                      return _InFile(self, input_path)
-        else:                          return _StaticFile(self, input_path)
+            if name.endswith(".html"):
+                return _HtmlInFile(self, input_path)
+            else:
+                return _InFile(self, input_path)
+        else:
+            return _StaticFile(self, input_path)
 
     def render(self, force=False, watch=False):
         with _Phase(self, "Finding input files"):
@@ -200,18 +208,18 @@ class Transom:
             self.init_input_files(input_paths)
 
         if not self.quiet and not self.verbose:
-            print("  Input files        {:>10,}".format(len(self.input_files)))
-            print("  Output files       {:>10,}".format(len(self.output_files)))
-            print("  Config files       {:>10,}".format(len(self.config_files)))
+            print("  Input files        {:>10,}".format(len(self._input_files)))
+            print("  Output files       {:>10,}".format(len(self._output_files)))
+            print("  Config files       {:>10,}".format(len(self._config_files)))
 
         with _Phase(self, "Processing input files"):
-            for file_ in self.input_files.values():
+            for file_ in self._input_files.values():
                 file_.process_input()
 
-        force = force or any([x.modified() for x in self.config_files.values()])
+        force = force or any([x.modified() for x in self._config_files.values()])
 
         with _Phase(self, "Rendering output files"):
-            for file_ in self.output_files.values():
+            for file_ in self._output_files.values():
                 file_.render_output(force=force)
 
         if _exists(self.output_dir):
@@ -254,14 +262,16 @@ class Transom:
     def _render_one_file(self, input_path, force=False):
         self.init_input_files([input_path])
 
-        input_file = self.input_files[input_path]
+        input_file = self._input_files[input_path]
 
         input_file.process_input()
         input_file.render_output(force=force)
 
         _os.utime(self.output_dir)
 
-    def _replace_variables(self, text, vars=None, input_path=None):
+    def _replace_variables(self, page, text, input_path=None):
+        assert page._config is not None
+
         out = list()
         tokens = _variable_regex.split(text)
 
@@ -272,12 +282,8 @@ class Transom:
 
             expr = token[2:-2]
 
-            if vars and expr in vars:
-                out.append(vars[expr])
-                continue
-
             try:
-                result = eval(expr, self.config)
+                result = eval(expr, page._config)
             except Exception as e:
                 print(f"Expression '{expr}'; file '{input_path}'; {e}")
                 out.append(token)
@@ -288,9 +294,16 @@ class Transom:
 
         return "".join(out)
 
-    def _include(self, path):
-        with open(path, "r") as f:
-            return self._replace_variables(f.read())
+    def _include(self, page, input_path):
+        name, ext = _os.path.splitext(input_path)
+
+        with open(input_path, "r") as f:
+            content = f.read()
+
+            if ext == ".md":
+                content = self._markdown_converter.convert(content)
+
+            return self._replace_variables(page, content, input_path=input_path)
 
     def check_files(self):
         with _Phase(self, "Finding input files"):
@@ -303,7 +316,7 @@ class Transom:
             expected_files = set()
             found_files = set()
 
-            for file_ in self.output_files.values():
+            for file_ in self._output_files.values():
                 expected_files.add(file_.output_path)
 
             found_files = self._find_output_files()
@@ -342,16 +355,16 @@ class Transom:
             self.init_input_files(input_paths)
 
         with _Phase(self, "Finding links"):
-            for file_ in self.output_files.values():
+            for file_ in self._output_files.values():
                 file_.find_links()
 
         with _Phase(self, "Checking links"):
             errors_by_link = _defaultdict(list)
-            links = self._filter_links(self.links)
+            links = self._filter_links(self._links)
 
             for link in links:
                 if internal and link.startswith(self.url):
-                    if link not in self.link_targets:
+                    if link not in self._link_targets:
                         errors_by_link[link].append("Link has no target")
 
                 if external and not link.startswith(self.url):
@@ -369,14 +382,14 @@ class Transom:
             for error in errors_by_link[link]:
                 print(f"  Error: {error}")
 
-            for source in self.links[link]:
+            for source in self._links[link]:
                 print(f"  Source: {source}")
 
         return len(errors_by_link)
 
     def _filter_links(self, links):
         def retain(link):
-            for pattern in self.ignored_link_patterns:
+            for pattern in self._ignored_link_patterns:
                 path = link[len(self.url):]
 
                 if _fnmatch.fnmatch(path, pattern):
@@ -442,60 +455,54 @@ class _Phase:
         self.end_time = _time.time()
 
         phase_dur = self.end_time - self.start_time
-        total_dur = self.end_time - self.site.start_time
+        total_dur = self.end_time - self.site._start_time
 
         if not self.site.quiet and not self.site.verbose:
             print("{:0.3f}s [{:0.3f}s]".format(phase_dur, total_dur))
 
 class _InputFile:
-    __slots__ = "site", "input_path", "input_mtime", "parent"
+    __slots__ = "site", "parent", "input_path", "_input_mtime"
 
     def __init__(self, site, input_path):
         self.site = site
-
-        self.input_path = input_path
-        self.input_mtime = None
-
         self.parent = None
 
-        self.site.input_files[self.input_path] = self
+        self.input_path = input_path
+        self._input_mtime = None
+
+        self.site._input_files[self.input_path] = self
 
     def __repr__(self):
         path = self.input_path[len(self.site.input_dir) + 1:]
         return _format_repr(self, path)
 
     def init(self):
-        self.input_mtime = _os.path.getmtime(self.input_path)
+        self._input_mtime = _os.path.getmtime(self.input_path)
 
     def process_input(self):
         pass
 
-    def _load_input(self):
-        self.site.info("Loading {}", self)
-        self.content = _read_file(self.input_path)
-
 class _ConfigFile(_InputFile):
-    __slots__ = "output_mtime",
+    __slots__ = "_output_mtime",
 
     def __init__(self, site, input_path):
         super().__init__(site, input_path)
 
-        self.output_mtime = None
+        self._output_mtime = None
 
-        self.site.config_files[self.input_path] = self
+        self.site._config_files[self.input_path] = self
 
     def modified(self):
-        if self.output_mtime is None:
+        if self._output_mtime is None:
             try:
-                self.output_mtime = _os.path.getmtime(self.site.output_dir)
+                self._output_mtime = _os.path.getmtime(self.site.output_dir)
             except FileNotFoundError:
                 return True
 
-        return self.input_mtime > self.output_mtime
+        return self._input_mtime > self._output_mtime
 
 class _OutputFile(_InputFile):
-    __slots__ = "output_path", "output_mtime", "content", "template", "parent", \
-                "url", "title", "attributes"
+    __slots__ = "output_path", "_output_mtime", "parent", "url", "title", "attributes", "_config", "_content"
 
     def __init__(self, site, input_path):
         super().__init__(site, input_path)
@@ -506,48 +513,52 @@ class _OutputFile(_InputFile):
             path = path[:-3]
 
         self.output_path = _join(self.site.output_dir, path)
-        self.output_mtime = None
-
-        self.content = None
-        self.template = None
+        self._output_mtime = None
 
         self.parent = None
         self.url = None
         self.title = None
         self.attributes = dict()
 
-        self.site.output_files[self.input_path] = self
+        self._config = None # A cached superset of site.config and current page vars
+        self._content = None
+
+        self.site._output_files[self.input_path] = self
 
     def init(self):
         super().init()
 
         self.url = self.site.get_url(self.output_path)
 
-        self.site.link_targets.add(self.url)
+        self.site._link_targets.add(self.url)
 
         if self.url.endswith("/index.html"):
-            self.site.link_targets.add(self.url[:-10])
-            self.site.link_targets.add(self.url[:-11])
+            self.site._link_targets.add(self.url[:-10])
+            self.site._link_targets.add(self.url[:-11])
 
     def process_input(self):
         self.site.info("Processing {}", self)
         self._load_input()
 
+    def _load_input(self):
+        self.site.info("Loading {}", self)
+        self._content = _read_file(self.input_path)
+
     def modified(self):
-        if self.output_mtime is None:
+        if self._output_mtime is None:
             try:
-                self.output_mtime = _os.path.getmtime(self.output_path)
+                self._output_mtime = _os.path.getmtime(self.output_path)
             except FileNotFoundError:
                 return True
 
-        return self.input_mtime > self.output_mtime
+        return self._input_mtime > self._output_mtime
 
     def render_output(self, force=False):
         raise NotImplementedError()
 
     def _apply_template(self):
-        page_template = self.site.page_template
-        body_template = self.site.body_template
+        page_template = self.site._page_template
+        body_template = self.site._body_template
 
         if "page_template" in self.attributes:
             page_template_path = self.attributes["page_template"]
@@ -577,34 +588,34 @@ class _OutputFile(_InputFile):
         else:
             template = template.replace("@reload_script@", "", 1)
 
-        self.content = template.replace("@content@", self.content, 1)
+        self._content = template.replace("@content@", self._content, 1)
 
     def _replace_variables(self):
         self.site.info("Replacing variables in {}", self)
 
-        page_vars = {
-            "title": self.title if self.title is not None else "[none]",
-            "path_navigation": self._render_path_navigation(),
-        }
+        self._config = dict(self.site._config)
+        self._config["page"] = self
+        self._config["title"] = self.title if self.title is not None else "[none]"
+        self._config["ancestor_links"] = self._get_ancestor_links()
 
-        self.content = self.site._replace_variables(self.content, page_vars, self.input_path)
+        self._content = self.site._replace_variables(self, self._content, self.input_path)
 
-    def _render_link(self):
-        return f"<a href=\"{self.url}\">{self.title}</a>"
-
-    def _render_path_navigation(self):
+    def _get_ancestor_links(self):
         links = list()
-        file_ = self
+        file_ = self.parent
 
         while file_ is not None:
             links.append(file_._render_link())
             file_ = file_.parent
 
-        return f"<nav id=\"-path-navigation\">{''.join(reversed(links))}</nav>"
+        return reversed(links)
+
+    def _render_link(self):
+        return f"<a href=\"{self.url}\">{self.title}</a>"
 
     def _save_output(self):
         self.site.info("Saving {}", self)
-        _write_file(self.output_path, self.content)
+        _write_file(self.output_path, self._content)
 
     def find_links(self):
         if not self.output_path.endswith(".html"):
@@ -615,12 +626,12 @@ class _OutputFile(_InputFile):
         self._load_output()
 
         try:
-            root = _XML(self.content)
+            root = _XML(self._content)
         except Exception as e:
             self.site.info(str(e))
             return
 
-        assert root is not None, self.content
+        assert root is not None, self._content
 
         links = self._gather_links(root)
         link_targets = self._gather_link_targets(root)
@@ -640,12 +651,12 @@ class _OutputFile(_InputFile):
             if (fragment and not path) or not path.startswith("/"):
                 link = _urljoin(self.url, link)
 
-            self.site.links[link].add(self.url)
+            self.site._links[link].add(self.url)
 
-        self.site.link_targets.update(link_targets)
+        self.site._link_targets.update(link_targets)
 
     def _load_output(self):
-        self.content = _read_file(self.output_path)
+        self._content = _read_file(self.output_path)
 
     def _gather_links(self, root_elem):
         links = set()
@@ -690,7 +701,7 @@ class _MarkdownFile(_OutputFile):
     def process_input(self):
         super().process_input()
 
-        match = _markdown_title_regex.search(self.content)
+        match = _markdown_title_regex.search(self._content)
 
         if match:
             self.title = match.group(2).strip()
@@ -700,13 +711,13 @@ class _MarkdownFile(_OutputFile):
             self.site.info("Rendering {}", self)
 
             # Strip out comments
-            content_lines = self.content.splitlines()
+            content_lines = self._content.splitlines()
             content_lines = [x for x in content_lines if not x.startswith(";;")]
 
-            self.content = _os.linesep.join(content_lines)
-            self.content = self.site._markdown_converter.convert(self.content)
+            self._content = _os.linesep.join(content_lines)
+            self._content = self.site._markdown_converter.convert(self._content)
 
-            self.attributes.update(self.content.metadata)
+            self.attributes.update(self._content.metadata)
 
             try:
                 self.title = self.attributes["title"]
@@ -728,7 +739,7 @@ class _HtmlInFile(_OutputFile):
         try:
             self.title = self.attributes["title"]
         except KeyError:
-            match = _html_title_regex.search(self.content)
+            match = _html_title_regex.search(self._content)
 
             if match:
                 self.title = match.group(2).strip()
@@ -745,15 +756,15 @@ class _HtmlInFile(_OutputFile):
     def _extract_metadata(self):
         attributes = dict()
 
-        if self.content.startswith("---\n"):
-            end = self.content.index("---\n", 4)
-            lines = self.content[4:end].strip().split("\n")
+        if self._content.startswith("---\n"):
+            end = self._content.index("---\n", 4)
+            lines = self._content[4:end].strip().split("\n")
 
             for line in lines:
                 key, value = line.split(":", 1)
                 attributes[key.strip()] = value.strip()
 
-            self.content = self.content[end + 4:]
+            self._content = self._content[end + 4:]
 
         return attributes
 

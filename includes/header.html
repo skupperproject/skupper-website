@@ -1,14 +1,64 @@
-<header>
-  <div>
-    <nav id="-top-left-nav">
-      <a href="{{site_url}}/index.html" id="-logotype"><img src="{{site_url}}/images/skupper-logo.svg"/> Skupper</a>
+<header id="-large-device-header">
+  <nav id="-site-nav">
+    <div>
+      <div id="-left-site-nav">
+        <a href="{{site_url}}/index.html" id="-logotype">
+          <img src="{{site_url}}/images/skupper-logo.svg"/>
+          <div>Skupper</div>
+        </a>
+        <a href="{{site_url}}/start/index.html">
+          <div>Getting started</div>
+        </a>
+        <a href="{{site_url}}/examples/index.html">
+          <div>Examples</div>
+        </a>
+        <a href="{{site_url}}/docs/index.html">
+          <div>Documentation</div>
+        </a>
+        <a href="{{site_url}}/community/index.html">
+          <div>Community</div>
+        </a>
+      </div>
+      <div id="-right-site-nav">
+        <a href="https://github.com/skupperproject">
+          <div><span class="fab fa-github fa-lg"></span> GitHub</div>
+        </a>
+      </div>
+    </div>
+  </nav>
+  <nav id="-path-nav">
+    <div>
+      {{" <span class=\"path-separator\">&rsaquo;</span> ".join(ancestor_links)}}
+      <span class="path-separator">&rsaquo;</span>
+      {{page.title}}
+    </div>
+  </nav>
+</header>
+<header id="-small-device-header">
+  <nav id="-site-nav">
+    <a id="-site-menu-button">
+      <span class="material-icons">menu</span>
+    </a>
+    <a href="{{site_url}}/index.html" id="-logotype">
+      <img src="{{site_url}}/images/skupper-logo.svg"/>
+      <div>Skupper</div>
+    </a>
+    <a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span></a>
+  </nav>
+  <nav id="-path-nav">
+    <div>
+      {{" <span class=\"path-separator\">&rsaquo;</span> ".join(ancestor_links)}}
+      <span class="path-separator">&rsaquo;</span>
+      {{page.title}}
+    </div>
+  </nav>
+  <nav id="-site-menu-layer">
+    <div>
+      <a href="{{site_url}}/index.html">Home</a>
       <a href="{{site_url}}/start/index.html">Getting started</a>
       <a href="{{site_url}}/examples/index.html">Examples</a>
-      <!-- <a href="{{site_url}}/docs/index.html">Documentation</a> -->
-    </nav>
-    <nav id="-top-right-nav">
-      <!-- <a href="https://groups.google.com/d/forum/skupper"><img class="inline-icon" src="{{site_url}}/images/at-sign.svg"/> Mailing list</a> -->
-      <a href="https://github.com/skupperproject"><img class="inline-icon" src="{{site_url}}/images/github.svg"/> GitHub</a>
-    </nav>
-  </div>
+      <a href="{{site_url}}/docs/index.html">Documentation</a>
+      <a href="{{site_url}}/community/index.html">Community</a>
+    </div>
+  </nav>
 </header>

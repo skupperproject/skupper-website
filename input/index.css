@@ -25,31 +25,43 @@ body {
 }
 
 header {
+    background-color: transparent;
+}
+
+body.scrolled header {
+    background-color: var(--bg-color-1);
+}
+
+#-site-nav {
     border-bottom: 0.2em solid transparent;
 }
 
-header.active {
+body.scrolled #-site-nav {
     border-bottom: 0.2em solid hsla(203, 30%, 94%, 1.0);
 }
 
-#-top-left-nav > a:hover {
+#-left-site-nav > a:not(#-logotype):hover {
     color: var(--bg-color-3);
-    border-bottom: 0.2em solid hsla(203, 30%, 94%, 1.0);
+    border-bottom: 0.2em solid hsla(203, 30%, 88%, 1.0);
 }
 
-#-top-left-nav > a#-logotype:hover {
-    color: var(--fg-color-1);
-    border-bottom: 0.2em solid transparent;
-}
-
-section,
 footer {
     color: var(--fg-color-3);
     background-color: var(--bg-color-3);
 }
 
-section:first-of-type {
-    padding-top: 4em;
+section {
+    background-color: var(--bg-color-1);
+    color: var(--fg-color-1);
+}
+
+section a {
+    color: var(--link-color);
+    font-weight: 600;
+}
+
+section:first-of-type > div {
+    padding-top: 5.5em;
 }
 
 #-intro {
@@ -65,51 +77,53 @@ section:first-of-type {
 
 #-graphic-and-summary {
     display: flex;
+    align-items: center;
 }
 
-#-graphic-and-summary > div:first-of-type {
-    margin-right: 2em;
+#-graphic-and-summary > *:nth-child(1) {
+    margin: 0 2em 0 0;
 }
 
-#-graphic-and-summary > div:first-of-type > svg {
-    margin: 0;
+#-graphic-and-summary > *:nth-child(2) {
+    max-width: 28em;
+    margin-right: 4em;
 }
 
-#-graphic-and-summary > div:last-of-type {
-    max-width: 24em;
-}
-
-#-graphic-and-summary > div:last-of-type > h1 {
-    font-family: "Alegreya Sans";
-    font-weight: 800;
-    font-size: 2em;
+#-graphic-and-summary > *:nth-child(2) > h1 {
+    font-size: 2.4em;
     line-height: 1.2em;
 }
 
-#-graphic-and-summary > div:last-of-type > p {
-    font-size: 1.1em;
+#-graphic-and-summary > *:nth-child(2) > p {
+    font-family: var(--heading-font-family);
+    font-size: 1.4em;
     font-weight: 400;
-    line-height: 1.5em;
-    margin-bottom: 0.4em;
-    max-width: 34em;
+    line-height: 1.6em;
+}
+
+#-graphic-and-summary > *:nth-child(3) {
+    max-width: 12em;
+    color: var(--bg-color-3);
+}
+
+#-graphic-and-summary > *:nth-child(3) > p {
+    margin-bottom: 1.4em;
+}
+
+#-graphic-and-summary > *:nth-child(3) > p:last-of-type {
+    margin-bottom: 0;
 }
 
 #-features {
     display: flex;
-    font-size: 0.95em;
     margin: 2em 0;
-    max-width: 50em;
     color: var(--fg-color-2);
-}
-
-#-features h3 {
-    font-weight: 700;
 }
 
 #-features > div {
     flex: 1 1 0;
     margin: 0 2em 0 0;
-    padding: 1.4em 1.8em;
+    padding: 1.2em 1.6em;
     border: 0.2em solid hsla(203, 30%, 88%, 1.0);
     background-color: var(--bg-color-1);
     text-align: left;
@@ -122,50 +136,54 @@ section:first-of-type {
 }
 
 #-features > div > div {
-    min-height: 14.5em;
+    min-height: 13em;
+    margin-bottom: 1em;
+}
+
+#-videos > div {
+    display: flex;
+    padding-top: 3em;
+    padding-bottom: 3em;
+    color: var(--fg-color-2);
+}
+
+#-videos > div > div {
+    flex: 1 1 0;
+    margin-right: 3em;
+}
+
+#-videos > div > div:last-child {
+    margin-right: 0;
+}
+
+#-videos > div > div > iframe {
+    width: 20em;
+    height: 12em;
+    border-radius: 0.6em;
+}
+
+section a.button {
+    font-weight: 700;
+    display: inline-block;
+    padding: 0.5em 1em;
+    color: white;
+    background-color: var(--accent-color-2);
+    border-radius: 0.2em;
+    cursor: pointer;
+}
+
+section a.button > span.material-icons {
+    margin-left: -0.1em;
+    margin-right: 0.2em;
 }
 
 a.nav {
     font-weight: 700;
-    display: inline-block;
-    padding: 0.5em 1em 0.4em 1em;
-    color: white;
-    background-color: var(--accent-color-2);
-    border-radius: 0.2em;
+    color: var(--bg-color-3);
 }
 
-a.nav > img {
-    height: 0.6em;
-    margin-left: 0.4em;
-}
-
-.video {
-    background-color: var(--bg-color-1);
-    color: var(--fg-color-1);
-}
-
-.video a {
-    color: var(--link-color);
-    font-weight: 600;
-}
-
-.video > div {
-    display: flex;
-    width: 100%;
-    padding-top: 3em;
-}
-
-.video:last-of-type > div {
-    padding-bottom: 3em;
-}
-
-.video > div > * {
-    margin-top: 0;
-    width: 50%;
-}
-
-.video > div > iframe {
-    margin: 0 2em 0 0;
+a.nav > span.material-icons {
+    margin-left: -0.2em;
 }
 
 #-wave-1 {
@@ -182,33 +200,57 @@ a.nav > img {
     fill: var(--bg-color-2);
 }
 
+#-popup-video-layer {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#-popup-video-layer > div {
+    margin: 2em;
+    padding: 2em;
+    background-color: var(--bg-color-1);
+    border-radius: 0.8em;
+}
+
+#-popup-video-layer > div > iframe {
+    border-radius: 0.6em;
+    height: 540px;
+    width: 960px;
+}
+
 @media screen and (max-width: 800px) {
-    section:first-of-type {
-        padding-top: 2em;
+    section:first-of-type > div {
+        padding-top: 7em;
     }
 
     #-graphic-and-summary {
         display: block;
     }
 
-    #-graphic-and-summary > div:first-of-type {
-        margin-right: 0;
+    #-graphic-and-summary > * {
+        max-width: inherit !important;
+        margin: 0 0 1em 0 !important;
     }
 
-    #-graphic-and-summary > div:first-of-type > svg {
+    #-graphic-and-summary > *:nth-child(1) {
         display: none;
-    }
-
-    #-graphic-and-summary > div:last-of-type > h1 {
-        margin-top: 0.8em;
     }
 
     #-features {
         display: block;
+        margin-top: 0;
     }
 
     #-features > div {
-        margin: 0 1em 2em 1em;
+        margin: 1em 1em 2em 1em;
     }
 
     #-features > div:last-child {
@@ -220,17 +262,22 @@ a.nav > img {
         margin-bottom: 1em;
     }
 
-    .video > div {
+    #-videos > div {
         display: block;
-        width: auto;
-        padding: 1em 2em;
     }
 
-    .video > div > * {
-        width: 100%;
+    #-videos > div > div {
+        margin-bottom: 1em;
     }
 
-    .video > div > iframe {
-        margin: 1em 0;
+    #-popup-video-layer > div {
+        margin: 1em;
+        padding: 1em;
+    }
+
+    #-popup-video-layer > div > iframe {
+        border-radius: 0.6em;
+        height: 180px;
+        width: 320px;
     }
 }

@@ -4,19 +4,6 @@ title: Getting started
 
 # Getting started with Skupper
 
-<nav class="toc">
-  <div><a href="#overview">Overview</a></div>
-  <div><a href="#prerequisites">Prerequisites</a></div>
-  <div><a href="#step-1-install-the-skupper-command-line-tool-in-your-environment">Step 1: Install the Skupper command-line tool in your environment</a></div>
-  <div><a href="#step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</a></div>
-  <div><a href="#step-3-install-the-skupper-resources-in-each-namespace">Step 3: Install the Skupper resources in each namespace</a></div>
-  <div><a href="#step-4-connect-your-namespaces">Step 4: Connect your namespaces</a></div>
-  <div><a href="#step-5-expose-your-services">Step 5: Expose your services</a></div>
-  <div><a href="#the-condensed-version">The condensed version</a></div>
-  <div><a href="#cleaning-up">Cleaning up</a></div>
-  <div><a href="#next-steps">Next steps</a></div>
-</nav>
-
 ## Overview
 
 To show Skupper in action, we need an application to work with.  This
@@ -180,12 +167,12 @@ configured.  You should see the following output:
 <div class="code-label session-1">Console for US East</div>
 
     $ skupper status
-    Skupper is not installed in 'us-east'.  Use 'skupper init' to install.
+    skupper not enabled for us-east
 
 <div class="code-label session-2">Console for EU North</div>
 
     $ skupper status
-    Skupper is not installed in 'eu-north'.  Use 'skupper init' to install.
+    skupper not enabled for eu-north
 
 ## Step 3: Install the Skupper resources in each namespace
 
@@ -198,11 +185,13 @@ Run `skupper init` once for each namespace you wish to connect.
 
 <div class="code-label session-1">US East</div>
 
-    skupper init
+    $ skupper init
+    Skupper is now installed in namespace 'us-east'.  Use 'skupper status' to get more information.
 
 <div class="code-label session-2">EU North</div>
 
-    skupper init
+    $ skupper init
+    Skupper is now installed in namespace 'eu-north'.  Use 'skupper status' to get more information.
 
 ### Check the installation
 
@@ -212,12 +201,12 @@ command.
 <div class="code-label session-1">US East</div>
 
     $ skupper status
-    Namespace 'us-east' is ready.  It is connected to 0 other namespaces.
+    Skupper enabled for namespace 'us-east'. It is not connected to any other sites.
 
 <div class="code-label session-2">EU North</div>
 
     $ skupper status
-    Namespace 'eu-north' is ready.  It is connected to 0 other namespaces.
+    Skupper enabled for namespace 'eu-north'. It is not connected to any other sites.
 
 ## Step 4: Connect your namespaces
 
@@ -264,42 +253,40 @@ If the connection is made, you should see the following output:
 <div class="code-label session-1">US East</div>
 
     $ skupper status
-    Namespace 'us-east' is ready.  It is connected to 1 other namespace.
+    Skupper enabled for namespace 'us-east'. It is connected to 1 other site.
 
 <div class="code-label session-2">EU North</div>
 
     $ skupper status
-    Namespace 'eu-north' is ready.  It is connected to 1 other namespace.
+    Skupper enabled for namespace 'eu-north'. It is connected to 1 other site.
 
 ## Step 5: Expose your services
 
 You now have a Skupper network capable of multi-cluster communication,
-but no services are attached to it.  This step uses the `kubectl
-annotate` command to make a Kubernetes service on one namespace
+but no services are attached to it.  This step uses the `skupper
+expose` command to make a Kubernetes deployment on one namespace
 available on all the connected namespaces.
 
-    kubectl annotate <service> skupper.io/proxy=(http|tcp)
+In the examples below, we use the Hello World application to
+demonstrate service exposure.  The same steps apply for your own
+application.
 
-### Deploy your application
+### Deploy the frontend and backend services
 
-Use `kubectl create deployment` and `kubectl expose` to
-start the backend on `us-east` and create a service for it.
+Use `kubectl create deployment` to start the backend on `us-east`.
 
 <div class="code-label session-1">US East</div>
 
     kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
-    kubectl expose deployment/hello-world-backend --port 8080
 
-Then, use `kubectl create deployment` to start the frontend on
-`eu-north`.  Use `kubectl expose` with `--type LoadBalancer` to make
-the frontend externally accessible.
+Likewise, use `kubectl create deployment` to start the frontend on
+`eu-north`.
 
 <div class="code-label session-2">EU North</div>
 
     kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
-    kubectl expose deployment/hello-world-frontend --port 8080 --type LoadBalancer
 
-### Expose the service
+### Expose the backend service
 
 At this point, we have the frontend and backend services running, but
 the frontend has no way to contact the backend.  The frontend and
@@ -307,42 +294,59 @@ backend are in different namespaces (and perhaps different clusters),
 and the backend has no public ingress.
 
 Skupper uses an annotation to select services for availability on the
-Skupper network.  Use the `kubectl annotate` command on `us-east` to
-make `hello-world-backend` available on `eu-north`.
+Skupper network.  On `us-east`, use `kubectl expose` to create a
+service for `hello-world-backend` and then use the `kubectl annotate`
+command to make the service available on `eu-north`.
+
+<!-- Use the `skupper expose` command on `us-east` to make -->
+<!-- `hello-world-backend` available on `eu-north`. -->
+
+<!-- <div class="code-label session-1">US East</div> -->
+
+<!--     skupper expose deployment hello-world-backend --port 8080 --protocol http -->
 
 <div class="code-label session-1">US East</div>
 
-    kubectl annotate service/hello-world-backend skupper.io/proxy=http
+    kubectl expose deployment hello-world-backend --port 8080
+    kubectl annotate service hello-world-backend skupper.io/proxy=http
 
-### Check the service
+### Check the backend service
 
 Use `kubectl get services` on `eu-north` to make sure the
 `hello-world-backend` service from `us-east` is represented.  You
-should see output like this:
+should see output like this (along with some other services):
 
 <div class="code-label session-2">EU North</div>
 
     $ kubectl get services
-    NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)          AGE
-    [...]
-    hello-world-backend    ClusterIP      10.106.92.175    <none>           8080/TCP         11h
-    hello-world-frontend   LoadBalancer   10.111.133.137   10.111.133.137   8080:31313/TCP   6m31s
-    [...]
+    NAME                   TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)       AGE
+    hello-world-backend    ClusterIP      10.96.175.18    <none>          8080/TCP      11h
 
 ### Test your application
 
-Now your multi-cluster application is up and running.  Use `curl` to
-see it in action.  The embedded `kubectl` command below looks up the
-IP address and port for the frontend service and generates a URL for
-use with `curl`.
+To test our Hello World, we need external access to the frontend (not
+the backend).  Use `kubectl expose` with `--type LoadBalancer` to make
+the frontend accessible using a conventional Kubernetes ingress.
 
 <div class="code-label session-2">EU North</div>
 
-    curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}/')
+    kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
+
+Use `curl` to see it in action.  The embedded `kubectl get` command
+below looks up the IP address for the frontend service and generates a
+URL for use with `curl`.
+
+<div class="code-label session-2">EU North</div>
+
+    curl $(kubectl get service hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:8080/')
+
+**Note:** If the embedded `kubectl get` command fails to get the IP,
+you can find it manually by running `kubectl get services` and looking
+up the external IP of the `hello-world-frontend` service.
 
 You should see output like this:
 
-    I am the frontend.  The backend says 'Hello 1'.
+    I am the frontend.  The backend says 'Hello from hello-world-backend-869cd94f69-wh6zt (1)'.
 
 ### Summary
 
@@ -376,8 +380,10 @@ for more detail.
     skupper init
     skupper connection-token ~/secret.yaml
     kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
-    kubectl expose deployment/hello-world-backend --port 8080
-    kubectl annotate service/hello-world-backend skupper.io/proxy=http
+    kubectl expose deployment hello-world-backend --port 8080
+    kubectl annotate service hello-world-backend skupper.io/proxy=http
+
+<!-- skupper expose deployment hello-world-backend --port 8080 --protocol http -->
 
 <div class="code-label session-2">EU North</div>
 
@@ -388,8 +394,8 @@ for more detail.
     skupper init
     skupper connect ~/secret.yaml
     kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
-    kubectl expose deployment/hello-world-frontend --port 8080 --type LoadBalancer
-    curl $(kubectl get service/hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}/')
+    kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
+    curl $(kubectl get service hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:8080/')
 
 ## Cleaning up
 
@@ -399,14 +405,13 @@ the following commands:
 <div class="code-label session-1">US East</div>
 
     skupper delete
-    kubectl delete service/hello-world-backend
-    kubectl delete deployment/hello-world-backend
+    kubectl delete deployment hello-world-backend
 
 <div class="code-label session-2">EU North</div>
 
     skupper delete
-    kubectl delete service/hello-world-frontend
-    kubectl delete deployment/hello-world-frontend
+    kubectl delete service hello-world-frontend
+    kubectl delete deployment hello-world-frontend
 
 ## Next steps
 
