@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" defer/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" defer/>
-    <link rel="stylesheet" href="/skupper-website/main.css"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="/skupper-website/images/skupper-icon-32.png">
-    <link rel="icon" type="image/png" sizes="256x256" href="/skupper-website/images/skupper-icon-256.png">
-    <script type="text/javascript" src="/skupper-website/main.js" defer="defer"></script>
+    <link rel="stylesheet" href="/main.css"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/skupper-icon-32.png">
+    <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png">
+    <script type="text/javascript" src="/main.js" defer="defer"></script>
 
 
 
@@ -28,20 +28,20 @@
   <nav id="-site-nav">
     <div>
       <div id="-left-site-nav">
-        <a href="/skupper-website/index.html" id="-logotype">
-          <img src="/skupper-website/images/skupper-logo.svg"/>
+        <a href="/index.html" id="-logotype">
+          <img src="/images/skupper-logo.svg"/>
           <div>Skupper</div>
         </a>
-        <a href="/skupper-website/start/index.html">
+        <a href="/start/index.html">
           <div>Getting started</div>
         </a>
-        <a href="/skupper-website/examples/index.html">
+        <a href="/examples/index.html">
           <div>Examples</div>
         </a>
-        <a href="/skupper-website/docs/index.html">
+        <a href="/docs/index.html">
           <div>Documentation</div>
         </a>
-        <a href="/skupper-website/community/index.html">
+        <a href="/community/index.html">
           <div>Community</div>
         </a>
       </div>
@@ -54,7 +54,7 @@
   </nav>
   <nav id="-path-nav">
     <div>
-      <a href="/skupper-website/docs/index.html">Documentation</a>
+      <a href="/docs/index.html">Documentation</a>
       <span class="path-separator">&rsaquo;</span>
       Overview
     </div>
@@ -65,8 +65,8 @@
     <a id="-site-menu-button">
       <span class="material-icons">menu</span>
     </a>
-    <a href="/skupper-website/index.html" id="-logotype">
-      <img src="/skupper-website/images/skupper-logo.svg"/>
+    <a href="/index.html" id="-logotype">
+      <img src="/images/skupper-logo.svg"/>
       <div>Skupper</div>
     </a>
     <a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span></a>
@@ -80,11 +80,11 @@
   </nav>
   <nav id="-site-menu-layer">
     <div>
-      <a href="/skupper-website/index.html">Home</a>
-      <a href="/skupper-website/start/index.html">Getting started</a>
-      <a href="/skupper-website/examples/index.html">Examples</a>
-      <a href="/skupper-website/docs/index.html">Documentation</a>
-      <a href="/skupper-website/community/index.html">Community</a>
+      <a href="/index.html">Home</a>
+      <a href="/start/index.html">Getting started</a>
+      <a href="/examples/index.html">Examples</a>
+      <a href="/docs/index.html">Documentation</a>
+      <a href="/community/index.html">Community</a>
     </div>
   </nav>
 </header>
@@ -117,12 +117,12 @@ they were all running in the same site. In this diagram, a VAN
 connects three services, each of which is running in a different
 cloud:</p>
 
-<p><img class="diagram" src="/skupper-website/images/overview-clouds.png"/></p>
+<p><img class="diagram" src="/images/overview-clouds.png"/></p>
 
 <p>In essence, the VAN connects the services in a distributed application
 with a microservice architecture.</p>
 
-<p><img class="diagram" src="/skupper-website/images/overview-application.png"/></p>
+<p><img class="diagram" src="/images/overview-application.png"/></p>
 
 <p>VANs are able to provide connectivity across the hybrid cloud because
 they operate at Layer 7 (the application layer). They use <strong>Layer 7
@@ -150,7 +150,7 @@ application address to its local application router. <strong>Service A</strong> 
 router routes copies of the message through the VAN until they arrive
 at each destination.</p>
 
-<p><img class="diagram" src="/skupper-website/images/overview-routers.png"/></p>
+<p><img class="diagram" src="/images/overview-routers.png"/></p>
 
 <p>VANs provide multiple routing patterns, so communications can be
 distributed in anycast (balanced or closest) or multicast patterns.</p>
@@ -164,7 +164,7 @@ microservices running in different Kubernetes clusters.</p>
 <p>This diagram illustrates a Skupper network that connects three
 services running in three different Kubernetes clusters:</p>
 
-<p><img class="diagram" src="/skupper-website/images/overview-clusters.png"/></p>
+<p><img class="diagram" src="/images/overview-clusters.png"/></p>
 
 <p>In a Skupper network, each namespace contains a Skupper instance. When
 these Skupper instances connect, they continually share information
