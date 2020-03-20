@@ -10,4 +10,4 @@ def circle(diameter, color="#000"):
         f"  <circle cx=\"{cx}\" cy=\"{cy}\" r=\"{radius}\" stroke=\"{color}\" stroke-width=\"{stroke}\" fill=\"none\"/>" \
         "</svg>"
 
-skupper_cli_release = "0.0.2"
+skupper_cli_release = "0.1.0"

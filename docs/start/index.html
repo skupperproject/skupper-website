@@ -101,8 +101,8 @@
 <p>To show Skupper in action, we need an application to work with.  This
 guide uses an HTTP Hello World application with a frontend service and
 a backend service.  The frontend uses the backend to process requests.
-In this scenario, the frontend is deployed in the <code>eu-north</code>
-namespace, and the backend is deployed in the <code>us-east</code> namespace.</p>
+In this scenario, the frontend is deployed in the <code>west</code>
+namespace, and the backend is deployed in the <code>east</code> namespace.</p>
 
 <p><img style="margin: 2em; width: 80%;" src="/images/hello-world-entities.svg"/></p>
 
@@ -113,8 +113,7 @@ deployment.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 
 <p>You must have access to at least two Kubernetes namespaces.  In the
-steps below, replace <code>us-east</code> and <code>eu-north</code> with your chosen
-namespaces.</p>
+steps below, replace <code>west</code> and <code>east</code> with your chosen namespaces.</p>
 
 <p>Each namespace can reside on <strong>any cluster you choose</strong>, and <strong>you are
 not limited to two</strong>.  You can have one on your laptop, another on
@@ -157,24 +156,24 @@ download it from GitHub and extract the executable using <code>tar</code> or
 
 <div class="code-label">Linux</div>
 
-<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.0.2/skupper-cli-0.0.2-linux-amd64.tgz | tar -xzf -
+<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.1.0/skupper-cli-0.1.0-linux-amd64.tgz | tar -xzf -
 </code></pre>
 
 <div class="code-label">macOS</div>
 
-<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.0.2/skupper-cli-0.0.2-mac-amd64.tgz | tar -xzf -
+<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.1.0/skupper-cli-0.1.0-mac-amd64.tgz | tar -xzf -
 </code></pre>
 
 <p>This produces an executable file named <code>skupper</code> in your current
 directory.</p>
 
-<p><strong>Note:</strong> See the <a href="https://github.com/skupperproject/skupper-cli/releases">Skupper CLI release
+<p>See the <a href="https://github.com/skupperproject/skupper-cli/releases">Skupper CLI release
 page</a> to get
 artifacts for other platforms.</p>
 
 <h3 id="place-the-command-on-your-path">Place the command on your path</h3>
 
-<p>The subsequent steps assume <code>skupper</code> is on your path.  For example,
+<p>The subsequent steps assume <code>skupper</code> is on your path.  As an example,
 this is how you might install it in your home directory:</p>
 
 <pre><code>mkdir -p $HOME/bin
@@ -188,7 +187,7 @@ mv skupper $HOME/bin
 should see output like this:</p>
 
 <pre><code>$ skupper --version
-skupper version 0.0.2
+skupper version 0.1.0
 </code></pre>
 
 <h2 id="step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</h2>
@@ -206,14 +205,14 @@ separate console sessions.</p>
 <p>Start a console session for each of your namespaces.  Set the
 <code>KUBECONFIG</code> environment variable to a different path in each session.</p>
 
-<div class="code-label session-1">Console for US East</div>
+<div class="code-label session-2">Console for West</div>
 
-<pre><code>export KUBECONFIG=$HOME/.kube/config-us-east
+<pre><code>export KUBECONFIG=$HOME/.kube/config-west
 </code></pre>
 
-<div class="code-label session-2">Console for EU North</div>
+<div class="code-label session-1">Console for East</div>
 
-<pre><code>export KUBECONFIG=$HOME/.kube/config-eu-north
+<pre><code>export KUBECONFIG=$HOME/.kube/config-east
 </code></pre>
 
 <h3 id="log-in-to-your-clusters">Log in to your clusters</h3>
@@ -222,12 +221,12 @@ separate console sessions.</p>
 instructions for your chosen provider or providers and use them to
 authenticate and establish access for each console session.</p>
 
-<div class="code-label session-1">Console for US East</div>
+<div class="code-label session-2">Console for West</div>
 
 <pre><code>$ &lt;login-command-for-your-provider&gt;
 </code></pre>
 
-<div class="code-label session-2">Console for EU North</div>
+<div class="code-label session-1">Console for East</div>
 
 <pre><code>$ &lt;login-command-for-your-provider&gt;
 </code></pre>
@@ -248,16 +247,16 @@ authenticate and establish access for each console session.</p>
 use.  Use <code>kubectl config set-context</code> to set the current namespace
 for each session.</p>
 
-<div class="code-label session-1">Console for US East</div>
+<div class="code-label session-2">Console for West</div>
 
-<pre><code>kubectl create namespace us-east
-kubectl config set-context --current --namespace us-east
+<pre><code>kubectl create namespace west
+kubectl config set-context --current --namespace west
 </code></pre>
 
-<div class="code-label session-2">Console for EU North</div>
+<div class="code-label session-1">Console for East</div>
 
-<pre><code>kubectl create namespace eu-north
-kubectl config set-context --current --namespace eu-north
+<pre><code>kubectl create namespace east
+kubectl config set-context --current --namespace east
 </code></pre>
 
 <h3 id="check-your-configurations">Check your configurations</h3>
@@ -266,54 +265,61 @@ kubectl config set-context --current --namespace eu-north
 <code>skupper status</code> command to check that each namespace is correctly
 configured.  You should see the following output:</p>
 
-<div class="code-label session-1">Console for US East</div>
+<div class="code-label session-2">Console for West</div>
 
 <pre><code>$ skupper status
-skupper not enabled for us-east
+skupper not enabled for west
 </code></pre>
 
-<div class="code-label session-2">Console for EU North</div>
+<div class="code-label session-1">Console for East</div>
 
 <pre><code>$ skupper status
-skupper not enabled for eu-north
+skupper not enabled for east
 </code></pre>
 
-<h2 id="step-3-install-the-skupper-resources-in-each-namespace">Step 3: Install the Skupper resources in each namespace</h2>
+<h2 id="step-3-install-the-skupper-router-in-each-namespace">Step 3: Install the Skupper router in each namespace</h2>
 
-<p>The <code>skupper init</code> command installs the Skupper router, proxy, and
-related resources in the current namespace.</p>
+<p>The <code>skupper init</code> command installs the Skupper router in the current
+namespace.</p>
 
-<h3 id="install-the-resources">Install the resources</h3>
+<h3 id="install-the-router">Install the router</h3>
 
-<p>Run <code>skupper init</code> once for each namespace you wish to connect.</p>
+<p>Run the <code>skupper init</code> command in the West namespace.</p>
 
-<div class="code-label session-1">US East</div>
+<div class="code-label session-2">West</div>
 
 <pre><code>$ skupper init
-Skupper is now installed in namespace 'us-east'.  Use 'skupper status' to get more information.
+Skupper is now installed in namespace 'west'.  Use 'skupper status' to get more information.
 </code></pre>
 
-<div class="code-label session-2">EU North</div>
+<p>Now run the <code>skupper init</code> command in the East namespace.</p>
 
-<pre><code>$ skupper init
-Skupper is now installed in namespace 'eu-north'.  Use 'skupper status' to get more information.
+<div class="code-label session-1">East</div>
+
+<pre><code>$ skupper init --edge
+Skupper is now installed in namespace 'east'.  Use 'skupper status' to get more information.
 </code></pre>
+
+<p>Using the <code>--edge</code> argument in East disables network ingress at the
+Skupper router layer.  In our scenario, East needs to establish one
+outbound connection to West.  It does not need to accept any incoming
+connections.  As a result, no network ingress is required in East.</p>
 
 <h3 id="check-the-installation">Check the installation</h3>
 
 <p>To check the status of each namespace, use the <code>skupper status</code>
 command.</p>
 
-<div class="code-label session-1">US East</div>
+<div class="code-label session-2">West</div>
 
 <pre><code>$ skupper status
-Skupper enabled for namespace 'us-east'. It is not connected to any other sites.
+Skupper enabled for namespace 'west'. It is not connected to any other sites.
 </code></pre>
 
-<div class="code-label session-2">EU North</div>
+<div class="code-label session-1">East</div>
 
 <pre><code>$ skupper status
-Skupper enabled for namespace 'eu-north'. It is not connected to any other sites.
+Skupper enabled for namespace 'east'. It is not connected to any other sites.
 </code></pre>
 
 <h2 id="step-4-connect-your-namespaces">Step 4: Connect your namespaces</h2>
@@ -334,10 +340,10 @@ you trust have access to it.</p>
 
 <h3 id="generate-a-connection-token">Generate a connection token</h3>
 
-<p>On <code>us-east</code>, use the <code>skupper connection-token</code> command to generate a
+<p>In West, use the <code>skupper connection-token</code> command to generate a
 token.</p>
 
-<div class="code-label session-1">US East</div>
+<div class="code-label session-2">West</div>
 
 <pre><code>skupper connection-token $HOME/secret.yaml
 </code></pre>
@@ -345,14 +351,14 @@ token.</p>
 <h3 id="use-the-token-to-form-a-connection">Use the token to form a connection</h3>
 
 <p>With the token in hand, you are ready to connect.  Pass the token from
-<code>us-east</code> to the <code>skupper connect</code> command on <code>eu-north</code>.</p>
+West to the <code>skupper connect</code> command in East.</p>
 
-<div class="code-label session-2">EU North</div>
+<div class="code-label session-1">East</div>
 
 <pre><code>skupper connect $HOME/secret.yaml
 </code></pre>
 
-<p>If your console sessions are on different machines, you may need to
+<p>If your console sessions are on different machines, you might need to
 use <code>scp</code> or a similar tool to transfer the token.</p>
 
 <h3 id="check-the-connection">Check the connection</h3>
@@ -360,16 +366,16 @@ use <code>scp</code> or a similar tool to transfer the token.</p>
 <p>Use the <code>skupper status</code> command again to see if things have changed.
 If the connection is made, you should see the following output:</p>
 
-<div class="code-label session-1">US East</div>
+<div class="code-label session-2">West</div>
 
 <pre><code>$ skupper status
-Skupper enabled for namespace 'us-east'. It is connected to 1 other site.
+Skupper enabled for namespace 'west'. It is connected to 1 other site.
 </code></pre>
 
-<div class="code-label session-2">EU North</div>
+<div class="code-label session-1">East</div>
 
 <pre><code>$ skupper status
-Skupper enabled for namespace 'eu-north'. It is connected to 1 other site.
+Skupper enabled for namespace 'east'. It is connected to 1 other site.
 </code></pre>
 
 <h2 id="step-5-expose-your-services">Step 5: Expose your services</h2>
@@ -385,19 +391,19 @@ application.</p>
 
 <h3 id="deploy-the-frontend-and-backend-services">Deploy the frontend and backend services</h3>
 
-<p>Use <code>kubectl create deployment</code> to start the backend on <code>us-east</code>.</p>
+<p>Use <code>kubectl create deployment</code> to start the frontend in West.</p>
 
-<div class="code-label session-1">US East</div>
-
-<pre><code>kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
-</code></pre>
-
-<p>Likewise, use <code>kubectl create deployment</code> to start the frontend on
-<code>eu-north</code>.</p>
-
-<div class="code-label session-2">EU North</div>
+<div class="code-label session-2">West</div>
 
 <pre><code>kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
+</code></pre>
+
+<p>Likewise, use <code>kubectl create deployment</code> to start the backend in
+East.</p>
+
+<div class="code-label session-1">East</div>
+
+<pre><code>kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
 </code></pre>
 
 <h3 id="expose-the-backend-service">Expose the backend service</h3>
@@ -408,34 +414,29 @@ backend are in different namespaces (and perhaps different clusters),
 and the backend has no public ingress.</p>
 
 <p>Skupper uses an annotation to select services for availability on the
-Skupper network.  On <code>us-east</code>, use <code>kubectl expose</code> to create a
+Skupper network.  In East, use <code>kubectl expose</code> to create a
 service for <code>hello-world-backend</code> and then use the <code>kubectl annotate</code>
-command to make the service available on <code>eu-north</code>.</p>
+command to make the service available in West.</p>
 
-<p><!-- Use the <code>skupper expose</code> command on <code>us-east</code> to make -->
-<!-- <code>hello-world-backend</code> available on <code>eu-north</code>. --></p>
+<p>Use the <code>skupper expose</code> command in East to make <code>hello-world-backend</code>
+available in West.</p>
 
-<p><!-- <div class="code-label session-1">US East</div> --></p>
+<div class="code-label session-1">East</div>
 
-<p><!--     skupper expose deployment hello-world-backend --port 8080 --protocol http --></p>
-
-<div class="code-label session-1">US East</div>
-
-<pre><code>kubectl expose deployment hello-world-backend --port 8080
-kubectl annotate service hello-world-backend skupper.io/proxy=http
+<pre><code>skupper expose deployment hello-world-backend --port 8080 --protocol http
 </code></pre>
 
 <h3 id="check-the-backend-service">Check the backend service</h3>
 
-<p>Use <code>kubectl get services</code> on <code>eu-north</code> to make sure the
-<code>hello-world-backend</code> service from <code>us-east</code> is represented.  You
-should see output like this (along with some other services):</p>
+<p>Use <code>kubectl get services</code> in West to make sure the
+<code>hello-world-backend</code> service from East is represented.  You should
+see output like this (along with some other services):</p>
 
-<div class="code-label session-2">EU North</div>
+<div class="code-label session-2">West</div>
 
 <pre><code>$ kubectl get services
 NAME                   TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)       AGE
-hello-world-backend    ClusterIP      10.96.175.18    &lt;none&gt;          8080/TCP      11h
+hello-world-backend    ClusterIP      10.96.175.18    &lt;none&gt;          8080/TCP      1m30s
 </code></pre>
 
 <h3 id="test-your-application">Test your application</h3>
@@ -444,7 +445,7 @@ hello-world-backend    ClusterIP      10.96.175.18    &lt;none&gt;          8080
 the backend).  Use <code>kubectl expose</code> with <code>--type LoadBalancer</code> to make
 the frontend accessible using a conventional Kubernetes ingress.</p>
 
-<div class="code-label session-2">EU North</div>
+<div class="code-label session-2">West</div>
 
 <pre><code>kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
 </code></pre>
@@ -453,7 +454,7 @@ the frontend accessible using a conventional Kubernetes ingress.</p>
 below looks up the IP address for the frontend service and generates a
 URL for use with <code>curl</code>.</p>
 
-<div class="code-label session-2">EU North</div>
+<div class="code-label session-2">West</div>
 
 <pre><code>curl $(kubectl get service hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:8080/')
 </code></pre>
@@ -488,35 +489,36 @@ for more detail.</p>
 
 <div class="code-label">Skupper command installation</div>
 
-<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.0.2/skupper-cli-0.0.2-linux-amd64.tgz | tar -xzf -
+<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.1.0/skupper-cli-0.1.0-linux-amd64.tgz | tar -xzf -
 </code></pre>
 
-<div class="code-label session-1">US East</div>
+<div class="code-label session-2">West: Setup</div>
 
-<pre><code>export KUBECONFIG=~/.kube/config-us-east
+<pre><code>export KUBECONFIG=~/.kube/config-west
 &lt;provider-login-command&gt;
-kubectl create namespace us-east
-kubectl config set-context --current --namespace us-east
+kubectl create namespace west
+kubectl config set-context --current --namespace west
 skupper init
 skupper connection-token ~/secret.yaml
-kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
-kubectl expose deployment hello-world-backend --port 8080
-kubectl annotate service hello-world-backend skupper.io/proxy=http
-</code></pre>
-
-<p><!-- skupper expose deployment hello-world-backend --port 8080 --protocol http --></p>
-
-<div class="code-label session-2">EU North</div>
-
-<pre><code>export KUBECONFIG=~/.kube/config-eu-north
-&lt;provider-login-command&gt;
-kubectl create namespace eu-north
-kubectl config set-context --current --namespace eu-north
-skupper init
-skupper connect ~/secret.yaml
 kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
 kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
-curl $(kubectl get service hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:8080/')
+</code></pre>
+
+<div class="code-label session-1">East: Setup</div>
+
+<pre><code>export KUBECONFIG=~/.kube/config-east
+&lt;provider-login-command&gt;
+kubectl create namespace east
+kubectl config set-context --current --namespace east
+skupper init --edge
+skupper connect ~/secret.yaml
+kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
+skupper expose deployment hello-world-backend --port 8080 --protocol http
+</code></pre>
+
+<div class="code-label session-2">West: Testing</div>
+
+<pre><code>curl $(kubectl get service hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:8080/')
 </code></pre>
 
 <h2 id="cleaning-up">Cleaning up</h2>
@@ -524,17 +526,17 @@ curl $(kubectl get service hello-world-frontend -o jsonpath='http://{.status.loa
 <p>To remove Skupper and the other resources from this exercise, use
 the following commands:</p>
 
-<div class="code-label session-1">US East</div>
+<div class="code-label session-2">West</div>
 
 <pre><code>skupper delete
-kubectl delete deployment hello-world-backend
+kubectl delete service/hello-world-frontend
+kubectl delete deployment/hello-world-frontend
 </code></pre>
 
-<div class="code-label session-2">EU North</div>
+<div class="code-label session-1">East</div>
 
 <pre><code>skupper delete
-kubectl delete service hello-world-frontend
-kubectl delete deployment hello-world-frontend
+kubectl delete deployment/hello-world-backend
 </code></pre>
 
 <h2 id="next-steps">Next steps</h2>
