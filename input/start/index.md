@@ -299,11 +299,6 @@ the frontend has no way to contact the backend.  The frontend and
 backend are in different namespaces (and perhaps different clusters),
 and the backend has no public ingress.
 
-Skupper uses an annotation to select services for availability on the
-Skupper network.  In East, use `kubectl expose` to create a
-service for `hello-world-backend` and then use the `kubectl annotate`
-command to make the service available in West.
-
 Use the `skupper expose` command in East to make `hello-world-backend`
 available in West.
 
