@@ -328,9 +328,13 @@ the frontend accessible using a conventional Kubernetes ingress.
 
     kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
 
-Use `curl` to see it in action.  The embedded `kubectl get` command
-below looks up the IP address for the frontend service and generates a
-URL for use with `curl`.
+It takes a moment for the external IP to become available.  (If you
+are using Minikube, you need to run `minikube tunnel` for this to
+work.)
+
+Now use `curl` to see it in action.  The embedded `kubectl get`
+command below looks up the IP address for the frontend service and
+generates a URL for use with `curl`.
 
 <div class="code-label session-2">West</div>
 
