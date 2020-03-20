@@ -413,11 +413,6 @@ the frontend has no way to contact the backend.  The frontend and
 backend are in different namespaces (and perhaps different clusters),
 and the backend has no public ingress.</p>
 
-<p>Skupper uses an annotation to select services for availability on the
-Skupper network.  In East, use <code>kubectl expose</code> to create a
-service for <code>hello-world-backend</code> and then use the <code>kubectl annotate</code>
-command to make the service available in West.</p>
-
 <p>Use the <code>skupper expose</code> command in East to make <code>hello-world-backend</code>
 available in West.</p>
 
@@ -450,9 +445,13 @@ the frontend accessible using a conventional Kubernetes ingress.</p>
 <pre><code>kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
 </code></pre>
 
-<p>Use <code>curl</code> to see it in action.  The embedded <code>kubectl get</code> command
-below looks up the IP address for the frontend service and generates a
-URL for use with <code>curl</code>.</p>
+<p>It takes a moment for the external IP to become available.  (If you
+are using Minikube, you need to run <code>minikube tunnel</code> for this to
+work.)</p>
+
+<p>Now use <code>curl</code> to see it in action.  The embedded <code>kubectl get</code>
+command below looks up the IP address for the frontend service and
+generates a URL for use with <code>curl</code>.</p>
 
 <div class="code-label session-2">West</div>
 
