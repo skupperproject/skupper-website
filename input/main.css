@@ -95,6 +95,10 @@ p code {
     font-size: 0.8em;
 }
 
+p a code {
+    color: inherit;
+}
+
 pre {
     padding: 0.9em 1em 1em 1em;
     margin-top: 0;

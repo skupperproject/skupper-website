@@ -6,6 +6,14 @@ Skupper requires cluster-external network access in order to form
 connections between clusters.  Run `minikube tunnel` in the background
 to enable this access.
 
+Make sure you run `minikube tunnel` with the same kubeconfig and
+Minikube profile you used for `minikube start`.  In the Hello World
+example, the tunnel is required only for the cluster containing the
+West namespace.
+
+<div class="code-label session-2">Console for West</div>
+
+    export KUBECONFIG=$HOME/.kube/config-west
     minikube tunnel
 
 ## Logging in
@@ -13,14 +21,14 @@ to enable this access.
 Minikube does not offer a dedicated login command, but you can re-run
 the `minikube start` command in each console you wish to configure.
 
-<div class="code-label session-1">Console for US East</div>
+<div class="code-label session-2">Console for West</div>
 
-    export KUBECONFIG=$HOME/.kube/config-us-east
+    export KUBECONFIG=$HOME/.kube/config-west
     minikube start
 
-<div class="code-label session-2">Console for EU North</div>
+<div class="code-label session-1">Console for East</div>
 
-    export KUBECONFIG=$HOME/.kube/config-eu-north
+    export KUBECONFIG=$HOME/.kube/config-east
     minikube start
 
 ## More information

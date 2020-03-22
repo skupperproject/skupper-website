@@ -223,8 +223,9 @@ two `skupper` commands in conjunction, `skupper connection-token` and
 
 The `skupper connection-token` command generates a secret token that
 signifies permission to connect.  The token also carries the
-connection details.  The `skupper connect` command uses the connection
-token to establish a connection to the namespace that generated it.
+connection details.  The `skupper connect` command then uses the
+connection token to establish a connection to the namespace that
+generated it.
 
 **Note:** The connection token is truly a *secret*.  Anyone who has
 the token can connect to your namespace.  Make sure that only those
@@ -249,7 +250,9 @@ West to the `skupper connect` command in East.
     skupper connect $HOME/secret.yaml
 
 If your console sessions are on different machines, you might need to
-use `scp` or a similar tool to transfer the token.
+use `scp` or a similar tool to transfer the token.  If you are using
+Minikube, [you need to run `minikube
+tunnel`](minikube.html#prerequisites) for this to work.
 
 ### Check the connection
 
@@ -328,9 +331,9 @@ the frontend accessible using a conventional Kubernetes ingress.
 
     kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
 
-It takes a moment for the external IP to become available.  (If you
-are using Minikube, you need to run `minikube tunnel` for this to
-work.)
+It takes a moment for the external IP to become available.  If you are
+using Minikube, [you need to run `minikube
+tunnel`](minikube.html#prerequisites) for this to work.
 
 Now use `curl` to see it in action.  The embedded `kubectl get`
 command below looks up the IP address for the frontend service and
