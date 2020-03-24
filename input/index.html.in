@@ -46,6 +46,8 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
         <div>
           <p>Connect services across clusters without exposing them to the public internet</p>
           <p>All inter-cluster communication is secured by mutual TLS authentication and encryption</p>
+          <a class="nav" href="{{site_url}}/docs/security.html">Skupper security
+          <span class="material-icons">chevron_right</span></a>
           <!-- <p>Application-level access control and resource limits</p> -->
         </div>
         <!-- <a class="nav" href="{{site_url}}/docs/security.html">Skupper security <span class="material-icons">chevron_right</span></a> -->

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Skupper - Security</title>
+    <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" defer/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" defer/>
+    <link rel="stylesheet" href="/main.css"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/skupper-icon-32.png">
+    <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png">
+    <script type="text/javascript" src="/main.js" defer="defer"></script>
+
+
+
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-147980770-1');
+    </script>
+  </head>
+  <body>
+
+<header id="-large-device-header">
+  <nav id="-site-nav">
+    <div>
+      <div id="-left-site-nav">
+        <a href="/index.html" id="-logotype">
+          <img src="/images/skupper-logo.svg"/>
+          <div>Skupper</div>
+        </a>
+        <a href="/start/index.html">
+          <div>Getting started</div>
+        </a>
+        <a href="/examples/index.html">
+          <div>Examples</div>
+        </a>
+        <a href="/docs/index.html">
+          <div>Documentation</div>
+        </a>
+        <a href="/community/index.html">
+          <div>Community</div>
+        </a>
+      </div>
+      <div id="-right-site-nav">
+        <a href="https://github.com/skupperproject">
+          <div><span class="fab fa-github fa-lg"></span> GitHub</div>
+        </a>
+      </div>
+    </div>
+  </nav>
+  <nav id="-path-nav">
+    <div>
+      <a href="/docs/index.html">Documentation</a>
+      <span class="path-separator">&rsaquo;</span>
+      Security
+    </div>
+  </nav>
+</header>
+<header id="-small-device-header">
+  <nav id="-site-nav">
+    <a id="-site-menu-button">
+      <span class="material-icons">menu</span>
+    </a>
+    <a href="/index.html" id="-logotype">
+      <img src="/images/skupper-logo.svg"/>
+      <div>Skupper</div>
+    </a>
+    <a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span></a>
+  </nav>
+  <nav id="-path-nav">
+    <div>
+      
+      <span class="path-separator">&rsaquo;</span>
+      Security
+    </div>
+  </nav>
+  <nav id="-site-menu-layer">
+    <div>
+      <a href="/index.html">Home</a>
+      <a href="/start/index.html">Getting started</a>
+      <a href="/examples/index.html">Examples</a>
+      <a href="/docs/index.html">Documentation</a>
+      <a href="/community/index.html">Community</a>
+    </div>
+  </nav>
+</header>
+
+
+<section>
+  <div>
+    <main>
+
+<h1 id="skupper-security">Skupper security</h1>
+
+<p>The Skupper network is secured through mutual tls, with each router
+deployment uniquely identified by its own certificate.  The proxies
+also use mutual TLS with the routers in the network they are connected
+to.</p>
+
+<p>One option is to use end-to-end authentication between application
+clients and servers.</p>
+
+<h2 id="tls-from-router-to-router">TLS from router to router</h2>
+
+<p>The Skupper network is secured through mutual tls, with each router
+deployment uniquely identified by its own certificate.</p>
+
+<p>XXX</p>
+
+<h2 id="tls-from-clients-to-routers">TLS from clients to routers</h2>
+
+<p>Could use openshift service certificates for proxy. Clients would then
+automatically have the CA made available to them. Application would
+still need to enable TLS, i.e. not completely transparent. Also only
+available on openshift.</p>
+
+<p>The deployer could also generate a certificate for each proxy and
+place the CA certificate with which it could be verified in a secret
+linked to the service in some way. Alternatively the CA key and cert
+could be passed into the deployer.</p>
+
+<h2 id="tls-from-routers-to-clients">TLS from routers to clients</h2>
+
+<p>Have application give the secret to use for credentials in the service
+definition? Or else allow application to be configured with
+credentials it uses? Former seems more workable.</p>
+
+<p>These approaches could even allow mutual tls between the application
+and proxies. (Though with the application having to be concerned with
+managing credentials and using them on both client and
+server. I.e. this can be a way of retaining the benefits of mutual tls
+from direct communication when moving to intermediated
+communication. That is a separate case, but possibly still a useful
+one, from the objective of trying to absolve the application from
+needing to be directly concerned with security).</p>
+
+<h2 id="access-control-and-resource-limits">Access control and resource limits</h2>
+
+<p>XXX</p>
+
+<h2 id="access-from-external-clients">Access from external clients</h2>
+
+<p>The second case to consider is access from external clients. This will
+require an 'ingress proxy'. The proxy could be enhanced to allow it to
+be configured to do authentication, remove the need for the
+application itself to handle this.</p>
+
+<h2 id="more-information">More information</h2>
+
+<ul>
+<li><a href="overview.html">Skupper overview</a></li>
+<li><a href="connectivity.html">Skupper connectivity</a></li>
+<li><a href="routing.html">Skupper routing</a></li>
+</ul>
+
+
+    </main>
+    <nav id="-toc">
+      <h4>Contents</h4>
+      <div></div>
+    </nav>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div>
+      <p><a href="https://twitter.com/SkupperIO"><span class="fab fa-twitter fa-lg"></span> Twitter</a></p>
+      <p><a href="https://www.youtube.com/channel/UCQxHN2Qq8koCatcmKCJ4OEA"><span class="fab fa-youtube fa-lg"></span> YouTube</a></p>
+      <!-- <p><a href="https://stackoverflow.com/questions/tagged/skupper"><span class="fab fa-stack-overflow fa-lg"></span> Stack Overflow</a></p> -->
+      <p><a href="https://groups.google.com/forum/#!forum/skupper"><span class="fas fa-envelope fa-lg"></span> Mailing list</a></p>
+      <p><a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span> GitHub</a></p>
+    </div>
+    <div>
+      <h4>Skupper - Multicloud communication for Kubernetes</h4>
+      <p>Skupper enables secure communication across Kubernetes
+        clusters with no VPNs or special firewall rules</p>
+      <p>Copyright &#169; 2020 the Skupper authors</p>
+    </div>
+    <div>
+      <p>All code and documentation is licensed under
+        the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache
+        License version 2.0</a></p>
+      <p>Marks may be trademarks or registered trademarks of their
+        respective owners</p>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+  </body>
+</html>
