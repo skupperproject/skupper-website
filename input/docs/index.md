@@ -6,7 +6,7 @@ title: Documentation
 
 ### [Overview](overview.html)
 
-<!-- ### [Security](security.html) -->
+### [Security](security.html)
 
 ### [Connectivity](connectivity.html)
 

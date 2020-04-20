@@ -43,5 +43,5 @@ highly available connectivity at scale.
 ## More information
 
  - [Skupper overview](overview.html)
- <!-- - [Skupper security](security.html) -->
+ - [Skupper security](security.html)
  - [Skupper connectivity](connectivity.html)

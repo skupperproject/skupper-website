@@ -62,5 +62,5 @@ Build large, robust networks of connected clusters.
 ## More information
 
  - [Skupper overview](overview.html)
- <!-- - [Skupper security](security.html) -->
+ - [Skupper security](security.html)
  - [Skupper routing](routing.html)

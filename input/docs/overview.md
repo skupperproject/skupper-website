@@ -89,7 +89,6 @@ the Skupper network.
 
 ## More information
 
-<!-- - [Skupper security](security.html) -->
-
+ - [Skupper security](security.html)
  - [Skupper connectivity](connectivity.html)
  - [Skupper routing](routing.html)
