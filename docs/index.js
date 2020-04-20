@@ -15,6 +15,10 @@
 
     layer.addEventListener("click", () => {
         layer.style.display = "none";
+
         window.removeEventListener("keyup", escapeListener);
+
+        let elem = layer.$("div > iframe");
+        elem.setAttribute("src", elem.getAttribute("src"));
     }, false);
 })();
