@@ -45,10 +45,10 @@ to its repo](https://github.com/skupperproject) and create the issue
 there.
 
 If you do not know which component applies, please use the
-[skupper-community](https://github.com/skupperproject/skupper-community)
-repo and we will assign the issue to a component.
+[skupper](https://github.com/skupperproject/skupper) repo and we will
+assign the issue to a component.
 
-> [Create an issue](https://github.com/skupperproject/skupper-community/issues/new)
+> [Create an issue](https://github.com/skupperproject/skupper/issues/new)
 
 Make sure to include details about your developer environment and
 Kubernetes variant.  We especially appreciate issues with reproducer
@@ -64,7 +64,7 @@ ways you can help:
  - Write documentation
 
 <!-- ## Wiki -->
-<!-- https://github.com/skupperproject/skupper-community/wiki -->
+<!-- https://github.com/skupperproject/skupper/wiki -->
 
 ## Social media
 
