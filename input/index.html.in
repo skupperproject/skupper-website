@@ -19,7 +19,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
           secure communication across Kubernetes clusters with no VPNs
           or special firewall rules.</p>
 
-        <p>With Skupper, your application can span multiple cloud
+        <p>With Skupper, your application can securely span multiple cloud
           providers, data centers, and regions.</p>
       </div>
       <div>
