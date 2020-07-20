@@ -2,7 +2,7 @@
 title: Getting started
 ---
 
-# Getting started with Skupper
+# Getting started with Skupper CLI on Kubernetes
 
 ## Overview
 

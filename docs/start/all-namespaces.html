@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Documentation</title>
+    <title>Skupper - Configuring Skupper for all namespaces in a cluster</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -54,9 +54,9 @@
   </nav>
   <nav id="-path-nav">
     <div>
-      
+      <a href="/start/index.html">Getting started</a>
       <span class="path-separator">&rsaquo;</span>
-      Documentation
+      Configuring Skupper for all namespaces in a cluster
     </div>
   </nav>
 </header>
@@ -75,7 +75,7 @@
     <div>
       
       <span class="path-separator">&rsaquo;</span>
-      Documentation
+      Configuring Skupper for all namespaces in a cluster
     </div>
   </nav>
   <nav id="-site-menu-layer">
@@ -94,16 +94,12 @@
   <div>
     <main>
 
-<h1 id="skupper-documentation">Skupper documentation</h1>
+<h1 id="configuring-skupper-for-all-namespaces-in-a-cluster">Configuring Skupper for all namespaces in a cluster</h1>
 
-<ul>
-<li><p><a href="overview.html">Overview</a></p></li>
-<li><p><a href="/start/openshift.html">Getting Started using OpenShift</a></p></li>
-<li><p><a href="/start/index.html">Getting Started using CLI on Kubernetes</a></p></li>
-<li><p><a href="security.html">Security</a></p></li>
-<li><p><a href="connectivity.html">Connectivity</a></p></li>
-<li><p><a href="routing.html">Routing</a></p></li>
-</ul>
+<p>To configure Skupper for all Projects in a cluster:</p>
+
+<pre><code>$ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/master/cmd/site-controller/deploy-watch-all-ns.yaml
+</code></pre>
 
 
     </main>
