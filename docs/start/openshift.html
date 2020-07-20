@@ -146,8 +146,7 @@ $ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/master/cm
 
 <p>To create a Skupper site, you must apply a ConfigMap, for example:</p>
 
-<p><code>
-apiVersion: v1
+<pre><code>apiVersion: v1
 data:
   cluster-local: "false"
   console: "true"
@@ -162,7 +161,7 @@ data:
 kind: ConfigMap
 metadata:
   name: skupper-site
-</code></p>
+</code></pre>
 
 <p>To apply the ConfigMap:</p>
 
