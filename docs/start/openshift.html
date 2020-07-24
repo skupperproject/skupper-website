@@ -96,6 +96,10 @@
 
 <h1 id="getting-started-with-skupper-on-openshift">Getting started with Skupper on OpenShift</h1>
 
+<p>These instructions are specific to OpenShift and use a declaritive YAML-based deployment, 
+however you can use YAML with other Kubernetes variants.
+See <a href="./index.html">Getting Started on Kubernetes</a> for more generic and CLI based instructions.</p>
+
 <h2 id="overview">Overview</h2>
 
 <p>To show Skupper in action, we need an application to work with.  This
@@ -106,45 +110,39 @@ Project, and the backend is deployed in the <code>east</code> Project.</p>
 
 <p><img style="margin: 2em; width: 80%;" src="/images/hello-world-entities-openshift.svg"/></p>
 
-<p>These instructions are specific to OpenShift and use a declaritive YAML-based deployment.
-See <a href="./index.html">Getting Started on Kubernetes</a> for more generic and CLI based instructions.</p>
-
 <h2 id="prerequisites">Prerequisites</h2>
 
 <p>You must have access to at least two OpenShift Projects.  In the
 steps below, replace <code>west</code> and <code>east</code> with your chosen Projects.</p>
 
 <p>Each Project can reside on <strong>any cluster you choose</strong>, and <strong>you are
-not limited to two</strong>.  You can have one on your laptop, another on
-Amazon, another on Google, and so on.  For convenience, you can have
+not limited to two</strong>.  For convenience, you can have
 them all on one cluster.</p>
 
-<!-- need OpenShift references here -->
+<p>See the <a href="https://www.openshift.com/">OpenShift website</a> for more information.</p>
 
 <p>These instructions require the OpenShift client, version 3.11 or later.</p>
 
 <p>See the <a href="https://access.redhat.com/downloads/content/290">download page</a> for
 more information.</p>
 
-<h2 id="step-1-deploy-skupper-in-your-environment">Step 1: Deploy Skupper in your environment</h2>
+<p>You do not need <code>cluster-admin</code> privileges.</p>
 
-<p>The <code>skupper</code> templates can configure the current Project or all Projects in a cluster to run Skupper.</p>
+<h2 id="step-1-configure-the-backend-project-to-use-skupper">Step 1: Configure the backend Project to use Skupper</h2>
 
-<h3 id="deploy-skupper-in-both-projects">Deploy Skupper in both Projects</h3>
+<h3 id="create-the-backend-project-and-deploy-skupper">Create the backend project and deploy Skupper</h3>
 
-<p>To configure Skupper for both Projects:</p>
+<p>To deploy the site controller:</p>
 
 <pre><code>$ oc new-project east
-$ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/master/cmd/site-controller/deploy-watch-current-ns.yaml
-$ oc new-project west
-$ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/master/cmd/site-controller/deploy-watch-current-ns.yaml
+$ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
 </code></pre>
 
-<p>After completion, you should see a deployment named <code>skupper-site-controller</code> in each Project.</p>
+<h3 id="create-a-skupper-site-in-the-east-project">Create a Skupper site in the east Project</h3>
 
-<h3 id="create-a-skupper-site-in-both-projects">Create a Skupper site in both Projects</h3>
+<p>To create a Skupper site, you must apply a ConfigMap.</p>
 
-<p>To create a Skupper site, you must apply a ConfigMap, for example:</p>
+<p>Create a file named <code>east-site.yml</code></p>
 
 <pre><code>apiVersion: v1
 data:
@@ -163,18 +161,65 @@ metadata:
   name: skupper-site
 </code></pre>
 
+<p>Note that the <code>data:name</code> value of <code>east-site</code>.</p>
+
 <p>To apply the ConfigMap:</p>
 
-<pre><code>$ oc apply -f &lt;filename&gt;
+<pre><code>$ oc apply -f east-site.yml
 </code></pre>
-
-<p>Create and apply a ConfigMap for <strong>both</strong> Projects, using a different value for <code>data:name</code> for each site.</p>
 
 <p>For more information about each parameter, see the <a href="https://github.com/skupperproject/skupper/blob/master/cmd/site-controller/README.md">Site Controller README</a>.</p>
 
-<p>After completion, you should see deployments named <code>skupper-service-controller</code> and <code>skupper-router</code> in each Project.</p>
+<p>After completion, you should see deployments named <code>skupper-service-controller</code> and <code>skupper-router</code>.</p>
 
-<h2 id="step-2-connect-the-openshift-projects">Step 2: Connect the OpenShift Projects</h2>
+<h2 id="step-2-configure-the-frontend-project-to-use-skupper">Step 2: Configure the frontend Project to use Skupper</h2>
+
+<h3 id="create-the-frontend-project-and-deploy-skupper">Create the frontend project and deploy Skupper</h3>
+
+<p>To deploy the site controller:</p>
+
+<pre><code>$ oc new-project west
+$ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+</code></pre>
+
+<h3 id="create-a-skupper-site-in-the-west-project">Create a Skupper site in the west Project</h3>
+
+<p>To create a Skupper site, you must apply a ConfigMap.</p>
+
+<p>Create a file named <code>west-site.yml</code></p>
+
+<pre><code>apiVersion: v1
+data:
+  cluster-local: "false"
+  console: "true"
+  console-authentication: internal
+  console-password: "barney"
+  console-user: "rubble"
+  edge: "false"
+  name: west-site
+  router-console: "true"
+  service-controller: "true"
+  service-sync: "true"
+kind: ConfigMap
+metadata:
+  name: skupper-site
+</code></pre>
+
+<p>Note that the <code>data:name</code> value of <code>west-site</code>.</p>
+
+<p>To apply the ConfigMap:</p>
+
+<pre><code>$ oc apply -f west-site.yml
+</code></pre>
+
+<p>For more information about each parameter, see the <a href="https://github.com/skupperproject/skupper/blob/master/cmd/site-controller/README.md">Site Controller README</a>.</p>
+
+<p>After completion, you should see deployments named <code>skupper-service-controller</code> and <code>skupper-router</code>.</p>
+
+<h2 id="step-3-connect-the-openshift-projects">Step 3: Connect the OpenShift Projects</h2>
+
+<p>To connect the OpenShift Projects, you must create a token in one project
+and pass it to the other project.</p>
 
 <h3 id="create-a-token-request-yaml-file">Create a token request YAML file</h3>
 
@@ -202,6 +247,8 @@ $ oc apply -f token-request.yaml
 
 <h3 id="pass-the-connection-token">Pass the connection token</h3>
 
+<p>Download the token and register it with the other project.</p>
+
 <pre><code>$ oc get secret  --export -o yaml west-secret &gt; west-secret.yaml
 </code></pre>
 
@@ -211,16 +258,10 @@ $ oc apply -f token-request.yaml
 $ oc apply -f west-secret.yaml
 </code></pre>
 
-<h2 id="step-3-expose-your-services">Step 3: Expose your services</h2>
-
 <p>You now have a Skupper network capable of multi-cluster communication,
-but no services are attached to it.  This step uses the <code>skupper
-expose</code> command to make a OpenShift deployment on one Project
-available on all the connected Projects.</p>
+but no services are exposed to that network.</p>
 
-<p>In the examples below, we use the Hello World application to
-demonstrate service exposure.  The same steps apply for your own
-application.</p>
+<h2 id="step-4-deploy-the-services-and-expose-the-backend-service-to-the-skupper-network">Step 4: Deploy the services and expose the backend service to the Skupper network</h2>
 
 <h3 id="deploy-the-frontend-and-backend-services">Deploy the frontend and backend services</h3>
 
@@ -246,56 +287,25 @@ the frontend has no way to contact the backend.  The frontend and
 backend are in different Projects (and perhaps different clusters),
 and the backend has no public ingress.</p>
 
-<p>Use the <code>skupper expose</code> command in East to make <code>hello-world-backend</code>
-available in West.</p>
+<p>To expose the backend service, create annotations of the backend deployment of the <code>east</code> Project:</p>
 
-<div class="code-label session-1">East</div>
-
-<pre><code>skupper expose deployment hello-world-backend --port 8080 --protocol http
+<pre><code>oc annotate deployment/hello-world-backend skupper.io/proxy="http"
+oc annotate deployment/hello-world-backend skupper.io/port="8080"
 </code></pre>
 
-<h3 id="check-the-backend-service">Check the backend service</h3>
+<p>If you check the services in the OpenShift console of the <code>west</code> project, you should now see <code>hello-world-backend</code>.</p>
 
-<p>Use <code>oc get services</code> in West to make sure the
-<code>hello-world-backend</code> service from East is represented.  You should
-see output like this (along with some other services):</p>
+<h2 id="step-5-test-your-skupper-network">Step 5: Test your Skupper network</h2>
 
-<div class="code-label session-2">West</div>
+<p>Create a route in the <code>west</code> Project from the <code>hello-world-frontend</code> service using either of the following methods:</p>
 
-<pre><code>$ oc get services
-NAME                   TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)       AGE
-hello-world-backend    ClusterIP      10.96.175.18    &lt;none&gt;          8080/TCP      1m30s
-</code></pre>
+<ul>
+<li><a href="https://docs.openshift.com/container-platform/3.7/dev_guide/routes.html#creating-routes">Using the console</a></li>
+<li>Using the <code>oc</code> command:
+oc expose svc/hello-world-frontend --hostname=www.example.com</li>
+</ul>
 
-<h3 id="test-your-application">Test your application</h3>
-
-<p>To test our Hello World, we need external access to the frontend (not
-the backend).  Use <code>oc expose</code> with <code>--type LoadBalancer</code> to make
-the frontend accessible using a conventional OpenShift ingress.</p>
-
-<div class="code-label session-2">West</div>
-
-<pre><code>oc expose deployment hello-world-frontend --port 8080 --type LoadBalancer
-</code></pre>
-
-<p>It takes a moment for the external IP to become available.  If you are
-using Minikube, <a href="minikube.html#prerequisites">you need to run <code>minikube
-tunnel</code></a> for this to work.</p>
-
-<p>Now use <code>curl</code> to see it in action.  The embedded <code>oc get</code>
-command below looks up the IP address for the frontend service and
-generates a URL for use with <code>curl</code>.</p>
-
-<div class="code-label session-2">West</div>
-
-<pre><code>curl $(oc get service hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:8080/')
-</code></pre>
-
-<p><strong>Note:</strong> If the embedded <code>oc get</code> command fails to get the IP,
-you can find it manually by running <code>oc get services</code> and looking
-up the external IP of the <code>hello-world-frontend</code> service.</p>
-
-<p>You should see output like this:</p>
+<p>Test the resulting url, you should see output like this:</p>
 
 <pre><code>I am the frontend.  The backend says 'Hello from hello-world-backend-869cd94f69-wh6zt (1)'.
 </code></pre>
@@ -319,56 +329,25 @@ for more detail.</p>
 
 <h2 id="the-condensed-version">The condensed version</h2>
 
-<div class="code-label">Skupper command installation</div>
+<div class="code-label session-1">East: Setup</div>
 
-<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.2.0/skupper-cli-0.2.0-linux-amd64.tgz | tar -xzf -
+<pre><code>oc new-project east
+oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+oc apply -f east-site.yaml
+oc apply -f west-secret.yaml
+oc create deployment --port 8080 hello-world-backend --image quay.io/skupper/hello-world-backend
+oc annotate deployment/hello-world-backend skupper.io/proxy="http"
+oc annotate deployment/hello-world-backend skupper.io/port="8080"
 </code></pre>
 
 <div class="code-label session-2">West: Setup</div>
 
-<pre><code>export KUBECONFIG=~/.kube/config-west
-&lt;provider-login-command&gt;
-oc create Project west
-oc config set-context --current --Project west
-skupper init
-skupper connection-token ~/secret.yaml
-oc create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
-oc expose deployment hello-world-frontend --port 8080 --type LoadBalancer
-</code></pre>
-
-<div class="code-label session-1">East: Setup</div>
-
-<pre><code>export KUBECONFIG=~/.kube/config-east
-&lt;provider-login-command&gt;
-oc create Project east
-oc config set-context --current --Project east
-skupper init --edge
-skupper connect ~/secret.yaml
-oc create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
-skupper expose deployment hello-world-backend --port 8080 --protocol http
-</code></pre>
-
-<div class="code-label session-2">West: Testing</div>
-
-<pre><code>curl $(oc get service hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:8080/')
-</code></pre>
-
-<h2 id="cleaning-up">Cleaning up</h2>
-
-<p>To remove Skupper and the other resources from this exercise, use
-the following commands:</p>
-
-<div class="code-label session-2">West</div>
-
-<pre><code>skupper delete
-oc delete service/hello-world-frontend
-oc delete deployment/hello-world-frontend
-</code></pre>
-
-<div class="code-label session-1">East</div>
-
-<pre><code>skupper delete
-oc delete deployment/hello-world-backend
+<pre><code>oc new-project west
+oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+oc apply -f west-site.yaml
+oc apply -f /home/pwright/token-request.yaml
+oc get secret  --export -o yaml west-secret &gt; west-secret.yaml
+oc create deployment --port 8080 hello-world-backend --image quay.io/skupper/hello-world-frontend
 </code></pre>
 
 <h2 id="next-steps">Next steps</h2>
