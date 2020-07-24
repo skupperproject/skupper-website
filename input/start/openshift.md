@@ -4,6 +4,10 @@ title: Getting started
 
 # Getting started with Skupper on OpenShift
 
+These instructions are specific to OpenShift and use a declaritive YAML-based deployment, 
+however you can use YAML with other Kubernetes variants.
+See [Getting Started on Kubernetes](./index.html) for more generic and CLI based instructions.
+
 ## Overview
 
 To show Skupper in action, we need an application to work with.  This
@@ -13,9 +17,6 @@ In this scenario, the frontend is deployed in the `west`
 Project, and the backend is deployed in the `east` Project.
 
 <img style="margin: 2em; width: 80%;" src="{{site_url}}/images/hello-world-entities-openshift.svg"/>
-
-These instructions are specific to OpenShift and use a declaritive YAML-based deployment.
-See [Getting Started on Kubernetes](./index.html) for more generic and CLI based instructions.
 
 ## Prerequisites
 
@@ -43,9 +44,9 @@ The `skupper` templates can configure the current Project or all Projects in a c
 To configure Skupper for both Projects:
 
     $ oc new-project east
-    $ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/master/cmd/site-controller/deploy-watch-current-ns.yaml
+    $ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
     $ oc new-project west
-    $ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/master/cmd/site-controller/deploy-watch-current-ns.yaml
+    $ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
 
 
 After completion, you should see a deployment named `skupper-site-controller` in each Project.
@@ -151,12 +152,15 @@ the frontend has no way to contact the backend.  The frontend and
 backend are in different Projects (and perhaps different clusters),
 and the backend has no public ingress.
 
-Use the `skupper expose` command in East to make `hello-world-backend`
-available in West.
+Create annotations of the backend deployment:
+----
+key: skupper.io/proxy
+value: http
 
-<div class="code-label session-1">East</div>
+key: skupper.io/port
+value: 8080
 
-    skupper expose deployment hello-world-backend --port 8080 --protocol http
+----
 
 ### Check the backend service
 
@@ -219,35 +223,30 @@ for more detail.
 
 ## The condensed version
 
-<div class="code-label">Skupper command installation</div>
-
-    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/skupper-cli-{{skupper_cli_release}}-linux-amd64.tgz | tar -xzf -
-
 <div class="code-label session-2">West: Setup</div>
 
-    export KUBECONFIG=~/.kube/config-west
-    <provider-login-command>
-    oc create Project west
-    oc config set-context --current --Project west
-    skupper init
-    skupper connection-token ~/secret.yaml
-    oc create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
+    oc new-project west
+    oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+    oc apply -f /home/pwright/token-request.yaml
+    oc get secret  --export -o yaml west-secret > west-secret.yaml
+    oc create deployment --port 8080 hello-world-backend --image quay.io/skupper/hello-world-frontend
     oc expose deployment hello-world-frontend --port 8080 --type LoadBalancer
 
+    
 <div class="code-label session-1">East: Setup</div>
 
-    export KUBECONFIG=~/.kube/config-east
-    <provider-login-command>
-    oc create Project east
-    oc config set-context --current --Project east
-    skupper init --edge
-    skupper connect ~/secret.yaml
-    oc create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
-    skupper expose deployment hello-world-backend --port 8080 --protocol http
+    oc new-project east
+    oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+    oc apply -f west-secret.yaml
+    oc create deployment --port 8080 hello-world-backend --image quay.io/skupper/hello-world-backend
+    oc annotate deployment/hello-world-backend skupper.io/proxy="http"
+    oc annotate deployment/hello-world-backend skupper.io/port="8080"
+
+
 
 <div class="code-label session-2">West: Testing</div>
 
-    curl $(oc get service hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:8080/')
+  
 
 ## Cleaning up
 
