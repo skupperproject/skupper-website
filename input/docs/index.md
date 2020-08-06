@@ -4,10 +4,14 @@ title: Documentation
 
 # Skupper documentation
 
-### [Overview](overview.html)
+* [Overview](overview.html)
 
-### [Security](security.html)
+* [Getting Started using the CLI](/start/index.html)
 
-### [Connectivity](connectivity.html)
+* [Getting Started using declarative configuration](/start/declarative.html)
 
-### [Routing](routing.html)
+* [Security](security.html)
+
+* [Connectivity](connectivity.html)
+
+* [Routing](routing.html)
