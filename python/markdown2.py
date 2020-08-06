@@ -96,7 +96,7 @@ see <https://github.com/trentm/python-markdown2/wiki/Extras> for details):
 #   not yet sure if there implications with this. Compare 'pydoc sre'
 #   and 'perldoc perlre'.
 
-__version_info__ = (2, 3, 9)
+__version_info__ = (2, 3, 10)
 __version__ = '.'.join(map(str, __version_info__))
 __author__ = "Trent Mick"
 
@@ -108,10 +108,6 @@ import optparse
 from random import random, randint
 import codecs
 from collections import defaultdict
-try:
-    from urllib import quote_plus
-except ImportError:
-    from urllib.parse import quote_plus
 
 
 # ---- Python version compat
@@ -200,7 +196,10 @@ class Markdown(object):
     titles = None
     html_blocks = None
     html_spans = None
-    html_removed_text = "[HTML_REMOVED]"  # for compat with markdown.py
+    html_removed_text = "{(#HTML#)}"  # placeholder removed text that does not trigger bold
+    html_removed_text_compat = "[HTML_REMOVED]"  # for compat with markdown.py
+
+    _toc = None
 
     # Used to track when we're inside an ordered or unordered list
     # (see _ProcessListItems() for details):
@@ -217,6 +216,7 @@ class Markdown(object):
         else:
             self.empty_element_suffix = " />"
         self.tab_width = tab_width
+        self.tab = tab_width * " "
 
         # For compatibility with earlier markdown2.py and with
         # markdown.py's safe_mode being a boolean,
@@ -273,6 +273,7 @@ class Markdown(object):
             self._count_from_header_id = defaultdict(int)
         if "metadata" in self.extras:
             self.metadata = {}
+        self._toc = None
 
     # Per <https://developer.mozilla.org/en-US/docs/HTML/Element/a> "rel"
     # should only be used in <a> tags with an "href" attribute.
@@ -384,6 +385,8 @@ class Markdown(object):
 
         if self.safe_mode:
             text = self._unhash_html_spans(text)
+            # return the removed text warning to its markdown.py compatible form
+            text = text.replace(self.html_removed_text, self.html_removed_text_compat)
 
         if "nofollow" in self.extras:
             text = self._a_nofollow.sub(r'<\1 rel="nofollow"\2', text)
@@ -1006,11 +1009,11 @@ class Markdown(object):
         align_from_col_idx = {}
         for col_idx, col in enumerate(cols):
             if col[0] == ':' and col[-1] == ':':
-                align_from_col_idx[col_idx] = ' align="center"'
+                align_from_col_idx[col_idx] = ' style="text-align:center;"'
             elif col[0] == ':':
-                align_from_col_idx[col_idx] = ' align="left"'
+                align_from_col_idx[col_idx] = ' style="text-align:left;"'
             elif col[-1] == ':':
-                align_from_col_idx[col_idx] = ' align="right"'
+                align_from_col_idx[col_idx] = ' style="text-align:right;"'
 
         # thead
         hlines = ['<table%s>' % self._html_class_str_from_tag('table'), '<thead>', '<tr>']
@@ -1070,23 +1073,43 @@ class Markdown(object):
 
     def _wiki_table_sub(self, match):
         ttext = match.group(0).strip()
-        # print 'wiki table: %r' % match.group(0)
+        # print('wiki table: %r' % match.group(0))
         rows = []
         for line in ttext.splitlines(0):
             line = line.strip()[2:-2].strip()
             row = [c.strip() for c in re.split(r'(?<!\\)\|\|', line)]
             rows.append(row)
+        # from pprint import pprint
         # pprint(rows)
-        hlines = ['<table%s>' % self._html_class_str_from_tag('table'), '<tbody>']
-        for row in rows:
-            hrow = ['<tr>']
-            for cell in row:
-                hrow.append('<td>')
-                hrow.append(self._run_span_gamut(cell))
-                hrow.append('</td>')
-            hrow.append('</tr>')
-            hlines.append(''.join(hrow))
-        hlines += ['</tbody>', '</table>']
+        hlines = []
+
+        def add_hline(line, indents=0):
+            hlines.append((self.tab * indents) + line)
+
+        def format_cell(text):
+            return self._run_span_gamut(re.sub(r"^\s*~", "", cell).strip(" "))
+
+        add_hline('<table%s>' % self._html_class_str_from_tag('table'))
+        # Check if first cell of first row is a header cell. If so, assume the whole row is a header row.
+        if rows and rows[0] and re.match(r"^\s*~", rows[0][0]):
+            add_hline('<thead>', 1)
+            add_hline('<tr>', 2)
+            for cell in rows[0]:
+                add_hline("<th>{}</th>".format(format_cell(cell)), 3)
+            add_hline('</tr>', 2)
+            add_hline('</thead>', 1)
+            # Only one header row allowed.
+            rows = rows[1:]
+        # If no more rows, don't create a tbody.
+        if rows:
+            add_hline('<tbody>', 1)
+            for row in rows:
+                add_hline('<tr>', 2)
+                for cell in row:
+                    add_hline('<td>{}</td>'.format(format_cell(cell)), 3)
+                add_hline('</tr>', 2)
+            add_hline('</tbody>', 1)
+        add_hline('</table>')
         return '\n'.join(hlines) + '\n'
 
     def _do_wiki_tables(self, text):
@@ -1125,6 +1148,9 @@ class Markdown(object):
 
         if "strike" in self.extras:
             text = self._do_strike(text)
+
+        if "underline" in self.extras:
+            text = self._do_underline(text)
 
         text = self._do_italics_and_bold(text)
 
@@ -1351,6 +1377,11 @@ class Markdown(object):
                 continue
             link_text = text[start_idx+1:p]
 
+            # Fix for issue 341 - Injecting XSS into link text
+            if self.safe_mode:
+                link_text = self._hash_html_spans(link_text)
+                link_text = self._unhash_html_spans(link_text)
+
             # Possibly a footnote ref?
             if "footnotes" in self.extras and link_text.startswith("^"):
                 normed_id = re.sub(r'\W', '-', link_text[1:])
@@ -1509,7 +1540,6 @@ class Markdown(object):
 
         return header_id
 
-    _toc = None
     def _toc_add_entry(self, level, id, name):
         if level > self._toc_depth:
             return
@@ -1923,6 +1953,11 @@ class Markdown(object):
         text = self._strike_re.sub(r"<strike>\1</strike>", text)
         return text
 
+    _underline_re = re.compile(r"--(?=\S)(.+?)(?<=\S)--", re.S)
+    def _do_underline(self, text):
+        text = self._underline_re.sub(r"<u>\1</u>", text)
+        return text
+
     _strong_re = re.compile(r"(\*\*|__)(?=\S)(.+?[*_]*)(?<=\S)\1", re.S)
     _em_re = re.compile(r"(\*|_)(?=\S)(.+?)(?<=\S)\1", re.S)
     _code_friendly_strong_re = re.compile(r"\*\*(?=\S)(.+?[*_]*)(?<=\S)\*\*", re.S)
@@ -1996,7 +2031,6 @@ class Markdown(object):
             ^[ \t]*>%s[ \t]?        # '>' at the start of a line
               .+\n                  # rest of the first line
             (.+\n)*                 # subsequent consecutive lines
-            \n*                     # blanks
           )+
         )
     '''
@@ -2141,11 +2175,14 @@ class Markdown(object):
         text = self._naked_gt_re.sub('&gt;', text)
         return text
 
-    _incomplete_tags_re = re.compile("<(/?\w+[\s/]+?)")
+    _incomplete_tags_re = re.compile("<(/?\w+?(?!\w).+?[\s/]+?)")
 
     def _encode_incomplete_tags(self, text):
         if self.safe_mode not in ("replace", "escape"):
             return text
+            
+        if text.endswith(">"):
+            return text  # this is not an incomplete tag, this is a link in the form <http://x.y.z>
 
         return self._incomplete_tags_re.sub("&lt;\\1", text)
 
@@ -2343,7 +2380,7 @@ def _regex_from_encoded_pattern(s):
     if s.startswith('/') and s.rfind('/') != 0:
         # Parse it: /PATTERN/FLAGS
         idx = s.rfind('/')
-        pattern, flags_str = s[1:idx], s[idx+1:]
+        _, flags_str = s[1:idx], s[idx+1:]
         flag_from_char = {
             "i": re.IGNORECASE,
             "l": re.LOCALE,

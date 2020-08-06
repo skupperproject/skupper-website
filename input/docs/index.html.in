@@ -1,0 +1,49 @@
+---
+title: Documentation
+body_template: config/wide-body.html
+extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="async"/>
+---
+
+<h1>Skupper documentation</h1>
+
+<div class="columns">
+  <div>
+    <h2>Understand the basics</h2>
+
+    <p>Learn about the concepts and technology behind virtual
+      application networks.</p>
+
+    <nav>
+      <a href="overview.html">Overview</a>
+      <!-- <a href="terms-and-concepts.html">Terms and concepts</a> -->
+      <a href="security.html">Security</a>
+      <a href="connectivity.html">Connectivity</a>
+      <a href="routing.html">Routing</a>
+    </nav>
+  </div>
+  <div>
+    <h2>The Skupper command</h2>
+
+    <p>The Skupper command-line tool enables you to initialize,
+    connect, and monitor Skupper sites interactively from your
+    development environment.</p>
+
+    <nav>
+      <a href="/start/index.html">Getting started</a>
+      <!-- <a href="">Command-line reference</a> -->
+    </nav>
+  </div>
+  <div>
+    <h2>YAML configuration</h2>
+
+    <p>Learn how you can use YAML to declaratively configure and
+    connect Skupper sites.</p>
+
+    </p>
+
+    <nav>
+      <a href="declarative.html">Configuring Skupper sites using YAML</a>
+      <!-- <a href="">Configuration reference</a> -->
+    </nav>
+  </div>
+</div>

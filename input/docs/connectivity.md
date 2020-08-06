@@ -15,7 +15,7 @@ for each element of your distributed application.  Service "A" can
 contact service "B", "B" can contact "C", and so on.
 
 <div class="illustration">
-  {{include(page, "includes/one-cluster.svg")}}
+  {{page.include("includes/one-cluster.svg")}}
 </div>
 
 But if you want to deploy your application across multiple clusters,
@@ -31,7 +31,7 @@ remote clusters.
 Deploy your application across public and private clusters.
 
 <div class="illustration">
-  {{include(page, "includes/two-clusters.svg")}}
+  {{page.include("includes/two-clusters.svg")}}
 </div>
 
 You can host your database on a private cluster and retain full
@@ -44,7 +44,7 @@ encryption.
 Distribute application services across geographic regions.
 
 <div class="illustration">
-  {{include(page, "includes/five-clusters.svg")}}
+  {{page.include("includes/five-clusters.svg")}}
 </div>
 
 You can connect multiple retail sites to a central office.  Once
@@ -56,7 +56,7 @@ and remove sites on demand.
 Build large, robust networks of connected clusters.
 
 <div class="illustration">
-  {{include(page, "includes/many-clusters.svg")}}
+  {{page.include("includes/many-clusters.svg")}}
 </div>
 
 ## More information

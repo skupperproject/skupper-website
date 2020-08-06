@@ -12,7 +12,7 @@ a backend service.  The frontend uses the backend to process requests.
 In this scenario, the frontend is deployed in the `west`
 namespace, and the backend is deployed in the `east` namespace.
 
-<img style="margin: 2em; width: 80%;" src="{{site_url}}/images/hello-world-entities.svg"/>
+<img style="margin: 2em; width: 80%;" src="/images/hello-world-entities.svg"/>
 
 While these instructions use this particular application for
 demonstration purposes, the steps are the same for any Skupper
@@ -65,18 +65,17 @@ download it from GitHub and extract the executable using `tar` or
 
 <div class="code-label">Linux</div>
 
-    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/skupper-cli-{{skupper_cli_release}}-linux-amd64.tgz | tar -xzf -
+    curl -fL https://github.com/skupperproject/skupper/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-linux-amd64.tgz | tar -xzf -
 
-<div class="code-label">macOS</div>
+<div class="code-label">Mac</div>
 
-    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/skupper-cli-{{skupper_cli_release}}-mac-amd64.tgz | tar -xzf -
+    curl -fL https://github.com/skupperproject/skupper/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-mac-amd64.tgz | tar -xzf -
 
 This produces an executable file named `skupper` in your current
 directory.
 
-See the [Skupper CLI release
-page](https://github.com/skupperproject/skupper-cli/releases) to get
-artifacts for other platforms.
+To download artifacts for other platforms, see [Skupper
+releases](/releases/index.html).
 
 ### Place the command on your path
 
@@ -93,7 +92,7 @@ To test your installation, run the `skupper --version` command.  You
 should see output like this:
 
     $ skupper --version
-    skupper version {{skupper_cli_release}}
+    skupper version {{skupper_release}}
 
 ## Step 2: Configure access to multiple namespaces
 
@@ -373,7 +372,7 @@ for more detail.
 
 <div class="code-label">Skupper command installation</div>
 
-    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/skupper-cli-{{skupper_cli_release}}-linux-amd64.tgz | tar -xzf -
+    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-linux-amd64.tgz | tar -xzf -
 
 <div class="code-label session-2">West: Setup</div>
 
@@ -424,5 +423,5 @@ clusters, here are a few more things to look at:
 
  - [Check out the HTTP Hello World example in more detail](https://github.com/skupperproject/skupper-example-hello-world)
  - [See how you can connect any TCP-based service](https://github.com/skupperproject/skupper-example-tcp-echo)
- - [Explore the examples]({{site_url}}/examples/index.html)
+ - [Explore the examples](/examples/index.html)
  - [Configuring Skupper sites using YAML](/docs/declarative.html)

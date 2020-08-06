@@ -5,13 +5,14 @@
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" defer/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" defer/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" defer="defer"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" defer="defer"/>
     <link rel="stylesheet" href="/main.css"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/skupper-icon-32.png">
-    <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/skupper-icon-32.png"/>
+    <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
     <script type="text/javascript" src="/main.js" defer="defer"></script>
 
+<script src="http://localhost:35729/livereload.js"></script>
 
 
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
@@ -24,8 +25,11 @@
   </head>
   <body>
 
-<header id="-large-device-header">
+<header>
   <nav id="-site-nav">
+    <a id="-site-menu-button" style="display: none;">
+      <span class="material-icons">menu</span>
+    </a>
     <div>
       <div id="-left-site-nav">
         <a href="/index.html" id="-logotype">
@@ -41,6 +45,9 @@
         <a href="/docs/index.html">
           <div>Documentation</div>
         </a>
+        <a href="/releases/index.html">
+          <div>Releases</div>
+        </a>
         <a href="/community/index.html">
           <div>Community</div>
         </a>
@@ -52,33 +59,8 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav">
-    <div>
-      <a href="/docs/index.html">Documentation</a>
-      <span class="path-separator">&rsaquo;</span>
-      Configuring Skupper sites using YAML
-    </div>
-  </nav>
-</header>
-<header id="-small-device-header">
-  <nav id="-site-nav">
-    <a id="-site-menu-button">
-      <span class="material-icons">menu</span>
-    </a>
-    <a href="/index.html" id="-logotype">
-      <img src="/images/skupper-logo.svg"/>
-      <div>Skupper</div>
-    </a>
-    <a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span></a>
-  </nav>
-  <nav id="-path-nav">
-    <div>
-      
-      <span class="path-separator">&rsaquo;</span>
-      Configuring Skupper sites using YAML
-    </div>
-  </nav>
-  <nav id="-site-menu-layer">
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/declarative.html">Configuring Skupper sites using YAML</a></div></nav>
+  <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
       <a href="/start/index.html">Getting started</a>
@@ -90,7 +72,7 @@
 </header>
 
 
-<section>
+<section id="-main-and-toc">
   <div>
     <main>
 
@@ -127,7 +109,7 @@ them all on one cluster.</p>
 options for setting up Kubernetes clusters:</p>
 
 <ul class="column-list">
-  <li><a href="minikube.html">Minikube</a></li>
+  <li><a href="/start/minikube.html">Minikube</a></li>
   <li><a href="https://aws.amazon.com/eks/getting-started/">Amazon Elastic Kubernetes Service</a></li>
   <li><a href="https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes">Azure Kubernetes Service</a></li>
   <li><a href="https://cloud.google.com/kubernetes-engine/docs/quickstart">Google Kubernetes Engine</a></li>
@@ -189,7 +171,7 @@ authenticate and establish access for each console session.</p>
 <p>See the following links for more information:</p>
 
 <ul class="column-list">
-  <li><a href="minikube.html#logging-in">Minikube</a></li>
+  <li><a href="/start/minikube.html#logging-in">Minikube</a></li>
   <li><a href="https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html">Amazon Elastic Kubernetes Service</a></li>
   <li><a href="https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster">Azure Kubernetes Service</a></li>
   <li><a href="https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl">Google Kubernetes Engine</a></li>
@@ -220,32 +202,31 @@ kubectl config set-context --current --namespace east
 
 <div class="code-label session-2">West</div>
 
-<pre><code>$ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+<pre><code>kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
 </code></pre>
 
 <div class="code-label session-1">East</div>
 
-<pre><code>$ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+<pre><code>kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
 </code></pre>
 
-<p><strong>NOTE:</strong> To configure Skupper for all namespaces in a cluster:</p>
+<p><strong>NOTE:</strong> To configure Skupper for all namespaces in a cluster, enter
+the following as a cluster administrator:</p>
 
-<pre><code>$ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/master/cmd/site-controller/deploy-watch-all-ns.yaml
+<pre><code>kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/master/cmd/site-controller/deploy-watch-all-ns.yaml
 </code></pre>
 
 <h3 id="create-a-skupper-site-in-the-east-namespace">Create a Skupper site in the east namespace</h3>
 
-<div class="code-label session-1">East</div>
-
-<p>Create a file named <code>east-site.yml</code></p>
+<p>Create a file named <code>east-site.yml</code>:</p>
 
 <pre><code>apiVersion: v1
 data:
   cluster-local: "false"
   console: "true"
   console-authentication: internal
-  console-password: "barney"
-  console-user: "rubble"
+  console-password: "rubble"
+  console-user: "barney"
   edge: "true"
   name: east-site
   router-console: "true"
@@ -256,7 +237,7 @@ metadata:
   name: skupper-site
 </code></pre>
 
-<p>Note that the <code>data.name</code> value of <code>east-site</code> and 
+<p>Note that the <code>data.name</code> value of <code>east-site</code> and
 setting <code>data.edge</code> to <code>true</code> in East disables network ingress at the
 Skupper router layer.  In our scenario, East needs to establish one
 outbound connection to West.  It does not need to accept any incoming
@@ -264,7 +245,9 @@ connections.  As a result, no network ingress is required in East.</p>
 
 <p>To apply the ConfigMap:</p>
 
-<pre><code>$ oc apply -f ~/east-site.yml
+<div class="code-label session-1">East</div>
+
+<pre><code>kubectl apply -f ~/east-site.yml
 </code></pre>
 
 <p>For more information about each parameter, see the <a href="https://github.com/skupperproject/skupper/blob/master/cmd/site-controller/README.md">Site Controller README</a>.</p>
@@ -273,17 +256,15 @@ connections.  As a result, no network ingress is required in East.</p>
 
 <h3 id="create-a-skupper-site-in-the-west-project">Create a Skupper site in the west Project</h3>
 
-<div class="code-label session-2">West</div>
-
-<p>Create a file named <code>west-site.yml</code></p>
+<p>Create a file named <code>west-site.yml</code>:</p>
 
 <pre><code>apiVersion: v1
 data:
   cluster-local: "false"
   console: "true"
   console-authentication: internal
-  console-password: "barney"
-  console-user: "rubble"
+  console-password: "rubble"
+  console-user: "barney"
   edge: "false"
   name: west-site
   router-console: "true"
@@ -298,7 +279,9 @@ metadata:
 
 <p>To apply the ConfigMap:</p>
 
-<pre><code>$ oc apply -f ~/west-site.yml
+<div class="code-label session-2">West</div>
+
+<pre><code>kubectl apply -f ~/west-site.yml
 </code></pre>
 
 <p>For more information about each parameter, see the <a href="https://github.com/skupperproject/skupper/blob/master/cmd/site-controller/README.md">Site Controller README</a>.</p>
@@ -313,13 +296,13 @@ command.</p>
 <div class="code-label session-2">West</div>
 
 <pre><code>$ skupper status
-Skupper enabled for namespace 'west'. It is not connected to any other sites.
+Skupper is enabled for namespace 'west' in interior mode. It is not connected to any other sites. It has no exposed services.
 </code></pre>
 
 <div class="code-label session-1">East</div>
 
 <pre><code>$ skupper status
-Skupper enabled for namespace 'east'. It is not connected to any other sites.
+Skupper is enabled for namespace 'east' in edge mode. It is not connected to any other sites. It has no exposed services.
 </code></pre>
 
 <h2 id="step-3-connect-your-namespaces">Step 3: Connect your namespaces</h2>
@@ -340,8 +323,6 @@ you trust have access to it.</p>
 
 <h3 id="generate-a-connection-token">Generate a connection token</h3>
 
-<div class="code-label session-2">West</div>
-
 <p>Requesting tokens requires the following format YAML file:</p>
 
 <pre><code>apiVersion: v1
@@ -354,12 +335,16 @@ metadata:
 
 <p>Save as <code>token-request.yaml</code>.</p>
 
-<pre><code>$ oc apply -f token-request.yaml
+<div class="code-label session-2">West</div>
+
+<pre><code>kubectl apply -f token-request.yaml
 </code></pre>
 
 <p>To verify this step and download the token:</p>
 
-<pre><code>$ oc get secret  --export -o yaml west-secret &gt; ~/west-secret.yaml
+<div class="code-label session-2">West</div>
+
+<pre><code>kubectl get secret  --export -o yaml west-secret &gt; ~/west-secret.yaml
 </code></pre>
 
 <h3 id="use-the-token-to-form-a-connection">Use the token to form a connection</h3>
@@ -367,11 +352,11 @@ metadata:
 <p>With the token in hand, you are ready to connect.  Pass the token from
 West to East.</p>
 
-<div class="code-label session-1">East</div>
-
 <p>Apply the token:</p>
 
-<pre><code>$ oc apply -f ~/west-secret.yaml
+<div class="code-label session-1">East</div>
+
+<pre><code>kubectl apply -f ~/west-secret.yaml
 </code></pre>
 
 <h3 id="check-the-connection">Check the connection</h3>
@@ -431,8 +416,8 @@ and the backend has no public ingress.</p>
 
 <div class="code-label session-1">East</div>
 
-<pre><code>oc annotate deployment/hello-world-backend skupper.io/proxy="http"
-oc annotate deployment/hello-world-backend skupper.io/port="8080"
+<pre><code>kubectl annotate deployment/hello-world-backend skupper.io/proxy="http"
+kubectl annotate deployment/hello-world-backend skupper.io/port="8080"
 </code></pre>
 
 <p>If you check the services in the OpenShift console of the <code>west</code> project, you should now see <code>hello-world-backend</code>.</p>
@@ -502,21 +487,16 @@ for more detail.</p>
 
 <h2 id="the-condensed-version">The condensed version</h2>
 
-<div class="code-label">Skupper command installation</div>
-
-<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.2.0/skupper-cli-0.2.0-linux-amd64.tgz | tar -xzf -
-</code></pre>
-
 <div class="code-label session-2">West: Setup</div>
 
 <pre><code>export KUBECONFIG=~/.kube/config-west
 &lt;provider-login-command&gt;
 kubectl create namespace west
 kubectl config set-context --current --namespace west
-oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
-oc apply -f ~/west-site.yml
-oc apply -f token-request.yaml
-oc get secret  --export -o yaml west-secret &gt; ~/west-secret.yaml
+kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+kubectl apply -f ~/west-site.yml
+kubectl apply -f token-request.yaml
+kubectl get secret  --export -o yaml west-secret &gt; ~/west-secret.yaml
 kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
 kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
 </code></pre>
@@ -527,13 +507,12 @@ kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
 &lt;provider-login-command&gt;
 kubectl create namespace east
 kubectl config set-context --current --namespace east
-oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
-oc apply -f ~/east-site.yml
-oc apply -f ~/west-secret.yaml
+kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+kubectl apply -f ~/east-site.yml
+kubectl apply -f ~/west-secret.yaml
 kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
-skupper expose deployment hello-world-backend --port 8080 --protocol http
-oc annotate deployment/hello-world-backend skupper.io/proxy="http"
-oc annotate deployment/hello-world-backend skupper.io/port="8080"
+kubectl annotate deployment/hello-world-backend skupper.io/proxy="http"
+kubectl annotate deployment/hello-world-backend skupper.io/port="8080"
 </code></pre>
 
 <div class="code-label session-2">West: Testing</div>
@@ -548,14 +527,14 @@ the following commands:</p>
 
 <div class="code-label session-2">West</div>
 
-<pre><code>kubectl delete configmap skupper-site
+<pre><code>kubectl delete configmap/skupper-site
 kubectl delete service/hello-world-frontend
 kubectl delete deployment/hello-world-frontend
 </code></pre>
 
 <div class="code-label session-1">East</div>
 
-<pre><code>kubectl delete configmap skupper-site
+<pre><code>kubectl delete configmap/skupper-site
 kubectl delete deployment/hello-world-backend
 </code></pre>
 
@@ -603,8 +582,6 @@ clusters, here are a few more things to look at:</p>
     </div>
   </div>
 </footer>
-
-
 
 
 

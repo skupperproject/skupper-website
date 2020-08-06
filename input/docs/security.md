@@ -28,7 +28,7 @@ certificate authority (CA). Each router is uniquely identified by its
 own certificate.
 
 <div class="illustration">
-  {{include(page, "includes/clusters-tls.svg")}}
+  {{page.include("includes/clusters-tls.svg")}}
 </div>
 
 This means that the Skupper network is isolated from external access,

@@ -5,13 +5,14 @@
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" defer/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" defer/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" defer="defer"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" defer="defer"/>
     <link rel="stylesheet" href="/main.css"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/skupper-icon-32.png">
-    <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/skupper-icon-32.png"/>
+    <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
     <script type="text/javascript" src="/main.js" defer="defer"></script>
 
+<script src="http://localhost:35729/livereload.js"></script>
 
 
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
@@ -24,8 +25,11 @@
   </head>
   <body>
 
-<header id="-large-device-header">
+<header>
   <nav id="-site-nav">
+    <a id="-site-menu-button" style="display: none;">
+      <span class="material-icons">menu</span>
+    </a>
     <div>
       <div id="-left-site-nav">
         <a href="/index.html" id="-logotype">
@@ -41,6 +45,9 @@
         <a href="/docs/index.html">
           <div>Documentation</div>
         </a>
+        <a href="/releases/index.html">
+          <div>Releases</div>
+        </a>
         <a href="/community/index.html">
           <div>Community</div>
         </a>
@@ -52,33 +59,8 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav">
-    <div>
-      
-      <span class="path-separator">&rsaquo;</span>
-      Getting started
-    </div>
-  </nav>
-</header>
-<header id="-small-device-header">
-  <nav id="-site-nav">
-    <a id="-site-menu-button">
-      <span class="material-icons">menu</span>
-    </a>
-    <a href="/index.html" id="-logotype">
-      <img src="/images/skupper-logo.svg"/>
-      <div>Skupper</div>
-    </a>
-    <a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span></a>
-  </nav>
-  <nav id="-path-nav">
-    <div>
-      
-      <span class="path-separator">&rsaquo;</span>
-      Getting started
-    </div>
-  </nav>
-  <nav id="-site-menu-layer">
+  <nav id="-path-nav"><div><a href="/start/index.html">Getting started</a></div></nav>
+  <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
       <a href="/start/index.html">Getting started</a>
@@ -90,7 +72,7 @@
 </header>
 
 
-<section>
+<section id="-main-and-toc">
   <div>
     <main>
 
@@ -157,20 +139,19 @@ download it from GitHub and extract the executable using <code>tar</code> or
 
 <div class="code-label">Linux</div>
 
-<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.2.0/skupper-cli-0.2.0-linux-amd64.tgz | tar -xzf -
+<pre><code>curl -fL https://github.com/skupperproject/skupper/releases/download/0.3.1/skupper-cli-0.3.1-linux-amd64.tgz | tar -xzf -
 </code></pre>
 
-<div class="code-label">macOS</div>
+<div class="code-label">Mac</div>
 
-<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.2.0/skupper-cli-0.2.0-mac-amd64.tgz | tar -xzf -
+<pre><code>curl -fL https://github.com/skupperproject/skupper/releases/download/0.3.1/skupper-cli-0.3.1-mac-amd64.tgz | tar -xzf -
 </code></pre>
 
 <p>This produces an executable file named <code>skupper</code> in your current
 directory.</p>
 
-<p>See the <a href="https://github.com/skupperproject/skupper-cli/releases">Skupper CLI release
-page</a> to get
-artifacts for other platforms.</p>
+<p>To download artifacts for other platforms, see <a href="/releases/index.html">Skupper
+releases</a>.</p>
 
 <h3 id="place-the-command-on-your-path">Place the command on your path</h3>
 
@@ -188,7 +169,7 @@ mv skupper $HOME/bin
 should see output like this:</p>
 
 <pre><code>$ skupper --version
-skupper version 0.2.0
+skupper version 0.3.1
 </code></pre>
 
 <h2 id="step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</h2>
@@ -492,7 +473,7 @@ for more detail.</p>
 
 <div class="code-label">Skupper command installation</div>
 
-<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.2.0/skupper-cli-0.2.0-linux-amd64.tgz | tar -xzf -
+<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.3.1/skupper-cli-0.3.1-linux-amd64.tgz | tar -xzf -
 </code></pre>
 
 <div class="code-label session-2">West: Setup</div>
@@ -587,8 +568,6 @@ clusters, here are a few more things to look at:</p>
     </div>
   </div>
 </footer>
-
-
 
 
 

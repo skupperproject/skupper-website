@@ -1,3 +1,7 @@
+def path_nav(page):
+    links = " <span class=\"path-separator\">&#8250;</span> ".join(page.path_nav_links[1:])
+    return f"<nav id=\"-path-nav\"><div>{links}</div></nav>"
+
 def circle(diameter, color="#000"):
     position = .2 * diameter
     cx = .5 * diameter
@@ -10,4 +14,4 @@ def circle(diameter, color="#000"):
         f"  <circle cx=\"{cx}\" cy=\"{cy}\" r=\"{radius}\" stroke=\"{color}\" stroke-width=\"{stroke}\" fill=\"none\"/>" \
         "</svg>"
 
-skupper_cli_release = "0.2.0"
+skupper_release = "0.3.1"

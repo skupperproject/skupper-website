@@ -144,15 +144,18 @@ h6 {
 
 h1 {
     font-size: 1.8em;
+    line-height: 1.3em;
     margin-top: 0;
+    margin-bottom: 1.2em;
 }
 
 h2 {
-    font-size: 1.6em;
+    font-size: 1.5em;
+    margin-bottom: 1.1em;
 }
 
 h3 {
-    font-size: 1.3em;
+    font-size: 1.2em;
 }
 
 a {
@@ -190,26 +193,6 @@ nav.links > a {
     margin-right: 1em;
 }
 
-#-toc {
-    display: none;
-    padding-left: 2em;
-    border-left: 0.2em solid rgba(0, 0, 0, 0.06);
-}
-
-#-toc > div > a {
-    display: block;
-    margin-bottom: 1em;
-}
-
-#-toc > div > a:last-of-type {
-    margin-bottom: 0;
-}
-
-#-toc > div > a.selected {
-    color: var(--fg-color-1);
-    font-weight: 700;
-}
-
 /* --- */
 
 header,
@@ -233,7 +216,7 @@ header {
     width: 100%;
 }
 
-#-large-device-header > nav > div {
+header > nav > div {
     display: flex;
     align-items: center;
 }
@@ -372,23 +355,20 @@ header {
     margin-right: 0.6em;
 }
 
-section {
-    color: var(--fg-color-1);
-    background-color: var(--bg-color-1);
-}
-
-section > div {
+#-main-and-toc > div {
     display: flex;
     align-items: flex-start; /* Important for sticky positioning */
 }
 
-main {
+#-main-and-toc > div > main {
     width: 70%;
     padding-right: 2em;
 }
 
 #-toc {
+    display: none;
     width: 30%;
+    border-left: 0.2em solid rgba(0, 0, 0, 0.06);
     padding-left: 2em;
     position: sticky;
     top: 7em;
@@ -397,6 +377,25 @@ main {
 #-toc > h4 {
     font-size: 1em;
     font-weight: 500;
+}
+
+#-toc > div > a {
+    display: block;
+    margin-bottom: 1em;
+}
+
+#-toc > div > a:last-of-type {
+    margin-bottom: 0;
+}
+
+#-toc > div > a.selected {
+    color: var(--fg-color-1);
+    font-weight: 700;
+}
+
+section {
+    color: var(--fg-color-1);
+    background-color: var(--bg-color-1);
 }
 
 section:first-of-type > div {
@@ -478,6 +477,7 @@ img.diagram {
 span.fab,
 span.fas {
     margin-right: 0.2em;
+    vertical-align: -0.11em;
 }
 
 span.material-icons {
@@ -489,15 +489,16 @@ span.material-icons {
         font-size: 0.9em;
     }
 
-    #-large-device-header {
+    #-left-site-nav a:not([id="-logotype"]) {
         display: none;
     }
 
-    #-small-device-header {
-        display: inherit;
+    main {
+        width: 100%;
+        padding-right: 0;
     }
 
-    main {
+    #-main-and-toc > div > main {
         width: 100%;
         padding-right: 0;
     }
@@ -513,6 +514,10 @@ span.material-icons {
     footer > div > div {
         margin-right: 0 !important;
         margin-bottom: 2em;
+    }
+
+    .columns {
+        display: block !important;
     }
 
     .pattern {
@@ -534,4 +539,74 @@ span.material-icons {
     .pattern > div > div:last-of-type {
         margin: 0;
     }
+}
+
+/* --- */
+
+a.button {
+    display: inline-block;
+    font-weight: 700;
+    padding: 0.6em 1.1em;
+    color: var(--fg-color-3);
+    background-color: var(--accent-color-2);
+    border-radius: 0.2em;
+    cursor: pointer;
+}
+
+a.button > span.material-icons {
+    margin-left: -0.1em;
+    margin-right: 0.2em;
+}
+
+nav.button-group {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+nav.button-group > a {
+    margin-right: 1em;
+}
+
+/* --- */
+
+form input {
+    font-size: inherit;
+    padding: 0.5em;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.2em;
+    margin-right: 0.4em;
+}
+
+form button {
+    font-size: inherit;
+    font-weight: 700;
+    padding: 0.6em 1.1em;
+    color: var(--fg-color-3);
+    background-color: var(--accent-color-2);
+    border-radius: 0.2em;
+    cursor: pointer;
+}
+
+/* --- */
+
+nav.inline-links > a {
+    display: inline;
+    margin-right: 1em;
+}
+
+/* --- */
+
+.columns {
+    display: flex;
+}
+
+.columns > div {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin-right: 4em;
+    margin-bottom: 2em;
+}
+
+.columns > div:last-child {
+    margin-right: 0;
 }

@@ -1,7 +1,3 @@
----
-title: Configuring Skupper sites using YAML
----
-
 # Configuring Skupper sites using YAML
 
 These instructions use a declarative YAML-based deployment.
@@ -15,7 +11,7 @@ a backend service.  The frontend uses the backend to process requests.
 In this scenario, the frontend is deployed in the `west`
 namespace, and the backend is deployed in the `east` namespace.
 
-<img style="margin: 2em; width: 80%;" src="{{site_url}}/images/hello-world-entities.svg"/>
+<img style="margin: 2em; width: 80%;" src="/images/hello-world-entities.svg"/>
 
 While these instructions use this particular application for
 demonstration purposes, the steps are the same for any Skupper
@@ -35,7 +31,7 @@ Skupper works with any flavor of Kubernetes.  Here are some of your
 options for setting up Kubernetes clusters:
 
 <ul class="column-list">
-  <li><a href="minikube.html">Minikube</a></li>
+  <li><a href="/start/minikube.html">Minikube</a></li>
   <li><a href="https://aws.amazon.com/eks/getting-started/">Amazon Elastic Kubernetes Service</a></li>
   <li><a href="https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes">Azure Kubernetes Service</a></li>
   <li><a href="https://cloud.google.com/kubernetes-engine/docs/quickstart">Google Kubernetes Engine</a></li>
@@ -94,7 +90,7 @@ authenticate and establish access for each console session.
 See the following links for more information:
 
 <ul class="column-list">
-  <li><a href="minikube.html#logging-in">Minikube</a></li>
+  <li><a href="/start/minikube.html#logging-in">Minikube</a></li>
   <li><a href="https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html">Amazon Elastic Kubernetes Service</a></li>
   <li><a href="https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster">Azure Kubernetes Service</a></li>
   <li><a href="https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl">Google Kubernetes Engine</a></li>
@@ -117,29 +113,26 @@ for each session.
     kubectl create namespace east
     kubectl config set-context --current --namespace east
 
-
 ## Step 2: Create a Skupper site in each namespace
-
 
 ### Deploy the site controller
 
 <div class="code-label session-2">West</div>
 
-    $ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+    kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
 
 <div class="code-label session-1">East</div>
 
-    $ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+    kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
 
-**NOTE:** To configure Skupper for all namespaces in a cluster, enter the following as a cluster administrator:
+**NOTE:** To configure Skupper for all namespaces in a cluster, enter
+the following as a cluster administrator:
 
-    $ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/master/cmd/site-controller/deploy-watch-all-ns.yaml
+    kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/master/cmd/site-controller/deploy-watch-all-ns.yaml
 
 ### Create a Skupper site in the east namespace
 
-<div class="code-label session-1">East</div>
-
-Create a file named `east-site.yml`
+Create a file named `east-site.yml`:
 
     apiVersion: v1
     data:
@@ -157,7 +150,7 @@ Create a file named `east-site.yml`
     metadata:
       name: skupper-site
 
-Note that the `data.name` value of `east-site` and 
+Note that the `data.name` value of `east-site` and
 setting `data.edge` to `true` in East disables network ingress at the
 Skupper router layer.  In our scenario, East needs to establish one
 outbound connection to West.  It does not need to accept any incoming
@@ -165,7 +158,9 @@ connections.  As a result, no network ingress is required in East.
 
 To apply the ConfigMap:
 
-    $ oc apply -f ~/east-site.yml
+<div class="code-label session-1">East</div>
+
+    kubectl apply -f ~/east-site.yml
 
 For more information about each parameter, see the [Site Controller README](https://github.com/skupperproject/skupper/blob/master/cmd/site-controller/README.md).
 
@@ -173,9 +168,7 @@ After completion, you should see deployments named `skupper-service-controller` 
 
 ### Create a Skupper site in the west Project
 
-<div class="code-label session-2">West</div>
-
-Create a file named `west-site.yml`
+Create a file named `west-site.yml`:
 
     apiVersion: v1
     data:
@@ -197,7 +190,9 @@ Note that the `data.name` value of `west-site`.
 
 To apply the ConfigMap:
 
-    $ oc apply -f ~/west-site.yml
+<div class="code-label session-2">West</div>
+
+    kubectl apply -f ~/west-site.yml
 
 For more information about each parameter, see the [Site Controller README](https://github.com/skupperproject/skupper/blob/master/cmd/site-controller/README.md).
 
@@ -211,7 +206,7 @@ command.
 <div class="code-label session-2">West</div>
 
     $ skupper status
-   Skupper is enabled for namespace 'west' in interior mode. It is not connected to any other sites. It has no exposed services.
+    Skupper is enabled for namespace 'west' in interior mode. It is not connected to any other sites. It has no exposed services.
 
 <div class="code-label session-1">East</div>
 
@@ -236,8 +231,6 @@ you trust have access to it.
 
 ### Generate a connection token
 
-<div class="code-label session-2">West</div>
-
 Requesting tokens requires the following format YAML file:
 
     apiVersion: v1
@@ -249,23 +242,26 @@ Requesting tokens requires the following format YAML file:
 
 Save as `token-request.yaml`.
 
-    $ oc apply -f token-request.yaml
+<div class="code-label session-2">West</div>
+
+    kubectl apply -f token-request.yaml
 
 To verify this step and download the token:
 
-    $ oc get secret  --export -o yaml west-secret > ~/west-secret.yaml
+<div class="code-label session-2">West</div>
 
+    kubectl get secret  --export -o yaml west-secret > ~/west-secret.yaml
 
 ### Use the token to form a connection
 
 With the token in hand, you are ready to connect.  Pass the token from
 West to East.
 
-<div class="code-label session-1">East</div>
-
 Apply the token:
 
-    $ oc apply -f ~/west-secret.yaml
+<div class="code-label session-1">East</div>
+
+    kubectl apply -f ~/west-secret.yaml
 
 ### Check the connection
 
@@ -321,8 +317,8 @@ Create annotations of the  deployment in East to make
 
 <div class="code-label session-1">East</div>
 
-    oc annotate deployment/hello-world-backend skupper.io/proxy="http"
-    oc annotate deployment/hello-world-backend skupper.io/port="8080"
+    kubectl annotate deployment/hello-world-backend skupper.io/proxy="http"
+    kubectl annotate deployment/hello-world-backend skupper.io/port="8080"
 
 If you check the services in the OpenShift console of the `west` project, you should now see `hello-world-backend`.
 
@@ -387,20 +383,16 @@ for more detail.
 
 ## The condensed version
 
-<div class="code-label">Skupper command installation</div>
-
-    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_cli_release}}/skupper-cli-{{skupper_cli_release}}-linux-amd64.tgz | tar -xzf -
-
 <div class="code-label session-2">West: Setup</div>
 
     export KUBECONFIG=~/.kube/config-west
     <provider-login-command>
     kubectl create namespace west
     kubectl config set-context --current --namespace west
-    oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
-    oc apply -f ~/west-site.yml
-    oc apply -f token-request.yaml
-    oc get secret  --export -o yaml west-secret > ~/west-secret.yaml
+    kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+    kubectl apply -f ~/west-site.yml
+    kubectl apply -f token-request.yaml
+    kubectl get secret  --export -o yaml west-secret > ~/west-secret.yaml
     kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
     kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
 
@@ -410,13 +402,12 @@ for more detail.
     <provider-login-command>
     kubectl create namespace east
     kubectl config set-context --current --namespace east
-    oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
-    oc apply -f ~/east-site.yml
-    oc apply -f ~/west-secret.yaml
+    kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+    kubectl apply -f ~/east-site.yml
+    kubectl apply -f ~/west-secret.yaml
     kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
-    skupper expose deployment hello-world-backend --port 8080 --protocol http
-    oc annotate deployment/hello-world-backend skupper.io/proxy="http"
-    oc annotate deployment/hello-world-backend skupper.io/port="8080"
+    kubectl annotate deployment/hello-world-backend skupper.io/proxy="http"
+    kubectl annotate deployment/hello-world-backend skupper.io/port="8080"
 
 <div class="code-label session-2">West: Testing</div>
 
@@ -429,13 +420,13 @@ the following commands:
 
 <div class="code-label session-2">West</div>
 
-    kubectl delete configmap skupper-site
+    kubectl delete configmap/skupper-site
     kubectl delete service/hello-world-frontend
     kubectl delete deployment/hello-world-frontend
 
 <div class="code-label session-1">East</div>
 
-    kubectl delete configmap skupper-site
+    kubectl delete configmap/skupper-site
     kubectl delete deployment/hello-world-backend
 
 ## Next steps
@@ -445,4 +436,4 @@ clusters, here are a few more things to look at:
 
  - [Check out the HTTP Hello World example in more detail](https://github.com/skupperproject/skupper-example-hello-world)
  - [See how you can connect any TCP-based service](https://github.com/skupperproject/skupper-example-tcp-echo)
- - [Explore the examples]({{site_url}}/examples/index.html)
+ - [Explore the examples](/examples/index.html)

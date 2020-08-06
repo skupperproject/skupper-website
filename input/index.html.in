@@ -1,16 +1,16 @@
 ---
 title: Multicloud communication
 body_template: none
-extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/css" async="async"/> <script type="text/javascript" src="{{site_url}}/index.js" defer="defer"></script>
+extra_headers: <link rel="stylesheet" href="/index.css" type="text/css" async="async"/> <script type="text/javascript" src="/index.js" defer="defer"></script>
 ---
 
-{{include(page, "includes/header.html")}}
+{{page.include("includes/header.html")}}
 
 <section id="-intro">
   <div>
     <div id="-graphic-and-summary">
       <div>
-        {{include(page, "includes/globe.svg")}}
+        {{page.include("includes/globe.svg")}}
       </div>
       <div>
         <h1>Multicloud communication for Kubernetes</h1>
@@ -23,11 +23,10 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
           providers, data centers, and regions.</p>
       </div>
       <div>
-        <p>100% open source</p>
-        <p>Works with any flavor of Kubernetes</p>
         <p><a class="button" id="-popup-video-button"><span class="material-icons">play_circle_filled</span> Watch the video</a></p>
-        <p><a class="button" href="{{site_url}}/docs/overview.html">Learn more</a></p>
-        <p><a class="button" href="{{site_url}}/start/index.html">Get started</a></p>
+        <p><a class="button" href="/docs/index.html"><span class="material-icons">info</span> Learn more</a></p>
+        <p><a class="button" href="/start/index.html"><span class="material-icons">flag</span> Get started</a></p>
+        <p><a class="nav" href="/releases/index.html">Get Skupper {{skupper_release}} <span class="material-icons">chevron_right</span></a></p>
       </div>
     </div>
 
@@ -39,16 +38,16 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
           <p>No administrator privileges required</p>
           <p>Transparent HTTP/1.1, HTTP/2, gRPC, and TCP communication</p>
         </div>
-        <a class="nav" href="{{site_url}}/start/index.html">Try Skupper out <span class="material-icons">chevron_right</span></a>
+        <a class="nav" href="/start/index.html">Try Skupper out <span class="material-icons">chevron_right</span></a>
       </div>
       <div>
-        <h3>Security is built in</h3>
+        <h3>Secure by default</h3>
         <div>
-          <p>Connect services across clusters without exposing them to the public internet</p>
-          <p>All inter-cluster communication is secured by mutual TLS authentication and encryption</p>
-          <!-- <p>Application-level access control and resource limits</p> -->
+          <p>Communicate across clusters without exposing service ports on the internet</p>
+          <p>Inter-cluster communication is secured by mutual TLS</p>
+          <p>Skupper runs without elevated privileges</p>
         </div>
-        <a class="nav" href="{{site_url}}/docs/security.html">Skupper security <span class="material-icons">chevron_right</span></a>
+        <a class="nav" href="/docs/security.html">Skupper security <span class="material-icons">chevron_right</span></a>
       </div>
       <div>
         <h3>Connect anywhere</h3>
@@ -57,7 +56,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
           <p>Secure access from the public cloud to private cloud services without VPNs</p>
           <p>Connect and disconnect new clusters dynamically</p>
         </div>
-        <a class="nav" href="{{site_url}}/docs/connectivity.html">Skupper connectivity <span class="material-icons">chevron_right</span></a>
+        <a class="nav" href="/docs/connectivity.html">Skupper connectivity <span class="material-icons">chevron_right</span></a>
       </div>
       <div>
         <h3>Smart routing</h3>
@@ -67,8 +66,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
           <p>Redundant routes for high availability in the face of network failures</p>
           <!-- <p>Multicast HTTP request forwarding</p> -->
         </div>
-        <a class="nav" href="{{site_url}}/docs/routing.html">Skupper routing <span class="material-icons">chevron_right</span></a>
-      </nav>
+        <a class="nav" href="/docs/routing.html">Skupper routing <span class="material-icons">chevron_right</span></a>
       </div>
     </div>
   </div>
@@ -81,16 +79,16 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
 <section id="-videos">
   <div>
     <div>
-      <iframe src="https://www.youtube.com/embed/bL-BvHEQuXs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/bL-BvHEQuXs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
       <h2>Deploy a multi-cluster network</h2>
       <p>See how you can use Skupper to create a network of clusters
         in which a Kubernetes service on one cluster can be accessed
         from any other.</p>
-      <p><a class="nav" href="{{site_url}}/docs/overview.html">Learn more about Skupper</a></p>
+      <p><a class="nav" href="/docs/overview.html">Learn more about Skupper</a></p>
     </div>
 
     <div>
-      <iframe src="https://www.youtube.com/embed/Oa0aVpb0v7U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/Oa0aVpb0v7U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
       <h2>Access data in a private cluster</h2>
       <p>See how Skupper can enable you to host a PostgreSQL database
         in a private cluster and then access it from two other public
@@ -100,7 +98,7 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
     </div>
 
     <div>
-      <iframe src="https://www.youtube.com/embed/H80GLl-KdTc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/H80GLl-KdTc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
       <h2>A multi-cluster microservices app</h2>
       <p>See how you can deploy the HTTP-based Bookinfo application
         from the Istio project with no changes to the application
@@ -111,8 +109,8 @@ extra_headers: <link rel="stylesheet" href="{{site_url}}/index.css" type="text/c
   </div>
 </section>
 
-{{include(page, "includes/footer.html")}}
+{{page.include("includes/footer.html")}}
 
 <div id="-popup-video-layer">
-  <div><iframe src="https://www.youtube.com/embed/BZvd51ALPa8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+  <div><iframe src="https://www.youtube.com/embed/BZvd51ALPa8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe></div>
 </div>

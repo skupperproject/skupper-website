@@ -128,7 +128,7 @@ window.addEventListener("load", () => {
 window.addEventListener("load", () => {
     let pathNav = $("#-path-nav");
 
-    if (pathNav.$$("a").length > 0) {
+    if (pathNav.$$("a").length > 1) {
         $("section:first-of-type > div").style.paddingTop = "9.5em";
         $("#-toc").style.top = "9.5em";
         $("html").style.scrollPaddingTop = "9em";

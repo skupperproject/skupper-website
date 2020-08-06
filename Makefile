@@ -21,20 +21,28 @@
 
 export PYTHONPATH := python
 
-.PHONY: render
-render: clean
-	python3 -m transom render --force --quiet input output
-	python3 -m transom render --force --quiet --site-url "" input docs
-	@echo "See the output at:"
-	@echo file:${CURDIR}/output/index.html
+.PHONY: serve
+serve:
+	python3 -m transom render --force --serve 8080 config input docs
 
-.PHONY: watch
-watch:
-	scripts/watch
+.PHONY: render
+render:
+	python3 -m transom render --verbose config input docs
+
+.PHONY: force-render
+force-render:
+	python3 -m transom render --force --verbose config input docs
+
+.PHONY: check-links
+check-links:
+	python3 -m transom check-links --verbose config input docs
+
+.PHONY: check-files
+check-files:
+	python3 -m transom check-files --verbose config input docs
 
 .PHONY: clean
 clean:
-	rm -rf output
 	rm -rf python/__pycache__
 
 .PHONY: update-transom

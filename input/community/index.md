@@ -12,43 +12,33 @@ Skupper is an open source project.  The source is licensed under
 under the [skupperproject](https://github.com/skupperproject)
 organization.
 
-Skupper is made up of multiple components.  Here are some of the
-important ones:
-
-| GitHub repo | Description |
-| ---- | ----------- | --- |
-| [skupper-cli](https://github.com/skupperproject/skupper-cli) | Skupper command-line tool |
-| [skupper-proxy](https://github.com/skupperproject/skupper-proxy) | Skupper proxy |
-| [skupper-example-hello-world](https://github.com/skupperproject/skupper-example-hello-world) | Skupper Hello World |
-| [skupper-example-postgresql](https://github.com/skupperproject/skupper-example-postgresql) | Skupper PostgreSQL example |
-
 ## Mailing list
 
 We use a [mailing
 list](https://groups.google.com/forum/#!forum/skupper) hosted by
 Google Groups to answer questions and exchange ideas.
 
-<table>
-  <tr>
-    <th>To subscribe</th><td>Send an email to <a href="mailto:skupper-subscribe@googlegroups.com">skupper-subscribe@googlegroups.com</a></td>
-  </tr>
-  <tr>
-    <th>To unsubscribe</th><td>Send an email to <a href="mailto:skupper-unsubscribe@googlegroups.com">skupper-unsubscribe@googlegroups.com</a></td>
-  </tr>
-</table>
+To subscribe, send an email to <a
+href="mailto:skupper-subscribe@googlegroups.com">skupper-subscribe@googlegroups.com</a>.
+
+To unsubscribe, send an email to <a
+href="mailto:skupper-unsubscribe@googlegroups.com">skupper-unsubscribe@googlegroups.com</a>.
 
 ## Issue tracking
 
-We use GitHub issues to track bugs and enhancement requests.  If you
-know which component requires a fix or enhancement, please [navigate
-to its repo](https://github.com/skupperproject) and create the issue
-there.
+We use GitHub issues to track bugs and enhancement requests.
 
-If you do not know which component applies, please use the
-[skupper](https://github.com/skupperproject/skupper) repo and we will
-assign the issue to a component.
+If you run into a problem, start by searching for an existing issue:
 
-> [Create an issue](https://github.com/skupperproject/skupper/issues/new)
+<form method="get" action="https://github.com/skupperproject/skupper/issues">
+  <input name="q" type="text"/>
+  <button type="submit">Search</button>
+</form>
+
+If you can't find one that describes your problem or desired
+enhancement, create a new one:
+
+<a class="button" href="https://github.com/skupperproject/skupper/issues/new">Create an issue</a>
 
 Make sure to include details about your developer environment and
 Kubernetes variant.  We especially appreciate issues with reproducer

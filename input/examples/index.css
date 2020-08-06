@@ -1,0 +1,22 @@
+h2 {
+    font-size: 15pt;
+    margin-bottom: 0.8em;
+}
+
+nav.inline-links {
+    font-weight: 600;
+    font-size: 0.9em;
+    margin-top: 1.3em;
+}
+
+nav.inline-links > a {
+    color: hsla(203, 30%, 50%, 1.0);
+}
+
+.example {
+    margin-bottom: 2.4em;
+}
+
+.example:last-child {
+    margin-bottom: 0;
+}

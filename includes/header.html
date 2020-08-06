@@ -1,21 +1,27 @@
-<header id="-large-device-header">
+<header>
   <nav id="-site-nav">
+    <a id="-site-menu-button" style="display: none;">
+      <span class="material-icons">menu</span>
+    </a>
     <div>
       <div id="-left-site-nav">
-        <a href="{{site_url}}/index.html" id="-logotype">
-          <img src="{{site_url}}/images/skupper-logo.svg"/>
+        <a href="/index.html" id="-logotype">
+          <img src="/images/skupper-logo.svg"/>
           <div>Skupper</div>
         </a>
-        <a href="{{site_url}}/start/index.html">
+        <a href="/start/index.html">
           <div>Getting started</div>
         </a>
-        <a href="{{site_url}}/examples/index.html">
+        <a href="/examples/index.html">
           <div>Examples</div>
         </a>
-        <a href="{{site_url}}/docs/index.html">
+        <a href="/docs/index.html">
           <div>Documentation</div>
         </a>
-        <a href="{{site_url}}/community/index.html">
+        <a href="/releases/index.html">
+          <div>Releases</div>
+        </a>
+        <a href="/community/index.html">
           <div>Community</div>
         </a>
       </div>
@@ -26,39 +32,14 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav">
+  {{path_nav(page)}}
+  <nav id="-site-menu-layer" style="display: none;">
     <div>
-      {{" <span class=\"path-separator\">&rsaquo;</span> ".join(ancestor_links)}}
-      <span class="path-separator">&rsaquo;</span>
-      {{page.title}}
-    </div>
-  </nav>
-</header>
-<header id="-small-device-header">
-  <nav id="-site-nav">
-    <a id="-site-menu-button">
-      <span class="material-icons">menu</span>
-    </a>
-    <a href="{{site_url}}/index.html" id="-logotype">
-      <img src="{{site_url}}/images/skupper-logo.svg"/>
-      <div>Skupper</div>
-    </a>
-    <a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span></a>
-  </nav>
-  <nav id="-path-nav">
-    <div>
-      {{" <span class=\"path-separator\">&rsaquo;</span> ".join(ancestor_links)}}
-      <span class="path-separator">&rsaquo;</span>
-      {{page.title}}
-    </div>
-  </nav>
-  <nav id="-site-menu-layer">
-    <div>
-      <a href="{{site_url}}/index.html">Home</a>
-      <a href="{{site_url}}/start/index.html">Getting started</a>
-      <a href="{{site_url}}/examples/index.html">Examples</a>
-      <a href="{{site_url}}/docs/index.html">Documentation</a>
-      <a href="{{site_url}}/community/index.html">Community</a>
+      <a href="/index.html">Home</a>
+      <a href="/start/index.html">Getting started</a>
+      <a href="/examples/index.html">Examples</a>
+      <a href="/docs/index.html">Documentation</a>
+      <a href="/community/index.html">Community</a>
     </div>
   </nav>
 </header>
