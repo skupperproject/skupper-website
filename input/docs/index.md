@@ -6,9 +6,9 @@ title: Documentation
 
 * [Overview](overview.html)
 
-* [Getting Started using the CLI](/start/index.html)
+* [Getting Started](/start/index.html)
 
-* [Getting Started using declarative configuration](/start/declarative.html)
+* [Configuring Skupper sites using YAML](declarative.html)
 
 * [Security](security.html)
 

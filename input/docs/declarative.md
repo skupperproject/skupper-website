@@ -1,11 +1,11 @@
 ---
-title: Getting Started declaratively
+title: Configuring Skupper sites using YAML
 ---
 
-# Getting started with Skupper declarative configuration
+# Configuring Skupper sites using YAML
 
 These instructions use a declarative YAML-based deployment.
-See [Getting Started using the CLI](./index.html) for CLI based instructions.
+See [Getting Started](/start/index.html) for CLI based instructions for the same `hello world` use case.
 
 ## Overview
 
@@ -193,7 +193,7 @@ Create a file named `west-site.yml`
     metadata:
       name: skupper-site
 
-Note that the `data:name` value of `west-site`.
+Note that the `data.name` value of `west-site`.
 
 To apply the ConfigMap:
 
