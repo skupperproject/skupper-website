@@ -131,7 +131,7 @@ for each session.
 
     $ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
 
-**NOTE:** To configure Skupper for all namespaces in a cluster:
+**NOTE:** To configure Skupper for all namespaces in a cluster, enter the following as a cluster administrator:
 
     $ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/master/cmd/site-controller/deploy-watch-all-ns.yaml
 
@@ -146,8 +146,8 @@ Create a file named `east-site.yml`
       cluster-local: "false"
       console: "true"
       console-authentication: internal
-      console-password: "barney"
-      console-user: "rubble"
+      console-password: "rubble"
+      console-user: "barney"
       edge: "true"
       name: east-site
       router-console: "true"
@@ -182,8 +182,8 @@ Create a file named `west-site.yml`
       cluster-local: "false"
       console: "true"
       console-authentication: internal
-      console-password: "barney"
-      console-user: "rubble"
+      console-password: "rubble"
+      console-user: "barney"
       edge: "false"
       name: west-site
       router-console: "true"
@@ -211,12 +211,12 @@ command.
 <div class="code-label session-2">West</div>
 
     $ skupper status
-    Skupper enabled for namespace 'west'. It is not connected to any other sites.
+   Skupper is enabled for namespace 'west' in interior mode. It is not connected to any other sites. It has no exposed services.
 
 <div class="code-label session-1">East</div>
 
     $ skupper status
-    Skupper enabled for namespace 'east'. It is not connected to any other sites.
+    Skupper is enabled for namespace 'east' in edge mode. It is not connected to any other sites. It has no exposed services.
 
 ## Step 3: Connect your namespaces
 
