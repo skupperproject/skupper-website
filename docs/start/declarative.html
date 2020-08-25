@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Getting started</title>
+    <title>Skupper - Getting Started declaratively</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -54,9 +54,9 @@
   </nav>
   <nav id="-path-nav">
     <div>
-      
+      <a href="/start/index.html">Getting started</a>
       <span class="path-separator">&rsaquo;</span>
-      Getting started
+      Getting Started declaratively
     </div>
   </nav>
 </header>
@@ -75,7 +75,7 @@
     <div>
       
       <span class="path-separator">&rsaquo;</span>
-      Getting started
+      Getting Started declaratively
     </div>
   </nav>
   <nav id="-site-menu-layer">
@@ -94,7 +94,10 @@
   <div>
     <main>
 
-<h1 id="getting-started-with-skupper">Getting started with Skupper</h1>
+<h1 id="getting-started-with-skupper-declarative-configuration">Getting started with Skupper declarative configuration</h1>
+
+<p>These instructions use a declarative YAML-based deployment.
+See <a href="./index.html">Getting Started using the CLI</a> for CLI based instructions.</p>
 
 <h2 id="overview">Overview</h2>
 
@@ -142,56 +145,7 @@ options for setting up Kubernetes clusters:</p>
 guide</a> for
 more information.</p>
 
-<h2 id="step-1-install-the-skupper-command-line-tool-in-your-environment">Step 1: Install the Skupper command-line tool in your environment</h2>
-
-<p>The <code>skupper</code> command-line tool is the primary entrypoint for
-installing and configuring the Skupper infrastructure.  You need to
-install the <code>skupper</code> command only once for each development
-environment.</p>
-
-<h3 id="download-and-extract-the-command">Download and extract the command</h3>
-
-<p>To get the latest release of the Skupper command for your platform,
-download it from GitHub and extract the executable using <code>tar</code> or
-<code>unzip</code>.</p>
-
-<div class="code-label">Linux</div>
-
-<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.2.0/skupper-cli-0.2.0-linux-amd64.tgz | tar -xzf -
-</code></pre>
-
-<div class="code-label">macOS</div>
-
-<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.2.0/skupper-cli-0.2.0-mac-amd64.tgz | tar -xzf -
-</code></pre>
-
-<p>This produces an executable file named <code>skupper</code> in your current
-directory.</p>
-
-<p>See the <a href="https://github.com/skupperproject/skupper-cli/releases">Skupper CLI release
-page</a> to get
-artifacts for other platforms.</p>
-
-<h3 id="place-the-command-on-your-path">Place the command on your path</h3>
-
-<p>The subsequent steps assume <code>skupper</code> is on your path.  As an example,
-this is how you might install it in your home directory:</p>
-
-<pre><code>mkdir -p $HOME/bin
-export PATH=$PATH:$HOME/bin
-mv skupper $HOME/bin
-</code></pre>
-
-<h3 id="check-the-command">Check the command</h3>
-
-<p>To test your installation, run the <code>skupper --version</code> command.  You
-should see output like this:</p>
-
-<pre><code>$ skupper --version
-skupper version 0.2.0
-</code></pre>
-
-<h2 id="step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</h2>
+<h2 id="step-1-configure-access-to-multiple-namespaces">Step 1: Configure access to multiple namespaces</h2>
 
 <p>Skupper is designed for use with multiple namespaces, typically on
 different clusters.  The <code>skupper</code> command uses your kubeconfig and
@@ -260,55 +214,100 @@ kubectl config set-context --current --namespace west
 kubectl config set-context --current --namespace east
 </code></pre>
 
-<h3 id="check-your-configurations">Check your configurations</h3>
+<h2 id="step-2-create-a-skupper-site-in-each-namespace">Step 2: Create a Skupper site in each namespace</h2>
 
-<p>Once you have logged in and set the current namespaces, use the
-<code>skupper status</code> command to check that each namespace is correctly
-configured.  You should see the following output:</p>
-
-<div class="code-label session-2">Console for West</div>
-
-<pre><code>$ skupper status
-skupper not enabled for west
-</code></pre>
-
-<div class="code-label session-1">Console for East</div>
-
-<pre><code>$ skupper status
-skupper not enabled for east
-</code></pre>
-
-<h2 id="step-3-install-the-skupper-router-in-each-namespace">Step 3: Install the Skupper router in each namespace</h2>
-
-<p>The <code>skupper init</code> command installs the Skupper router in the current
-namespace.</p>
-
-<h3 id="install-the-router">Install the router</h3>
-
-<p>Run the <code>skupper init</code> command in the West namespace.</p>
+<h3 id="deploy-the-site-controller">Deploy the site controller</h3>
 
 <div class="code-label session-2">West</div>
 
-<pre><code>$ skupper init
-Skupper is now installed in namespace 'west'.  Use 'skupper status' to get more information.
+<pre><code>$ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
 </code></pre>
-
-<p>Now run the <code>skupper init</code> command in the East namespace.</p>
 
 <div class="code-label session-1">East</div>
 
-<pre><code>$ skupper init --edge
-Skupper is now installed in namespace 'east'.  Use 'skupper status' to get more information.
+<pre><code>$ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
 </code></pre>
 
-<p>Using the <code>--edge</code> argument in East disables network ingress at the
+<p><strong>NOTE:</strong> To configure Skupper for all namespaces in a cluster:</p>
+
+<pre><code>$ oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/master/cmd/site-controller/deploy-watch-all-ns.yaml
+</code></pre>
+
+<h3 id="create-a-skupper-site-in-the-east-namespace">Create a Skupper site in the east namespace</h3>
+
+<div class="code-label session-1">East</div>
+
+<p>Create a file named <code>east-site.yml</code></p>
+
+<pre><code>apiVersion: v1
+data:
+  cluster-local: "false"
+  console: "true"
+  console-authentication: internal
+  console-password: "barney"
+  console-user: "rubble"
+  edge: "true"
+  name: east-site
+  router-console: "true"
+  service-controller: "true"
+  service-sync: "true"
+kind: ConfigMap
+metadata:
+  name: skupper-site
+</code></pre>
+
+<p>Note that the <code>data.name</code> value of <code>east-site</code> and 
+setting <code>data.edge</code> to <code>true</code> in East disables network ingress at the
 Skupper router layer.  In our scenario, East needs to establish one
 outbound connection to West.  It does not need to accept any incoming
 connections.  As a result, no network ingress is required in East.</p>
 
+<p>To apply the ConfigMap:</p>
+
+<pre><code>$ oc apply -f ~/east-site.yml
+</code></pre>
+
+<p>For more information about each parameter, see the <a href="https://github.com/skupperproject/skupper/blob/master/cmd/site-controller/README.md">Site Controller README</a>.</p>
+
+<p>After completion, you should see deployments named <code>skupper-service-controller</code> and <code>skupper-router</code>.</p>
+
+<h3 id="create-a-skupper-site-in-the-west-project">Create a Skupper site in the west Project</h3>
+
+<div class="code-label session-2">West</div>
+
+<p>Create a file named <code>west-site.yml</code></p>
+
+<pre><code>apiVersion: v1
+data:
+  cluster-local: "false"
+  console: "true"
+  console-authentication: internal
+  console-password: "barney"
+  console-user: "rubble"
+  edge: "false"
+  name: west-site
+  router-console: "true"
+  service-controller: "true"
+  service-sync: "true"
+kind: ConfigMap
+metadata:
+  name: skupper-site
+</code></pre>
+
+<p>Note that the <code>data:name</code> value of <code>west-site</code>.</p>
+
+<p>To apply the ConfigMap:</p>
+
+<pre><code>$ oc apply -f ~/west-site.yml
+</code></pre>
+
+<p>For more information about each parameter, see the <a href="https://github.com/skupperproject/skupper/blob/master/cmd/site-controller/README.md">Site Controller README</a>.</p>
+
+<p>After completion, you should see deployments named <code>skupper-service-controller</code> and <code>skupper-router</code>.</p>
+
 <h3 id="check-the-installation">Check the installation</h3>
 
-<p>To check the status of each namespace, use the <code>skupper status</code>
+<p>If you completed the <a href="./index.html">Getting Started using the CLI</a> you can check the status of each namespace, use the <code>skupper status</code>
 command.</p>
 
 <div class="code-label session-2">West</div>
@@ -323,16 +322,15 @@ Skupper enabled for namespace 'west'. It is not connected to any other sites.
 Skupper enabled for namespace 'east'. It is not connected to any other sites.
 </code></pre>
 
-<h2 id="step-4-connect-your-namespaces">Step 4: Connect your namespaces</h2>
+<h2 id="step-3-connect-your-namespaces">Step 3: Connect your namespaces</h2>
 
 <p>After installation, you have the infrastructure you need, but your
 namespaces are not connected.  Creating a connection requires use of
-two <code>skupper</code> commands in conjunction, <code>skupper connection-token</code> and
-<code>skupper connect</code>.</p>
+a connection-token.</p>
 
-<p>The <code>skupper connection-token</code> command generates a secret token that
+<p>In this step you generate a secret token that
 signifies permission to connect.  The token also carries the
-connection details.  The <code>skupper connect</code> command then uses the
+connection details.  When you connect Skupper sites, Skupper uses the
 connection token to establish a connection to the namespace that
 generated it.</p>
 
@@ -342,32 +340,43 @@ you trust have access to it.</p>
 
 <h3 id="generate-a-connection-token">Generate a connection token</h3>
 
-<p>In West, use the <code>skupper connection-token</code> command to generate a
-token.</p>
-
 <div class="code-label session-2">West</div>
 
-<pre><code>skupper connection-token $HOME/secret.yaml
+<p>Requesting tokens requires the following format YAML file:</p>
+
+<pre><code>apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    skupper.io/type: connection-token-request
+  name: west-secret
+</code></pre>
+
+<p>Save as <code>token-request.yaml</code>.</p>
+
+<pre><code>$ oc apply -f token-request.yaml
+</code></pre>
+
+<p>To verify this step and download the token:</p>
+
+<pre><code>$ oc get secret  --export -o yaml west-secret &gt; ~/west-secret.yaml
 </code></pre>
 
 <h3 id="use-the-token-to-form-a-connection">Use the token to form a connection</h3>
 
 <p>With the token in hand, you are ready to connect.  Pass the token from
-West to the <code>skupper connect</code> command in East.</p>
+West to East.</p>
 
 <div class="code-label session-1">East</div>
 
-<pre><code>skupper connect $HOME/secret.yaml
-</code></pre>
+<p>Apply the token:</p>
 
-<p>If your console sessions are on different machines, you might need to
-use <code>scp</code> or a similar tool to transfer the token.  If you are using
-Minikube, <a href="minikube.html#prerequisites">you need to run <code>minikube
-tunnel</code></a> for this to work.</p>
+<pre><code>$ oc apply -f ~/west-secret.yaml
+</code></pre>
 
 <h3 id="check-the-connection">Check the connection</h3>
 
-<p>Use the <code>skupper status</code> command again to see if things have changed.
+<p>If you completed the <a href="./index.html">Getting Started using the CLI</a> you can use the <code>skupper status</code> command again to see if things have changed.
 If the connection is made, you should see the following output:</p>
 
 <div class="code-label session-2">West</div>
@@ -382,11 +391,11 @@ Skupper enabled for namespace 'west'. It is connected to 1 other site.
 Skupper enabled for namespace 'east'. It is connected to 1 other site.
 </code></pre>
 
-<h2 id="step-5-expose-your-services">Step 5: Expose your services</h2>
+<h2 id="step-4-expose-your-services">Step 4: Expose your services</h2>
 
 <p>You now have a Skupper network capable of multi-cluster communication,
-but no services are attached to it.  This step uses the <code>skupper
-expose</code> command to make a Kubernetes deployment on one namespace
+but no services are attached to it.  This step uses deployment annotations
+to make a Kubernetes deployment on one namespace
 available on all the connected namespaces.</p>
 
 <p>In the examples below, we use the Hello World application to
@@ -417,13 +426,16 @@ the frontend has no way to contact the backend.  The frontend and
 backend are in different namespaces (and perhaps different clusters),
 and the backend has no public ingress.</p>
 
-<p>Use the <code>skupper expose</code> command in East to make <code>hello-world-backend</code>
-available in West.</p>
+<p>Create annotations of the  deployment in East to make
+<code>hello-world-backend</code> available in West.</p>
 
 <div class="code-label session-1">East</div>
 
-<pre><code>skupper expose deployment hello-world-backend --port 8080 --protocol http
+<pre><code>oc annotate deployment/hello-world-backend skupper.io/proxy="http"
+oc annotate deployment/hello-world-backend skupper.io/port="8080"
 </code></pre>
+
+<p>If you check the services in the OpenShift console of the <code>west</code> project, you should now see <code>hello-world-backend</code>.</p>
 
 <h3 id="check-the-backend-service">Check the backend service</h3>
 
@@ -501,8 +513,10 @@ for more detail.</p>
 &lt;provider-login-command&gt;
 kubectl create namespace west
 kubectl config set-context --current --namespace west
-skupper init
-skupper connection-token ~/secret.yaml
+oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+oc apply -f ~/west-site.yml
+oc apply -f token-request.yaml
+oc get secret  --export -o yaml west-secret &gt; ~/west-secret.yaml
 kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
 kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
 </code></pre>
@@ -513,10 +527,13 @@ kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
 &lt;provider-login-command&gt;
 kubectl create namespace east
 kubectl config set-context --current --namespace east
-skupper init --edge
-skupper connect ~/secret.yaml
+oc apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+oc apply -f ~/east-site.yml
+oc apply -f ~/west-secret.yaml
 kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
 skupper expose deployment hello-world-backend --port 8080 --protocol http
+oc annotate deployment/hello-world-backend skupper.io/proxy="http"
+oc annotate deployment/hello-world-backend skupper.io/port="8080"
 </code></pre>
 
 <div class="code-label session-2">West: Testing</div>
@@ -531,14 +548,14 @@ the following commands:</p>
 
 <div class="code-label session-2">West</div>
 
-<pre><code>skupper delete
+<pre><code>kubectl delete configmap skupper-site
 kubectl delete service/hello-world-frontend
 kubectl delete deployment/hello-world-frontend
 </code></pre>
 
 <div class="code-label session-1">East</div>
 
-<pre><code>skupper delete
+<pre><code>kubectl delete configmap skupper-site
 kubectl delete deployment/hello-world-backend
 </code></pre>
 
@@ -551,7 +568,6 @@ clusters, here are a few more things to look at:</p>
 <li><a href="https://github.com/skupperproject/skupper-example-hello-world">Check out the HTTP Hello World example in more detail</a></li>
 <li><a href="https://github.com/skupperproject/skupper-example-tcp-echo">See how you can connect any TCP-based service</a></li>
 <li><a href="/examples/index.html">Explore the examples</a></li>
-<li><a href="/docs/declarative.html">Configuring Skupper sites using YAML</a></li>
 </ul>
 
 

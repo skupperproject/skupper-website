@@ -4,10 +4,14 @@ title: Documentation
 
 # Skupper documentation
 
-### [Overview](overview.html)
+* [Overview](overview.html)
 
-### [Security](security.html)
+* [Getting Started](/start/index.html)
 
-### [Connectivity](connectivity.html)
+* [Configuring Skupper sites using YAML](declarative.html)
 
-### [Routing](routing.html)
+* [Security](security.html)
+
+* [Connectivity](connectivity.html)
+
+* [Routing](routing.html)
