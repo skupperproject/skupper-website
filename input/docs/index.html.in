@@ -39,8 +39,6 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
     <p>Learn how you can use YAML to declaratively configure and
     connect Skupper sites.</p>
 
-    </p>
-
     <nav>
       <a href="declarative.html">Configuring Skupper sites using YAML</a>
       <!-- <a href="">Configuration reference</a> -->

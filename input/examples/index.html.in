@@ -84,12 +84,12 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
       <h2>Kafka</h2>
 
       <p>Deploy Kafka clients and clusters across multiple Kubernetes
-      clusters.</p>
+        clusters without exposing Kafka ports.</p>
 
       <nav class="inline-links">
         <a href="https://www.youtube.com/watch?v=W7aUOgCTyOg"><span class="fab fa-youtube fa-lg"></span> Accessing Kafka from a remote site</a>
         <br/>
-        <a href="https://www.youtube.com/watch?v=Zz-5WUNh_ik"><span class="fab fa-youtube fa-lg"></span> Mirroring Kafka messages across sites</a>
+        <a href="https://www.youtube.com/watch?v=Zz-5WUNh_ik"><span class="fab fa-youtube fa-lg"></span> Mirroring data across sites</a>
       </nav>
     </div>
   </div>
