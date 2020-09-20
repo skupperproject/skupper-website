@@ -36,7 +36,7 @@ options for setting up Kubernetes clusters:
   <li><a href="https://aws.amazon.com/eks/getting-started/">Amazon Elastic Kubernetes Service</a></li>
   <li><a href="https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes">Azure Kubernetes Service</a></li>
   <li><a href="https://cloud.google.com/kubernetes-engine/docs/quickstart">Google Kubernetes Engine</a></li>
-  <li><a href="https://cloud.ibm.com/docs/containers?topic=containers-access_cluster">IBM Kubernetes Service</a></li>
+  <li><a href="https://cloud.ibm.com/docs/containers?topic=containers-getting-started">IBM Kubernetes Service</a></li>
   <li><a href="https://www.openshift.com/learn/get-started/">Red Hat OpenShift</a> or <a href="https://www.okd.io/">OKD</a></li>
   <li><a href="https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/">More providers</a></li>
   <!-- <li><a href="eks.html">Amazon Elastic Kubernetes Service</a></li> -->
@@ -138,6 +138,7 @@ See the following links for more information:
   <li><a href="https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html">Amazon Elastic Kubernetes Service</a></li>
   <li><a href="https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster">Azure Kubernetes Service</a></li>
   <li><a href="https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl">Google Kubernetes Engine</a></li>
+  <li><a href="https://cloud.ibm.com/docs/containers?topic=containers-access_cluster">IBM Kubernetes Service</a></li>
   <li><a href="https://docs.openshift.com/container-platform/4.1/cli_reference/getting-started-cli.html#cli-logging-in_cli-developer-commands">Red Hat OpenShift</a> or <a href="https://docs.okd.io/latest/cli_reference/get_started_cli.html#basic-setup-and-login">OKD</a></li>
 </ul>
 
