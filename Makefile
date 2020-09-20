@@ -23,7 +23,7 @@ export PYTHONPATH := python
 
 .PHONY: serve
 serve:
-	python3 -m transom render --force --serve 8080 config input docs
+	python3 -m transom render --verbose --force --serve 8080 config input docs
 
 .PHONY: render
 render:

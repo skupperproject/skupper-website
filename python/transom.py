@@ -67,8 +67,8 @@ class Transom:
 
         self._index_files = dict() # parent input dir => _File
 
-        self._ignored_file_patterns = [".git", ".svn", ".#*", "#*"]
-        self._ignored_link_patterns = []
+        self.ignored_file_patterns = [".git", ".svn", ".#*", "#*"]
+        self.ignored_link_patterns = []
 
     def init(self):
         self._page_template = _load_template(_os.path.join(self.config_dir, "default-page.html"), _default_page_template)
@@ -76,8 +76,6 @@ class Transom:
 
         self._config = {
             "site": self,
-            "ignored_files": self._ignored_file_patterns,
-            "ignored_links": self._ignored_link_patterns,
             "lipsum": _lipsum,
             "html_table": _html_table,
             "html_table_csv": _html_table_csv,
@@ -101,7 +99,7 @@ class Transom:
                 yield self._init_file(_os.path.join(root, name))
 
     def _is_ignored_file(self, name):
-        return any((_fnmatch.fnmatchcase(name, x) for x in self._ignored_file_patterns))
+        return any((_fnmatch.fnmatchcase(name, x) for x in self.ignored_file_patterns))
 
     def _init_file(self, input_path):
         output_path = _os.path.join(self.output_dir, input_path[len(self.input_dir) + 1:])
@@ -139,7 +137,7 @@ class Transom:
             self.notice("Try installing the python3-pyinotify package")
 
         try:
-            livereload = _subprocess.Popen(f"livereload {self.output_dir}", shell=True)
+            livereload = _subprocess.Popen(f"livereload {self.output_dir} --wait 100", shell=True)
         except _subprocess.CalledProcessError as e:
             self.notice("Failed to start the livereload server, so I won't auto-reload the browser")
             self.notice("Use 'npm install -g livereload' to install the server")
@@ -187,7 +185,7 @@ class Transom:
                 self.warn("Error collecting link data from {}: {}", file_, str(e))
 
         def not_ignored(link):
-            return not any((_fnmatch.fnmatchcase(x) for x in self._ignored_link_patterns))
+            return not any((_fnmatch.fnmatchcase(x) for x in self.ignored_link_patterns))
 
         links = filter(not_ignored, link_sources.keys())
         errors = 0
@@ -227,7 +225,7 @@ class _File:
         self._output_mtime = None
 
         self.url = self._output_path[len(self.site.output_dir):]
-        self.title = self.url
+        self.title = ""
 
         dir_, name = _os.path.split(self._input_path)
 
@@ -302,7 +300,7 @@ class _TemplatePage(_File):
         self._content = _read_file(self._input_path)
         self._content, self._attributes = _extract_metadata(self._content)
 
-        self.title = self._attributes.get("title", "")
+        self.title = self._attributes.get("title", self.title)
 
         try:
             self._page_template = _load_template(self._attributes["page_template"], _default_page_template)
@@ -559,20 +557,20 @@ def _copy_file(from_path, to_path):
     _make_dir(_os.path.dirname(to_path))
     _shutil.copyfile(from_path, to_path)
 
-def _extract_metadata(content):
+def _extract_metadata(text):
     attrs = dict()
 
-    if content.startswith("---\n"):
-        end = content.index("---\n", 4)
-        lines = content[4:end].strip().split("\n")
+    if text.startswith("---\n"):
+        end = text.index("---\n", 4)
+        lines = text[4:end].strip().split("\n")
 
         for line in lines:
             key, value = (x.strip() for x in line.split(":", 1))
             attrs[key] = None if value.lower() in ("none", "null") else value
 
-        content = content[end + 4:]
+        text = text[end + 4:]
 
-    return content, attrs
+    return text, attrs
 
 def _load_template(path, default_text):
     if path is None or not _os.path.isfile(path):
