@@ -139,12 +139,12 @@ download it from GitHub and extract the executable using <code>tar</code> or
 
 <div class="code-label">Linux</div>
 
-<pre><code>curl -fL https://github.com/skupperproject/skupper/releases/download/0.3.1/skupper-cli-0.3.1-linux-amd64.tgz | tar -xzf -
+<pre><code>curl -fL https://github.com/skupperproject/skupper/releases/download/0.3.2/skupper-cli-0.3.2-linux-amd64.tgz | tar -xzf -
 </code></pre>
 
 <div class="code-label">Mac</div>
 
-<pre><code>curl -fL https://github.com/skupperproject/skupper/releases/download/0.3.1/skupper-cli-0.3.1-mac-amd64.tgz | tar -xzf -
+<pre><code>curl -fL https://github.com/skupperproject/skupper/releases/download/0.3.2/skupper-cli-0.3.2-mac-amd64.tgz | tar -xzf -
 </code></pre>
 
 <p>This produces an executable file named <code>skupper</code> in your current
@@ -169,7 +169,7 @@ mv skupper $HOME/bin
 should see output like this:</p>
 
 <pre><code>$ skupper --version
-skupper version 0.3.1
+skupper version 0.3.2
 </code></pre>
 
 <h2 id="step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</h2>
@@ -279,14 +279,13 @@ Skupper is now installed in namespace 'west'.  Use 'skupper status' to get more 
 
 <div class="code-label session-1">East</div>
 
-<pre><code>$ skupper init --edge
+<pre><code>$ skupper init --cluster-local
 Skupper is now installed in namespace 'east'.  Use 'skupper status' to get more information.
 </code></pre>
 
-<p>Using the <code>--edge</code> argument in East disables network ingress at the
-Skupper router layer.  In our scenario, East needs to establish one
-outbound connection to West.  It does not need to accept any incoming
-connections.  As a result, no network ingress is required in East.</p>
+<p>Note that using <code>--cluster-local</code> in East is done simply to make
+local development with Minikube easier.  It's not required if your two
+namespaces are on different hosts or on public clusters.</p>
 
 <h3 id="check-the-installation">Check the installation</h3>
 
@@ -474,7 +473,7 @@ for more detail.</p>
 
 <div class="code-label">Skupper command installation</div>
 
-<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.3.1/skupper-cli-0.3.1-linux-amd64.tgz | tar -xzf -
+<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.3.2/skupper-cli-0.3.2-linux-amd64.tgz | tar -xzf -
 </code></pre>
 
 <div class="code-label session-2">West: Setup</div>
@@ -495,7 +494,7 @@ kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
 &lt;provider-login-command&gt;
 kubectl create namespace east
 kubectl config set-context --current --namespace east
-skupper init --edge
+skupper init --cluster-local
 skupper connect ~/secret.yaml
 kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
 skupper expose deployment hello-world-backend --port 8080 --protocol http

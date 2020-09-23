@@ -192,13 +192,12 @@ Now run the `skupper init` command in the East namespace.
 
 <div class="code-label session-1">East</div>
 
-    $ skupper init --edge
+    $ skupper init --cluster-local
     Skupper is now installed in namespace 'east'.  Use 'skupper status' to get more information.
 
-Using the `--edge` argument in East disables network ingress at the
-Skupper router layer.  In our scenario, East needs to establish one
-outbound connection to West.  It does not need to accept any incoming
-connections.  As a result, no network ingress is required in East.
+Note that using `--cluster-local` in East is done simply to make
+local development with Minikube easier.  It's not required if your two
+namespaces are on different hosts or on public clusters.
 
 ### Check the installation
 
@@ -392,7 +391,7 @@ for more detail.
     <provider-login-command>
     kubectl create namespace east
     kubectl config set-context --current --namespace east
-    skupper init --edge
+    skupper init --cluster-local
     skupper connect ~/secret.yaml
     kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
     skupper expose deployment hello-world-backend --port 8080 --protocol http
