@@ -19,10 +19,10 @@ list](https://groups.google.com/forum/#!forum/skupper) hosted by
 Google Groups to answer questions and exchange ideas.
 
 To subscribe, send an email to <a
-href="mailto:skupper-subscribe@googlegroups.com">skupper-subscribe@googlegroups.com</a>.
+href="mailto:skupper+subscribe@googlegroups.com">skupper+subscribe@googlegroups.com</a>.
 
 To unsubscribe, send an email to <a
-href="mailto:skupper-unsubscribe@googlegroups.com">skupper-unsubscribe@googlegroups.com</a>.
+href="mailto:skupper+unsubscribe@googlegroups.com">skupper+unsubscribe@googlegroups.com</a>.
 
 ## Issue tracking
 
