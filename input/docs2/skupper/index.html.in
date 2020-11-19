@@ -1,0 +1,30 @@
+---
+title: Skupper Documentation
+body_template: config/wide-body.html
+---
+
+<article class="doc">
+<h1 class="page">Skupper Documentation</h1>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="overview/index.html" class="page">Skupper overview</a></p>
+</li>
+<li>
+<p><a href="cli/index.html" class="page">Configuring Skupper sites using the CLI</a></p>
+</li>
+<li>
+<p><a href="overview/security.html" class="page">Skupper security</a></p>
+</li>
+<li>
+<p><a href="overview/routing.html" class="page">Skupper routing</a></p>
+</li>
+<li>
+<p><a href="declarative/index.html" class="page">Configuring Skupper sites using YAML</a></p>
+</li>
+<li>
+<p><a href="console/index.html" class="page">Monitoring Skupper sites using the console</a></p>
+</li>
+</ul>
+</div>
+</article>
