@@ -1,17 +1,19 @@
 site:
   title: Skupper
   # the 404 page and sitemap files only get generated when the url property is set
-  url: https://skupper.io/docs2/
-  start_page: skupper::index.adoc
+  #url: https://skupper.io/docs2/
+  #start_page: skupper:ROOT:index.adoc
 content:
   sources:
-  - url: https://github.com/skupperproject/skupper-docs.git
-    branches: antora
+  - url: https://github.com/pwright/skupper-docs
+    branches: antora-docs
 
 ui:
   bundle:
     url: https://github.com/pwright/skupper-ui/raw/master/build/ui-bundle.zip
     snapshot: true
+output:
+  dir: ./
 
 asciidoc:
   attributes:
