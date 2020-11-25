@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Configuring Skupper sites using the CLI</title>
+    <title>Skupper - Configuring Skupper sites using YAML</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -59,7 +59,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs2/skupper/cli/index.html">Configuring Skupper sites using the CLI</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs2/index.html">Skupper Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs2/declarative/index.html">Configuring Skupper sites using YAML</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -78,19 +78,20 @@
 
 
 <article class="doc">
-<h1 class="page">Configuring Skupper sites using the CLI</h1>
+<h1 class="page">Configuring Skupper sites using YAML</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph system:abstract">
-<p>Using the Skupper command-line interface (CLI) allows you to create and manage Skupper sites from the context of the current namespace.</p>
+<p>Using YAML files to configure Skupper allows you to use source control to track and manage Skupper network changes.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="installing-using-cli"><a class="anchor" href="#installing-using-cli"></a>Installing Skupper using the CLI</h2>
+<h2 id="installing-using-yaml"><a class="anchor" href="#installing-using-yaml"></a>Installing Skupper using YAML</h2>
 <div class="sectionbody">
 <div class="paragraph system:abstract">
-<p>Installing Skupper using the command-line interface (CLI) provides a simple method to get started with Skupper.</p>
+<p>Installing Skupper using YAML provides a declarative method to install Skupper.
+You can store your YAML files in source control to track and manage Skupper network changes.</p>
 </div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
@@ -100,44 +101,39 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Install the Skupper command-line interface.</p>
-<div class="openblock">
-<div class="content">
-<div class="paragraph">
-<p>For Linux:</p>
-</div>
+<p>Log into your cluster.
+If you are deploying Skupper to be available for all namespaces, make sure you have <code>cluster-admin</code> privileges.</p>
+</li>
+<li>
+<p>Deploy the site controller:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>To install Skupper into the current namespace deploy the site controller using the following YAML:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download//skupper-cli-0.3.2-linux-amd64.tgz | tar -xzf -</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For MacOS:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/0.3.2/skupper-cli-0.3.2-mac-amd64.tgz | tar -xzf -</pre>
-</div>
-</div>
+<pre>kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3.2/cmd/site-controller/deploy-watch-current-ns.yaml</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Copy the <code>skupper</code> executable to a directory in your $PATH:</p>
+<p>To install Skupper for all namespaces, deploy the site controller using the following YAML:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ mkdir -p $HOME/bin
-$ export PATH=$PATH:$HOME/bin
-$ mv skupper $HOME/bin</pre>
+<pre>kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3.2/cmd/site-controller/deploy-watch-all-ns.yaml</pre>
 </div>
+</div>
+</li>
+</ol>
 </div>
 </li>
 <li>
 <p>Verify the installation.</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper --version
-skupper version 0.3.2</pre>
+<pre>$ oc get pods
+NAME                                       READY   STATUS    RESTARTS   AGE
+skupper-site-controller-84694bdbb5-n8slb   1/1     Running   0          75s</pre>
 </div>
 </div>
 </li>
@@ -149,7 +145,7 @@ skupper version 0.3.2</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-using-cli"><a class="anchor" href="#creating-using-cli"></a>Creating a Skupper site using the CLI</h2>
+<h2 id="creating-using-yaml"><a class="anchor" href="#creating-using-yaml"></a>Creating a Skupper site using YAML</h2>
 <div class="sectionbody">
 
 </div>

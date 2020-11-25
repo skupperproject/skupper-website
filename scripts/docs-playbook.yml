@@ -1,0 +1,21 @@
+site:
+  title: Skupper
+  # the 404 page and sitemap files only get generated when the url property is set
+  #url: https://skupper.io/docs2/
+  #start_page: skupper:ROOT:index.adoc
+content:
+  sources:
+  - url: ../../skupper-docs
+    branches: HEAD
+
+ui:
+  bundle:
+    url: https://github.com/skupperproject/skupper-docs/raw/master/antora-ui/build/ui-bundle.zip
+output:
+  dir: antora_build
+
+asciidoc:
+  attributes:
+    plantuml-server-url: 'http://www.plantuml.com/plantuml'
+    plantuml-fetch-diagram: true
+    mod-loc: partial$
