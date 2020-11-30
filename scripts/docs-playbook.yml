@@ -5,8 +5,9 @@ site:
   #start_page: skupper:ROOT:index.adoc
 content:
   sources:
-  - url: ../../skupper-docs
-    branches: HEAD
+  - url: https://github.com/pwright/skupper-docs.git
+  # - url: ../../skupper-docs
+    branches: antora-2
 
 ui:
   bundle:

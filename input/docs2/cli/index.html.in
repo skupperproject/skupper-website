@@ -1,15 +1,14 @@
 ---
-title: Configuring Skupper sites using the CLI
+title: 
 ---
 
 <article class="doc">
-<h1 class="page">Configuring Skupper sites using the CLI</h1>
-<div id="preamble">
-<div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/cli/pages/index.adoc - include::partial$attributes.adoc[]</p>
+</div>
+<h1 id="skupper-cli" class="sect0"><a class="anchor" href="#skupper-cli"></a>Configuring Skupper sites using the CLI</h1>
 <div class="paragraph system:abstract">
 <p>Using the Skupper command-line interface (CLI) allows you to create and manage Skupper sites from the context of the current namespace.</p>
-</div>
-</div>
 </div>
 <div class="sect1">
 <h2 id="installing-using-cli"><a class="anchor" href="#installing-using-cli"></a>Installing Skupper using the CLI</h2>
@@ -41,7 +40,7 @@ title: Configuring Skupper sites using the CLI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/0.3.2/skupper-cli-0.3.2-mac-amd64.tgz | tar -xzf -</pre>
+<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/{skupper-version}/skupper-cli-0.3.2-mac-amd64.tgz | tar -xzf -</pre>
 </div>
 </div>
 </div>
@@ -62,7 +61,7 @@ $ mv skupper $HOME/bin</pre>
 <div class="listingblock">
 <div class="content">
 <pre>$ skupper --version
-skupper version 0.3.2</pre>
+skupper version {skupper-version}</pre>
 </div>
 </div>
 </li>
