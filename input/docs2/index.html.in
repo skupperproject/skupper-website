@@ -26,7 +26,7 @@ title: Skupper Documentation
 <p><a href="overview/index.html" class="page">Skupper overview</a></p>
 </li>
 <li>
-<p><a href="cli/index.html" class="page">Configuring Skupper sites using the CLI</a></p>
+<p><a href="cli/index.html" class="page">cli:index.adoc</a></p>
 </li>
 <li>
 <p><a href="overview/security.html" class="page">Skupper security</a></p>
@@ -35,10 +35,10 @@ title: Skupper Documentation
 <p><a href="overview/routing.html" class="page">Skupper routing</a></p>
 </li>
 <li>
-<p><a href="declarative/index.html" class="page">Configuring Skupper sites using YAML</a></p>
+<p><a href="declarative/index.html" class="page">declarative:index.adoc</a></p>
 </li>
 <li>
-<p><a href="console/index.html" class="page">Monitoring Skupper sites using the console</a></p>
+<p><a href="console/index.html" class="page">console:index.adoc</a></p>
 </li>
 </ul>
 </div></div></td>
