@@ -21,6 +21,11 @@
 
 export PYTHONPATH := python
 
+.PHONY: generate-docs
+generate-docs:
+	$(shell ./scripts/generate-docs.sh)
+	echo Documentation updated
+
 .PHONY: serve
 serve:
 	python3 -m transom render --verbose --force --serve 8080 config input docs

@@ -1,14 +1,15 @@
 ---
-title: 
+title: Configuring Skupper sites using YAML
 ---
 
 <article class="doc">
-<div class="paragraph">
-<p>Unresolved include directive in modules/declarative/pages/index.adoc - include::partial$attributes.adoc[]</p>
-</div>
-<h1 id="skupper-declarative" class="sect0"><a class="anchor" href="#skupper-declarative"></a>Configuring Skupper sites using YAML</h1>
+<h1 class="page">Configuring Skupper sites using YAML</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph system:abstract">
 <p>Using YAML files to configure Skupper allows you to use source control to track and manage Skupper network changes.</p>
+</div>
+</div>
 </div>
 <div class="sect1">
 <h2 id="installing-using-yaml"><a class="anchor" href="#installing-using-yaml"></a>Installing Skupper using YAML</h2>
@@ -36,7 +37,7 @@ If you are deploying Skupper to be available for all namespaces, make sure you h
 <p>To install Skupper into the current namespace deploy the site controller using the following YAML:</p>
 <div class="listingblock">
 <div class="content">
-<pre>kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/{skupper-version}/cmd/site-controller/deploy-watch-current-ns.yaml</pre>
+<pre>kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3.2/cmd/site-controller/deploy-watch-current-ns.yaml</pre>
 </div>
 </div>
 </li>
@@ -44,7 +45,7 @@ If you are deploying Skupper to be available for all namespaces, make sure you h
 <p>To install Skupper for all namespaces, deploy the site controller using the following YAML:</p>
 <div class="listingblock">
 <div class="content">
-<pre>kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/{skupper-version}/cmd/site-controller/deploy-watch-all-ns.yaml</pre>
+<pre>kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3.2/cmd/site-controller/deploy-watch-all-ns.yaml</pre>
 </div>
 </div>
 </li>
