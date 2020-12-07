@@ -30,41 +30,62 @@ class _Site:
 
 site = _Site()
 
-@target(help="Render site output")
-def render(force=False):
+_force_arg = Argument("force", help="Render all input files, including unmodified ones")
+_verbose_arg = Argument("verbose", help="Print detailed logging to the console")
+
+@target(help="Render site output", default=True,
+        args=(_force_arg, _verbose_arg))
+def render(force=False, verbose=False):
     with project_env():
         args = ["render", "--force", site.config_dir, site.input_dir, site.output_dir]
 
         if force:
             args.append("--force")
 
+        if verbose:
+            args.append("--verbose")
+
         TransomCommand().main(args)
 
 # https://stackoverflow.com/questions/22475849/node-js-what-is-enospc-error-and-how-to-solve
 # $ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-@target(help="Render and serve the site")
-def serve(port=8080, force=False):
+@target(help="Serve the site and rerender when input files change",
+        args=(Argument("port", help="Serve on PORT"), _force_arg, _verbose_arg))
+def serve(port=8080, force=False, verbose=False):
     with project_env():
         args = ["render", "--serve", str(port), site.config_dir, site.input_dir, site.output_dir]
 
         if force:
             args.append("--force")
 
+        if verbose:
+            args.append("--verbose")
+
         TransomCommand().main(args)
 
-@target(help="Check for broken links")
-def check_links():
-    render()
+@target(help="Check for broken links", args=(_verbose_arg,))
+def check_links(verbose=False):
+    run_target("render")
+
+    args = ["check-links", site.config_dir, site.input_dir, site.output_dir]
+
+    if verbose:
+        args.append("--verbose")
 
     with project_env():
-        TransomCommand().main(["check-links", site.config_dir, site.input_dir, site.output_dir])
+        TransomCommand().main(args)
 
-@target(help="Check for missing or extra files")
-def check_files():
-    render()
+@target(help="Check for missing or extra files", args=(_verbose_arg,))
+def check_files(verbose=False):
+    run_target("render")
+
+    args = ["check-files", site.config_dir, site.input_dir, site.output_dir]
+
+    if verbose:
+        args.append("--verbose")
 
     with project_env():
-        TransomCommand().main(["check-files", site.config_dir, site.input_dir, site.output_dir])
+        TransomCommand().main(args)
 
 @target
 def clean():
