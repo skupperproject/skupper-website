@@ -1,0 +1,67 @@
+---
+title: Skupper routing
+---
+
+<article class="doc">
+<h1 class="page">Skupper routing</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Skupper uses layer 7 addressing and routing to connect services.
+See how the power of application-layer addressing can bring new capabilities to your applications.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="multi-cluster-services"><a class="anchor" href="#multi-cluster-services"></a>Multi-cluster services</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Deploy a single logical service across multiple clusters.</p>
+</div>
+<div class="paragraph">
+<p>Skupper can route requests to instances of a single service running on multiple clusters.
+If a provider or data center fails, the service instances running at unaffected sites can scale to meet the need and maintain availability.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dynamic-load-balancing"><a class="anchor" href="#dynamic-load-balancing"></a>Dynamic load balancing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Balance requests across clusters according to service capacity.</p>
+</div>
+<div class="paragraph">
+<p>The Skupper network has cross-cluster visibility.
+It can see which services are already loaded and which have spare capacity, and it directs requests accordingly.</p>
+</div>
+<div class="paragraph">
+<p>You can assign a cost to each inter-cluster connection.
+This enables you to configure a preference for one resource over another.
+If demand is normal, you can keep all traffic on your private cloud.
+If demand peaks, you can dynamically spill over to public cloud resources.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="reliable-networks"><a class="anchor" href="#reliable-networks"></a>Reliable networks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Skupper uses redundant network paths and smart routing to provide highly available connectivity at scale.</p>
+</div>
+<div class="ulist">
+<div class="title">Additional information</div>
+<ul>
+<li>
+<p><a href="overview.html">Skupper overview</a></p>
+</li>
+<li>
+<p><a href="security.html">Skupper security</a></p>
+</li>
+<li>
+<p><a href="connectivity.html">Skupper connectivity</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>

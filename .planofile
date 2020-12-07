@@ -18,3 +18,16 @@
 #
 
 from transom_targets import *
+
+@target
+def generate_docs():
+    playbook = get_absolute_path("scripts/docs-playbook.yaml")
+    docs_dir = get_absolute_path("input/docs")
+
+    with working_dir():
+        run(f"antora --fetch {playbook}")
+
+        for path in find("build", "*.html"):
+            move(path, f"{path}.in")
+
+        copy("build/skupper", docs_dir)
