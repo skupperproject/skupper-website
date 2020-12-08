@@ -424,4 +424,4 @@ clusters, here are a few more things to look at:
  - [Check out the HTTP Hello World example in more detail](https://github.com/skupperproject/skupper-example-hello-world)
  - [See how you can connect any TCP-based service](https://github.com/skupperproject/skupper-example-tcp-echo)
  - [Explore the examples](/examples/index.html)
- - [Configuring Skupper sites using YAML](/docs/declarative.html)
+ - [Configuring Skupper sites using YAML](/docs/declarative/index.html)

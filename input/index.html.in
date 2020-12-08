@@ -47,7 +47,7 @@ extra_headers: <link rel="stylesheet" href="/index.css" type="text/css" async="a
           <p>Inter-cluster communication is secured by mutual TLS</p>
           <p>Skupper runs without elevated privileges</p>
         </div>
-        <a class="nav" href="/docs/security.html">Skupper security <span class="material-icons">chevron_right</span></a>
+        <a class="nav" href="/docs/overview/security.html">Skupper security <span class="material-icons">chevron_right</span></a>
       </div>
       <div>
         <h3>Connect anywhere</h3>
@@ -56,7 +56,7 @@ extra_headers: <link rel="stylesheet" href="/index.css" type="text/css" async="a
           <p>Secure access from the public cloud to private cloud services without VPNs</p>
           <p>Connect and disconnect new clusters dynamically</p>
         </div>
-        <a class="nav" href="/docs/connectivity.html">Skupper connectivity <span class="material-icons">chevron_right</span></a>
+        <a class="nav" href="/docs/overview/connectivity.html">Skupper connectivity <span class="material-icons">chevron_right</span></a>
       </div>
       <div>
         <h3>Smart routing</h3>
@@ -66,7 +66,7 @@ extra_headers: <link rel="stylesheet" href="/index.css" type="text/css" async="a
           <p>Redundant routes for high availability in the face of network failures</p>
           <!-- <p>Multicast HTTP request forwarding</p> -->
         </div>
-        <a class="nav" href="/docs/routing.html">Skupper routing <span class="material-icons">chevron_right</span></a>
+        <a class="nav" href="/docs/overview/routing.html">Skupper routing <span class="material-icons">chevron_right</span></a>
       </div>
     </div>
   </div>
@@ -84,7 +84,7 @@ extra_headers: <link rel="stylesheet" href="/index.css" type="text/css" async="a
       <p>See how you can use Skupper to create a network of clusters
         in which a Kubernetes service on one cluster can be accessed
         from any other.</p>
-      <p><a class="nav" href="/docs/overview.html">Learn more about Skupper</a></p>
+      <p><a class="nav" href="/docs/overview/index.html">Learn more about Skupper</a></p>
     </div>
 
     <div>
