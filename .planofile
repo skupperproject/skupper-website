@@ -30,4 +30,8 @@ def generate_docs():
         for path in find("build", "*.html"):
             move(path, f"{path}.in")
 
-        copy("build/skupper", docs_dir)
+        lines = read_lines("build/skupper/index.html.in")
+        lines.insert(2, "body_template: config/wide-body.html\n")
+        write_lines("build/skupper/index.html.in", lines)
+
+        copy("build/skupper", docs_dir, inside=False)

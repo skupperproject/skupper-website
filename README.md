@@ -2,8 +2,8 @@
 
 ## Setting up the project
 
-This project uses Git submodules.  After cloning this repo, you must
-first check out the submodules:
+This project uses Git submodules.  The first time you clone this repo,
+load the submodules using the following command:
 
 ```sh
 git submodule update --init
@@ -18,4 +18,6 @@ the root of the project to render the site:
 ./plano render
 ```
 
-Use `./plano --help` to see more options.
+## Project commands
+
+Use `./plano --help` to see the options.

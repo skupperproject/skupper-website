@@ -610,3 +610,32 @@ nav.inline-links > a {
 .columns > div:last-child {
     margin-right: 0;
 }
+
+/* --- */
+
+.doc h2 {
+    margin-top: 1.2em;
+}
+
+.doc .paragraph {
+    margin: 1em 0;
+}
+
+.doc .imageblock {
+    margin: 2em 0;
+}
+
+.doc .imageblock img {
+    max-width: 100%;
+}
+
+.doc .title {
+    margin-top: 1.2em;
+    font-size: 1.2em;
+    font-weight: 700;
+    font-family: var(--heading-font-family);
+}
+
+.doc .olist.arabic li {
+    margin-bottom: 1em;
+}
