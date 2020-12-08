@@ -2,8 +2,8 @@
 
 ## Setting up the project
 
-This project uses Git submodules.  The first time you clone this repo,
-load the submodules using the following command:
+This project uses Git submodules.  After you clone this repo, load the
+submodules using the following command:
 
 ```sh
 git submodule update --init
