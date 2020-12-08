@@ -380,7 +380,7 @@ header > nav > div {
 }
 
 #-toc > div > a {
-    display: block;
+    display: table;
     margin-bottom: 1em;
 }
 

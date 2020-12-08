@@ -45,13 +45,13 @@ Each router is uniquely identified by its own certificate.</p>
 <div class="title">Additional information</div>
 <ul>
 <li>
-<p><a href="overview.html">Skupper overview</a></p>
+<p><a href="/docs/overview/">Overview</a></p>
 </li>
 <li>
-<p><a href="connectivity.html">Skupper connectivity</a></p>
+<p><a href="/docs/overview/connectivity.html">Skupper connectivity</a></p>
 </li>
 <li>
-<p><a href="routing.html">Skupper routing</a></p>
+<p><a href="/docs/overview/routering.html">Skupper routing</a></p>
 </li>
 </ul>
 </div>

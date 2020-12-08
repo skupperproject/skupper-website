@@ -1,32 +1,49 @@
 ---
-title: Skupper Documentation
+title: Documentation
 body_template: config/wide-body.html
+extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="async"/>
 ---
 
-<article class="doc">
-<h1 class="page">Skupper Documentation</h1>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Understand the basics</th>
-<th class="tableblock halign-left valign-top">The Skupper command</th>
-<th class="tableblock halign-left valign-top">YAML configuration</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Learn about the concepts and technology behind virtual application networks.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Skupper command-line tool enables you to initialize, connect, and monitor Skupper sites interactively from your development environment.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Learn how you can use YAML to declaratively configure and connect Skupper sites.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a href="overview/index.html" class="page">Skupper overview</a></p>
+<h1>Skupper documentation</h1>
+
+<div class="columns">
+  <div>
+    <h2>Understand the basics</h2>
+
+    <p>Learn about the concepts and technology behind virtual
+      application networks.</p>
+
+    <nav>
+      <a href="overview/index.html">Overview</a>
+      <!-- <a href="terms-and-concepts.html">Terms and concepts</a> -->
+      <a href="overview/security.html">Security</a>
+      <a href="overview/connectivity.html">Connectivity</a>
+      <a href="overview/routing.html">Routing</a>
+    </nav>
+  </div>
+  <div>
+    <h2>The Skupper command</h2>
+
+    <p>The Skupper command-line tool enables you to initialize,
+    connect, and monitor Skupper sites interactively from your
+    development environment.</p>
+
+    <nav>
+      <a href="/start/index.html">Getting started</a>
+      <!-- <a href="">Command-line reference</a> -->
+    </nav>
+  </div>
+  <div>
+    <h2>YAML configuration</h2>
+
+    <p>Learn how you can use YAML to declaratively configure and
+    connect Skupper sites.</p>
+
+    <nav>
+      <a href="declarative/index.html">Configuring Skupper sites using YAML</a>
+      <!-- <a href="">Configuration reference</a> -->
+    </nav>
+  </div>
 </div>
 
 <div>
@@ -37,9 +54,8 @@ body_template: config/wide-body.html
     <a href="https://developers.redhat.com/blog/2020/01/01/skupper-io-let-your-services-communicate-across-kubernetes-clusters/">Skupper.io: Let your services communicate across Kubernetes clusters</a>
     <a href="https://netprototalk.com/2019/11/12/virtual-application-networks-for-hybrid-cloud-interconnect/">Virtual Application Networks for Hybrid Cloud Interconnect</a>
     <a href="https://hackernoon.com/enabling-multi-cloud-kubernetes-communication-with-skupper-glz3u6p">Enabling Multi-Cloud Kubernetes Communication with Skupper</a>
-    <a href="https://youtu.be/2ax0CDyKg4U?t=101">Kubernetes and the hybrid cloud with Skupper - DevNation Tech Talk</a>
+    <a href="https://youtu.be/2ax0CDyKg4U?t=101">Kubernetes and the hybrid cloud with Skupper | DevNation Tech Talk</a>
     <a href="https://www.youtube.com/watch?v=np-eBAmB-bs">Cloud-Edge Interconnect: Doing It Right With The Skupper project</a>
     <a href="https://www.youtube.com/watch?v=FPsUgxmj25s">HTTP load-balancing with Skupper across OpenShift clusters</a>
   </nav>
 </div>
-</article>
