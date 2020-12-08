@@ -21,6 +21,8 @@ from transom_targets import *
 
 @target
 def generate_docs():
+    check_program("antora")
+
     playbook = get_absolute_path("scripts/docs-playbook.yaml")
     docs_dir = get_absolute_path("input/docs")
 

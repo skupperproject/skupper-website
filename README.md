@@ -5,23 +5,30 @@
 This project uses Git submodules.  After you clone this repo, load the
 submodules using the following command:
 
-```sh
+```console
 git submodule update --init
 ```
 
-## Rendering the site
+## Project targets
 
 Once you have set up the project, you can use the `./plano` command in
-the root of the project to render the site:
+the root of the project to perform project tasks.  It accepts a target
+name as a subcommand.  Use `./plano --help` to list the available
+targets.
 
-```sh
+## Rendering the site
+
+You can use the `./plano render` command in the root of the project to
+render the site:
+
+```console
 ./plano render
 ```
 
 For development, you can serve the site locally.  Any changes you make
 to the input files are rendered on demand.
 
-```sh
+```console
 $ ./plano serve
 --> serve
 Rendering input files
@@ -30,6 +37,8 @@ Serving at http://localhost:8080
 Starting LiveReload v0.9.1 for /home/jross/code/skupper-website-ssorj/output on port 35729.
 ```
 
-## Project targets
+<!-- ## Generating the docs -->
 
-Use `./plano --help` to see the options.
+<!-- The docs source is in a distinct repo, skupper-docs -->
+<!-- It gets imported here and installed  -->
+<!-- You must have antora installed -->
