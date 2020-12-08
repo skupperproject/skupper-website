@@ -34,4 +34,4 @@ def generate_docs(docs_dir="input/docs"):
         for path in find("build", "*.html"):
             move(path, f"{path}.in")
 
-        copy(f"build/skupper/latest/overview", docs_dir)
+        copy("build/skupper/latest/overview", docs_dir)
