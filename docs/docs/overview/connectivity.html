@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Routing</title>
+    <title>Skupper - Skupper connectivity</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -59,7 +59,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/routing.html">Routing</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/overview/index.html">Skupper overview</a> <span class="path-separator">&#8250;</span> <a href="/docs/overview/connectivity.html">Skupper connectivity</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -76,51 +76,103 @@
   <div>
     <main>
 
-<h1 id="skupper-routing">Skupper routing</h1>
 
-<p>Skupper uses layer 7 addressing and routing to connect services.  See
-how the power of application-layer addressing can bring new
-capabilities to your applications.</p>
-
-<h2 id="multi-cluster-services">Multi-cluster services</h2>
-
-<p>Deploy a single logical service across multiple clusters.</p>
-
-<p>Skupper can route requests to instances of a single service running on
-multiple clusters.  If a provider or data center fails, the service
-instances running at unaffected sites can scale to meet the need and
-maintain availability.</p>
-
-<h2 id="dynamic-load-balancing">Dynamic load balancing</h2>
-
-<p>Balance requests across clusters according to service capacity.</p>
-
-<p>The Skupper network has cross-cluster visibility.  It can see which
-services are already loaded and which have spare capacity, and it
-directs requests accordingly.</p>
-
-<p>You can assign a cost to each inter-cluster connection.  This enables
-you to configure a preference for one resource over another.  If
-demand is normal, you can keep all traffic on your private cloud.  If
-demand peaks, you can dynamically spill over to public cloud
-resources.</p>
-
-<!-- ## Multicast request forwarding -->
-
-<!-- Lorem ipsum dolor sit amet consectetur adipiscing elit vestibulum enim urna ornare pellentesque felis eget maximus lacinia lorem nulla auctor massa vitae ultricies varius curabitur consectetur lacus sapien a lacinia urna tempus quis vestibulum vitae augue non augue lobortis semper nullam fringilla odio quis ligula consequat condimentum integer tempus sem. -->
-
-<h2 id="reliable-networks">Reliable networks</h2>
-
-<p>Skupper uses redundant network paths and smart routing to provide
-highly available connectivity at scale.</p>
-
-<h2 id="more-information">More information</h2>
-
+<article class="doc">
+<h1 class="page">Skupper connectivity</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Skupper represents a new approach to connecting services across multiple Kubernetes clusters.
+See how Skupper can give you the flexibility to deploy your services where you need them.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_one_cluster"><a class="anchor" href="#_one_cluster"></a>One cluster</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kubernetes <strong>services</strong> provide a virtual network address for each element of your distributed application.
+Service "A" can contact service "B", "B" can contact "C", and so on.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/one-cluster.svg" alt="one cluster">
+</div>
+</div>
+<div class="paragraph">
+<p>But if you want to deploy your application across multiple clusters, your options are limited.
+You have to either expose your services to the public internet or set up a VPN.</p>
+</div>
+<div class="paragraph">
+<p>Skupper offers a third way.
+It connects clusters to a secure layer 7 network.
+It uses that network to forward local service traffic to remote clusters.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_secure_hybrid_cloud_communication"><a class="anchor" href="#_secure_hybrid_cloud_communication"></a>Secure hybrid cloud communication</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Deploy your application across public and private clusters.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/two-clusters.svg" alt="two clusters">
+</div>
+</div>
+<div class="paragraph">
+<p>You can host your database on a private cluster and retain full connectivity with services running on the public cloud.
+All communication is secured by mutual TLS authentication and encryption.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_edge_to_edge_connectivity"><a class="anchor" href="#_edge_to_edge_connectivity"></a>Edge-to-edge connectivity</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Distribute application services across geographic regions.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/five-clusters.svg" alt="five clusters">
+</div>
+</div>
+<div class="paragraph">
+<p>You can connect multiple retail sites to a central office.
+Once connected, each edge location can contact any other edge.
+You can add and remove sites on demand.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_scale_up_and_out"><a class="anchor" href="#_scale_up_and_out"></a>Scale up and out</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Build large, robust networks of connected clusters.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/many-clusters.svg" alt="many clusters">
+</div>
+</div>
+<div class="ulist">
+<div class="title">Additional information</div>
 <ul>
-<li><a href="overview.html">Skupper overview</a></li>
-<li><a href="security.html">Skupper security</a></li>
-<li><a href="connectivity.html">Skupper connectivity</a></li>
+<li>
+<p><a href="/docs/overview/">Overview</a></p>
+</li>
+<li>
+<p><a href="/docs/overview/security.html">Skupper security</a></p>
+</li>
+<li>
+<p><a href="/docs/overview/routering.html">Skupper routing</a></p>
+</li>
 </ul>
+</div>
+</div>
+</div>
+</article>
 
 
     </main>

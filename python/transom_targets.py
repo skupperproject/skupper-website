@@ -89,13 +89,27 @@ def check_files(verbose=False):
 
 @target
 def clean():
-    remove("output")
-
     for path in find(".", "__pycache__"):
         remove(path)
 
     for path in find(".", "*.pyc"):
         remove(path)
+
+@target(help="Update Git submodules",
+        args=[Argument("remote", help="Get remote commits"),
+              Argument("recursive", help="Update modules recursively")])
+def modules(remote=False, recursive=False):
+    check_program("git")
+
+    command = ["git", "submodule", "update", "--init"]
+
+    if remote:
+        command.append("--remote")
+
+    if recursive:
+        command.append("--recursive")
+
+    run(command)
 
 class project_env(working_env):
     def __init__(self):

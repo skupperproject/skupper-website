@@ -3,5 +3,5 @@ h2 {
 }
 
 nav > a {
-    display: block;
+    display: table;
 }

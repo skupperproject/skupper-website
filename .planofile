@@ -19,6 +19,8 @@
 
 from transom_targets import *
 
+site.output_dir = "docs"
+
 @target
 def generate_docs(docs_dir="input/docs"):
     check_program("antora")
