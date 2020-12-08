@@ -5,7 +5,7 @@
 This project uses Git submodules.  After you clone this repo, load the
 submodules using the following command:
 
-```console
+```shell
 git submodule update --init
 ```
 
@@ -22,7 +22,11 @@ You can use the `./plano render` command in the root of the project to
 render the site:
 
 ```console
-./plano render
+$ ./plano render
+--> render
+Rendering input files
+<-- render
+OK (0.21s)
 ```
 
 For development, you can serve the site locally.  Any changes you make
