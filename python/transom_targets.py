@@ -1,1 +1,0 @@
-../modules/transom/python/transom_targets.py
