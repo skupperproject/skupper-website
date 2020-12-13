@@ -1,0 +1,16 @@
+site:
+  title: Skupper
+content:
+  sources:
+  - url: https://github.com/pwright/skupper-docs.git
+    branches: @branch@
+ui:
+  bundle:
+    url: https://github.com/skupperproject/skupper-docs/raw/master/antora-ui/build/ui-bundle.zip
+output:
+  dir: build
+asciidoc:
+  attributes:
+    plantuml-server-url: 'http://www.plantuml.com/plantuml'
+    plantuml-fetch-diagram: true
+    mod-loc: ROOT:partial$

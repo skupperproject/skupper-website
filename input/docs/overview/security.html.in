@@ -51,7 +51,7 @@ Each router is uniquely identified by its own certificate.</p>
 <p><a href="/docs/overview/connectivity.html">Skupper connectivity</a></p>
 </li>
 <li>
-<p><a href="/docs/overview/routering.html">Skupper routing</a></p>
+<p><a href="/docs/overview/routing.html">Skupper routing</a></p>
 </li>
 </ul>
 </div>

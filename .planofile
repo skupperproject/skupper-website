@@ -21,17 +21,19 @@ from transom_targets import *
 
 site.output_dir = "docs"
 
-@target
-def generate_docs(docs_dir="input/docs"):
+@target(help="Generate docs from the skupper-docs repo")
+def generate_docs(branch="antora-2", output_dir="input/docs"):
     check_program("antora")
 
-    playbook = get_absolute_path("scripts/docs-playbook.yaml")
-    docs_dir = get_absolute_path(docs_dir)
+    playbook_in = get_absolute_path("scripts/docs-playbook.yaml.in")
+    output_dir = get_absolute_path(output_dir)
 
     with working_dir():
+        playbook = configure_file(playbook_in, "docs-playbook.yaml", {"branch": branch})
+
         run(f"antora --fetch {playbook}")
 
         for path in find("build", "*.html"):
             move(path, f"{path}.in")
 
-        copy("build/skupper/latest/overview", docs_dir)
+        copy("build/skupper/latest/overview", output_dir)
