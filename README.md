@@ -9,12 +9,11 @@ submodules using the following command:
 git submodule update --init
 ```
 
-## Project targets
+## Project commands
 
 Once you have set up the project, you can use the `./plano` command in
-the root of the project to perform project tasks.  It accepts a target
-name as a subcommand.  Use `./plano --help` to list the available
-targets.
+the root of the project to perform project tasks.  It accepts a
+subcommand.  Use `./plano --help` to list the available commands.
 
 ## Rendering the site
 
