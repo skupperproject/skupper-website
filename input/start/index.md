@@ -167,12 +167,12 @@ configured.  You should see the following output:
 <div class="code-label session-2">Console for West</div>
 
     $ skupper status
-    skupper not enabled for west
+    Unable to retrieve skupper status:  deployments.apps "skupper-router" not found
 
 <div class="code-label session-1">Console for East</div>
 
     $ skupper status
-    skupper not enabled for east
+    Unable to retrieve skupper status:  deployments.apps "skupper-router" not found
 
 ## Step 3: Install the Skupper router in each namespace
 
@@ -186,14 +186,16 @@ Run the `skupper init` command in the West namespace.
 <div class="code-label session-2">West</div>
 
     $ skupper init
-    Skupper is now installed in namespace 'west'.  Use 'skupper status' to get more information.
+    Skupper is enabled for namespace "west" in interior mode. Status pending... It has no exposed services.
+    The site console url is:  <Console-URL>
+    The credentials for internal console-auth mode are held in secret: 'skupper-users'
 
 Now run the `skupper init` command in the East namespace.
 
 <div class="code-label session-1">East</div>
 
     $ skupper init --cluster-local
-    Skupper is now installed in namespace 'east'.  Use 'skupper status' to get more information.
+    Skupper is enabled for namespace "east" in interior mode. Status pending... It has no exposed services.
 
 Note that using `--cluster-local` in East is done simply to make
 local development with Minikube easier.  It's not required if your two
@@ -262,12 +264,12 @@ If the connection is made, you should see the following output:
 <div class="code-label session-2">West</div>
 
     $ skupper status
-    Skupper enabled for namespace 'west'. It is connected to 1 other site.
+    Skupper is enabled for namespace "west" in interior mode. It is connected to 1 other site. It has no exposed services.
 
 <div class="code-label session-1">East</div>
 
     $ skupper status
-    Skupper enabled for namespace 'east'. It is connected to 1 other site.
+    Skupper is enabled for namespace "west" in interior mode. It is connected to 1 other site. It has no exposed services.
 
 ## Step 5: Expose your services
 
