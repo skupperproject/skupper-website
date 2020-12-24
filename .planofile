@@ -23,7 +23,7 @@ site.output_dir = "docs"
 
 @command(help="Generate docs from the skupper-docs repo")
 def generate_docs(branch="antora-2", output_dir="input/docs"):
-    check_program("antora")
+    check_programs("antora")
 
     playbook_in = get_absolute_path("scripts/docs-playbook.yaml.in")
     output_dir = get_absolute_path(output_dir)
