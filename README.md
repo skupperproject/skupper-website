@@ -1,6 +1,6 @@
 # Skupper website
 
-[![main](https://github.com/ssorj/skupper-website-ssorj/workflows/main/badge.svg)](https://github.com/ssorj/skupper-website-ssorj/actions?query=workflow%3Amain)
+[![main](https://github.com/ssorj/skupper-website/workflows/main/badge.svg)](https://github.com/ssorj/skupper-website/actions?query=workflow%3Amain)
 
 ## Setting up the project
 
