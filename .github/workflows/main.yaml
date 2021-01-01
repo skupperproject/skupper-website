@@ -10,5 +10,5 @@ jobs:
     - uses: actions/setup-python@v2
     - uses: actions/setup-node@v2
     - run: |
-        npm i -g @antora/cli@2.3 @antora/site-generator-default@2.3
-        ./plano test
+        npm install @antora/cli@2.3 @antora/site-generator-default@2.3
+        PATH=$(npm bin):$PATH ./plano test
