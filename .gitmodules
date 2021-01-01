@@ -1,6 +1,3 @@
-[submodule "modules/commandant"]
-	path = modules/commandant
-	url = https://github.com/ssorj/commandant.git
 [submodule "modules/plano"]
 	path = modules/plano
 	url = https://github.com/ssorj/plano.git
