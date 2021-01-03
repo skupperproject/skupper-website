@@ -1,6 +1,0 @@
-[submodule "modules/plano"]
-	path = modules/plano
-	url = https://github.com/ssorj/plano.git
-[submodule "modules/transom"]
-	path = modules/transom
-	url = https://github.com/ssorj/transom.git
