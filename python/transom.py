@@ -1,1 +1,1 @@
-../modules/transom/python/transom.py
+../subrepos/transom/python/transom.py
