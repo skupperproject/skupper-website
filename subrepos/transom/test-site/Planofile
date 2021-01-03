@@ -1,0 +1,47 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+
+import sys
+
+sys.path.insert(0, "../python")
+
+from transom_commands import *
+
+result_file = "output/result.json"
+
+@command(parent=render)
+def render(app, *args, **kwargs):
+    render.super(app, *args, **kwargs)
+
+    data = {"rendered": True}
+    write_json(result_file, data)
+
+@command(parent=check_links)
+def check_links(app, *args, **kwargs):
+    check_links.super(app, *args, **kwargs)
+
+    data = {"links_checked": True}
+    write_json(result_file, data)
+
+@command(parent=check_files)
+def check_files(app, *args, **kwargs):
+    check_files.super(app, *args, **kwargs)
+
+    data = {"files_checked": True}
+    write_json(result_file, data)
