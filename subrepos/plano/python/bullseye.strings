@@ -10,9 +10,9 @@ __pycache__/
 
 ## Project commands
 
-Once you have set up the project, you can use the `./plano` command in
-the root of the project to perform project tasks.  It accepts a
-subcommand.  Use `./plano --help` to list the available commands.
+You can use the `./plano` command in the root of the project to
+perform project tasks.  It accepts a subcommand.  Use `./plano --help`
+to list the available commands.
 
 [LICENSE.txt]
 Apache License
