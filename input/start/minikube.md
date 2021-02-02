@@ -27,6 +27,8 @@ the `minikube start` command in each console you wish to configure.
     export KUBECONFIG=$HOME/.kube/config-east
     minikube start
 
+## Minikube tunnel
+
 Skupper requires cluster-external network access in order to form
 connections between clusters.  To enable network access run `minikube
 tunnel` in the background after running `minikube start`.
