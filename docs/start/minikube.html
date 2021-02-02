@@ -80,20 +80,15 @@
 
 <h2 id="prerequisites">Prerequisites</h2>
 
-<p>Skupper requires cluster-external network access in order to form
-connections between clusters.  Run <code>minikube tunnel</code> in the background
-to enable this access.</p>
+<p>See <a href="https://minikube.sigs.k8s.io/docs/start">Getting started with
+Minikube</a> for <code>minikube</code>
+installation instructions.</p>
 
-<p>Make sure you run <code>minikube tunnel</code> with the same kubeconfig and
-Minikube profile you used for <code>minikube start</code>.  In the Hello World
-example, the tunnel is required only for the cluster containing the
-West namespace.</p>
+<p>The examples require <code>minikube</code> version 1.17.1 or greater.</p>
 
-<div class="code-label session-2">Console for West</div>
-
-<pre><code>export KUBECONFIG=$HOME/.kube/config-west
-minikube tunnel
-</code></pre>
+<p>Ensure that the version of <code>kubectl</code> is compatible with your
+<code>minikube</code> installation.  See <a href="https://minikube.sigs.k8s.io/docs/handbook/kubectl">Using Kubectl with
+Minikube</a>.</p>
 
 <h2 id="logging-in">Logging in</h2>
 
@@ -112,12 +107,27 @@ minikube start
 minikube start
 </code></pre>
 
+<p>Skupper requires cluster-external network access in order to form
+connections between clusters.  To enable network access run <code>minikube
+tunnel</code> in the background after running <code>minikube start</code>.</p>
+
+<p>In the Hello World example, the tunnel is required only for the
+cluster containing the West namespace:</p>
+
+<div class="code-label session-2">Console for West</div>
+
+<pre><code>minikube tunnel &amp;
+</code></pre>
+
+<p>Make sure you run <code>minikube tunnel</code> with the same kubeconfig and
+Minikube profile you used for <code>minikube start</code>.</p>
+
 <h2 id="more-information">More information</h2>
 
 <ul>
 <li><a href="https://kubernetes.io/docs/setup/learning-environment/minikube/">Installing Kubernetes with Minikube</a></li>
 <li><a href="https://opensource.com/article/18/10/getting-started-minikube">Getting started with Minikube on Linux</a></li>
-<li><a href="https://kubernetes.io/docs/setup/">Getting started with Kubernetes</a></li>
+<li><a href="https://kubernetes.io/docs/setup">Getting started with Kubernetes</a></li>
 </ul>
 
 

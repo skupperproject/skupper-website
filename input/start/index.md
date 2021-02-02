@@ -45,8 +45,12 @@ options for setting up Kubernetes clusters:
   <!-- <li><a href="openshift.html">Red Hat OpenShift</a> or <a href="okd.html">OKD</a></li> -->
 </ul>
 
-These instructions require `kubectl` version 1.15 or later.  See the
-[kubectl installation
+These instructions require the proper version of `kubectl` for your
+installation.  For Minikube installations see [Minikube
+Prerequisites](minikube.html#prerequisites).  Other installations
+require `kubectl` version 1.15 or later.
+
+See the [kubectl installation
 guide](https://kubernetes.io/docs/tasks/tools/install-kubectl/) for
 more information.
 
