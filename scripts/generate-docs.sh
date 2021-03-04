@@ -14,7 +14,7 @@ rm -r ../input/$docs_dir/*
 antora --fetch docs-playbook.yml
 
 # copy html to input (removing skupper level)
-cp -r antora_build/skupper/* ../input/$docs_dir
+cp -r antora_build/skupper/latest/* ../input/$docs_dir
 
 # rename all html files to *.in
 shopt -s globstar
