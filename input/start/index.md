@@ -46,9 +46,9 @@ options for setting up Kubernetes clusters:
 </ul>
 
 These instructions require `kubectl` version 1.15 or later.  See the
-[kubectl installation
-guide](https://kubernetes.io/docs/tasks/tools/install-kubectl/) for
-more information.
+[kubectl installation guide][kubectl_guide] for more information.
+
+[kubectl_guide]: https://kubernetes.io/docs/tasks/tools/install-kubectl/
 
 ## Step 1: Install the Skupper command-line tool in your environment
 
@@ -88,11 +88,13 @@ this is how you might install it in your home directory:
 
 ### Check the command
 
-To test your installation, run the `skupper --version` command.  You
+To test your installation, run the `skupper version` command.  You
 should see output like this:
 
-    $ skupper --version
-    skupper version {{skupper_release}}
+    $ skupper version
+    client version                 {{skupper_release}}
+    transport version              not-found
+    controller version             not-found
 
 ## Step 2: Configure access to multiple namespaces
 
@@ -167,17 +169,21 @@ configured.  You should see the following output:
 <div class="code-label session-2">Console for West</div>
 
     $ skupper status
-    skupper not enabled for west
+    Skupper is not enabled in namespace 'west'
 
 <div class="code-label session-1">Console for East</div>
 
     $ skupper status
-    skupper not enabled for east
+    Skupper is not enabled in namespace 'east'
 
 ## Step 3: Install the Skupper router in each namespace
 
 The `skupper init` command installs the Skupper router in the current
 namespace.
+
+**Note:** If you are using Minikube, [you need to start `minikube
+tunnel`](minikube.html#running-minikube-tunnel) before you install
+Skupper.
 
 ### Install the router
 
@@ -192,12 +198,13 @@ Now run the `skupper init` command in the East namespace.
 
 <div class="code-label session-1">East</div>
 
-    $ skupper init --cluster-local
+    $ skupper init --ingress none
     Skupper is now installed in namespace 'east'.  Use 'skupper status' to get more information.
 
-Note that using `--cluster-local` in East is done simply to make
-local development with Minikube easier.  It's not required if your two
-namespaces are on different hosts or on public clusters.
+Here we are using `--ingress none` in East simply to make local
+development with Minikube easier.  (It's tricky to run two Minikube
+tunnels on one host.)  The `--ingress none` option is not required if
+your two namespaces are on different hosts or on public clusters.
 
 ### Check the installation
 
@@ -207,52 +214,48 @@ command.
 <div class="code-label session-2">West</div>
 
     $ skupper status
-    Skupper enabled for namespace 'west'. It is not connected to any other sites.
+    Skupper is enabled in namespace 'west'. It is not linked to any other sites.
 
 <div class="code-label session-1">East</div>
 
     $ skupper status
-    Skupper enabled for namespace 'east'. It is not connected to any other sites.
+    Skupper is enabled in namespace 'east'. It is not linked to any other sites.
 
-## Step 4: Connect your namespaces
+## Step 4: Link your namespaces
 
 After installation, you have the infrastructure you need, but your
-namespaces are not connected.  Creating a connection requires use of
-two `skupper` commands in conjunction, `skupper connection-token` and
-`skupper connect`.
+namespaces are not linked.  Creating a link requires use of
+two `skupper` commands in conjunction, `skupper token create` and
+`skupper link create`.
 
-The `skupper connection-token` command generates a secret token that
-signifies permission to connect.  The token also carries the
-connection details.  The `skupper connect` command then uses the
-connection token to establish a connection to the namespace that
-generated it.
+The `skupper token create` command generates a secret token that
+signifies permission to create a link.  The token also carries the
+link details.  The `skupper link create` command then uses the link
+token to create a link to the namespace that generated it.
 
-**Note:** The connection token is truly a *secret*.  Anyone who has
-the token can connect to your namespace.  Make sure that only those
+**Note:** The link token is truly a *secret*.  Anyone who has
+the token can link to your namespace.  Make sure that only those
 you trust have access to it.
 
-### Generate a connection token
+### Generate a link token
 
-In West, use the `skupper connection-token` command to generate a
-token.
+In West, use the `skupper token create` command to generate a token.
 
 <div class="code-label session-2">West</div>
 
-    skupper connection-token $HOME/secret.yaml
+    skupper token create $HOME/secret.yaml
 
-### Use the token to form a connection
+### Use the token to create a link
 
-With the token in hand, you are ready to connect.  Pass the token from
-West to the `skupper connect` command in East.
+With the token in hand, you are ready to link the namespaces.  Pass
+the token from West to the `skupper link create` command in East.
 
 <div class="code-label session-1">East</div>
 
-    skupper connect $HOME/secret.yaml
+    skupper link create $HOME/secret.yaml
 
 If your console sessions are on different machines, you might need to
-use `scp` or a similar tool to transfer the token.  If you are using
-Minikube, [you need to run `minikube
-tunnel`](minikube.html#prerequisites) for this to work.
+use `scp` or a similar tool to transfer the token.
 
 ### Check the connection
 
@@ -262,12 +265,12 @@ If the connection is made, you should see the following output:
 <div class="code-label session-2">West</div>
 
     $ skupper status
-    Skupper enabled for namespace 'west'. It is connected to 1 other site.
+    Skupper is enabled in namespace 'west'. It is linked to 1 other site.
 
 <div class="code-label session-1">East</div>
 
     $ skupper status
-    Skupper enabled for namespace 'east'. It is connected to 1 other site.
+    Skupper is enabled in namespace 'east'. It is linked to 1 other site.
 
 ## Step 5: Expose your services
 
@@ -307,7 +310,7 @@ available in West.
 
 <div class="code-label session-1">East</div>
 
-    skupper expose deployment hello-world-backend --port 8080 --protocol http
+    skupper expose deployment/hello-world-backend --port 8080
 
 ### Check the backend service
 
@@ -331,9 +334,7 @@ the frontend accessible using a conventional Kubernetes ingress.
 
     kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
 
-It takes a moment for the external IP to become available.  If you are
-using Minikube, [you need to run `minikube
-tunnel`](minikube.html#prerequisites) for this to work.
+It takes a moment for the external IP to become available.
 
 Now use `curl` to see it in action.  The embedded `kubectl get`
 command below looks up the IP address for the frontend service and
@@ -381,9 +382,9 @@ for more detail.
     kubectl create namespace west
     kubectl config set-context --current --namespace west
     skupper init
-    skupper connection-token ~/secret.yaml
+    skupper token create ~/secret.yaml
     kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
-    kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
+    kubectl expose deployment/hello-world-frontend --port 8080 --type LoadBalancer
 
 <div class="code-label session-1">East: Setup</div>
 
@@ -391,10 +392,10 @@ for more detail.
     <provider-login-command>
     kubectl create namespace east
     kubectl config set-context --current --namespace east
-    skupper init --cluster-local
-    skupper connect ~/secret.yaml
+    skupper init --ingress none
+    skupper link create ~/secret.yaml
     kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
-    skupper expose deployment hello-world-backend --port 8080 --protocol http
+    skupper expose deployment/hello-world-backend --port 8080
 
 <div class="code-label session-2">West: Testing</div>
 

@@ -1,17 +1,15 @@
 # Using Skupper with Minikube
 
-## Prerequisites
+## Running minikube tunnel
 
 Skupper requires cluster-external network access in order to form
-connections between clusters.  Run `minikube tunnel` in the background
+links between clusters.  Run `minikube tunnel` in the background
 to enable this access.
 
 Make sure you run `minikube tunnel` with the same kubeconfig and
 Minikube profile you used for `minikube start`.  In the Hello World
 example, the tunnel is required only for the cluster containing the
 West namespace.
-
-<div class="code-label session-2">Console for West</div>
 
     export KUBECONFIG=$HOME/.kube/config-west
     minikube tunnel

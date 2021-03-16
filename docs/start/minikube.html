@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
     <script type="text/javascript" src="/main.js" defer="defer"></script>
 
-
+<script src="http://localhost:35729/livereload.js"></script>
 
 
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
@@ -78,18 +78,16 @@
 
 <h1 id="using-skupper-with-minikube">Using Skupper with Minikube</h1>
 
-<h2 id="prerequisites">Prerequisites</h2>
+<h2 id="running-minikube-tunnel">Running minikube tunnel</h2>
 
 <p>Skupper requires cluster-external network access in order to form
-connections between clusters.  Run <code>minikube tunnel</code> in the background
+links between clusters.  Run <code>minikube tunnel</code> in the background
 to enable this access.</p>
 
 <p>Make sure you run <code>minikube tunnel</code> with the same kubeconfig and
 Minikube profile you used for <code>minikube start</code>.  In the Hello World
 example, the tunnel is required only for the cluster containing the
 West namespace.</p>
-
-<div class="code-label session-2">Console for West</div>
 
 <pre><code>export KUBECONFIG=$HOME/.kube/config-west
 minikube tunnel

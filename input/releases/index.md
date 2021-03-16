@@ -1,6 +1,8 @@
 # Skupper releases
 
-## 0.3.2 - September 2020
+## The latest release
+
+Skupper {{skupper_release}} was released on 12 March 2021.
 
 Download the Skupper command-line tool:
 
@@ -12,33 +14,24 @@ Download the Skupper command-line tool:
 
 To install, use `tar` or `unzip` to extract the command from the
 archive and then place it on your path.  For more information, see
-[Getting
-started](/start/index.html#step-1-install-the-skupper-command-line-tool-in-your-environment).
+[Getting started][getting-started].
 
-To get artifacts for other operating systems and architectures, see the
-[GitHub release
-page](https://github.com/skupperproject/skupper/releases/tag/{{skupper_release}}).
+[getting-started]: /start/index.html#step-1-install-the-skupper-command-line-tool-in-your-environment
 
-## 0.3.1 - August 2020
+To get artifacts for other operating systems and architectures, see
+the [GitHub release page][release-page].
 
-* [Linux command-line tool](https://github.com/skupperproject/skupper/releases/download/0.3.1/skupper-cli-0.3.1-linux-amd64.tgz)
-* [Mac command-line tool](https://github.com/skupperproject/skupper/releases/download/0.3.1/skupper-cli-0.3.1-mac-amd64.tgz)
-* [Windows command-line tool](https://github.com/skupperproject/skupper/releases/download/0.3.1/skupper-cli-0.3.1-windows-amd64.zip)
-* [GitHub release page](https://github.com/skupperproject/skupper/releases/tag/0.3.1)
+[release-page]: https://github.com/skupperproject/skupper/releases/tag/{{skupper_release}}
 
-## 0.3.0 - July 2020
+## Previous releases
 
-* [Linux command-line tool](https://github.com/skupperproject/skupper/releases/download/0.3.0/skupper-cli-0.3.0-linux-amd64.tgz)
-* [Mac command-line tool](https://github.com/skupperproject/skupper/releases/download/0.3.0/skupper-cli-0.3.0-mac-amd64.tgz)
-* [Windows command-line tool](https://github.com/skupperproject/skupper/releases/download/0.3.0/skupper-cli-0.3.0-windows-amd64.zip)
-* [GitHub release page](https://github.com/skupperproject/skupper/releases/tag/0.3.0)
-
-## 0.2.0 - April 2020
-
-* [Linux command-line tool](https://github.com/skupperproject/skupper-cli/releases/download/0.2.0/skupper-cli-0.2.0-linux-amd64.tgz)
-* [Mac command-line tool](https://github.com/skupperproject/skupper-cli/releases/download/0.2.0/skupper-cli-0.2.0-mac-amd64.tgz)
-* [Windows command-line tool](https://github.com/skupperproject/skupper-cli/releases/download/0.2.0/skupper-cli-0.2.0-windows-amd64.zip)
-* [GitHub release page](https://github.com/skupperproject/skupper/releases-cli/tag/0.2.0)
+* [0.4.2](https://github.com/skupperproject/skupper/releases/tag/0.4.2) - January 2021
+* [0.4.1](https://github.com/skupperproject/skupper/releases/tag/0.4.1) - January 2021
+* [0.4.0](https://github.com/skupperproject/skupper/releases/tag/0.4.0) - December 2020
+* [0.3.2](https://github.com/skupperproject/skupper/releases/tag/0.3.2) - September 2020
+* [0.3.1](https://github.com/skupperproject/skupper/releases/tag/0.3.1) - August 2020
+* [0.3.0](https://github.com/skupperproject/skupper/releases/tag/0.3.0) - July 2020
+* [0.2.0](https://github.com/skupperproject/skupper/releases-cli/tag/0.2.0) - April 2020
 
 ## More resources
 

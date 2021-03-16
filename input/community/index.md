@@ -16,7 +16,9 @@ organization.
 
 We use a [mailing
 list](https://groups.google.com/forum/#!forum/skupper) hosted by
-Google Groups to answer questions and exchange ideas.
+Google Groups to answer questions and exchange ideas.  Once subscribed, you can use the address <a
+href="mailto:skupper@googlegroups.com">skupper@googlegroups.com</a> to
+send email to the list.
 
 To subscribe, send an email to <a
 href="mailto:skupper+subscribe@googlegroups.com">skupper+subscribe@googlegroups.com</a>.
