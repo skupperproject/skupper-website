@@ -1,0 +1,15 @@
+---
+title: Monitoring Skupper sites using the console
+---
+
+<article class="doc">
+<h1 class="page">Monitoring Skupper sites using the console</h1>
+<div class="paragraph system:abstract">
+<p>The Skupper console provides useful information about the Skupper network, for example, traffic levels between Skupper sites.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/skupper-console.png" alt="skupper console">
+</div>
+</div>
+</article>
