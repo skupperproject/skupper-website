@@ -26,7 +26,7 @@ These network controls must be duplicated for each cluster.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="skupper-network-isolation"><a class="anchor" href="#skupper-network-isolation"></a>Built-in network isolation</h2>
+<h2 id="service-network-isolation"><a class="anchor" href="#service-network-isolation"></a>Built-in network isolation</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Skupper provides default, built-in security that scales across clusters and clouds.
