@@ -1,6 +1,6 @@
 # Skupper website
 
-[![main](https://github.com/ssorj/skupper-website/workflows/main/badge.svg)](https://github.com/ssorj/skupper-website/actions?query=workflow%3Amain)
+[![main](https://github.com/skupperproject/skupper-website/actions/workflows/main.yaml/badge.svg)](https://github.com/skupperproject/skupper-website/actions/workflows/main.yaml)
 
 ## Project commands
 
