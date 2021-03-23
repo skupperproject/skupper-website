@@ -22,7 +22,7 @@ from transom_commands import *
 site.output_dir = "docs"
 
 @command
-def generate_docs(app, user="skupperproject", branch="master", output_dir="input/docs"):
+def generate_docs(app, owner="skupperproject", branch="master", output_dir="input/docs"):
     """Generate docs from the skupper-docs repo"""
 
     check_program("antora")
@@ -31,7 +31,7 @@ def generate_docs(app, user="skupperproject", branch="master", output_dir="input
     output_dir = get_absolute_path(output_dir)
 
     with working_dir():
-        playbook = configure_file(playbook_in, "docs-playbook.yaml", {"branch": branch, "user": user})
+        playbook = configure_file(playbook_in, "docs-playbook.yaml", {"branch": branch, "owner": owner})
 
         run(f"antora --fetch {playbook}")
 
