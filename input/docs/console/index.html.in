@@ -4,12 +4,150 @@ title: Monitoring Skupper sites using the console
 
 <article class="doc">
 <h1 class="page">Monitoring Skupper sites using the console</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph system:abstract">
-<p>The Skupper console provides useful information about the Skupper network, for example, traffic levels between Skupper sites.</p>
+<p>The Skupper console provides useful information about the service network, for example, traffic levels between sites.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/skupper-console.png" alt="skupper console">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="accessing-console"><a class="anchor" href="#accessing-console"></a>Accessing the Skupper console</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, the Skupper console is available whenever you create a service network router and is protected by credentials available in the <code>skupper-console-users</code> secret.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Determine the Skupper console URL using the <code>skupper</code> CLI, for example:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper status
+Skupper is enabled for namespace "west" in interior mode. It is not connected to any other sites. It has no exposed services.
+The site console url is:  https://skupper-west.apps-crc.testing</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Browse to the Skupper console URL.
+The credential prompt depends on how the site was created using <code>skupper init</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>using the <code>--console-auth unsecured</code> option, you are not prompted for credentials.</p>
+</li>
+<li>
+<p>using the <code>--console-auth openshift</code> option, you are prompted to enter OpenShift cluster credentials.</p>
+</li>
+<li>
+<p>using the default or <code>--console-user &lt;user&gt;  --console-password &lt;password&gt;</code> options, you are prompted to enter Skupper credentials.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If you created the site using default settings, that is <code>skupper init</code>, a random password is generated for the <code>admin</code> user.
+To retrieve the password:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Retrieve the encoded password for the <code>admin</code> user:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc get secret skupper-console-users -o yaml| grep admin
+
+admin: Sk5aV3pNSHR5Zw==</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Decode the password for the <code>admin</code> user:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ echo -n "Sk5aV3pNSHR5Zw==" | base64 --decode
+
+JNZWzMHtyg</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="exploring-console"><a class="anchor" href="#exploring-console"></a>Exploring the Skupper console</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Skupper console provides an overview of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Services - services that are exposed on the service network, both local and remote.</p>
+</li>
+<li>
+<p>Sites - Skupper installations on the current service network.</p>
+</li>
+<li>
+<p>Deployments - deployments relating to exposed services.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Perform the <a href="/docs/cli/openshift.html">Creating a service network with OpenShift</a> tutorial.</p>
+</li>
+<li>
+<p>Navigate to the Skupper console.</p>
+</li>
+<li>
+<p>Click the <strong>Sites</strong> menu item.
+Both the <strong>east</strong> and <strong>west</strong> sites should be displayed in circles.</p>
+</li>
+<li>
+<p>Drag and drop the <strong>west</strong> circle to be on the left of the <strong>east</strong> circle.</p>
+</li>
+<li>
+<p>Click the <strong>Table</strong> tab to display the sites as text items.
+This view allows you drill down into details relating to the selected site.</p>
+</li>
+<li>
+<p>Click the <strong>Deployments</strong> menu item.
+This view shows you any deployments that are exposed as services on the service network.
+In this case, the console displays the <strong>hello-world-backend (east)</strong> deployment.</p>
+</li>
+<li>
+<p>Click the <strong>Services</strong> menu item to display details for all services exposed on the service network.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Although two services are involved in the tutorial, only one service, <code>hello-world-backend</code> is exposed on the service network.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Click the <strong>Sites</strong> menu again and expand the panel on the right hand side of the console.
+This panel shows the traffic flows from the backend to the frontend.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </article>
