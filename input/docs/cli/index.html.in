@@ -121,7 +121,7 @@ Skupper is enabled for namespace "west" in interior mode. It is not connected to
 <li>
 <p>console - The Skupper console is provisioned with a single user.
 The password for the <code>admin</code> user is stored in the <code>skupper-console-users</code> secret.
-For more information on the console, see <a href="/docs/console/">Monitoring Skupper sites using the console</a>.</p>
+For more information on the console, see <a href="/docs/console/index.html">Monitoring Skupper sites using the console</a>.</p>
 </li>
 <li>
 <p>site name - The site name defaults to the namespace name, for example, <code>west</code>.</p>
@@ -323,7 +323,7 @@ See <a href="#exposing-complex-services">Exposing complex services on the servic
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Create a deployment, some pods, or a service in one of your sites, for example to create the backend service for the <a href="{getting-started-link}">tutorial</a>:</p>
+<p>Create a deployment, some pods, or a service in one of your sites, for example to create the backend service for the <a href="/start/index.html">tutorial</a>:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend</pre>
@@ -415,7 +415,7 @@ If you do not specify ports, <code>skupper</code> uses the <code>containerPort</
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Create a deployment, some pods, or a service in one of your sites, for example to create the backend service for the <a href="{getting-started-link}">tutorial</a>:</p>
+<p>Create a deployment, some pods, or a service in one of your sites, for example to create the backend service for the <a href="/start/index.html">tutorial</a>:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend</pre>
@@ -522,7 +522,7 @@ The following <code>skupper</code> options allow you to override that behavior a
 </dd>
 <dt class="hdlist1"><code>--kubeconfig &lt;kubeconfig-path&gt;</code></dt>
 <dd>
-<p>Path to the kubeconfig file - This allows you run multiple sessions to a cluster from the same client. An alternative is to set the <code>KUBECONFIG</code> environment variable. See the <a href="{getting-started-link}">tutorial</a> for an example of using kubeconfig files.</p>
+<p>Path to the kubeconfig file - This allows you run multiple sessions to a cluster from the same client. An alternative is to set the <code>KUBECONFIG</code> environment variable. See the <a href="/start/index.html">tutorial</a> for an example of using kubeconfig files.</p>
 </dd>
 <dt class="hdlist1"><code>--context &lt;context-name&gt;</code></dt>
 <dd>
