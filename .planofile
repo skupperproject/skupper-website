@@ -22,7 +22,7 @@ from transom_commands import *
 site.output_dir = "docs"
 
 @command
-def generate_docs(app, owner="pwright", branch="fix-skupper-website", output_dir="input/docs"):
+def generate_docs(app, owner="skupperproject", branch="master", output_dir="input/docs"):
     """Generate docs from the skupper-docs repo"""
 
     check_program("antora")
