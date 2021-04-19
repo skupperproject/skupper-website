@@ -16,3 +16,4 @@ asciidoc:
     mod-loc: ROOT:partial$
     skupper-io: true
     linkroot: /docs/
+    getting-started-link: /start/index.html
