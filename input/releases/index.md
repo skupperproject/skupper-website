@@ -2,7 +2,7 @@
 
 ## The latest release
 
-Skupper {{skupper_release}} was released on 30 March 2021.
+Skupper {{skupper_release}} was released on 1 April 2021.
 
 Download the Skupper command-line tool:
 
@@ -25,6 +25,7 @@ the [GitHub release page][release-page].
 
 ## Previous releases
 
+* [0.5.2](https://github.com/skupperproject/skupper/releases/tag/0.5.1) - March 2021
 * [0.5.1](https://github.com/skupperproject/skupper/releases/tag/0.5.1) - March 2021
 * [0.5.0](https://github.com/skupperproject/skupper/releases/tag/0.5.0) - March 2021
 * [0.4.2](https://github.com/skupperproject/skupper/releases/tag/0.4.2) - January 2021
