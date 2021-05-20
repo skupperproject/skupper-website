@@ -38,7 +38,7 @@ options for setting up Kubernetes clusters:
   <li><a href="https://cloud.google.com/kubernetes-engine/docs">Google Kubernetes Engine</a></li>
   <li><a href="https://cloud.ibm.com/docs/containers">IBM Kubernetes Service</a></li>
   <li><a href="openshift.html">OpenShift</a></li>
-  <li><a href="https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/">More providers</a></li>
+  <li><a href="https://kubernetes.io/partners/#kcsp">More providers</a></li>
 </ul>
 
 These instructions require `kubectl` version 1.15 or later.  See the

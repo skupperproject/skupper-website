@@ -41,7 +41,7 @@ extra_headers: <link rel="stylesheet" href="/index.css" type="text/css" async="a
         <a class="nav" href="/start/index.html">Try Skupper out <span class="material-icons">chevron_right</span></a>
       </div>
       <div>
-        <h3>Secure by default</h3>
+        <h3>Secure by design</h3>
         <div>
           <p>Communicate across clusters without exposing service ports on the internet</p>
           <p>Inter-cluster communication is secured by mutual TLS</p>
