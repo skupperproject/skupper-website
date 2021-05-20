@@ -33,16 +33,12 @@ options for setting up Kubernetes clusters:
 
 <ul class="column-list">
   <li><a href="minikube.html">Minikube</a></li>
-  <li><a href="https://aws.amazon.com/eks/getting-started/">Amazon Elastic Kubernetes Service</a></li>
-  <li><a href="https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes">Azure Kubernetes Service</a></li>
-  <li><a href="https://cloud.google.com/kubernetes-engine/docs/quickstart">Google Kubernetes Engine</a></li>
-  <li><a href="https://cloud.ibm.com/docs/containers?topic=containers-getting-started">IBM Kubernetes Service</a></li>
-  <li><a href="https://www.openshift.com/learn/get-started/">Red Hat OpenShift</a> or <a href="https://www.okd.io/">OKD</a></li>
+  <li><a href="https://docs.aws.amazon.com/eks">Amazon Elastic Kubernetes Service</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/azure/aks">Azure Kubernetes Service</a></li>
+  <li><a href="https://cloud.google.com/kubernetes-engine/docs">Google Kubernetes Engine</a></li>
+  <li><a href="https://cloud.ibm.com/docs/containers">IBM Kubernetes Service</a></li>
+  <li><a href="openshift.html">OpenShift</a></li>
   <li><a href="https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/">More providers</a></li>
-  <!-- <li><a href="eks.html">Amazon Elastic Kubernetes Service</a></li> -->
-  <!-- <li><a href="aks.html">Azure Kubernetes Service</a></li> -->
-  <!-- <li><a href="gke.html">Google Kubernetes Engine</a></li> -->
-  <!-- <li><a href="openshift.html">Red Hat OpenShift</a> or <a href="okd.html">OKD</a></li> -->
 </ul>
 
 These instructions require `kubectl` version 1.15 or later.  See the
@@ -99,12 +95,21 @@ should see output like this:
 ## Step 2: Configure access to multiple namespaces
 
 Skupper is designed for use with multiple namespaces, typically on
-different clusters.  The `skupper` command uses your kubeconfig and
-current context to select the namespace where it operates.
+different clusters.  The `skupper` command uses your
+[kubeconfig][kubeconfig] and current context to select the namespace
+where it operates.
 
-To avoid getting your wires crossed, you must use a distinct
-kubeconfig or context for each namespace.  The easiest way is to use
-separate console sessions.
+[kubeconfig]: https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/
+
+Your kubeconfig is stored in a file in your home directory.  The
+`skupper` and `kubectl` commands use the `KUBECONFIG` environment
+variable to locate it.
+
+A single kubeconfig supports only one active context per user.  Since
+you will be using *two* contexts at once in this exercise, you need to
+create two distinct kubeconfigs.  You can then use the first
+kubeconfig in one console session, and the second kubeconfig in
+another.
 
 ### Configure separate console sessions
 
@@ -141,7 +146,7 @@ See the following links for more information:
   <li><a href="https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster">Azure Kubernetes Service</a></li>
   <li><a href="https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl">Google Kubernetes Engine</a></li>
   <li><a href="https://cloud.ibm.com/docs/containers?topic=containers-access_cluster">IBM Kubernetes Service</a></li>
-  <li><a href="https://docs.openshift.com/container-platform/4.1/cli_reference/getting-started-cli.html#cli-logging-in_cli-developer-commands">Red Hat OpenShift</a> or <a href="https://docs.okd.io/latest/cli_reference/get_started_cli.html#basic-setup-and-login">OKD</a></li>
+  <li><a href="openshift.html#logging-in">OpenShift</a></li>
 </ul>
 
 ### Set the current namespaces

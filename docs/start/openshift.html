@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Using Skupper with Red Hat OpenShift</title>
+    <title>Skupper - Using Skupper with OpenShift</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -59,7 +59,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/start/index.html">Getting started</a> <span class="path-separator">&#8250;</span> <a href="/start/openshift.html">Using Skupper with Red Hat OpenShift</a></div></nav>
+  <nav id="-path-nav"><div><a href="/start/index.html">Getting started</a> <span class="path-separator">&#8250;</span> <a href="/start/openshift.html">Using Skupper with OpenShift</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -76,7 +76,53 @@
   <div>
     <main>
 
-<h1 id="using-skupper-with-red-hat-openshift">Using Skupper with Red Hat OpenShift</h1>
+<h1 id="using-skupper-with-openshift">Using Skupper with OpenShift</h1>
+
+<h2 id="the-oc-command">The oc command</h2>
+
+<p>The <code>oc</code> command is a <code>kubectl</code> equivalent with extensions for
+OpenShift.  The Skupper getting started guide uses <code>kubectl</code> for the
+core Kubernetes operations, but you can safely use <code>oc</code> instead.  For
+example, <code>kubectl create namespace west</code> and <code>oc create namespace
+west</code> have the same effect.</p>
+
+<p>See the <a href="https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html">CLI getting started guide</a> for more information.</p>
+
+<h2 id="logging-in">Logging in</h2>
+
+<p>Use the <code>oc login</code> command with the URL of your OpenShift cluster and
+your username.</p>
+
+<pre><code>oc login openshift.example.net:6443 -u alice
+</code></pre>
+
+<p>The command will prompt you for any needed credentials or login
+details.</p>
+
+<p>See the <a href="https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html#cli-logging-in_cli-developer-commands">instructions for logging in</a> for more
+information.</p>
+
+<h3 id="logging-in-using-the-console">Logging in using the console</h3>
+
+<p>You can also use the OpenShift console to generate an <code>oc login</code>
+command that you can paste into your console session.</p>
+
+<ol>
+<li>Navigate to the OpenShift console and log in.</li>
+<li>Select the menu for your account in the top right of the page.</li>
+<li>Select <strong>Copy Login Command</strong>.  Follow the prompts until you have an
+<code>oc login</code> command to copy.</li>
+<li>Paste the <code>oc login</code> command into your console session.</li>
+</ol>
+
+<h2 id="more-information">More information</h2>
+
+<ul>
+<li><a href="https://www.openshift.com/">OpenShift website</a></li>
+<li><a href="https://docs.openshift.com/">OpenShift documentation</a></li>
+<li><a href="https://www.okd.io/">OKD website</a></li>
+<li><a href="https://docs.okd.io/">OKD documentation</a></li>
+</ul>
 
 
     </main>
