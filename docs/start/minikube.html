@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
     <script type="text/javascript" src="/main.js" defer="defer"></script>
 
-<script src="http://localhost:35729/livereload.js"></script>
+
 
 
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
@@ -78,10 +78,18 @@
 
 <h1 id="using-skupper-with-minikube">Using Skupper with Minikube</h1>
 
+<h2 id="developer-tools">Developer tools</h2>
+
+<p>The <code>minikube</code> command-line tool allows you to create and operate
+local Kubernetes clusters.</p>
+
+<p>See the <a href="https://minikube.sigs.k8s.io/docs/start/">Minikube getting started guide</a> for more information.</p>
+
 <h2 id="logging-in">Logging in</h2>
 
 <p>Minikube does not offer a dedicated login command, but you can re-run
-the <code>minikube start</code> command in each console you wish to configure.</p>
+the <code>minikube start</code> command in each console session you wish to
+configure.</p>
 
 <div class="code-label session-2">Console for West</div>
 
@@ -110,12 +118,16 @@ West namespace.</p>
 minikube tunnel
 </code></pre>
 
+<p>The tunnel must run continuously while you are using it, so you will
+likely want to run it in its own console session.</p>
+
+<p>See <a href="https://minikube.sigs.k8s.io/docs/handbook/accessing/#using-minikube-tunnel">Using minikube tunnel</a> for more information.</p>
+
 <h2 id="more-information">More information</h2>
 
 <ul>
-<li><a href="https://kubernetes.io/docs/setup/learning-environment/minikube/">Installing Kubernetes with Minikube</a></li>
-<li><a href="https://opensource.com/article/18/10/getting-started-minikube">Getting started with Minikube on Linux</a></li>
-<li><a href="https://kubernetes.io/docs/setup/">Getting started with Kubernetes</a></li>
+<li><a href="https://minikube.sigs.k8s.io/community/">Minikube website</a></li>
+<li><a href="https://minikube.sigs.k8s.io/docs/">Minikube documentation</a></li>
 </ul>
 
 

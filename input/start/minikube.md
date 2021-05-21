@@ -1,9 +1,19 @@
 # Using Skupper with Minikube
 
+## Developer tools
+
+The `minikube` command-line tool allows you to create and operate
+local Kubernetes clusters.
+
+See the [Minikube getting started guide][gs] for more information.
+
+[gs]: https://minikube.sigs.k8s.io/docs/start/
+
 ## Logging in
 
 Minikube does not offer a dedicated login command, but you can re-run
-the `minikube start` command in each console you wish to configure.
+the `minikube start` command in each console session you wish to
+configure.
 
 <div class="code-label session-2">Console for West</div>
 
@@ -29,8 +39,14 @@ West namespace.
     export KUBECONFIG=$HOME/.kube/config-west
     minikube tunnel
 
+The tunnel must run continuously while you are using it, so you will
+likely want to run it in its own console session.
+
+See [Using minikube tunnel][tunnel] for more information.
+
+[tunnel]: https://minikube.sigs.k8s.io/docs/handbook/accessing/#using-minikube-tunnel
+
 ## More information
 
-* [Installing Kubernetes with Minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/)
-* [Getting started with Minikube on Linux](https://opensource.com/article/18/10/getting-started-minikube)
-* [Getting started with Kubernetes](https://kubernetes.io/docs/setup/)
+* [Minikube website](https://minikube.sigs.k8s.io/community/)
+* [Minikube documentation](https://minikube.sigs.k8s.io/docs/)

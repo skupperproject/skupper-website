@@ -18,7 +18,7 @@ Use the `gcloud` command and the Google Cloud console to log in:
 1. Go to [console.cloud.google.com](https://console.cloud.google.com/) and sign in.
 1. Select **Kubernetes Engine** in the menu on the left.
 1. Navigate to your cluster.
-1. Select the **CONNECT** link at the top of the page.
+1. Select the **Connect** link at the top of the page.
 1. Copy the provided `gcloud` command.
 1. Paste the `gcloud` command into your console session.
 

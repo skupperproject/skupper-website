@@ -2,8 +2,8 @@
 
 ## Developer tools
 
-OpenShift provides a command-line tool called `oc` for operating
-OpenShift clusters.
+OpenShift provides a command-line tool called `oc` for controlling
+OpenShift resources and operating clusters.
 
 The `oc` command is a `kubectl` equivalent with extensions for
 OpenShift.  The Skupper getting started guide uses `kubectl` for the

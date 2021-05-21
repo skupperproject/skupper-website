@@ -89,13 +89,13 @@ pre {
     color: var(--code-fg-color);
 }
 
-p code {
+p code, li code {
     background-color: var(--code-bg-color);
     padding: 0 0.1em;
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 
-p a code {
+p a code, li a code {
     color: inherit;
 }
 
