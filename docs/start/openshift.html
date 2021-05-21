@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
     <script type="text/javascript" src="/main.js" defer="defer"></script>
 
-
+<script src="http://localhost:35729/livereload.js"></script>
 
 
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
@@ -78,7 +78,10 @@
 
 <h1 id="using-skupper-with-openshift">Using Skupper with OpenShift</h1>
 
-<h2 id="the-oc-command">The oc command</h2>
+<h2 id="developer-tools">Developer tools</h2>
+
+<p>OpenShift provides a command-line tool called <code>oc</code> for operating
+OpenShift clusters.</p>
 
 <p>The <code>oc</code> command is a <code>kubectl</code> equivalent with extensions for
 OpenShift.  The Skupper getting started guide uses <code>kubectl</code> for the
@@ -86,9 +89,12 @@ core Kubernetes operations, but you can safely use <code>oc</code> instead.  For
 example, <code>kubectl create namespace west</code> and <code>oc create namespace
 west</code> have the same effect.</p>
 
-<p>See the <a href="https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html">CLI getting started guide</a> for more information.</p>
+<p>See the <a href="https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html">OpenShift CLI getting started guide</a> for more
+information.</p>
 
 <h2 id="logging-in">Logging in</h2>
+
+<h3 id="logging-in-using-the-oc-command">Logging in using the oc command</h3>
 
 <p>Use the <code>oc login</code> command with the URL of your OpenShift cluster and
 your username.</p>

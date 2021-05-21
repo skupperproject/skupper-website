@@ -78,6 +78,47 @@
 
 <h1 id="using-skupper-with-google-kubernetes-engine">Using Skupper with Google Kubernetes Engine</h1>
 
+<h2 id="developer-tools">Developer tools</h2>
+
+<p>The Google Cloud SDK provides a command-line tool called <code>gcloud</code> for
+using the features of Google Cloud, including Google Kubernetes Engine
+(GKE).</p>
+
+<p>See the <a href="https://cloud.google.com/sdk/docs/quickstart">Google Cloud SDK getting started guide</a> for more
+information.</p>
+
+<h2 id="logging-in">Logging in</h2>
+
+<p>Use the <code>gcloud</code> command and the Google Cloud console to log in:</p>
+
+<ol>
+<li>Go to <a href="https://console.cloud.google.com/">console.cloud.google.com</a> and sign in.</li>
+<li>Select <strong>Kubernetes Engine</strong> in the menu on the left.</li>
+<li>Navigate to your cluster.</li>
+<li>Select the <strong>CONNECT</strong> link at the top of the page.</li>
+<li>Copy the provided <code>gcloud</code> command.</li>
+<li>Paste the <code>gcloud</code> command into your console session.</li>
+</ol>
+
+<p>See <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl">Configuring cluster access for kubectl</a> for more
+information.</p>
+
+<h2 id="enabling-outbound-connections">Enabling outbound connections</h2>
+
+<p>By default, private GKE clusters do not allow outbound connections to
+external IP addresses.  To link a private GKE cluster to a remote site
+with Skupper, you need to <a href="https://cloud.google.com/nat/docs/gke-example">enable outbound connections using Cloud
+NAT</a>.</p>
+
+<p>See the <a href="https://cloud.google.com/nat/docs/overview">Cloud NAT overview</a> for more information.</p>
+
+<h2 id="more-information">More information</h2>
+
+<ul>
+<li><a href="https://cloud.google.com/kubernetes-engine">Google Kubernetes Engine website</a></li>
+<li><a href="https://cloud.google.com/kubernetes-engine/docs">Google Kubernetes Engine documentation</a></li>
+</ul>
+
 
     </main>
     <nav id="-toc">

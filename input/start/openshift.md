@@ -1,6 +1,9 @@
 # Using Skupper with OpenShift
 
-## The oc command
+## Developer tools
+
+OpenShift provides a command-line tool called `oc` for operating
+OpenShift clusters.
 
 The `oc` command is a `kubectl` equivalent with extensions for
 OpenShift.  The Skupper getting started guide uses `kubectl` for the
@@ -8,11 +11,14 @@ core Kubernetes operations, but you can safely use `oc` instead.  For
 example, `kubectl create namespace west` and `oc create namespace
 west` have the same effect.
 
-See the [CLI getting started guide][cli] for more information.
+See the [OpenShift CLI getting started guide][cli] for more
+information.
 
 [cli]: https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html
 
 ## Logging in
+
+### Logging in using the oc command
 
 Use the `oc login` command with the URL of your OpenShift cluster and
 your username.
@@ -33,10 +39,10 @@ You can also use the OpenShift console to generate an `oc login`
 command that you can paste into your console session.
 
 1. Navigate to the OpenShift console and log in.
-2. Select the menu for your account in the top right of the page.
-3. Select **Copy Login Command**.  Follow the prompts until you have an
+1. Select the menu for your account in the top right of the page.
+1. Select **Copy Login Command**.  Follow the prompts until you have an
    `oc login` command to copy.
-4. Paste the `oc login` command into your console session.
+1. Paste the `oc login` command into your console session.
 
 ## More information
 
