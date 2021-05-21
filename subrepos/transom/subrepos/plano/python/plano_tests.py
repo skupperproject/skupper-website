@@ -31,7 +31,7 @@ except ImportError: # pragma: nocover
 
 from plano import *
 
-test_project_dir = get_absolute_path("test-project")
+test_project_dir = join(get_parent_dir(get_parent_dir(__file__)), "test-project")
 
 class test_project(working_dir):
     def __enter__(self):
@@ -432,6 +432,11 @@ def io_operations():
         file_c = touch("c")
         assert is_file(file_c), file_c
 
+        file_d = write("d", "front@middle@@middle@back")
+        replace_in_file(file_d, "@middle@", "M", count=1)
+        result = read(file_d)
+        assert result == "frontM@middle@back", result
+
 @test
 def iterable_operations():
     result = unique([1, 1, 1, 2, 2, 3])
@@ -697,23 +702,35 @@ def process_operations():
         with start("date", stdin="i", stdout="o", stderr="e"):
             pass
 
-            with expect_system_exit():
-                exit()
+    with expect_system_exit():
+        exit()
 
-            with expect_system_exit():
-                exit("abc")
+    with expect_system_exit():
+        exit(verbose=True)
 
-            with expect_system_exit():
-                exit(Exception())
+    with expect_system_exit():
+        exit("abc")
 
-            with expect_system_exit():
-                exit(123)
+    with expect_system_exit():
+        exit("abc", verbose=True)
 
-            with expect_system_exit():
-                exit(-123)
+    with expect_system_exit():
+        exit(Exception())
 
-            with expect_exception(PlanoException):
-                exit(object())
+    with expect_system_exit():
+        exit(Exception(), verbose=True)
+
+    with expect_system_exit():
+        exit(123)
+
+    with expect_system_exit():
+        exit(123, verbose=True)
+
+    with expect_system_exit():
+        exit(-123)
+
+    with expect_exception(PlanoException):
+        exit(object())
 
 @test
 def string_operations():

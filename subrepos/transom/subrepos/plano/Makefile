@@ -41,7 +41,7 @@ build:
 	./setup.py check
 
 .PHONY: install
-install: build
+install: clean
 	./setup.py install --root ${DESTDIR} --prefix ${PREFIX}
 
 .PHONY: docs

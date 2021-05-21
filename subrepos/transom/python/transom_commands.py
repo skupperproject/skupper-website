@@ -100,23 +100,6 @@ def clean(app):
     for path in find(".", "*.pyc"):
         remove(path)
 
-@command(args=(CommandArgument("remote", help="Get remote commits"),
-               CommandArgument("recursive", help="Update modules recursively")))
-def modules(app, remote=False, recursive=False):
-    """Update Git submodules"""
-
-    check_program("git")
-
-    command = ["git", "submodule", "update", "--init"]
-
-    if remote:
-        command.append("--remote")
-
-    if recursive:
-        command.append("--recursive")
-
-    run(command)
-
 class project_env(working_env):
     def __init__(self):
         super(project_env, self).__init__(PYTHONPATH="python")

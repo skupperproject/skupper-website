@@ -22,7 +22,7 @@ from plano import *
 
 from bullseye import test as test_command
 
-test_project_dir = get_absolute_path("test-project")
+test_project_dir = join(get_parent_dir(get_parent_dir(__file__)), "test-project")
 result_file = "build/result.json"
 
 class test_project(working_dir):

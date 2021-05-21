@@ -706,6 +706,9 @@ def tail_lines(file, count):
 
         return lines[-count:]
 
+def replace_in_file(file, expr, replacement, count=0):
+    write(file, replace(read(file), expr, replacement, count=count))
+
 ## Iterable operations
 
 def unique(iterable):
@@ -1239,24 +1242,31 @@ def call(command, input=None, shell=False, quiet=False):
 
     return proc.stdout_result
 
-def exit(arg=None, *args):
+def exit(arg=None, *args, **kwargs):
+    verbose = kwargs.get("verbose", False)
+
     if arg in (0, None):
+        if verbose:
+            notice("Exiting normally")
+
         _sys.exit()
 
     if is_string(arg):
-        error(arg, *args)
-        _sys.exit(1)
+        if args:
+            arg = arg.format(*args)
+
+        if verbose:
+            error(arg)
+
+        _sys.exit(arg)
 
     if isinstance(arg, BaseException):
-        error(str(arg))
-        _sys.exit(1)
+        if verbose:
+            error(arg)
+
+        _sys.exit(str(arg))
 
     if isinstance(arg, int):
-        if arg > 0:
-            error("Exiting with code {0}", arg)
-        else:
-            notice("Exiting with code {0}", arg)
-
         _sys.exit(arg)
 
     raise PlanoException("Illegal argument")
