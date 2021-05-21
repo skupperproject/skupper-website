@@ -1,20 +1,17 @@
 # Using Skupper with OpenShift
 
-## Developer tools
+## Prerequisites
 
-OpenShift provides a command-line tool called `oc` for controlling
-OpenShift resources and operating clusters.
+* You must have [access to an OpenShift cluster](https://www.openshift.com/try).
+* You must [install the OpenShift command-line tool (`oc`)][installation].
 
-The `oc` command is a `kubectl` equivalent with extensions for
-OpenShift.  The Skupper getting started guide uses `kubectl` for the
-core Kubernetes operations, but you can safely use `oc` instead.  For
-example, `kubectl create namespace west` and `oc create namespace
+**Note:** The `oc` command is a `kubectl` equivalent with extensions
+for OpenShift.  The Skupper getting started guide uses `kubectl` for
+the core Kubernetes operations, but you can safely use `oc` instead.
+For example, `kubectl create namespace west` and `oc create namespace
 west` have the same effect.
 
-See the [OpenShift CLI getting started guide][cli] for more
-information.
-
-[cli]: https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html
+[installation]: https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html#installing-openshift-cli
 
 ## Logging in
 
@@ -48,5 +45,6 @@ command that you can paste into your console session.
 
 * [OpenShift website](https://www.openshift.com/)
 * [OpenShift documentation](https://docs.openshift.com/)
+* [OpenShift CLI getting started guide](https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html)
 * [OKD website](https://www.okd.io/)
 * [OKD documentation](https://docs.okd.io/)

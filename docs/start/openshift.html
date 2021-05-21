@@ -78,19 +78,18 @@
 
 <h1 id="using-skupper-with-openshift">Using Skupper with OpenShift</h1>
 
-<h2 id="developer-tools">Developer tools</h2>
+<h2 id="prerequisites">Prerequisites</h2>
 
-<p>OpenShift provides a command-line tool called <code>oc</code> for controlling
-OpenShift resources and operating clusters.</p>
+<ul>
+<li>You must have <a href="https://www.openshift.com/try">access to an OpenShift cluster</a>.</li>
+<li>You must <a href="https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html#installing-openshift-cli">install the OpenShift command-line tool (<code>oc</code>)</a>.</li>
+</ul>
 
-<p>The <code>oc</code> command is a <code>kubectl</code> equivalent with extensions for
-OpenShift.  The Skupper getting started guide uses <code>kubectl</code> for the
-core Kubernetes operations, but you can safely use <code>oc</code> instead.  For
-example, <code>kubectl create namespace west</code> and <code>oc create namespace
+<p><strong>Note:</strong> The <code>oc</code> command is a <code>kubectl</code> equivalent with extensions
+for OpenShift.  The Skupper getting started guide uses <code>kubectl</code> for
+the core Kubernetes operations, but you can safely use <code>oc</code> instead.
+For example, <code>kubectl create namespace west</code> and <code>oc create namespace
 west</code> have the same effect.</p>
-
-<p>See the <a href="https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html">OpenShift CLI getting started guide</a> for more
-information.</p>
 
 <h2 id="logging-in">Logging in</h2>
 
@@ -126,6 +125,7 @@ command that you can paste into your console session.</p>
 <ul>
 <li><a href="https://www.openshift.com/">OpenShift website</a></li>
 <li><a href="https://docs.openshift.com/">OpenShift documentation</a></li>
+<li><a href="https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html">OpenShift CLI getting started guide</a></li>
 <li><a href="https://www.okd.io/">OKD website</a></li>
 <li><a href="https://docs.okd.io/">OKD documentation</a></li>
 </ul>

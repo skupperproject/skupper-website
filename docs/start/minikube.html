@@ -78,18 +78,20 @@
 
 <h1 id="using-skupper-with-minikube">Using Skupper with Minikube</h1>
 
-<h2 id="developer-tools">Developer tools</h2>
+<h2 id="prerequisites">Prerequisites</h2>
 
-<p>The <code>minikube</code> command-line tool allows you to create and operate
-local Kubernetes clusters.</p>
-
-<p>See the <a href="https://minikube.sigs.k8s.io/docs/start/">Minikube getting started guide</a> for more information.</p>
+<ul>
+<li><p>You must <a href="https://minikube.sigs.k8s.io/docs/start/">install Minikube and start a cluster</a>.</p></li>
+<li><p>You must have a version of <code>kubectl</code> compatible with your Minikube
+Kubernetes version.  You can also use the <a href="https://minikube.sigs.k8s.io/docs/handbook/kubectl/"><code>kubectl</code> built in to
+Minikube</a>.</p></li>
+</ul>
 
 <h2 id="logging-in">Logging in</h2>
 
 <p>Minikube does not offer a dedicated login command, but you can re-run
 the <code>minikube start</code> command in each console session you wish to
-configure.</p>
+configure.  This initializes the required kubeconfigs in each case.</p>
 
 <div class="code-label session-2">Console for West</div>
 
@@ -105,9 +107,11 @@ minikube start
 
 <h2 id="running-minikube-tunnel">Running minikube tunnel</h2>
 
-<p>Skupper requires cluster-external network access in order to form
-links between clusters.  Run <code>minikube tunnel</code> in the background
-to enable this access.</p>
+<p>Skupper requires IP connectivity to at least one cluster in order to
+form links between clusters.  If you are using Minikube to test
+Skupper, one of your Minikube clusters must have external network
+access.  To enable network access, run <code>minikube tunnel</code> in the
+background after running <code>minikube start</code>.</p>
 
 <p>Make sure you run <code>minikube tunnel</code> with the same kubeconfig and
 Minikube profile you used for <code>minikube start</code>.  In the Hello World
@@ -119,7 +123,8 @@ minikube tunnel
 </code></pre>
 
 <p>The tunnel must run continuously while you are using it, so you will
-likely want to run it in its own console session.</p>
+likely want to run it in its own console session, separate from the
+console you use to interact with the West namespace.</p>
 
 <p>See <a href="https://minikube.sigs.k8s.io/docs/handbook/accessing/#using-minikube-tunnel">Using minikube tunnel</a> for more information.</p>
 

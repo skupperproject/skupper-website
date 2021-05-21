@@ -1,19 +1,21 @@
 # Using Skupper with Minikube
 
-## Developer tools
+## Prerequisites
 
-The `minikube` command-line tool allows you to create and operate
-local Kubernetes clusters.
+* You must [install Minikube and start a cluster][gs].
 
-See the [Minikube getting started guide][gs] for more information.
+* You must have a version of `kubectl` compatible with your Minikube
+  Kubernetes version.  You can also use the [`kubectl` built in to
+  Minikube][kubectl].
 
 [gs]: https://minikube.sigs.k8s.io/docs/start/
+[kubectl]: https://minikube.sigs.k8s.io/docs/handbook/kubectl/
 
 ## Logging in
 
 Minikube does not offer a dedicated login command, but you can re-run
 the `minikube start` command in each console session you wish to
-configure.
+configure.  This initializes the required kubeconfigs in each case.
 
 <div class="code-label session-2">Console for West</div>
 
@@ -27,9 +29,11 @@ configure.
 
 ## Running minikube tunnel
 
-Skupper requires cluster-external network access in order to form
-links between clusters.  Run `minikube tunnel` in the background
-to enable this access.
+Skupper requires IP connectivity to at least one cluster in order to
+form links between clusters.  If you are using Minikube to test
+Skupper, one of your Minikube clusters must have external network
+access.  To enable network access, run `minikube tunnel` in the
+background after running `minikube start`.
 
 Make sure you run `minikube tunnel` with the same kubeconfig and
 Minikube profile you used for `minikube start`.  In the Hello World
@@ -40,7 +44,8 @@ West namespace.
     minikube tunnel
 
 The tunnel must run continuously while you are using it, so you will
-likely want to run it in its own console session.
+likely want to run it in its own console session, separate from the
+console you use to interact with the West namespace.
 
 See [Using minikube tunnel][tunnel] for more information.
 

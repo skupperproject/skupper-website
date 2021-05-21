@@ -1,15 +1,11 @@
-# Using Skupper with Google Kubernetes Engine
+# Using Skupper with Google Kubernetes Engine (GKE)
 
-## Developer tools
+## Prerequisites
 
-The Google Cloud SDK provides a command-line tool called `gcloud` for
-using the features of Google Cloud, including Google Kubernetes Engine
-(GKE).
+* You must have [access to a GKE cluster](https://cloud.google.com/kubernetes-engine).
+* You must [install and set up the Google Cloud SDK (`gcloud`)][installation].
 
-See the [Google Cloud SDK getting started guide][cli] for more
-information.
-
-[cli]: https://cloud.google.com/sdk/docs/quickstart
+[installation]: https://cloud.google.com/sdk/docs/install
 
 ## Logging in
 
@@ -41,5 +37,6 @@ See the [Cloud NAT overview][nat-overview] for more information.
 
 ## More information
 
+* [Google Cloud SDK getting started guide](https://cloud.google.com/sdk/docs/quickstart)
 * [Google Kubernetes Engine website](https://cloud.google.com/kubernetes-engine)
 * [Google Kubernetes Engine documentation](https://cloud.google.com/kubernetes-engine/docs)
