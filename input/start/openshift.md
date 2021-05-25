@@ -2,8 +2,8 @@
 
 ## Prerequisites
 
-* You must have [access to an OpenShift cluster](https://www.openshift.com/try).
-* You must [install the OpenShift command-line tool (`oc`)][installation].
+* You must have [access to an OpenShift cluster][start].
+* You must [install the OpenShift command-line tool (`oc`)][install].
 
 **Note:** The `oc` command is a `kubectl` equivalent with extensions
 for OpenShift.  The Skupper getting started guide uses `kubectl` for
@@ -11,11 +11,12 @@ the core Kubernetes operations, but you can safely use `oc` instead.
 For example, `kubectl create namespace west` and `oc create namespace
 west` have the same effect.
 
+[start]: https://www.openshift.com/try
 [installation]: https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html#installing-openshift-cli
 
 ## Logging in
 
-### Logging in using the oc command
+### Logging in using the command line
 
 Use the `oc login` command with the URL of your OpenShift cluster and
 your username.

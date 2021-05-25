@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Using Skupper with OpenShift</title>
+    <title>Skupper - Using Skupper with IBM Kubernetes Service</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -59,7 +59,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/start/index.html">Getting started</a> <span class="path-separator">&#8250;</span> <a href="/start/openshift.html">Using Skupper with OpenShift</a></div></nav>
+  <nav id="-path-nav"><div><a href="/start/index.html">Getting started</a> <span class="path-separator">&#8250;</span> <a href="/start/ibmks.html">Using Skupper with IBM Kubernetes Service</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -76,58 +76,59 @@
   <div>
     <main>
 
-<h1 id="using-skupper-with-openshift">Using Skupper with OpenShift</h1>
+<h1 id="using-skupper-with-ibm-kubernetes-service">Using Skupper with IBM Kubernetes Service</h1>
 
 <h2 id="prerequisites">Prerequisites</h2>
 
 <ul>
-<li>You must have <a href="https://www.openshift.com/try">access to an OpenShift cluster</a>.</li>
-<li>You must [install the OpenShift command-line tool (<code>oc</code>)][install].</li>
+<li>You must have <a href="https://www.ibm.com/cloud/kubernetes-service">access to an IBM Kubernetes Service cluster</a>.</li>
+<li>You must <a href="https://cloud.ibm.com/docs/cli?topic=cli-install-ibmcloud-cli">install the IBM Cloud CLI</a>.</li>
+<li>You must <a href="https://cloud.ibm.com/docs/containers?topic=containers-cs_cli_install#cs_cli_install_steps">install the <code>container-service</code> plugin</a></li>
 </ul>
-
-<p><strong>Note:</strong> The <code>oc</code> command is a <code>kubectl</code> equivalent with extensions
-for OpenShift.  The Skupper getting started guide uses <code>kubectl</code> for
-the core Kubernetes operations, but you can safely use <code>oc</code> instead.
-For example, <code>kubectl create namespace west</code> and <code>oc create namespace
-west</code> have the same effect.</p>
 
 <h2 id="logging-in">Logging in</h2>
 
 <h3 id="logging-in-using-the-command-line">Logging in using the command line</h3>
 
-<p>Use the <code>oc login</code> command with the URL of your OpenShift cluster and
-your username.</p>
+<p>Use the <code>ibmcloud login</code> command:</p>
 
-<pre><code>oc login openshift.example.net:6443 -u alice
+<pre><code>$ ibmcloud login
 </code></pre>
 
-<p>The command will prompt you for any needed credentials or login
-details.</p>
-
-<p>See the <a href="https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html#cli-logging-in_cli-developer-commands">instructions for logging in</a> for more
-information.</p>
+<p>It will prompt you for required credentials.</p>
 
 <h3 id="logging-in-using-the-console">Logging in using the console</h3>
 
-<p>You can also use the OpenShift console to generate an <code>oc login</code>
-command that you can paste into your console session.</p>
+<p>Use the <code>ibmcloud</code> command and the IBM Cloud console to log in:</p>
 
 <ol>
-<li>Navigate to the OpenShift console and log in.</li>
-<li>Select the menu for your account in the top right of the page.</li>
-<li>Select <strong>Copy Login Command</strong>.  Follow the prompts until you have an
-<code>oc login</code> command to copy.</li>
-<li>Paste the <code>oc login</code> command into your console session.</li>
+<li>Go to <a href="https://cloud.ibm.com/">cloud.ibm.com</a> and sign in.</li>
+<li>Select <strong>Kubernetes</strong> in the menu on the left.</li>
+<li>Navigate to your cluster.</li>
+<li>Select <strong>Actions</strong> &gt; <strong>Connect via CLI</strong>.</li>
+<li>Copy the provided <code>ibmcloud login</code> command and paste it into your console session.</li>
+<li>Copy the provided <code>ibmcloud ks cluster config</code> command and paste it into your console session.</li>
 </ol>
+
+<h2 id="incoming-site-links">Incoming site links</h2>
+
+<p>Clusters in the free tier do not support load balancers.  As a result,
+they cannot accept incoming connections.  Since by default Skupper
+attempts to set up an ingress for accepting incoming site links, this
+causes <code>skupper init</code> to fail.</p>
+
+<p>To avoid this, use the <code>--ingress none</code> option:</p>
+
+<pre><code>skupper init --ingress none
+</code></pre>
+
+<p>The non-free clusters do not have this limitation.</p>
 
 <h2 id="more-information">More information</h2>
 
 <ul>
-<li><a href="https://www.openshift.com/">OpenShift website</a></li>
-<li><a href="https://docs.openshift.com/">OpenShift documentation</a></li>
-<li><a href="https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html">OpenShift CLI getting started guide</a></li>
-<li><a href="https://www.okd.io/">OKD website</a></li>
-<li><a href="https://docs.okd.io/">OKD documentation</a></li>
+<li><a href="https://www.ibm.com/cloud/kubernetes-service">IBM Kubernetes Service website</a></li>
+<li><a href="https://cloud.ibm.com/docs/containers">IBM Kubernetes Service documentation</a></li>
 </ul>
 
 

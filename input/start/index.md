@@ -36,15 +36,15 @@ options for setting up Kubernetes clusters:
   <li><a href="https://docs.aws.amazon.com/eks">Amazon Elastic Kubernetes Service (EKS)</a></li>
   <li><a href="https://docs.microsoft.com/en-us/azure/aks">Azure Kubernetes Service (AKS)</a></li>
   <li><a href="gke.html">Google Kubernetes Engine (GKE)</a></li>
-  <li><a href="https://cloud.ibm.com/docs/containers">IBM Kubernetes Service</a></li>
+  <li><a href="ibmks.html">IBM Kubernetes Service</a></li>
   <li><a href="openshift.html">OpenShift</a></li>
   <li><a href="https://kubernetes.io/partners/#kcsp">More providers</a></li>
 </ul>
 
 These instructions require `kubectl` version 1.15 or later.  See the
-[kubectl installation guide][kubectl_guide] for more information.
+[kubectl installation guide][kubectl-install] for more information.
 
-[kubectl_guide]: https://kubernetes.io/docs/tasks/tools/install-kubectl/
+[kubectl-install]: https://kubernetes.io/docs/tasks/tools/
 
 ## Step 1: Install the Skupper command-line tool in your environment
 
@@ -145,7 +145,7 @@ See the following links for more information:
   <li><a href="https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html">Amazon Elastic Kubernetes Service (EKS)</a></li>
   <li><a href="https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster">Azure Kubernetes Service (AKS)</a></li>
   <li><a href="gke.html#logging-in">Google Kubernetes Engine (GKE)</a></li>
-  <li><a href="https://cloud.ibm.com/docs/containers?topic=containers-access_cluster">IBM Kubernetes Service</a></li>
+  <li><a href="ibmks.html#logging-in">IBM Kubernetes Service</a></li>
   <li><a href="openshift.html#logging-in">OpenShift</a></li>
 </ul>
 
