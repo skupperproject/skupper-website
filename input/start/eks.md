@@ -1,1 +1,1 @@
-# Using Skupper with Amazon Elastic Kubernetes Service
+# Using Skupper with Amazon Elastic Kubernetes Service (EKS)

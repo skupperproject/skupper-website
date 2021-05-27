@@ -14,21 +14,31 @@
 
 ### Logging in using the command line
 
-Use the `ibmcloud login` command:
+To log in, use the `ibmcloud login` command.  It will prompt you for
+required credentials.
 
     $ ibmcloud login
 
-It will prompt you for required credentials.
+To use `kubectl` with a cluster, you must configure your local
+kubeconfig.  Use `ibmcloud ks cluster ls` to list the clusters
+available.  Then use `ibmcloud ks cluster config` with the `--cluster`
+option to make one of them your active cluster.
+
+    $ ibmcloud ks cluster ls
+    Name        ID                      State
+    cluster1    c2j3e62d0k7q0jq9d01g    normal
+    $ ibmcloud ks cluster config --cluster cluster1
 
 ### Logging in using the console
 
 Use the `ibmcloud` command and the IBM Cloud console to log in:
 
 1. Go to [cloud.ibm.com](https://cloud.ibm.com/) and sign in.
+1. Select **Log in to CLI and API** in the account menu in the top right.
+1. Copy the provided `ibmcloud login` command and paste it into your console session.
 1. Select **Kubernetes** in the menu on the left.
 1. Navigate to your cluster.
 1. Select **Actions** &gt; **Connect via CLI**.
-1. Copy the provided `ibmcloud login` command and paste it into your console session.
 1. Copy the provided `ibmcloud ks cluster config` command and paste it into your console session.
 
 ## Incoming site links

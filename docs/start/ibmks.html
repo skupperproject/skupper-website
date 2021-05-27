@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
     <script type="text/javascript" src="/main.js" defer="defer"></script>
 
-
+<script src="http://localhost:35729/livereload.js"></script>
 
 
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
@@ -90,12 +90,22 @@
 
 <h3 id="logging-in-using-the-command-line">Logging in using the command line</h3>
 
-<p>Use the <code>ibmcloud login</code> command:</p>
+<p>To log in, use the <code>ibmcloud login</code> command.  It will prompt you for
+required credentials.</p>
 
 <pre><code>$ ibmcloud login
 </code></pre>
 
-<p>It will prompt you for required credentials.</p>
+<p>To use <code>kubectl</code> with a cluster, you must configure your local
+kubeconfig.  Use <code>ibmcloud ks cluster ls</code> to list the clusters
+available.  Then use <code>ibmcloud ks cluster config</code> with the <code>--cluster</code>
+option to make one of them your active cluster.</p>
+
+<pre><code>$ ibmcloud ks cluster ls
+Name        ID                      State
+cluster1    c2j3e62d0k7q0jq9d01g    normal
+$ ibmcloud ks cluster config --cluster cluster1
+</code></pre>
 
 <h3 id="logging-in-using-the-console">Logging in using the console</h3>
 
@@ -103,10 +113,11 @@
 
 <ol>
 <li>Go to <a href="https://cloud.ibm.com/">cloud.ibm.com</a> and sign in.</li>
+<li>Select <strong>Log in to CLI and API</strong> in the account menu in the top right.</li>
+<li>Copy the provided <code>ibmcloud login</code> command and paste it into your console session.</li>
 <li>Select <strong>Kubernetes</strong> in the menu on the left.</li>
 <li>Navigate to your cluster.</li>
 <li>Select <strong>Actions</strong> &gt; <strong>Connect via CLI</strong>.</li>
-<li>Copy the provided <code>ibmcloud login</code> command and paste it into your console session.</li>
 <li>Copy the provided <code>ibmcloud ks cluster config</code> command and paste it into your console session.</li>
 </ol>
 

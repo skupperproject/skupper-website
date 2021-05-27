@@ -1,1 +1,1 @@
-# Using Skupper with Azure Kubernetes Service
+# Using Skupper with Azure Kubernetes Service (AKS)
