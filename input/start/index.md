@@ -370,9 +370,9 @@ By introducing Skupper into each namespace, we were able to create a
 virtual application network that connects the services across cluster
 boundaries.
 
-See the [Hello World
-example](https://github.com/skupperproject/skupper-example-hello-world/blob/master/README.md#what-just-happened)
-for more detail.
+See the [Hello World example][example] for more detail.
+
+[example]: https://github.com/skupperproject/skupper-example-hello-world/blob/main/README.md#what-just-happened
 
 ## The condensed version
 
