@@ -3,7 +3,7 @@
 ## Prerequisites
 
 * You must have [access to an OpenShift cluster][start].
-* You must [install the OpenShift command-line tool (`oc`)][install].
+* You must [install the OpenShift command-line tool (`oc`)](https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html#installing-openshift-cli).
 
 **Note:** The `oc` command is a `kubectl` equivalent with extensions
 for OpenShift.  The Skupper getting started guide uses `kubectl` for
