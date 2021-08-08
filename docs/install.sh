@@ -55,7 +55,7 @@ curl -fL "$RELEASE_URL" | tar -C "$INSTALL_DIR" -xzf -
 echo
 echo "The Skupper command is now installed in ${INSTALL_DIR}"
 
-if [ `which skupper` != "$INSTALL_DIR/skupper" ]; then
+if [ ! `which skupper` = "$INSTALL_DIR/skupper" ]; then
     echo
     echo "Use the following command to place it on your path:"
     echo
