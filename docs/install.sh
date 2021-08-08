@@ -33,13 +33,32 @@ else
     exit 1
 fi
 
+echo
+echo "Looking up the latest release for your environment"
+echo
+
+RELEASE_URL=`curl -sL "https://api.github.com/repos/skupperproject/skupper/releases/latest" \
+             | grep browser_download_url \
+             | cut -d '"' -f 4 \
+             | grep "${OPERATING_SYSTEM}-${ARCHITECTURE}"`
+
+echo "$RELEASE_URL"
+
 mkdir -p "$INSTALL_DIR"
 
-LATEST_URL="https://api.github.com/repos/skupperproject/skupper/releases/latest"
-# RELEASE_URL=`curl -sL $LATEST_URL | jq -r ".assets[] | select(.browser_download_url | contains(\"${OPERATING_SYSTEM}-${ARCHITECTURE}\")) | .browser_download_url"`
-
-RELEASE_URL=`curl -sL "$LATEST_URL" | grep browser_download_url | cut -d '"' -f 4 | grep "${OPERATING_SYSTEM}-${ARCHITECTURE}"`
+echo
+echo "Downloading and installing"
+echo
 
 curl -fL "$RELEASE_URL" | tar -C "$INSTALL_DIR" -xzf -
 
-echo "The Skupper command is now installed at ${INSTALL_DIR}/skupper"
+echo
+echo "The Skupper command is now installed in ${INSTALL_DIR}"
+
+if [ `which skupper` != "$INSTALL_DIR/skupper" ]; then
+    echo
+    echo "Use the following command to place it on your path:"
+    echo
+    echo "  export PATH=\"$INSTALL_DIR:\$PATH\""
+    echo
+fi
