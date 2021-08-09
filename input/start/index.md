@@ -354,7 +354,7 @@ See the [Hello World example][example] for more detail.
 
 <div class="code-label">Skupper command installation</div>
 
-    curl https://skupper.io/install.sh | sh -
+    curl https://skupper.io/install.sh | sh
 
 <div class="code-label session-2">West: Setup</div>
 
