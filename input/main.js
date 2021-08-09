@@ -151,3 +151,27 @@ window.addEventListener("load", () => {
         }
     });
 });
+
+window.addEventListener("load", () => {
+    if (!navigator.clipboard) {
+        return;
+    }
+
+    for (let pre of $$("pre")) {
+        const code = pre.$("code");
+
+        const button = document.createElement("a");
+        button.classList.add("copy-button");
+
+        const span = document.createElement("span");
+        span.textContent = "content_copy";
+        span.classList.add("material-icons");
+
+        button.appendChild(span);
+        pre.insertBefore(button, code);
+
+        button.addEventListener("click", () => {
+            navigator.clipboard.writeText(code.textContent.trim());
+        });
+    }
+});

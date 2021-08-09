@@ -89,6 +89,22 @@ pre {
     color: var(--code-fg-color);
 }
 
+a.copy-button {
+    display: none;
+}
+
+a.copy-button > span {
+    color: var(--code-fg-color);
+    font-size: 1.2em;
+}
+
+pre:hover a.copy-button {
+    display: block;
+    float: right;
+    padding: 0 0.2em;
+    cursor: pointer;
+}
+
 p code, li code {
     background-color: var(--code-bg-color);
     padding: 0 0.1em;

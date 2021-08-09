@@ -5,12 +5,12 @@
 [Skupper {{skupper_release}}][release-page] was released on 30 July
 2021.
 
-Use the [install script][install-script] to download and extract the
-Skupper command:
+For Linux or the Mac, use the [install script][install-script] to
+download and extract the Skupper command:
 
-<div class="code-label">Linux or Mac</div>
-
-    curl https://skupper.io/install.sh | sh
+<pre>
+  <code style="font-size: 1.3em;">curl https://skupper.io/install.sh | sh</code>
+</pre>
 
 The script installs the command under your home directory.  It prompts
 you to add the command to your path if necessary.
@@ -22,6 +22,8 @@ Skupper](/install/index.html).
 [install-script]: https://github.com/skupperproject/skupper-website/blob/main/docs/install.sh
 
 ## Previous releases
+
+<div style="column-count: 2;" markdown="1">
 
 * [0.6.0](https://github.com/skupperproject/skupper/releases/tag/0.6.0) - May 2021
 * [0.5.3](https://github.com/skupperproject/skupper/releases/tag/0.5.3) - April 2021
@@ -35,6 +37,8 @@ Skupper](/install/index.html).
 * [0.3.1](https://github.com/skupperproject/skupper/releases/tag/0.3.1) - August 2020
 * [0.3.0](https://github.com/skupperproject/skupper/releases/tag/0.3.0) - July 2020
 * [0.2.0](https://github.com/skupperproject/skupper/releases-cli/tag/0.2.0) - April 2020
+
+</div>
 
 ## More resources
 
