@@ -43,7 +43,6 @@ def generate_docs(app, owner="skupperproject", branch="main", output_dir="input/
         copy("build/skupper/latest/console", output_dir)
         copy("build/skupper/latest/declarative", output_dir)
 
-
 @command
 def test(app):
     render(app)
@@ -51,4 +50,7 @@ def test(app):
     check_files(app)
 
     with temp_dir() as d:
+        with working_env(HOME=d):
+            run("cat docs/install.sh | sh -", shell=True)
+
         generate_docs(app, output_dir=d)

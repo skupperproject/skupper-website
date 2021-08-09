@@ -56,6 +56,8 @@ environment.
 Use the [install script][install-script] to download and extract the
 command:
 
+<div class="code-label">Linux or Mac</div>
+
     curl https://skupper.io/install.sh | sh -
 
 The script installs the command under your home directory.  It prompts
