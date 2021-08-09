@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
     <script type="text/javascript" src="/main.js" defer="defer"></script>
 
-
+<script src="http://localhost:35729/livereload.js"></script>
 
 
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
@@ -136,7 +136,7 @@ command:</p>
 <p>The script installs the command under your home directory.  It prompts
 you to add the command to your path if necessary.</p>
 
-<p>For more installation options, see <a href="/install/index.html">Installing
+<p>For Windows and other installation options, see <a href="/install/index.html">Installing
 Skupper</a>.</p>
 
 <h2 id="step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</h2>
@@ -169,6 +169,13 @@ another.</p>
 <div class="code-label session-1">Console for East</div>
 
 <pre><code>export KUBECONFIG=$HOME/.kube/config-east
+</code></pre>
+
+<p><strong>Note:</strong> On Windows, use the <code>set</code> command instead of <code>export</code>:</p>
+
+<div class="code-label">Windows</div>
+
+<pre><code>set KUBECONFIG=%UserProfile%\.kube\config-&lt;namespace&gt;
 </code></pre>
 
 <h3 id="log-in-to-your-clusters">Log in to your clusters</h3>

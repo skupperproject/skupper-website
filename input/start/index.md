@@ -63,7 +63,7 @@ command:
 The script installs the command under your home directory.  It prompts
 you to add the command to your path if necessary.
 
-For more installation options, see [Installing
+For Windows and other installation options, see [Installing
 Skupper](/install/index.html).
 
 [install-script]: https://github.com/skupperproject/skupper-website/blob/main/docs/install.sh
@@ -99,6 +99,12 @@ Start a console session for each of your namespaces.  Set the
 <div class="code-label session-1">Console for East</div>
 
     export KUBECONFIG=$HOME/.kube/config-east
+
+**Note:** On Windows, use the `set` command instead of `export`:
+
+<div class="code-label">Windows</div>
+
+    set KUBECONFIG=%UserProfile%\.kube\config-<namespace>
 
 ### Log in to your clusters
 
