@@ -51,6 +51,6 @@ def test(app):
 
     with temp_dir() as d:
         with working_env(HOME=d):
-            run("cat docs/install.sh | sh -", shell=True)
+            run("cat docs/install.sh | sh", shell=True)
 
         generate_docs(app, output_dir=d)

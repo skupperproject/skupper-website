@@ -58,7 +58,7 @@ command:
 
 <div class="code-label">Linux or Mac</div>
 
-    curl https://skupper.io/install.sh | sh -
+    curl https://skupper.io/install.sh | sh
 
 The script installs the command under your home directory.  It prompts
 you to add the command to your path if necessary.
