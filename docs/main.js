@@ -152,26 +152,24 @@ window.addEventListener("load", () => {
     });
 });
 
-window.addEventListener("load", () => {
-    if (!navigator.clipboard) {
-        return;
-    }
+if (navigator.clipboard) {
+    window.addEventListener("load", () => {
+        for (let pre of $$("pre")) {
+            const code = pre.$("code");
 
-    for (let pre of $$("pre")) {
-        const code = pre.$("code");
+            const button = document.createElement("a");
+            button.classList.add("copy-button");
 
-        const button = document.createElement("a");
-        button.classList.add("copy-button");
+            const span = document.createElement("span");
+            span.textContent = "content_copy";
+            span.classList.add("material-icons");
 
-        const span = document.createElement("span");
-        span.textContent = "content_copy";
-        span.classList.add("material-icons");
+            button.appendChild(span);
+            code.insertBefore(button, code.firstChild);
 
-        button.appendChild(span);
-        pre.insertBefore(button, code);
-
-        button.addEventListener("click", () => {
-            navigator.clipboard.writeText(code.textContent.trim());
-        });
-    }
-});
+            button.addEventListener("click", () => {
+                navigator.clipboard.writeText(code.textContent.trim());
+            });
+        }
+    });
+}

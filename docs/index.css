@@ -86,7 +86,7 @@ section:first-of-type > div {
 
 #-graphic-and-summary > *:nth-child(2) {
     max-width: 28em;
-    margin-right: 4em;
+    margin-right: 3em;
 }
 
 #-graphic-and-summary > *:nth-child(2) > h1 {

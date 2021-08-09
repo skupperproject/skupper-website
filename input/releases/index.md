@@ -8,9 +8,7 @@
 For Linux or the Mac, use the [install script][install-script] to
 download and extract the Skupper command:
 
-<pre>
-  <code style="font-size: 1.3em;">curl https://skupper.io/install.sh | sh</code>
-</pre>
+<pre><code style="font-size: 1.3em;">curl https://skupper.io/install.sh | sh</code></pre>
 
 The script installs the command under your home directory.  It prompts
 you to add the command to your path if necessary.
