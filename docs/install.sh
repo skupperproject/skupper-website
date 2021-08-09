@@ -2,39 +2,37 @@
 
 set -e
 
+echo
 echo "Determining your OS and architecture"
 echo
 
-OPERATING_SYSTEM=`uname -s`
-ARCHITECTURE=`uname -m`
-INSTALL_DIR="$HOME/bin"
+case `uname -s` in
+    Darwin)
+        OPERATING_SYSTEM=mac
+        INSTALL_DIR="$HOME/bin"
+        ;;
+    Linux)
+        OPERATING_SYSTEM=linux
+        INSTALL_DIR="$HOME/.local/bin"
+        ;;
+    *)
+        echo "Error: Unknown operating system"
+        exit 1
+        ;;
+esac
 
-if [ "$OPERATING_SYSTEM" = "Darwin" ]; then
-    OPERATING_SYSTEM="mac"
-elif [ "$OPERATING_SYSTEM" = "Linux" ]; then
-    OPERATING_SYSTEM="linux"
-    INSTALL_DIR="$HOME/.local/bin"
-else
-    echo "Error: Unknown operating system: $OPERATING_SYSTEM"
-    exit 1
-fi
-
-if [ "$ARCHITECTURE" = "aarch64" ]; then
-    ARCHITECTURE="arm64"
-elif [ "$ARCHITECTURE" = "armv7l" ]; then
-    ARCHITECTURE="arm32"
-elif [ "$ARCHITECTURE" = "arm64" ]; then
-    ARCHITECTURE="arm64"
-elif [ "$ARCHITECTURE" = "i386" ]; then
-    ARCHITECTURE="i386"
-elif [ "$ARCHITECTURE" = "i686" ]; then
-    ARCHITECTURE="i386"
-elif [ "$ARCHITECTURE" = "x86_64" ]; then
-    ARCHITECTURE="amd64"
-else
-    echo "Error: Unknown architecture: $ARCHITECTURE"
-    exit 1
-fi
+case `uname -m` in
+    aarch64) ARCHITECTURE=arm64 ;;
+    arm64)   ARCHITECTURE=arm64 ;;
+    armv7l)  ARCHITECTURE=arm32 ;;
+    i386)    ARCHITECTURE=i386  ;;
+    i686)    ARCHITECTURE=i386  ;;
+    x86_64)  ARCHITECTURE=amd64 ;;
+    *)
+        echo "Error: Unknown architecture"
+        exit 1
+        ;;
+esac
 
 echo "  Operating system: $OPERATING_SYSTEM"
 echo "  Architecture: $ARCHITECTURE"
@@ -51,18 +49,17 @@ RELEASE_URL=`curl -sL "https://api.github.com/repos/skupperproject/skupper/relea
 echo "  $RELEASE_URL"
 echo
 
-mkdir -p "$INSTALL_DIR"
-
 echo "Downloading and installing the Skupper command"
 echo
 
+mkdir -p "$INSTALL_DIR"
 curl -fL "$RELEASE_URL" | tar -C "$INSTALL_DIR" -xzf -
 
 echo
 echo "The Skupper command is now installed in ${INSTALL_DIR}"
 echo
 
-if [ ! `which skupper` = "$INSTALL_DIR/skupper" ]; then
+if [ "`which skupper`" != "$INSTALL_DIR/skupper" ]; then
     echo "Use the following command to place it on your path:"
     echo
     echo "  export PATH=\"$INSTALL_DIR:\$PATH\""
