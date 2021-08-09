@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
     <script type="text/javascript" src="/main.js" defer="defer"></script>
 
-
+<script src="http://localhost:35729/livereload.js"></script>
 
 
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
@@ -125,48 +125,17 @@ installing and configuring the Skupper infrastructure.  You need to
 install the <code>skupper</code> command only once for each development
 environment.</p>
 
-<h3 id="download-and-extract-the-command">Download and extract the command</h3>
+<p>Use the <a href="https://github.com/skupperproject/skupper-website/blob/main/docs/install.sh">install script</a> to download and extract the
+command:</p>
 
-<p>To get the latest release of the Skupper command for your platform,
-download it from GitHub and extract the executable using <code>tar</code> or
-<code>unzip</code>.</p>
-
-<div class="code-label">Linux</div>
-
-<pre><code>curl -fL https://github.com/skupperproject/skupper/releases/download/0.7.0/skupper-cli-0.7.0-linux-amd64.tgz | tar -xzf -
+<pre><code>curl https://skupper.io/install.sh | sh -
 </code></pre>
 
-<div class="code-label">Mac</div>
+<p>The script installs the command under your home directory.  It prompts
+you to add the command to your path if necessary.</p>
 
-<pre><code>curl -fL https://github.com/skupperproject/skupper/releases/download/0.7.0/skupper-cli-0.7.0-mac-amd64.tgz | tar -xzf -
-</code></pre>
-
-<p>This produces an executable file named <code>skupper</code> in your current
-directory.</p>
-
-<p>To download artifacts for other platforms, see <a href="/releases/index.html">Skupper
-releases</a>.</p>
-
-<h3 id="place-the-command-on-your-path">Place the command on your path</h3>
-
-<p>The subsequent steps assume <code>skupper</code> is on your path.  As an example,
-this is how you might install it in your home directory:</p>
-
-<pre><code>mkdir -p $HOME/bin
-export PATH=$PATH:$HOME/bin
-mv skupper $HOME/bin
-</code></pre>
-
-<h3 id="check-the-command">Check the command</h3>
-
-<p>To test your installation, run the <code>skupper version</code> command.  You
-should see output like this:</p>
-
-<pre><code>$ skupper version
-client version                 0.7.0
-transport version              not-found
-controller version             not-found
-</code></pre>
+<p>For more installation options, see <a href="/install/index.html">Installing
+Skupper</a>.</p>
 
 <h2 id="step-2-configure-access-to-multiple-namespaces">Step 2: Configure access to multiple namespaces</h2>
 
@@ -350,10 +319,10 @@ the token from West to the <code>skupper link create</code> command in East.</p>
 <p>If your console sessions are on different machines, you might need to
 use <code>scp</code> or a similar tool to transfer the token.</p>
 
-<h3 id="check-the-connection">Check the connection</h3>
+<h3 id="check-the-link">Check the link</h3>
 
 <p>Use the <code>skupper status</code> command again to see if things have changed.
-If the connection is made, you should see the following output:</p>
+If the link is made, you should see the following output:</p>
 
 <div class="code-label session-2">West</div>
 
@@ -372,7 +341,7 @@ Skupper is enabled in namespace 'east'. It is linked to 1 other site.
 <p>You now have a Skupper network capable of multi-cluster communication,
 but no services are attached to it.  This step uses the <code>skupper
 expose</code> command to make a Kubernetes deployment on one namespace
-available on all the connected namespaces.</p>
+available on all the linked namespaces.</p>
 
 <p>In the examples below, we use the Hello World application to
 demonstrate service exposure.  The same steps apply for your own
@@ -473,7 +442,7 @@ boundaries.</p>
 
 <div class="code-label">Skupper command installation</div>
 
-<pre><code>curl -fL https://github.com/skupperproject/skupper-cli/releases/download/0.7.0/skupper-cli-0.7.0-linux-amd64.tgz | tar -xzf -
+<pre><code>curl https://skupper.io/install.sh | sh -
 </code></pre>
 
 <div class="code-label session-2">West: Setup</div>

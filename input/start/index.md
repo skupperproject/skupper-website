@@ -53,44 +53,18 @@ installing and configuring the Skupper infrastructure.  You need to
 install the `skupper` command only once for each development
 environment.
 
-### Download and extract the command
+Use the [install script][install-script] to download and extract the
+command:
 
-To get the latest release of the Skupper command for your platform,
-download it from GitHub and extract the executable using `tar` or
-`unzip`.
+    curl https://skupper.io/install.sh | sh -
 
-<div class="code-label">Linux</div>
+The script installs the command under your home directory.  It prompts
+you to add the command to your path if necessary.
 
-    curl -fL https://github.com/skupperproject/skupper/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-linux-amd64.tgz | tar -xzf -
+For more installation options, see [Installing
+Skupper](/install/index.html).
 
-<div class="code-label">Mac</div>
-
-    curl -fL https://github.com/skupperproject/skupper/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-mac-amd64.tgz | tar -xzf -
-
-This produces an executable file named `skupper` in your current
-directory.
-
-To download artifacts for other platforms, see [Skupper
-releases](/releases/index.html).
-
-### Place the command on your path
-
-The subsequent steps assume `skupper` is on your path.  As an example,
-this is how you might install it in your home directory:
-
-    mkdir -p $HOME/bin
-    export PATH=$PATH:$HOME/bin
-    mv skupper $HOME/bin
-
-### Check the command
-
-To test your installation, run the `skupper version` command.  You
-should see output like this:
-
-    $ skupper version
-    client version                 {{skupper_release}}
-    transport version              not-found
-    controller version             not-found
+[install-script]: https://github.com/skupperproject/skupper-website/blob/main/docs/install.sh
 
 ## Step 2: Configure access to multiple namespaces
 
@@ -262,10 +236,10 @@ the token from West to the `skupper link create` command in East.
 If your console sessions are on different machines, you might need to
 use `scp` or a similar tool to transfer the token.
 
-### Check the connection
+### Check the link
 
 Use the `skupper status` command again to see if things have changed.
-If the connection is made, you should see the following output:
+If the link is made, you should see the following output:
 
 <div class="code-label session-2">West</div>
 
@@ -282,7 +256,7 @@ If the connection is made, you should see the following output:
 You now have a Skupper network capable of multi-cluster communication,
 but no services are attached to it.  This step uses the `skupper
 expose` command to make a Kubernetes deployment on one namespace
-available on all the connected namespaces.
+available on all the linked namespaces.
 
 In the examples below, we use the Hello World application to
 demonstrate service exposure.  The same steps apply for your own
@@ -378,7 +352,7 @@ See the [Hello World example][example] for more detail.
 
 <div class="code-label">Skupper command installation</div>
 
-    curl -fL https://github.com/skupperproject/skupper-cli/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-linux-amd64.tgz | tar -xzf -
+    curl https://skupper.io/install.sh | sh -
 
 <div class="code-label session-2">West: Setup</div>
 

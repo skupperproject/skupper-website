@@ -41,7 +41,7 @@ echo
 echo "Looking up the latest release for your environment"
 echo
 
-RELEASE_URL=`curl -sL "https://api.github.com/repos/skupperproject/skupper/releases/latest" \
+RELEASE_URL=`curl -sfL "https://api.github.com/repos/skupperproject/skupper/releases/latest" \
              | grep browser_download_url \
              | cut -d '"' -f 4 \
              | grep "${OPERATING_SYSTEM}-${ARCHITECTURE}"`
@@ -54,9 +54,21 @@ echo
 
 mkdir -p "$INSTALL_DIR"
 curl -fL "$RELEASE_URL" | tar -C "$INSTALL_DIR" -xzf -
-
 echo
-echo "The Skupper command is now installed in ${INSTALL_DIR}"
+
+echo "Testing the Skupper command"
+echo
+
+if PATH="$INSTALL_DIR:$PATH" skupper version > /dev/null; then
+    echo "  Result: OK"
+    echo
+else
+    echo "  Result: Error!"
+    echo
+    exit 1
+fi
+
+echo "The Skupper command is now available at $INSTALL_DIR/skupper"
 echo
 
 if [ "`which skupper`" != "$INSTALL_DIR/skupper" ]; then
