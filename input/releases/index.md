@@ -2,26 +2,24 @@
 
 ## The latest release
 
-Skupper {{skupper_release}} was released on 30 July 2021.
+[Skupper {{skupper_release}}][release-page] was released on 30 July
+2021.
 
-Download the Skupper command-line tool:
+Use the [install script][install-script] to download and extract the
+Skupper command:
 
-<nav class="button-group">
-  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-linux-amd64.tgz"><span class="material-icons">get_app</span> Linux</a>
-  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-mac-amd64.tgz"><span class="material-icons">get_app</span> Mac</a>
-  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-windows-amd64.zip"><span class="material-icons">get_app</span> Windows</a>
-</nav>
+<div class="code-label">Linux or Mac</div>
 
-To install, use `tar` or `unzip` to extract the command from the
-archive and then place it on your path.  For more information, see
-[Getting started][getting-started].
+    curl https://skupper.io/install.sh | sh
 
-[getting-started]: /start/index.html#step-1-install-the-skupper-command-line-tool-in-your-environment
+The script installs the command under your home directory.  It prompts
+you to add the command to your path if necessary.
 
-To get artifacts for other operating systems and architectures, see
-the [GitHub release page][release-page].
+For Windows and other installation options, see [Installing
+Skupper](/install/index.html).
 
 [release-page]: https://github.com/skupperproject/skupper/releases/tag/{{skupper_release}}
+[install-script]: https://github.com/skupperproject/skupper-website/blob/main/docs/install.sh
 
 ## Previous releases
 

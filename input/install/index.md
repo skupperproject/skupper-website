@@ -4,32 +4,51 @@ title: Installing
 
 # Installing Skupper
 
-## Installing the command-line tool
+## Using the install script
 
-### Download and extract the command
+On Linux or the Mac, you can use the [install script][install-script]
+to download and extract the command:
 
-To get the latest release of the Skupper command for your platform,
-download it from GitHub and extract the executable using `tar` or
-`unzip`.
+<div class="code-label">Linux or Mac</div>
 
-<div class="code-label">Linux</div>
+    curl https://skupper.io/install.sh | sh
 
-    curl -fL https://github.com/skupperproject/skupper/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-linux-amd64.tgz | tar -xzf -
+The script installs the command under your home directory.  It prompts
+you to add the command to your path if necessary.
 
-<div class="code-label">Mac</div>
+[install-script]: https://github.com/skupperproject/skupper-website/blob/main/docs/install.sh
 
-    curl -fL https://github.com/skupperproject/skupper/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-mac-amd64.tgz | tar -xzf -
+## Installing manually
+
+### Download the latest release
+
+Select the latest release for your platform:
+
+<nav class="button-group">
+  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-linux-amd64.tgz"><span class="material-icons">get_app</span> Linux</a>
+  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-mac-amd64.tgz"><span class="material-icons">get_app</span> Mac</a>
+  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-windows-amd64.zip"><span class="material-icons">get_app</span> Windows</a>
+</nav>
+
+To get artifacts for other operating systems and architectures, see
+the [GitHub release page][release-page].
+
+[release-page]: https://github.com/skupperproject/skupper/releases/tag/{{skupper_release}}
+
+### Extract the Skupper command
+
+Use `tar` or `unzip` to extract the command from the release archive:
+
+<div class="code-label">Linux or Mac</div>
+
+    tar -xf skupper-cli-{{skupper_release}}-linux-amd64.tgz
 
 <div class="code-label">Windows</div>
 
-    curl -fLO https://github.com/skupperproject/skupper/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-windows-amd64.zip
     unzip skupper-cli-{{skupper_release}}-windows-amd64.zip
 
 This produces an executable file named `skupper` in your current
 directory.
-
-To download artifacts for other operating systems or architectures,
-see [Skupper releases](/releases/index.html).
 
 ### Place the command on your path
 

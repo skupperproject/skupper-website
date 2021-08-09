@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
     <script type="text/javascript" src="/main.js" defer="defer"></script>
 
-
+<script src="http://localhost:35729/livereload.js"></script>
 
 
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
@@ -80,22 +80,22 @@
 
 <h2 id="the-latest-release">The latest release</h2>
 
-<p>Skupper 0.7.0 was released on 30 July 2021.</p>
+<p><a href="https://github.com/skupperproject/skupper/releases/tag/0.7.0">Skupper 0.7.0</a> was released on 30 July
+2021.</p>
 
-<p>Download the Skupper command-line tool:</p>
+<p>Use the <a href="https://github.com/skupperproject/skupper-website/blob/main/docs/install.sh">install script</a> to download and extract the
+Skupper command:</p>
 
-<nav class="button-group">
-  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/0.7.0/skupper-cli-0.7.0-linux-amd64.tgz"><span class="material-icons">get_app</span> Linux</a>
-  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/0.7.0/skupper-cli-0.7.0-mac-amd64.tgz"><span class="material-icons">get_app</span> Mac</a>
-  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/0.7.0/skupper-cli-0.7.0-windows-amd64.zip"><span class="material-icons">get_app</span> Windows</a>
-</nav>
+<div class="code-label">Linux or Mac</div>
 
-<p>To install, use <code>tar</code> or <code>unzip</code> to extract the command from the
-archive and then place it on your path.  For more information, see
-<a href="/start/index.html#step-1-install-the-skupper-command-line-tool-in-your-environment">Getting started</a>.</p>
+<pre><code>curl https://skupper.io/install.sh | sh
+</code></pre>
 
-<p>To get artifacts for other operating systems and architectures, see
-the <a href="https://github.com/skupperproject/skupper/releases/tag/0.7.0">GitHub release page</a>.</p>
+<p>The script installs the command under your home directory.  It prompts
+you to add the command to your path if necessary.</p>
+
+<p>For Windows and other installation options, see <a href="/install/index.html">Installing
+Skupper</a>.</p>
 
 <h2 id="previous-releases">Previous releases</h2>
 
