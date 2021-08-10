@@ -165,7 +165,7 @@ if (navigator.clipboard) {
             span.classList.add("material-icons");
 
             button.appendChild(span);
-            code.insertBefore(button, code.firstChild);
+            pre.insertBefore(button, pre.firstChild);
 
             button.addEventListener("click", () => {
                 navigator.clipboard.writeText(code.textContent.trim());
