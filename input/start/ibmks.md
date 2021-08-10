@@ -10,12 +10,12 @@
 [install]: https://cloud.ibm.com/docs/cli?topic=cli-install-ibmcloud-cli
 [plugin]: https://cloud.ibm.com/docs/containers?topic=containers-cs_cli_install#cs_cli_install_steps
 
-## Logging in
+## Cluster access
 
-### Logging in using the command line
+### Using the command line
 
-To log in, use the `ibmcloud login` command.  It will prompt you for
-required credentials.
+Use the `ibmcloud login` command.  It prompts you for required
+credentials.
 
     $ ibmcloud login
 
@@ -29,7 +29,7 @@ option to make one of them your active cluster.
     cluster1    c2j3e62d0k7q0jq9d01g    normal
     $ ibmcloud ks cluster config --cluster cluster1
 
-### Logging in using the console
+### Using the console
 
 Use the `ibmcloud` command and the IBM Cloud console to log in:
 

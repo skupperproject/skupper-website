@@ -11,7 +11,7 @@
 [gs]: https://minikube.sigs.k8s.io/docs/start/
 [kubectl]: https://minikube.sigs.k8s.io/docs/handbook/kubectl/
 
-## Logging in
+## Cluster access
 
 Minikube does not offer a dedicated login command, but you can re-run
 the `minikube start` command in each console session you wish to

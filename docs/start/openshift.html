@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
     <script type="text/javascript" src="/main.js" defer="defer"></script>
 
-
+<script src="http://localhost:35729/livereload.js"></script>
 
 
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
@@ -82,7 +82,7 @@
 
 <ul>
 <li>You must have <a href="https://www.openshift.com/try">access to an OpenShift cluster</a>.</li>
-<li>You must [install the OpenShift command-line tool (<code>oc</code>)][install].</li>
+<li>You must <a href="https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html#installing-openshift-cli">install the OpenShift command-line tool (<code>oc</code>)</a>.</li>
 </ul>
 
 <p><strong>Note:</strong> The <code>oc</code> command is a <code>kubectl</code> equivalent with extensions
@@ -91,9 +91,9 @@ the core Kubernetes operations, but you can safely use <code>oc</code> instead.
 For example, <code>kubectl create namespace west</code> and <code>oc create namespace
 west</code> have the same effect.</p>
 
-<h2 id="logging-in">Logging in</h2>
+<h2 id="cluster-access">Cluster access</h2>
 
-<h3 id="logging-in-using-the-command-line">Logging in using the command line</h3>
+<h3 id="using-the-command-line">Using the command line</h3>
 
 <p>Use the <code>oc login</code> command with the URL of your OpenShift cluster and
 your username.</p>
@@ -107,7 +107,7 @@ details.</p>
 <p>See the <a href="https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html#cli-logging-in_cli-developer-commands">instructions for logging in</a> for more
 information.</p>
 
-<h3 id="logging-in-using-the-console">Logging in using the console</h3>
+<h3 id="using-the-console">Using the console</h3>
 
 <p>You can also use the OpenShift console to generate an <code>oc login</code>
 command that you can paste into your console session.</p>

@@ -7,7 +7,7 @@
 
 [installation]: https://cloud.google.com/sdk/docs/install
 
-## Logging in
+## Cluster access
 
 Use the `gcloud` command and the Google Cloud console to log in:
 

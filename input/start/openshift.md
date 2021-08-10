@@ -14,9 +14,9 @@ west` have the same effect.
 [start]: https://www.openshift.com/try
 [installation]: https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html#installing-openshift-cli
 
-## Logging in
+## Cluster access
 
-### Logging in using the command line
+### Using the command line
 
 Use the `oc login` command with the URL of your OpenShift cluster and
 your username.
@@ -31,7 +31,7 @@ information.
 
 [logging-in]: https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html#cli-logging-in_cli-developer-commands
 
-### Logging in using the console
+### Using the console
 
 You can also use the OpenShift console to generate an `oc login`
 command that you can paste into your console session.

@@ -178,31 +178,21 @@ another.</p>
 <pre><code>set KUBECONFIG=%UserProfile%\.kube\config-&lt;namespace&gt;
 </code></pre>
 
-<h3 id="log-in-to-your-clusters">Log in to your clusters</h3>
+<h3 id="configure-cluster-access">Configure cluster access</h3>
 
-<p>The methods for logging in vary by Kubernetes provider.  Find the
-instructions for your chosen provider or providers and use them to
-authenticate and establish access for each console session.</p>
-
-<div class="code-label session-2">Console for West</div>
-
-<pre><code>$ &lt;login-command-for-your-provider&gt;
-</code></pre>
-
-<div class="code-label session-1">Console for East</div>
-
-<pre><code>$ &lt;login-command-for-your-provider&gt;
-</code></pre>
+<p>The methods for logging in and accessing clusters vary by Kubernetes
+provider.  Find the instructions for your chosen providers and use
+them to authenticate and establish access for each console session.</p>
 
 <p>See the following links for more information:</p>
 
 <ul class="column-list">
-  <li><a href="minikube.html#logging-in">Minikube</a></li>
+  <li><a href="minikube.html#cluster-access">Minikube</a></li>
   <li><a href="https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html">Amazon Elastic Kubernetes Service (EKS)</a></li>
   <li><a href="https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster">Azure Kubernetes Service (AKS)</a></li>
-  <li><a href="gke.html#logging-in">Google Kubernetes Engine (GKE)</a></li>
-  <li><a href="ibmks.html#logging-in">IBM Kubernetes Service</a></li>
-  <li><a href="openshift.html#logging-in">OpenShift</a></li>
+  <li><a href="gke.html#cluster-access">Google Kubernetes Engine (GKE)</a></li>
+  <li><a href="ibmks.html#cluster-access">IBM Kubernetes Service</a></li>
+  <li><a href="openshift.html#cluster-access">OpenShift</a></li>
 </ul>
 
 <h3 id="set-the-current-namespaces">Set the current namespaces</h3>
@@ -457,7 +447,7 @@ boundaries.</p>
 <div class="code-label session-2">West: Setup</div>
 
 <pre><code>export KUBECONFIG=~/.kube/config-west
-&lt;provider-login-command&gt;
+[Configure cluster access]
 kubectl create namespace west
 kubectl config set-context --current --namespace west
 skupper init
@@ -469,7 +459,7 @@ kubectl expose deployment/hello-world-frontend --port 8080 --type LoadBalancer
 <div class="code-label session-1">East: Setup</div>
 
 <pre><code>export KUBECONFIG=~/.kube/config-east
-&lt;provider-login-command&gt;
+[Configure cluster access]
 kubectl create namespace east
 kubectl config set-context --current --namespace east
 skupper init --ingress none
