@@ -2,9 +2,10 @@
 
 ## Prerequisites
 
-* You must have [access to a GKE cluster](https://cloud.google.com/kubernetes-engine).
+* You must have [access to a GKE cluster][overview].
 * You must [install and set up the Google Cloud SDK (`gcloud`)][installation].
 
+[overview]: https://cloud.google.com/kubernetes-engine
 [installation]: https://cloud.google.com/sdk/docs/install
 
 ## Cluster access
@@ -38,5 +39,5 @@ See the [Cloud NAT overview][nat-overview] for more information.
 ## More information
 
 * [Google Cloud SDK getting started guide](https://cloud.google.com/sdk/docs/quickstart)
-* [Google Kubernetes Engine website](https://cloud.google.com/kubernetes-engine)
-* [Google Kubernetes Engine documentation](https://cloud.google.com/kubernetes-engine/docs)
+* [Google GKE website](https://cloud.google.com/kubernetes-engine)
+* [Google GKE documentation](https://cloud.google.com/kubernetes-engine/docs)

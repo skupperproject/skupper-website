@@ -56,5 +56,6 @@ The non-free clusters do not have this limitation.
 
 ## More information
 
+* [IBM Cloud CLI getting started guide](https://cloud.ibm.com/docs/cli?topic=cli-getting-started)
 * [IBM Kubernetes Service website](https://www.ibm.com/cloud/kubernetes-service)
 * [IBM Kubernetes Service documentation](https://cloud.ibm.com/docs/containers)
