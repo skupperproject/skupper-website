@@ -12,6 +12,7 @@
 
 Use the `gcloud` command and the Google Cloud console to log in:
 
+1. Log in from your terminal using the `gcloud auth login` command.
 1. Go to [console.cloud.google.com](https://console.cloud.google.com/) and sign in.
 1. Select **Kubernetes Engine** in the menu on the left.
 1. Navigate to your cluster.

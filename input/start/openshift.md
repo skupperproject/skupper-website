@@ -41,6 +41,7 @@ command that you can paste into your console session.
 1. Select **Copy Login Command**.  Follow the prompts until you have an
    `oc login` command to copy.
 1. Paste the `oc login` command into your console session.
+1. Use the `oc project` command to select your namespace.
 
 ## More information
 
