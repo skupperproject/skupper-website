@@ -116,7 +116,7 @@ See the following links for more information:
 
 <ul class="column-list">
   <li><a href="minikube.html#cluster-access">Minikube</a></li>
-  <li><a href="https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html">Amazon Elastic Kubernetes Service (EKS)</a></li>
+  <li><a href="eks.html#cluster-access">Amazon Elastic Kubernetes Service (EKS)</a></li>
   <li><a href="aks.html#cluster-access">Azure Kubernetes Service (AKS)</a></li>
   <li><a href="gke.html#cluster-access">Google Kubernetes Engine (GKE)</a></li>
   <li><a href="ibmks.html#cluster-access">IBM Kubernetes Service</a></li>
