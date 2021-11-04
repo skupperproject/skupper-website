@@ -90,7 +90,7 @@ authenticate and establish access for each console session.
 See the following links for more information:
 
 <ul class="column-list">
-  <li><a href="/start/minikube.html#logging-in">Minikube</a></li>
+  <li><a href="/start/minikube.html">Minikube</a></li>
   <li><a href="https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html">Amazon Elastic Kubernetes Service</a></li>
   <li><a href="https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster">Azure Kubernetes Service</a></li>
   <li><a href="https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl">Google Kubernetes Engine</a></li>
