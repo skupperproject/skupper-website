@@ -2,7 +2,7 @@
 
 ## The latest release
 
-[Skupper {{skupper_release}}][release-page] was released on 30 July
+[Skupper {{skupper_release}}][release-page] was released on November 2
 2021.
 
 For Linux or the Mac, use the [install script][install-script] to
@@ -23,6 +23,7 @@ Skupper](/install/index.html).
 
 <div style="column-count: 2;" markdown="1">
 
+* [0.7.0](https://github.com/skupperproject/skupper/releases/tag/0.7.0) - July 2021
 * [0.6.0](https://github.com/skupperproject/skupper/releases/tag/0.6.0) - May 2021
 * [0.5.3](https://github.com/skupperproject/skupper/releases/tag/0.5.3) - April 2021
 * [0.5.2](https://github.com/skupperproject/skupper/releases/tag/0.5.2) - March 2021
