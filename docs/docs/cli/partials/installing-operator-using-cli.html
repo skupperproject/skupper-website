@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Glossary</title>
+    <title>Skupper - </title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -59,7 +59,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/overview/index.html">Skupper overview</a> <span class="path-separator">&#8250;</span> <a href="/docs/overview/glossary.html">Glossary</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/index.html">Using the Skupper CLI</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/partials/installing-operator-using-cli.html"></a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -78,35 +78,104 @@
 
 
 <article class="doc">
-<h1 class="page">Glossary</h1>
+<div class="sect1">
+<h2 id="installing-operator-using-cli-{context}"><a class="anchor" href="#installing-operator-using-cli-{context}"></a>Installing the Operator using the CLI</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>An explanation of common terms used with Skupper.</p>
+<p>The steps in this section show how to use the <code>kubectl</code> command-line interface (CLI) to install and deploy the latest version of the {SkupperOperatorName} in a given {kubernetes-flavor} cluster.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">service network</dt>
-<dd>
-<p>A network of Skupper sites linked together to share services.</p>
-</dd>
-<dt class="hdlist1">service</dt>
-<dd>
-<p>In Skupper, the Kubernetes <a href="https://kubernetes.io/docs/concepts/services-networking/service/">service</a>  concept is extended to  allow communication with sites outside the cluster.
-When you define a service using Skupper, that service appears as a native service in other sites.</p>
-</dd>
-<dt class="hdlist1">site</dt>
-<dd>
-<p>A Skupper site is an Skupper installation.
-You <em>link</em> sites to form a service network and share services</p>
-</dd>
-<dt class="hdlist1">link</dt>
-<dd>
-<p>A secure connection between sites that enables communication and service sharing between those sites.</p>
-</dd>
-<dt class="hdlist1">gateway</dt>
-<dd>
-<p>A system service running on a Linux machine that enables you expose services, for example a database, on the service network.</p>
-</dd>
-</dl>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Download the Skupper Operator example files, for example:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ curl -fL https://github.com/skupperproject/skupper-operator/archive/refs/heads/main.zip</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Specify the namespace in which you want to install the Operator. You can create a new namespace or switch to an existing one.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Create a new namespace if necessary:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl create namespace  <em>&lt;namespace-name&gt;</em></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Switch to the namespace in which you want to install the Operator:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl config set-context --current --namespace=<em>&lt;namespace-name&gt;</em></code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Create a CatalogSource in the <code>openshift-marketplace</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl apply -f examples/{example-directory}/00-cs.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Make sure the skupper-operator catalog pod is running before continuing:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl -n openshift-marketplace get pods | grep skupper-operator</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create an OperatorGroup in the <code>my-namespace</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl apply -f examples/{example-directory}/10-og.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a Subscription  in the <code>my-namespace</code> namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl apply -f examples/{example-directory}/20-sub.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the Operator is running:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl get pods -n my-namespace
+
+NAME                                     READY   STATUS    RESTARTS   AGE
+skupper-site-controller-d7b57964-gxms6   1/1     Running   0          1m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the output does not report the pod is running, use the following command to determine the issue that prevented it from running:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl describe pod -l name=skupper-operator</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
 </div>
 </article>
 

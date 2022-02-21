@@ -1,0 +1,446 @@
+---
+title: Creating a service network with OpenShift and accessing a database using a Skupper gateway
+---
+
+<article class="doc">
+<h1 class="page">Creating a service network with OpenShift and accessing a database using a Skupper gateway</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph system:abstract">
+<p>This tutorial demonstrates how to connect a frontend service on a OpenShift cluster with a backend service on a OpenShift cluster using the <code>skupper</code> command-line interface (CLI).
+The backend service connects to a database running on your local machine.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>Access to projects in two OpenShift clusters, <code>cluster-admin</code> access is not required.</p>
+</li>
+<li>
+<p>One of the OpenShift clusters must be addressable from the other cluster.</p>
+</li>
+<li>
+<p>A MySQL database running on your local machine.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This tutorial shows how to connect the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>west</code> - a namespace in an accessible OpenShift cluster running the frontend service.</p>
+</li>
+<li>
+<p><code>mysql</code> - a database service running on a local machine.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction-to-skupper"><a class="anchor" href="#introduction-to-skupper"></a>1. Introduction to Skupper </h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A service network enables communication between services running in different network locations.
+It allows geographically distributed services to connect as if they were all running in the same site.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/overview-gateway.svg" alt="Overview of a service network">
+</div>
+</div>
+<div class="paragraph">
+<p>For example, you can deploy your frontend in a public OpenShift cluster and deploy your backend on a local network, then connect them into a service network.</p>
+</div>
+<div class="paragraph">
+<p>You deploy and manage a service network, including a gateway, using the <code>skupper</code> CLI.</p>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="/docs/overview/index.html">Overview</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-cli"><a class="anchor" href="#installing-cli"></a>2. Installing the <code>skupper</code> CLI</h2>
+<div class="sectionbody">
+<div class="paragraph system:abstract">
+<p>Installing the <code>skupper</code> command-line interface (CLI) provides a simple method to get started with Skupper.</p>
+</div>
+<div class="paragraph">
+<div class="title">Procedure</div>
+<p>Unresolved directive in index.adoc - include::{common}fragment-skupper-install-steps.adoc[]</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Verify the installation.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper version
+client version 0.8.6</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-database"><a class="anchor" href="#creating-database"></a>3. Creating a database</h2>
+<div class="sectionbody">
+<div class="paragraph system:abstract">
+<p>This procedure describes how to create a database on your local machine that is accessed from the service network.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>A demo MySQL database running on RHEL</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Procedure</div>
+This procedure creates a user with a published password. Do not perform this procedure on a database with sensitive data.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Log into MySQL and create the database using the following commands:</p>
+<div class="listingblock">
+<div class="content">
+<pre>create database skupper;
+use skupper database;
+CREATE TABLE greetings (ID int, text varchar(255) );
+INSERT INTO greetings VALUES (1,'Hello');
+CREATE USER skupper@localhost IDENTIFIED BY 'reppuks';
+GRANT SELECT  ON skupper.* TO 'skupper'@'localhost';</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Test the database by logging in as the <code>skupper</code> user and using the following SQL commands:</p>
+<div class="listingblock">
+<div class="content">
+<pre>use skupper database;
+select * from greetings;
++------+-------+
+| ID   | text  |
++------+-------+
+|    1 | Hello |
++------+-------+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>The OpenShift CLI is installed.
+See the <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.6/html-single/cli_tools/index#installing-openshift-cli">OpenShift CLI</a> documentation for more instructions on how to install <code>oc</code>.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In OpenShift 4.6 and later, you can use the web terminal to perform the following procedure, as described in the <a href="https://docs.openshift.com/container-platform/4.5/web_console/odc-about-web-terminal.html">web terminal</a> documentation.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Start a terminal session to work on the <code>west</code> namespace and set the <code>KUBECONFIG</code> environment variable:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ export KUBECONFIG=$HOME/.kube/config-west</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This session is referred to later as the <em>west</em> terminal session.</p>
+</div>
+</li>
+<li>
+<p>Log into the OpenShift cluster, for example:</p>
+<div class="listingblock">
+<div class="content">
+<pre> $ oc login</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-skupper"><a class="anchor" href="#installing-skupper"></a>4. Creating a skupper site</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create the <code>west</code> project (namespace):</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc new-project west</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the service network site:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper init</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check the site status:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper status</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output should be similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Skupper enabled for namespace 'west'. It is not connected to any other sites.</pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="frontend"><a class="anchor" href="#frontend"></a>5. Creating the frontend service</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The frontend service is a simple Python application that displays a record from the database.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Deploy the frontend service:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create deployment hello-mysql-frontend --image quay.io/pwright/hello-mysql-frontend</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Expose the frontend deployment as a cluster service:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc expose deployment hello-mysql-frontend --port 8080 --type LoadBalancer</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a route for the frontend:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc expose svc/hello-mysql-frontend</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check the frontend route:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Get the route details:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$  oc get routes</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output should be similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>NAME                   HOST/PORT
+hello-mysql-frontend   &lt;frontend-url&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Navigate to the <code>&lt;frontend-url&gt;</code> value in your browser, you see a message similar to the following because the frontend cannot communicate with the backend yet:</p>
+<div class="listingblock">
+<div class="content">
+<pre>I am the frontend.  The database says '(2003, "Can't connect to MySQL server on 'mydb' ([Errno -3] Temporary failure in name resolution)")'.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To resolve this situation, you must create the skupper gateway and make the database available on the service network.</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gateway"><a class="anchor" href="#gateway"></a>6. Creating and using a Skupper gateway</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This procedure describes how to create a gateway and  make a database available on the service network.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create a gateway and make the database available on the service network:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway expose mydb localhost 3306</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check the gateway status:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway status</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output should be similar to following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Gateway Definitions Summary
+
+NAME                 BINDS  FORWARDS  URL
+&lt;machine-name&gt;  1      0         amqp://127.0.0.1:39783</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="check"><a class="anchor" href="#check"></a>7. Checking database access from the frontend</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Get the route details:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$  oc get routes</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output should be similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>NAME                   HOST/PORT
+hello-mysql-frontend   &lt;frontend-url&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Navigate to the <code>&lt;frontend-url&gt;</code> value in your browser, you see a message similar to the following:</p>
+<div class="listingblock">
+<div class="content">
+<pre>I am the frontend.  The database says '('Hello',)'.</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This shows how the frontend calls the database over the service network from an OpenShift cluster.</p>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="/docs/console/index.html">Using the Skupper console</a></p>
+</li>
+<li>
+<p><a href="/docs/cli/index.html">Configuring Skupper sites using the CLI</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tearing-down"><a class="anchor" href="#tearing-down"></a>8. Tearing down the service network</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This procedure describes how to remove the service network you created.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Delete the gateway:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$  skupper gateway delete &lt;machine-name&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Delete the <code>west</code> namespace from the west terminal session:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$  oc delete project west</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</article>

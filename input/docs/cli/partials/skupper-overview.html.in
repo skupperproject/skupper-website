@@ -1,0 +1,58 @@
+---
+title: 
+---
+
+<article class="doc">
+<div class="sect1">
+<h2 id="skupper-overview"><a class="anchor" href="#skupper-overview"></a>Skupper overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>{product} is based on <a href="https://skupper.io">Skupper</a> and allows you create a {service-network} across Kubernetes clusters and individual hosts. For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a service in one cluster and consume it on a different cluster.</p>
+</li>
+<li>
+<p>Create a database service on a host and query it from multiple clusters without opening a port</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To allow services communicate across clusters, you use either the Skupper CLI or operator to create sites. A <em>site</em> is a namespace in a Kubernetes cluster.
+To connect sites into a {service-network} you use either the Skupper CLI or console to exchange tokens.</p>
+</div>
+<div class="paragraph">
+<p>To extend the {service-network} beyond Kubernetes, the Skupper CLI allows you create a <em>gateway</em>. For example, you can run a database on Linux host and query it from a front end service running on a cluster.</p>
+</div>
+<div class="paragraph">
+<p>Skupper has been tested on:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>RHEL 8 for Skupper gateways</p>
+</li>
+<li>
+<p>OpenShift Container Platform 4.7,4.8 and 4.9 for Skupper sites</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Additional information</div>
+<ul>
+<li>
+<p>{CliLink}</p>
+</li>
+<li>
+<p>{ConsoleLink}</p>
+</li>
+<li>
+<p>{OperatorLink}</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>

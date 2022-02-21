@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Glossary</title>
+    <title>Skupper - </title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -59,7 +59,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/overview/index.html">Skupper overview</a> <span class="path-separator">&#8250;</span> <a href="/docs/overview/glossary.html">Glossary</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/index.html">Using the Skupper CLI</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/partials/installing-operator-using-olm.html"></a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -78,35 +78,84 @@
 
 
 <article class="doc">
-<h1 class="page">Glossary</h1>
+<div class="sect1">
+<h2 id="installing-operator-using-olm-{context}"><a class="anchor" href="#installing-operator-using-olm-{context}"></a>Installing the Skupper Operator using the OpenShift console</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>An explanation of common terms used with Skupper.</p>
+<p>The procedures in this section show how to use the OperatorHub to install and deploy the latest version of the {SkupperOperatorName} in a given OpenShift namespace.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">service network</dt>
-<dd>
-<p>A network of Skupper sites linked together to share services.</p>
-</dd>
-<dt class="hdlist1">service</dt>
-<dd>
-<p>In Skupper, the Kubernetes <a href="https://kubernetes.io/docs/concepts/services-networking/service/">service</a>  concept is extended to  allow communication with sites outside the cluster.
-When you define a service using Skupper, that service appears as a native service in other sites.</p>
-</dd>
-<dt class="hdlist1">site</dt>
-<dd>
-<p>A Skupper site is an Skupper installation.
-You <em>link</em> sites to form a service network and share services</p>
-</dd>
-<dt class="hdlist1">link</dt>
-<dd>
-<p>A secure connection between sites that enables communication and service sharing between those sites.</p>
-</dd>
-<dt class="hdlist1">gateway</dt>
-<dd>
-<p>A system service running on a Linux machine that enables you expose services, for example a database, on the service network.</p>
-</dd>
-</dl>
+<div class="paragraph">
+<p>In {kubernetes-flavor} 4.1 and later, the <em>Operator Lifecycle Manager</em> (OLM) helps users install, update, and generally manage the lifecycle of all Operators and their associated services running across their clusters. It is part of the Operator Framework, an open source toolkit designed to manage Kubernetes native applications (Operators) in an effective, automated, and scalable way.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>Access to an {kubernetes-flavor} {OpenShiftVersion} cluster using a <code>cluster-admin</code> account.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>In the {kubernetes-flavor} web console, navigate to menu:Operators[OperatorHub].</p>
+</li>
+<li>
+<p>Choose <code>{SkupperOperatorName}</code> from the list of available Operators, and then click btn:[Install].</p>
+</li>
+<li>
+<p>On the <strong>Operator Installation</strong> page, two <strong>Installation mode</strong> options are available:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>All namespaces on the cluster</strong></p>
+</li>
+<li>
+<p><strong>A specific namespace on the cluster</strong></p>
+<div class="paragraph">
+<p>For this example, choose <strong>A specific namespace on the cluster</strong>.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Select the namespace into which you want to install the Operator, and then click btn:[Install].</p>
+<div class="paragraph">
+<p>The <strong>Installed Operators</strong> page appears displaying the status of the Operator installation.</p>
+</div>
+</li>
+<li>
+<p>Verify that the {skupper-name} Operator is displayed and wait until the <strong>Status</strong> changes to <strong>Succeeded</strong>.</p>
+</li>
+<li>
+<p>If the installation is not successful, troubleshoot the error:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click <code>{SkupperOperatorName}</code> on the <strong>Installed Operators</strong> page.</p>
+</li>
+<li>
+<p>Select the <strong>Subscription</strong> tab and view any failures or errors.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For more information about installing Operators, see the <a href="https://docs.openshift.com/container-platform/4.7/operators/user/olm-installing-operators-in-namespace.html">OpenShift Documentation</a></p>
+</div>
+<div class="ulist">
+<div class="title">Next steps</div>
+<ul>
+<li>
+<p><a href="#creating-site-using-operator-{context}">[creating-site-using-operator-{context}]</a></p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </article>
 

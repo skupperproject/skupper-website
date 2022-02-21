@@ -119,11 +119,11 @@ for each session.
 
 <div class="code-label session-2">West</div>
 
-    kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+    kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/{{skupper_release}}/cmd/site-controller/deploy-watch-current-ns.yaml
 
 <div class="code-label session-1">East</div>
 
-    kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+    kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/{{skupper_release}}/cmd/site-controller/deploy-watch-current-ns.yaml
 
 **NOTE:** To configure Skupper for all namespaces in a cluster, enter
 the following as a cluster administrator:
@@ -389,7 +389,7 @@ for more detail.
     <provider-login-command>
     kubectl create namespace west
     kubectl config set-context --current --namespace west
-    kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+    kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/{{skupper_release}}/cmd/site-controller/deploy-watch-current-ns.yaml
     kubectl apply -f ~/west-site.yml
     kubectl apply -f token-request.yaml
     kubectl get secret  --export -o yaml west-secret > ~/west-secret.yaml
@@ -402,7 +402,7 @@ for more detail.
     <provider-login-command>
     kubectl create namespace east
     kubectl config set-context --current --namespace east
-    kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.3/cmd/site-controller/deploy-watch-current-ns.yaml
+    kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/{{skupper_release}}/cmd/site-controller/deploy-watch-current-ns.yaml
     kubectl apply -f ~/east-site.yml
     kubectl apply -f ~/west-secret.yaml
     kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend

@@ -1,18 +1,14 @@
 ---
-title: Monitoring Skupper sites using the console
+title: Using the Skupper console
 ---
 
 <article class="doc">
-<h1 class="page">Monitoring Skupper sites using the console</h1>
+<h1 class="page">Using the Skupper console</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph system:abstract">
-<p>The Skupper console provides useful information about the service network, for example, traffic levels between sites.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/skupper-console.png" alt="skupper console">
-</div>
+<div class="paragraph">
+<p>By default, when you create a Skupper site, you also enable the Skupper console.
+The Skupper console URL is displayed whenever you check site status using <code>skupper status</code>.</p>
 </div>
 </div>
 </div>
@@ -85,6 +81,63 @@ JNZWzMHtyg</pre>
 </div>
 </div>
 <div class="sect1">
+<h2 id="linking-sites-using-skupper-console"><a class="anchor" href="#linking-sites-using-skupper-console"></a>Linking sites using the Skupper console</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Skupper console allows you create and use claim type tokens as described in <a href="/docs/cli/index.html">Configuring Skupper sites using the CLI</a>.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>Two sites, each with Skupper console enabled</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Procedure</div>
+Your browser may prompt you to allow using the clipboard. You must accept that prompt for this procedure.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Log into the console for the first site.</p>
+</li>
+<li>
+<p>Navigate to <strong>Site</strong> in left hand menu.</p>
+</li>
+<li>
+<p>Click <strong>Link a remote site</strong> to display the steps for linking.</p>
+</li>
+<li>
+<p>Click <strong>Copy a token to the clipboard</strong>.</p>
+</li>
+<li>
+<p>Log into the console for the second site.</p>
+</li>
+<li>
+<p>Navigate to <strong>Site</strong> in left hand menu.</p>
+</li>
+<li>
+<p>Click <strong>Use a token</strong> to accept the token from the first site.</p>
+</li>
+<li>
+<p>Verify that the sites are linked by clicking <strong>Deployments</strong> and checking that both sites are listed.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="exploring-console"><a class="anchor" href="#exploring-console"></a>Exploring the Skupper console</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -100,6 +153,17 @@ JNZWzMHtyg</pre>
 </li>
 <li>
 <p>Deployments - deployments relating to exposed services.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The Skupper console also provides useful networking information about the service network, for example, traffic levels between sites.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/skupper-console.png" alt="skupper console">
+</div>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -144,9 +208,6 @@ Although two services are involved in the tutorial, only one service, <code>hell
 This panel shows the traffic flows from the backend to the frontend.</p>
 </li>
 </ol>
-</div>
-</li>
-</ul>
 </div>
 </div>
 </div>
