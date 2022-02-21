@@ -2,8 +2,7 @@
 
 ## The latest release
 
-[Skupper {{skupper_release}}][release-page] was released on November 2
-2021.
+[Skupper {{skupper_release}}][release-page] was released on {{skupper_release_date}}.
 
 For Linux or the Mac, use the [install script][install-script] to
 download and extract the Skupper command:
@@ -23,6 +22,12 @@ Skupper](/install/index.html).
 
 <div style="column-count: 2;" markdown="1">
 
+* [0.8.5](https://github.com/skupperproject/skupper/releases/tag/0.8.5) - January 2022
+* [0.8.4](https://github.com/skupperproject/skupper/releases/tag/0.8.4) - December 2021
+* [0.8.3](https://github.com/skupperproject/skupper/releases/tag/0.8.3) - November 2021
+* [0.8.2](https://github.com/skupperproject/skupper/releases/tag/0.8.2) - November 2021
+* [0.8.1](https://github.com/skupperproject/skupper/releases/tag/0.8.1) - November 2021
+* [0.8.0](https://github.com/skupperproject/skupper/releases/tag/0.8.0) - October 2021
 * [0.7.0](https://github.com/skupperproject/skupper/releases/tag/0.7.0) - July 2021
 * [0.6.0](https://github.com/skupperproject/skupper/releases/tag/0.6.0) - May 2021
 * [0.5.3](https://github.com/skupperproject/skupper/releases/tag/0.5.3) - April 2021
