@@ -4,7 +4,7 @@ title:
 
 <article class="doc">
 <div class="sect1">
-<h2 id="installing-operator-using-cli-{context}"><a class="anchor" href="#installing-operator-using-cli-{context}"></a>Installing the Operator using the CLI</h2>
+<h2 id="installing-operator-using-cli-skupper-io"><a class="anchor" href="#installing-operator-using-cli-skupper-io"></a>Installing the Operator using the CLI</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The steps in this section show how to use the <code>kubectl</code> command-line interface (CLI) to install and deploy the latest version of the {SkupperOperatorName} in a given {kubernetes-flavor} cluster.</p>

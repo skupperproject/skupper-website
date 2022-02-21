@@ -4,7 +4,7 @@ title:
 
 <article class="doc">
 <div class="sect1">
-<h2 id="installing-operator-using-olm-{context}"><a class="anchor" href="#installing-operator-using-olm-{context}"></a>Installing the Skupper Operator using the OpenShift console</h2>
+<h2 id="installing-operator-using-olm-skupper-io"><a class="anchor" href="#installing-operator-using-olm-skupper-io"></a>Installing the Skupper Operator using the OpenShift console</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The procedures in this section show how to use the OperatorHub to install and deploy the latest version of the {SkupperOperatorName} in a given OpenShift namespace.</p>
@@ -76,7 +76,7 @@ title:
 <div class="title">Next steps</div>
 <ul>
 <li>
-<p><a href="#creating-site-using-operator-{context}">[creating-site-using-operator-{context}]</a></p>
+<p><a href="#creating-site-using-operator-skupper-io">[creating-site-using-operator-skupper-io]</a></p>
 </li>
 </ul>
 </div>
