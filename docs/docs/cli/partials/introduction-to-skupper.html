@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Glossary</title>
+    <title>Skupper - </title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -59,7 +59,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/overview/index.html">Skupper overview</a> <span class="path-separator">&#8250;</span> <a href="/docs/overview/glossary.html">Glossary</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/index.html">Using the Skupper CLI</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/partials/introduction-to-skupper.html"></a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -78,35 +78,44 @@
 
 
 <article class="doc">
-<h1 class="page">Glossary</h1>
+<div class="sect1">
+<h2 id="introduction-to-skupper"><a class="anchor" href="#introduction-to-skupper"></a>Introduction to {skupper-name} {version}</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>An explanation of common terms used with Skupper.</p>
+<p>A {service-network} enables communication between services running in different network locations.
+It allows geographically distributed services to connect as if they were all running in the same site.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">service network</dt>
-<dd>
-<p>A network of Skupper sites linked together to share services.</p>
-</dd>
-<dt class="hdlist1">service</dt>
-<dd>
-<p>In Skupper, the Kubernetes <a href="https://kubernetes.io/docs/concepts/services-networking/service/">service</a>  concept is extended to  allow communication with sites outside the cluster.
-When you define a service using Skupper, that service appears as a native service in other sites.</p>
-</dd>
-<dt class="hdlist1">site</dt>
-<dd>
-<p>A Skupper site is an Skupper installation.
-You <em>link</em> sites to form a service network and share services</p>
-</dd>
-<dt class="hdlist1">link</dt>
-<dd>
-<p>A secure connection between sites that enables communication and service sharing between those sites.</p>
-</dd>
-<dt class="hdlist1">gateway</dt>
-<dd>
-<p>A system service running on a Linux machine that enables you expose services, for example a database, on the service network.</p>
-</dd>
-</dl>
+<div class="imageblock">
+<div class="content">
+<img src="../../_images/overview.svg" alt="This diagram shows a 'service network' connecting two Kubernetes clusters. The Skupper site in Namespace A, in the left cluster, has a deployment which exposes a TCP service to the service network. In the right cluster two sites can use that service as if the service existed in the right cluster.">
+</div>
+</div>
+<div class="paragraph">
+<p>For example, you can deploy your frontend in a public {kubernetes-flavor} cluster and deploy your backend in a private {kubernetes-flavor} cluster, then connect them into a {service-network}.</p>
+</div>
+<div class="paragraph">
+<p>A {service-network} provides the following features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Security by default. All inter-site traffic is protected by mutual TLS using a private, dedicated certificate authority (CA).</p>
+</li>
+<li>
+<p>Easy connections between {kubernetes-flavor} clusters, even private clusters.</p>
+</li>
+<li>
+<p>A {service-network} supports existing TCP-based applications without requiring modification.</p>
+</li>
+<li>
+<p>Monitor your application traffic spread across multiple {kubernetes-flavor} clusters using the {service-network} console.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You deploy and manage a {service-network} using the <code>skupper</code> CLI.</p>
+</div>
+</div>
 </div>
 </article>
 

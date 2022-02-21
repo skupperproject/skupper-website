@@ -13,19 +13,23 @@ title: Glossary
 <dd>
 <p>A network of Skupper sites linked together to share services.</p>
 </dd>
-<dt class="hdlist1">Service</dt>
+<dt class="hdlist1">service</dt>
 <dd>
 <p>In Skupper, the Kubernetes <a href="https://kubernetes.io/docs/concepts/services-networking/service/">service</a>  concept is extended to  allow communication with sites outside the cluster.
 When you define a service using Skupper, that service appears as a native service in other sites.</p>
 </dd>
-<dt class="hdlist1">Site</dt>
+<dt class="hdlist1">site</dt>
 <dd>
 <p>A Skupper site is an Skupper installation.
 You <em>link</em> sites to form a service network and share services</p>
 </dd>
-<dt class="hdlist1">Link</dt>
+<dt class="hdlist1">link</dt>
 <dd>
 <p>A secure connection between sites that enables communication and service sharing between those sites.</p>
+</dd>
+<dt class="hdlist1">gateway</dt>
+<dd>
+<p>A system service running on a Linux machine that enables you expose services, for example a database, on the service network.</p>
 </dd>
 </dl>
 </div>

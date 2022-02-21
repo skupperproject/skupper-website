@@ -44,7 +44,7 @@ It allows geographically distributed services to connect as if they were all run
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../_images/overview.svg" alt="Overview of a service network">
+<img src="../_images/overview.svg" alt="This diagram shows a 'service network' connecting two Kubernetes clusters. The Skupper site in Namespace A, in the left cluster, has a deployment which exposes a TCP service to the service network. In the right cluster two sites can use that service as if the service existed in the right cluster.">
 </div>
 </div>
 <div class="paragraph">
@@ -80,48 +80,18 @@ It allows geographically distributed services to connect as if they were all run
 <div class="paragraph system:abstract">
 <p>Installing the <code>skupper</code> command-line interface (CLI) provides a simple method to get started with Skupper.</p>
 </div>
-<div class="olist arabic">
+<div class="paragraph">
 <div class="title">Procedure</div>
+<p>Unresolved directive in index.adoc - include::{common}fragment-skupper-install-steps.adoc[]</p>
+</div>
+<div class="olist arabic">
 <ol class="arabic">
-<li>
-<p>Install the <code>skupper</code> command-line interface.</p>
-<div class="openblock">
-<div class="content">
-<div class="paragraph">
-<p>For Linux:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/0.5.2/skupper-cli-0.5.2-linux-amd64.tgz | tar -xzf -</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For MacOS:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/0.5.2/skupper-cli-0.5.2-mac-amd64.tgz | tar -xzf -</pre>
-</div>
-</div>
-</div>
-</div>
-</li>
-<li>
-<p>Copy the <code>skupper</code> executable to a directory in your $PATH:</p>
-<div class="listingblock">
-<div class="content">
-<pre>$ mkdir -p $HOME/bin
-$ export PATH=$PATH:$HOME/bin
-$ mv skupper $HOME/bin</pre>
-</div>
-</div>
-</li>
 <li>
 <p>Verify the installation.</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ skupper version
-client version 0.5.2</pre>
+client version 0.8.6</pre>
 </div>
 </div>
 </li>
@@ -552,7 +522,7 @@ hello-world-frontend   &lt;frontend-url&gt;</pre>
 <div class="title">Additional resources</div>
 <ul>
 <li>
-<p><a href="/docs/console/index.html">Monitoring Skupper sites using the console</a></p>
+<p><a href="/docs/console/index.html">Using the Skupper console</a></p>
 </li>
 <li>
 <p><a href="/docs/cli/index.html">Configuring Skupper sites using the CLI</a></p>

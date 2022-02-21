@@ -110,25 +110,35 @@ If you are deploying Skupper to be available for all namespaces, make sure you h
 </li>
 <li>
 <p>Deploy the site controller:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
+<div class="ulist">
+<ul>
 <li>
 <p>To install Skupper into the current namespace deploy the site controller using the following YAML:</p>
 <div class="listingblock">
 <div class="content">
-<pre>kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.5.2/cmd/site-controller/deploy-watch-current-ns.yaml</pre>
+<pre>kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.8.6/cmd/site-controller/deploy-watch-current-ns.yaml</pre>
 </div>
 </div>
 </li>
 <li>
-<p>To install Skupper for all namespaces, deploy the site controller using the following YAML:</p>
+<p>To install Skupper for all namespaces:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Create a namespace named <code>skupper-site-controller</code>.</p>
+</li>
+<li>
+<p>Deploy the site controller using the following YAML:</p>
 <div class="listingblock">
 <div class="content">
-<pre>kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.5.2/cmd/site-controller/deploy-watch-all-ns.yaml</pre>
+<pre>kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/0.8.6/cmd/site-controller/deploy-watch-all-ns.yaml</pre>
 </div>
 </div>
 </li>
 </ol>
+</div>
+</li>
+</ul>
 </div>
 </li>
 <li>

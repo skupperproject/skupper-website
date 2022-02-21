@@ -1,0 +1,76 @@
+---
+title: 
+---
+
+<article class="doc">
+<div class="sect1">
+<h2 id="creating-site-using-operator-skupper-io"><a class="anchor" href="#creating-site-using-operator-skupper-io"></a>Creating a site using the Skupper Operator</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a YAML file defining the ConfigMap of the site you want to create.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>For example, create <code>skupper-site.yaml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: skupper-site
+  namespace: my-namespace</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can later retrieve the console credentials as described in {ConsoleLink} or specify them now by adding the username and optionally the password to <code>skupper-site.yaml</code> as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">data:
+  console-user: "admin"
+  console-password: "changeme"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Apply the YAML to create a ConfigMap named <code>skupper-site</code> in the namespace you want to use:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl apply -f skupper-site.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the site is created by checking that the Skupper router and service controller pods are running:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl get pods
+
+NAME                                          READY   STATUS    RESTARTS   AGE
+skupper-router-8c6cc6d76-27562                1/1     Running   0          40s
+skupper-service-controller-57cdbb56c5-vc7s2   1/1     Running   0          34s</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you deployed the Operator to a single namespace, an additional site controller pod is also running.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</article>

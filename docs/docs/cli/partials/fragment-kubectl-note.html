@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Glossary</title>
+    <title>Skupper - </title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -59,7 +59,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/overview/index.html">Skupper overview</a> <span class="path-separator">&#8250;</span> <a href="/docs/overview/glossary.html">Glossary</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/index.html">Using the Skupper CLI</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/partials/fragment-kubectl-note.html"></a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -78,35 +78,22 @@
 
 
 <article class="doc">
-<h1 class="page">Glossary</h1>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>An explanation of common terms used with Skupper.</p>
+<p>Because OpenShift Container Platform is a certified Kubernetes distribution, you can use the supported <code>kubectl</code> binaries that ship with OpenShift as described in this documentation, or you can use the <code>oc</code> binary.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">service network</dt>
-<dd>
-<p>A network of Skupper sites linked together to share services.</p>
-</dd>
-<dt class="hdlist1">service</dt>
-<dd>
-<p>In Skupper, the Kubernetes <a href="https://kubernetes.io/docs/concepts/services-networking/service/">service</a>  concept is extended to  allow communication with sites outside the cluster.
-When you define a service using Skupper, that service appears as a native service in other sites.</p>
-</dd>
-<dt class="hdlist1">site</dt>
-<dd>
-<p>A Skupper site is an Skupper installation.
-You <em>link</em> sites to form a service network and share services</p>
-</dd>
-<dt class="hdlist1">link</dt>
-<dd>
-<p>A secure connection between sites that enables communication and service sharing between those sites.</p>
-</dd>
-<dt class="hdlist1">gateway</dt>
-<dd>
-<p>A system service running on a Linux machine that enables you expose services, for example a database, on the service network.</p>
-</dd>
-</dl>
+<div class="paragraph">
+<p>See the <a href="https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/usage-oc-kubectl.html">OpenShift documentation</a> for more information about <code>oc</code> and <code>kubectl</code>.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </article>
 

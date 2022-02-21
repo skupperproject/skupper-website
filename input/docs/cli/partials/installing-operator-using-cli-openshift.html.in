@@ -1,0 +1,143 @@
+---
+title: 
+---
+
+<article class="doc">
+<div class="sect1">
+<h2 id="installing-operator-using-cli-skupper-io"><a class="anchor" href="#installing-operator-using-cli-skupper-io"></a>Installing the Operator using the CLI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The steps in this section show how to use the <code>kubectl</code> command-line interface (CLI) to install and deploy the latest version of the {SkupperOperatorName} in a given {kubernetes-flavor} cluster.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log in to {kubernetes-flavor} as a cluster administrator. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl login -u system:admin</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Complete the steps described in <a href="https://access.redhat.com/RegistryAuthentication" target="_blank" rel="noopener">Red Hat Container Registry Authentication</a>.</p>
+</li>
+<li>
+<p>To create a operator subscription for all namespaces:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Create a file named <code>subscription.yaml</code> with the following:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: skupper-operator
+  namespace: openshift-operators
+spec:
+  channel: alpha
+  installPlanApproval: Automatic
+  name: skupper-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: skupper-operator.v{skupper-version}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Apply the subscription YAML:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl apply -f subscription.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>To create a operator subscription for a specific namespace, you must create an Operator group in that namespace and then create the subscription:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Create a file named <code>operator-group.yaml</code> with the following:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">kind: OperatorGroup
+apiVersion: operators.coreos.com/v1
+metadata:
+  name: skupper-operator
+  namespace: my-namespace
+spec:
+  targetNamespaces:
+  - my-namespace</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where <code>my-namespace</code> is the name of the namespace you want to create the site.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Apply the Operator group YAML:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl apply -f operator-group.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a file named <code>subscription.yaml</code> with the following:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: skupper-operator
+  namespace: my-namespace
+spec:
+  channel: alpha
+  installPlanApproval: Automatic
+  name: skupper-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: skupper-operator.v{skupper-version}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where <code>my-namespace</code> is the name of the namespace you want to create the site.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Apply the subscription YAML:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl apply -f subscription.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Next steps</div>
+<ul>
+<li>
+<p><a href="#creating-site-using-operator-skupper-io">[creating-site-using-operator-skupper-io]</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
