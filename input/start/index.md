@@ -314,7 +314,6 @@ curl http://<strong>&lt;external-ip&gt;</strong>:8080/api/health
 
 Sample output:
 
-
 <pre><code>$ kubectl get service/frontend
 NAME         TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)          AGE
 frontend     LoadBalancer   10.103.232.28   <strong>&lt;external-ip&gt;</strong>   8080:30407/TCP   15s
@@ -324,9 +323,12 @@ OK
 </code></pre>
 
 If everything is in order, you can now access the web interface by
-navigating to `http://<external-ip>:8080/` in your browser.  The
-frontend assigns each new user a name.  Click **Say hello** to send a
-greeting to the backend and get a greeting in response.
+navigating to this URL in your browser:
+
+<pre><code>http://<strong>&lt;external-ip&gt;</strong>:8080/</pre></code>
+
+The frontend assigns each new user a name.  Click **Say hello** to
+send a greeting to the backend and get a greeting in response.
 
 <img style="width: 100%;" src="/images/hello-world-frontend.png" width=""/>
 
