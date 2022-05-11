@@ -270,7 +270,7 @@ East.
 
 <div class="code-label session-1">East</div>
 
-    kubectl create deployment backend --image quay.io/skupper/hello-world-backend
+    kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 3
 
 ### Expose the backend service
 
@@ -357,7 +357,7 @@ See the [Hello World example][example] for more detail.
     kubectl create namespace west
     kubectl config set-context --current --namespace west
     skupper init
-    skupper token create ~/secret.yaml
+    skupper token create ~/west.token
     kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
     kubectl expose deployment/frontend --port 8080 --type LoadBalancer
 
@@ -368,8 +368,8 @@ See the [Hello World example][example] for more detail.
     kubectl create namespace east
     kubectl config set-context --current --namespace east
     skupper init --ingress none
-    skupper link create ~/secret.yaml
-    kubectl create deployment backend --image quay.io/skupper/hello-world-backend
+    skupper link create ~/west.token
+    kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 3
     skupper expose deployment/backend --port 8080
 
 <div class="code-label session-2">West: Testing</div>
