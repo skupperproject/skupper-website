@@ -393,7 +393,7 @@ the following commands:
 <div class="code-label session-1">East</div>
 
     skupper delete
-    kubectl delete deployment/hello-world-backend
+    kubectl delete deployment/backend
 
 ## Next steps
 
