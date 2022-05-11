@@ -308,17 +308,20 @@ a placeholder.  The actual value is an IP address.
 
 <div class="code-label session-2">West</div>
 
-    kubectl get service/frontend
-    curl http://<external-ip>:8080/api/health
+<pre><code>kubectl get service/frontend
+curl http://<strong>&lt;external-ip&gt;</strong>:8080/api/health
+</code></pre>
 
 Sample output:
 
-    $ kubectl get service/frontend
-    NAME       TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)          AGE
-    frontend   LoadBalancer   10.103.232.28   <external-ip>   8080:30407/TCP   15s
 
-    $ curl http://<external-ip>:8080/api/health
-    OK
+<pre><code>$ kubectl get service/frontend
+NAME         TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)          AGE
+frontend     LoadBalancer   10.103.232.28   <strong>&lt;external-ip&gt;</strong>   8080:30407/TCP   15s
+
+$ curl http://<strong>&lt;external-ip&gt;</strong>:8080/api/health
+OK
+</code></pre>
 
 If everything is in order, you can now access the web interface by
 navigating to `http://<external-ip>:8080/` in your browser.  The

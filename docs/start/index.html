@@ -397,16 +397,16 @@ a placeholder.  The actual value is an IP address.</p>
 <div class="code-label session-2">West</div>
 
 <pre><code>kubectl get service/frontend
-curl http://&lt;external-ip&gt;:8080/api/health
+curl http://<strong>&lt;external-ip&gt;</strong>:8080/api/health
 </code></pre>
 
 <p>Sample output:</p>
 
 <pre><code>$ kubectl get service/frontend
-NAME       TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)          AGE
-frontend   LoadBalancer   10.103.232.28   &lt;external-ip&gt;   8080:30407/TCP   15s
+NAME         TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)          AGE
+frontend     LoadBalancer   10.103.232.28   <strong>&lt;external-ip&gt;</strong>   8080:30407/TCP   15s
 
-$ curl http://&lt;external-ip&gt;:8080/api/health
+$ curl http://<strong>&lt;external-ip&gt;</strong>:8080/api/health
 OK
 </code></pre>
 
