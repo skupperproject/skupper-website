@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
     <script type="text/javascript" src="/main.js" defer="defer"></script>
 
-
+<script src="http://localhost:35729/livereload.js"></script>
 
 
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
@@ -413,33 +413,31 @@ OK
 <p>If everything is in order, you can now access the web interface by
 navigating to this URL in your browser:</p>
 
-<pre><code>http://<strong>&lt;external-ip&gt;</strong>:8080/</pre></code>
+<pre><code>http://<strong>&lt;external-ip&gt;</strong>:8080/</code></pre>
 
-The frontend assigns each new user a name.  Click **Say hello** to
-send a greeting to the backend and get a greeting in response.
+<p>The frontend assigns each new user a name.  Click <strong>Say hello</strong> to
+send a greeting to the backend and get a greeting in response.</p>
 
-<img style="width: 100%;" src="/images/hello-world-frontend.png" width=""/>
+<p><img style="width: 100%;" src="/images/hello-world-frontend.png"/></p>
 
 <h3 id="summary">Summary</h3>
 
-Our simple HTTP application has two services.  We deployed each
-service to a different Kubernetes cluster.
+<p>Our simple HTTP application has two services.  We deployed each
+service to a different Kubernetes cluster.</p>
 
-Ordinarily, a multi-cluster deployment of this sort means that the
+<p>Ordinarily, a multi-cluster deployment of this sort means that the
 services have no way to communicate unless they are exposed to the
-public internet.
+public internet.</p>
 
-By introducing Skupper into each namespace, we were able to create a
+<p>By introducing Skupper into each namespace, we were able to create a
 virtual application network that connects the services across cluster
-boundaries.
+boundaries.</p>
 
-See the [Hello World example][example] for more detail.
+<p>See the <a href="https://github.com/skupperproject/skupper-example-hello-world/blob/main/README.md#what-just-happened">Hello World example</a> for more detail.</p>
 
 <h2 id="the-condensed-version">The condensed version</h2>
 
-md5-50b27fde3ec9dff54bbbfdfab1c6880b
-
-
+<div class="code-label">Skupper command installation</div>
 
 <pre><code>curl https://skupper.io/install.sh | sh
 </code></pre>

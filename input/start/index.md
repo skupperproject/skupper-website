@@ -325,12 +325,12 @@ OK
 If everything is in order, you can now access the web interface by
 navigating to this URL in your browser:
 
-<pre><code>http://<strong>&lt;external-ip&gt;</strong>:8080/</pre></code>
+<pre><code>http://<strong>&lt;external-ip&gt;</strong>:8080/</code></pre>
 
 The frontend assigns each new user a name.  Click **Say hello** to
 send a greeting to the backend and get a greeting in response.
 
-<img style="width: 100%;" src="/images/hello-world-frontend.png" width=""/>
+<img style="width: 100%;" src="/images/hello-world-frontend.png"/>
 
 ### Summary
 
