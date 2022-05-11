@@ -58,6 +58,11 @@ current_jms_release = jms_release.number
 current_jms_release_url = jms_release.url
 current_jms_release_link = jms_release.link
 
+# XXX Fake data
+other_jms_release = jms_release.number
+other_jms_release_url = jms_release.url
+other_jms_release_link = jms_release.link
+
 current_jms_amqp_0_x_release = jms_amqp_0_x_release.number
 current_jms_amqp_0_x_release_url = jms_amqp_0_x_release.url
 current_jms_amqp_0_x_release_link = jms_amqp_0_x_release.link
@@ -69,6 +74,11 @@ current_proton_release_link = proton_release.link
 current_proton_j_release = proton_j_release.number
 current_proton_j_release_url = proton_j_release.url
 current_proton_j_release_link = proton_j_release.link
+
+# XXX Fake data
+current_protonj2_release = proton_j_release.number
+current_protonj2_release_url = proton_j_release.url
+current_protonj2_release_link = proton_j_release.link
 
 current_python_release = python_release.number
 current_python_release_url = python_release.url
