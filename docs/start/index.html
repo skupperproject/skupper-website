@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
     <script type="text/javascript" src="/main.js" defer="defer"></script>
 
-
+<script src="http://localhost:35729/livereload.js"></script>
 
 
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
@@ -198,8 +198,8 @@ them to authenticate and establish access for each console session.</p>
 <h3 id="set-the-current-namespaces">Set the current namespaces</h3>
 
 <p>Use <code>kubectl create namespace</code> to create the namespaces you wish to
-use.  Use <code>kubectl config set-context</code> to set the current namespace
-for each session.</p>
+use (or use existing namespaces).  Use <code>kubectl config set-context</code> to
+set the current namespace for each session.</p>
 
 <div class="code-label session-2">Console for West</div>
 
@@ -254,14 +254,9 @@ Skupper is now installed in namespace 'west'.  Use 'skupper status' to get more 
 
 <div class="code-label session-1">East</div>
 
-<pre><code>$ skupper init --ingress none
+<pre><code>$ skupper init
 Skupper is now installed in namespace 'east'.  Use 'skupper status' to get more information.
 </code></pre>
-
-<p>Here we are using <code>--ingress none</code> in East simply to make local
-development with Minikube easier.  (It's tricky to run two Minikube
-tunnels on one host.)  The <code>--ingress none</code> option is not required if
-your two namespaces are on different hosts or on public clusters.</p>
 
 <h3 id="check-the-installation">Check the installation</h3>
 
@@ -302,7 +297,7 @@ you trust have access to it.</p>
 
 <div class="code-label session-2">West</div>
 
-<pre><code>skupper token create $HOME/secret.yaml
+<pre><code>skupper token create ~/west.token
 </code></pre>
 
 <h3 id="use-the-token-to-create-a-link">Use the token to create a link</h3>
@@ -312,11 +307,11 @@ the token from West to the <code>skupper link create</code> command in East.</p>
 
 <div class="code-label session-1">East</div>
 
-<pre><code>skupper link create $HOME/secret.yaml
+<pre><code>skupper link create ~/west.token
 </code></pre>
 
 <p>If your console sessions are on different machines, you might need to
-use <code>scp</code> or a similar tool to transfer the token.</p>
+use <code>sftp</code> or a similar tool to transfer the token.</p>
 
 <h3 id="check-the-link">Check the link</h3>
 
@@ -352,7 +347,7 @@ application.</p>
 
 <div class="code-label session-2">West</div>
 
-<pre><code>kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
+<pre><code>kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
 </code></pre>
 
 <p>Likewise, use <code>kubectl create deployment</code> to start the backend in
@@ -360,7 +355,7 @@ East.</p>
 
 <div class="code-label session-1">East</div>
 
-<pre><code>kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
+<pre><code>kubectl create deployment backend --image quay.io/skupper/hello-world-backend
 </code></pre>
 
 <h3 id="expose-the-backend-service">Expose the backend service</h3>
@@ -370,57 +365,57 @@ the frontend has no way to contact the backend.  The frontend and
 backend are in different namespaces (and perhaps different clusters),
 and the backend has no public ingress.</p>
 
-<p>Use the <code>skupper expose</code> command in East to make <code>hello-world-backend</code>
+<p>Use the <code>skupper expose</code> command in East to make the <code>backend</code> service
 available in West.</p>
 
 <div class="code-label session-1">East</div>
 
-<pre><code>skupper expose deployment/hello-world-backend --port 8080
+<pre><code>skupper expose deployment/backend --port 8080
 </code></pre>
 
 <h3 id="check-the-backend-service">Check the backend service</h3>
 
-<p>Use <code>kubectl get services</code> in West to make sure the
-<code>hello-world-backend</code> service from East is represented.  You should
-see output like this (along with some other services):</p>
+<p>Use <code>kubectl get</code> in West to make sure the <code>backend</code> service from East
+is present.  You should see output like this:</p>
 
 <div class="code-label session-2">West</div>
 
-<pre><code>$ kubectl get services
-NAME                   TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)       AGE
-hello-world-backend    ClusterIP      10.96.175.18    &lt;none&gt;          8080/TCP      1m30s
+<pre><code>$ kubectl get service/backend
+NAME         TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)       AGE
+backend      ClusterIP      10.96.175.18    &lt;none&gt;          8080/TCP      1m30s
 </code></pre>
 
 <h3 id="test-your-application">Test your application</h3>
 
-<p>To test our Hello World, we need external access to the frontend (not
-the backend).  Use <code>kubectl expose</code> with <code>--type LoadBalancer</code> to make
-the frontend accessible using a conventional Kubernetes ingress.</p>
+<p>Now we're ready to try it out.  Use <code>kubectl get</code> in West to look up
+the external IP of the frontend service.  Then use <code>curl</code> or a similar
+tool to request the <code>/api/health</code> endpoint at that address.</p>
+
+<p><strong>Note:</strong> The <code>&lt;external-ip&gt;</code> field in the following commands is
+a placeholder.  The actual value is an IP address.</p>
 
 <div class="code-label session-2">West</div>
 
-<pre><code>kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
+<pre><code>kubectl get service/frontend
+curl http://&lt;external-ip&gt;:8080/api/health
 </code></pre>
 
-<p>It takes a moment for the external IP to become available.</p>
+<p>Sample output:</p>
 
-<p>Now use <code>curl</code> to see it in action.  The embedded <code>kubectl get</code>
-command below looks up the IP address for the frontend service and
-generates a URL for use with <code>curl</code>.</p>
+<pre><code>$ kubectl get service/frontend
+NAME       TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)          AGE
+frontend   LoadBalancer   10.103.232.28   &lt;external-ip&gt;   8080:30407/TCP   15s
 
-<div class="code-label session-2">West</div>
-
-<pre><code>curl $(kubectl get service hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:8080/')
+$ curl http://&lt;external-ip&gt;:8080/api/health
+OK
 </code></pre>
 
-<p><strong>Note:</strong> If the embedded <code>kubectl get</code> command fails to get the IP,
-you can find it manually by running <code>kubectl get services</code> and looking
-up the external IP of the <code>hello-world-frontend</code> service.</p>
+<p>If everything is in order, you can now access the web interface by
+navigating to <code>http://&lt;external-ip&gt;:8080/</code> in your browser.  The
+frontend assigns each new user a name.  Click <strong>Say hello</strong> to send a
+greeting to the backend and get a greeting in response.</p>
 
-<p>You should see output like this:</p>
-
-<pre><code>I am the frontend.  The backend says 'Hello from hello-world-backend-869cd94f69-wh6zt (1)'.
-</code></pre>
+<p><img style="width: 100%;" src="/images/hello-world-frontend.png" width=""/></p>
 
 <h3 id="summary">Summary</h3>
 
@@ -452,8 +447,8 @@ kubectl create namespace west
 kubectl config set-context --current --namespace west
 skupper init
 skupper token create ~/secret.yaml
-kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
-kubectl expose deployment/hello-world-frontend --port 8080 --type LoadBalancer
+kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
+kubectl expose deployment/frontend --port 8080 --type LoadBalancer
 </code></pre>
 
 <div class="code-label session-1">East: Setup</div>
@@ -464,13 +459,16 @@ kubectl create namespace east
 kubectl config set-context --current --namespace east
 skupper init --ingress none
 skupper link create ~/secret.yaml
-kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
-skupper expose deployment/hello-world-backend --port 8080
+kubectl create deployment backend --image quay.io/skupper/hello-world-backend
+skupper expose deployment/backend --port 8080
 </code></pre>
 
 <div class="code-label session-2">West: Testing</div>
 
-<pre><code>curl $(kubectl get service hello-world-frontend -o jsonpath='http://{.status.loadBalancer.ingress[0].ip}:8080/')
+<pre><code>kubectl get service/frontend
+[Look up the external IP of the frontend service]
+curl http://&lt;external-ip&gt;:8080/api/health
+[Navigate to http://&lt;external-ip&gt;:8080/ in your browser]
 </code></pre>
 
 <h2 id="cleaning-up">Cleaning up</h2>
@@ -481,8 +479,8 @@ the following commands:</p>
 <div class="code-label session-2">West</div>
 
 <pre><code>skupper delete
-kubectl delete service/hello-world-frontend
-kubectl delete deployment/hello-world-frontend
+kubectl delete service/frontend
+kubectl delete deployment/frontend
 </code></pre>
 
 <div class="code-label session-1">East</div>
