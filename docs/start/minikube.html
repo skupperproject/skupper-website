@@ -78,6 +78,8 @@
 
 <h1 id="using-skupper-with-minikube">Using Skupper with Minikube</h1>
 
+<p>These notes provide Minikube specific instructions for running <a href="/examples/index.html">Skupper examples</a>.</p>
+
 <h2 id="prerequisites">Prerequisites</h2>
 
 <ul>
@@ -89,20 +91,20 @@ Minikube</a>.</p></li>
 
 <h2 id="cluster-access">Cluster access</h2>
 
-<p>Minikube does not offer a dedicated login command, but you can re-run
-the <code>minikube start</code> command in each console session you wish to
+<p>Minikube does not offer a dedicated login command, but you can run
+the <code>minikube update-context</code> command in each console session you wish to
 configure.  This initializes the required kubeconfigs in each case.</p>
 
 <div class="code-label session-2">Console for West</div>
 
 <pre><code>export KUBECONFIG=$HOME/.kube/config-west
-minikube start
+minikube update-context
 </code></pre>
 
 <div class="code-label session-1">Console for East</div>
 
 <pre><code>export KUBECONFIG=$HOME/.kube/config-east
-minikube start
+minikube update-context
 </code></pre>
 
 <h2 id="running-minikube-tunnel">Running minikube tunnel</h2>
@@ -114,7 +116,7 @@ access.  To enable network access, run <code>minikube tunnel</code> in the
 background after running <code>minikube start</code>.</p>
 
 <p>Make sure you run <code>minikube tunnel</code> with the same kubeconfig and
-Minikube profile you used for <code>minikube start</code>.  In the Hello World
+<a href="https://minikube.sigs.k8s.io/docs/commands/profile/">Minikube profile</a> you used for <code>minikube start</code>.  In the Hello World
 example, the tunnel is required only for the cluster containing the
 West namespace.</p>
 

@@ -1,5 +1,7 @@
 # Using Skupper with Minikube
 
+These notes provide Minikube specific instructions for running [Skupper examples](/examples/index.html).
+
 ## Prerequisites
 
 * You must [install Minikube and start a cluster][gs].
@@ -13,19 +15,19 @@
 
 ## Cluster access
 
-Minikube does not offer a dedicated login command, but you can re-run
-the `minikube start` command in each console session you wish to
+Minikube does not offer a dedicated login command, but you can run
+the `minikube update-context` command in each console session you wish to
 configure.  This initializes the required kubeconfigs in each case.
 
 <div class="code-label session-2">Console for West</div>
 
     export KUBECONFIG=$HOME/.kube/config-west
-    minikube start
+    minikube update-context
 
 <div class="code-label session-1">Console for East</div>
 
     export KUBECONFIG=$HOME/.kube/config-east
-    minikube start
+    minikube update-context
 
 ## Running minikube tunnel
 
@@ -36,7 +38,7 @@ access.  To enable network access, run `minikube tunnel` in the
 background after running `minikube start`.
 
 Make sure you run `minikube tunnel` with the same kubeconfig and
-Minikube profile you used for `minikube start`.  In the Hello World
+[Minikube profile](https://minikube.sigs.k8s.io/docs/commands/profile/) you used for `minikube start`.  In the Hello World
 example, the tunnel is required only for the cluster containing the
 West namespace.
 
