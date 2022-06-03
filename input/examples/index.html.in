@@ -45,6 +45,14 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 <a href="https://github.com/skupperproject/skupper-example-grpc"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
 </div>
+<div>
+<h3>HTTP load balancing</h3>
+<p>Using Skupper to balance HTTP requests across sites</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-http-load-balancing"><span class="fab fa-github fa-lg"></span> Example</a>
+<a href="https://www.youtube.com/watch?v=4GmXT3nj8lc"><span class="fab fa-youtube fa-lg"></span> Video</a>
+</nav>
+</div>
 </div>
 
 <h2 id="database-examples">Database examples</h2>
@@ -117,10 +125,9 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 </div>
 <div>
 <h3>HTTP</h3>
-<p>Using Skupper to balance HTTP requests across sites</p>
+<p>Accessing an HTTP server using Skupper</p>
 <nav class="inline-links">
-<a href="https://github.com/skupperproject/skupper-example-http-load-balancing"><span class="fab fa-github fa-lg"></span> Example</a>
-<a href="https://www.youtube.com/watch?v=4GmXT3nj8lc"><span class="fab fa-youtube fa-lg"></span> Video</a>
+<a href="https://github.com/skupperproject/skupper-example-http"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
 </div>
 <div>

@@ -12,6 +12,9 @@ categories:
         video_url: https://www.youtube.com/watch?v=H80GLl-KdTc
       - name: skupper-example-grpc
         title: Online Boutique
+      - name: skupper-example-http-load-balancing
+        title: HTTP load balancing
+        video_url: https://www.youtube.com/watch?v=4GmXT3nj8lc
   - title: Database examples
     examples:
       - name: skupper-example-mongodb-replica-set
@@ -35,9 +38,8 @@ categories:
       - name: skupper-example-tcp
         title: TCP
         video_url: https://www.youtube.com/watch?v=ZQo9cB0-1go
-      - name: skupper-example-http-load-balancing
+      - name: skupper-example-http
         title: HTTP
-        video_url: https://www.youtube.com/watch?v=4GmXT3nj8lc
       - name: skupper-example-ftp
         title: FTP
   - title: Other examples
