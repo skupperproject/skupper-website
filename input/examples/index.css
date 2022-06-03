@@ -1,16 +1,28 @@
-h2 {
-    font-size: 15pt;
-    margin-bottom: 0.8em;
-}
-
 nav.inline-links > a > span {
     color: hsla(203, 30%, 50%, 1.0);
 }
 
-.example {
-    margin-bottom: 2em;
+h2 {
+    border-top: 3px solid rgba(0, 0, 0, 0.06);
+    margin-top: 2em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    font-weight: 500;
 }
 
-.example:last-child {
+h3 {
     margin-bottom: 0;
+}
+
+.examples {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 -1em 0;
+}
+
+.examples > div {
+    flex: 0 0 220px;
+    margin: 0 30px 40px 0;
 }

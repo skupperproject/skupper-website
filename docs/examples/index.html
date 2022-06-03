@@ -72,137 +72,173 @@
 </header>
 
 
-<section>
+<section id="-main-and-toc">
   <div>
-
+    <main>
 
 <h1>Skupper examples</h1>
 
-<div class="columns">
-  <div>
-    <div class="example">
-      <h2>Hello World</h2>
+<p>These examples provide step-by-step instructions to install and use Skupper for common multi-site deployment scenarios.</p>
+<h2 id="featured-examples">Featured examples</h2>
 
-      <p>A simple multi-service HTTP application deployed across
-        multiple clusters using Skupper.</p>
+<div class="examples">
 
-      <nav class="inline-links">
-        <a href="https://github.com/skupperproject/skupper-example-hello-world"><span class="fab fa-github fa-lg"></span> Example</a>
-      </nav>
-    </div>
+<div>
+<h3>Hello World</h3>
+<p>A minimal multi-service HTTP application deployed across sites using Skupper</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-hello-world"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3>Patient Portal</h3>
+<p>A database-backed web application deployed across sites using Skupper</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-patient-portal"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3>Trade Zoo</h3>
+<p>A Kafka-based trading application deployed across sites using Skupper</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-trade-zoo"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3>Bookinfo</h3>
+<p>Deploying the Istio Bookinfo application across sites using Skupper</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-bookinfo"><span class="fab fa-github fa-lg"></span> Example</a>
+<a href="https://www.youtube.com/watch?v=H80GLl-KdTc"><span class="fab fa-youtube fa-lg"></span> Video</a>
+</nav>
+</div>
+<div>
+<h3>Online Boutique</h3>
+<p>Deploying the Online Boutique application across sites using Skupper</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-grpc"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+</div>
 
-    <div class="example">
-      <h2>TCP echo</h2>
+<h2 id="database-examples">Database examples</h2>
 
-      <p>TCP data tunneled through a Skupper network from a private to
-        a public site and back again.</p>
+<div class="examples">
 
-      <nav class="inline-links">
-        <a href="https://github.com/skupperproject/skupper-example-tcp-echo"><span class="fab fa-github fa-lg"></span> Example</a>
-        <a href="https://www.youtube.com/watch?v=ZQo9cB0-1go"><span class="fab fa-youtube fa-lg"></span> Video</a>
-      </nav>
-    </div>
+<div>
+<h3>MongoDB</h3>
+<p>Deploying a MongoDB replica set across sites using Skupper</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-mongodb-replica-set"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3>MySQL</h3>
+<p>Accessing a MySQL database in a private data center from the public cloud</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-mysql"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3>PostgreSQL</h3>
+<p>Accessing a PostgreSQL database in a private data center from the public cloud</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-postgresql"><span class="fab fa-github fa-lg"></span> Example</a>
+<a href="https://www.youtube.com/watch?v=Oa0aVpb0v7U"><span class="fab fa-youtube fa-lg"></span> Video</a>
+</nav>
+</div>
+</div>
 
-    <div class="example">
-      <h2>HTTP load balancing</h2>
+<h2 id="messaging-examples">Messaging examples</h2>
 
-      <p>Dynamically load balance HTTP requests across deployments on
-      distinct clusters.</p>
+<div class="examples">
 
-      <nav class="inline-links">
-        <a href="https://github.com/skupperproject/skupper-example-http-load-balancing"><span class="fab fa-github fa-lg"></span> Example</a>
-        <a href="https://www.youtube.com/watch?v=4GmXT3nj8lc"><span class="fab fa-youtube fa-lg"></span> Video</a>
-      </nav>
-    </div>
-  </div>
+<div>
+<h3>ActiveMQ</h3>
+<p>Accessing an ActiveMQ message broker using Skupper</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-activemq"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3>Kafka</h3>
+<p>Accessing a Kafka cluster using Skupper</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-kafka"><span class="fab fa-github fa-lg"></span> Example</a>
+<a href="https://www.youtube.com/watch?v=W7aUOgCTyOg"><span class="fab fa-youtube fa-lg"></span> Video</a>
+</nav>
+</div>
+<div>
+<h3>RabbitMQ</h3>
+<p>Accessing a RabbitMQ message broker using Skupper</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-rabbitmq"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+</div>
 
-  <div>
-    <div class="example">
-      <h2>The Bookinfo app</h2>
+<h2 id="protocol-examples">Protocol examples</h2>
 
-      <p>Deploy Istio's Bookinfo example app across multiple
-        clusters.</p>
+<div class="examples">
 
-      <nav class="inline-links">
-        <a href="https://github.com/skupperproject/skupper-example-bookinfo"><span class="fab fa-github fa-lg"></span> Example</a>
-        <a href="https://www.youtube.com/watch?v=H80GLl-KdTc"><span class="fab fa-youtube fa-lg"></span> Video</a>
-      </nav>
-    </div>
+<div>
+<h3>TCP</h3>
+<p>Accessing a TCP server using Skupper</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-tcp"><span class="fab fa-github fa-lg"></span> Example</a>
+<a href="https://www.youtube.com/watch?v=ZQo9cB0-1go"><span class="fab fa-youtube fa-lg"></span> Video</a>
+</nav>
+</div>
+<div>
+<h3>HTTP</h3>
+<p>Using Skupper to balance HTTP requests across sites</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-http-load-balancing"><span class="fab fa-github fa-lg"></span> Example</a>
+<a href="https://www.youtube.com/watch?v=4GmXT3nj8lc"><span class="fab fa-youtube fa-lg"></span> Video</a>
+</nav>
+</div>
+<div>
+<h3>FTP</h3>
+<p>Accessing an FTP server using Skupper</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-ftp"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+</div>
 
-    <!-- <div class="example"> -->
-    <!--   <h2>Fuse Online</h2> -->
+<h2 id="other-examples">Other examples</h2>
 
-    <!--   <p>Connect the Fuse integration platform to services on remote -->
-    <!--    clusters.</p> -->
+<div class="examples">
 
-    <!--   <nav class="inline-links"> -->
-    <!--     <a href="https://github.com/skupperproject/skupper-example-fuse-online"><span class="fab fa-github fa-lg"></span> Example</a> -->
-    <!--     <a href="https://www.youtube.com/watch?v=Wbrk9p79OJM"><span class="fab fa-youtube fa-lg"></span> Video</a> -->
-    <!--   </nav> -->
-    <!-- </div> -->
-
-    <div class="example">
-      <h2>Microservices with gRPC</h2>
-
-      <p>Deploy the gRPC-based Hipster Shop example app across
-        multiple clusters.</p>
-
-      <nav class="inline-links">
-        <a href="https://github.com/skupperproject/skupper-example-grpc"><span class="fab fa-github fa-lg"></span> Example</a>
-      </nav>
-    </div>
-
-    <div class="example">
-      <h2>Kafka</h2>
-
-      <p>Deploy Kafka clients and clusters across multiple Kubernetes
-        clusters without exposing Kafka ports.</p>
-
-      <nav class="inline-links">
-        <a href="https://www.youtube.com/watch?v=W7aUOgCTyOg"><span class="fab fa-youtube fa-lg"></span> Accessing Kafka from a remote site</a>
-        <br/>
-        <a href="https://www.youtube.com/watch?v=Zz-5WUNh_ik"><span class="fab fa-youtube fa-lg"></span> Mirroring data across sites</a>
-      </nav>
-    </div>
-  </div>
-
-  <div>
-    <div class="example">
-      <h2>MongoDB</h2>
-
-      <p>Replicate a MongoDB database across multiple clusters.</p>
-
-      <nav class="inline-links">
-        <a href="https://github.com/skupperproject/skupper-example-mongodb-replica-set"><span class="fab fa-github fa-lg"></span> Example</a>
-      </nav>
-    </div>
-
-    <div class="example">
-      <h2>PostgreSQL</h2>
-
-      <p>Accessing a PostgreSQL database in the private cloud from the
-        public cloud.</p>
-
-      <nav class="inline-links">
-        <a href="https://github.com/skupperproject/skupper-example-postgresql"><span class="fab fa-github fa-lg"></span> Example</a>
-        <a href="https://www.youtube.com/watch?v=Oa0aVpb0v7U"><span class="fab fa-youtube fa-lg"></span> Video</a>
-      </nav>
-    </div>
-
-    <div class="example">
-      <h2>Prometheus</h2>
-
-      <p>Gather Prometheus metrics from endpoints deployed across
-        multiple clusters.</p>
-
-      <nav class="inline-links">
-        <a href="https://github.com/skupperproject/skupper-example-prometheus"><span class="fab fa-github fa-lg"></span> Example</a>
-      </nav>
-    </div>
-  </div>
+<div>
+<h3>Camel</h3>
+<p>Using Skupper to access private on-prem data from Camel</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-camel-integration"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3>iPerf</h3>
+<p>Perform real-time network throughput measurements using iPerf3</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-iperf"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3>Prometheus</h3>
+<p>Gather Prometheus metrics from endpoints deployed across multiple clusters</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-prometheus"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
 </div>
 
 
+    </main>
+    <nav id="-toc">
+      <h4>Contents</h4>
+      <div></div>
+    </nav>
   </div>
 </section>
 

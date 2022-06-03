@@ -1,3 +1,7 @@
+---
+title: Releases
+---
+
 # Skupper releases
 
 ## The latest release

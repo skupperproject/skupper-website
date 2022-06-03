@@ -33,16 +33,16 @@ body.scrolled header {
 }
 
 #-site-nav {
-    border-bottom: 0.2em solid transparent;
+    border-bottom: 3px solid transparent;
 }
 
 body.scrolled #-site-nav {
-    border-bottom: 0.2em solid hsla(203, 30%, 94%, 1.0);
+    border-bottom: 3px solid hsla(203, 30%, 94%, 1.0);
 }
 
 #-left-site-nav > a:not(#-logotype):hover {
     color: var(--bg-color-3);
-    border-bottom: 0.2em solid hsla(203, 30%, 88%, 1.0);
+    border-bottom: 3px solid hsla(203, 30%, 88%, 1.0);
 }
 
 footer {
@@ -125,7 +125,7 @@ section:first-of-type > div {
     flex: 1 1 0;
     margin: 0 2em 0 0;
     padding: 1.2em 1.6em;
-    border: 0.2em solid hsla(203, 30%, 88%, 1.0);
+    border: 3px solid hsla(203, 30%, 88%, 1.0);
     background-color: var(--bg-color-1);
     text-align: left;
     font-weight: 300;

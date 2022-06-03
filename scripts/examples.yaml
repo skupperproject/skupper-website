@@ -1,0 +1,50 @@
+categories:
+  - title: Featured examples
+    examples:
+      - name: skupper-example-hello-world
+        title: Hello World
+      - name: skupper-example-patient-portal
+        title: Patient Portal
+      - name: skupper-example-trade-zoo
+        title: Trade Zoo
+      - name: skupper-example-bookinfo
+        title: Bookinfo
+        video_url: https://www.youtube.com/watch?v=H80GLl-KdTc
+      - name: skupper-example-grpc
+        title: Online Boutique
+  - title: Database examples
+    examples:
+      - name: skupper-example-mongodb-replica-set
+        title: MongoDB
+      - name: skupper-example-mysql
+        title: MySQL
+      - name: skupper-example-postgresql
+        title: PostgreSQL
+        video_url: https://www.youtube.com/watch?v=Oa0aVpb0v7U
+  - title: Messaging examples
+    examples:
+      - name: skupper-example-activemq
+        title: ActiveMQ
+      - name: skupper-example-kafka
+        title: Kafka
+        video_url: https://www.youtube.com/watch?v=W7aUOgCTyOg
+      - name: skupper-example-rabbitmq
+        title: RabbitMQ
+  - title: Protocol examples
+    examples:
+      - name: skupper-example-tcp
+        title: TCP
+        video_url: https://www.youtube.com/watch?v=ZQo9cB0-1go
+      - name: skupper-example-http-load-balancing
+        title: HTTP
+        video_url: https://www.youtube.com/watch?v=4GmXT3nj8lc
+      - name: skupper-example-ftp
+        title: FTP
+  - title: Other examples
+    examples:
+      - name: skupper-example-camel-integration
+        title: Camel
+      - name: skupper-example-iperf
+        title: iPerf
+      - name: skupper-example-prometheus
+        title: Prometheus

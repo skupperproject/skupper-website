@@ -23,7 +23,9 @@ site.output_dir = "docs"
 
 @command
 def generate_docs(app, owner="skupperproject", branch="main", output_dir="input/docs"):
-    """Generate docs from the skupper-docs repo"""
+    """
+    Generate docs from the skupper-docs repo
+    """
 
     check_program("antora")
 
@@ -42,6 +44,64 @@ def generate_docs(app, owner="skupperproject", branch="main", output_dir="input/
         copy("build/skupper/latest/cli", output_dir)
         copy("build/skupper/latest/console", output_dir)
         copy("build/skupper/latest/declarative", output_dir)
+
+@command
+def generate_examples(app, output_file="input/examples/index.html.in"):
+    """
+    Generate the example index using metadata in scripts/examples.yaml
+    """
+
+    examples_data = read_yaml("scripts/examples.yaml")
+    github_data = http_get_json("https://api.github.com/orgs/skupperproject/repos?per_page=100")
+    repos = dict()
+
+    for repo_data in github_data:
+        repos[repo_data["name"]] = repo_data
+
+    output_file = get_absolute_path(output_file)
+    out = list()
+
+    out.append("---")
+    out.append("title: Examples")
+    out.append("extra_headers: <link rel=\"stylesheet\" href=\"index.css\" type=\"text/css\" async=\"async\"/>")
+    out.append("---")
+
+    out.append("<h1>Skupper examples</h1>")
+    out.append("")
+    out.append("<p>These examples provide step-by-step instructions to install and use Skupper for common multi-site deployment scenarios.</p>")
+
+    for category in examples_data["categories"]:
+        category_title = category["title"]
+        category_id = category_title.lower().replace(" ", "-")
+
+        out.append(f"<h2 id=\"{category_id}\">{category_title}</h2>")
+        out.append("")
+        out.append("<div class=\"examples\">")
+        out.append("")
+
+        for example_data in category["examples"]:
+            repo_data = repos[example_data["name"]]
+            title = example_data["title"]
+            description = repo_data["description"]
+            url = repo_data["html_url"]
+
+            out.append("<div>")
+            out.append(f"<h3>{title}</h3>")
+            out.append(f"<p>{description}</p>")
+            out.append("<nav class=\"inline-links\">")
+            out.append(f"<a href=\"{url}\"><span class=\"fab fa-github fa-lg\"></span> Example</a>")
+
+            if "video_url" in example_data:
+                video_url = example_data["video_url"]
+                out.append(f"<a href=\"{video_url}\"><span class=\"fab fa-youtube fa-lg\"></span> Video</a>")
+
+            out.append("</nav>")
+            out.append("</div>")
+
+        out.append("</div>")
+        out.append("")
+
+    write(output_file, "\n".join(out))
 
 @command
 def test(app):
