@@ -299,6 +299,16 @@ is present.  You should see output like this:
 
 ### Test your application
 
+To test our Hello World, we need external access to the frontend (not
+the backend).  Use `kubectl expose` with `--type LoadBalancer` to make
+the frontend accessible using a conventional Kubernetes ingress.
+
+<div class="code-label session-2">West</div>
+
+    kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
+
+It takes a moment for the external IP to become available.
+
 Now we're ready to try it out.  Use `kubectl get` in West to look up
 the external IP of the frontend service.  Then use `curl` or a similar
 tool to request the `/api/health` endpoint at that address.
