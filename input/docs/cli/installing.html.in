@@ -1,0 +1,57 @@
+---
+title: Installing the &lt;code&gt;skupper&lt;/code&gt; CLI
+---
+
+<article class="doc">
+<h1 class="page">Installing the <code>skupper</code> CLI</h1>
+<div class="paragraph system:abstract">
+<p>Installing the <code>skupper</code> command-line interface (CLI) provides a simple method to get started with Skupper.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Install the <code>skupper</code> command-line interface.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>For Linux:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/{skupper-version}/skupper-cli-{skupper-version}-linux-amd64.tgz | tar -xzf -</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For MacOS:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/{skupper-version}/skupper-cli-{skupper-version}-mac-amd64.tgz | tar -xzf -</pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Copy the <code>skupper</code> executable to a directory in your $PATH:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ mkdir -p $HOME/bin
+$ export PATH=$PATH:$HOME/bin
+$ mv skupper $HOME/bin</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the installation.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper version
+client version {skupper-cli-version}</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</article>

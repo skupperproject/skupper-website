@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Documentation</title>
+    <title>Skupper - Supported standards and protocols</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -12,8 +12,8 @@
     <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
     <script type="text/javascript" src="/main.js" defer="defer"></script>
 
+<script src="http://localhost:35729/livereload.js"></script>
 
-<link rel="stylesheet" href="index.css" type="text/css" async="async"/>
 
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
     <script>
@@ -59,7 +59,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/index.html">Using the Skupper CLI</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/protocols.html">Supported standards and protocols</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -72,68 +72,80 @@
 </header>
 
 
-<section>
+<section id="-main-and-toc">
   <div>
+    <main>
 
 
-<h1>Skupper documentation</h1>
-
-<div class="columns">
-  <div>
-    <h2>Understand the basics</h2>
-
-    <p>Learn about the concepts and technology behind virtual
-      application networks.</p>
-
-    <nav>
-      <a href="overview/index.html">Overview</a>
-      <!-- <a href="terms-and-concepts.html">Terms and concepts</a> -->
-      <a href="overview/security.html">Security</a>
-      <a href="overview/connectivity.html">Connectivity</a>
-      <a href="overview/routing.html">Routing</a>
-    </nav>
-  </div>
-  <div>
-    <h2>The Skupper command</h2>
-
-    <p>The Skupper command-line tool enables you to initialize,
-    connect, and monitor Skupper sites interactively from your
-    development environment.</p>
-
-    <nav>
-      <a href="/start/index.html">Getting started</a>
-      <a href="/docs/cli/index.html">CLI Guide</a>
-      <a href="/docs/cli-reference/skupper.html">Command-line reference</a>
-    </nav>
-  </div>
-  <div>
-    <h2>YAML configuration</h2>
-
-    <p>Learn how you can use YAML to declaratively configure and
-    connect Skupper sites.</p>
-
-    <nav>
-      <a href="declarative/tutorial.html">Configuring Skupper sites using YAML</a>
-      <a href="declarative/index.html">YAML configuration reference</a>
-    </nav>
-  </div>
+<article class="doc">
+<h1 class="page">Supported standards and protocols</h1>
+<div class="paragraph">
+<p>Skupper supports the following protocols for your {service-network}:</p>
 </div>
-
-<div>
-  <h2>Blog posts, articles, and videos</h2>
-
-  <nav>
-    <a href="https://www.youtube.com/watch?v=YcE02jHHVCM">Virtual Application Networks for Cloud Native Applications - KubeCon + CloudNativeCon North America 2020</a>
-    <a href="https://developers.redhat.com/blog/2020/01/01/skupper-io-let-your-services-communicate-across-kubernetes-clusters/">Skupper.io: Let your services communicate across Kubernetes clusters</a>
-    <a href="https://netprototalk.com/2019/11/12/virtual-application-networks-for-hybrid-cloud-interconnect/">Virtual Application Networks for Hybrid Cloud Interconnect</a>
-    <a href="https://hackernoon.com/enabling-multi-cloud-kubernetes-communication-with-skupper-glz3u6p">Enabling Multi-Cloud Kubernetes Communication with Skupper</a>
-    <a href="https://youtu.be/2ax0CDyKg4U?t=101">Kubernetes and the hybrid cloud with Skupper | DevNation Tech Talk</a>
-    <a href="https://www.youtube.com/watch?v=np-eBAmB-bs">Cloud-Edge Interconnect: Doing It Right With The Skupper project</a>
-    <a href="https://www.youtube.com/watch?v=FPsUgxmj25s">HTTP load-balancing with Skupper across OpenShift clusters</a>
-  </nav>
+<div class="ulist">
+<ul>
+<li>
+<p>TCP - default</p>
+</li>
+<li>
+<p>HTTP1</p>
+</li>
+<li>
+<p>HTTP2</p>
+</li>
+</ul>
 </div>
+<div class="paragraph">
+<p>When exposing or creating a service, you can specify the protocol, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ skupper expose deployment hello-world-backend --port 8080 --protocol &lt;protocol&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where <code>&lt;protocol&gt;</code> can be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>tcp</p>
+</li>
+<li>
+<p>http</p>
+</li>
+<li>
+<p>http2</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When choosing which protocol to specify, note the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>tcp</code> supports any protocol overlayed on TCP, for example, HTTP1 and HTTP2 work when you specify <code>tcp</code>.</p>
+</li>
+<li>
+<p>If you specify <code>http</code> or <code>http2</code>, the IP address reported by a client may not be accessible.</p>
+</li>
+<li>
+<p>All {service-network} traffic is converted to AMQP messages in order to traverse the {service-network}.</p>
+<div class="paragraph">
+<p>TCP is implemented as a single streamed message, whereas HTTP1 and HTTP2 are implemented as request/response message routing.</p>
+</div>
+</li>
+</ul>
+</div>
+</article>
 
 
+    </main>
+    <nav id="-toc">
+      <h4>Contents</h4>
+      <div></div>
+    </nav>
   </div>
 </section>
 

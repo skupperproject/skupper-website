@@ -43,37 +43,19 @@ The credential prompt depends on how the site was created using <code>skupper in
 <p>using the <code>--console-auth openshift</code> option, you are prompted to enter OpenShift cluster credentials.</p>
 </li>
 <li>
-<p>using the default or <code>--console-user &lt;user&gt;  --console-password &lt;password&gt;</code> options, you are prompted to enter Skupper credentials.</p>
+<p>using the default or <code>--console-user &lt;user&gt;  --console-password &lt;password&gt;</code> options, you are prompted to enter those credentials.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
 <p>If you created the site using default settings, that is <code>skupper init</code>, a random password is generated for the <code>admin</code> user.
-To retrieve the password:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Retrieve the encoded password for the <code>admin</code> user:</p>
+To retrieve the password the <code>admin</code> user:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get secret skupper-console-users -o yaml| grep admin
-
-admin: Sk5aV3pNSHR5Zw==</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Decode the password for the <code>admin</code> user:</p>
-<div class="listingblock">
-<div class="content">
-<pre>$ echo -n "Sk5aV3pNSHR5Zw==" | base64 --decode
-
+<pre>$ kubectl get secret skupper-console-users -o jsonpath={.data.admin} | base64 -d
 JNZWzMHtyg</pre>
 </div>
-</div>
-</li>
-</ol>
 </div>
 </li>
 </ol>
@@ -131,7 +113,7 @@ Your browser may prompt you to allow using the clipboard. You must accept that p
 <p>Click <strong>Use a token</strong> to accept the token from the first site.</p>
 </li>
 <li>
-<p>Verify that the sites are linked by clicking <strong>Deployments</strong> and checking that both sites are listed.</p>
+<p>Verify that the sites are linked by Checking that both sites are listed in the <strong>Network details</strong> section of the <strong>Site</strong> page.</p>
 </li>
 </ol>
 </div>
@@ -161,7 +143,7 @@ Your browser may prompt you to allow using the clipboard. You must accept that p
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/skupper-console.png" alt="skupper console">
+<img src="../_images/skupper-console.png" alt="skupper console">
 </div>
 </div>
 <div class="olist arabic">
@@ -173,7 +155,7 @@ Your browser may prompt you to allow using the clipboard. You must accept that p
 <p>Navigate to the Skupper console.</p>
 </li>
 <li>
-<p>Click the <strong>Sites</strong> menu item.
+<p>Click the <strong>Network</strong> menu item.
 Both the <strong>east</strong> and <strong>west</strong> sites should be displayed in circles.</p>
 </li>
 <li>
@@ -204,8 +186,24 @@ Although two services are involved in the tutorial, only one service, <code>hell
 </div>
 </li>
 <li>
-<p>Click the <strong>Sites</strong> menu again and expand the panel on the right hand side of the console.
-This panel shows the traffic flows from the backend to the frontend.</p>
+<p>Click the <strong>Site</strong> menu.
+This page shows:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The number of sites in the service network.</p>
+</li>
+<li>
+<p>The services that are exposed on the service network.</p>
+</li>
+<li>
+<p>The gateways that are defined in the service network.</p>
+</li>
+<li>
+<p>The traffic for the current site.</p>
+</li>
+</ul>
+</div>
 </li>
 </ol>
 </div>

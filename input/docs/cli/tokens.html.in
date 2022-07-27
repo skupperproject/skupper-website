@@ -1,0 +1,277 @@
+---
+title: Using Skupper tokens
+---
+
+<article class="doc">
+<h1 class="page">Using Skupper tokens</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph system:abstract">
+<p>Skupper tokens allow you to create links between sites.
+You create a token on one site and use that token from the other site to create a link between the two sites.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Although the linking process is directional, a Skupper link allows communication in both directions.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If both sites are equally accessible, for example, two public clouds, then it is not important where you create the token.
+However, when using a token, the site you link to must be accessible from the site you link from.
+For example, if you are creating a service network using both a public and private cluster, you must create the token on the public cluster and use the token from the private cluster.</p>
+</div>
+<div class="paragraph">
+<p>There are two types of Skupper token:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Claim token (default)</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>A claim token can be restricted by:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>time - prevents token reuse after a specified period.</p>
+</li>
+<li>
+<p>usage - prevents creating multiple links from a single token.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>All inter-site traffic is protected by mutual TLS using a private, dedicated certificate authority (CA).
+A claim token is not a certificate, but is securely exchanged for a certificate during the linking process.
+By implementing appropriate restrictions (for example, creating a single-use claim token), you can avoid the accidental exposure of certificates.</p>
+</div>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">Cert token </dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>You can use a cert token to create a link to the site which issued that token, it includes a valid certificate from that site.</p>
+</div>
+<div class="paragraph">
+<p>All inter-site traffic is protected by mutual TLS using a private, dedicated certificate authority (CA).
+A cert token is a certificate issued by the dedicated CA.
+Protect it appropriately.</p>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-claim-tokens-skupper-io"><a class="anchor" href="#creating-claim-tokens-skupper-io"></a>Creating claim tokens</h2>
+<div class="sectionbody">
+<div class="paragraph system:abstract">
+<p>You can use a claim token to create a link to the site which issued that token.
+It does not includes a certificate from that site, but a certificate is passed from the site when the claim token is used.
+A claim token can be restricted by time or usage.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log into the cluster.</p>
+</li>
+<li>
+<p>Change to the namespace associated with the site.</p>
+</li>
+<li>
+<p>Create a claim token, for example:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ skupper token create $HOME/secret.yaml --expiry 30m0s --uses 2 -t claim</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Claim tokens are the default, the <code>-t claim</code> section of the command is unnecessary.
+</td>
+</tr>
+</table>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">--expiry</dt>
+<dd>
+<p>The amount of time the token is valid in minutes and seconds, default <code>15m0s</code>.</p>
+</dd>
+<dt class="hdlist1">--uses</dt>
+<dd>
+<p>The number of times you can use the token to create a  link, default <code>1</code>.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional information</div>
+<ul>
+<li>
+<p>See the <a href="/docs/cli/index.html">Configuring Skupper sites using the CLI</a> for information on using the token to create links.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-cert-tokens-skupper-io"><a class="anchor" href="#creating-cert-tokens-skupper-io"></a>Creating cert tokens</h2>
+<div class="sectionbody">
+<div class="paragraph system:abstract">
+<p>A cert token allows you create many links to the service network from different sites without restrictions.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log into the cluster.</p>
+</li>
+<li>
+<p>Change to the namespace associated with the site.</p>
+</li>
+<li>
+<p>Create a cert token:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ skupper token create $HOME/secret.yaml -t cert</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Cert tokens are always valid and can be reused indefinitely unless revoked as described in <a href="#revoking-access-skupper-io">Revoking access to a site</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional information</div>
+<ul>
+<li>
+<p>See the <a href="/docs/cli/index.html">Configuring Skupper sites using the CLI</a> for information on using the token to create links.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="revoking-access-skupper-io"><a class="anchor" href="#revoking-access-skupper-io"></a>Revoking access to a site</h2>
+<div class="sectionbody">
+<div class="paragraph system:abstract">
+<p>If a token is compromised, you can prevent unauthorized use of that token by invalidating  all the tokens created from a site.</p>
+</div>
+<div class="paragraph">
+<p>This option removes all links to the site and requires that you recreate any links to restore the service network.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Procedure</p>
+</li>
+<li>
+<p>Log into the cluster.</p>
+</li>
+<li>
+<p>Change to the namespace associated with the site.</p>
+</li>
+<li>
+<p>Check the status of the site:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ skupper status
+Skupper is enabled for namespace "west" in interior mode. It is linked to 2 other sites.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check outgoing links from the site:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ skupper link status
+Link link1 is active</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case, there are two links, and one outgoing link, meaning there is one incoming link.</p>
+</div>
+</li>
+<li>
+<p>Revoke access to the site from incoming links:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ skupper revoke-access</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check the status of the site to see the revocation of access:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ skupper status
+Skupper is enabled for namespace "west" in interior mode. It is linked to 1 other site.
+$ skupper link status
+Link link1 is active</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output shows that the <code>skupper revoke-access</code> command has revoked the incoming links, but outgoing links are still active.</p>
+</div>
+<div class="paragraph">
+<p>You can remove that link using the <code>skupper link delete link1</code> command, but to revoke access, you must follow this procedure while logged into the appropriate cluster.</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional information</div>
+<ul>
+<li>
+<p>See the <a href="/docs/cli/index.html">Configuring Skupper sites using the CLI</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
