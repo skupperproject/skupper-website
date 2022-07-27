@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Documentation</title>
+    <title>Skupper - Skupper gateway generate-bundle</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -12,8 +12,8 @@
     <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
     <script type="text/javascript" src="/main.js" defer="defer"></script>
 
+<script src="http://localhost:35729/livereload.js"></script>
 
-<link rel="stylesheet" href="index.css" type="text/css" async="async"/>
 
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
     <script>
@@ -59,7 +59,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli-reference/skupper_gateway_generate-bundle.html">Skupper gateway generate-bundle</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -72,101 +72,35 @@
 </header>
 
 
-<section>
+<section id="-main-and-toc">
   <div>
+    <main>
 
 
-<h1>Skupper documentation</h1>
-
-<div class="columns">
-  <div>
-    <h2>Understand the basics</h2>
-
-    <p>Learn about the concepts and technology behind virtual
-      application networks.</p>
-
-    <nav>
-      <a href="overview/index.html">Overview</a>
-      <!-- <a href="terms-and-concepts.html">Terms and concepts</a> -->
-      <a href="overview/security.html">Security</a>
-      <a href="overview/connectivity.html">Connectivity</a>
-      <a href="overview/routing.html">Routing</a>
-    </nav>
-  </div>
-  <div>
-    <h2>The Skupper command</h2>
-
-    <p>The Skupper command-line tool enables you to initialize,
-    connect, and monitor Skupper sites interactively from your
-    development environment.</p>
-
-    <nav>
-      <a href="/start/index.html">Getting started</a>
-      <a href="/docs/cli/index.html">CLI Guide</a>
-      <a href="/docs/cli-reference/skupper.html">Command-line reference</a>
-    </nav>
-  </div>
-  <div>
-    <h2>YAML configuration</h2>
-
-    <p>Learn how you can use YAML to declaratively configure and
-    connect Skupper sites.</p>
-
-    <nav>
-      <a href="declarative/tutorial.html">Configuring Skupper sites using YAML</a>
-      <a href="declarative/index.html">YAML configuration reference</a>
-    </nav>
-  </div>
+<article class="doc">
+<h1 class="page">Skupper gateway generate-bundle</h1>
+<div class="paragraph">
+<p>Generate an installation bundle using a gateway config file</p>
 </div>
-<div class="columns">
-  <div>
-    <h2>Operator</h2>
-
-    <p>Learn how you can install the Skupper operator, and create Skupper sites using ConfigMaps.</p>
-
-    <nav>
-      <a href="declarative/tutorial.html">Configuring Skupper sites using YAML</a>
-      <a href="declarative/index.html">YAML configuration reference</a>
-    </nav>
-  </div>
-  <div>
-    <h2>Security</h2>
-
-    <p>Skupper provides default, built-in security that scales across clusters and clouds, but you can enhance protection</p>
-
-    <nav>
-      <a href="cli/tokens.html">Working with tokens</a>
-      <a href="cli/native-security-options.html">Network policy and TLS</a>
-      <a href="policy/index.html">Apply granular policies to your cluster</a>
-    </nav>
-  </div>
-  <div>
-    <h2>Troubleshooting</h2>
-
-    <p>Resolve common problems, inspect sites, and create debug tarballs</p>
-
-    <nav>
-      <a href="troubleshooting/index.html">Troubleshooting sites and networks</a>
-    </nav>
-  </div>
-
+<div class="paragraph">
+<p><code>skupper gateway generate-bundle &lt;config-file&gt; &lt;output-path&gt; [flags]</code></p>
 </div>
-
-<div>
-  <h2>Blog posts, articles, and videos</h2>
-
-  <nav>
-    <a href="https://www.youtube.com/watch?v=YcE02jHHVCM">Virtual Application Networks for Cloud Native Applications - KubeCon + CloudNativeCon North America 2020</a>
-    <a href="https://developers.redhat.com/blog/2020/01/01/skupper-io-let-your-services-communicate-across-kubernetes-clusters/">Skupper.io: Let your services communicate across Kubernetes clusters</a>
-    <a href="https://netprototalk.com/2019/11/12/virtual-application-networks-for-hybrid-cloud-interconnect/">Virtual Application Networks for Hybrid Cloud Interconnect</a>
-    <a href="https://hackernoon.com/enabling-multi-cloud-kubernetes-communication-with-skupper-glz3u6p">Enabling Multi-Cloud Kubernetes Communication with Skupper</a>
-    <a href="https://youtu.be/2ax0CDyKg4U?t=101">Kubernetes and the hybrid cloud with Skupper | DevNation Tech Talk</a>
-    <a href="https://www.youtube.com/watch?v=np-eBAmB-bs">Cloud-Edge Interconnect: Doing It Right With The Skupper project</a>
-    <a href="https://www.youtube.com/watch?v=FPsUgxmj25s">HTTP load-balancing with Skupper across OpenShift clusters</a>
-  </nav>
+<div class="ulist">
+<div class="title">SEE ALSO</div>
+<ul>
+<li>
+<p><a href="skupper_gateway.html" class="xref page">skupper gateway</a>	 - Manage skupper gateway definitions</p>
+</li>
+</ul>
 </div>
+</article>
 
 
+    </main>
+    <nav id="-toc">
+      <h4>Contents</h4>
+      <div></div>
+    </nav>
   </div>
 </section>
 

@@ -46,6 +46,39 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
     </nav>
   </div>
 </div>
+<div class="columns">
+  <div>
+    <h2>Operator</h2>
+
+    <p>Learn how you can install the Skupper operator, and create Skupper sites using ConfigMaps.</p>
+
+    <nav>
+      <a href="declarative/tutorial.html">Configuring Skupper sites using YAML</a>
+      <a href="declarative/index.html">YAML configuration reference</a>
+    </nav>
+  </div>
+  <div>
+    <h2>Security</h2>
+
+    <p>Skupper provides default, built-in security that scales across clusters and clouds, but you can enhance protection</p>
+
+    <nav>
+      <a href="cli/tokens.html">Working with tokens</a>
+      <a href="cli/native-security-options.html">Network policy and TLS</a>
+      <a href="policy/index.html">Apply granular policies to your cluster</a>
+    </nav>
+  </div>
+  <div>
+    <h2>Troubleshooting</h2>
+
+    <p>Resolve common problems, inspect sites, and create debug tarballs</p>
+
+    <nav>
+      <a href="troubleshooting/index.html">Troubleshooting sites and networks</a>
+    </nav>
+  </div>
+
+</div>
 
 <div>
   <h2>Blog posts, articles, and videos</h2>

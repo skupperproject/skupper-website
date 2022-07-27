@@ -1,0 +1,29 @@
+---
+title: Skupper debug events
+---
+
+<article class="doc">
+<h1 class="page">Skupper debug events</h1>
+<div class="paragraph">
+<p>Show events</p>
+</div>
+<div class="paragraph">
+<p><code>skupper debug events [flags]</code></p>
+</div>
+<div class="ulist">
+<div class="title">Options</div>
+<ul>
+<li>
+<p><code>verbose</code>  More detailed output (in json)</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">SEE ALSO</div>
+<ul>
+<li>
+<p><a href="skupper_debug.html" class="xref page">skupper debug</a>	 - Debug skupper installation</p>
+</li>
+</ul>
+</div>
+</article>

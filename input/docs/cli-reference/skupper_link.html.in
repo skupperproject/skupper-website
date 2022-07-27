@@ -1,0 +1,27 @@
+---
+title: Skupper link
+---
+
+<article class="doc">
+<h1 class="page">Skupper link</h1>
+<div class="paragraph">
+<p>Manage skupper links definitions</p>
+</div>
+<div class="ulist">
+<div class="title">SEE ALSO</div>
+<ul>
+<li>
+<p><a href="skupper.html" class="xref page">skupper</a>	 -</p>
+</li>
+<li>
+<p><a href="skupper_link_create.html" class="xref page">skupper link create</a>	 - Links this skupper installation to that which issued the specified token</p>
+</li>
+<li>
+<p><a href="skupper_link_delete.html" class="xref page">skupper link delete</a>	 - Remove specified link</p>
+</li>
+<li>
+<p><a href="skupper_link_status.html" class="xref page">skupper link status</a>	 - Check whether a link to another Skupper site is active</p>
+</li>
+</ul>
+</div>
+</article>

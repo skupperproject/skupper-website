@@ -1,0 +1,41 @@
+---
+title: Skupper gateway expose
+---
+
+<article class="doc">
+<h1 class="page">Skupper gateway expose</h1>
+<div class="paragraph">
+<p>Expose a process to the service network (ensure gateway and cluster service)</p>
+</div>
+<div class="paragraph">
+<p><code>skupper gateway expose &lt;address&gt; &lt;host&gt; &lt;port...&gt; [flags]</code></p>
+</div>
+<div class="ulist">
+<div class="title">Options</div>
+<ul>
+<li>
+<p><code>aggregate - string</code>  The aggregation strategy to use.
+One of 'json' or 'multipart'.
+If specified requests to this service will be sent to all registered implementations and the responses aggregated.</p>
+</li>
+<li>
+<p><code>event-channel</code>     If specified, this service will be a channel for multicast events.</p>
+</li>
+<li>
+<p><code>protocol - string</code>   The protocol to gateway (tcp, http or http2).
+(default "tcp")</p>
+</li>
+<li>
+<p><code>type - string</code>       The gateway type one of: 'service', 'docker', 'podman' (default "service")</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">SEE ALSO</div>
+<ul>
+<li>
+<p><a href="skupper_gateway.html" class="xref page">skupper gateway</a>	 - Manage skupper gateway definitions</p>
+</li>
+</ul>
+</div>
+</article>

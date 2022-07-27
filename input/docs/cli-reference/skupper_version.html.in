@@ -1,0 +1,21 @@
+---
+title: Skupper version
+---
+
+<article class="doc">
+<h1 class="page">Skupper version</h1>
+<div class="paragraph">
+<p>Report the version of the Skupper CLI and services</p>
+</div>
+<div class="paragraph">
+<p><code>skupper version [flags]</code></p>
+</div>
+<div class="ulist">
+<div class="title">SEE ALSO</div>
+<ul>
+<li>
+<p><a href="skupper.html" class="xref page">skupper</a>	 -</p>
+</li>
+</ul>
+</div>
+</article>

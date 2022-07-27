@@ -1,0 +1,36 @@
+---
+title: Skupper completion
+---
+
+<article class="doc">
+<h1 class="page">Skupper completion</h1>
+<div class="paragraph">
+<p>Output shell completion code for bash</p>
+</div>
+<div class="paragraph">
+<div class="title">Synopsis</div>
+<p>Output shell completion code for bash.</p>
+</div>
+<div class="paragraph">
+<p>The shell code must be evaluated to provide interactive</p>
+</div>
+<div class="paragraph">
+<p>completion of skupper commands.
+This can be done by sourcing it from</p>
+</div>
+<div class="paragraph">
+<p>the .bash_profile.
+i.e.: $ source &lt;(skupper completion)</p>
+</div>
+<div class="paragraph">
+<p><code>skupper completion [flags]</code></p>
+</div>
+<div class="ulist">
+<div class="title">SEE ALSO</div>
+<ul>
+<li>
+<p><a href="skupper.html" class="xref page">skupper</a>	 -</p>
+</li>
+</ul>
+</div>
+</article>
