@@ -31,6 +31,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
     <nav>
       <a href="/start/index.html">Getting started</a>
       <a href="/docs/cli/index.html">CLI Guide</a>
+      <a href="/docs/cli/index.html#exposing-services-local">Gateway section</a>
       <a href="/docs/cli-reference/skupper.html">Command-line reference</a>
     </nav>
   </div>
@@ -43,6 +44,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
     <nav>
       <a href="declarative/tutorial.html">Configuring Skupper sites using YAML</a>
       <a href="declarative/index.html">YAML configuration reference</a>
+      <a href="/docs/cli/index.html#gateway-reference">Gateway YAML reference</a>
     </nav>
   </div>
 </div>
@@ -50,17 +52,17 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
   <div>
     <h2>Operator</h2>
 
-    <p>Learn how you can install the Skupper operator, and create Skupper sites using ConfigMaps.</p>
+    <p>Learn how you can install the Skupper operator and create Skupper sites using ConfigMaps.</p>
 
     <nav>
-      <a href="declarative/tutorial.html">Configuring Skupper sites using YAML</a>
-      <a href="declarative/index.html">YAML configuration reference</a>
+      <a href="operator/index.html">Using the Skupper operator</a>
     </nav>
   </div>
   <div>
     <h2>Security</h2>
 
-    <p>Skupper provides default, built-in security that scales across clusters and clouds, but you can enhance protection</p>
+    <p>Skupper provides default, built-in security that scales across clusters and clouds.
+    Learn how to enhance that security to the next level.</p>
 
     <nav>
       <a href="cli/tokens.html">Working with tokens</a>
