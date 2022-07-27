@@ -30,7 +30,8 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 
     <nav>
       <a href="/start/index.html">Getting started</a>
-      <!-- <a href="">Command-line reference</a> -->
+      <a href="/docs/cli/index.html">CLI Guide</a>
+      <a href="/docs/cli-reference/skupper.html">Command-line reference</a>
     </nav>
   </div>
   <div>

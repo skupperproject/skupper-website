@@ -1,26 +1,25 @@
 ---
-title: Creating a service network with OpenShift and accessing a database using a Skupper gateway
+title: Creating a service network with Kubernetes and accessing a backend service using a gateway
 ---
 
 <article class="doc">
-<h1 class="page">Creating a service network with OpenShift and accessing a database using a Skupper gateway</h1>
+<h1 class="page">Creating a service network with Kubernetes and accessing a backend service using a gateway</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph system:abstract">
-<p>This tutorial demonstrates how to connect a frontend service on a OpenShift cluster with a backend service on a OpenShift cluster using the <code>skupper</code> command-line interface (CLI).
-The backend service connects to a database running on your local machine.</p>
+<p>This tutorial describes how to connect a local backend service on a local machine with a frontend service running on a Kubernetes cluster.</p>
+</div>
+<div class="paragraph">
+<p>In this tutorial, the services are the same as used in <a href="/docs/cli/openshift.html">Creating a service network with OpenShift</a>, however you run the backend service locally and expose the service on the service network using the <code>skupper</code> command-line interface (CLI).</p>
 </div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>Access to projects in two OpenShift clusters, <code>cluster-admin</code> access is not required.</p>
+<p>Access to a projects in a Kubernetes cluster, <code>cluster-admin</code> access is not required.</p>
 </li>
 <li>
-<p>One of the OpenShift clusters must be addressable from the other cluster.</p>
-</li>
-<li>
-<p>A MySQL database running on your local machine.</p>
+<p>Python on your local machine.</p>
 </li>
 </ul>
 </div>
@@ -33,9 +32,21 @@ The backend service connects to a database running on your local machine.</p>
 <p><code>west</code> - a namespace in an accessible OpenShift cluster running the frontend service.</p>
 </li>
 <li>
-<p><code>mysql</code> - a database service running on a local machine.</p>
+<p><code>hello-world-backend</code> - a Python service running on a local machine.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Although this tutorial demonstrates exposing a Python service on the service network, a more typical use case would involve a database service, for example, MySQL.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -48,11 +59,11 @@ It allows geographically distributed services to connect as if they were all run
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../_images/overview-gateway.svg" alt="Overview of a service network">
+<img src="../_images/overview-gateway.png" alt="Overview of a service network">
 </div>
 </div>
 <div class="paragraph">
-<p>For example, you can deploy your frontend in a public OpenShift cluster and deploy your backend on a local network, then connect them into a service network.</p>
+<p>For example, you can deploy your frontend in a public Kubernetes cluster and deploy your backend on a local network, then connect them into a service network.</p>
 </div>
 <div class="paragraph">
 <p>You deploy and manage a service network, including a gateway, using the <code>skupper</code> CLI.</p>
@@ -73,18 +84,48 @@ It allows geographically distributed services to connect as if they were all run
 <div class="paragraph system:abstract">
 <p>Installing the <code>skupper</code> command-line interface (CLI) provides a simple method to get started with Skupper.</p>
 </div>
-<div class="paragraph">
-<div class="title">Procedure</div>
-<p>Unresolved directive in index.adoc - include::{common}fragment-skupper-install-steps.adoc[]</p>
-</div>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
+<li>
+<p>Install the <code>skupper</code> command-line interface.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>For Linux:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/1.0/skupper-cli-1.0-linux-amd64.tgz | tar -xzf -</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For MacOS:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/1.0/skupper-cli-1.0-mac-amd64.tgz | tar -xzf -</pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Copy the <code>skupper</code> executable to a directory in your $PATH:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ mkdir -p $HOME/bin
+$ export PATH=$PATH:$HOME/bin
+$ mv skupper $HOME/bin</pre>
+</div>
+</div>
+</li>
 <li>
 <p>Verify the installation.</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ skupper version
-client version 0.8.6</pre>
+client version 1.0</pre>
 </div>
 </div>
 </li>
@@ -93,83 +134,101 @@ client version 0.8.6</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-database"><a class="anchor" href="#creating-database"></a>3. Creating a database</h2>
+<h2 id="creating-backend"><a class="anchor" href="#creating-backend"></a>3. Creating a backend service</h2>
 <div class="sectionbody">
 <div class="paragraph system:abstract">
-<p>This procedure describes how to create a database on your local machine that is accessed from the service network.</p>
+<p>This procedure describes how to create a backend service on your local machine that is accessed from the service network.</p>
 </div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>A demo MySQL database running on RHEL</p>
+<p>Python</p>
 </li>
 </ul>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="title">Procedure</div>
-This procedure creates a user with a published password. Do not perform this procedure on a database with sensitive data.
-</td>
-</tr>
-</table>
-</div>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Log into MySQL and create the database using the following commands:</p>
+<p>Clone the <a href="https://github.com/skupperproject/skupper-example-hello-world">skupper-example-hello-world</a> repo.</p>
+</li>
+<li>
+<p>Change to the service directory.</p>
 <div class="listingblock">
 <div class="content">
-<pre>create database skupper;
-use skupper database;
-CREATE TABLE greetings (ID int, text varchar(255) );
-INSERT INTO greetings VALUES (1,'Hello');
-CREATE USER skupper@localhost IDENTIFIED BY 'reppuks';
-GRANT SELECT  ON skupper.* TO 'skupper'@'localhost';</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ cd skupper-example-hello-world/backend/</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Test the database by logging in as the <code>skupper</code> user and using the following SQL commands:</p>
+<p>Install the required libraries.</p>
 <div class="listingblock">
 <div class="content">
-<pre>use skupper database;
-select * from greetings;
-+------+-------+
-| ID   | text  |
-+------+-------+
-|    1 | Hello |
-+------+-------+</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ pip install --user flask starlette uvicorn</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the backend service</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ python ./main.py</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output is similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">INFO:     Started server process [107836]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Test the service by navigating to the following URL.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http://localhost:8080/api/hello</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output is similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Hello from workstation (1)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This indicates that the backend service is running and available.</p>
+</div>
 </div>
 </div>
 </li>
 </ol>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuring-consoles"><a class="anchor" href="#configuring-consoles"></a>4. Logging into cluster</h2>
+<div class="sectionbody">
 <div class="ulist">
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>The OpenShift CLI is installed.
-See the <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.6/html-single/cli_tools/index#installing-openshift-cli">OpenShift CLI</a> documentation for more instructions on how to install <code>oc</code>.</p>
+<p>The kubectl CLI is installed.</p>
 </li>
 </ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-In OpenShift 4.6 and later, you can use the web terminal to perform the following procedure, as described in the <a href="https://docs.openshift.com/container-platform/4.5/web_console/odc-about-web-terminal.html">web terminal</a> documentation.
-</td>
-</tr>
-</table>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -186,27 +245,27 @@ In OpenShift 4.6 and later, you can use the web terminal to perform the followin
 </div>
 </li>
 <li>
-<p>Log into the OpenShift cluster, for example:</p>
-<div class="listingblock">
-<div class="content">
-<pre> $ oc login</pre>
-</div>
-</div>
+<p>Log into the Kubernetes cluster.</p>
 </li>
 </ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="installing-skupper"><a class="anchor" href="#installing-skupper"></a>4. Creating a skupper site</h2>
+<h2 id="installing-skupper"><a class="anchor" href="#installing-skupper"></a>5. Creating a skupper site</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create the <code>west</code> project (namespace):</p>
+<p>Create the <code>west</code> namespace:</p>
+<div class="openblock">
+<div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc new-project west</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ kubectl create namespace west
+$ kubectl config set-context --current --namespace west</code></pre>
+</div>
+</div>
 </div>
 </div>
 </li>
@@ -243,19 +302,22 @@ In OpenShift 4.6 and later, you can use the web terminal to perform the followin
 </div>
 </div>
 <div class="sect1">
-<h2 id="frontend"><a class="anchor" href="#frontend"></a>5. Creating the frontend service</h2>
+<h2 id="frontend"><a class="anchor" href="#frontend"></a>6. Creating the frontend service</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The frontend service is a simple Python application that displays a record from the database.</p>
+<p>The frontend service is a simple Python application that displays a message from the backend application.</p>
+</div>
+<div class="paragraph">
+<div class="title">Procedure</div>
+<p>Perform all tasks in the west terminal session:</p>
 </div>
 <div class="olist arabic">
-<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
 <p>Deploy the frontend service:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc create deployment hello-mysql-frontend --image quay.io/pwright/hello-mysql-frontend</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend</code></pre>
 </div>
 </div>
 </li>
@@ -263,7 +325,7 @@ In OpenShift 4.6 and later, you can use the web terminal to perform the followin
 <p>Expose the frontend deployment as a cluster service:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc expose deployment hello-mysql-frontend --port 8080 --type LoadBalancer</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer</code></pre>
 </div>
 </div>
 </li>
@@ -271,7 +333,7 @@ In OpenShift 4.6 and later, you can use the web terminal to perform the followin
 <p>Create a route for the frontend:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc expose svc/hello-mysql-frontend</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc expose svc/hello-world-frontend</code></pre>
 </div>
 </div>
 </li>
@@ -294,7 +356,7 @@ In OpenShift 4.6 and later, you can use the web terminal to perform the followin
 <div class="listingblock">
 <div class="content">
 <pre>NAME                   HOST/PORT
-hello-mysql-frontend   &lt;frontend-url&gt;</pre>
+hello-world-frontend   &lt;frontend-url&gt;</pre>
 </div>
 </div>
 </div>
@@ -304,11 +366,11 @@ hello-mysql-frontend   &lt;frontend-url&gt;</pre>
 <p>Navigate to the <code>&lt;frontend-url&gt;</code> value in your browser, you see a message similar to the following because the frontend cannot communicate with the backend yet:</p>
 <div class="listingblock">
 <div class="content">
-<pre>I am the frontend.  The database says '(2003, "Can't connect to MySQL server on 'mydb' ([Errno -3] Temporary failure in name resolution)")'.</pre>
+<pre>Trouble! HTTPConnectionPool(host='hello-world-backend', port=8080): Max retries exceeded with url: /api/hello (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x7fbfcdf0d1d0&gt;: Failed to establish a new connection: [Errno -2] Name or service not known'))</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To resolve this situation, you must create the skupper gateway and make the database available on the service network.</p>
+<p>To resolve this situation, you must make the backend service available on the service network using a gateway.</p>
 </div>
 </li>
 </ol>
@@ -319,19 +381,50 @@ hello-mysql-frontend   &lt;frontend-url&gt;</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="gateway"><a class="anchor" href="#gateway"></a>6. Creating and using a Skupper gateway</h2>
+<h2 id="gateway"><a class="anchor" href="#gateway"></a>7. Creating and using a Skupper gateway</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This procedure describes how to create a gateway and  make a database available on the service network.</p>
+<p>This procedure describes how to create a gateway and make a backend service available on the service network.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>Skupper router is installed on local machine</p>
+</li>
+</ul>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Create a gateway and make the database available on the service network:</p>
+<p>Create a gateway:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway expose mydb localhost 3306</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway init --type podman</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a Skupper service:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service create hello-world-backend 8080</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Bind the local backend service to the Skupper service:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway bind hello-world-backend &lt;backend-ip-address&gt; 8080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where the &lt;backend-ip-address is the address you noted in <a href="#creating-backend">Creating a backend service</a></p>
+</div>
 </div>
 </div>
 </li>
@@ -349,10 +442,10 @@ hello-mysql-frontend   &lt;frontend-url&gt;</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Gateway Definitions Summary
-
-NAME                 BINDS  FORWARDS  URL
-&lt;machine-name&gt;  1      0         amqp://127.0.0.1:39783</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Gateway Definitions:
+╰─ &lt;machine&gt;-&lt;user&gt; type: podman version: 1.17.1
+ ╰─ Bindings:
+    ╰─ hello-world-backend:8080 tcp hello-world-backend:8080 &lt;backend-ip-address&gt; 8080</code></pre>
 </div>
 </div>
 </div>
@@ -363,44 +456,47 @@ NAME                 BINDS  FORWARDS  URL
 </div>
 </div>
 <div class="sect1">
-<h2 id="check"><a class="anchor" href="#check"></a>7. Checking database access from the frontend</h2>
+<h2 id="check"><a class="anchor" href="#check"></a>8. Checking service access from the frontend</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Get the route details:</p>
+<p>Get the URL details:</p>
 <div class="openblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$  oc get routes</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ kubectl get service hello-world-frontend -o jsonpath='{.status.loadBalancer.ingress[0].ip}'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The output should be similar to the following:</p>
+<p>Use the output IP address to construct the &lt;frontend-url&gt;:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>NAME                   HOST/PORT
-hello-mysql-frontend   &lt;frontend-url&gt;</pre>
+<pre>&lt;cluster-ip-address&gt;:8080/</pre>
 </div>
 </div>
 </div>
 </div>
 </li>
 <li>
-<p>Navigate to the <code>&lt;frontend-url&gt;</code> value in your browser, you see a message similar to the following:</p>
+<p>Navigate to the <code>&lt;frontend-url&gt;</code> value in your browser and click <strong>Say hello</strong>.
+You see a message similar to the following:</p>
 <div class="listingblock">
 <div class="content">
-<pre>I am the frontend.  The database says '('Hello',)'.</pre>
+<pre>Hi, &lt;name&gt;. I am Mathematical Machine (backend-77f8f45fc8-mnrdp).</pre>
 </div>
+</div>
+<div class="paragraph">
+<p>If you click <strong>Say hello</strong> again, a different backend process responds showing how Skupper balances the requests.</p>
 </div>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>This shows how the frontend calls the database over the service network from an OpenShift cluster.</p>
+<p>This shows how the frontend calls the backend over the service network from an Kubernetes cluster.</p>
 </div>
 <div class="ulist">
 <div class="title">Additional resources</div>
@@ -416,7 +512,7 @@ hello-mysql-frontend   &lt;frontend-url&gt;</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="tearing-down"><a class="anchor" href="#tearing-down"></a>8. Tearing down the service network</h2>
+<h2 id="tearing-down"><a class="anchor" href="#tearing-down"></a>9. Tearing down the service network</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This procedure describes how to remove the service network you created.</p>
@@ -427,7 +523,7 @@ hello-mysql-frontend   &lt;frontend-url&gt;</pre>
 <p>Delete the gateway:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$  skupper gateway delete &lt;machine-name&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$  skupper gateway delete</code></pre>
 </div>
 </div>
 </li>
@@ -435,7 +531,7 @@ hello-mysql-frontend   &lt;frontend-url&gt;</pre>
 <p>Delete the <code>west</code> namespace from the west terminal session:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$  oc delete project west</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$  kubectl delete namespace west</code></pre>
 </div>
 </div>
 </li>
