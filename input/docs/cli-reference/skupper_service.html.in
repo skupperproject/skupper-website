@@ -1,0 +1,36 @@
+---
+title: Skupper service
+---
+
+<article class="doc">
+<h1 class="page">Skupper service</h1>
+<div class="paragraph">
+<p>Manage skupper service definitions</p>
+</div>
+<div class="ulist">
+<div class="title">SEE ALSO</div>
+<ul>
+<li>
+<p><a href="skupper.html" class="xref page">skupper</a>	 -</p>
+</li>
+<li>
+<p><a href="skupper_service_bind.html" class="xref page">skupper service bind</a>	 - Bind a target to a service</p>
+</li>
+<li>
+<p><a href="skupper_service_create.html" class="xref page">skupper service create</a>	 - Create a skupper service</p>
+</li>
+<li>
+<p><a href="skupper_service_delete.html" class="xref page">skupper service delete</a>	 - Delete a skupper service</p>
+</li>
+<li>
+<p><a href="skupper_service_label.html" class="xref page">skupper service label</a>	 - Manage service labels</p>
+</li>
+<li>
+<p><a href="skupper_service_status.html" class="xref page">skupper service status</a>	 - List services exposed over the service network</p>
+</li>
+<li>
+<p><a href="skupper_service_unbind.html" class="xref page">skupper service unbind</a>	 - Unbind a target from a service</p>
+</li>
+</ul>
+</div>
+</article>

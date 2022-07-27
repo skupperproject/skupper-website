@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Skupper - Skupper init</title>
+    <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" defer="defer"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" defer="defer"/>
+    <link rel="stylesheet" href="/main.css"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/skupper-icon-32.png"/>
+    <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
+    <script type="text/javascript" src="/main.js" defer="defer"></script>
+
+<script src="http://localhost:35729/livereload.js"></script>
+
+
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-147980770-1');
+    </script>
+  </head>
+  <body>
+
+<header>
+  <nav id="-site-nav">
+    <a id="-site-menu-button" style="display: none;">
+      <span class="material-icons">menu</span>
+    </a>
+    <div>
+      <div id="-left-site-nav">
+        <a href="/index.html" id="-logotype">
+          <img src="/images/skupper-logo.svg"/>
+          <div>Skupper</div>
+        </a>
+        <a href="/start/index.html">
+          <div>Getting started</div>
+        </a>
+        <a href="/examples/index.html">
+          <div>Examples</div>
+        </a>
+        <a href="/docs/index.html">
+          <div>Documentation</div>
+        </a>
+        <a href="/releases/index.html">
+          <div>Releases</div>
+        </a>
+        <a href="/community/index.html">
+          <div>Community</div>
+        </a>
+      </div>
+      <div id="-right-site-nav">
+        <a href="https://github.com/skupperproject">
+          <div><span class="fab fa-github fa-lg"></span> GitHub</div>
+        </a>
+      </div>
+    </div>
+  </nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli-reference/skupper_init.html">Skupper init</a></div></nav>
+  <nav id="-site-menu-layer" style="display: none;">
+    <div>
+      <a href="/index.html">Home</a>
+      <a href="/start/index.html">Getting started</a>
+      <a href="/examples/index.html">Examples</a>
+      <a href="/docs/index.html">Documentation</a>
+      <a href="/community/index.html">Community</a>
+    </div>
+  </nav>
+</header>
+
+
+<section id="-main-and-toc">
+  <div>
+    <main>
+
+
+<article class="doc">
+<h1 class="page">Skupper init</h1>
+<div class="paragraph">
+<p>Initialise skupper installation</p>
+</div>
+<div class="paragraph">
+<div class="title">Synopsis</div>
+<p>Setup a router and other supporting objects to provide a functional skupper</p>
+</div>
+<div class="paragraph">
+<p>installation that can then be connected to other skupper installations</p>
+</div>
+<div class="paragraph">
+<p><code>skupper init [flags]</code></p>
+</div>
+<div class="ulist">
+<div class="title">Options</div>
+<ul>
+<li>
+<p><code>site-name - string</code>                       Provide a specific name for this skupper installation</p>
+</li>
+<li>
+<p><code>enable-console</code>                         Enable skupper console (default true)</p>
+</li>
+<li>
+<p><code>create-network-policy</code>                  Create network policy to restrict access to skupper services exposed through this site to current pods in namespace</p>
+</li>
+<li>
+<p><code>console-auth - string</code>                    Authentication mode for console(s).
+One of: 'openshift', 'internal', 'unsecured'</p>
+</li>
+<li>
+<p><code>console-user - string</code>                    Skupper console user.
+Valid only when --console-auth=internal</p>
+</li>
+<li>
+<p><code>console-password - string</code>                Skupper console user.
+Valid only when --console-auth=internal</p>
+</li>
+<li>
+<p><code>ingress - string</code>                         Setup Skupper ingress to one of: <code>[route|loadbalancer|nodeport|nginx-ingress-v1|contour-http-proxy|ingress|none]</code>.
+If not specified route is used when available, otherwise loadbalancer is used.</p>
+</li>
+<li>
+<p><code>ingress-annotations - strings</code>            Annotations to add to skupper ingress</p>
+</li>
+<li>
+<p><code>console-ingress - string</code>                 Determines if/how console is exposed outside cluster.
+If not specified uses value of --ingress.
+One of: <code>[route|loadbalancer|nodeport|nginx-ingress-v1|contour-http-proxy|ingress|none]</code>.</p>
+</li>
+<li>
+<p><code>ingress-host - string</code>                    Hostname or alias by which the ingress route or proxy can be reached</p>
+</li>
+<li>
+<p><code>router-mode - string</code>                     Skupper router-mode (default "interior")</p>
+</li>
+<li>
+<p><code>annotations - strings</code>                    Annotations to add to skupper pods</p>
+</li>
+<li>
+<p><code>labels - strings</code>                         Labels to add to skupper pods</p>
+</li>
+<li>
+<p><code>enable-service-sync</code>                    Participate in cross-site service synchronization (default true)</p>
+</li>
+<li>
+<p><code>enable-router-console</code>                  Enable router console</p>
+</li>
+<li>
+<p><code>router-logging - string</code>                  Logging settings for router.
+'trace', 'debug', 'info' (default), 'notice', 'warning', and 'error' are valid values.</p>
+</li>
+<li>
+<p><code>router-debug-mode - string</code>               Enable debug mode for router ('asan' or 'gdb' are valid values)</p>
+</li>
+<li>
+<p><code>routers int</code>                            Number of router replicas to start</p>
+</li>
+<li>
+<p><code>router-cpu - string</code>                      CPU request for router pods</p>
+</li>
+<li>
+<p><code>router-memory - string</code>                   Memory request for router pods</p>
+</li>
+<li>
+<p><code>router-cpu-limit - string</code>                CPU limit for router pods</p>
+</li>
+<li>
+<p><code>router-memory-limit - string</code>             Memory limit for router pods</p>
+</li>
+<li>
+<p><code>router-node-selector - string</code>            Node selector to control placement of router pods</p>
+</li>
+<li>
+<p><code>router-pod-affinity - string</code>             Pod affinity label matches to control placement of router pods</p>
+</li>
+<li>
+<p><code>router-pod-antiaffinity - string</code>         Pod antiaffinity label matches to control placement of router pods</p>
+</li>
+<li>
+<p><code>router-ingress-host - string</code>             Host through which node is accessible when using nodeport as ingress.</p>
+</li>
+<li>
+<p><code>router-service-annotations - strings</code>     Annotations to add to skupper router service</p>
+</li>
+<li>
+<p><code>router-load-balancer-ip - string</code>         Load balancer ip that will be used for router service, if supported by cloud provider</p>
+</li>
+<li>
+<p><code>controller-cpu - string</code>                  CPU request for controller pods</p>
+</li>
+<li>
+<p><code>controller-memory - string</code>               Memory request for controller pods</p>
+</li>
+<li>
+<p><code>controller-cpu-limit - string</code>            CPU limit for controller pods</p>
+</li>
+<li>
+<p><code>controller-memory-limit - string</code>         Memory limit for controller pods</p>
+</li>
+<li>
+<p><code>controller-node-selector - string</code>        Node selector to control placement of controller pods</p>
+</li>
+<li>
+<p><code>controller-pod-affinity - string</code>         Pod affinity label matches to control placement of controller pods</p>
+</li>
+<li>
+<p><code>controller-pod-antiaffinity - string</code>     Pod antiaffinity label matches to control placement of controller pods</p>
+</li>
+<li>
+<p><code>controller-ingress-host - string</code>         Host through which node is accessible when using nodeport as ingress.</p>
+</li>
+<li>
+<p><code>controller-service-annotation - strings</code>  Annotations to add to skupper controller service</p>
+</li>
+<li>
+<p><code>controller-load-balancer-ip - string</code>     Load balancer ip that will be used for controller service, if supported by cloud provider</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">SEE ALSO</div>
+<ul>
+<li>
+<p><a href="skupper.html" class="xref page">skupper</a>	 -</p>
+</li>
+</ul>
+</div>
+</article>
+
+
+    </main>
+    <nav id="-toc">
+      <h4>Contents</h4>
+      <div></div>
+    </nav>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div>
+      <p><a href="https://twitter.com/SkupperIO"><span class="fab fa-twitter fa-lg"></span> Twitter</a></p>
+      <p><a href="https://www.youtube.com/channel/UCQxHN2Qq8koCatcmKCJ4OEA"><span class="fab fa-youtube fa-lg"></span> YouTube</a></p>
+      <!-- <p><a href="https://stackoverflow.com/questions/tagged/skupper"><span class="fab fa-stack-overflow fa-lg"></span> Stack Overflow</a></p> -->
+      <p><a href="https://groups.google.com/forum/#!forum/skupper"><span class="fas fa-envelope fa-lg"></span> Mailing list</a></p>
+      <p><a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span> GitHub</a></p>
+    </div>
+    <div>
+      <h4>Skupper - Multicloud communication for Kubernetes</h4>
+      <p>Skupper enables secure communication across Kubernetes
+        clusters with no VPNs or special firewall rules</p>
+      <p>Copyright &#169; 2022 the Skupper authors</p>
+    </div>
+    <div>
+      <p>All code and documentation is licensed under
+        the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache
+        License version 2.0</a></p>
+      <p>Marks may be trademarks or registered trademarks of their
+        respective owners</p>
+      <p><a href="/site.html">About this site</a></p>
+    </div>
+  </div>
+</footer>
+
+
+
+  </body>
+</html>

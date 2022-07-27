@@ -1,0 +1,29 @@
+---
+title: Skupper service status
+---
+
+<article class="doc">
+<h1 class="page">Skupper service status</h1>
+<div class="paragraph">
+<p>List services exposed over the service network</p>
+</div>
+<div class="paragraph">
+<p><code>skupper service status [flags]</code></p>
+</div>
+<div class="ulist">
+<div class="title">Options</div>
+<ul>
+<li>
+<p><code>show-labels</code>  show service labels</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">SEE ALSO</div>
+<ul>
+<li>
+<p><a href="skupper_service.html" class="xref page">skupper service</a>	 - Manage skupper service definitions</p>
+</li>
+</ul>
+</div>
+</article>

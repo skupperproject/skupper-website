@@ -1,0 +1,41 @@
+---
+title: Skupper service label
+---
+
+<article class="doc">
+<h1 class="page">Skupper service label</h1>
+<div class="paragraph">
+<p>Manage service labels</p>
+</div>
+<div class="paragraph">
+<p><code>skupper service label &lt;service&gt; [labels...] [flags]</code></p>
+</div>
+<div class="literalblock">
+<div class="title">Examples</div>
+<div class="content">
+<pre>    # show labels for my-service
+
+    skupper service label my-service
+
+
+
+    # add label1=value1 and label2=value2 to my-service
+
+    skupper service label my-service label1=value1 label2=value2
+
+
+
+    # add label1=value1 and remove label2 to/from my-service
+
+    skupper service label my-service label1=value1 label2-</pre>
+</div>
+</div>
+<div class="ulist">
+<div class="title">SEE ALSO</div>
+<ul>
+<li>
+<p><a href="skupper_service.html" class="xref page">skupper service</a>	 - Manage skupper service definitions</p>
+</li>
+</ul>
+</div>
+</article>

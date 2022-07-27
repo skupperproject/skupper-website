@@ -1,0 +1,22 @@
+---
+title: Skupper token
+---
+
+<article class="doc">
+<h1 class="page">Skupper token</h1>
+<div class="paragraph">
+<p>Manage skupper tokens</p>
+</div>
+<div class="ulist">
+<div class="title">SEE ALSO</div>
+<ul>
+<li>
+<p><a href="skupper.html" class="xref page">skupper</a>	 -</p>
+</li>
+<li>
+<p><a href="skupper_token_create.html" class="xref page">skupper token create</a>	 - Create a token.
+The 'link create' command uses the token to establish a link from a remote Skupper site.</p>
+</li>
+</ul>
+</div>
+</article>

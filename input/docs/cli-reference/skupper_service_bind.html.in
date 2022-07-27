@@ -1,0 +1,32 @@
+---
+title: Skupper service bind
+---
+
+<article class="doc">
+<h1 class="page">Skupper service bind</h1>
+<div class="paragraph">
+<p>Bind a target to a service</p>
+</div>
+<div class="paragraph">
+<p><code>skupper service bind &lt;service-name&gt; &lt;target-type&gt; &lt;target-name&gt; [flags]</code></p>
+</div>
+<div class="ulist">
+<div class="title">Options</div>
+<ul>
+<li>
+<p><code>protocol - string</code>      The protocol to proxy (tcp, http or http2).</p>
+</li>
+<li>
+<p><code>target-port - strings</code>  The port the target is listening on (you can also use colon to map source-port to a target-port).</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">SEE ALSO</div>
+<ul>
+<li>
+<p><a href="skupper_service.html" class="xref page">skupper service</a>	 - Manage skupper service definitions</p>
+</li>
+</ul>
+</div>
+</article>

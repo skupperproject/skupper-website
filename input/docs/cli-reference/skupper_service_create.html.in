@@ -1,0 +1,40 @@
+---
+title: Skupper service create
+---
+
+<article class="doc">
+<h1 class="page">Skupper service create</h1>
+<div class="paragraph">
+<p>Create a skupper service</p>
+</div>
+<div class="paragraph">
+<p><code>skupper service create &lt;name&gt; &lt;port...&gt; [flags]</code></p>
+</div>
+<div class="ulist">
+<div class="title">Options</div>
+<ul>
+<li>
+<p><code>aggregate - string</code>  The aggregation strategy to use.
+One of 'json' or 'multipart'.
+If specified requests to this service will be sent to all registered implementations and the responses aggregated.</p>
+</li>
+<li>
+<p><code>enable-tls</code>        If specified, the service communication will be encrypted using TLS</p>
+</li>
+<li>
+<p><code>event-channel</code>     If specified, this service will be a channel for multicast events.</p>
+</li>
+<li>
+<p><code>mapping - string</code>    The mapping in use for this service address (currently one of tcp or http) (default "tcp")</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">SEE ALSO</div>
+<ul>
+<li>
+<p><a href="skupper_service.html" class="xref page">skupper service</a>	 - Manage skupper service definitions</p>
+</li>
+</ul>
+</div>
+</article>

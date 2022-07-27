@@ -1,0 +1,28 @@
+---
+title: Skupper debug
+---
+
+<article class="doc">
+<h1 class="page">Skupper debug</h1>
+<div class="paragraph">
+<p>Debug skupper installation</p>
+</div>
+<div class="ulist">
+<div class="title">SEE ALSO</div>
+<ul>
+<li>
+<p><a href="skupper.html" class="xref page">skupper</a>	 -</p>
+</li>
+<li>
+<p><a href="skupper_debug_dump.html" class="xref page">skupper debug dump</a>	 - Collect and store skupper logs, config, etc.
+to compressed archive file</p>
+</li>
+<li>
+<p><a href="skupper_debug_events.html" class="xref page">skupper debug events</a>	 - Show events</p>
+</li>
+<li>
+<p><a href="skupper_debug_service.html" class="xref page">skupper debug service</a>	 - Check the internal state of a skupper exposed service</p>
+</li>
+</ul>
+</div>
+</article>

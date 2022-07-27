@@ -1,0 +1,21 @@
+---
+title: Skupper gateway generate-bundle
+---
+
+<article class="doc">
+<h1 class="page">Skupper gateway generate-bundle</h1>
+<div class="paragraph">
+<p>Generate an installation bundle using a gateway config file</p>
+</div>
+<div class="paragraph">
+<p><code>skupper gateway generate-bundle &lt;config-file&gt; &lt;output-path&gt; [flags]</code></p>
+</div>
+<div class="ulist">
+<div class="title">SEE ALSO</div>
+<ul>
+<li>
+<p><a href="skupper_gateway.html" class="xref page">skupper gateway</a>	 - Manage skupper gateway definitions</p>
+</li>
+</ul>
+</div>
+</article>

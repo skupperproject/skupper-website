@@ -1,0 +1,65 @@
+---
+title: Skupper expose
+---
+
+<article class="doc">
+<h1 class="page">Skupper expose</h1>
+<div class="paragraph">
+<p>Expose a set of pods through a Skupper address</p>
+</div>
+<div class="paragraph">
+<p><code>skupper expose [deployment &lt;name&gt;|pods &lt;selector&gt;|statefulset &lt;statefulsetname&gt;|service &lt;name&gt;] [flags]</code></p>
+</div>
+<div class="ulist">
+<div class="title">Options</div>
+<ul>
+<li>
+<p><code>address - string</code>                 The Skupper address to expose</p>
+</li>
+<li>
+<p><code>enable-tls</code>                     If specified, the service will be exposed over TLS</p>
+</li>
+<li>
+<p><code>headless</code>                       Expose through a headless service (valid only for a statefulset target)</p>
+</li>
+<li>
+<p><code>port ints</code>                      The ports to expose on</p>
+</li>
+<li>
+<p><code>protocol - string</code>                The protocol to proxy (tcp, http, or http2) (default "tcp")</p>
+</li>
+<li>
+<p><code>proxy-cpu - string</code>               CPU request for router pods</p>
+</li>
+<li>
+<p><code>proxy-cpu-limit - string</code>         CPU limit for router pods</p>
+</li>
+<li>
+<p><code>proxy-memory - string</code>            Memory request for router pods</p>
+</li>
+<li>
+<p><code>proxy-memory-limit - string</code>      Memory limit for router pods</p>
+</li>
+<li>
+<p><code>proxy-node-selector - string</code>     Node selector to control placement of router pods</p>
+</li>
+<li>
+<p><code>proxy-pod-affinity - string</code>      Pod affinity label matches to control placement of router pods</p>
+</li>
+<li>
+<p><code>proxy-pod-antiaffinity - string</code>  Pod antiaffinity label matches to control placement of router pods</p>
+</li>
+<li>
+<p><code>target-port - strings</code>            The ports to target on pods</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">SEE ALSO</div>
+<ul>
+<li>
+<p><a href="skupper.html" class="xref page">skupper</a>	 -</p>
+</li>
+</ul>
+</div>
+</article>
