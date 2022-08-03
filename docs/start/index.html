@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
     <script type="text/javascript" src="/main.js" defer="defer"></script>
 
-<script src="http://localhost:35729/livereload.js"></script>
+
 
 
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
@@ -386,6 +386,17 @@ backend      ClusterIP      10.96.175.18    &lt;none&gt;          8080/TCP      
 </code></pre>
 
 <h3 id="test-your-application">Test your application</h3>
+
+<p>To test our Hello World, we need external access to the frontend (not
+the backend).  Use <code>kubectl expose</code> with <code>--type LoadBalancer</code> to make
+the frontend accessible using a conventional Kubernetes ingress.</p>
+
+<div class="code-label session-2">West</div>
+
+<pre><code>kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
+</code></pre>
+
+<p>It takes a moment for the external IP to become available.</p>
 
 <p>Now we're ready to try it out.  Use <code>kubectl get</code> in West to look up
 the external IP of the frontend service.  Then use <code>curl</code> or a similar

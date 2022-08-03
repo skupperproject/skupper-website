@@ -1,3 +1,4 @@
+
 def path_nav(page):
     links = " <span class=\"path-separator\">&#8250;</span> ".join(list(page.path_nav_links)[1:])
     return f"<nav id=\"-path-nav\"><div>{links}</div></nav>"
@@ -14,5 +15,5 @@ def circle(diameter, color="#000"):
         f"  <circle cx=\"{cx}\" cy=\"{cy}\" r=\"{radius}\" stroke=\"{color}\" stroke-width=\"{stroke}\" fill=\"none\"/>" \
         "</svg>"
 
-skupper_release = "1.0.0"
-skupper_release_date = "May 10, 2022"
+skupper_release = "1.0.2"
+skupper_release_date = "June 14, 2022"
