@@ -8,7 +8,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 
 <div class="columns">
   <div>
-    <h2>Understand the basics</h2>
+    <h2>Understanding the basics</h2>
 
     <p>Learn about the concepts and technology behind virtual
       application networks.</p>
@@ -30,8 +30,8 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 
     <nav>
       <a href="/start/index.html">Getting started</a>
-      <a href="/docs/cli/index.html">CLI Guide</a>
-      <a href="/docs/cli/index.html#exposing-services-local">Gateway section</a>
+      <a href="/docs/cli/index.html">CLI guide</a>
+      <a href="/docs/cli/index.html#exposing-services-local">Using local services (gateway)</a>
       <a href="/docs/cli-reference/skupper.html">Command-line reference</a>
     </nav>
   </div>
@@ -50,7 +50,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 </div>
 <div class="columns">
   <div>
-    <h2>Operator</h2>
+    <h2>The Skupper Operator</h2>
 
     <p>Learn how you can install the Skupper operator and create Skupper sites using ConfigMaps.</p>
 
@@ -62,12 +62,12 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
     <h2>Security</h2>
 
     <p>Skupper provides default, built-in security that scales across clusters and clouds.
-    Learn how to enhance that security to the next level.</p>
+    Learn how to enhance the security of your service network.</p>
 
     <nav>
       <a href="cli/tokens.html">Working with tokens</a>
       <a href="cli/native-security-options.html">Network policy and TLS</a>
-      <a href="policy/index.html">Apply granular policies to your cluster</a>
+      <a href="policy/index.html">Applying granular policies to your cluster</a>
     </nav>
   </div>
   <div>

@@ -151,20 +151,68 @@ Sites:
 <h2 id="creating-debug"><a class="anchor" href="#creating-debug"></a>Creating a skupper debug tarball</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The debug tarball contains all the logs from the Skupper components and provides detailed information to help debug issues.</p>
+<p>The debug tarball contains all the logs from the Skupper components for a site and provides detailed information to help debug issues.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>Create the debug tarball:</p>
-<div class="openblock">
-<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre>$  skupper debug dump my-site
 
-Skupper dump details written to compressed archive:  my-site.tar.gz</pre>
+Skupper dump details written to compressed archive:  `my-site.tar.gz`</pre>
 </div>
+</div>
+</li>
+<li>
+<p>You can expand the file using the following command:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ tar -xvf kind-site.tar.gz
+
+k8s-versions.txt
+skupper-versions.txt
+skupper-router-deployment.yaml
+skupper-router-867f5ddcd8-plrcg-skstat-g.txt
+skupper-router-867f5ddcd8-plrcg-skstat-c.txt
+skupper-router-867f5ddcd8-plrcg-skstat-l.txt
+skupper-router-867f5ddcd8-plrcg-skstat-n.txt
+skupper-router-867f5ddcd8-plrcg-skstat-e.txt
+skupper-router-867f5ddcd8-plrcg-skstat-a.txt
+skupper-router-867f5ddcd8-plrcg-skstat-m.txt
+skupper-router-867f5ddcd8-plrcg-skstat-p.txt
+skupper-router-867f5ddcd8-plrcg-router-logs.txt
+skupper-router-867f5ddcd8-plrcg-config-sync-logs.txt
+skupper-service-controller-deployment.yaml
+skupper-service-controller-7485756984-gvrf6-events.txt
+skupper-service-controller-7485756984-gvrf6-service-controller-logs.txt
+skupper-site-configmap.yaml
+skupper-services-configmap.yaml
+skupper-internal-configmap.yaml
+skupper-sasl-config-configmap.yaml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These files can be used to provide support for Skupper, however some items you can check:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">versions</dt>
+<dd>
+<p>See <code>*versions.txt</code> for the versions of various components.</p>
+</dd>
+<dt class="hdlist1">ingress</dt>
+<dd>
+<p>See <code>skupper-site-configmap.yaml</code> to determine the <code>ingress</code> type for the site.</p>
+</dd>
+<dt class="hdlist1">linking and services</dt>
+<dd>
+<p>See the <code>skupper-service-controller-*-events.txt</code> file to view details of token usage and service exposure.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -263,6 +311,24 @@ For example, if one site is behind a firewall and the other site is on an AWS cl
 </div>
 <div class="paragraph">
 <p>See <a href="../console/index.html" class="xref page">Using the Skupper console</a> for more information on <strong>Accessing the console</strong>, including how to retrieve the username and password.</p>
+</div>
+<div class="paragraph">
+<p><strong>Cannot create a token for linking clusters</strong></p>
+</div>
+<div class="paragraph">
+<p>You might see the following note after using the <code>skupper token create</code> command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Token written to &lt;path&gt; (Note: token will only be valid for local cluster)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This output indicates that the site was deployed without an ingress option. For example <code>skupper init --ingress none</code>.
+You must specify an ingress to allow sites on other clusters to link to your site.</p>
+</div>
+<div class="paragraph">
+<p>You can also use the <code>skupper token create</code> command to check if an ingress was specified when the site was created.</p>
 </div>
 </div>
 </div>
