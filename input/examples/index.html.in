@@ -11,7 +11,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 
 <div>
 <h3>Hello World</h3>
-<p>A minimal multi-service HTTP application deployed across sites using Skupper CLI</p>
+<p>A minimal multi-service HTTP application deployed across sites using the Skupper CLI</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-hello-world"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
