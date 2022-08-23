@@ -50,3 +50,5 @@ categories:
         title: iPerf
       - name: skupper-example-prometheus
         title: Prometheus
+      - name: skupper-example-declarative
+        title: YAML Hello world

@@ -11,7 +11,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 
 <div>
 <h3>Hello World</h3>
-<p>A minimal multi-service HTTP application deployed across sites using Skupper</p>
+<p>A minimal multi-service HTTP application deployed across sites using the Skupper CLI</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-hello-world"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
@@ -162,6 +162,13 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 <p>Gather Prometheus metrics from endpoints deployed across multiple clusters</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-prometheus"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3>YAML Hello World</h3>
+<p>A minimal multi-service HTTP application deployed across sites using YAML</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-declarative"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
 </div>
 </div>
