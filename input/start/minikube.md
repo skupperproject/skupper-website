@@ -1,6 +1,7 @@
 # Using Skupper with Minikube
 
-These notes provide Minikube specific instructions for running [Skupper examples](/examples/index.html).
+These notes provide Minikube specific instructions for running
+[Skupper examples](/examples/index.html).
 
 ## Prerequisites
 

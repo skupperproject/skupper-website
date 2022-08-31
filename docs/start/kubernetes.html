@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Using Skupper with Minikube</title>
+    <title>Skupper - Using Skupper with Kubernetes</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/start/index.html">Getting started</a> <span class="path-separator">&#8250;</span> <a href="/start/minikube.html">Using Skupper with Minikube</a></div></nav>
+  <nav id="-path-nav"><div><a href="/start/index.html">Getting started</a> <span class="path-separator">&#8250;</span> <a href="/start/kubernetes.html">Using Skupper with Kubernetes</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -75,66 +75,22 @@
   <div>
     <main>
 
-<h1 id="using-skupper-with-minikube">Using Skupper with Minikube</h1>
+<h1 id="using-skupper-with-kubernetes">Using Skupper with Kubernetes</h1>
 
-<p>These notes provide Minikube specific instructions for running
-<a href="/examples/index.html">Skupper examples</a>.</p>
+<p>Skupper works with any flavor of Kubernetes.  See the
+provider-specific documentation for information about setting up
+clusters, gaining cluster access, and configuring cluster networking.</p>
 
-<h2 id="prerequisites">Prerequisites</h2>
+<h2 id="providers">Providers</h2>
 
-<ul>
-<li><p>You must <a href="https://minikube.sigs.k8s.io/docs/start/">install Minikube and start a cluster</a>.</p></li>
-<li><p>You must have a version of <code>kubectl</code> compatible with your Minikube
-Kubernetes version.  You can also use the <a href="https://minikube.sigs.k8s.io/docs/handbook/kubectl/"><code>kubectl</code> built in to
-Minikube</a>.</p></li>
-</ul>
-
-<h2 id="cluster-access">Cluster access</h2>
-
-<p>Minikube does not offer a dedicated login command, but you can run
-the <code>minikube update-context</code> command in each console session you wish to
-configure.  This initializes the required kubeconfigs in each case.</p>
-
-<div class="code-label session-2">Console for West</div>
-
-<pre><code>export KUBECONFIG=$HOME/.kube/config-west
-minikube update-context
-</code></pre>
-
-<div class="code-label session-1">Console for East</div>
-
-<pre><code>export KUBECONFIG=$HOME/.kube/config-east
-minikube update-context
-</code></pre>
-
-<h2 id="running-minikube-tunnel">Running minikube tunnel</h2>
-
-<p>Skupper requires IP connectivity to at least one cluster in order to
-form links between clusters.  If you are using Minikube to test
-Skupper, one of your Minikube clusters must have external network
-access.  To enable network access, run <code>minikube tunnel</code> in the
-background after running <code>minikube start</code>.</p>
-
-<p>Make sure you run <code>minikube tunnel</code> with the same kubeconfig and
-<a href="https://minikube.sigs.k8s.io/docs/commands/profile/">Minikube profile</a> you used for <code>minikube start</code>.  In the Hello World
-example, the tunnel is required only for the cluster containing the
-West namespace.</p>
-
-<pre><code>export KUBECONFIG=$HOME/.kube/config-west
-minikube tunnel
-</code></pre>
-
-<p>The tunnel must run continuously while you are using it, so you will
-likely want to run it in its own console session, separate from the
-console you use to interact with the West namespace.</p>
-
-<p>See <a href="https://minikube.sigs.k8s.io/docs/handbook/accessing/#using-minikube-tunnel">Using minikube tunnel</a> for more information.</p>
-
-<h2 id="more-information">More information</h2>
-
-<ul>
-<li><a href="https://minikube.sigs.k8s.io/community/">Minikube website</a></li>
-<li><a href="https://minikube.sigs.k8s.io/docs/">Minikube documentation</a></li>
+<ul class="column-list">
+  <li><a href="minikube.html">Minikube</a></li>
+  <li><a href="eks.html">Amazon Elastic Kubernetes Service (EKS)</a></li>
+  <li><a href="aks.html">Azure Kubernetes Service (AKS)</a></li>
+  <li><a href="gke.html">Google Kubernetes Engine (GKE)</a></li>
+  <li><a href="ibmks.html">IBM Kubernetes Service</a></li>
+  <li><a href="openshift.html">OpenShift</a></li>
+  <li><a href="https://kubernetes.io/partners/#kcsp">More providers</a></li>
 </ul>
 
 
