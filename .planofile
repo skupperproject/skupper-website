@@ -17,12 +17,12 @@
 # under the License.
 #
 
-from transom_commands import *
+from transom.commands import *
 
 site.output_dir = "docs"
 
 @command
-def generate_docs(app, owner="skupperproject", branch="main", output_dir="input/docs"):
+def generate_docs(owner="skupperproject", branch="main", output_dir="input/docs"):
     """
     Generate docs from the skupper-docs repo
     """
@@ -50,7 +50,7 @@ def generate_docs(app, owner="skupperproject", branch="main", output_dir="input/
         copy("build/skupper/latest/operator/index.html.in", output_dir + "/operator")
 
 @command
-def generate_examples(app, output_file="input/examples/index.html.in"):
+def generate_examples(output_file="input/examples/index.html.in"):
     """
     Generate the example index using metadata in scripts/examples.yaml
     """
@@ -108,13 +108,13 @@ def generate_examples(app, output_file="input/examples/index.html.in"):
     write(output_file, "\n".join(out))
 
 @command
-def test(app):
-    render(app)
-    check_links(app)
-    check_files(app)
+def test():
+    render()
+    check_links()
+    check_files()
 
     with temp_dir() as d:
         with working_env(HOME=d):
             run("cat docs/install.sh | sh", shell=True)
 
-        generate_docs(app, output_dir=d)
+        generate_docs(output_dir=d)
