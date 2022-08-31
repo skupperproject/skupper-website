@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 #
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
@@ -17,21 +18,14 @@
 # under the License.
 #
 
+import os
 import sys
 
-sys.path.insert(0, "../python")
+if os.path.islink(__file__):
+    repo_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    sys.path.insert(0, os.path.join(repo_dir, "src"))
 
-from transom.commands import *
+from plano.commands import PlanoTestCommand
 
-@command
-def profile():
-    """
-    Run the renderer under a profiler
-    """
-    with project_env():
-        run("py-spy record -o /tmp/profile.svg -- transom render --force config input output")
-
-@command(parent=clean)
-def clean(*args, **kwargs):
-    clean.parent.function(*args, **kwargs)
-    remove("output")
+if __name__ == "__main__":
+    PlanoTestCommand().main()

@@ -17,21 +17,43 @@
 # under the License.
 #
 
-import sys
+from plano import *
 
-sys.path.insert(0, "../python")
+@test
+def hello():
+    print("Hello")
 
-from transom.commands import *
+@test
+async def hello_async():
+    print("Hello")
 
-@command
-def profile():
-    """
-    Run the renderer under a profiler
-    """
-    with project_env():
-        run("py-spy record -o /tmp/profile.svg -- transom render --force config input output")
+@test
+def goodbye():
+    print("Goodbye")
 
-@command(parent=clean)
-def clean(*args, **kwargs):
-    clean.parent.function(*args, **kwargs)
-    remove("output")
+@test(disabled=True)
+def badbye():
+    print("Badbye")
+    assert False
+
+@test(disabled=True)
+def skipped():
+    skip_test("Skipped")
+    assert False
+
+@test(disabled=True)
+def keyboard_interrupt():
+    raise KeyboardInterrupt()
+
+@test(disabled=True, timeout=0.05)
+def timeout():
+    sleep(10, quiet=True)
+    assert False
+
+@test(disabled=True)
+def process_error():
+    run("expr 1 / 0")
+
+@test(disabled=True)
+def system_exit_():
+    exit(1)

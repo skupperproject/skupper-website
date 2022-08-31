@@ -21,27 +21,27 @@ import sys
 
 sys.path.insert(0, "../python")
 
-from transom_commands import *
+from transom.commands import *
 
 result_file = "output/result.json"
 
 @command(parent=render)
-def render(app, *args, **kwargs):
-    render.super(app, *args, **kwargs)
+def render(*args, **kwargs):
+    render.parent.function(*args, **kwargs)
 
     data = {"rendered": True}
     write_json(result_file, data)
 
 @command(parent=check_links)
-def check_links(app, *args, **kwargs):
-    check_links.super(app, *args, **kwargs)
+def check_links(*args, **kwargs):
+    check_links.parent.function(*args, **kwargs)
 
     data = {"links_checked": True}
     write_json(result_file, data)
 
 @command(parent=check_files)
-def check_files(app, *args, **kwargs):
-    check_files.super(app, *args, **kwargs)
+def check_files(*args, **kwargs):
+    check_files.parent.function(*args, **kwargs)
 
     data = {"files_checked": True}
     write_json(result_file, data)

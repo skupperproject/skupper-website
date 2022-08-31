@@ -23,13 +23,13 @@ from transom import TransomCommand
 project.name = "transom"
 project.excluded_modules = ["bullseye"]
 project.data_dirs = ["files"]
-project.test_modules = ["transom_tests"]
+project.test_modules = ["transom.tests"]
 
 app.set_default_command("build")
 
 @command(parent=build)
-def build(app, *args, **kwargs):
-    build.super(app, *args, **kwargs)
+def build(*args, **kwargs):
+    build.parent.function(*args, **kwargs)
 
     with project_env():
         run("transom --help", quiet=True, stash=True)
@@ -39,14 +39,16 @@ def build(app, *args, **kwargs):
             run("transom render --init-only config input output", quiet=True)
 
 @command(parent=clean)
-def clean(app, *args, **kwargs):
-    clean.super(app, *args, **kwargs)
+def clean(*args, **kwargs):
+    clean.parent.function(*args, **kwargs)
 
-    remove("test-site/output", "qpid-site/output")
-    remove("htmlcov", ".coverage")
+    remove("test-site/output")
+    remove("qpid-site/output")
+    remove("htmlcov")
+    remove(".coverage")
 
 @command
-def coverage(app):
+def coverage():
     """Analyze test coverage"""
 
     check_project()

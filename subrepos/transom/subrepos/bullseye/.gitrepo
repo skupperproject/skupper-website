@@ -4,9 +4,9 @@
 ; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
 ;
 [subrepo]
-	remote = git@github.com:ssorj/plano.git
+	remote = git@github.com:ssorj/bullseye.git
 	branch = main
-	commit = 33b4c53177897c6a15f3b7f43325f5c1251b2e2d
-	parent = 99a1011b31313635d2899e26bfcde527211a0707
+	commit = 4ae0345bf6e01d1e356b5caa83b76d635c17498e
+	parent = b1bbbde2b54969ba1cd162b91cf8c3314d0776da
 	method = merge
 	cmdver = 0.4.3

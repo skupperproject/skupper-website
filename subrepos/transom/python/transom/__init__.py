@@ -17,21 +17,4 @@
 # under the License.
 #
 
-import sys
-
-sys.path.insert(0, "../python")
-
-from transom.commands import *
-
-@command
-def profile():
-    """
-    Run the renderer under a profiler
-    """
-    with project_env():
-        run("py-spy record -o /tmp/profile.svg -- transom render --force config input output")
-
-@command(parent=clean)
-def clean(*args, **kwargs):
-    clean.parent.function(*args, **kwargs)
-    remove("output")
+from .main import *
