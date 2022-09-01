@@ -1,7 +1,7 @@
 # Using Skupper with Kubernetes
 
 Skupper works with any flavor of Kubernetes.  See the
-provider-specific documentation for information about setting up
+provider-specific instructions below for information about setting up
 clusters, gaining cluster access, and configuring cluster networking.
 
 ## Providers
