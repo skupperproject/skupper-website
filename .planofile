@@ -97,7 +97,7 @@ def generate_examples(output_file="input/examples/index.html.in"):
                 url = example_data.get("url", repo_data["html_url"])
 
             out.append("<div>")
-            out.append(f"<h3>{title}</h3>")
+            out.append(f"<h3><a href=\"{url}\">{title}</a></h3>")
             out.append(f"<p>{description}</p>")
             out.append("<nav class=\"inline-links\">")
             out.append(f"<a href=\"{url}\"><span class=\"fab fa-github fa-lg\"></span> Example</a>")

@@ -15,7 +15,7 @@ categories:
       - name: skupper-example-http-load-balancing
         title: HTTP load balancing
         video_url: https://www.youtube.com/watch?v=4GmXT3nj8lc
-  - title: Networking scenarios
+  - title: Network scenarios
     examples:
       - name: skupper-example-public-to-private
         title: Public to private
