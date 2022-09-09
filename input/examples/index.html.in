@@ -4,14 +4,19 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 ---
 <h1>Skupper examples</h1>
 
-<p>These examples provide step-by-step instructions to install and use Skupper for common multi-site deployment scenarios.</p>
+<p>These examples provide step-by-step instructions to install and use Skupper for common multi-cluster and multi-site deployment scenarios.</p>
 <h2 id="featured-applications">Featured applications</h2>
+
+<p>Skupper works with your existing application code, no changes
+required.  These are examples that highlight Skupper's ability
+to deploy conventional applications across sites.
+</p>
 
 <div class="examples">
 
 <div>
 <h3><a href="https://github.com/skupperproject/skupper-example-hello-world">Hello World</a></h3>
-<p>A minimal multi-service HTTP application deployed across sites using Skupper CLI</p>
+<p>A minimal multi-service HTTP application deployed across sites using the Skupper CLI</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-hello-world"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
@@ -32,7 +37,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 </div>
 <div>
 <h3><a href="https://github.com/skupperproject/skupper-example-bookinfo">Bookinfo</a></h3>
-<p>Deploying the Istio Bookinfo application across sites using Skupper</p>
+<p>Deploy the Istio Bookinfo application across sites using Skupper</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-bookinfo"><span class="fab fa-github fa-lg"></span> Example</a>
 <a href="https://www.youtube.com/watch?v=H80GLl-KdTc"><span class="fab fa-youtube fa-lg"></span> Video</a>
@@ -40,14 +45,14 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 </div>
 <div>
 <h3><a href="https://github.com/skupperproject/skupper-example-grpc">Online Boutique</a></h3>
-<p>Deploying the Online Boutique application across sites using Skupper</p>
+<p>Deploy the gRPC-based Online Boutique application across sites using Skupper</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-grpc"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
 </div>
 <div>
 <h3><a href="https://github.com/skupperproject/skupper-example-http-load-balancing">HTTP load balancing</a></h3>
-<p>Using Skupper to balance HTTP requests across sites</p>
+<p>Use Skupper to balance HTTP requests across sites</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-http-load-balancing"><span class="fab fa-github fa-lg"></span> Example</a>
 <a href="https://www.youtube.com/watch?v=4GmXT3nj8lc"><span class="fab fa-youtube fa-lg"></span> Video</a>
@@ -56,6 +61,11 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 </div>
 
 <h2 id="network-scenarios">Network scenarios</h2>
+
+<p>Skupper can help you overcome tough networking obstacles.  See
+how you can securely connect services in sites behind firewalls
+or NAT without changing your existing networking.
+</p>
 
 <div class="examples">
 
@@ -83,6 +93,10 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 </div>
 
 <h2 id="platforms">Platforms</h2>
+
+<p>Skupper works with Kubernetes, container engines, and ordinary
+processes running directly on bare metal hosts or VMs.
+</p>
 
 <div class="examples">
 
@@ -112,25 +126,29 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 
 <h2 id="database-examples">Database examples</h2>
 
+<p>With Skupper, you can locate your data whereever you need it to
+be, while accessing it from whereever your services are running.
+</p>
+
 <div class="examples">
 
 <div>
 <h3><a href="https://github.com/skupperproject/skupper-example-mongodb-replica-set">MongoDB</a></h3>
-<p>Deploying a MongoDB replica set across sites using Skupper</p>
+<p>Deploy a MongoDB replica set across sites using Skupper</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-mongodb-replica-set"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
 </div>
 <div>
 <h3><a href="https://github.com/skupperproject/skupper-example-mysql">MySQL</a></h3>
-<p>Accessing a MySQL database in a private data center from the public cloud</p>
+<p>Access a MySQL database in a private data center from the public cloud</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-mysql"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
 </div>
 <div>
 <h3><a href="https://github.com/skupperproject/skupper-example-postgresql">PostgreSQL</a></h3>
-<p>Accessing a PostgreSQL database in a private data center from the public cloud</p>
+<p>Access a PostgreSQL database in a private data center from the public cloud</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-postgresql"><span class="fab fa-github fa-lg"></span> Example</a>
 <a href="https://www.youtube.com/watch?v=Oa0aVpb0v7U"><span class="fab fa-youtube fa-lg"></span> Video</a>
@@ -140,18 +158,23 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 
 <h2 id="messaging-examples">Messaging examples</h2>
 
+<p>Skupper can help you access message queues and connect
+event-driven applications spread across isolated network
+locations.
+</p>
+
 <div class="examples">
 
 <div>
 <h3><a href="https://github.com/skupperproject/skupper-example-activemq">ActiveMQ</a></h3>
-<p>Accessing an ActiveMQ message broker using Skupper</p>
+<p>Access an ActiveMQ message broker using Skupper</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-activemq"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
 </div>
 <div>
 <h3><a href="https://github.com/skupperproject/skupper-example-kafka">Kafka</a></h3>
-<p>Accessing a Kafka cluster using Skupper</p>
+<p>Access a Kafka cluster using Skupper</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-kafka"><span class="fab fa-github fa-lg"></span> Example</a>
 <a href="https://www.youtube.com/watch?v=W7aUOgCTyOg"><span class="fab fa-youtube fa-lg"></span> Video</a>
@@ -159,7 +182,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 </div>
 <div>
 <h3><a href="https://github.com/skupperproject/skupper-example-rabbitmq">RabbitMQ</a></h3>
-<p>Accessing a RabbitMQ message broker using Skupper</p>
+<p>Access a RabbitMQ message broker using Skupper</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-rabbitmq"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
@@ -168,11 +191,16 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 
 <h2 id="protocol-examples">Protocol examples</h2>
 
+<p>Skupper supports any TCP-based protocol.  These examples show
+how you can access services based on widely used internet
+protocols.
+</p>
+
 <div class="examples">
 
 <div>
 <h3><a href="https://github.com/skupperproject/skupper-example-tcp">TCP</a></h3>
-<p>Accessing a TCP server using Skupper</p>
+<p>Access a TCP server using Skupper</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-tcp"><span class="fab fa-github fa-lg"></span> Example</a>
 <a href="https://www.youtube.com/watch?v=ZQo9cB0-1go"><span class="fab fa-youtube fa-lg"></span> Video</a>
@@ -180,14 +208,14 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 </div>
 <div>
 <h3><a href="https://github.com/skupperproject/skupper-example-http">HTTP</a></h3>
-<p>Accessing an HTTP server using Skupper</p>
+<p>Access an HTTP server using Skupper</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-http"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
 </div>
 <div>
 <h3><a href="https://github.com/skupperproject/skupper-example-ftp">FTP</a></h3>
-<p>Accessing an FTP server using Skupper</p>
+<p>Access an FTP server using Skupper</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-ftp"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>

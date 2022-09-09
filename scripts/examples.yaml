@@ -1,5 +1,9 @@
 categories:
   - title: Featured applications
+    description: |
+      Skupper works with your existing application code, no changes
+      required.  These are examples that highlight Skupper's ability
+      to deploy conventional applications across sites.
     examples:
       - name: skupper-example-hello-world
         title: Hello World
@@ -16,6 +20,10 @@ categories:
         title: HTTP load balancing
         video_url: https://www.youtube.com/watch?v=4GmXT3nj8lc
   - title: Network scenarios
+    description: |
+      Skupper can help you overcome tough networking obstacles.  See
+      how you can securely connect services in sites behind firewalls
+      or NAT without changing your existing networking.
     examples:
       - name: skupper-example-public-to-private
         title: Public to private
@@ -24,6 +32,9 @@ categories:
       - name: skupper-example-dmz
         title: DMZ
   - title: Platforms
+    description: |
+      Skupper works with Kubernetes, container engines, and ordinary
+      processes running directly on bare metal hosts or VMs.
     examples:
       - name: skupper-example-hello-world
         title: Kubernetes
@@ -34,6 +45,9 @@ categories:
       - name: skupper-example-gateway
         title: Bare metal or VM
   - title: Database examples
+    description: |
+      With Skupper, you can locate your data whereever you need it to
+      be, while accessing it from whereever your services are running.
     examples:
       - name: skupper-example-mongodb-replica-set
         title: MongoDB
@@ -43,6 +57,10 @@ categories:
         title: PostgreSQL
         video_url: https://www.youtube.com/watch?v=Oa0aVpb0v7U
   - title: Messaging examples
+    description: |
+      Skupper can help you access message queues and connect
+      event-driven applications spread across isolated network
+      locations.
     examples:
       - name: skupper-example-activemq
         title: ActiveMQ
@@ -52,6 +70,10 @@ categories:
       - name: skupper-example-rabbitmq
         title: RabbitMQ
   - title: Protocol examples
+    description: |
+      Skupper supports any TCP-based protocol.  These examples show
+      how you can access services based on widely used internet
+      protocols.
     examples:
       - name: skupper-example-tcp
         title: TCP

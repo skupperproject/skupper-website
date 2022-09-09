@@ -19,7 +19,7 @@ h3 {
 .examples {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 0 -1em 0;
+    margin: 2em 0 -1em 0;
 }
 
 .examples > div {
