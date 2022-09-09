@@ -4,7 +4,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 ---
 <h1>Skupper examples</h1>
 
-<p>These examples provide step-by-step instructions to install and use Skupper for common multi-cluster and multi-site deployment scenarios.</p>
+<p>These examples provide step-by-step instructions to install and use Skupper for common multi-cluster and edge deployment scenarios.</p>
 <h2 id="featured-applications">Featured applications</h2>
 
 <p>Skupper works with your existing application code, no changes

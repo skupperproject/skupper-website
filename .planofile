@@ -72,7 +72,7 @@ def generate_examples(output_file="input/examples/index.html.in"):
 
     out.append("<h1>Skupper examples</h1>")
     out.append("")
-    out.append("<p>These examples provide step-by-step instructions to install and use Skupper for common multi-cluster and multi-site deployment scenarios.</p>")
+    out.append("<p>These examples provide step-by-step instructions to install and use Skupper for common multi-cluster and edge deployment scenarios.</p>")
 
     for category in examples_data["categories"]:
         category_title = category["title"]
