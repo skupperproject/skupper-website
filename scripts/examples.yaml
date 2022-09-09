@@ -1,5 +1,5 @@
 categories:
-  - title: Featured examples
+  - title: Featured applications
     examples:
       - name: skupper-example-hello-world
         title: Hello World
@@ -15,6 +15,24 @@ categories:
       - name: skupper-example-http-load-balancing
         title: HTTP load balancing
         video_url: https://www.youtube.com/watch?v=4GmXT3nj8lc
+  - title: Networking scenarios
+    examples:
+      - name: skupper-example-public-to-private
+        title: Public to private
+      - name: skupper-example-private-to-private
+        title: Private to private
+      - name: skupper-example-dmz
+        title: DMZ
+  - title: Platforms
+    examples:
+      - name: skupper-example-hello-world
+        title: Kubernetes
+        description: |
+          Connect services running as pods in Kubernetes
+      - name: skupper-example-containers
+        title: Docker or Podman
+      - name: skupper-example-gateway
+        title: Bare metal or VM
   - title: Database examples
     examples:
       - name: skupper-example-mongodb-replica-set
@@ -51,4 +69,4 @@ categories:
       - name: skupper-example-prometheus
         title: Prometheus
       - name: skupper-example-declarative
-        title: YAML Hello world
+        title: YAML Hello World

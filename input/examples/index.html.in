@@ -5,13 +5,13 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 <h1>Skupper examples</h1>
 
 <p>These examples provide step-by-step instructions to install and use Skupper for common multi-site deployment scenarios.</p>
-<h2 id="featured-examples">Featured examples</h2>
+<h2 id="featured-applications">Featured applications</h2>
 
 <div class="examples">
 
 <div>
 <h3>Hello World</h3>
-<p>A minimal multi-service HTTP application deployed across sites using the Skupper CLI</p>
+<p>A minimal multi-service HTTP application deployed across sites using Skupper CLI</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-hello-world"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
@@ -51,6 +51,61 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-http-load-balancing"><span class="fab fa-github fa-lg"></span> Example</a>
 <a href="https://www.youtube.com/watch?v=4GmXT3nj8lc"><span class="fab fa-youtube fa-lg"></span> Video</a>
+</nav>
+</div>
+</div>
+
+<h2 id="networking-scenarios">Networking scenarios</h2>
+
+<div class="examples">
+
+<div>
+<h3>Public to private</h3>
+<p>Connect from the cloud to services running on-prem</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-public-to-private"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3>Private to private</h3>
+<p>Connect services in isolated on-prem sites</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-private-to-private"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3>DMZ</h3>
+<p>Connect services separated by firewalls and a DMZ</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-dmz"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+</div>
+
+<h2 id="platforms">Platforms</h2>
+
+<div class="examples">
+
+<div>
+<h3>Kubernetes</h3>
+<p>Connect services running as pods in Kubernetes
+</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-hello-world"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3>Docker or Podman</h3>
+<p>Connect services running as Docker or Podman containers</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-containers"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3>Bare metal or VM</h3>
+<p>Connect services running as system processes</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-gateway"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
 </div>
 </div>
@@ -165,7 +220,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 </nav>
 </div>
 <div>
-<h3>YAML Hello World</h3>
+<h3>Hello World YAML</h3>
 <p>A minimal multi-service HTTP application deployed across sites using YAML</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-declarative"><span class="fab fa-github fa-lg"></span> Example</a>

@@ -84,10 +84,17 @@ def generate_examples(output_file="input/examples/index.html.in"):
         out.append("")
 
         for example_data in category["examples"]:
-            repo_data = repos[example_data["name"]]
+            name = example_data["name"]
             title = example_data["title"]
-            description = repo_data["description"]
-            url = repo_data["html_url"]
+
+            try:
+                repo_data = repos[name]
+            except:
+                description = example_data.get("description")
+                url = example_data.get("url")
+            else:
+                description = example_data.get("description", repo_data["description"])
+                url = example_data.get("url", repo_data["html_url"])
 
             out.append("<div>")
             out.append(f"<h3>{title}</h3>")
