@@ -1,6 +1,6 @@
 ---
 title: Examples
-extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="async"/>
+extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="async"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
 ---
 <h1>Skupper examples</h1>
 
@@ -8,8 +8,8 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 <h2 id="featured-applications">Featured applications</h2>
 
 <p>Skupper works with your existing application code, no changes
-required.  These are examples that highlight Skupper's ability
-to deploy conventional applications across sites.
+required.  These examples highlight Skupper's ability to deploy
+conventional applications across multiple sites.
 </p>
 
 <div class="examples">
@@ -60,32 +60,57 @@ to deploy conventional applications across sites.
 </div>
 </div>
 
-<h2 id="network-scenarios">Network scenarios</h2>
+<h2 id="connectivity-scenarios">Connectivity scenarios</h2>
 
-<p>Skupper can help you overcome tough networking obstacles.  See
-how you can securely connect services in sites behind firewalls
-or NAT without changing your existing networking.
+<p>Skupper helps you overcome tough networking obstacles.  See how
+you can securely connect services in sites behind firewalls or
+NAT without changing your existing networking.
 </p>
 
 <div class="examples">
 
 <div>
 <h3><a href="https://github.com/skupperproject/skupper-example-public-to-private">Public to private</a></h3>
-<p>Connect from the cloud to services running on-prem</p>
+<p><div style="padding-bottom: 0.8em;">
+  <span class="material-symbols-outlined">cloud</span>
+  <span class="material-symbols-outlined">horizontal_rule</span>
+  <span class="material-symbols-outlined">business</span>
+</div>
+
+Connect from the cloud to services running on-prem
+</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-public-to-private"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
 </div>
 <div>
 <h3><a href="https://github.com/skupperproject/skupper-example-private-to-private">Private to private</a></h3>
-<p>Connect services in isolated on-prem sites</p>
+<p><div style="padding-bottom: 0.8em;">
+  <span class="material-symbols-outlined">business</span>
+  <span class="material-symbols-outlined">horizontal_rule</span>
+  <span class="material-symbols-outlined">cloud</span>
+  <span class="material-symbols-outlined">horizontal_rule</span>
+  <span class="material-symbols-outlined">business</span>
+</div>
+
+Connect services in isolated on-prem sites
+</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-private-to-private"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
 </div>
 <div>
 <h3><a href="https://github.com/skupperproject/skupper-example-dmz">DMZ</a></h3>
-<p>Connect services separated by firewalls and a DMZ</p>
+<p><div style="padding-bottom: 0.8em;">
+  <span class="material-symbols-outlined">cloud</span>
+  <span class="material-symbols-outlined">horizontal_rule</span>
+  <span class="material-symbols-outlined">shield</span>
+  <span class="material-symbols-outlined">horizontal_rule</span>
+  <span class="material-symbols-outlined">business</span>
+</div>
+
+Connect services separated by firewalls and a DMZ
+</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-dmz"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
@@ -94,8 +119,8 @@ or NAT without changing your existing networking.
 
 <h2 id="platforms">Platforms</h2>
 
-<p>Skupper works with Kubernetes, container engines, and ordinary
-processes running directly on bare metal hosts or VMs.
+<p>Skupper works with services running as pods on Kubernetes, as
+containers, or as ordinary processes on bare metal hosts or VMs.
 </p>
 
 <div class="examples">
@@ -126,7 +151,7 @@ processes running directly on bare metal hosts or VMs.
 
 <h2 id="database-examples">Database examples</h2>
 
-<p>With Skupper, you can locate your data whereever you need it to
+<p>With Skupper you can locate your data whereever you need it to
 be, while accessing it from whereever your services are running.
 </p>
 
@@ -158,9 +183,8 @@ be, while accessing it from whereever your services are running.
 
 <h2 id="messaging-examples">Messaging examples</h2>
 
-<p>Skupper can help you access message queues and connect
-event-driven applications spread across isolated network
-locations.
+<p>Skupper helps you access message queues and connect event-driven
+applications spread across isolated network locations.
 </p>
 
 <div class="examples">

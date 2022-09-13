@@ -67,7 +67,7 @@ def generate_examples(output_file="input/examples/index.html.in"):
 
     out.append("---")
     out.append("title: Examples")
-    out.append("extra_headers: <link rel=\"stylesheet\" href=\"index.css\" type=\"text/css\" async=\"async\"/>")
+    out.append("extra_headers: <link rel=\"stylesheet\" href=\"index.css\" type=\"text/css\" async=\"async\"/><link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0\"/>")
     out.append("---")
 
     out.append("<h1>Skupper examples</h1>")

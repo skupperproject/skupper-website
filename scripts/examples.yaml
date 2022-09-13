@@ -2,8 +2,8 @@ categories:
   - title: Featured applications
     description: |
       Skupper works with your existing application code, no changes
-      required.  These are examples that highlight Skupper's ability
-      to deploy conventional applications across sites.
+      required.  These examples highlight Skupper's ability to deploy
+      conventional applications across multiple sites.
     examples:
       - name: skupper-example-hello-world
         title: Hello World
@@ -19,22 +19,50 @@ categories:
       - name: skupper-example-http-load-balancing
         title: HTTP load balancing
         video_url: https://www.youtube.com/watch?v=4GmXT3nj8lc
-  - title: Network scenarios
+  - title: Connectivity scenarios
     description: |
-      Skupper can help you overcome tough networking obstacles.  See
-      how you can securely connect services in sites behind firewalls
-      or NAT without changing your existing networking.
+      Skupper helps you overcome tough networking obstacles.  See how
+      you can securely connect services in sites behind firewalls or
+      NAT without changing your existing networking.
     examples:
       - name: skupper-example-public-to-private
         title: Public to private
+        description: |
+          <div style="padding-bottom: 0.8em;">
+            <span class="material-symbols-outlined">cloud</span>
+            <span class="material-symbols-outlined">horizontal_rule</span>
+            <span class="material-symbols-outlined">business</span>
+          </div>
+
+          Connect from the cloud to services running on-prem
       - name: skupper-example-private-to-private
         title: Private to private
+        description: |
+          <div style="padding-bottom: 0.8em;">
+            <span class="material-symbols-outlined">business</span>
+            <span class="material-symbols-outlined">horizontal_rule</span>
+            <span class="material-symbols-outlined">cloud</span>
+            <span class="material-symbols-outlined">horizontal_rule</span>
+            <span class="material-symbols-outlined">business</span>
+          </div>
+
+          Connect services in isolated on-prem sites
       - name: skupper-example-dmz
         title: DMZ
+        description: |
+          <div style="padding-bottom: 0.8em;">
+            <span class="material-symbols-outlined">cloud</span>
+            <span class="material-symbols-outlined">horizontal_rule</span>
+            <span class="material-symbols-outlined">shield</span>
+            <span class="material-symbols-outlined">horizontal_rule</span>
+            <span class="material-symbols-outlined">business</span>
+          </div>
+
+          Connect services separated by firewalls and a DMZ
   - title: Platforms
     description: |
-      Skupper works with Kubernetes, container engines, and ordinary
-      processes running directly on bare metal hosts or VMs.
+      Skupper works with services running as pods on Kubernetes, as
+      containers, or as ordinary processes on bare metal hosts or VMs.
     examples:
       - name: skupper-example-hello-world
         title: Kubernetes
@@ -46,7 +74,7 @@ categories:
         title: Bare metal or VM
   - title: Database examples
     description: |
-      With Skupper, you can locate your data whereever you need it to
+      With Skupper you can locate your data whereever you need it to
       be, while accessing it from whereever your services are running.
     examples:
       - name: skupper-example-mongodb-replica-set
@@ -58,9 +86,8 @@ categories:
         video_url: https://www.youtube.com/watch?v=Oa0aVpb0v7U
   - title: Messaging examples
     description: |
-      Skupper can help you access message queues and connect
-      event-driven applications spread across isolated network
-      locations.
+      Skupper helps you access message queues and connect event-driven
+      applications spread across isolated network locations.
     examples:
       - name: skupper-example-activemq
         title: ActiveMQ
