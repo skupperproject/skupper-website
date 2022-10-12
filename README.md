@@ -42,3 +42,13 @@ The process of publishing these docs to the Skupper website uses [Antora](https:
 1. Install  [Antora](https://docs.antora.org).
 2. Run `./plano generate-docs` to create HTML from the `master` branch of `skupper-docs`.
 3. Run `./plano test` to run tests and populate the `docs` directory of this repo with the HTML files from step 1.
+
+## Updating the site for new Skupper releses
+
+1. Update the `skupper_release` and `skupper_release_date` variables
+   in `config/config.py`.
+
+2. Add an entry for the previous release to `releases/index.md` in the
+   Previous releases section.
+
+3. Run `plano render --force` to update the site.
