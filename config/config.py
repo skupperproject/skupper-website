@@ -15,5 +15,5 @@ def circle(diameter, color="#000"):
         f"  <circle cx=\"{cx}\" cy=\"{cy}\" r=\"{radius}\" stroke=\"{color}\" stroke-width=\"{stroke}\" fill=\"none\"/>" \
         "</svg>"
 
-skupper_release = "1.1.0"
-skupper_release_date = "Oct 3, 2022"
+skupper_release = "1.1.1"
+skupper_release_date = "7 October 2022"
