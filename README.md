@@ -51,7 +51,7 @@ The process of publishing these docs to the Skupper website uses
 3. Run `./plano test` to run tests and populate the `docs` directory
    of this repo with the HTML files from step 1.
 
-## Updating the site for new Skupper releses
+## Updating the site for new Skupper releases
 
 1. Update the `skupper_release` and `skupper_release_date` variables
    in `config/config.py`.
