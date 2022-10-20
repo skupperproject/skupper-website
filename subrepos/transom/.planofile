@@ -49,10 +49,12 @@ def clean(*args, **kwargs):
 
 @command
 def coverage():
-    """Analyze test coverage"""
+    """
+    Analyze test coverage
+    """
 
     check_project()
-    check_program("coverage")
+    check_program("coverage", "Install the Python coverage package")
 
     run("coverage run --omit /tmp/* plano test", stash=True)
     run("coverage report")

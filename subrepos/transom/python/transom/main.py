@@ -43,14 +43,6 @@ _variable_regex = _re.compile("({{.+?}})")
 
 # _reload_script = "<script src=\"http://localhost:35729/livereload.js\"></script>"
 
-_markdown_converter = _markdown.Markdown(extras={
-    "code-friendly": True,
-    "footnotes": True,
-    "header-ids": True,
-    "markdown-in-html": True,
-    "tables": True,
-})
-
 class Transom:
     def __init__(self, config_dir, input_dir, output_dir, verbose=False, quiet=False):
         self.config_dir = config_dir
@@ -76,8 +68,8 @@ class Transom:
         self.ignored_link_patterns = []
 
     def init(self):
-        self._page_template = _load_template(_os.path.join(self.config_dir, "default-page.html"), _default_page_template)
-        self._body_template = _load_template(_os.path.join(self.config_dir, "default-body.html"), _default_body_template)
+        self._page_template = _load_template(_os.path.join(self.config_dir, "page.html"), _default_page_template)
+        self._body_template = _load_template(_os.path.join(self.config_dir, "body.html"), _default_body_template)
 
         try:
             exec(_read_file(_os.path.join(self.config_dir, "config.py")), self._config)
@@ -111,24 +103,35 @@ class Transom:
         else:
             return _File(self, input_path, output_path)
 
-    def render(self, force=False, serve=None):
+    def render(self, force=False):
         self.notice("Rendering input files")
 
-        for file_ in self._init_files():
-            file_._render(force=force)
+        thread_count = 4
+        threads = list()
+        file_lists = [list() for x in range(thread_count)]
+
+        for i, file_ in enumerate(self._init_files()):
+            file_._load()
+            file_lists[i % thread_count].append(file_)
+
+        for i in range(thread_count):
+            threads.append(_RenderThread(file_lists[i], force))
+
+        for thread in threads:
+            thread.start()
+
+        for thread in threads:
+            thread.join()
 
         if _os.path.exists(self.output_dir):
             _os.utime(self.output_dir)
 
-        if serve is not None:
-            self._serve(serve)
-
-    def _serve(self, port):
+    def serve(self, port=8080):
         try:
             watcher = _WatcherThread(self)
         except ImportError:
             self.notice("Failed to import pyinotify, so I won't auto-render updated input files")
-            self.notice("Try installing the python3-pyinotify package")
+            self.notice("Try installing the Python inotify package")
         else:
             watcher.start()
 
@@ -246,6 +249,9 @@ class _File:
     def __repr__(self):
         return f"{self.__class__.__name__}({self._input_path}, {self._output_path})"
 
+    def _load(self):
+        pass
+
     def _render(self, force=False):
         self._process_input()
 
@@ -304,11 +310,14 @@ class _File:
 class _TemplatePage(_File):
     __slots__ = "_content", "_attributes", "_page_template", "_body_template"
 
-    def _process_input(self):
+    def _load(self):
         self._content = _read_file(self._input_path)
         self._content, self._attributes = _extract_metadata(self._content)
 
         self.title = self._attributes.get("title", self.title)
+
+    def _process_input(self):
+        assert self._content is not None
 
         try:
             self._page_template = _load_template(self._attributes["page_template"], _default_page_template)
@@ -383,8 +392,8 @@ class _TemplatePage(_File):
 class _MarkdownPage(_TemplatePage):
     __slots__ = ()
 
-    def _process_input(self):
-        super()._process_input()
+    def _load(self):
+        super()._load()
 
         if not self.title:
             match = _markdown_title_regex.search(self._content)
@@ -392,6 +401,17 @@ class _MarkdownPage(_TemplatePage):
 
     def _convert_content(self):
         self._content = _convert_markdown(self._content)
+
+class _RenderThread(_threading.Thread):
+    def __init__(self, files, force):
+        super().__init__()
+
+        self.files = files
+        self.force = force
+
+    def run(self):
+        for file_ in self.files:
+            file_._render(force=self.force)
 
 class _WatcherThread(_threading.Thread):
     def __init__(self, site):
@@ -410,7 +430,9 @@ class _WatcherThread(_threading.Thread):
             if _os.path.isdir(input_path) or self.site._is_ignored_file(_os.path.basename(input_path)):
                 return True
 
-            self.site._init_file(input_path)._render()
+            file_ = self.site._init_file(input_path)
+            file._load()
+            file._render()
 
             if _os.path.exists(self.site.output_dir):
                 _os.utime(self.site.output_dir)
@@ -440,7 +462,7 @@ class _ServerThread(_threading.Thread):
         self.site.notice("Serving at http://localhost:{}", self.port)
         self.server.serve_forever()
 
-class _Command(object):
+class _Command:
     def __init__(self, home=None, name=None, standard_args=True):
         self.home = home
         self.name = name
@@ -584,8 +606,14 @@ class TransomCommand(_Command):
         render.set_defaults(command_fn=self.render_command)
         render.add_argument("--force", action="store_true",
                             help="Render all input files, including unmodified ones")
-        render.add_argument("--serve", type=int, metavar="PORT",
-                            help="Serve the site and rerender when input files change")
+
+        render = subparsers.add_parser("serve", parents=(common, common_io), add_help=False,
+                                       help="Generate output files and serve the site on a local port")
+        render.set_defaults(command_fn=self.serve_command)
+        render.add_argument("--port", type=int, metavar="PORT", default=8080,
+                            help="Listen on PORT (default 8080)")
+        render.add_argument("--force", action="store_true",
+                            help="Render all input files, including unmodified ones")
 
         check_links = subparsers.add_parser("check-links", parents=(common, common_io), add_help=False,
                                             help="Check for broken links")
@@ -628,8 +656,8 @@ class TransomCommand(_Command):
         if self.args.init_only:
             self.parser.exit()
 
-        copy("default-page.html", _os.path.join(self.args.config_dir, "default-page.html"))
-        copy("default-body.html", _os.path.join(self.args.config_dir, "default-body.html"))
+        copy("page.html", _os.path.join(self.args.config_dir, "page.html"))
+        copy("body.html", _os.path.join(self.args.config_dir, "body.html"))
         copy("config.py", _os.path.join(self.args.config_dir, "config.py"))
 
         copy("main.css", _os.path.join(self.args.input_dir, "main.css"))
@@ -637,7 +665,11 @@ class TransomCommand(_Command):
         copy("index.md", _os.path.join(self.args.input_dir, "index.md"))
 
     def render_command(self):
-        self.lib.render(force=self.args.force, serve=self.args.serve)
+        self.lib.render(force=self.args.force)
+
+    def serve_command(self):
+        self.lib.render(force=self.args.force)
+        self.lib.serve(port=self.args.port)
 
     def check_links_command(self):
         errors = self.lib.check_links()
@@ -697,9 +729,21 @@ def _parse_template(text):
         else:
             yield token
 
+class _MarkdownLocal(_threading.local):
+    def __init__(self):
+        self.value = _markdown.Markdown(extras={
+            "code-friendly": True,
+            "footnotes": True,
+            "header-ids": True,
+            "markdown-in-html": True,
+            "tables": True,
+        })
+
+_markdown_local = _MarkdownLocal()
+
 def _convert_markdown(text):
     lines = (x for x in text.splitlines(keepends=True) if not x.startswith(";;"))
-    return _markdown_converter.convert("".join(lines))
+    return _markdown_local.value.convert("".join(lines))
 
 _lipsum_words = [
     "lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "vestibulum", "enim", "urna",

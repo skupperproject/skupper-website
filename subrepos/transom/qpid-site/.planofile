@@ -28,8 +28,11 @@ def profile():
     """
     Run the renderer under a profiler
     """
+
+    check_program("py-spy", "pip install py-spy")
+
     with project_env():
-        run("py-spy record -o /tmp/profile.svg -- transom render --force config input output")
+        run("py-spy record -o /tmp/profile.svg -- transom render config input output")
 
 @command(parent=clean)
 def clean(*args, **kwargs):

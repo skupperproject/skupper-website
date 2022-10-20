@@ -22,7 +22,6 @@ import asyncio as _asyncio
 import base64 as _base64
 import binascii as _binascii
 import code as _code
-import codecs as _codecs
 import collections as _collections
 import fnmatch as _fnmatch
 import getpass as _getpass
@@ -140,7 +139,7 @@ def rename_archive(input_file, new_archive_stem, quiet=False):
 
 ## Command operations
 
-class BaseCommand(object):
+class BaseCommand:
     def main(self, args=None):
         args = self.parse_args(args)
 
@@ -254,7 +253,7 @@ def _get_color_code(color, bright):
 def _is_color_enabled(file):
     return hasattr(file, "isatty") and file.isatty()
 
-class console_color(object):
+class console_color:
     def __init__(self, color=None, bright=False, file=_sys.stdout):
         self.file = file
         self.color_code = None
@@ -286,7 +285,7 @@ def cprint(*args, **kwargs):
     with console_color(color, bright=bright, file=file):
         print(*args, **kwargs)
 
-class output_redirected(object):
+class output_redirected:
     def __init__(self, output, quiet=False):
         self.output = output
         self.quiet = quiet
@@ -418,7 +417,7 @@ def list_dir(dir=None, include="*", exclude=()):
     return sorted(names)
 
 # No args constructor gets a temp dir
-class working_dir(object):
+class working_dir:
     def __init__(self, dir=None, quiet=False):
         self.dir = dir
         self.prev_dir = None
@@ -503,7 +502,7 @@ def check_program(program, message=None):
 
         raise PlanoError(message)
 
-class working_env(object):
+class working_env:
     def __init__(self, **vars):
         self.amend = vars.pop("amend", True)
         self.vars = vars
@@ -527,7 +526,7 @@ class working_env(object):
             if name not in self.prev_vars:
                 del _os.environ[name]
 
-class working_module_path(object):
+class working_module_path:
     def __init__(self, path, amend=True):
         if is_string(path):
             if not is_absolute(path):
@@ -569,6 +568,8 @@ def print_env(file=None):
 ## File operations
 
 def touch(file, quiet=False):
+    file = expand(file)
+
     _info(quiet, "Touching {}", repr(file))
 
     try:
@@ -581,6 +582,9 @@ def touch(file, quiet=False):
 # symlinks=True - Preserve symlinks
 # inside=True - Place from_path inside to_path if to_path is a directory
 def copy(from_path, to_path, symlinks=True, inside=True, quiet=False):
+    from_path = expand(from_path)
+    to_path = expand(to_path)
+
     _info(quiet, "Copying {} to {}", repr(from_path), repr(to_path))
 
     if is_dir(to_path) and inside:
@@ -602,6 +606,9 @@ def copy(from_path, to_path, symlinks=True, inside=True, quiet=False):
 
 # inside=True - Place from_path inside to_path if to_path is a directory
 def move(from_path, to_path, inside=True, quiet=False):
+    from_path = expand(from_path)
+    to_path = expand(to_path)
+
     _info(quiet, "Moving {} to {}", repr(from_path), repr(to_path))
 
     to_path = copy(from_path, to_path, inside=inside, quiet=True)
@@ -614,6 +621,8 @@ def remove(paths, quiet=False):
         paths = (paths,)
 
     for path in paths:
+        path = expand(path)
+
         if not exists(path):
             continue
 
@@ -625,63 +634,82 @@ def remove(paths, quiet=False):
             _os.remove(path)
 
 def get_file_size(file):
+    file = expand(file)
     return _os.path.getsize(file)
 
 ## IO operations
 
 def read(file):
-    with _codecs.open(file, encoding="utf-8", mode="r") as f:
+    file = expand(file)
+
+    with open(file) as f:
         return f.read()
 
 def write(file, string):
+    file = expand(file)
+
     make_parent_dir(file, quiet=True)
 
-    with _codecs.open(file, encoding="utf-8", mode="w") as f:
+    with open(file, "w") as f:
         f.write(string)
 
     return file
 
 def append(file, string):
+    file = expand(file)
+
     make_parent_dir(file, quiet=True)
 
-    with _codecs.open(file, encoding="utf-8", mode="a") as f:
+    with open(file, "a") as f:
         f.write(string)
 
     return file
 
 def prepend(file, string):
+    file = expand(file)
+
     orig = read(file)
+
     return write(file, string + orig)
 
 def tail(file, count):
+    file = expand(file)
     return "".join(tail_lines(file, count))
 
 def read_lines(file):
-    with _codecs.open(file, encoding="utf-8", mode="r") as f:
+    file = expand(file)
+
+    with open(file) as f:
         return f.readlines()
 
 def write_lines(file, lines):
+    file = expand(file)
+
     make_parent_dir(file, quiet=True)
 
-    with _codecs.open(file, encoding="utf-8", mode="w") as f:
+    with open(file, "w") as f:
         f.writelines(lines)
 
     return file
 
 def append_lines(file, lines):
+    file = expand(file)
+
     make_parent_dir(file, quiet=True)
 
-    with _codecs.open(file, encoding="utf-8", mode="a") as f:
+    with open(file, "a") as f:
         f.writelines(lines)
 
     return file
 
 def prepend_lines(file, lines):
+    file = expand(file)
+
     orig_lines = read_lines(file)
 
     make_parent_dir(file, quiet=True)
 
-    with _codecs.open(file, encoding="utf-8", mode="w") as f:
+    with open(file, "w") as f:
         f.writelines(lines)
         f.writelines(orig_lines)
 
@@ -690,7 +718,9 @@ def prepend_lines(file, lines):
 def tail_lines(file, count):
     assert count >= 0
 
-    with _codecs.open(file, encoding="utf-8", mode="r") as f:
+    file = expand(file)
+
+    with open(file) as f:
         pos = count + 1
         lines = list()
 
@@ -708,9 +738,12 @@ def tail_lines(file, count):
         return lines[-count:]
 
 def replace_in_file(file, expr, replacement, count=0):
+    file = expand(file)
     write(file, replace(read(file), expr, replacement, count=count))
 
 def concatenate(file, input_files):
+    file = expand(file)
+
     assert file not in input_files
 
     make_parent_dir(file, quiet=True)
@@ -743,13 +776,17 @@ def skip(iterable, values=(None, "", (), [], {})):
 ## JSON operations
 
 def read_json(file):
-    with _codecs.open(file, encoding="utf-8", mode="r") as f:
+    file = expand(file)
+
+    with open(file) as f:
         return _json.load(f)
 
 def write_json(file, data):
+    file = expand(file)
+
     make_parent_dir(file, quiet=True)
 
-    with _codecs.open(file, encoding="utf-8", mode="w") as f:
+    with open(file, "w") as f:
         _json.dump(data, f, indent=4, separators=(",", ": "), sort_keys=True)
 
     return file
@@ -877,7 +914,7 @@ def disable_logging():
     global _logging_threshold
     _logging_threshold = _DISABLED
 
-class logging_enabled(object):
+class logging_enabled:
     def __init__(self, level="notice", output=None):
         self.level = level
         self.output = output
@@ -971,67 +1008,90 @@ def _info(quiet, message, *args):
 
 ## Path operations
 
+def expand(path):
+    path = _os.path.expanduser(path)
+    path = _os.path.expandvars(path)
+
+    return path
+
 def get_absolute_path(path):
+    path = expand(path)
     return _os.path.abspath(path)
 
 def normalize_path(path):
+    path = expand(path)
     return _os.path.normpath(path)
 
 def get_real_path(path):
+    path = expand(path)
     return _os.path.realpath(path)
 
 def get_relative_path(path, start=None):
+    path = expand(path)
     return _os.path.relpath(path, start=start)
 
 def get_file_url(path):
+    path = expand(path)
     return "file:{}".format(get_absolute_path(path))
 
 def exists(path):
+    path = expand(path)
     return _os.path.lexists(path)
 
 def is_absolute(path):
+    path = expand(path)
     return _os.path.isabs(path)
 
 def is_dir(path):
+    path = expand(path)
     return _os.path.isdir(path)
 
 def is_file(path):
+    path = expand(path)
     return _os.path.isfile(path)
 
 def is_link(path):
+    path = expand(path)
     return _os.path.islink(path)
 
 def join(*paths):
+    paths = [expand(x) for x in paths]
+
     path = _os.path.join(*paths)
     path = normalize_path(path)
 
     return path
 
 def split(path):
+    path = expand(path)
     path = normalize_path(path)
     parent, child = _os.path.split(path)
 
     return parent, child
 
 def split_extension(path):
+    path = expand(path)
     path = normalize_path(path)
     root, ext = _os.path.splitext(path)
 
     return root, ext
 
 def get_parent_dir(path):
+    path = expand(path)
     path = normalize_path(path)
     parent, child = split(path)
 
     return parent
 
 def get_base_name(path):
+    path = expand(path)
     path = normalize_path(path)
     parent, name = split(path)
 
     return name
 
 def get_name_stem(file):
+    file = expand(file)
     name = get_base_name(file)
 
     if name.endswith(".tar.gz"):
@@ -1042,12 +1102,15 @@ def get_name_stem(file):
     return stem
 
 def get_name_extension(file):
+    file = expand(file)
     name = get_base_name(file)
     stem, ext = split_extension(name)
 
     return ext
 
 def _check_path(path, test_func, message):
+    path = expand(path)
+
     if not test_func(path):
         parent_dir = get_parent_dir(path)
 
@@ -1060,15 +1123,20 @@ def _check_path(path, test_func, message):
         raise PlanoError(message)
 
 def check_exists(path):
+    path = expand(path)
     _check_path(path, exists, "File or directory {} not found")
 
 def check_file(path):
+    path = expand(path)
     _check_path(path, is_file, "File {} not found")
 
 def check_dir(path):
+    path = expand(path)
     _check_path(path, is_dir, "Directory {} not found")
 
 def await_exists(path, timeout=30, quiet=False):
+    path = expand(path)
+
     _info(quiet, "Waiting for path {} to exist", repr(path))
 
     timeout_message = "Timed out waiting for path {} to exist".format(path)
@@ -1129,8 +1197,13 @@ def get_process_id():
     return _os.getpid()
 
 def _format_command(command, represent=True):
-    if not is_string(command):
-        command = " ".join(command)
+    if is_string(command):
+        args = _shlex.split(command)
+    else:
+        args = command
+
+    args = [expand(x) for x in args]
+    command = " ".join(args)
 
     if represent:
         return repr(command)
@@ -1151,12 +1224,15 @@ def start(command, stdin=None, stdout=None, stderr=None, output=None, shell=Fals
         stdout, stderr = output, output
 
     if is_string(stdin):
+        stdin = expand(stdin)
         stdin = open(stdin, "r")
 
     if is_string(stdout):
+        stdout = expand(stdout)
         stdout = open(stdout, "w")
 
     if is_string(stderr):
+        stderr = expand(stderr)
         stderr = open(stderr, "w")
 
     if stdin is None:
@@ -1186,6 +1262,8 @@ def start(command, stdin=None, stdout=None, stderr=None, output=None, shell=Fals
             args = _shlex.split(command)
         else:
             args = command
+
+        args = [expand(x) for x in args]
 
     try:
         proc = PlanoProcess(args, stdin=stdin, stdout=stdout, stderr=stderr, shell=shell, close_fds=True, stash_file=stash_file)
@@ -1341,7 +1419,7 @@ class PlanoProcessError(_subprocess.CalledProcessError, PlanoError):
 def _default_sigterm_handler(signum, frame):
     for proc in _child_processes:
         if proc.poll() is None:
-            proc.terminate()
+            kill(proc, quiet=True)
 
     exit(-(_signal.SIGTERM))
 
@@ -1442,7 +1520,7 @@ def make_temp_dir(suffix="", dir=None):
 
     return _tempfile.mkdtemp(prefix="plano-", suffix=suffix, dir=dir)
 
-class temp_file(object):
+class temp_file:
     def __init__(self, suffix="", dir=None):
         if dir is None:
             dir = get_system_temp_dir()
@@ -1458,7 +1536,7 @@ class temp_file(object):
         if not WINDOWS: # XXX
             remove(self.file, quiet=True)
 
-class temp_dir(object):
+class temp_dir:
     def __init__(self, suffix="", dir=None):
         self.dir = make_temp_dir(suffix=suffix, dir=dir)
 
@@ -1498,7 +1576,7 @@ def format_duration(duration, align=False):
     else:
         return remove_suffix("{:.1f}".format(value), ".0") + unit
 
-class Timer(object):
+class Timer:
     def __init__(self, timeout=None, timeout_message=None):
         self.timeout = timeout
         self.timeout_message = timeout_message
@@ -1595,7 +1673,7 @@ def format_repr(obj, limit=None):
     attrs = ["{}={}".format(k, repr(v)) for k, v in obj.__dict__.items()]
     return "{}({})".format(obj.__class__.__name__, ", ".join(attrs[:limit]))
 
-class Namespace(object):
+class Namespace:
     def __init__(self, **kwargs):
         for name in kwargs:
             setattr(self, name, kwargs[name])
@@ -1616,7 +1694,9 @@ def read_yaml(file):
 
     import yaml as _yaml
 
-    with _codecs.open(file, encoding="utf-8", mode="r") as f:
+    file = expand(file)
+
+    with open(file) as f:
         return _yaml.safe_load(f)
 
 def write_yaml(file, data):
@@ -1624,9 +1704,11 @@ def write_yaml(file, data):
 
     import yaml as _yaml
 
+    file = expand(file)
+
     make_parent_dir(file, quiet=True)
 
-    with _codecs.open(file, encoding="utf-8", mode="w") as f:
+    with open(file, "w") as f:
         _yaml.safe_dump(data, f)
 
     return file
@@ -1648,7 +1730,7 @@ def emit_yaml(data):
 ## Test operations
 
 def test(_function=None, name=None, timeout=None, disabled=False):
-    class Test(object):
+    class Test:
         def __init__(self, function):
             self.function = function
             self.name = nvl(name, self.function.__name__.rstrip("_").replace("_", "-"))
@@ -1686,7 +1768,7 @@ def skip_test(reason=None):
 
     raise PlanoTestSkipped(reason)
 
-class expect_exception(object):
+class expect_exception:
     def __init__(self, exception_type=Exception, contains=None):
         self.exception_type = exception_type
         self.contains = contains
@@ -1935,7 +2017,7 @@ def _print_test_output(output_file):
         for line in out:
             print("> {}".format(line), end="")
 
-class TestRun(object):
+class TestRun:
     def __init__(self, test_timeout=None, fail_fast=False, verbose=False, quiet=False):
         self.test_timeout = test_timeout
         self.fail_fast = fail_fast
@@ -1961,7 +2043,7 @@ _command_help = {
 }
 
 def command(_function=None, name=None, args=None, parent=None, passthrough=False):
-    class Command(object):
+    class Command:
         def __init__(self, function):
             self.function = function
             self.module = _inspect.getmodule(self.function)
@@ -2111,7 +2193,7 @@ def command(_function=None, name=None, args=None, parent=None, passthrough=False
     else:
         return Command(_function)
 
-class CommandArgument(object):
+class CommandArgument:
     def __init__(self, name, display_name=None, type=None, metavar=None, help=None, short_option=None, default=None, positional=None):
         self.name = name
         self.display_name = nvl(display_name, self.name.replace("_", "-"))

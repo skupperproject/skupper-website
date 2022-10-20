@@ -71,6 +71,10 @@ current_proton_release = proton_release.number
 current_proton_release_url = proton_release.url
 current_proton_release_link = proton_release.link
 
+current_proton_dotnet_release = proton_j_release.number
+current_proton_dotnet_release_url = proton_j_release.url
+current_proton_dotnet_release_link = proton_j_release.link
+
 current_proton_j_release = proton_j_release.number
 current_proton_j_release_url = proton_j_release.url
 current_proton_j_release_link = proton_j_release.link

@@ -1167,3 +1167,6 @@ def planosh_command():
 
 def main():
     PlanoTestCommand(_sys.modules[__name__]).main()
+
+if __name__ == "__main__":
+    main()

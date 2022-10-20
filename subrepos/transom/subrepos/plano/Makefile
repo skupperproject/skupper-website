@@ -36,6 +36,10 @@ test: clean build
 	. build/venv/bin/activate && pip install --force-reinstall dist/plano-*-py3-none-any.whl
 	. build/venv/bin/activate && plano-self-test
 
+.PHONY: ltest
+ltest:
+	PYTHONPATH=src python -m plano.tests
+
 .PHONY: install
 install: build
 	pip install --user --force-reinstall dist/plano-*-py3-none-any.whl

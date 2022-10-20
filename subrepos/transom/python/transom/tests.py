@@ -78,6 +78,15 @@ def transom_render():
         run("transom render --force config input output")
 
 @test
+def transom_serve():
+    run("transom serve --help")
+
+    with test_site():
+        with start("transom serve --port 63456 --quiet config input output"):
+            await_port(63456)
+            http_get("http://localhost:63456/index.html")
+
+@test
 def transom_check_links():
     run("transom check-links --help")
     run("transom check-links --init-only --verbose config input output")
@@ -114,8 +123,9 @@ def plano_render():
 # @test
 # def plano_serve():
 #     with test_site():
-#         PlanoCommand().main(["render", "--serve"])
-
+#         # XXX Need a serve that stops promptly
+#         PlanoCommand().main(["serve"])
+#
 #         result = read_json(result_file)
 #         assert result["served"], result
 

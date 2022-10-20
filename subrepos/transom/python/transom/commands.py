@@ -59,7 +59,7 @@ def serve(port=8080, force=False, verbose=False):
     """
 
     with project_env():
-        args = ["render", "--serve", str(port), site.config_dir, site.input_dir, site.output_dir]
+        args = ["serve", "--port", str(port), site.config_dir, site.input_dir, site.output_dir]
 
         if force:
             args.append("--force")
