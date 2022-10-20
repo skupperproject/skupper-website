@@ -56,5 +56,5 @@ The process of publishing these docs to the Skupper website uses
 1. Update the `skupper_release` and `skupper_release_date` variables
    in `config/config.py`.
 2. Add an entry for the previous release to `releases/index.md` in the
-   Previous releases section.
+   "Previous releases" section.
 3. Run `plano render --force` to update the site.
