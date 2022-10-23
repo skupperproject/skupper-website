@@ -68,9 +68,6 @@ class Transom:
         self._files = list()
         self._index_files = dict() # parent input dir => _File
 
-        self._render_count = 0
-        self._render_count_lock = _threading.Lock()
-
     def init(self):
         self._page_template = _load_template(_os.path.join(self.config_dir, "page.html"), _default_page_template)
         self._body_template = _load_template(_os.path.join(self.config_dir, "body.html"), _default_body_template)
@@ -136,7 +133,13 @@ class Transom:
         if _os.path.exists(self.output_dir):
             _os.utime(self.output_dir)
 
-        self.notice("Rendered {:,} output {}", self._render_count, _plural("file", self._render_count))
+        rendered_count = len([x for x in self._files if x._rendered])
+        unmodified_count = len(self._files) - rendered_count
+
+        if unmodified_count > 0:
+            self.notice("{:,} {} are unchanged", unmodified_count, _plural("file", unmodified_count))
+
+        self.notice("Rendered {:,} output {}", rendered_count, _plural("file", rendered_count))
 
     def serve(self, port=8080):
         try:
@@ -228,7 +231,8 @@ class Transom:
         print("Warning:", message.format(*args))
 
 class _File:
-    __slots__ = "site", "_input_path", "_input_mtime", "_output_path", "_output_mtime", "url", "title", "parent"
+    __slots__ = "site", "_input_path", "_input_mtime", "_output_path", "_output_mtime", "_rendered", \
+        "url", "title", "parent"
 
     def __init__(self, site, input_path, output_path):
         self.site = site
@@ -238,6 +242,8 @@ class _File:
 
         self._output_path = output_path
         self._output_mtime = None
+
+        self._rendered = False
 
         self.url = self._output_path[len(self.site.output_dir):]
         self.title = ""
@@ -260,19 +266,18 @@ class _File:
     def __repr__(self):
         return f"{self.__class__.__name__}({self._input_path}, {self._output_path})"
 
+    def _process_input(self):
+        pass
+
     def _render(self, force=False):
         if not force and not self._is_modified():
             return
 
         self.site.info("Rendering {}", self)
 
-        _copy_file(self._input_path, self._output_path)
+        self._render_content()
 
-        with self.site._render_count_lock:
-            self.site._render_count += 1
-
-    def _process_input(self):
-        pass
+        self._rendered = True
 
     def _is_modified(self):
         if self._output_mtime is None:
@@ -282,6 +287,9 @@ class _File:
                 return True
 
         return self._input_mtime > self._output_mtime
+
+    def _render_content(self):
+        _copy_file(self._input_path, self._output_path)
 
     def _collect_link_data(self, link_sources, link_targets):
         link_targets.add(self.url)
@@ -345,12 +353,7 @@ class _TemplatePage(_File):
         except KeyError:
             self._body_template = self.site._body_template
 
-    def _render(self, force=False):
-        if not force and not self._is_modified():
-            return
-
-        self.site.info("Rendering {}", self)
-
+    def _render_content(self):
         if not hasattr(self, "_content"):
             self._process_input()
 
@@ -359,9 +362,6 @@ class _TemplatePage(_File):
         with open(self._output_path, "w") as f:
             for elem in self._render_template(self._page_template):
                 f.write(elem)
-
-        with self.site._render_count_lock:
-            self.site._render_count += 1
 
     @property
     def extra_headers(self):
