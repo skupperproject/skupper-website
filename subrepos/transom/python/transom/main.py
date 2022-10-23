@@ -32,9 +32,9 @@ import threading as _threading
 import types as _types
 
 from . import markdown2 as _markdown
+from html import escape as _escape
+from html.parser import HTMLParser as _HTMLParser
 from urllib import parse as _urlparse
-from xml.etree.ElementTree import XML as _XML
-from xml.sax.saxutils import escape as _xml_escape
 
 _default_page_template = "{{page.body}}"
 _default_body_template = "{{page.content}}"
@@ -197,13 +197,10 @@ class Transom:
         link_targets = set()
 
         for file_ in self._files:
-            try:
-                file_._collect_link_data(link_sources, link_targets)
-            except Exception as e:
-                self.warn("Error collecting link data from {}: {}", file_, str(e))
+            file_._collect_link_data(link_sources, link_targets)
 
         def not_ignored(link):
-            return not any((_fnmatch.fnmatchcase(x) for x in self.ignored_link_patterns))
+            return not any((_fnmatch.fnmatchcase(link, x) for x in self.ignored_link_patterns))
 
         links = filter(not_ignored, link_sources.keys())
         errors = 0
@@ -292,32 +289,42 @@ class _File:
         if not self.url.endswith(".html"):
             return
 
-        root = _XML(_read_file(self._output_path))
+        parser = _LinkParser(self, link_sources, link_targets)
+        parser.feed(_read_file(self._output_path))
 
-        for elem in root.iter("*"):
-            for name in ("href", "src", "action"):
-                try:
-                    url = elem.attrib[name]
-                except KeyError:
-                    continue
+class _LinkParser(_HTMLParser):
+    def __init__(self, file_, link_sources, link_targets):
+        super().__init__()
 
-                split_url = _urlparse.urlsplit(url)
+        self.file = file_
+        self.link_sources = link_sources
+        self.link_targets = link_targets
 
-                if split_url.scheme or split_url.netloc:
-                    continue
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
 
-                normalized_url = _urlparse.urljoin(self.url, _urlparse.urlunsplit(split_url))
+        for name in ("href", "src", "action"):
+            try:
+                url = attrs[name]
+            except KeyError:
+                continue
 
-                link_sources[normalized_url].add(self)
+            split_url = _urlparse.urlsplit(url)
 
-        for elem in root.iter("*"):
-            if "id" in elem.attrib:
-                normalized_url = _urlparse.urljoin(self.url, f"#{elem.attrib['id']}")
+            if split_url.scheme or split_url.netloc:
+                continue
 
-                if normalized_url in link_targets:
-                    self.site.warn("Duplicate link target in '{}'", normalized_url)
+            normalized_url = _urlparse.urljoin(self.file.url, _urlparse.urlunsplit(split_url))
 
-                link_targets.add(normalized_url)
+            self.link_sources[normalized_url].add(self.file)
+
+        if "id" in attrs:
+            normalized_url = _urlparse.urljoin(self.file.url, f"#{attrs['id']}")
+
+            if normalized_url in self.link_targets:
+                self.file.site.warn("Duplicate link target in '{}'", normalized_url)
+
+            self.link_targets.add(normalized_url)
 
 class _TemplatePage(_File):
     __slots__ = "_content", "_attributes", "_page_template", "_body_template"
@@ -790,7 +797,7 @@ def _html_attrs(attrs):
         value = name if value is True else value
 
         if value is not False:
-            yield f" {name}=\"{_xml_escape(value)}\""
+            yield f" {name}=\"{_escape(value, quote=True)}\""
 
 if __name__ == "__main__":
     command = TransomCommand()
