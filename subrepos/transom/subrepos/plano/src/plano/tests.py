@@ -442,14 +442,14 @@ def io_operations():
         assert is_file(file_c), file_c
 
         file_d = write("d", "front@middle@@middle@back")
-        replace_in_file(file_d, "@middle@", "M", count=1)
-        result = read(file_d)
+        path = replace_in_file(file_d, "@middle@", "M", count=1)
+        result = read(path)
         assert result == "frontM@middle@back", result
 
         file_e = write("e", "123")
         file_f = write("f", "456")
-        concatenate("g", (file_e, "not-there", file_f))
-        result = read("g")
+        path = concatenate("g", (file_e, "not-there", file_f))
+        result = read(path)
         assert result == "123456", result
 
 @test

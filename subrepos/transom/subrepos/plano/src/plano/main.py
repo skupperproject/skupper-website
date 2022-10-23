@@ -739,7 +739,7 @@ def tail_lines(file, count):
 
 def replace_in_file(file, expr, replacement, count=0):
     file = expand(file)
-    write(file, replace(read(file), expr, replacement, count=count))
+    return write(file, replace(read(file), expr, replacement, count=count))
 
 def concatenate(file, input_files):
     file = expand(file)
@@ -755,6 +755,8 @@ def concatenate(file, input_files):
 
             with open(input_file, "rb") as inf:
                 _shutil.copyfileobj(inf, f)
+
+    return file
 
 ## Iterable operations
 

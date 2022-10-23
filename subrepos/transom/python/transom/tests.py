@@ -19,8 +19,7 @@
 
 import csv as _csv
 
-from .commands import configure_file
-from .main import _lipsum, _html_table, _html_table_csv
+from .main import _lipsum, _plural, _html_table, _html_table_csv
 from plano import *
 from plano.commands import PlanoCommand
 from xml.etree.ElementTree import XML as _XML
@@ -82,9 +81,9 @@ def transom_serve():
     run("transom serve --help")
 
     with test_site():
-        with start("transom serve --port 63456 --quiet config input output"):
-            await_port(63456)
-            http_get("http://localhost:63456/index.html")
+        with start("transom serve --port 9191 --quiet config input output"):
+            await_port(9191)
+            http_get("http://localhost:9191/index.html")
 
 @test
 def transom_check_links():
@@ -157,14 +156,6 @@ def plano_modules():
             PlanoCommand().main(["modules", "--remote", "--recursive"])
 
 @test
-def configure_file_function():
-    with working_dir():
-        input_file = write("zeta-file", "X@replace-me@X")
-        output_file = configure_file(input_file, "zeta-file", {"replace-me": "Y"})
-        output = read(output_file)
-        assert output == "XYX", output
-
-@test
 def lipsum_function():
     result = _lipsum(0, end="")
     assert result == "", result
@@ -174,6 +165,29 @@ def lipsum_function():
 
     result = _lipsum(1000)
     assert result
+
+@test
+def plural_function():
+    result = _plural(None)
+    assert result == "", result
+
+    result = _plural("")
+    assert result == "", result
+
+    result = _plural("test")
+    assert result == "tests", result
+
+    result = _plural("test", 1)
+    assert result == "test", result
+
+    result = _plural("bus")
+    assert result == "busses", result
+
+    result = _plural("bus", 1)
+    assert result == "bus", result
+
+    result = _plural("terminus", 2, "termini")
+    assert result == "termini", result
 
 @test
 def html_table_functions():

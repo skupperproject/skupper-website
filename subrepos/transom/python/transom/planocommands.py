@@ -20,8 +20,6 @@
 from plano import *
 from transom import TransomCommand
 
-import shutil as _shutil
-
 class _Site:
     def __init__(self):
         self.config_dir = "config"
@@ -112,17 +110,3 @@ def clean():
 class project_env(working_env):
     def __init__(self):
         super(project_env, self).__init__(PYTHONPATH="python")
-
-def configure_file(input_file, output_file, substitutions, quiet=False):
-    notice("Configuring '{0}' for output '{1}'", input_file, output_file)
-
-    content = read(input_file)
-
-    for name, value in substitutions.items():
-        content = content.replace("@{0}@".format(name), value)
-
-    write(output_file, content)
-
-    _shutil.copymode(input_file, output_file)
-
-    return output_file

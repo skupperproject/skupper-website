@@ -4,9 +4,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: recursive
-    - uses: actions/setup-python@v2
-    - run: |
-        ./plano test
+    - uses: actions/checkout@v3
+    - run: sudo apt update -qq
+    - run: sudo apt install -qq python3 npm
+    - run: npm install -g livereload
+    - run: ./plano test
