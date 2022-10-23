@@ -17,7 +17,7 @@
 # under the License.
 #
 
-from transom.commands import *
+from transom.planocommands import *
 
 site.output_dir = "docs"
 
@@ -33,7 +33,10 @@ def generate_docs(owner="skupperproject", branch="main", output_dir="input/docs"
     output_dir = get_absolute_path(output_dir)
 
     with working_dir():
-        playbook = configure_file(playbook_in, "docs-playbook.yaml", {"branch": branch, "owner": owner})
+        content = read(playbook_in)
+        content = content.replace("@branch@", branch)
+        content = content.replace("@owner@", owner)
+        playbook = write("docs-playbook.yaml", content)
 
         run(f"antora --fetch {playbook}")
 
