@@ -31,7 +31,7 @@ You can store your YAML files in source control to track and manage Skupper netw
 <ol class="arabic">
 <li>
 <p>Log into your cluster.
-If you are deploying Skupper to be available for all namespaces, make sure you have <code>cluster-admin</code> privileges.</p>
+If you are deploying Skupper to be available for all namespaces, verify you have <code>cluster-admin</code> privileges.</p>
 </li>
 <li>
 <p>Deploy the site controller:</p>

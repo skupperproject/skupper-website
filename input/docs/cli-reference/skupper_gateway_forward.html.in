@@ -1,33 +1,43 @@
 ---
-title: Skupper gateway forward
+title: skupper gateway forward
 ---
 
 <article class="doc">
-<h1 class="page">Skupper gateway forward</h1>
+<h1 class="page">skupper gateway forward</h1>
 <div class="paragraph">
 <p>Forward an address to the service network</p>
 </div>
 <div class="paragraph">
-<p><code>skupper gateway forward &lt;address&gt; &lt;port...&gt; [flags]</code></p>
+<div class="title">Synopsis</div>
+<p>Forward an address to the service network</p>
 </div>
-<div class="ulist">
+<div class="literalblock">
+<div class="content">
+<pre>skupper gateway forward &lt;address&gt; &lt;port...&gt;  --[option]</pre>
+</div>
+</div>
+<div class="dlist">
 <div class="title">Options</div>
-<ul>
-<li>
-<p><code>aggregate - string</code>  The aggregation strategy to use.
-One of 'json' or 'multipart'.
-If specified requests to this service will be sent to all registered implementations and the responses aggregated.</p>
-</li>
-<li>
-<p><code>event-channel</code>     If specified, this service will be a channel for multicast events.</p>
-</li>
-<li>
-<p><code>loopback</code>          Forward from loopback only</p>
-</li>
-</ul>
+<dl>
+<dt class="hdlist1">aggregate</dt>
+<dd>
+<p>The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated.
+ (string)</p>
+</dd>
+<dt class="hdlist1">event-channel</dt>
+<dd>
+<p>If specified, this service will be a channel for multicast events.
+ (bool)</p>
+</dd>
+<dt class="hdlist1">loopback</dt>
+<dd>
+<p>Forward from loopback only
+ (bool)</p>
+</dd>
+</dl>
 </div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper_gateway.html" class="xref page">skupper gateway</a>	 - Manage skupper gateway definitions</p>

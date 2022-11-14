@@ -31,7 +31,7 @@ title: Exploring a {service-network}
 </div>
 </div>
 <div class="paragraph">
-<p>For example, the following shows the output for the {service-network} created from the {SkupperOpenShiftBookLink} tutorial from the <code>west</code> namespace:</p>
+<p>For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">

@@ -7,7 +7,7 @@ title: Skupper overview
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Hybrid clouds enable organizations to combine on-premise, private cloud, and public cloud resources.
+<p>Hybrid clouds enable organizations to combine on-premises, private cloud, and public cloud resources.
 While such a solution provides many benefits, it also presents a unique challenge: enabling these resources to communicate with each other.</p>
 </div>
 <div class="paragraph">
@@ -80,7 +80,7 @@ When an application sends a communication to an address, the Layer 7 application
 <div class="sectionbody">
 <div class="paragraph">
 <p>Skupper is an open source tool for creating VANs in Kubernetes.
-By using Skupper, you can create a distributed application comprised of microservices running in different Kubernetes clusters.</p>
+By using Skupper, you can create a distributed application consisting of microservices running in different Kubernetes clusters.</p>
 </div>
 <div class="paragraph">
 <p>This diagram illustrates a Skupper network that connects three services running in three different Kubernetes clusters:</p>

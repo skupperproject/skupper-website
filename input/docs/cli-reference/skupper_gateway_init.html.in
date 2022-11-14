@@ -1,28 +1,38 @@
 ---
-title: Skupper gateway init
+title: skupper gateway init
 ---
 
 <article class="doc">
-<h1 class="page">Skupper gateway init</h1>
+<h1 class="page">skupper gateway init</h1>
 <div class="paragraph">
 <p>Initialize a gateway to the service network</p>
 </div>
 <div class="paragraph">
-<p><code>skupper gateway init [flags]</code></p>
+<div class="title">Synopsis</div>
+<p>Initialize a gateway to the service network</p>
 </div>
-<div class="ulist">
+<div class="literalblock">
+<div class="content">
+<pre>skupper gateway init  --[option]</pre>
+</div>
+</div>
+<div class="dlist">
 <div class="title">Options</div>
-<ul>
-<li>
-<p><code>config - string</code>  The gateway config file to use for initialization</p>
-</li>
-<li>
-<p><code>type - string</code>    The gateway type one of: 'service', 'docker', 'podman' (default "service")</p>
-</li>
-</ul>
+<dl>
+<dt class="hdlist1">config</dt>
+<dd>
+<p>The gateway config file to use for initialization
+ (string)</p>
+</dd>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>The gateway type one of: 'service', 'docker', 'podman' (default "service")
+ (string)</p>
+</dd>
+</dl>
 </div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper_gateway.html" class="xref page">skupper gateway</a>	 - Manage skupper gateway definitions</p>

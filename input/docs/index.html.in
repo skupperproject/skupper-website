@@ -42,7 +42,6 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
     connect Skupper sites.</p>
 
     <nav>
-      <a href="declarative/tutorial.html">Configuring Skupper sites using YAML</a>
       <a href="declarative/index.html">YAML configuration reference</a>
       <a href="/docs/cli/index.html#gateway-reference">Gateway YAML reference</a>
     </nav>

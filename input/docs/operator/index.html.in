@@ -84,7 +84,7 @@ title: Using the Skupper Operator on Kubernetes
 </div>
 </li>
 <li>
-<p>Make sure the skupper-operator catalog pod is running before continuing:</p>
+<p>Verify the skupper-operator catalog pod is running before continuing:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl -n openshift-marketplace get pods | grep skupper-operator</code></pre>
@@ -152,7 +152,7 @@ metadata:
 </div>
 </div>
 <div class="paragraph">
-<p>You can later retrieve the console credentials as described in <a href="/docs/console/index.html">Using the Skupper console</a> or specify them now by adding the username and optionally the password to <code>skupper-site.yaml</code> as follows:</p>
+<p>You can later retrieve the console credentials as described in <a href="https://github.com/skupperproject/skupper-console">Skupper console</a> or specify them now by adding the username and optionally the password to <code>skupper-site.yaml</code> as follows:</p>
 </div>
 <div class="listingblock">
 <div class="content">

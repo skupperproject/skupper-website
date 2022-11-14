@@ -1,17 +1,23 @@
 ---
-title: Skupper gateway unforward
+title: skupper gateway unforward
 ---
 
 <article class="doc">
-<h1 class="page">Skupper gateway unforward</h1>
+<h1 class="page">skupper gateway unforward</h1>
 <div class="paragraph">
 <p>Stop forwarding an address to the service network</p>
 </div>
 <div class="paragraph">
-<p><code>skupper gateway unforward &lt;address&gt; [flags]</code></p>
+<div class="title">Synopsis</div>
+<p>Stop forwarding an address to the service network</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>skupper gateway unforward &lt;address&gt;  --[option]</pre>
+</div>
 </div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper_gateway.html" class="xref page">skupper gateway</a>	 - Manage skupper gateway definitions</p>

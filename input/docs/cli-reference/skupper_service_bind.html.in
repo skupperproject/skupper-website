@@ -1,28 +1,43 @@
 ---
-title: Skupper service bind
+title: skupper service bind
 ---
 
 <article class="doc">
-<h1 class="page">Skupper service bind</h1>
+<h1 class="page">skupper service bind</h1>
 <div class="paragraph">
 <p>Bind a target to a service</p>
 </div>
 <div class="paragraph">
-<p><code>skupper service bind &lt;service-name&gt; &lt;target-type&gt; &lt;target-name&gt; [flags]</code></p>
+<div class="title">Synopsis</div>
+<p>Bind a target to a service</p>
 </div>
-<div class="ulist">
+<div class="literalblock">
+<div class="content">
+<pre>skupper service bind &lt;service-name&gt; &lt;target-type&gt; &lt;target-name&gt;  --[option]</pre>
+</div>
+</div>
+<div class="dlist">
 <div class="title">Options</div>
-<ul>
-<li>
-<p><code>protocol - string</code>      The protocol to proxy (tcp, http or http2).</p>
-</li>
-<li>
-<p><code>target-port - strings</code>  The port the target is listening on (you can also use colon to map source-port to a target-port).</p>
-</li>
-</ul>
+<dl>
+<dt class="hdlist1">protocol</dt>
+<dd>
+<p>The protocol to proxy (tcp, http or http2).
+ (string)</p>
+</dd>
+<dt class="hdlist1">publish-not-ready-addresses</dt>
+<dd>
+<p>If specified, skupper will not wait for pods to be ready
+ (bool)</p>
+</dd>
+<dt class="hdlist1">target-port</dt>
+<dd>
+<p>The port the target is listening on (you can also use colon to map source-port to a target-port).
+ (strings)</p>
+</dd>
+</dl>
 </div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper_service.html" class="xref page">skupper service</a>	 - Manage skupper service definitions</p>

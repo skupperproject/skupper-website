@@ -88,7 +88,7 @@ However, this guide provides some tips for situations when the service network d
 <p>See <a href="#common-problems">Resolving common problems</a> if you have encountered a specific issue using the <code>skupper</code> CLI.</p>
 </div>
 <div class="paragraph">
-<p>A typical troubleshooting workflow is to check all the sites and create debug tarballs.</p>
+<p>A typical troubleshooting workflow is to check all the sites and create debug tar files.</p>
 </div>
 </div>
 </div>
@@ -132,35 +132,6 @@ Skupper is enabled for namespace "west" in interior mode. It is connected to 2 o
 </div>
 </li>
 <li>
-<p>Check the link status:</p>
-<div class="openblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>$ skupper link status --namespace east
-
-Link link1 is active</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>A link exists from the specified site to another site, meaning a token from another site was applied to the specified site.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Running <code>skupper link status</code> on a connected site produces output only if a token was used to create a link.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-</li>
-<li>
 <p>Check the service network:</p>
 <div class="openblock">
 <div class="content">
@@ -195,6 +166,18 @@ Sites:
             ╰─ name: backend-77f8f45fc8-m58tg</pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the output is not what you expected, you might want to <a href="#checking-links">check links</a> before proceeding.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>The output shows:</p>
 </div>
@@ -217,20 +200,203 @@ Sites:
 </div>
 </div>
 </li>
+<li>
+<p>Check the status of services exposed on the service network:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper service status
+Services exposed through Skupper:
+╰─ backend (tcp port 8080)
+   ╰─ Targets:
+      ╰─ app=backend name=backend</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output shows the <code>backend</code> service and the related target of that service.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The related targets for services are only displayed when the target is available on the current cluster.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>List the events for a site:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper debug events
+NAME                         COUNT                                                          AGE
+GatewayQueryRequest          3                                                              9m12s
+                             3     gateway request                                          9m12s
+SiteQueryRequest             3                                                              9m12s
+                             3     site data request                                        9m12s
+ServiceControllerEvent       9                                                              10m24s
+                             2     service event for west/frontend                          10m24s
+                             1     service event for west/backend                           10m26s
+                             1     Checking service for: backend                            10m26s
+                             2     Service definitions have changed                         10m26s
+                             1     service event for west/skupper-router                    11m4s
+DefinitionMonitorEvent       15                                                             10m24s
+                             2     service event for west/frontend                          10m24s
+                             1     service event for west/backend                           10m26s
+                             1     Service definitions have changed                         10m26s
+                             5     deployment event for west/frontend                       10m34s
+                             1     deployment event for west/skupper-service-controller     11m4s
+ServiceControllerUpdateEvent 1                                                              10m26s
+                             1     Updating skupper-internal                                10m26s
+ServiceSyncEvent             3                                                              10m26s
+                             1     Service interface(s) added backend                       10m26s
+                             1     Service sync sender connection to                        11m4s
+                                   amqps://skupper-router-local.west.svc.cluster.local:5671
+                                   established
+                             1     Service sync receiver connection to                      11m4s
+                                   amqps://skupper-router-local.west.svc.cluster.local:5671
+                                   established
+IpMappingEvent               5                                                              10m34s
+                             1     172.17.0.7 mapped to frontend-6b4688bf56-rp9hc           10m34s
+                             2      mapped to frontend-6b4688bf56-rp9hc                     10m54s
+                             1     172.17.0.4 mapped to                                     11m4s
+                                   skupper-service-controller-6c97c5cf5d-6nzph
+                             1     172.17.0.3 mapped to skupper-router-547dffdcbf-l8pdc     11m4s
+TokenClaimVerification       1                                                              10m59s
+                             1     Claim for efe3a241-3e4f-11ed-95d0-482ae336eb38 succeeded 10m59s</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output shows sites being linked and a service being exposed on a service network.
+However, this output is most useful when reporting an issue and is included in the Skupper debug tar file.</p>
+</div>
+</div>
+</div>
+</li>
 </ol>
+</div>
+<div class="ulist">
+<div class="title">Additional information</div>
+<ul>
+<li>
+<p><a href="#checking-links">Checking links</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-debug"><a class="anchor" href="#creating-debug"></a>Creating a skupper debug tarball</h2>
+<h2 id="checking-links"><a class="anchor" href="#checking-links"></a>Checking links</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The debug tarball contains all the logs from the Skupper components for a site and provides detailed information to help debug issues.</p>
+<p>You must link sites before you can expose services on the service network.
+This section outlines some advanced options for checking links.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create the debug tarball:</p>
+<p>Check the link status:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper link status --namespace east
+
+Links created from this site:
+-------------------------------
+Link link1 is active</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A link exists from the specified site to another site, meaning a token from another site was applied to the specified site.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Running <code>skupper link status</code> on a connected site produces output only if a token was used to create a link.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If you use this command on a site where you did not create the link, but there is an incoming link to the site:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper link status --namespace west
+
+Links created from this site:
+-------------------------------
+There are no links configured or active
+
+Currently active links from other sites:
+----------------------------------------
+A link from the namespace east on site east(536695a9-26dc-4448-b207-519f56e99b71) is active</pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Check the verbose link status:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper link status link1 --verbose --namespace east
+
+ Cost:          1
+ Created:       2022-10-24 12:50:33 +0100 IST
+ Name:          link1
+ Namespace:     east
+ Site:          east-536695a9-26dc-4448-b207-519f56e99b71
+ Status:        Active</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output shows detail about the link, including a timestamp of when the link was created and the associated relative cost of using the link.</p>
+</div>
+<div class="paragraph">
+<p>The status of the link must be <code>Active</code> to allow service traffic.</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional information</div>
+<ul>
+<li>
+<p><a href="#checking-sites">Checking sites</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-debug"><a class="anchor" href="#creating-debug"></a>Creating a Skupper debug tar file</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The debug tar file contains all the logs from the Skupper components for a site and provides detailed information to help debug issues.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create the debug tar file:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$  skupper debug dump my-site
@@ -349,7 +515,7 @@ Enter the following command:</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>See <a href="../cli-reference/skupper_init.html" class="xref page">Skupper init</a> for more options.</p>
+<p>See <a href="../cli-reference/skupper_init.html" class="xref page">skupper init</a> for more options.</p>
 </div>
 </td>
 </tr>
@@ -377,6 +543,21 @@ For example, if one site is behind a firewall and the other site is on an AWS cl
 </li>
 </ol>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>By default, a token is only valid for a single link.
+If you need to link many sites, create separate tokens for each link.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p><strong>Cannot access Skupper console</strong></p>
 </div>
@@ -384,7 +565,12 @@ For example, if one site is behind a firewall and the other site is on an AWS cl
 <p>Use <code>skupper status</code> to find the console URL.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="../console/index.html" class="xref page">Using the Skupper console</a> for more information on <strong>Accessing the console</strong>, including how to retrieve the username and password.</p>
+<p>Use the following command to display the password for the <code>admin</code> user:doctype: article</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl get secret/skupper-console-users -o jsonpath={.data.admin} | base64 -d</pre>
+</div>
 </div>
 <div class="paragraph">
 <p><strong>Cannot create a token for linking clusters</strong></p>

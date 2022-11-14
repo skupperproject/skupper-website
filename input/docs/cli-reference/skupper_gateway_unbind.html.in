@@ -1,17 +1,23 @@
 ---
-title: Skupper gateway unbind
+title: skupper gateway unbind
 ---
 
 <article class="doc">
-<h1 class="page">Skupper gateway unbind</h1>
+<h1 class="page">skupper gateway unbind</h1>
 <div class="paragraph">
 <p>Unbind a process from the service network</p>
 </div>
 <div class="paragraph">
-<p><code>skupper gateway unbind &lt;address&gt; [flags]</code></p>
+<div class="title">Synopsis</div>
+<p>Unbind a process from the service network</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>skupper gateway unbind &lt;address&gt;  --[option]</pre>
+</div>
 </div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper_gateway.html" class="xref page">skupper gateway</a>	 - Manage skupper gateway definitions</p>

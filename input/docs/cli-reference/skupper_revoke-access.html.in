@@ -1,24 +1,23 @@
 ---
-title: Skupper revoke-access
+title: skupper revoke-access
 ---
 
 <article class="doc">
-<h1 class="page">Skupper revoke-access</h1>
+<h1 class="page">skupper revoke-access</h1>
 <div class="paragraph">
 <p>Revoke all previously granted access to the site.</p>
 </div>
 <div class="paragraph">
 <div class="title">Synopsis</div>
-<p>This will invalidate all previously issued tokens and require that all</p>
+<p>This will invalidate all previously issued tokens and require that all links to this site be re-established with new tokens.</p>
 </div>
-<div class="paragraph">
-<p>links to this site be re-established with new tokens.</p>
+<div class="literalblock">
+<div class="content">
+<pre>skupper revoke-access  --[option]</pre>
 </div>
-<div class="paragraph">
-<p><code>skupper revoke-access [flags]</code></p>
 </div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper.html" class="xref page">skupper</a>	 -</p>
