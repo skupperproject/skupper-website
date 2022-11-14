@@ -1,14 +1,18 @@
 ---
-title: Skupper network
+title: skupper network
 ---
 
 <article class="doc">
-<h1 class="page">Skupper network</h1>
+<h1 class="page">skupper network</h1>
 <div class="paragraph">
 <p>Show information about the sites and services included in the network.</p>
 </div>
+<div class="paragraph">
+<div class="title">Synopsis</div>
+<p>Show information about the sites and services included in the network.</p>
+</div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper.html" class="xref page">skupper</a>	 -</p>

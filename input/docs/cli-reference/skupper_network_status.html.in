@@ -1,25 +1,32 @@
 ---
-title: Skupper network status
+title: skupper network status
 ---
 
 <article class="doc">
-<h1 class="page">Skupper network status</h1>
+<h1 class="page">skupper network status</h1>
 <div class="paragraph">
 <p>Shows information about the current site, and connected sites.</p>
 </div>
 <div class="paragraph">
-<p><code>skupper network status [flags]</code></p>
+<div class="title">Synopsis</div>
+<p>Shows information about the current site, and connected sites.</p>
 </div>
-<div class="ulist">
+<div class="literalblock">
+<div class="content">
+<pre>skupper network status  --[option]</pre>
+</div>
+</div>
+<div class="literalblock">
 <div class="title">Options</div>
-<ul>
-<li>
-<p><code>site - string</code>  Site identifier (default "all")</p>
-</li>
-</ul>
+<div class="content">
+<pre>  -s, --site string        Site identifier (default "all")
+timeout::
+Configurable timeout for retrieving remote information (default 2m0s)
+ (duration)</pre>
+</div>
 </div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper_network.html" class="xref page">skupper network</a>	 - Show information about the sites and services included in the network.</p>

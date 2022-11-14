@@ -1,9 +1,9 @@
 ---
-title: Skupper delete
+title: skupper delete
 ---
 
 <article class="doc">
-<h1 class="page">Skupper delete</h1>
+<h1 class="page">skupper delete</h1>
 <div class="paragraph">
 <p>Delete skupper installation</p>
 </div>
@@ -11,11 +11,13 @@ title: Skupper delete
 <div class="title">Synopsis</div>
 <p>delete will delete any skupper related objects from the namespace</p>
 </div>
-<div class="paragraph">
-<p><code>skupper delete [flags]</code></p>
+<div class="literalblock">
+<div class="content">
+<pre>skupper delete  --[option]</pre>
+</div>
 </div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper.html" class="xref page">skupper</a>	 -</p>

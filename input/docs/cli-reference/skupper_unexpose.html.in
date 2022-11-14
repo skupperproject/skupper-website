@@ -1,25 +1,33 @@
 ---
-title: Skupper unexpose
+title: skupper unexpose
 ---
 
 <article class="doc">
-<h1 class="page">Skupper unexpose</h1>
+<h1 class="page">skupper unexpose</h1>
 <div class="paragraph">
 <p>Unexpose a set of pods previously exposed through a Skupper address</p>
 </div>
 <div class="paragraph">
-<p><code>skupper unexpose [deployment &lt;name&gt;|pods &lt;selector&gt;|statefulset &lt;statefulsetname&gt;|service &lt;name&gt;] [flags]</code></p>
+<div class="title">Synopsis</div>
+<p>Unexpose a set of pods previously exposed through a Skupper address</p>
 </div>
-<div class="ulist">
+<div class="literalblock">
+<div class="content">
+<pre>skupper unexpose [deployment &lt;name&gt;|pods &lt;selector&gt;|statefulset &lt;statefulsetname&gt;|service &lt;name&gt;]  --[option]</pre>
+</div>
+</div>
+<div class="dlist">
 <div class="title">Options</div>
-<ul>
-<li>
-<p><code>address - string</code>  Skupper address the target was exposed as</p>
-</li>
-</ul>
+<dl>
+<dt class="hdlist1">address</dt>
+<dd>
+<p>Skupper address the target was exposed as
+ (string)</p>
+</dd>
+</dl>
 </div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper.html" class="xref page">skupper</a>	 -</p>

@@ -209,7 +209,7 @@ Claim tokens are the default, the <code>-t claim</code> section of the command i
 <div class="title">Additional information</div>
 <ul>
 <li>
-<p>See the <a href="/docs/cli/index.html">Configuring Skupper sites using the CLI</a> for information on using the token to create links.</p>
+<p>See the <a href="/docs/cli/index.html">Configuring Skupper sites using the CLI</a> for information about using the token to create links.</p>
 </li>
 </ul>
 </div>
@@ -260,7 +260,7 @@ Cert tokens are always valid and can be reused indefinitely unless revoked as de
 <div class="title">Additional information</div>
 <ul>
 <li>
-<p>See the <a href="/docs/cli/index.html">Configuring Skupper sites using the CLI</a> for information on using the token to create links.</p>
+<p>See the <a href="/docs/cli/index.html">Configuring Skupper sites using the CLI</a> for information about using the token to create links.</p>
 </li>
 </ul>
 </div>
@@ -331,7 +331,23 @@ Link link1 is active</code></pre>
 <p>The output shows that the <code>skupper revoke-access</code> command has revoked the incoming links, but outgoing links are still active.</p>
 </div>
 <div class="paragraph">
-<p>You can remove that link using the <code>skupper link delete link1</code> command, but to revoke access, you must follow this procedure while logged into the appropriate cluster.</p>
+<p>You can remove that link using the <code>skupper link delete link1</code> command.
+To revoke access, you must follow this procedure while logged into the appropriate cluster.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>After performing the <code>skupper revoke-access</code> command, the remote site still retains the link information and returns a <code>Already connected to &lt;site&gt;</code> message if you try to recreate the link.
+To recreate the link, you must first delete the link manually from the remote site context.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

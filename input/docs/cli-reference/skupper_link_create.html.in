@@ -1,29 +1,38 @@
 ---
-title: Skupper link create
+title: skupper link create
 ---
 
 <article class="doc">
-<h1 class="page">Skupper link create</h1>
+<h1 class="page">skupper link create</h1>
 <div class="paragraph">
-<p>Links this skupper installation to that which issued the specified token</p>
+<p>Links this skupper site to the site that issued the token</p>
 </div>
 <div class="paragraph">
-<p><code>skupper link create &lt;input-token-file&gt; [flags]</code></p>
+<div class="title">Synopsis</div>
+<p>Links this skupper site to the site that issued the token</p>
 </div>
-<div class="ulist">
+<div class="literalblock">
+<div class="content">
+<pre>skupper link create &lt;input-token-file&gt;  --[option]</pre>
+</div>
+</div>
+<div class="dlist">
 <div class="title">Options</div>
-<ul>
-<li>
-<p><code>cost int32</code>   Specify a cost for this link.
-(default 1)</p>
-</li>
-<li>
-<p><code>name - string</code>  Provide a specific name for the link (used when deleting it)</p>
-</li>
-</ul>
+<dl>
+<dt class="hdlist1">cost</dt>
+<dd>
+<p>Specify a cost for this link. (default 1)
+ (int32)</p>
+</dd>
+<dt class="hdlist1">name</dt>
+<dd>
+<p>Provide a specific name for the link (used when deleting it)
+ (string)</p>
+</dd>
+</dl>
 </div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper_link.html" class="xref page">skupper link</a>	 - Manage skupper links definitions</p>

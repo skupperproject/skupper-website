@@ -1,28 +1,11 @@
 ---
-title: Skupper command reference
+title: skupper
 ---
 
 <article class="doc">
-<h1 class="page">Skupper command reference</h1>
-<div class="paragraph">
-<p>Precede all options with <code>--</code>, for example <code>skupper init --ingress none</code></p>
-</div>
+<h1 class="page">skupper</h1>
 <div class="ulist">
-<div class="title">Common Options</div>
-<ul>
-<li>
-<p><code>context - string</code>     The kubeconfig context to use</p>
-</li>
-<li>
-<p><code>kubeconfig - string</code>  Path to the kubeconfig file to use</p>
-</li>
-<li>
-<p><code>namespace - string</code>   The Kubernetes namespace to use</p>
-</li>
-</ul>
-</div>
-<div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper_completion.html" class="xref page">skupper completion</a>	 - Output shell completion code for bash</p>

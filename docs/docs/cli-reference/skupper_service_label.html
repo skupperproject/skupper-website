@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Skupper service label</title>
+    <title>Skupper - skupper service label</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli-reference/skupper_service_label.html">Skupper service label</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli-reference/skupper_service_label.html">skupper service label</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -77,40 +77,53 @@
 
 
 <article class="doc">
-<h1 class="page">Skupper service label</h1>
+<h1 class="page">skupper service label</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p>Manage service labels</p>
 </div>
 <div class="paragraph">
-<p><code>skupper service label &lt;service&gt; [labels...] [flags]</code></p>
+<div class="title">Synopsis</div>
+<p>Manage service labels</p>
 </div>
 <div class="literalblock">
-<div class="title">Examples</div>
 <div class="content">
-<pre>    # show labels for my-service
-
-    skupper service label my-service
-
-
-
-    # add label1=value1 and label2=value2 to my-service
-
-    skupper service label my-service label1=value1 label2=value2
-
-
-
-    # add label1=value1 and remove label2 to/from my-service
-
-    skupper service label my-service label1=value1 label2-</pre>
+<pre>skupper service label &lt;service&gt; [labels...]  --[option]</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examples"><a class="anchor" href="#_examples"></a>Examples</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre># show labels for my-service
+skupper service label my-service</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre># add label1=value1 and label2=value2 to my-service
+skupper service label my-service label1=value1 label2=value2</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre># add label1=value1 and remove label2 to/from my-service
+skupper service label my-service label1=value1 label2-</pre>
 </div>
 </div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper_service.html" class="xref page">skupper service</a>	 - Manage skupper service definitions</p>
 </li>
 </ul>
+</div>
+</div>
 </div>
 </article>
 

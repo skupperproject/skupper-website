@@ -150,7 +150,7 @@ The service controller determines the values in this ConfigMap based on the serv
 </li>
 <li>
 <p>The site establishing the link will have a secret that contains the token claim or certificate.
-These secrets are typically called <code>link1</code>, <code>link2</code>, etc.</p>
+These secrets are typically called <code>link1</code>, <code>link2</code>, and so on.</p>
 </li>
 </ul>
 </div>
@@ -178,7 +178,7 @@ If a username and password are not specified, an <code>admin</code> user is crea
 <dl>
 <dt class="hdlist1">skupper-router-local</dt>
 <dd>
-<p>The service controller uses this service to connect to the router in order to configure it and get statistics.</p>
+<p>The service controller uses this service to connect to and configure the router.</p>
 </dd>
 <dt class="hdlist1">skupper-router</dt>
 <dd>

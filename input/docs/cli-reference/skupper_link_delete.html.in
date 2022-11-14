@@ -1,17 +1,23 @@
 ---
-title: Skupper link delete
+title: skupper link delete
 ---
 
 <article class="doc">
-<h1 class="page">Skupper link delete</h1>
+<h1 class="page">skupper link delete</h1>
 <div class="paragraph">
 <p>Remove specified link</p>
 </div>
 <div class="paragraph">
-<p><code>skupper link delete &lt;name&gt; [flags]</code></p>
+<div class="title">Synopsis</div>
+<p>Remove specified link</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>skupper link delete &lt;name&gt;  --[option]</pre>
+</div>
 </div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper_link.html" class="xref page">skupper link</a>	 - Manage skupper links definitions</p>

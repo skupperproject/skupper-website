@@ -1,25 +1,43 @@
 ---
-title: Skupper link status
+title: skupper link status
 ---
 
 <article class="doc">
-<h1 class="page">Skupper link status</h1>
+<h1 class="page">skupper link status</h1>
 <div class="paragraph">
 <p>Check whether a link to another Skupper site is active</p>
 </div>
 <div class="paragraph">
-<p><code>skupper link status [&lt;link-name&gt;] [flags]</code></p>
+<div class="title">Synopsis</div>
+<p>Check whether a link to another Skupper site is active</p>
 </div>
-<div class="ulist">
+<div class="literalblock">
+<div class="content">
+<pre>skupper link status [&lt;link-name&gt;]  --[option]</pre>
+</div>
+</div>
+<div class="dlist">
 <div class="title">Options</div>
-<ul>
-<li>
-<p><code>wait int</code>  The number of seconds to wait for links to become active</p>
-</li>
-</ul>
+<dl>
+<dt class="hdlist1">timeout</dt>
+<dd>
+<p>Configurable timeout for retrieving information about remote links (default 2m0s)
+ (duration)</p>
+</dd>
+<dt class="hdlist1">verbose</dt>
+<dd>
+<p>Show detailed information about a link
+ (bool)</p>
+</dd>
+<dt class="hdlist1">wait</dt>
+<dd>
+<p>The number of seconds to wait for links to become active
+ (int)</p>
+</dd>
+</dl>
 </div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper_link.html" class="xref page">skupper link</a>	 - Manage skupper links definitions</p>

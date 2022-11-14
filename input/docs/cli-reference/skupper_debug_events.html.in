@@ -1,25 +1,29 @@
 ---
-title: Skupper debug events
+title: skupper debug events
 ---
 
 <article class="doc">
-<h1 class="page">Skupper debug events</h1>
+<h1 class="page">skupper debug events</h1>
 <div class="paragraph">
 <p>Show events</p>
 </div>
 <div class="paragraph">
-<p><code>skupper debug events [flags]</code></p>
+<div class="title">Synopsis</div>
+<p>Show events</p>
 </div>
-<div class="ulist">
+<div class="literalblock">
+<div class="content">
+<pre>skupper debug events  --[option]</pre>
+</div>
+</div>
+<div class="literalblock">
 <div class="title">Options</div>
-<ul>
-<li>
-<p><code>verbose</code>  More detailed output (in json)</p>
-</li>
-</ul>
+<div class="content">
+<pre>-v, --verbose   More detailed output (in json)</pre>
+</div>
 </div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper_debug.html" class="xref page">skupper debug</a>	 - Debug skupper installation</p>

@@ -1,37 +1,48 @@
 ---
-title: Skupper gateway expose
+title: skupper gateway expose
 ---
 
 <article class="doc">
-<h1 class="page">Skupper gateway expose</h1>
+<h1 class="page">skupper gateway expose</h1>
 <div class="paragraph">
 <p>Expose a process to the service network (ensure gateway and cluster service)</p>
 </div>
 <div class="paragraph">
-<p><code>skupper gateway expose &lt;address&gt; &lt;host&gt; &lt;port...&gt; [flags]</code></p>
+<div class="title">Synopsis</div>
+<p>Expose a process to the service network (ensure gateway and cluster service)</p>
 </div>
-<div class="ulist">
+<div class="literalblock">
+<div class="content">
+<pre>skupper gateway expose &lt;address&gt; &lt;host&gt; &lt;port...&gt;  --[option]</pre>
+</div>
+</div>
+<div class="dlist">
 <div class="title">Options</div>
-<ul>
-<li>
-<p><code>aggregate - string</code>  The aggregation strategy to use.
-One of 'json' or 'multipart'.
-If specified requests to this service will be sent to all registered implementations and the responses aggregated.</p>
-</li>
-<li>
-<p><code>event-channel</code>     If specified, this service will be a channel for multicast events.</p>
-</li>
-<li>
-<p><code>protocol - string</code>   The protocol to gateway (tcp, http or http2).
-(default "tcp")</p>
-</li>
-<li>
-<p><code>type - string</code>       The gateway type one of: 'service', 'docker', 'podman' (default "service")</p>
-</li>
-</ul>
+<dl>
+<dt class="hdlist1">aggregate</dt>
+<dd>
+<p>The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated.
+ (string)</p>
+</dd>
+<dt class="hdlist1">event-channel</dt>
+<dd>
+<p>If specified, this service will be a channel for multicast events.
+ (bool)</p>
+</dd>
+<dt class="hdlist1">protocol</dt>
+<dd>
+<p>The protocol to gateway (tcp, http or http2). (default "tcp")
+ (string)</p>
+</dd>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>The gateway type one of: 'service', 'docker', 'podman' (default "service")
+ (string)</p>
+</dd>
+</dl>
 </div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper_gateway.html" class="xref page">skupper gateway</a>	 - Manage skupper gateway definitions</p>

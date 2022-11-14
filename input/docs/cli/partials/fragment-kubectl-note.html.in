@@ -11,7 +11,7 @@ title:
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Because OpenShift Container Platform is a certified Kubernetes distribution, you can use the supported <code>kubectl</code> binaries that ship with OpenShift as described in this documentation, or you can use the <code>oc</code> binary.</p>
+<p>Because OpenShift Container Platform is a certified Kubernetes distribution, you can use the supported <code>kubectl</code> binaries that are included with OpenShift as described in this documentation, or you can use the <code>oc</code> binary.</p>
 </div>
 <div class="paragraph">
 <p>See the <a href="https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/usage-oc-kubectl.html">OpenShift documentation</a> for more information about <code>oc</code> and <code>kubectl</code>.</p>

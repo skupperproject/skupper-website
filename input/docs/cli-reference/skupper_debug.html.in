@@ -1,14 +1,18 @@
 ---
-title: Skupper debug
+title: skupper debug
 ---
 
 <article class="doc">
-<h1 class="page">Skupper debug</h1>
+<h1 class="page">skupper debug</h1>
 <div class="paragraph">
 <p>Debug skupper installation</p>
 </div>
+<div class="paragraph">
+<div class="title">Synopsis</div>
+<p>Debug skupper installation</p>
+</div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper.html" class="xref page">skupper</a>	 -</p>

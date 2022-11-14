@@ -1,25 +1,33 @@
 ---
-title: Skupper gateway unexpose
+title: skupper gateway unexpose
 ---
 
 <article class="doc">
-<h1 class="page">Skupper gateway unexpose</h1>
+<h1 class="page">skupper gateway unexpose</h1>
 <div class="paragraph">
 <p>Unexpose a process previously exposed to the service network</p>
 </div>
 <div class="paragraph">
-<p><code>skupper gateway unexpose &lt;address&gt; [flags]</code></p>
+<div class="title">Synopsis</div>
+<p>Unexpose a process previously exposed to the service network</p>
 </div>
-<div class="ulist">
+<div class="literalblock">
+<div class="content">
+<pre>skupper gateway unexpose &lt;address&gt;  --[option]</pre>
+</div>
+</div>
+<div class="dlist">
 <div class="title">Options</div>
-<ul>
-<li>
-<p><code>delete-last</code>  Delete the gateway if no services remain (default true)</p>
-</li>
-</ul>
+<dl>
+<dt class="hdlist1">delete-last</dt>
+<dd>
+<p>Delete the gateway if no services remain (default true)
+ (bool)</p>
+</dd>
+</dl>
 </div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper_gateway.html" class="xref page">skupper gateway</a>	 - Manage skupper gateway definitions</p>

@@ -1,40 +1,47 @@
 ---
-title: Skupper token create
+title: skupper token create
 ---
 
 <article class="doc">
-<h1 class="page">Skupper token create</h1>
+<h1 class="page">skupper token create</h1>
 <div class="paragraph">
 <p>Create a token.
 The 'link create' command uses the token to establish a link from a remote Skupper site.</p>
 </div>
 <div class="paragraph">
-<p><code>skupper token create &lt;output-token-file&gt; [flags]</code></p>
+<div class="title">Synopsis</div>
+<p>Create a token.
+The 'link create' command uses the token to establish a link from a remote Skupper site.</p>
 </div>
-<div class="ulist">
+<div class="literalblock">
+<div class="content">
+<pre>skupper token create &lt;output-token-file&gt;  --[option]</pre>
+</div>
+</div>
+<div class="dlist">
 <div class="title">Options</div>
-<ul>
-<li>
-<p><code>expiry duration</code>    Expiration time for claim (only valid if --token-type=claim) (default 15m0s)</p>
-</li>
-<li>
-<p><code>name - string</code>        Provide a specific identity as which connecting skupper installation will be authenticated (default "skupper")</p>
-</li>
-<li>
-<p><code>password - string</code>    A password for the claim (only valid if --token-type=claim).
-If not specified one will be generated.</p>
-</li>
-<li>
-<p><code>token-type - string</code>  Type of token to create.
-Valid options are 'claim' or 'cert' (default "claim")</p>
-</li>
-<li>
-<p><code>uses int</code>           Number of uses for which claim will be valid (only valid if --token-type=claim) (default 1)</p>
-</li>
-</ul>
+<dl>
+<dt class="hdlist1">expiry</dt>
+<dd>
+<p>Expiration time for claim (only valid if --token-type=claim) (default 15m0s)
+ (duration)</p>
+</dd>
+<dt class="hdlist1">name</dt>
+<dd>
+<p>Provide a specific identity as which connecting skupper installation will be authenticated (default "skupper")
+ (string)
+  -p, --password string     A password for the claim (only valid if --token-type=claim). If not specified one will be generated.
+  -t, --token-type string   Type of token to create. Valid options are 'claim' or 'cert' (default "claim")</p>
+</dd>
+<dt class="hdlist1">uses</dt>
+<dd>
+<p>Number of uses for which claim will be valid (only valid if --token-type=claim) (default 1)
+ (int)</p>
+</dd>
+</dl>
 </div>
 <div class="ulist">
-<div class="title">SEE ALSO</div>
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper_token.html" class="xref page">skupper token</a>	 - Manage skupper tokens</p>
