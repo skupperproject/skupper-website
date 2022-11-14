@@ -201,12 +201,12 @@ kubectl config set-context --current --namespace east
 
 <div class="code-label session-2">West</div>
 
-<pre><code>kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/1.1.1/cmd/site-controller/deploy-watch-current-ns.yaml
+<pre><code>kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/1.2.0/cmd/site-controller/deploy-watch-current-ns.yaml
 </code></pre>
 
 <div class="code-label session-1">East</div>
 
-<pre><code>kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/1.1.1/cmd/site-controller/deploy-watch-current-ns.yaml
+<pre><code>kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/1.2.0/cmd/site-controller/deploy-watch-current-ns.yaml
 </code></pre>
 
 <p><strong>NOTE:</strong> To configure Skupper for all namespaces in a cluster, enter
@@ -492,7 +492,7 @@ for more detail.</p>
 &lt;provider-login-command&gt;
 kubectl create namespace west
 kubectl config set-context --current --namespace west
-kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/1.1.1/cmd/site-controller/deploy-watch-current-ns.yaml
+kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/1.2.0/cmd/site-controller/deploy-watch-current-ns.yaml
 kubectl apply -f ~/west-site.yml
 kubectl apply -f token-request.yaml
 kubectl get secret  --export -o yaml west-secret &gt; ~/west-secret.yaml
@@ -506,7 +506,7 @@ kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
 &lt;provider-login-command&gt;
 kubectl create namespace east
 kubectl config set-context --current --namespace east
-kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/1.1.1/cmd/site-controller/deploy-watch-current-ns.yaml
+kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/1.2.0/cmd/site-controller/deploy-watch-current-ns.yaml
 kubectl apply -f ~/east-site.yml
 kubectl apply -f ~/west-secret.yaml
 kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
