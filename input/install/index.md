@@ -77,3 +77,10 @@ should see output like this:
     client version                 {{skupper_release}}
     transport version              not-found (no configuration has been provided)
     controller version             not-found (no configuration has been provided)
+
+### Upgrade sites
+
+When you install a new version of the CLI, you can upgrade each site 
+using the `skupper update` command.
+While we try to make Skupper compatible between sites with different
+versions, we recommend updating all sites at the same time.
