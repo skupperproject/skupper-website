@@ -26,7 +26,7 @@ Skupper](/install/index.html).
 
 <div style="column-count: 2;" markdown="1">
 
-* [1.1.1](https://github.com/skupperproject/skupper/releases/tag/1.1.0) - October 2022
+* [1.1.1](https://github.com/skupperproject/skupper/releases/tag/1.1.1) - October 2022
 * [1.1.0](https://github.com/skupperproject/skupper/releases/tag/1.1.0) - October 2022
 * [1.0.2](https://github.com/skupperproject/skupper/releases/tag/1.0.2) - June 2022
 * [1.0.1](https://github.com/skupperproject/skupper/releases/tag/1.0.1) - June 2022
