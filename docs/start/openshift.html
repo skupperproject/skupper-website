@@ -76,41 +76,27 @@
     <main>
 
 <h1 id="using-skupper-with-openshift">Using Skupper with OpenShift</h1>
-
 <h2 id="prerequisites">Prerequisites</h2>
-
 <ul>
 <li>You must have <a href="https://www.openshift.com/try">access to an OpenShift cluster</a>.</li>
 <li>You must <a href="https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html#installing-openshift-cli">install the OpenShift command-line tool (<code>oc</code>)</a>.</li>
 </ul>
-
 <p><strong>Note:</strong> The <code>oc</code> command is a <code>kubectl</code> equivalent with extensions
 for OpenShift.  The Skupper getting started guide uses <code>kubectl</code> for
 the core Kubernetes operations, but you can safely use <code>oc</code> instead.
-For example, <code>kubectl create namespace west</code> and <code>oc create namespace
-west</code> have the same effect.</p>
-
+For example, <code>kubectl create namespace west</code> and <code>oc create namespace west</code> have the same effect.</p>
 <h2 id="cluster-access">Cluster access</h2>
-
 <h3 id="using-the-command-line">Using the command line</h3>
-
 <p>Use the <code>oc login</code> command with the URL of your OpenShift cluster and
 your username.</p>
-
-<pre><code>oc login openshift.example.net:6443 -u alice
-</code></pre>
-
+<pre><code>oc login openshift.example.net:6443 -u alice</code></pre>
 <p>The command will prompt you for any needed credentials or login
 details.</p>
-
 <p>See the <a href="https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html#cli-logging-in_cli-developer-commands">instructions for logging in</a> for more
 information.</p>
-
 <h3 id="using-the-console">Using the console</h3>
-
 <p>You can also use the OpenShift console to generate an <code>oc login</code>
 command that you can paste into your console session.</p>
-
 <ol>
 <li>Navigate to the OpenShift console and log in.</li>
 <li>Select the menu for your account in the top right of the page.</li>
@@ -119,9 +105,7 @@ command that you can paste into your console session.</p>
 <li>Paste the <code>oc login</code> command into your console session.</li>
 <li>Use the <code>oc project</code> command to select your namespace.</li>
 </ol>
-
 <h2 id="more-information">More information</h2>
-
 <ul>
 <li><a href="https://www.openshift.com/">OpenShift website</a></li>
 <li><a href="https://docs.openshift.com/">OpenShift documentation</a></li>

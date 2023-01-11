@@ -76,40 +76,27 @@
     <main>
 
 <h1 id="using-skupper-with-ibm-kubernetes-service">Using Skupper with IBM Kubernetes Service</h1>
-
 <h2 id="prerequisites">Prerequisites</h2>
-
 <ul>
 <li>You must have <a href="https://www.ibm.com/cloud/kubernetes-service">access to an IBM Kubernetes Service cluster</a>.</li>
 <li>You must <a href="https://cloud.ibm.com/docs/cli?topic=cli-install-ibmcloud-cli">install the IBM Cloud CLI</a>.</li>
 <li>You must <a href="https://cloud.ibm.com/docs/containers?topic=containers-cs_cli_install#cs_cli_install_steps">install the <code>container-service</code> plugin</a></li>
 </ul>
-
 <h2 id="cluster-access">Cluster access</h2>
-
 <h3 id="using-the-command-line">Using the command line</h3>
-
 <p>Use the <code>ibmcloud login</code> command.  It prompts you for required
 credentials.</p>
-
-<pre><code>$ ibmcloud login
-</code></pre>
-
+<pre><code>$ ibmcloud login</code></pre>
 <p>To use <code>kubectl</code> with a cluster, you must configure your local
 kubeconfig.  Use <code>ibmcloud ks cluster ls</code> to list the clusters
 available.  Then use <code>ibmcloud ks cluster config</code> with the <code>--cluster</code>
 option to make one of them your active cluster.</p>
-
 <pre><code>$ ibmcloud ks cluster ls
 Name        ID                      State
 cluster1    c2j3e62d0k7q0jq9d01g    normal
-$ ibmcloud ks cluster config --cluster cluster1
-</code></pre>
-
+$ ibmcloud ks cluster config --cluster cluster1</code></pre>
 <h3 id="using-the-console">Using the console</h3>
-
 <p>Use the <code>ibmcloud</code> command and the IBM Cloud console to log in:</p>
-
 <ol>
 <li>Go to <a href="https://cloud.ibm.com/">cloud.ibm.com</a> and sign in.</li>
 <li>Select <strong>Log in to CLI and API</strong> in the account menu in the top right.</li>
@@ -119,23 +106,15 @@ $ ibmcloud ks cluster config --cluster cluster1
 <li>Select <strong>Actions</strong> &gt; <strong>Connect via CLI</strong>.</li>
 <li>Copy the provided <code>ibmcloud ks cluster config</code> command and paste it into your console session.</li>
 </ol>
-
 <h2 id="incoming-site-links">Incoming site links</h2>
-
 <p>Clusters in the free tier do not support load balancers.  As a result,
 they cannot accept incoming connections.  Since by default Skupper
 attempts to set up an ingress for accepting incoming site links, this
 causes <code>skupper init</code> to fail.</p>
-
 <p>To avoid this, use the <code>--ingress none</code> option:</p>
-
-<pre><code>skupper init --ingress none
-</code></pre>
-
+<pre><code>skupper init --ingress none</code></pre>
 <p>The non-free clusters do not have this limitation.</p>
-
 <h2 id="more-information">More information</h2>
-
 <ul>
 <li><a href="https://cloud.ibm.com/docs/cli?topic=cli-getting-started">IBM Cloud CLI getting started guide</a></li>
 <li><a href="https://www.ibm.com/cloud/kubernetes-service">IBM Kubernetes Service website</a></li>
