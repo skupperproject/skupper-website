@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:lepture/mistune.git
+	branch = master
+	commit = 465040ebfa43e51ebbd4f0d55a6562074600760e
+	parent = 16e0860b16507f39ab33b2e05c43e7107f9cd315
+	method = merge
+	cmdver = 0.4.5

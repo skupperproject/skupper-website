@@ -1,11 +1,26 @@
 name: main
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 0 * * 0"
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  main:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+        version: [3.7, 3.x]
+    runs-on: ${{matrix.os}}
     steps:
-    - uses: actions/checkout@v3
-    - run: sudo apt update -qq
-    - run: sudo apt install -qq python3 npm
-    - run: npm install -g livereload
-    - run: ./plano test
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{matrix.version}}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: latest
+      - run: npm install -g livereload
+      - run: ./plano install
+      - run: echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - run: transom-self-test

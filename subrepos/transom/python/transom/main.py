@@ -23,6 +23,7 @@ import collections.abc as _abc
 import csv as _csv
 import fnmatch as _fnmatch
 import http.server as _http
+import mistune as _mistune
 import os as _os
 import re as _re
 import shutil as _shutil
@@ -31,7 +32,6 @@ import sys as _sys
 import threading as _threading
 import types as _types
 
-from . import markdown2 as _markdown
 from html import escape as _escape
 from html.parser import HTMLParser as _HTMLParser
 from urllib import parse as _urlparse
@@ -114,7 +114,7 @@ class Transom:
         for file_ in self._index_files.values():
             file_._process_input()
 
-        thread_count = 4
+        thread_count = 2
         threads = list()
         batches = [list() for x in range(thread_count)]
 
@@ -135,27 +135,29 @@ class Transom:
 
         rendered_count = len([x for x in self._files if x._rendered])
         unmodified_count = len(self._files) - rendered_count
+        unmodified_note = ""
 
         if unmodified_count > 0:
-            self.notice("{:,} {} are unchanged", unmodified_count, _plural("file", unmodified_count))
+            unmodified_note = " ({:,} unchanged)".format(unmodified_count)
 
-        self.notice("Rendered {:,} output {}", rendered_count, _plural("file", rendered_count))
+        self.notice("Rendered {:,} output {}{}", rendered_count, _plural("file", rendered_count), unmodified_note)
 
     def serve(self, port=8080):
+        watcher = None
+        livereload = None
+
         try:
             watcher = _WatcherThread(self)
-        except ImportError:
+        except ImportError: # pragma: nocover
             self.notice("Failed to import pyinotify, so I won't auto-render updated input files")
             self.notice("Try installing the Python inotify package")
             self.notice("On Fedora, use 'dnf install python-inotify'")
         else:
             watcher.start()
 
-        livereload = None
-
         try:
             livereload = _subprocess.Popen(f"livereload {self.output_dir} --wait 100", shell=True)
-        except _subprocess.CalledProcessError as e:
+        except _subprocess.CalledProcessError as e: # pragma: nocover
             self.notice("Failed to start the livereload server, so I won't auto-reload the browser")
             self.notice("Use 'npm install -g livereload' to install the server")
             self.notice("Subprocess error: {}", e)
@@ -166,6 +168,9 @@ class Transom:
         finally:
             if livereload is not None:
                 livereload.terminate()
+
+            if watcher is not None:
+                watcher.stop()
 
     def check_files(self):
         self._init_files()
@@ -258,7 +263,7 @@ class _File:
         while dir_ != "":
             try:
                 self.parent = self.site._index_files[dir_]
-            except:
+            except KeyError:
                 dir_ = _os.path.dirname(dir_)
             else:
                 break
@@ -266,7 +271,7 @@ class _File:
     def __repr__(self):
         return f"{self.__class__.__name__}({self._input_path}, {self._output_path})"
 
-    def _process_input(self):
+    def _process_input(self): # pragma: nocover
         pass
 
     def _render(self, force=False):
@@ -373,11 +378,13 @@ class _TemplatePage(_File):
 
     @property
     def content(self):
-        self._convert_content()
-        return self._render_template(_parse_template(self._content))
+        parsed = _parse_template(self._content)
+        rendered = "".join(self._render_template(parsed))
 
-    def _convert_content(self):
-        pass
+        return self._convert_content(rendered)
+
+    def _convert_content(self, content):
+        return content
 
     @property
     def path_nav_links(self):
@@ -426,8 +433,8 @@ class _MarkdownPage(_TemplatePage):
             match = _markdown_title_regex.search(self._content)
             self.title = match.group(2).strip() if match else ""
 
-    def _convert_content(self):
-        self._content = _convert_markdown(self._content)
+    def _convert_content(self, content):
+        return _convert_markdown(content)
 
 class _RenderThread(_threading.Thread):
     def __init__(self, files, force):
@@ -440,11 +447,9 @@ class _RenderThread(_threading.Thread):
         for file_ in self.files:
             file_._render(force=self.force)
 
-class _WatcherThread(_threading.Thread):
+class _WatcherThread:
     def __init__(self, site):
         import pyinotify as _pyinotify
-
-        super().__init__(name="watcher", daemon=True)
 
         self.site = site
 
@@ -453,8 +458,9 @@ class _WatcherThread(_threading.Thread):
 
         def render(event):
             input_path = _os.path.relpath(event.pathname, _os.getcwd())
+            _, base_name = _os.path.split(input_path)
 
-            if _os.path.isdir(input_path) or self.site._ignored_file_regex.match(input_path):
+            if _os.path.isdir(input_path) or self.site._ignored_file_regex.match(base_name):
                 return True
 
             file_ = self.site._init_file(input_path)
@@ -465,11 +471,14 @@ class _WatcherThread(_threading.Thread):
 
         watcher.add_watch(self.site.input_dir, mask, render, rec=True, auto_add=True)
 
-        self.notifier = _pyinotify.Notifier(watcher)
+        self.notifier = _pyinotify.ThreadedNotifier(watcher)
 
-    def run(self):
+    def start(self):
         self.site.notice("Watching for input file changes")
-        self.notifier.loop()
+        self.notifier.start()
+
+    def stop(self):
+        self.notifier.stop()
 
 class _ServerThread(_threading.Thread):
     def __init__(self, site, port):
@@ -512,6 +521,13 @@ class _ServerRequestHandler(_http.SimpleHTTPRequestHandler):
                 self.wfile.write(content.encode("utf-8"))
         else:
             super().do_GET()
+
+    def do_POST(self):
+        if self.path == "/STOP":
+            self.server.shutdown()
+
+        self.send_response(_http.HTTPStatus.OK)
+        self.end_headers()
 
 class TransomCommand:
     def __init__(self, home=None):
@@ -577,24 +593,20 @@ class TransomCommand:
         check_files.set_defaults(command_fn=self.check_files_command)
 
     def init(self, args=None):
-        assert self.args is None
-
         self.args = self.parser.parse_args(args)
+
+        if "command_fn" not in self.args:
+            self.parser.print_usage()
+            _sys.exit(1)
 
         self.quiet = self.args.quiet
         self.verbose = self.args.verbose
         self.init_only = self.args.init_only
 
-        if "command_fn" not in self.args:
-            self.fail("Missing subcommand")
-
         if self.args.command_fn != self.init_command:
             self.lib = Transom(self.args.config_dir, self.args.input_dir, self.args.output_dir,
                                verbose=self.verbose, quiet=self.quiet)
             self.lib.init()
-
-            if self.args.init_only:
-                self.parser.exit()
 
     def main(self, args=None):
         self.init(args)
@@ -609,20 +621,16 @@ class TransomCommand:
         except KeyboardInterrupt: # pragma: nocover
             pass
 
-    def info(self, message, *args):
-        if self.verbose:
-            self.print_message(message, *args)
-
     def notice(self, message, *args):
         if not self.quiet:
             self.print_message(message, *args)
 
     def warn(self, message, *args):
-        message = "Warning: {0}".format(message)
+        message = "Warning: {}".format(message)
         self.print_message(message, *args)
 
     def error(self, message, *args):
-        message = "Error! {0}".format(message)
+        message = "Error! {}".format(message)
         self.print_message(message, *args)
 
     def fail(self, message, *args):
@@ -632,34 +640,32 @@ class TransomCommand:
     def print_message(self, message, *args):
         message = message[0].upper() + message[1:]
         message = message.format(*args)
-        message = "{0}: {1}".format(self.name, message)
+        message = "{}: {}".format(self.name, message)
 
-        _sys.stderr.write("{0}\n".format(message))
+        _sys.stderr.write("{}\n".format(message))
         _sys.stderr.flush()
 
     def init_command(self):
         if self.home is None:
             self.fail("I can't find the default input files")
 
-        def copy(file_name, to_path):
+        def copy(from_path, to_path):
             if _os.path.exists(to_path):
                 self.notice("Skipping '{}'. It already exists.", to_path)
                 return
 
-            _copy_file(_os.path.join(self.home, "files", file_name), to_path)
+            _copy_file(from_path, to_path)
 
             self.notice("Creating '{}'", to_path)
 
-        if self.args.init_only:
-            self.parser.exit()
+        config_dir = _os.path.join(self.home, "files", "config")
+        input_dir = _os.path.join(self.home, "files", "input")
 
-        copy("page.html", _os.path.join(self.args.config_dir, "page.html"))
-        copy("body.html", _os.path.join(self.args.config_dir, "body.html"))
-        copy("config.py", _os.path.join(self.args.config_dir, "config.py"))
+        for name in _os.listdir(config_dir):
+            copy(_os.path.join(config_dir, name), _os.path.join(self.args.config_dir, name))
 
-        copy("main.css", _os.path.join(self.args.input_dir, "main.css"))
-        copy("main.js", _os.path.join(self.args.input_dir, "main.js"))
-        copy("index.md", _os.path.join(self.args.input_dir, "index.md"))
+        for name in _os.listdir(input_dir):
+            copy(_os.path.join(input_dir, name), _os.path.join(self.args.input_dir, name))
 
     def render_command(self):
         self.lib.render(force=self.args.force)
@@ -726,21 +732,26 @@ def _parse_template(text):
         else:
             yield token
 
+_heading_id_regex_1 = _re.compile(r"[^a-zA-Z0-9_ ]+")
+_heading_id_regex_2 = _re.compile(r"[_ ]")
+
+class _HtmlRenderer(_mistune.renderers.html.HTMLRenderer):
+    def heading(self, text, level, **attrs):
+        id = _heading_id_regex_1.sub("", text)
+        id = _heading_id_regex_2.sub("-", id)
+        id = id.lower()
+
+        return f"<h{level} id=\"{id}\">{text}</h{level}>\n"
+
 class _MarkdownLocal(_threading.local):
     def __init__(self):
-        self.value = _markdown.Markdown(extras={
-            "code-friendly": True,
-            "footnotes": True,
-            "header-ids": True,
-            "markdown-in-html": True,
-            "tables": True,
-        })
+        self.value = _mistune.create_markdown(renderer=_HtmlRenderer(escape=False), plugins=["table"])
 
 _markdown_local = _MarkdownLocal()
 
 def _convert_markdown(text):
     lines = (x for x in text.splitlines(keepends=True) if not x.startswith(";;"))
-    return _markdown_local.value.convert("".join(lines))
+    return _markdown_local.value("".join(lines))
 
 _lipsum_words = [
     "lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "vestibulum", "enim", "urna",
@@ -799,6 +810,6 @@ def _html_attrs(attrs):
         if value is not False:
             yield f" {name}=\"{_escape(value, quote=True)}\""
 
-if __name__ == "__main__":
+if __name__ == "__main__": # pragma: nocover
     command = TransomCommand()
     command.main()

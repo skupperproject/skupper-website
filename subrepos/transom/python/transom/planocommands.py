@@ -101,11 +101,7 @@ def check_files(verbose=False):
 
 @command
 def clean():
-    for path in find(".", "__pycache__"):
-        remove(path)
-
-    for path in find(".", "*.pyc"):
-        remove(path)
+    remove(find(".", "__pycache__"))
 
 class project_env(working_env):
     def __init__(self):

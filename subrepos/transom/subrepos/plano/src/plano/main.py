@@ -17,15 +17,12 @@
 # under the License.
 #
 
-import argparse as _argparse
-import asyncio as _asyncio
 import base64 as _base64
 import binascii as _binascii
 import code as _code
 import collections as _collections
 import fnmatch as _fnmatch
 import getpass as _getpass
-import inspect as _inspect
 import json as _json
 import os as _os
 import pprint as _pprint
@@ -55,9 +52,6 @@ class PlanoError(PlanoException):
     pass
 
 class PlanoTimeout(PlanoException):
-    pass
-
-class PlanoTestSkipped(Exception):
     pass
 
 ## Global variables
@@ -136,83 +130,6 @@ def rename_archive(input_file, new_archive_stem, quiet=False):
     remove(input_file)
 
     return output_file
-
-## Command operations
-
-class BaseCommand:
-    def main(self, args=None):
-        args = self.parse_args(args)
-
-        assert args is None or isinstance(args, _argparse.Namespace), args
-
-        self.verbose = args.verbose or args.debug
-        self.quiet = args.quiet
-        self.debug_enabled = args.debug
-        self.init_only = args.init_only
-
-        level = "notice"
-
-        if self.verbose:
-            level = "info"
-
-        if self.quiet:
-            level = "error"
-
-        if self.debug_enabled:
-            level = "debug"
-
-        with logging_enabled(level=level):
-            try:
-                self.init(args)
-
-                if self.init_only:
-                    return
-
-                self.run()
-            except KeyboardInterrupt:
-                pass
-            except PlanoError as e:
-                if self.debug_enabled:
-                    _traceback.print_exc()
-                    exit(1)
-                else:
-                    exit(str(e))
-
-    def parse_args(self, args): # pragma: nocover
-        raise NotImplementedError()
-
-    def init(self, args): # pragma: nocover
-        pass
-
-    def run(self): # pragma: nocover
-        raise NotImplementedError()
-
-class BaseArgumentParser(_argparse.ArgumentParser):
-    def __init__(self, **kwargs):
-        super(BaseArgumentParser, self).__init__(**kwargs)
-
-        self.allow_abbrev = False
-        self.formatter_class = _argparse.RawDescriptionHelpFormatter
-
-        self.add_argument("--verbose", action="store_true",
-                          help="Print detailed logging to the console")
-        self.add_argument("--quiet", action="store_true",
-                          help="Print no logging to the console")
-        self.add_argument("--debug", action="store_true",
-                          help="Print debugging output to the console")
-        self.add_argument("--init-only", action="store_true",
-                          help=_argparse.SUPPRESS)
-
-        _capitalize_help(self)
-
-# Patch the default help text
-def _capitalize_help(parser):
-    try:
-        for action in parser._actions:
-            if action.help and action.help is not _argparse.SUPPRESS:
-                action.help = capitalize(action.help)
-    except: # pragma: nocover
-        pass
 
 ## Console operations
 
@@ -313,8 +230,8 @@ except NameError: # pragma: nocover
         import pdb
         pdb.set_trace()
 
-def repl(vars): # pragma: nocover
-    _code.InteractiveConsole(locals=vars).interact()
+def repl(locals): # pragma: nocover
+    _code.InteractiveConsole(locals=locals).interact()
 
 def print_properties(props, file=None):
     size = max([len(x[0]) for x in props])
@@ -716,26 +633,11 @@ def prepend_lines(file, lines):
     return file
 
 def tail_lines(file, count):
-    assert count >= 0
+    assert count >= 0, count
 
-    file = expand(file)
+    lines = read_lines(file)
 
-    with open(file) as f:
-        pos = count + 1
-        lines = list()
-
-        while len(lines) <= count:
-            try:
-                f.seek(-pos, 2)
-            except IOError:
-                f.seek(0)
-                break
-            finally:
-                lines = f.readlines()
-
-            pos *= 2
-
-        return lines[-count:]
+    return lines[-count:]
 
 def replace_in_file(file, expr, replacement, count=0):
     file = expand(file)
@@ -862,8 +764,8 @@ def http_post_json(url, data, insecure=False):
 
 ## Link operations
 
-def make_link(path, linked_path, quiet=False):
-    _info(quiet, "Making link {} to {}", repr(path), repr(linked_path))
+def make_link(path: str, linked_path: str, quiet=False) -> str:
+    _info(quiet, "Making symlink {} to {}", repr(path), repr(linked_path))
 
     make_parent_dir(path, quiet=True)
     remove(path, quiet=True)
@@ -938,7 +840,7 @@ class logging_enabled:
 
 class logging_disabled(logging_enabled):
     def __init__(self):
-        super(logging_disabled, self).__init__(level="disabled")
+        super().__init__(level="disabled")
 
 def fail(message, *args):
     error(message, *args)
@@ -1393,7 +1295,7 @@ class PlanoProcess(_subprocess.Popen):
     def __init__(self, args, **options):
         self.stash_file = options.pop("stash_file", None)
 
-        super(PlanoProcess, self).__init__(args, **options)
+        super().__init__(args, **options)
 
         self.args = args
         self.stdout_result = None
@@ -1416,7 +1318,7 @@ class PlanoProcess(_subprocess.Popen):
 
 class PlanoProcessError(_subprocess.CalledProcessError, PlanoError):
     def __init__(self, proc):
-        super(PlanoProcessError, self).__init__(proc.exit_code, _format_command(proc.args, represent=False))
+        super().__init__(proc.exit_code, _format_command(proc.args, represent=False))
 
 def _default_sigterm_handler(signum, frame):
     for proc in _child_processes:
@@ -1728,489 +1630,6 @@ def emit_yaml(data):
     import yaml as _yaml
 
     return _yaml.safe_dump(data)
-
-## Test operations
-
-def test(_function=None, name=None, timeout=None, disabled=False):
-    class Test:
-        def __init__(self, function):
-            self.function = function
-            self.name = nvl(name, self.function.__name__.rstrip("_").replace("_", "-"))
-            self.timeout = timeout
-            self.disabled = disabled
-
-            self.module = _inspect.getmodule(self.function)
-
-            if not hasattr(self.module, "_plano_tests"):
-                self.module._plano_tests = list()
-
-            self.module._plano_tests.append(self)
-
-        def __call__(self, test_run, unskipped):
-            try:
-                ret = self.function()
-
-                if _inspect.iscoroutine(ret):
-                    _asyncio.run(ret)
-            except SystemExit as e:
-                error(e)
-                raise PlanoError("System exit with code {}".format(e))
-
-        def __repr__(self):
-            return "test '{}:{}'".format(self.module.__name__, self.name)
-
-    if _function is None:
-        return Test
-    else:
-        return Test(_function)
-
-def skip_test(reason=None):
-    if _inspect.stack()[2].frame.f_locals["unskipped"]:
-        return
-
-    raise PlanoTestSkipped(reason)
-
-class expect_exception:
-    def __init__(self, exception_type=Exception, contains=None):
-        self.exception_type = exception_type
-        self.contains = contains
-
-    def __enter__(self):
-        pass
-
-    def __exit__(self, exc_type, exc_value, traceback):
-        if exc_value is None:
-            assert False, "Never encountered expected exception {}".format(self.exception_type.__name__)
-
-        if self.contains is None:
-            return isinstance(exc_value, self.exception_type)
-        else:
-            return isinstance(exc_value, self.exception_type) and self.contains in str(exc_value)
-
-class expect_error(expect_exception):
-    def __init__(self, contains=None):
-        super(expect_error, self).__init__(PlanoError, contains=contains)
-
-class expect_timeout(expect_exception):
-    def __init__(self, contains=None):
-        super(expect_timeout, self).__init__(PlanoTimeout, contains=contains)
-
-class expect_system_exit(expect_exception):
-    def __init__(self, contains=None):
-        super(expect_system_exit, self).__init__(SystemExit, contains=contains)
-
-class expect_output(temp_file):
-    def __init__(self, equals=None, contains=None, startswith=None, endswith=None):
-        super(expect_output, self).__init__()
-        self.equals = equals
-        self.contains = contains
-        self.startswith = startswith
-        self.endswith = endswith
-
-    def __exit__(self, exc_type, exc_value, traceback):
-        result = read(self.file)
-
-        if self.equals is None:
-            assert len(result) > 0, result
-        else:
-            assert result == self.equals, result
-
-        if self.contains is not None:
-            assert self.contains in result, result
-
-        if self.startswith is not None:
-            assert result.startswith(self.startswith), result
-
-        if self.endswith is not None:
-            assert result.endswith(self.endswith), result
-
-        super(expect_output, self).__exit__(exc_type, exc_value, traceback)
-
-def print_tests(modules):
-    if _inspect.ismodule(modules):
-        modules = (modules,)
-
-    for module in modules:
-        for test in module._plano_tests:
-            flags = "(disabled)" if test.disabled else ""
-            print(" ".join((str(test), flags)).strip())
-
-def run_tests(modules, include="*", exclude=(), enable=(), unskip=(), test_timeout=300,
-              fail_fast=False, verbose=False, quiet=False):
-    if _inspect.ismodule(modules):
-        modules = (modules,)
-
-    if is_string(include):
-        include = (include,)
-
-    if is_string(exclude):
-        exclude = (exclude,)
-
-    if is_string(enable):
-        enable = (enable,)
-
-    if is_string(unskip):
-        enable = (unskip,)
-
-    test_run = TestRun(test_timeout=test_timeout, fail_fast=fail_fast, verbose=verbose, quiet=quiet)
-
-    if verbose:
-        notice("Starting {}", test_run)
-    elif not quiet:
-        cprint("=== Configuration ===", color="cyan")
-
-        props = (
-            ("Modules", format_empty(", ".join([x.__name__ for x in modules]), "[none]")),
-            ("Test timeout", format_duration(test_timeout)),
-            ("Fail fast", fail_fast),
-        )
-
-        print_properties(props)
-        print()
-
-    for module in modules:
-        if verbose:
-            notice("Running tests from module {} (file {})", repr(module.__name__), repr(module.__file__))
-        elif not quiet:
-            cprint("=== Module {} ===".format(repr(module.__name__)), color="cyan")
-
-        if not hasattr(module, "_plano_tests"):
-            warn("Module {} has no tests", repr(module.__name__))
-            continue
-
-        for test in module._plano_tests:
-            if test.disabled and not any([_fnmatch.fnmatchcase(test.name, x) for x in enable]):
-                continue
-
-            included = any([_fnmatch.fnmatchcase(test.name, x) for x in include])
-            excluded = any([_fnmatch.fnmatchcase(test.name, x) for x in exclude])
-            unskipped = any([_fnmatch.fnmatchcase(test.name, x) for x in unskip])
-
-            if included and not excluded:
-                test_run.tests.append(test)
-                _run_test(test_run, test, unskipped)
-
-        if not verbose and not quiet:
-            print()
-
-    total = len(test_run.tests)
-    skipped = len(test_run.skipped_tests)
-    failed = len(test_run.failed_tests)
-
-    if total == 0:
-        raise PlanoError("No tests ran")
-
-    notes = ""
-
-    if skipped != 0:
-        notes = "({} skipped)".format(skipped)
-
-    if failed == 0:
-        result_message = "All tests passed {}".format(notes).strip()
-    else:
-        result_message = "{} {} failed {}".format(failed, plural("test", failed), notes).strip()
-
-    if verbose:
-        if failed == 0:
-            notice(result_message)
-        else:
-            error(result_message)
-    elif not quiet:
-        cprint("=== Summary ===", color="cyan")
-
-        props = (
-            ("Total", total),
-            ("Skipped", skipped, format_not_empty(", ".join([x.name for x in test_run.skipped_tests]), "({})")),
-            ("Failed", failed, format_not_empty(", ".join([x.name for x in test_run.failed_tests]), "({})")),
-        )
-
-        print_properties(props)
-        print()
-
-        cprint("=== RESULT ===", color="cyan")
-
-        if failed == 0:
-            cprint(result_message, color="green")
-        else:
-            cprint(result_message, color="red", bright="True")
-
-        print()
-
-    if failed != 0:
-        raise PlanoError(result_message)
-
-def _run_test(test_run, test, unskipped):
-    if test_run.verbose:
-        notice("Running {}", test)
-    elif not test_run.quiet:
-        print("{:.<72} ".format(test.name + " "), end="")
-
-    timeout = nvl(test.timeout, test_run.test_timeout)
-
-    with temp_file() as output_file:
-        try:
-            with Timer(timeout=timeout) as timer:
-                if test_run.verbose:
-                    test(test_run, unskipped)
-                else:
-                    with output_redirected(output_file, quiet=True):
-                        test(test_run, unskipped)
-        except KeyboardInterrupt:
-            raise
-        except PlanoTestSkipped as e:
-            test_run.skipped_tests.append(test)
-
-            if test_run.verbose:
-                notice("{} SKIPPED ({})", test, format_duration(timer.elapsed_time))
-            elif not test_run.quiet:
-                _print_test_result("SKIPPED", timer, "yellow")
-                print("Reason: {}".format(str(e)))
-        except Exception as e:
-            test_run.failed_tests.append(test)
-
-            if test_run.verbose:
-                _traceback.print_exc()
-
-                if isinstance(e, PlanoTimeout):
-                    error("{} **FAILED** (TIMEOUT) ({})", test, format_duration(timer.elapsed_time))
-                else:
-                    error("{} **FAILED** ({})", test, format_duration(timer.elapsed_time))
-            elif not test_run.quiet:
-                if isinstance(e, PlanoTimeout):
-                    _print_test_result("**FAILED** (TIMEOUT)", timer, color="red", bright=True)
-                else:
-                    _print_test_result("**FAILED**", timer, color="red", bright=True)
-
-                _print_test_error(e)
-                _print_test_output(output_file)
-
-            if test_run.fail_fast:
-                return True
-        else:
-            test_run.passed_tests.append(test)
-
-            if test_run.verbose:
-                notice("{} PASSED ({})", test, format_duration(timer.elapsed_time))
-            elif not test_run.quiet:
-                _print_test_result("PASSED", timer)
-
-def _print_test_result(status, timer, color="white", bright=False):
-    cprint("{:<7}".format(status), color=color, bright=bright, end="")
-    print("{:>6}".format(format_duration(timer.elapsed_time, align=True)))
-
-def _print_test_error(e):
-    cprint("--- Error ---", color="yellow")
-
-    if isinstance(e, PlanoProcessError):
-        print("> {}".format(str(e)))
-    else:
-        lines = _traceback.format_exc().rstrip().split("\n")
-        lines = ["> {}".format(x) for x in lines]
-
-        print("\n".join(lines))
-
-def _print_test_output(output_file):
-    if get_file_size(output_file) == 0:
-        return
-
-    cprint("--- Output ---", color="yellow")
-
-    with open(output_file, "r") as out:
-        for line in out:
-            print("> {}".format(line), end="")
-
-class TestRun:
-    def __init__(self, test_timeout=None, fail_fast=False, verbose=False, quiet=False):
-        self.test_timeout = test_timeout
-        self.fail_fast = fail_fast
-        self.verbose = verbose
-        self.quiet = quiet
-
-        self.tests = list()
-        self.skipped_tests = list()
-        self.failed_tests = list()
-        self.passed_tests = list()
-
-    def __repr__(self):
-        return format_repr(self)
-
-## Plano command operations
-
-_command_help = {
-    "build":    "Build artifacts from source",
-    "clean":    "Clean up the source tree",
-    "dist":     "Generate distribution artifacts",
-    "install":  "Install the built artifacts on your system",
-    "test":     "Run the tests",
-}
-
-def command(_function=None, name=None, args=None, parent=None, passthrough=False):
-    class Command:
-        def __init__(self, function):
-            self.function = function
-            self.module = _inspect.getmodule(self.function)
-
-            self.name = name
-            self.args = args
-            self.parent = parent
-
-            if self.parent is None:
-                self.name = nvl(self.name, self.function.__name__.rstrip("_").replace("_", "-"))
-                self.args = self.process_args(self.args)
-            else:
-                self.name = nvl(self.name, self.parent.name)
-                self.args = nvl(self.args, self.parent.args)
-
-            doc = _inspect.getdoc(self.function)
-
-            if doc is None:
-                self.help = _command_help.get(self.name)
-                self.description = self.help
-            else:
-                self.help = doc.split("\n")[0]
-                self.description = doc
-
-            if self.parent is not None:
-                self.help = nvl(self.help, self.parent.help)
-                self.description = nvl(self.description, self.parent.description)
-
-            self.passthrough = passthrough
-
-            debug("Defining {}", self)
-
-            for arg in self.args.values():
-                debug("  {}", str(arg).capitalize())
-
-        def __repr__(self):
-            return "command '{}:{}'".format(self.module.__name__, self.name)
-
-        def process_args(self, input_args):
-            sig = _inspect.signature(self.function)
-            params = list(sig.parameters.values())
-            input_args = {x.name: x for x in nvl(input_args, ())}
-            output_args = _collections.OrderedDict()
-
-            for param in params:
-                try:
-                    arg = input_args[param.name]
-                except KeyError:
-                    arg = CommandArgument(param.name)
-
-                if param.kind is param.POSITIONAL_ONLY: # pragma: nocover
-                    if arg.positional is None:
-                        arg.positional = True
-                elif param.kind is param.POSITIONAL_OR_KEYWORD and param.default is param.empty:
-                    if arg.positional is None:
-                        arg.positional = True
-                elif param.kind is param.POSITIONAL_OR_KEYWORD and param.default is not param.empty:
-                    arg.optional = True
-                    arg.default = param.default
-                elif param.kind is param.VAR_POSITIONAL:
-                    if arg.positional is None:
-                        arg.positional = True
-                    arg.multiple = True
-                elif param.kind is param.VAR_KEYWORD:
-                    continue
-                elif param.kind is param.KEYWORD_ONLY:
-                    arg.optional = True
-                    arg.default = param.default
-                else: # pragma: nocover
-                    raise NotImplementedError(param.kind)
-
-                if arg.type is None and arg.default not in (None, False): # XXX why false?
-                    arg.type = type(arg.default)
-
-                output_args[arg.name] = arg
-
-            return output_args
-
-        def __call__(self, *args, **kwargs):
-            from .commands import _plano_command, PlanoCommand
-            app = _plano_command
-
-            assert isinstance(app, PlanoCommand), app
-
-            command = app.bound_commands[self.name]
-
-            if command is not self:
-                command(*args, **kwargs)
-                return
-
-            debug("Running {} {} {}".format(self, args, kwargs))
-
-            app.running_commands.append(self)
-
-            dashes = "--" * len(app.running_commands)
-            display_args = list(self.get_display_args(args, kwargs))
-
-            with console_color("magenta", file=_sys.stderr):
-                eprint("{}> {}".format(dashes, self.name), end="")
-
-                if display_args:
-                    eprint(" ({})".format(", ".join(display_args)), end="")
-
-                eprint()
-
-            self.function(*args, **kwargs)
-
-            cprint("<{} {}".format(dashes, self.name), color="magenta", file=_sys.stderr)
-
-            app.running_commands.pop()
-
-            if app.running_commands:
-                name = app.running_commands[-1].name
-
-                cprint("{}| {}".format(dashes[:-2], name), color="magenta", file=_sys.stderr)
-
-        def get_display_args(self, args, kwargs):
-            for i, arg in enumerate(self.args.values()):
-                if arg.positional:
-                    if arg.multiple:
-                        for va in args[i:]:
-                            yield repr(va)
-                    elif arg.optional:
-                        value = args[i]
-
-                        if value == arg.default:
-                            continue
-
-                        yield repr(value)
-                    else:
-                        yield repr(args[i])
-                else:
-                    value = kwargs.get(arg.name, arg.default)
-
-                    if value == arg.default:
-                        continue
-
-                    if value in (True, False):
-                        value = str(value).lower()
-                    else:
-                        value = repr(value)
-
-                    yield "{}={}".format(arg.display_name, value)
-
-    if _function is None:
-        return Command
-    else:
-        return Command(_function)
-
-class CommandArgument:
-    def __init__(self, name, display_name=None, type=None, metavar=None, help=None, short_option=None, default=None, positional=None):
-        self.name = name
-        self.display_name = nvl(display_name, self.name.replace("_", "-"))
-        self.type = type
-        self.metavar = nvl(metavar, self.display_name.upper())
-        self.help = help
-        self.short_option = short_option
-        self.default = default
-        self.positional = positional
-
-        self.optional = False
-        self.multiple = False
-
-    def __repr__(self):
-        return "argument '{}' (default {})".format(self.name, repr(self.default))
 
 if PLANO_DEBUG: # pragma: nocover
     enable_logging(level="debug")

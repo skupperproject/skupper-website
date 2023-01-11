@@ -1,1 +1,4 @@
-../../files/config.py
+albert = "Frank"
+
+def benny():
+    return "Agatha"

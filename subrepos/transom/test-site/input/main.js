@@ -1,1 +1,1 @@
-../../files/main.js
+../../files/input/main.js
