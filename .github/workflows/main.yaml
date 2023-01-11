@@ -1,14 +1,25 @@
 name: main
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 0 * * 0"
 jobs:
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+        version: [3.7, 3.x]
+    runs-on: ${{matrix.os}}
     steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: recursive
-    - uses: actions/setup-python@v2
-    - uses: actions/setup-node@v2
-    - run: |
-        npm install @antora/cli@2.3 @antora/site-generator-default@2.3
-        PATH=$(npm bin):$PATH ./plano test
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{matrix.version}}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: latest
+      - run: npm install @antora/cli @antora/site-generator
+      - run: echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
+      - run: ./plano test
