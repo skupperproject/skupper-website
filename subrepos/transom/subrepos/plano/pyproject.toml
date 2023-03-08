@@ -14,8 +14,8 @@ requires-python = ">=3.7"
 dependencies = [ "PyYAML" ]
 
 [project.scripts]
-plano = "plano.commands:_main"
-plano-test = "plano.tests:_main"
+plano = "plano.command:_main"
+plano-test = "plano.test:_main"
 plano-self-test = "plano._tests:main"
 
 [project.urls]

@@ -18,7 +18,7 @@
 #
 
 from .main import *
-from .commands import *
+from .command import *
 
 import argparse as _argparse
 import asyncio as _asyncio

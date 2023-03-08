@@ -21,7 +21,6 @@ import csv as _csv
 
 from .main import TransomCommand, _lipsum, _plural, _html_table, _html_table_csv
 from plano import *
-from plano.commands import PlanoCommand
 from threading import Thread
 from xml.etree.ElementTree import XML
 

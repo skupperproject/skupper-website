@@ -28,10 +28,10 @@ class _Site:
 
 site = _Site()
 
-_force_arg = CommandArgument("force", help="Render all input files, including unmodified ones")
-_verbose_arg = CommandArgument("verbose", help="Print detailed logging to the console")
+_force_param = CommandParameter("force", help="Render all input files, including unmodified ones")
+_verbose_param = CommandParameter("verbose", help="Print detailed logging to the console")
 
-@command(args=(_force_arg, _verbose_arg))
+@command(parameters=(_force_param, _verbose_param))
 def render(force=False, verbose=False):
     """
     Render site output
@@ -50,7 +50,7 @@ def render(force=False, verbose=False):
 
 # https://stackoverflow.com/questions/22475849/node-js-what-is-enospc-error-and-how-to-solve
 # $ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-@command(args=(CommandArgument("port", help="Serve on PORT"), _force_arg, _verbose_arg))
+@command(parameters=[CommandParameter("port", help="Serve on PORT"), _force_param, _verbose_param])
 def serve(port=8080, force=False, verbose=False):
     """
     Serve the site and rerender when input files change
@@ -67,7 +67,7 @@ def serve(port=8080, force=False, verbose=False):
 
         TransomCommand().main(args)
 
-@command(args=(_verbose_arg,))
+@command(parameters=[_verbose_param])
 def check_links(verbose=False):
     """
     Check for broken links
@@ -83,7 +83,7 @@ def check_links(verbose=False):
     with project_env():
         TransomCommand().main(args)
 
-@command(args=(_verbose_arg,))
+@command(parameters=[_verbose_param])
 def check_files(verbose=False):
     """
     Check for missing or extra files

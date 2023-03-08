@@ -20,7 +20,6 @@
 import base64 as _base64
 import binascii as _binascii
 import code as _code
-import collections as _collections
 import fnmatch as _fnmatch
 import getpass as _getpass
 import json as _json
@@ -663,7 +662,7 @@ def concatenate(file, input_files):
 ## Iterable operations
 
 def unique(iterable):
-    return list(_collections.OrderedDict.fromkeys(iterable).keys())
+    return list(dict.fromkeys(iterable).keys())
 
 def skip(iterable, values=(None, "", (), [], {})):
     if is_scalar(values):
