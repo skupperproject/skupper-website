@@ -106,7 +106,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/1.0/skupper-cli-1.0-linux-amd64.tgz | tar -xzf -</pre>
+<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/1.2/skupper-cli-1.2-linux-amd64.tgz | tar -xzf -</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -114,7 +114,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/1.0/skupper-cli-1.0-mac-amd64.tgz | tar -xzf -</pre>
+<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/1.2/skupper-cli-1.2-mac-amd64.tgz | tar -xzf -</pre>
 </div>
 </div>
 </div>
@@ -135,7 +135,7 @@ $ mv skupper $HOME/bin</pre>
 <div class="listingblock">
 <div class="content">
 <pre>$ skupper version
-client version 1.0</pre>
+client version 1.2.0</pre>
 </div>
 </div>
 </li>
@@ -396,7 +396,7 @@ Protect it appropriately.</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ skupper link status
-Connection for link1 not active</pre>
+Link link1 not connected</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -415,6 +415,85 @@ Connection for link1 not active</pre>
 </div>
 <div class="paragraph">
 <p>where <code>&lt;link-name&gt;</code> is the name of the link specified during creation.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="link-cost"><a class="anchor" href="#link-cost"></a>Specifying link cost</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When linking sites, you can assign a cost to each link to influence the traffic flow. By default, link cost is set to <code>1</code> for a new link.
+In a service network, the routing algorithm attempts to use the path with the lowest total cost from caller to target service.</p>
+</div>
+<div class="paragraph">
+<p>If you have more than two sites and services distributed across different clusters, you might want a calling service to favor a particular target or link.
+In this case, you can specify a cost of greater than <code>1</code>.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisite</div>
+<ul>
+<li>
+<p>You have set your Kubernetes context to a site that you want to link <em>from</em>.</p>
+</li>
+<li>
+<p>A token for the site that you want to link <em>to</em>.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create a link to the service network:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper link create &lt;filename&gt; --cost &lt;integer-cost&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where <code>&lt;integer-cost&gt;</code> is an integer greater than 1 and traffic favors lower cost links.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If a service can be called without traversing a link, that service is considered local, with an implicit cost of <code>0</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For example, create a link with cost set to <code>2</code> using a token file named <code>token.yaml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper link create token.yaml --cost 2</pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Check the link cost:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper link status link1 --verbose
+
+ Cost:          2
+ Created:       2022-11-17 15:02:01 +0000 GMT
+ Name:          link1
+ Namespace:     default
+ Site:          default-0d99d031-cee2-4cc6-a761-697fe0f76275
+ Status:        Connected</pre>
+</div>
 </div>
 </li>
 </ol>
@@ -781,9 +860,9 @@ If you want to expose a deployment from another namespace, create a service from
 <pre>$ skupper gateway status
 
 Gateway Definition:
-╰─ machine-user type:service version:1.18.0
+╰─ machine-user type:service version:2.2.0
    ╰─ Bindings:
-      ╰─ mydb:3306 tcp mydb:3306 127.0.0.1 3306</pre>
+      ╰─ mydb:3306 tcp mydb:3306 localhost 3306</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -898,9 +977,9 @@ Gateway Definition:
 Gateway Definitions Summary
 
 Gateway Definition:
-╰─ machine-user type:service version:1.18.0
+╰─ machine-user type:service version:2.2.0
    ╰─ Bindings:
-      ╰─ mydb:3306 tcp mydb:3306 127.0.0.1 3306</pre>
+      ╰─ mydb:3306 tcp mydb:3306 localhost 3306</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1169,10 +1248,10 @@ You can later remove the gateway using <code>./remove.py</code>.
 <div class="listingblock">
 <div class="content">
 <pre>$ skupper gateway status
-Gateway Definitions Summary
-
-NAME    BINDS  FORWARDS  URL
-&lt;machine-name&gt;  1      0         amqp://127.0.0.1:5672</pre>
+Gateway Definition:
+╰─ machine-user type:service version:2.2.0
+   ╰─ Bindings:
+      ╰─ mydb:3306 tcp mydb:3306 localhost 3306</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1508,10 +1587,10 @@ You can avoid this situation when creating a site using the <code>--create-netwo
 </div>
 </div>
 <div class="sect2">
-<h3 id="tls"><a class="anchor" href="#tls"></a>Applying TLS to HTTP2 traffic on the service network</h3>
+<h3 id="tls"><a class="anchor" href="#tls"></a>Applying TLS to TCP or HTTP2 traffic on the service network</h3>
 <div class="paragraph">
 <p>By default, the traffic between sites is encrypted, however the traffic between the service pod and the router pod is not encrypted.
-For services exposed as HTTP2, the traffic between the pod and the router pod can be encrypted using TLS.</p>
+For services exposed as TCP or HTTP2, the traffic between the pod and the router pod can be encrypted using TLS.</p>
 </div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
@@ -1520,7 +1599,7 @@ For services exposed as HTTP2, the traffic between the pod and the router pod ca
 <p>Two or more linked sites</p>
 </li>
 <li>
-<p>A HTTP2 frontend and backend service</p>
+<p>A TCP or HTTP2 frontend and backend service</p>
 </li>
 </ul>
 </div>
@@ -1531,12 +1610,18 @@ For services exposed as HTTP2, the traffic between the pod and the router pod ca
 <p>Deploy your backend service.</p>
 </li>
 <li>
-<p>Expose your backend deployment on the service network, enabling TLS, for example:</p>
+<p>Expose your backend deployment on the service network, enabling TLS.</p>
+<div class="paragraph">
+<p>For example, if you want to expose a TCP service:</p>
+</div>
+</li>
+</ol>
+</div>
 <div class="openblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper expose deployment &lt;deployment-name&gt; --port 443 --protocol http2 --enable-tls</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper expose deployment &lt;deployment-name&gt; --port 443 --enable-tls</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1544,7 +1629,8 @@ For services exposed as HTTP2, the traffic between the pod and the router pod ca
 </div>
 </div>
 </div>
-</li>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Modify the backend deployment to include the generated certificates, for example:</p>
 <div class="openblock">

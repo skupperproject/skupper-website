@@ -32,7 +32,10 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
       <a href="/start/index.html">Getting started</a>
       <a href="/docs/cli/index.html">CLI guide</a>
       <a href="/docs/cli/index.html#exposing-services-local">Using local services (gateway)</a>
-      <a href="/docs/cli-reference/skupper.html">Command-line reference</a>
+      <a href="/docs/cli/podman.html">Using local services (Podman)</a>
+      <a href="/docs/cli-reference/skupper.html">CLI reference (Kubernetes)</a>
+      <a href="/docs/cli-podman/skupper.html">CLI reference (Podman)</a>
+
     </nav>
   </div>
   <div>
@@ -45,16 +48,23 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
       <a href="declarative/index.html">YAML configuration reference</a>
       <a href="/docs/cli/index.html#gateway-reference">Gateway YAML reference</a>
     </nav>
-  </div>
-</div>
-<div class="columns">
-  <div>
-    <h2>The Skupper Operator</h2>
-
+    
     <p>Learn how you can install the Skupper operator and create Skupper sites using ConfigMaps.</p>
 
     <nav>
       <a href="operator/index.html">Using the Skupper operator</a>
+    </nav>
+
+  </div>
+</div>
+<div class="columns">
+  <div>
+    <h2>Observability</h2>
+
+    <p>Learn how to monitor traffic using the Skupper console.</p>
+
+    <nav>
+      <a href="console/flow-collector.html">Using the Skupper console</a>
     </nav>
   </div>
   <div>
@@ -75,6 +85,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
     <p>Resolve common problems, inspect sites, and create debug tarballs</p>
 
     <nav>
+      <a href="console/flow-console.html">Monitoring traffic with the Skupper console</a>
       <a href="troubleshooting/index.html">Troubleshooting sites and networks</a>
     </nav>
   </div>

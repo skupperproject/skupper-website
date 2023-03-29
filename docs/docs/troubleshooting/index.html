@@ -313,7 +313,7 @@ This section outlines some advanced options for checking links.</p>
 
 Links created from this site:
 -------------------------------
-Link link1 is active</pre>
+Link link1 is connected</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -340,11 +340,11 @@ Running <code>skupper link status</code> on a connected site produces output onl
 
 Links created from this site:
 -------------------------------
-There are no links configured or active
+There are no links configured or connected
 
-Currently active links from other sites:
+Currently connected links from other sites:
 ----------------------------------------
-A link from the namespace east on site east(536695a9-26dc-4448-b207-519f56e99b71) is active</pre>
+A link from the namespace east on site east(536695a9-26dc-4448-b207-519f56e99b71) is connected</pre>
 </div>
 </div>
 </div>
@@ -363,14 +363,14 @@ A link from the namespace east on site east(536695a9-26dc-4448-b207-519f56e99b71
  Name:          link1
  Namespace:     east
  Site:          east-536695a9-26dc-4448-b207-519f56e99b71
- Status:        Active</pre>
+ Status:        Connected</pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The output shows detail about the link, including a timestamp of when the link was created and the associated relative cost of using the link.</p>
 </div>
 <div class="paragraph">
-<p>The status of the link must be <code>Active</code> to allow service traffic.</p>
+<p>The status of the link must be <code>Connected</code> to allow service traffic.</p>
 </div>
 </div>
 </div>
@@ -384,6 +384,83 @@ A link from the namespace east on site east(536695a9-26dc-4448-b207-519f56e99b71
 <p><a href="#checking-sites">Checking sites</a></p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="debug-gateways"><a class="anchor" href="#debug-gateways"></a>Checking gateways</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, <code>skupper gateway</code> creates a service type gateway and these gateways run properly after a machine restart.</p>
+</div>
+<div class="paragraph">
+<p>However, if you create a docker or podman type gateway, check that the container is running after a machine restart.
+For example:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check the status of Skupper gateways:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper gateway status
+
+Gateway Definition:
+╰─ machine-user type:podman version:2.2.0
+   ╰─ Bindings:
+      ╰─ mydb:3306 tcp mydb:3306 localhost 3306</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This shows a podman type gateway.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Check that the container is running:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ podman ps
+CONTAINER ID  IMAGE                                           COMMAND               CREATED         STATUS             PORTS                   NAMES
+4e308ef8ee58  quay.io/skupper/skupper-router:2.2.0             /home/skrouterd/b...  26 seconds ago  Up 27 seconds ago                          machine-user</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This shows the container running.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+To view stopped containers, use <code>podman ps -a</code> or <code>docker ps -a</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Start the container if necessary:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ podman start machine-user</pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -462,6 +539,71 @@ skupper-sasl-config-configmap.yaml</pre>
 </div>
 </div>
 <div class="sect1">
+<h2 id="router-performance"><a class="anchor" href="#router-performance"></a>Improving Skupper router performance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you encounter Skupper router performance issues, you can scale the Skupper router to address those concerns.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Currently, you must delete and recreate a site to reconfigure the Skupper router.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For example, use this procedure to increase throughput, and if you have many clients, latency.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Delete your site or create a new site in a different namespace.</p>
+<div class="paragraph">
+<p>Note all configuration and delete your existing site:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper delete</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As an alternative, you can create a new namespace and configure a new site with optimized Skupper router performance.
+After validating the performance improvement, you can delete and recreate your original site.</p>
+</div>
+</li>
+<li>
+<p>Create a site with optimal performance CPU settings:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper init --router-cpu 5</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Recreate your configuration from step 1, recreating links and services.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+While you can address availability concerns by scaling the number of routers and somewhat improve performance, for example <code>skupper init --routers 3</code>, typically this is not necessary.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="common-problems"><a class="anchor" href="#common-problems"></a>Resolving common problems</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -504,7 +646,7 @@ Enter the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper init --ingress none</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper init --ingress none</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -576,6 +718,33 @@ If you need to link many sites, create separate tokens for each link.</p>
 <p><strong>Cannot create a token for linking clusters</strong></p>
 </div>
 <div class="paragraph">
+<p>There are several reasons why you might have difficulty creating tokens:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Site not ready</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>After creating a site, you might see the following message when creating a token:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Error: Failed to create token: Policy validation error: Skupper is not enabled in namespace</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Use <code>skupper status</code> to verify the site is working and try to create the token again.</p>
+</div>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">No ingress</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>You might see the following note after using the <code>skupper token create</code> command:</p>
 </div>
 <div class="listingblock">
@@ -589,6 +758,11 @@ You must specify an ingress to allow sites on other clusters to link to your sit
 </div>
 <div class="paragraph">
 <p>You can also use the <code>skupper token create</code> command to check if an ingress was specified when the site was created.</p>
+</div>
+</div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>

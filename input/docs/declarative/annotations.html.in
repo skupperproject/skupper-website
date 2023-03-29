@@ -1,0 +1,234 @@
+---
+title: Configuring services using annotations
+---
+
+<article class="doc">
+<h1 class="page">Configuring services using annotations</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Using Kubernetes annotations allows you to control which services are available on the service network.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="exposing-services-annotations"><a class="anchor" href="#exposing-services-annotations"></a>Exposing simple services on a service network using annotations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section provides an alternative to the <code>skupper expose</code> command, allowing you to annotate existing resources to expose simple services on the service network.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>A site with a service you want to expose</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log into the namespace in your cluster that is configured as a site.</p>
+</li>
+<li>
+<p>Create a deployment, some pods, or a service in one of your sites, for example:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This step is not Skupper-specific, that is, this process is unchanged from standard processes for your cluster.</p>
+</div>
+</li>
+<li>
+<p>Annotate the kubernetes resource to create a service that can communicate on the service network, for example:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl annotate deployment backend "skupper.io/address=backend" "skupper.io/port=8080" "skupper.io/proxy=tcp"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The annotations include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>skupper.io/proxy</code> - the protocol you want to use, <code>tcp</code>, <code>http</code> or <code>http2</code>.
+This is the only annotation that is required.
+For example, if you annotate a simple deployment named <code>backend</code> with <code>skupper.io/proxy=tcp</code>, the service is exposed as <code>backend</code> and the <code>containerPort</code> value of the deployment is used as the port number.</p>
+</li>
+<li>
+<p><code>skupper.io/address</code> - the name of the service on the service network.</p>
+</li>
+<li>
+<p><code>skupper.io/port</code> - one or more ports for the service on the service network.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When exposing services, rather than other resources like deployments, you can use the <code>skupper.io/target</code> annotation to avoid modifying the original service.
+For example, if you want to expose the <code>backend</code> service:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl annotate service backend "skupper.io/address=van-backend" "skupper.io/port=8080" "skupper.io/proxy=tcp" "skupper.io/target=backend"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This allows you to delete and recreate the <code>backend</code> service without having to apply the annotation again.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Check that you have exposed the service:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper service status
+Services exposed through Skupper:
+╰─ backend (tcp port 8080)
+   ╰─ Targets:
+      ╰─ app=hello-world-backend name=hello-world-backend</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The related targets for services are only displayed when the target is available on the current cluster.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="understanding-annotations"><a class="anchor" href="#understanding-annotations"></a>Understanding Skupper annotations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Annotations allow you to expose services on the service network.
+This section provides details on the scope of those annotations</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">skupper.io/address</dt>
+<dd>
+<p>The name of the service on the service network.
+Applies to:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Deployments</p>
+</li>
+<li>
+<p>StatefulSets</p>
+</li>
+<li>
+<p>DaemonSets</p>
+</li>
+<li>
+<p>Services</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">skupper.io/port</dt>
+<dd>
+<p>The port for the service on the service network.
+Applies to:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Deployments</p>
+</li>
+<li>
+<p>StatefulSets</p>
+</li>
+<li>
+<p>DaemonSets</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">skupper.io/proxy</dt>
+<dd>
+<p>The protocol you want to use, <code>tcp</code>, <code>http</code> or <code>http2</code>.
+Applies to:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Deployments</p>
+</li>
+<li>
+<p>StatefulSets</p>
+</li>
+<li>
+<p>DaemonSets</p>
+</li>
+<li>
+<p>Services</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">skupper.io/target</dt>
+<dd>
+<p>The name of the target service you want to expose.
+Applies to:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Services</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">skupper.io/service-labels</dt>
+<dd>
+<p>A comma separated list of label keys and values for the exposed service.
+You can use this annotation to set up labels for monitoring exposed services.
+Applies to:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Deployments</p>
+</li>
+<li>
+<p>DaemonSets</p>
+</li>
+<li>
+<p>Services</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</article>
