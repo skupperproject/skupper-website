@@ -1,63 +1,97 @@
 ---
-title: 
+title: skupper service create
 ---
 
 <article class="doc">
-<div class="sect1">
-<h2 id="_skupper_service_create"><a class="anchor" href="#_skupper_service_create"></a>skupper service create</h2>
-<div class="sectionbody">
+<h1 class="page">skupper service create</h1>
 <div class="paragraph">
 <p>Create a skupper service</p>
 </div>
-<div class="sect2">
-<h3 id="_synopsis"><a class="anchor" href="#_synopsis"></a>Synopsis</h3>
 <div class="paragraph">
+<div class="title">Synopsis</div>
 <p>Create a skupper service</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre>skupper service create &lt;name&gt; &lt;port...&gt; [flags]</pre>
+<pre>skupper service create &lt;name&gt; &lt;port...&gt;  --[option]</pre>
 </div>
 </div>
+<div class="dlist">
+<div class="title">Options</div>
+<dl>
+<dt class="hdlist1">aggregate</dt>
+<dd>
+<p>The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated.
+ (string)</p>
+</dd>
+<dt class="hdlist1">bridge-image</dt>
+<dd>
+<p>The image to use for a bridge running external to the skupper router
+ (string)</p>
+</dd>
+<dt class="hdlist1">container-name</dt>
+<dd>
+<p>Use a different container name
+ (string)</p>
+</dd>
+<dt class="hdlist1">enable-ingress</dt>
+<dd>
+<p>Determines whether access to the Skupper service is enabled in this site. Valid values are Always (default) or Never.
+ (string)</p>
+</dd>
+<dt class="hdlist1">event-channel</dt>
+<dd>
+<p>If specified, this service will be a channel for multicast events.
+ (bool)</p>
+</dd>
+<dt class="hdlist1">generate-tls-secrets</dt>
+<dd>
+<p>If specified, the service communication will be encrypted using TLS
+ (bool)</p>
+</dd>
+<dt class="hdlist1">host-ip</dt>
+<dd>
+<p>Host IP address used to bind service ports
+ (string)</p>
+</dd>
+<dt class="hdlist1">host-port</dt>
+<dd>
+<p>The host ports to bind with the service (you can also use colon to map service-port to a host-port).
+ (strings)</p>
+</dd>
+<dt class="hdlist1">label</dt>
+<dd>
+<p>Labels to the new service (comma separated list of key and value pairs split by equals (default [])
+ (stringToString)</p>
+</dd>
+<dt class="hdlist1">protocol</dt>
+<dd>
+<p>The mapping in use for this service address (tcp, http, http2) (default "tcp")
+ (string)</p>
+</dd>
+<dt class="hdlist1">tls-cert</dt>
+<dd>
+<p>K8s secret name with custom certificates to encrypt the communication using TLS (valid only for http2 and tcp protocols)
+ (string)</p>
+</dd>
+</dl>
 </div>
-<div class="sect2">
-<h3 id="_options"><a class="anchor" href="#_options"></a>Options</h3>
-<div class="listingblock">
-<div class="content">
-<pre>      --aggregate string        The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated.
-      --bridge-image string     The image to use for a bridge running external to the skupper router
-      --container-name string   Use a different container name
-      --enable-ingress string   Determines whether access to the Skupper service is enabled in this site. Valid values are Always (default) or Never.
-      --event-channel           If specified, this service will be a channel for multicast events.
-      --generate-tls-secrets    If specified, the service communication will be encrypted using TLS
-  -h, --help                    help for create
-      --host-ip string          Host IP address used to bind service ports
-      --host-port strings       The host ports to bind with the service (you can also use colon to map service-port to a host-port).
-      --label stringToString    Labels to the new service (comma separated list of key and value pairs split by equals (default [])
-      --protocol string         The mapping in use for this service address (tcp, http, http2) (default "tcp")
-      --tls-cert string         K8s secret name with custom certificates to encrypt the communication using TLS (valid only for http2 and tcp protocols)</pre>
+<div class="dlist">
+<div class="title">Options inherited from parent commands</div>
+<dl>
+<dt class="hdlist1">platform</dt>
+<dd>
+<p>The platform type to use [kubernetes, podman]
+ (string)</p>
+</dd>
+</dl>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_options_inherited_from_parent_commands"><a class="anchor" href="#_options_inherited_from_parent_commands"></a>Options inherited from parent commands</h3>
-<div class="listingblock">
-<div class="content">
-<pre>      --platform string   The platform type to use [kubernetes, podman]</pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_see_also"><a class="anchor" href="#_see_also"></a>SEE ALSO</h3>
 <div class="ulist">
+<div class="title">See also</div>
 <ul>
 <li>
 <p><a href="skupper_service.html" class="xref page">skupper service</a>	 - Manage skupper service definitions</p>
 </li>
 </ul>
-</div>
-<h6 id="_auto_generated_by_spf13cobra_on_20_feb_2023" class="discrete">Auto generated by spf13/cobra on 20-Feb-2023</h6>
-</div>
-</div>
 </div>
 </article>
