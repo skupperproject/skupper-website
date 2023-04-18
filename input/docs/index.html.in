@@ -22,39 +22,46 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
     </nav>
   </div>
   <div>
-    <h2>The Skupper command</h2>
+    <h2>Using Skupper with Kubernetes</h2>
 
-    <p>The Skupper command-line tool enables you to initialize,
-    connect, and monitor Skupper sites interactively from your
-    development environment.</p>
+    <p>The Skupper command-line tool enables you to initialize, link, and monitor Skupper sites interactively from your development environment.</p>
+    <p>You can also use YAML to declaratively configure Skupper sites on Kubernetes.
 
     <nav>
       <a href="/start/index.html">Getting started</a>
       <a href="/docs/cli/index.html">CLI guide</a>
       <a href="/docs/cli/index.html#exposing-services-local">Using local services (gateway)</a>
-      <a href="/docs/cli-reference/skupper.html">Command-line reference</a>
-    </nav>
-  </div>
-  <div>
-    <h2>YAML configuration</h2>
-
-    <p>Learn how you can use YAML to declaratively configure and
-    connect Skupper sites.</p>
-
-    <nav>
+      <a href="/docs/cli-reference/skupper.html">CLI reference</a>
       <a href="declarative/index.html">YAML configuration reference</a>
       <a href="/docs/cli/index.html#gateway-reference">Gateway YAML reference</a>
+      <a href="operator/index.html">Using the Skupper operator</a>
+    </nav>  
+
+    
+  </div>
+  <div>
+    <h2>Using Skupper with Podman</h2>
+
+    <p>The Skupper command-line tool also works on Podman</p>
+    <p>You can also use YAML to declaratively configure Skupper sites on Podman.
+
+    <nav>
+      <!-- getting started -->
+      <a href="/docs/cli/podman.html">CLI guide</a>
+      <a href="/docs/cli-podman/skupper.html">CLI reference</a>
+
     </nav>
   </div>
+
 </div>
 <div class="columns">
   <div>
-    <h2>The Skupper Operator</h2>
+    <h2>Observability</h2>
 
-    <p>Learn how you can install the Skupper operator and create Skupper sites using ConfigMaps.</p>
+    <p>Learn how to monitor traffic using the Skupper console.</p>
 
     <nav>
-      <a href="operator/index.html">Using the Skupper operator</a>
+      <a href="console/flow-console.html">Using the Skupper console</a>
     </nav>
   </div>
   <div>
@@ -75,6 +82,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
     <p>Resolve common problems, inspect sites, and create debug tarballs</p>
 
     <nav>
+      <a href="console/flow-console.html">Monitoring traffic with the Skupper console</a>
       <a href="troubleshooting/index.html">Troubleshooting sites and networks</a>
     </nav>
   </div>

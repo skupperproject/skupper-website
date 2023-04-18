@@ -1,0 +1,41 @@
+---
+title: skupper link
+---
+
+<article class="doc">
+<h1 class="page">skupper link</h1>
+<div class="paragraph">
+<p>Manage skupper links definitions</p>
+</div>
+<div class="paragraph">
+<div class="title">Synopsis</div>
+<p>Manage skupper links definitions</p>
+</div>
+<div class="dlist">
+<div class="title">Options inherited from parent commands</div>
+<dl>
+<dt class="hdlist1">platform</dt>
+<dd>
+<p>The platform type to use [kubernetes, podman]
+ (string)</p>
+</dd>
+</dl>
+</div>
+<div class="ulist">
+<div class="title">See also</div>
+<ul>
+<li>
+<p><a href="skupper.html" class="xref page">skupper</a>	 -</p>
+</li>
+<li>
+<p><a href="skupper_link_create.html" class="xref page">skupper link create</a>	 - Links this skupper site to the site that issued the token</p>
+</li>
+<li>
+<p><a href="skupper_link_delete.html" class="xref page">skupper link delete</a>	 - Remove specified link</p>
+</li>
+<li>
+<p><a href="skupper_link_status.html" class="xref page">skupper link status</a>	 - Check whether a link to another Skupper site is connected</p>
+</li>
+</ul>
+</div>
+</article>

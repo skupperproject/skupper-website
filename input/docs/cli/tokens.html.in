@@ -226,7 +226,7 @@ Skupper is enabled for namespace "west" in interior mode. It is linked to 2 othe
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ skupper link status
-Link link1 is active</code></pre>
+Link link1 is connected</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -250,11 +250,11 @@ Link link1 is active</code></pre>
 <pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ skupper status
 Skupper is enabled for namespace "west" in interior mode. It is linked to 1 other site.
 $ skupper link status
-Link link1 is active</code></pre>
+Link link1 is connected</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The output shows that the <code>skupper revoke-access</code> command has revoked the incoming links, but outgoing links are still active.</p>
+<p>The output shows that the <code>skupper revoke-access</code> command has revoked the incoming links, but outgoing links are still connected.</p>
 </div>
 <div class="paragraph">
 <p>You can remove that link using the <code>skupper link delete link1</code> command.
