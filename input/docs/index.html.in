@@ -46,7 +46,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
     <p>You can also use YAML to declaratively configure Skupper sites on Podman.
 
     <nav>
-      <a href="/start/pindex.html">Getting started</a>
+      <!-- getting started -->
       <a href="/docs/cli/podman.html">CLI guide</a>
       <a href="/docs/cli-podman/skupper.html">CLI reference</a>
 
@@ -61,7 +61,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
     <p>Learn how to monitor traffic using the Skupper console.</p>
 
     <nav>
-      <a href="console/flow-collector.html">Using the Skupper console</a>
+      <a href="console/flow-console.html">Using the Skupper console</a>
     </nav>
   </div>
   <div>

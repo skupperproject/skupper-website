@@ -170,7 +170,7 @@ Run the `skupper init` command in the West namespace.
 
 <div class="code-label session-2">West</div>
 
-    $ skupper init
+    $ skupper init --enable-console --enable-flow-collector
     Skupper is now installed in namespace 'west'.  Use 'skupper status' to get more information.
 
 Now run the `skupper init` command in the East namespace.
