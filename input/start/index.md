@@ -305,7 +305,7 @@ the frontend accessible using a conventional Kubernetes ingress.
 
 <div class="code-label session-2">West</div>
 
-    kubectl expose deployment hello-world-frontend --port 8080 --type LoadBalancer
+    kubectl expose deployment frontend --port 8080 --type LoadBalancer
 
 It takes a moment for the external IP to become available.
 
