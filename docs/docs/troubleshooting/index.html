@@ -298,8 +298,24 @@ However, this output is most useful when reporting an issue and is included in t
 <h2 id="checking-links"><a class="anchor" href="#checking-links"></a>Checking links</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You must link sites before you can expose services on the service network.
-This section outlines some advanced options for checking links.</p>
+<p>You must link sites before you can expose services on the service network.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+By default, tokens expire after 5 minutes and you can only use a token once.
+Generate a new token if the link is not connected.
+You can also generate tokens using the <code>-token-type cert</code> option for permanent reusable tokens.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This section outlines some advanced options for checking links.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -693,8 +709,8 @@ For example, if one site is behind a firewall and the other site is on an AWS cl
 </td>
 <td class="content">
 <div class="paragraph">
-<p>By default, a token is only valid for a single link.
-If you need to link many sites, create separate tokens for each link.</p>
+<p>By default, a token is valid for only 15 minutes and can only be used once.
+See <a href="../cli/tokens.html" class="xref page">Using Skupper tokens</a> for more information on creating different types of tokens.</p>
 </div>
 </td>
 </tr>

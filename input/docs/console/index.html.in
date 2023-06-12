@@ -152,7 +152,7 @@ Your browser may prompt you to allow using the clipboard. You must accept that p
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Perform the <a href="/docs/cli/openshift.html">Creating a service network with OpenShift</a> tutorial.</p>
+<p>Perform the <strong>Getting Started</strong> tutorial.</p>
 </li>
 <li>
 <p>Navigate to the Skupper console.</p>

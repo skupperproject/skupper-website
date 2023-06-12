@@ -597,9 +597,6 @@ If you do not specify ports, <code>skupper</code> uses the <code>containerPort</
 <li>
 <p><code>&lt;target-name&gt;</code> is the name of the cluster service</p>
 </li>
-<li>
-<p><code>--protocol &lt;protocol&gt;</code> allows you specify the protocol you want to use, <code>tcp</code>, <code>http</code> or <code>http2</code></p>
-</li>
 </ul>
 </div>
 <div class="paragraph">

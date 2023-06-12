@@ -108,23 +108,39 @@ skupper-site-controller-84694bdbb5-n8slb   1/1     Running   0          75s</pre
 <ol class="arabic">
 <li>
 <p>Create a YAML file to define the site, for example, <code>my-site.yaml</code>:</p>
+<div class="openblock">
+<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre>apiVersion: v1
-data:
-  cluster-local: "false"
-  console: "true"
-  flow-collector: "true"
-  console-authentication: internal
-  console-password: "rubble"
-  console-user: "barney"
-  name: my-site
-  router-console: "true"
-  service-controller: "true"
-  service-sync: "true"
 kind: ConfigMap
 metadata:
-  name: skupper-site</pre>
+  name: skupper-site
+data:
+  name: my-site
+  console: "true"
+  console-user: "admin"
+  console-password: "changeme"
+  flow-collector: "true"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The YAML creates a site with a console and you can create tokens from this site.</p>
+</div>
+<div class="paragraph">
+<p>To create a site that has no ingress:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: skupper-site
+data:
+  name: my-site
+  ingress: "false"</pre>
+</div>
+</div>
 </div>
 </div>
 </li>
@@ -457,27 +473,26 @@ Applies to:</p>
 <div class="content">
 <pre>apiVersion: v1
 data:
-  cluster-local: "false" <i class="conum" data-value="1"></i><b>(1)</b>
+  name: my-site <i class="conum" data-value="1"></i><b>(1)</b>
   console: "true" <i class="conum" data-value="2"></i><b>(2)</b>
   flow-collector: "true" <i class="conum" data-value="3"></i><b>(3)</b>
   console-authentication: internal <i class="conum" data-value="4"></i><b>(4)</b>
   console-user: "username" <i class="conum" data-value="5"></i><b>(5)</b>
   console-password: "password" <i class="conum" data-value="6"></i><b>(6)</b>
-  edge: "false" <i class="conum" data-value="7"></i><b>(7)</b>
-  name: my-site <i class="conum" data-value="8"></i><b>(8)</b>
-  router-console: "true" <i class="conum" data-value="9"></i><b>(9)</b>
-  service-controller: "true" <i class="conum" data-value="10"></i><b>(10)</b>
-  service-sync: "true" <i class="conum" data-value="11"></i><b>(11)</b>
+  cluster-local: "false" <i class="conum" data-value="7"></i><b>(7)</b>
+  edge: "false" <i class="conum" data-value="8"></i><b>(8)</b>
+  service-sync: "true" <i class="conum" data-value="9"></i><b>(9)</b>
+  ingress: "true" <i class="conum" data-value="10"></i><b>(10)</b>
 kind: ConfigMap
 metadata:
-  name: skupper-site <i class="conum" data-value="12"></i><b>(12)</b></pre>
+  name: skupper-site</pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Only accept connections from within the local cluster, defaults to <code>false</code>.</td>
+<td>Specifies the site name.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -502,23 +517,31 @@ NOTE: You must enable <code>console</code> and <code>flow-collector</code> for t
 </tr>
 <tr>
 <td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>Specifies whether an edge site is created, defaults to <code>false</code>.</td>
+<td>Only accept connections from within the local cluster, defaults to <code>false</code>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="8"></i><b>8</b></td>
-<td>Specifies the site name.</td>
+<td>Specifies whether an edge site is created, defaults to <code>false</code>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="9"></i><b>9</b></td>
-<td>Enables the router console, defaults to <code>false</code>.</td>
+<td>Specifies whether the services are synchronized across the service network, defaults to <code>true</code>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="10"></i><b>10</b></td>
-<td>Specifies whether the service controller runs, defaults to <code>true</code>.</td>
+<td>Specifies whether the site supports ingress, for example, to create tokens usable from remote sites.</td>
 </tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
 <tr>
-<td><i class="conum" data-value="11"></i><b>11</b></td>
-<td>Specifies whether the services are synchronized across the service network, defaults to <code>true</code>.</td>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+All ingress types are supported using the same parameters as the <code>skupper</code> CLI.
+</td>
 </tr>
 </table>
 </div>

@@ -52,7 +52,7 @@ def generate_docs(owner="skupperproject", branch="main", output_dir="input/docs"
         copy("build/skupper/latest/troubleshooting", output_dir)
         copy("build/skupper/latest/policy", output_dir)
         copy("build/skupper/latest/operator", output_dir)
-        copy("build/skupper/latest/_images", output_dir + "/_images")
+        copy("build/skupper/latest/_images", output_dir)
 
 @command
 def generate_examples(output_file="input/examples/index.html.in"):

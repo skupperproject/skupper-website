@@ -1,0 +1,39 @@
+---
+title: Service synchronization
+---
+
+<article class="doc">
+<h1 class="page">Service synchronization</h1>
+<div class="paragraph">
+<p>By default, <code>skupper init</code> creates a site that synchronizes all services from other sites that also have synchronization enabled.</p>
+</div>
+<div class="paragraph">
+<p>To disable service synchronization:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper init --service-sync false</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To check whether synchronization is enabled, check the value for <code>service-sync</code> in the output from the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl get cm skupper-site -o json</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When considering whether services are synchronized between two sites, <code>service-sync</code> must be enabled on both sites.</p>
+</li>
+<li>
+<p>If you use the command <code>skupper service delete</code> on a site, that command only works if the service was created on that site.</p>
+</li>
+</ul>
+</div>
+</article>
