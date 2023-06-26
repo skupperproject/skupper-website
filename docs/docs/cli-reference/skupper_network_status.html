@@ -85,18 +85,26 @@
 <div class="title">Synopsis</div>
 <p>Shows information about the current site, and connected sites.</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>skupper network status  --[option]</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs"> skupper network status  --[option]</code></pre>
 </div>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="title">Options</div>
 <div class="content">
-<pre>  -s, --site string        Site identifier (default "all")
-timeout::
-Configurable timeout for retrieving remote information (default 2m0s)
- (duration)</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">-h, --help               help for status
+-s, --site string        Site identifier (default "all")
+--timeout duration   Configurable timeout for retrieving remote information (default 2m0s)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Options inherited from parent commands</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">-c, --context string      The kubeconfig context to use
+--kubeconfig string   Path to the kubeconfig file to use
+-n, --namespace string    The Kubernetes namespace to use
+--platform string     The platform type to use [kubernetes, podman]</code></pre>
 </div>
 </div>
 <div class="ulist">

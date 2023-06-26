@@ -11,9 +11,25 @@ title: skupper service unbind
 <div class="title">Synopsis</div>
 <p>Unbind a target from a service</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>skupper service unbind &lt;service-name&gt; &lt;target-type&gt; &lt;target-name&gt;  --[option]</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs"> skupper service unbind &lt;service-name&gt; &lt;target-type&gt; &lt;target-name&gt;  --[option]</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Options</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">-h, --help                      help for unbind
+--target-namespace string   Target namespace for exposed resource</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Options inherited from parent commands</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">-c, --context string      The kubeconfig context to use
+--kubeconfig string   Path to the kubeconfig file to use
+-n, --namespace string    The Kubernetes namespace to use
+--platform string     The platform type to use [kubernetes, podman]</code></pre>
 </div>
 </div>
 <div class="ulist">

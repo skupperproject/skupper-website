@@ -85,80 +85,33 @@
 <div class="title">Synopsis</div>
 <p>Create a skupper service</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>skupper service create &lt;name&gt; &lt;port...&gt;  --[option]</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs"> skupper service create &lt;name&gt; &lt;port...&gt;  --[option]</code></pre>
 </div>
 </div>
-<div class="dlist">
+<div class="listingblock">
 <div class="title">Options</div>
-<dl>
-<dt class="hdlist1">aggregate</dt>
-<dd>
-<p>The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated.
- (string)</p>
-</dd>
-<dt class="hdlist1">bridge-image</dt>
-<dd>
-<p>The image to use for a bridge running external to the skupper router
- (string)</p>
-</dd>
-<dt class="hdlist1">container-name</dt>
-<dd>
-<p>Use a different container name
- (string)</p>
-</dd>
-<dt class="hdlist1">enable-ingress</dt>
-<dd>
-<p>Determines whether access to the Skupper service is enabled in this site. Valid values are Always (default) or Never.
- (string)</p>
-</dd>
-<dt class="hdlist1">event-channel</dt>
-<dd>
-<p>If specified, this service will be a channel for multicast events.
- (bool)</p>
-</dd>
-<dt class="hdlist1">generate-tls-secrets</dt>
-<dd>
-<p>If specified, the service communication will be encrypted using TLS
- (bool)</p>
-</dd>
-<dt class="hdlist1">host-ip</dt>
-<dd>
-<p>Host IP address used to bind service ports
- (string)</p>
-</dd>
-<dt class="hdlist1">host-port</dt>
-<dd>
-<p>The host ports to bind with the service (you can also use colon to map service-port to a host-port).
- (strings)</p>
-</dd>
-<dt class="hdlist1">label</dt>
-<dd>
-<p>Labels to the new service (comma separated list of key and value pairs split by equals (default [])
- (stringToString)</p>
-</dd>
-<dt class="hdlist1">protocol</dt>
-<dd>
-<p>The mapping in use for this service address (tcp, http, http2) (default "tcp")
- (string)</p>
-</dd>
-<dt class="hdlist1">tls-cert</dt>
-<dd>
-<p>K8s secret name with custom certificates to encrypt the communication using TLS (valid only for http2 and tcp protocols)
- (string)</p>
-</dd>
-</dl>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">--aggregate string        The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated.
+--bridge-image string     The image to use for a bridge running external to the skupper router
+--container-name string   Use a different container name
+--enable-ingress string   Determines whether access to the Skupper service is enabled in this site. Valid values are Always (default) or Never.
+--event-channel           If specified, this service will be a channel for multicast events.
+--generate-tls-secrets    If specified, the service communication will be encrypted using TLS
+-h, --help                    help for create
+--host-ip string          Host IP address used to bind service ports
+--host-port strings       The host ports to bind with the service (you can also use colon to map service-port to a host-port).
+--label stringToString    Labels to the new service (comma separated list of key and value pairs split by equals (default [])
+--protocol string         The mapping in use for this service address (tcp, http, http2) (default "tcp")
+--tls-cert string         K8s secret name with custom certificates to encrypt the communication using TLS</code></pre>
 </div>
-<div class="dlist">
+</div>
+<div class="listingblock">
 <div class="title">Options inherited from parent commands</div>
-<dl>
-<dt class="hdlist1">platform</dt>
-<dd>
-<p>The platform type to use [kubernetes, podman]
- (string)</p>
-</dd>
-</dl>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">--platform string   The platform type to use [kubernetes, podman]</code></pre>
+</div>
 </div>
 <div class="ulist">
 <div class="title">See also</div>

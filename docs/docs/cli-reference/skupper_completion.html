@@ -88,9 +88,24 @@ The shell code must be evaluated to provide interactive completion of skupper co
 This can be done by sourcing it from the .bash_profile.
 i.e.: $ source &lt;(skupper completion)</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>skupper completion  --[option]</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs"> skupper completion  --[option]</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Options</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">-h, --help   help for completion</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Options inherited from parent commands</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">-c, --context string      The kubeconfig context to use
+--kubeconfig string   Path to the kubeconfig file to use
+-n, --namespace string    The Kubernetes namespace to use
+--platform string     The platform type to use [kubernetes, podman]</code></pre>
 </div>
 </div>
 <div class="ulist">

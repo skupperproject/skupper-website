@@ -11,87 +11,43 @@ title: skupper init
 <div class="title">Synopsis</div>
 <p>Setup a router and other supporting objects to provide a functional skupper installation that can then be connected to other skupper installations</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>skupper init  --[option]</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs"> skupper init  --[option]</code></pre>
 </div>
 </div>
-<div class="dlist">
+<div class="listingblock">
 <div class="title">Options</div>
-<dl>
-<dt class="hdlist1">site-name</dt>
-<dd>
-<p>Provide a specific name for this skupper installation
- (string)</p>
-</dd>
-<dt class="hdlist1">ingress</dt>
-<dd>
-<p>Setup Skupper ingress to one of: [external|none].
- (string)</p>
-</dd>
-<dt class="hdlist1">router-mode</dt>
-<dd>
-<p>Skupper router-mode (default "interior")
- (string)</p>
-</dd>
-<dt class="hdlist1">labels</dt>
-<dd>
-<p>Labels to add to skupper pods
- (strings)</p>
-</dd>
-<dt class="hdlist1">router-logging</dt>
-<dd>
-<p>Logging settings for router. 'trace', 'debug', 'info' (default), 'notice', 'warning', and 'error' are valid values.
- (string)</p>
-</dd>
-<dt class="hdlist1">router-debug-mode</dt>
-<dd>
-<p>Enable debug mode for router ('asan' or 'gdb' are valid values)
- (string)</p>
-</dd>
-<dt class="hdlist1">ingress-host</dt>
-<dd>
-<p>Hostname or alias by which the ingress route or proxy can be reached.
- (strings)
-                                   Tokens can only be generated for addresses provided through ingress-hosts,
-                                   so it can be used multiple times.</p>
-</dd>
-<dt class="hdlist1">ingress-bind-ip</dt>
-<dd>
-<p>IP addresses in the host machines that will be bound to the inter-router and edge ports.
- (strings)</p>
-</dd>
-<dt class="hdlist1">bind-port</dt>
-<dd>
-<p>ingress host binding port used for incoming links from sites using interior mode (default 55671)
- (int)</p>
-</dd>
-<dt class="hdlist1">bind-port-edge</dt>
-<dd>
-<p>ingress host binding port used for incoming links from sites using edge mode (default 45671)
- (int)</p>
-</dd>
-<dt class="hdlist1">container-network</dt>
-<dd>
-<p>container network name to be used (default "skupper")
- (string)</p>
-</dd>
-<dt class="hdlist1">podman-endpoint</dt>
-<dd>
-<p>local podman endpoint to use
- (string)</p>
-</dd>
-</dl>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">--site-name string                     Provide a specific name for this skupper installation
+--ingress string                       Setup Skupper ingress to one of: [external|none].
+--router-mode string                   Skupper router-mode (default "interior")
+--labels strings                       Labels to add to skupper pods
+--router-logging string                Logging settings for router. 'trace', 'debug', 'info' (default), 'notice', 'warning', and 'error' are valid values.
+--router-debug-mode string             Enable debug mode for router ('asan' or 'gdb' are valid values)
+--ingress-host strings                 Hostname or alias by which the ingress route or proxy can be reached.
+Tokens can only be generated for addresses provided through ingress-hosts,
+so it can be used multiple times.
+--ingress-bind-ip strings              IP addresses in the host machines that will be bound to the inter-router and edge ports.
+--bind-port int                        ingress host binding port used for incoming links from sites using interior mode (default 55671)
+--bind-port-edge int                   ingress host binding port used for incoming links from sites using edge mode (default 45671)
+--container-network string             container network name to be used (default "skupper")
+--podman-endpoint string               local podman endpoint to use
+--enable-console                       Enable skupper console must be used in conjunction with '--enable-flow-collector' flag
+--console-auth string                  Authentication mode for console(s). One of: 'internal', 'unsecured'
+--console-user string                  Skupper console user. Valid only when --console-auth=internal
+--console-password string              Skupper console user. Valid only when --console-auth=internal
+--enable-flow-collector                Enable cross-site flow collection for the application network
+--bind-port-flow-collector int         ingress host binding port used for flow-collector and console (default 8010)
+--flow-collector-record-ttl duration   Time after which terminated flow records are deleted, i.e. those flow records that have an end time set. Default is 30 minutes.
+-h, --help                                 help for init</code></pre>
 </div>
-<div class="dlist">
+</div>
+<div class="listingblock">
 <div class="title">Options inherited from parent commands</div>
-<dl>
-<dt class="hdlist1">platform</dt>
-<dd>
-<p>The platform type to use [kubernetes, podman]
- (string)</p>
-</dd>
-</dl>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">--platform string   The platform type to use [kubernetes, podman]</code></pre>
+</div>
 </div>
 <div class="ulist">
 <div class="title">See also</div>

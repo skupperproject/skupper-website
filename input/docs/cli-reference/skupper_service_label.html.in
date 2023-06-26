@@ -13,9 +13,9 @@ title: skupper service label
 <div class="title">Synopsis</div>
 <p>Manage service labels</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>skupper service label &lt;service&gt; [labels...]  --[option]</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs"> skupper service label &lt;service&gt; [labels...]  --[option]</code></pre>
 </div>
 </div>
 </div>
@@ -23,22 +23,31 @@ title: skupper service label
 <div class="sect1">
 <h2 id="_examples"><a class="anchor" href="#_examples"></a>Examples</h2>
 <div class="sectionbody">
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre># show labels for my-service
-skupper service label my-service</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs"># show labels for my-service
+skupper service label my-service
+
+# add label1=value1 and label2=value2 to my-service
+skupper service label my-service label1=value1 label2=value2
+
+# add label1=value1 and remove label2 to/from my-service
+skupper service label my-service label1=value1 label2-</code></pre>
 </div>
 </div>
-<div class="literalblock">
+<div class="listingblock">
+<div class="title">Options</div>
 <div class="content">
-<pre># add label1=value1 and label2=value2 to my-service
-skupper service label my-service label1=value1 label2=value2</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">-h, --help   help for label</code></pre>
 </div>
 </div>
-<div class="literalblock">
+<div class="listingblock">
+<div class="title">Options inherited from parent commands</div>
 <div class="content">
-<pre># add label1=value1 and remove label2 to/from my-service
-skupper service label my-service label1=value1 label2-</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">-c, --context string      The kubeconfig context to use
+--kubeconfig string   Path to the kubeconfig file to use
+-n, --namespace string    The Kubernetes namespace to use
+--platform string     The platform type to use [kubernetes, podman]</code></pre>
 </div>
 </div>
 <div class="ulist">

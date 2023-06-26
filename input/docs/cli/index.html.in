@@ -32,7 +32,7 @@ title: Using the Skupper CLI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/1.3/skupper-cli-1.3-linux-amd64.tgz | tar -xzf -</pre>
+<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/1.4/skupper-cli-1.4-linux-amd64.tgz | tar -xzf -</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -40,7 +40,7 @@ title: Using the Skupper CLI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/1.3/skupper-cli-1.3-mac-amd64.tgz | tar -xzf -</pre>
+<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/1.4/skupper-cli-1.4-mac-amd64.tgz | tar -xzf -</pre>
 </div>
 </div>
 </div>
@@ -61,7 +61,7 @@ $ mv skupper $HOME/bin</pre>
 <div class="listingblock">
 <div class="content">
 <pre>$ skupper version
-client version 1.3.0</pre>
+client version 1.4.0</pre>
 </div>
 </div>
 </li>
@@ -102,7 +102,7 @@ This section describes how to create a site using the default settings.</p>
 </div>
 <div class="paragraph">
 <p>Starting with Skupper release 1.3, the console is not enabled by default.
-To use the new console, which is a preview feature and may change, see <a href="../console/flow-console.html" class="xref page">Using the Skupper console</a>.</p>
+To use the new console, which is a preview feature and may change, see <a href="#console:flow-console.adoc" class="xref unresolved">console:flow-console.adoc</a>.</p>
 </div>
 </li>
 <li>
@@ -143,7 +143,7 @@ If you install the policy system as described in <a href="/docs/policy/index.htm
 </div>
 <div class="paragraph">
 <p>Starting with Skupper release 1.3, the console is not enabled by default.
-To use the new console, which is a preview feature and may change, see <a href="../console/flow-console.html" class="xref page">Using the Skupper console</a>.</p>
+To use the new console, which is a preview feature and may change, see <a href="#console:flow-console.adoc" class="xref unresolved">console:flow-console.adoc</a>.</p>
 </div>
 <div class="paragraph">
 <p>If you require a custom configuration, note the following options:</p>
@@ -339,12 +339,53 @@ Link link1 not connected</pre>
 <h2 id="link-cost"><a class="anchor" href="#link-cost"></a>Specifying link cost</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When linking sites, you can assign a cost to each link to influence the traffic flow. By default, link cost is set to <code>1</code> for a new link.
-In a service network, the routing algorithm attempts to use the path with the lowest total cost from caller to target service.</p>
+<p>When linking sites, you can assign a cost to each link to influence the traffic flow.
+By default, link cost is set to <code>1</code> for a new link.
+In a service network, the routing algorithm attempts to use the path with the lowest total cost from client to target server.</p>
 </div>
-<div class="paragraph">
-<p>If you have more than two sites and services distributed across different clusters, you might want a calling service to favor a particular target or link.
-In this case, you can specify a cost of greater than <code>1</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If you have services distributed across different sites, you might want a client to favor a particular target or link.
+In this case, you can specify a cost of greater than <code>1</code> on the alternative links to reduce the usage of those links.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The distribution of open connections is statistical, that is, not a round robin system.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>If a connection only traverses one link, then the path cost is equal to the link cost.
+If the connection traverses more than one link, the path cost is the sum of all the links involved in the path.</p>
+</li>
+<li>
+<p>Cost acts as a threshold for using a path from client to server in the network.
+When there is only one path, traffic flows on that path regardless of cost.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you start with two targets for a service, and one of the targets is no longer available, traffic flows on the remaining path regardless of cost.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>When there are a number of paths from a client to server instances or a service, traffic flows on the lowest cost path until the number of connections exceeds the cost of an alternative path.
+After this threshold of open connections is reached, new connections are spread across the alternative path and the lowest cost path.</p>
+</li>
+</ul>
 </div>
 <div class="ulist">
 <div class="title">Prerequisite</div>
@@ -407,6 +448,30 @@ If a service can be called without traversing a link, that service is considered
  Namespace:     default
  Site:          default-0d99d031-cee2-4cc6-a761-697fe0f76275
  Status:        Connected</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Observe traffic using the console.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>If you have a console on a site, log in and navigate to the processes for each server.
+You can view the traffic levels corresponding to each client.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If there are multiple clients on different sites, filter the view to each client to determine the effect of cost on traffic.
+For example, in a two site network linked with a high cost with servers and clients on both sites, you can see that a client is served by the local servers while a local server is available.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </li>
@@ -618,6 +683,10 @@ If you do not specify ports, <code>skupper</code> uses the <code>containerPort</
 <div class="paragraph">
 <p>This section shows how to expose a service from a namespace where Skupper is not deployed.</p>
 </div>
+<div class="paragraph">
+<p>Skupper allows you expose Kubernetes services from other namespaces for any site.
+However, if you want to expose workloads, for example deployments, you must create a site as described in this section.</p>
+</div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
 <ul>
@@ -625,17 +694,42 @@ If you do not specify ports, <code>skupper</code> uses the <code>containerPort</
 <p>A namespace where Skupper is deployed.</p>
 </li>
 <li>
-<p>A service running in a different namespace.</p>
+<p>A network policy that allows communication between the namespaces</p>
 </li>
 <li>
-<p>A network policy that allows communication between the namespaces</p>
+<p>cluster-admin permissions if you want to expose resources other than services</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Log into your cluster and change to the namespace for your site.</p>
+<p>Create a site with cluster permissions if you want to expose a workload from a namespace other than the site namespace:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper init --enable-cluster-permissions</pre>
+</div>
+</div>
+</div>
+</div>
 </li>
 <li>
 <p>Expose the service on the service network:</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The site does not require the extra permissions granted with the <code>--enable-cluster-permissions</code> to expose a Kubernetes service.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If you want to expose a Kubernetes service from a namespace other than the site namespace:</p>
 <div class="openblock">
 <div class="content">
 <div class="listingblock">
@@ -654,29 +748,47 @@ If you do not specify ports, <code>skupper</code> uses the <code>containerPort</
 </ul>
 </div>
 <div class="paragraph">
-<p>For example, if you deployed Skupper in the <code>east</code> namespace and you created a <code>backend</code> service in the <code>east-backend</code> namespace, you set the context to the <code>east</code> namespace and expose the service as <code>backend</code> on the service network using:</p>
+<p>For example, if you deployed Skupper in the <code>east</code> namespace and you created a <code>backend</code> Kubernetes service in the <code>east-backend</code> namespace, you set the context to the <code>east</code> namespace and expose the service as <code>backend</code> on the service network using:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre>$ skupper expose service backend.east-backend --port 8080 --address backend</pre>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
+</div>
+</div>
+</li>
+<li>
+<p>If you want to expose a workload and you created a site with <code>--enable-cluster-permissions</code>:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper expose &lt;resource&gt; --port &lt;port-number&gt; --target-namespace &lt;namespace&gt;</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>&lt;resource&gt; - the name of the resource.</p>
+</li>
+<li>
+<p>&lt;namespace&gt; - the name of the namespace where the resource you want to expose runs.</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
-<p>You can only expose services from other namespaces.
-If you want to expose a deployment from another namespace, create a service from the deployment before you try to expose it.</p>
+<p>For example, if you deployed Skupper in the <code>east</code> namespace and you created a <code>backend</code> deployment in the <code>east-backend</code> namespace, you set the context to the <code>east</code> namespace and expose the service as <code>backend</code> on the service network using:</p>
 </div>
-</td>
-</tr>
-</table>
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper expose deployment/backend --port 8080 --target-namespace east-backend</pre>
 </div>
 </div>
+</div>
+</div>
+</li>
+</ol>
 </div>
 </li>
 </ol>
@@ -771,7 +883,7 @@ If you want to expose a deployment from another namespace, create a service from
 <pre>$ skupper gateway status
 
 Gateway Definition:
-╰─ machine-user type:service version:2.2.0
+╰─ machine-user type:service version:2.4.0
    ╰─ Bindings:
       ╰─ mydb:3306 tcp mydb:3306 localhost 3306</pre>
 </div>
@@ -888,7 +1000,7 @@ Gateway Definition:
 Gateway Definitions Summary
 
 Gateway Definition:
-╰─ machine-user type:service version:2.2.0
+╰─ machine-user type:service version:2.4.0
    ╰─ Bindings:
       ╰─ mydb:3306 tcp mydb:3306 localhost 3306</pre>
 </div>
@@ -1160,7 +1272,7 @@ You can later remove the gateway using <code>./remove.py</code>.
 <div class="content">
 <pre>$ skupper gateway status
 Gateway Definition:
-╰─ machine-user type:service version:2.2.0
+╰─ machine-user type:service version:2.4.0
    ╰─ Bindings:
       ╰─ mydb:3306 tcp mydb:3306 localhost 3306</pre>
 </div>

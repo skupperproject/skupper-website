@@ -85,35 +85,24 @@
 <div class="title">Synopsis</div>
 <p>Bind a target to a service</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>skupper service bind &lt;service-name&gt; &lt;target-type&gt; &lt;target-name&gt;  --[option]</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs"> skupper service bind &lt;service-name&gt; &lt;target-type&gt; &lt;target-name&gt;  --[option]</code></pre>
 </div>
 </div>
-<div class="dlist">
+<div class="listingblock">
 <div class="title">Options</div>
-<dl>
-<dt class="hdlist1">target-port</dt>
-<dd>
-<p>The port the target is listening on (you can also use colon to map source-port to a target-port).
- (strings)</p>
-</dd>
-<dt class="hdlist1">tls-trust</dt>
-<dd>
-<p>K8s secret name with the CA to expose the service over TLS (valid only for http2 and tcp protocols)
- (string)</p>
-</dd>
-</dl>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">-h, --help                  help for bind
+--target-port strings   The port the target is listening on (you can also use colon to map source-port to a target-port).
+--tls-trust string      K8s secret name with the CA to expose the service over TLS</code></pre>
 </div>
-<div class="dlist">
+</div>
+<div class="listingblock">
 <div class="title">Options inherited from parent commands</div>
-<dl>
-<dt class="hdlist1">platform</dt>
-<dd>
-<p>The platform type to use [kubernetes, podman]
- (string)</p>
-</dd>
-</dl>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">--platform string   The platform type to use [kubernetes, podman]</code></pre>
+</div>
 </div>
 <div class="ulist">
 <div class="title">See also</div>

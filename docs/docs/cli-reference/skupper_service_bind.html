@@ -85,30 +85,29 @@
 <div class="title">Synopsis</div>
 <p>Bind a target to a service</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>skupper service bind &lt;service-name&gt; &lt;target-type&gt; &lt;target-name&gt;  --[option]</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs"> skupper service bind &lt;service-name&gt; &lt;target-type&gt; &lt;target-name&gt;  --[option]</code></pre>
 </div>
 </div>
-<div class="dlist">
+<div class="listingblock">
 <div class="title">Options</div>
-<dl>
-<dt class="hdlist1">protocol</dt>
-<dd>
-<p>The protocol to proxy (tcp, http or http2).
- (string)</p>
-</dd>
-<dt class="hdlist1">publish-not-ready-addresses</dt>
-<dd>
-<p>If specified, skupper will not wait for pods to be ready
- (bool)</p>
-</dd>
-<dt class="hdlist1">target-port</dt>
-<dd>
-<p>The port the target is listening on (you can also use colon to map source-port to a target-port).
- (strings)</p>
-</dd>
-</dl>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">-h, --help                          help for bind
+--publish-not-ready-addresses   If specified, skupper will not wait for pods to be ready
+--target-namespace string       Expose resources from a specific namespace
+--target-port strings           The port the target is listening on (you can also use colon to map source-port to a target-port).
+--tls-trust string              K8s secret name with the CA to expose the service over TLS</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Options inherited from parent commands</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">-c, --context string      The kubeconfig context to use
+--kubeconfig string   Path to the kubeconfig file to use
+-n, --namespace string    The Kubernetes namespace to use
+--platform string     The platform type to use [kubernetes, podman]</code></pre>
+</div>
 </div>
 <div class="ulist">
 <div class="title">See also</div>

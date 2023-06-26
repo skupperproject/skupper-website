@@ -11,30 +11,28 @@ title: skupper gateway forward
 <div class="title">Synopsis</div>
 <p>Forward an address to the service network</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>skupper gateway forward &lt;address&gt; &lt;port...&gt;  --[option]</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs"> skupper gateway forward &lt;address&gt; &lt;port...&gt;  --[option]</code></pre>
 </div>
 </div>
-<div class="dlist">
+<div class="listingblock">
 <div class="title">Options</div>
-<dl>
-<dt class="hdlist1">aggregate</dt>
-<dd>
-<p>The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated.
- (string)</p>
-</dd>
-<dt class="hdlist1">event-channel</dt>
-<dd>
-<p>If specified, this service will be a channel for multicast events.
- (bool)</p>
-</dd>
-<dt class="hdlist1">loopback</dt>
-<dd>
-<p>Forward from loopback only
- (bool)</p>
-</dd>
-</dl>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">--aggregate string   The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated.
+--event-channel      If specified, this service will be a channel for multicast events.
+-h, --help               help for forward
+--loopback           Forward from loopback only</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Options inherited from parent commands</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">-c, --context string      The kubeconfig context to use
+--kubeconfig string   Path to the kubeconfig file to use
+-n, --namespace string    The Kubernetes namespace to use
+--platform string     The platform type to use [kubernetes, podman]</code></pre>
+</div>
 </div>
 <div class="ulist">
 <div class="title">See also</div>
