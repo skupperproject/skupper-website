@@ -16,7 +16,7 @@ title: Using the Skupper Operator on Kubernetes
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="💡"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -166,7 +166,7 @@ data:
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="💡"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 The console is a preview feature and may change before becoming fully supported by <a href="https://skupper.io">skupper.io</a>.
@@ -213,7 +213,7 @@ skupper-service-controller-57cdbb56c5-vc7s2   1/1     Running   0          34s</
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="💡"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 If you deployed the Operator to a single namespace, an additional site controller pod is also running.

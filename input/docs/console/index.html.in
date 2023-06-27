@@ -13,7 +13,7 @@ title: Using the Skupper console
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="💡"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 This is a preview feature and may change before becoming fully supported by <a href="https://skupper.io">skupper.io</a>.
@@ -206,7 +206,7 @@ See the <strong>Topology</strong> tab to view how the sites are linked.</p>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="💡"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 The process detail displays the associated image, host, and addresses.
@@ -225,7 +225,7 @@ You can also view the clients that are calling the process.
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
+<i class="fa icon-tip" title="💡"></i>
 </td>
 <td class="content">
 To view information about each window, click the <strong>?</strong> icon.
