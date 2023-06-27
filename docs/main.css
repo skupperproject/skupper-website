@@ -665,3 +665,7 @@ nav.inline-links > a {
 .doc .olist.arabic li {
     margin-bottom: 1em;
 }
+
+.doc .admonitionblock .icon i::after {
+    content: attr(title);
+  }

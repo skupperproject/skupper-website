@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli-reference/skupper_debug_service.html">skupper debug service</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/cli-reference/skupper_debug_service.html">skupper debug service</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -85,15 +85,25 @@
 <div class="title">Synopsis</div>
 <p>Check the internal state of a skupper exposed service</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>skupper debug service &lt;service-name&gt;  --[option]</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs"> skupper debug service &lt;service-name&gt;  --[option]</code></pre>
 </div>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="title">Options</div>
 <div class="content">
-<pre>-v, --verbose   More detailed output (in json)</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">-h, --help      help for service
+-v, --verbose   More detailed output (in json)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Options inherited from parent commands</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">-c, --context string      The kubeconfig context to use
+--kubeconfig string   Path to the kubeconfig file to use
+-n, --namespace string    The Kubernetes namespace to use
+--platform string     The platform type to use [kubernetes, podman]</code></pre>
 </div>
 </div>
 <div class="ulist">

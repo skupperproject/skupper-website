@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/console/index.html">Using the Skupper console</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/console/index.html">Using the Skupper console</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -81,8 +81,90 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>By default, when you create a Skupper site, you also enable the Skupper console.
-The Skupper console URL is displayed whenever you check site status using <code>skupper status</code>.</p>
+<p>The Skupper console provides data and visualizations of the traffic flow between Skupper sites.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="🛈"></i>
+</td>
+<td class="content">
+This is a preview feature and may change before becoming fully supported by <a href="https://skupper.io">skupper.io</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="enabling-console"><a class="anchor" href="#enabling-console"></a>Enabling the Skupper console</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, when you create a Skupper site, a Skupper console is not available.</p>
+</div>
+<div class="paragraph">
+<p>When enabled, the Skupper console URL is displayed whenever you check site status using <code>skupper status</code>.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>A Kubernetes namespace where you plan to create a site</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Determine which site in your service network is best to enable the console.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Enabling the console also requires that you enable the flow-collector component, which requires resources to process traffic data from all sites.
+You might locate the console using the following criteria:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Does the service network cross a firewall?
+For example, if you want the console to be available only inside the firewall, you need to locate the flow-collector and console on a site inside the firewall.</p>
+</li>
+<li>
+<p>Is there a site that processes more traffic than other sites?
+For example, if you have a <em>frontend</em> component that calls a set of services from other sites, it might make sense to locate the flow collector and console on that site to minimize data traffic.</p>
+</li>
+<li>
+<p>Is there a site with more or cheaper resources that you want to use?
+For example, if you have two sites, A and B, and resources are more expensive on site A, you might want to locate the flow collector and console on site B.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Create a site with the flow collector and console enabled:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper init --enable-console --enable-flow-collector</pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="❗"></i>
+</td>
+<td class="content">
+Currently, you must enable the console on the same site as you enable the flow collector. This requirement may change before the console is fully supported by <a href="https://skupper.io">skupper.io</a>.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -90,7 +172,7 @@ The Skupper console URL is displayed whenever you check site status using <code>
 <h2 id="accessing-console"><a class="anchor" href="#accessing-console"></a>Accessing the Skupper console</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>By default, the Skupper console is available whenever you create a service network router and is protected by credentials available in the <code>skupper-console-users</code> secret.</p>
+<p>By default, the Skupper console is protected by credentials available in the <code>skupper-console-users</code> secret.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Procedure</div>
@@ -100,6 +182,7 @@ The Skupper console URL is displayed whenever you check site status using <code>
 <div class="listingblock">
 <div class="content">
 <pre>$ skupper status
+
 Skupper is enabled for namespace "west" in interior mode. It is not connected to any other sites. It has no exposed services.
 The site console url is:  https://skupper-west.apps-crc.testing</pre>
 </div>
@@ -111,13 +194,13 @@ The credential prompt depends on how the site was created using <code>skupper in
 <div class="ulist">
 <ul>
 <li>
-<p>using the <code>--console-auth unsecured</code> option, you are not prompted for credentials.</p>
+<p>Using the <code>--console-auth unsecured</code> option, you are not prompted for credentials.</p>
 </li>
 <li>
-<p>using the <code>--console-auth openshift</code> option, you are prompted to enter OpenShift cluster credentials.</p>
+<p>Using the <code>--console-auth openshift</code> option, you are prompted to enter OpenShift cluster credentials.</p>
 </li>
 <li>
-<p>using the default or <code>--console-user &lt;user&gt;  --console-password &lt;password&gt;</code> options, you are prompted to enter those credentials.</p>
+<p>Using the default or <code>--console-user &lt;user&gt;  --console-password &lt;password&gt;</code> options, you are prompted to enter those credentials.</p>
 </li>
 </ul>
 </div>
@@ -128,6 +211,7 @@ To retrieve the password the <code>admin</code> user:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ kubectl get secret skupper-console-users -o jsonpath={.data.admin} | base64 -d
+
 JNZWzMHtyg</pre>
 </div>
 </div>
@@ -137,152 +221,91 @@ JNZWzMHtyg</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="linking-sites-using-skupper-console"><a class="anchor" href="#linking-sites-using-skupper-console"></a>Linking sites using the Skupper console</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The Skupper console allows you create and use claim type tokens as described in <a href="/docs/cli/index.html">Configuring Skupper sites using the CLI</a>.</p>
-</div>
-<div class="ulist">
-<div class="title">Prerequisites</div>
-<ul>
-<li>
-<p>Two sites, each with Skupper console enabled</p>
-</li>
-<li>
-<p>Google Chrome browser</p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="title">Procedure</div>
-Your browser may prompt you to allow using the clipboard. You must accept that prompt for this procedure.
-</td>
-</tr>
-</table>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Log into the console for the first site.</p>
-</li>
-<li>
-<p>Navigate to <strong>Site</strong> in left hand menu.</p>
-</li>
-<li>
-<p>Click <strong>Link a remote site</strong> to display the steps for linking.</p>
-</li>
-<li>
-<p>Click <strong>Copy a token to the clipboard</strong>.</p>
-</li>
-<li>
-<p>Log into the console for the second site.</p>
-</li>
-<li>
-<p>Navigate to <strong>Site</strong> in left hand menu.</p>
-</li>
-<li>
-<p>Click <strong>Use a token</strong> to accept the token from the first site.</p>
-</li>
-<li>
-<p>Verify that the sites are linked by Checking that both sites are listed in the <strong>Network details</strong> section of the <strong>Site</strong> page.</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="exploring-console"><a class="anchor" href="#exploring-console"></a>Exploring the Skupper console</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>After exposing a service on the service network, you create an <em>address</em>, that is, a service name and port number associated with a site.
+There might be many replicas associated with an address.
+These replicas are shown in the Skupper console as <em>processes</em>.
+Not all participants on a service network are services.
+For example, a <em>frontend</em> deployment might call an exposed service named <em>backend</em>, but that frontend is not part of the service network.
+In the console, both are shown so that you can view the traffic and these are called <em>components</em>.</p>
+</div>
 <div class="paragraph">
 <p>The Skupper console provides an overview of the following:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Services - services that are exposed on the service network, both local and remote.</p>
+<p>Topology</p>
 </li>
 <li>
-<p>Sites - Skupper installations on the current service network.</p>
+<p>Addresses</p>
 </li>
 <li>
-<p>Deployments - deployments relating to exposed services.</p>
+<p>Sites</p>
+</li>
+<li>
+<p>Components</p>
+</li>
+<li>
+<p>Processes</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The Skupper console also provides useful networking information about the service network, for example, traffic levels between sites.</p>
+<p>The Skupper console also provides useful networking information about the service network, for example, traffic levels.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../_images/skupper-console.png" alt="skupper console">
+<img src="../_images/skupper-adservice.png" alt="skupper adservice">
 </div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Perform the <a href="/docs/cli/openshift.html">Creating a service network with OpenShift</a> tutorial.</p>
+<p>Check the <strong>Sites</strong> tab.
+All your sites should be listed.
+See the <strong>Topology</strong> tab to view how the sites are linked.</p>
 </li>
 <li>
-<p>Navigate to the Skupper console.</p>
+<p>Check that all the services you exposed are visible in the <strong>Components</strong> tab.</p>
 </li>
 <li>
-<p>Click the <strong>Network</strong> menu item.
-Both the <strong>east</strong> and <strong>west</strong> sites should be displayed in circles.</p>
+<p>Click a component to show the component details and associated processes.</p>
 </li>
 <li>
-<p>Drag the <strong>west</strong> circle to be on the left of the <strong>east</strong> circle.</p>
-</li>
-<li>
-<p>Click the <strong>Table</strong> tab to display the sites as text items.
-This view allows you drill down into details relating to the selected site.</p>
-</li>
-<li>
-<p>Click the <strong>Deployments</strong> menu item.
-This view shows you any deployments that are exposed as services on the service network.
-In this case, the console displays the <strong>hello-world-backend (east)</strong> deployment.</p>
-</li>
-<li>
-<p>Click the <strong>Services</strong> menu item to display details for all services exposed on the service network.</p>
+<p>Click on a process to display the process traffic.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
-Although two services are involved in the tutorial, only one service, <code>hello-world-backend</code> is exposed on the service network.
+The process detail displays the associated image, host, and addresses.
+You can also view the clients that are calling the process.
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>Click the <strong>Site</strong> menu.
-This page shows:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>The number of sites in the service network.</p>
-</li>
-<li>
-<p>The services that are exposed on the service network.</p>
-</li>
-<li>
-<p>The gateways that are defined in the service network.</p>
-</li>
-<li>
-<p>The traffic for the current site.</p>
-</li>
-</ul>
-</div>
+<p>Click <strong>Addresses</strong> and choose an address to show the details for that address. This shows the set of servers that are exposed across the service network.</p>
 </li>
 </ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="💡"></i>
+</td>
+<td class="content">
+To view information about each window, click the <strong>?</strong> icon.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

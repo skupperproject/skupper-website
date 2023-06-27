@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli-reference/skupper_gateway_expose.html">skupper gateway expose</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/cli-reference/skupper_gateway_expose.html">skupper gateway expose</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -85,35 +85,29 @@
 <div class="title">Synopsis</div>
 <p>Expose a process to the service network (ensure gateway and cluster service)</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>skupper gateway expose &lt;address&gt; &lt;host&gt; &lt;port...&gt;  --[option]</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs"> skupper gateway expose &lt;address&gt; &lt;host&gt; &lt;port...&gt;  --[option]</code></pre>
 </div>
 </div>
-<div class="dlist">
+<div class="listingblock">
 <div class="title">Options</div>
-<dl>
-<dt class="hdlist1">aggregate</dt>
-<dd>
-<p>The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated.
- (string)</p>
-</dd>
-<dt class="hdlist1">event-channel</dt>
-<dd>
-<p>If specified, this service will be a channel for multicast events.
- (bool)</p>
-</dd>
-<dt class="hdlist1">protocol</dt>
-<dd>
-<p>The protocol to gateway (tcp, http or http2). (default "tcp")
- (string)</p>
-</dd>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>The gateway type one of: 'service', 'docker', 'podman' (default "service")
- (string)</p>
-</dd>
-</dl>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">--aggregate string   The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated.
+--event-channel      If specified, this service will be a channel for multicast events.
+-h, --help               help for expose
+--protocol string    The protocol to gateway (tcp, http or http2). (default "tcp")
+--type string        The gateway type one of: 'service', 'docker', 'podman' (default "service")</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Options inherited from parent commands</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">-c, --context string      The kubeconfig context to use
+--kubeconfig string   Path to the kubeconfig file to use
+-n, --namespace string    The Kubernetes namespace to use
+--platform string     The platform type to use [kubernetes, podman]</code></pre>
+</div>
 </div>
 <div class="ulist">
 <div class="title">See also</div>

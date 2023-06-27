@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli-reference/skupper_token_create.html">skupper token create</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/cli-reference/skupper_token_create.html">skupper token create</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -87,32 +87,30 @@ The 'link create' command uses the token to establish a link from a remote Skupp
 <p>Create a token.
 The 'link create' command uses the token to establish a link from a remote Skupper site.</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>skupper token create &lt;output-token-file&gt;  --[option]</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs"> skupper token create &lt;output-token-file&gt;  --[option]</code></pre>
 </div>
 </div>
-<div class="dlist">
+<div class="listingblock">
 <div class="title">Options</div>
-<dl>
-<dt class="hdlist1">expiry</dt>
-<dd>
-<p>Expiration time for claim (only valid if --token-type=claim) (default 15m0s)
- (duration)</p>
-</dd>
-<dt class="hdlist1">name</dt>
-<dd>
-<p>Provide a specific identity as which connecting skupper installation will be authenticated (default "skupper")
- (string)
-  -p, --password string     A password for the claim (only valid if --token-type=claim). If not specified one will be generated.
-  -t, --token-type string   Type of token to create. Valid options are 'claim' or 'cert' (default "claim")</p>
-</dd>
-<dt class="hdlist1">uses</dt>
-<dd>
-<p>Number of uses for which claim will be valid (only valid if --token-type=claim) (default 1)
- (int)</p>
-</dd>
-</dl>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">--expiry duration     Expiration time for claim (only valid if --token-type=claim) (default 15m0s)
+-h, --help                help for create
+--name string         Provide a specific identity as which connecting skupper installation will be authenticated (default "skupper")
+-p, --password string     A password for the claim (only valid if --token-type=claim). If not specified one will be generated.
+-t, --token-type string   Type of token to create. Valid options are 'claim' or 'cert' (default "claim")
+--uses int            Number of uses for which claim will be valid (only valid if --token-type=claim) (default 1)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Options inherited from parent commands</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">-c, --context string      The kubeconfig context to use
+--kubeconfig string   Path to the kubeconfig file to use
+-n, --namespace string    The Kubernetes namespace to use
+--platform string     The platform type to use [kubernetes, podman]</code></pre>
+</div>
 </div>
 <div class="ulist">
 <div class="title">See also</div>

@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli-podman/skupper_token_create.html">skupper token create</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/cli-podman/skupper_token_create.html">skupper token create</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -87,35 +87,24 @@ The 'link create' command uses the token to establish a link from a remote Skupp
 <p>Create a token.
 The 'link create' command uses the token to establish a link from a remote Skupper site.</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>skupper token create &lt;output-token-file&gt;  --[option]</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs"> skupper token create &lt;output-token-file&gt;  --[option]</code></pre>
 </div>
 </div>
-<div class="dlist">
+<div class="listingblock">
 <div class="title">Options</div>
-<dl>
-<dt class="hdlist1">ingress-host</dt>
-<dd>
-<p>Hostname or alias by which the ingress route or proxy can be reached
- (string)</p>
-</dd>
-<dt class="hdlist1">name</dt>
-<dd>
-<p>Provide a specific identity as which connecting skupper installation will be authenticated (default "skupper")
- (string)</p>
-</dd>
-</dl>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">-h, --help                  help for create
+--ingress-host string   Hostname or alias by which the ingress route or proxy can be reached
+--name string           Provide a specific identity as which connecting skupper installation will be authenticated (default "skupper")</code></pre>
 </div>
-<div class="dlist">
+</div>
+<div class="listingblock">
 <div class="title">Options inherited from parent commands</div>
-<dl>
-<dt class="hdlist1">platform</dt>
-<dd>
-<p>The platform type to use [kubernetes, podman]
- (string)</p>
-</dd>
-</dl>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">--platform string   The platform type to use [kubernetes, podman]</code></pre>
+</div>
 </div>
 <div class="ulist">
 <div class="title">See also</div>

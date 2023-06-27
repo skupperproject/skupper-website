@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/policy/index.html">Securing a service network using policies</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/policy/index.html">Securing a service network using policies</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -89,7 +89,7 @@ You specify granular policies to allow only the service network communication yo
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 The policy system is distinct from the <code>network-policy</code> option which restricts access to Skupper services to the current namespace as described in <a href="/docs/cli/index.html">Configuring Skupper sites using the CLI</a>.
@@ -133,7 +133,7 @@ The policy system adds another layer at a cluster level to help a cluster admini
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 In this guide, <em>developers</em> refers to users of a cluster who have access to a namespace, but do not have administrator privileges.
@@ -168,7 +168,7 @@ In this guide, <em>developers</em> refers to users of a cluster who have access 
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 A cluster administrator can apply each policy CR setting to one or more namespaces.
@@ -210,7 +210,7 @@ spec:
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -251,7 +251,7 @@ Note that patterns are not supported.</p>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
+<i class="fa icon-tip" title="💡"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -288,7 +288,7 @@ An operation is permitted if any single policy CR permits the operation.</p>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 If there are existing sites on the cluster, see <a href="#installing-crd-existing-sites">Installing the policy system CRD on a cluster with existing sites</a> to avoid service network disruption.
@@ -317,7 +317,7 @@ If there are existing sites on the cluster, see <a href="#installing-crd-existin
 <p>Download the CRD:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ wget https://raw.githubusercontent.com/skupperproject/skupper/1.0/api/types/crds/skupper_cluster_policy_crd.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ wget https://raw.githubusercontent.com/skupperproject/skupper/1.4/api/types/crds/skupper_cluster_policy_crd.yaml</code></pre>
 </div>
 </div>
 </li>
@@ -406,7 +406,7 @@ You must create those resources again.</p>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 If you are upgrading sites from Skupper version 0.8, you can take advantage of the lack of a policy system in that version and avoid service network disruption by following the procedure described in <a href="#upgrading-existing-sites">Upgrading on a cluster with existing sites</a>.
@@ -487,7 +487,7 @@ This step closes connections and removes all service network services and expose
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 <div class="title">Procedure</div>
@@ -621,7 +621,7 @@ spec:
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 When exposing services, you can use the <code>--address &lt;name&gt;</code> parameter of the <code>skupper</code> CLI to name services to match your policy.
@@ -669,7 +669,7 @@ spec:
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 For <code>allowedExposedResources</code>, each entry must conform to the <code>type/name</code> syntax.

@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli-reference/skupper_expose.html">skupper expose</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/cli-reference/skupper_expose.html">skupper expose</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -85,85 +85,46 @@
 <div class="title">Synopsis</div>
 <p>Expose a set of pods through a Skupper address</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>skupper expose [deployment &lt;name&gt;|pods &lt;selector&gt;|statefulset &lt;statefulsetname&gt;|service &lt;name&gt;]  --[option]</pre>
+<pre class="highlightjs highlight"><code class="language-none hljs"> skupper expose [deployment &lt;name&gt;|pods &lt;selector&gt;|statefulset &lt;statefulsetname&gt;|service &lt;name&gt;|deploymentconfig &lt;name&gt;]  --[option]</code></pre>
 </div>
 </div>
-<div class="dlist">
+<div class="listingblock">
 <div class="title">Options</div>
-<dl>
-<dt class="hdlist1">address</dt>
-<dd>
-<p>The Skupper address to expose
- (string)</p>
-</dd>
-<dt class="hdlist1">enable-tls</dt>
-<dd>
-<p>If specified, the service will be exposed over TLS (valid only for http2 protocol)
- (bool)</p>
-</dd>
-<dt class="hdlist1">headless</dt>
-<dd>
-<p>Expose through a headless service (valid only for a statefulset target)
- (bool)</p>
-</dd>
-<dt class="hdlist1">port</dt>
-<dd>
-<p>The ports to expose on
- (ints)</p>
-</dd>
-<dt class="hdlist1">protocol</dt>
-<dd>
-<p>The protocol to proxy (tcp, http, or http2) (default "tcp")
- (string)</p>
-</dd>
-<dt class="hdlist1">proxy-cpu</dt>
-<dd>
-<p>CPU request for router pods
- (string)</p>
-</dd>
-<dt class="hdlist1">proxy-cpu-limit</dt>
-<dd>
-<p>CPU limit for router pods
- (string)</p>
-</dd>
-<dt class="hdlist1">proxy-memory</dt>
-<dd>
-<p>Memory request for router pods
- (string)</p>
-</dd>
-<dt class="hdlist1">proxy-memory-limit</dt>
-<dd>
-<p>Memory limit for router pods
- (string)</p>
-</dd>
-<dt class="hdlist1">proxy-node-selector</dt>
-<dd>
-<p>Node selector to control placement of router pods
- (string)</p>
-</dd>
-<dt class="hdlist1">proxy-pod-affinity</dt>
-<dd>
-<p>Pod affinity label matches to control placement of router pods
- (string)</p>
-</dd>
-<dt class="hdlist1">proxy-pod-antiaffinity</dt>
-<dd>
-<p>Pod antiaffinity label matches to control placement of router pods
- (string)</p>
-</dd>
-<dt class="hdlist1">publish-not-ready-addresses</dt>
-<dd>
-<p>If specified, skupper will not wait for pods to be ready
- (bool)</p>
-</dd>
-<dt class="hdlist1">target-port</dt>
-<dd>
-<p>The ports to target on pods
- (strings)</p>
-</dd>
-</dl>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">--address string                           The Skupper address to expose
+--aggregate string                         The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated.
+--bridge-image string                      The image to use for a bridge running external to the skupper router
+--enable-ingress-from-target-site string   Determines whether access to the Skupper service is enabled in the site the target was exposed through. Always (default) or Never are valid values.
+--event-channel                            If specified, this service will be a channel for multicast events.
+--generate-tls-secrets                     If specified, the service will be exposed over TLS
+--headless                                 Expose through a headless service (valid only for a statefulset target)
+-h, --help                                     help for expose
+--port ints                                The ports to expose on
+--protocol string                          The protocol to proxy (tcp, http, or http2) (default "tcp")
+--proxy-cpu string                         CPU request for router pods
+--proxy-cpu-limit string                   CPU limit for router pods
+--proxy-memory string                      Memory request for router pods
+--proxy-memory-limit string                Memory limit for router pods
+--proxy-node-selector string               Node selector to control placement of router pods
+--proxy-pod-affinity string                Pod affinity label matches to control placement of router pods
+--proxy-pod-antiaffinity string            Pod antiaffinity label matches to control placement of router pods
+--publish-not-ready-addresses              If specified, skupper will not wait for pods to be ready
+--target-namespace string                  Expose resources from a specific namespace
+--target-port strings                      The ports to target on pods
+--tls-cert string                          K8s secret name with custom certificates to expose the service over TLS
+--tls-trust string                         K8s secret name with the CA to expose the service over TLS</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Options inherited from parent commands</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">-c, --context string      The kubeconfig context to use
+--kubeconfig string   Path to the kubeconfig file to use
+-n, --namespace string    The Kubernetes namespace to use
+--platform string     The platform type to use [kubernetes, podman]</code></pre>
+</div>
 </div>
 <div class="ulist">
 <div class="title">See also</div>

@@ -11,6 +11,21 @@ title: skupper link
 <div class="title">Synopsis</div>
 <p>Manage skupper links definitions</p>
 </div>
+<div class="listingblock">
+<div class="title">Options</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">-h, --help   help for link</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Options inherited from parent commands</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">-c, --context string      The kubeconfig context to use
+--kubeconfig string   Path to the kubeconfig file to use
+-n, --namespace string    The Kubernetes namespace to use
+--platform string     The platform type to use [kubernetes, podman]</code></pre>
+</div>
+</div>
 <div class="ulist">
 <div class="title">See also</div>
 <ul>
@@ -24,7 +39,7 @@ title: skupper link
 <p><a href="skupper_link_delete.html" class="xref page">skupper link delete</a>	 - Remove specified link</p>
 </li>
 <li>
-<p><a href="skupper_link_status.html" class="xref page">skupper link status</a>	 - Check whether a link to another Skupper site is active</p>
+<p><a href="skupper_link_status.html" class="xref page">skupper link status</a>	 - Check whether a link to another Skupper site is connected</p>
 </li>
 </ul>
 </div>

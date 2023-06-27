@@ -1,9 +1,9 @@
 ---
-title: Installing the &lt;code&gt;skupper&lt;/code&gt; CLI
+title: Installing the Skupper CLI
 ---
 
 <article class="doc">
-<h1 class="page">Installing the <code>skupper</code> CLI</h1>
+<h1 class="page">Installing the Skupper CLI</h1>
 <div class="paragraph system:abstract">
 <p>Installing the <code>skupper</code> command-line interface (CLI) provides a simple method to get started with Skupper.</p>
 </div>
@@ -19,7 +19,7 @@ title: Installing the &lt;code&gt;skupper&lt;/code&gt; CLI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/{skupper-version}/skupper-cli-{skupper-version}-linux-amd64.tgz | tar -xzf -</pre>
+<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/1.4/skupper-cli-1.4-linux-amd64.tgz | tar -xzf -</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -27,7 +27,7 @@ title: Installing the &lt;code&gt;skupper&lt;/code&gt; CLI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/{skupper-version}/skupper-cli-{skupper-version}-mac-amd64.tgz | tar -xzf -</pre>
+<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/1.4/skupper-cli-1.4-mac-amd64.tgz | tar -xzf -</pre>
 </div>
 </div>
 </div>
@@ -48,7 +48,7 @@ $ mv skupper $HOME/bin</pre>
 <div class="listingblock">
 <div class="content">
 <pre>$ skupper version
-client version {skupper-cli-version}</pre>
+client version 1.4.1</pre>
 </div>
 </div>
 </li>

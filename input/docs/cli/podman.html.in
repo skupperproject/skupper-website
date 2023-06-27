@@ -14,7 +14,7 @@ Typically, you create a site on a Linux host, allowing you to link to and from o
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 This is a preview feature and may change before becoming fully supported by <a href="https://skupper.io">skupper.io</a>.
@@ -147,7 +147,7 @@ Skupper is enabled for "&lt;username&gt;" with site name "&lt;machine-name&gt;-&
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 You can only create one site per user. If you require a host to support many sites, create a user for each site.
@@ -211,7 +211,7 @@ You can only create one site per user. If you require a host to support many sit
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 Services exposed on Kubernetes are not automatically available to Podman sites.
@@ -287,7 +287,7 @@ OK</pre>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
 <div class="paragraph">
