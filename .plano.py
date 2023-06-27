@@ -45,7 +45,7 @@ def generate_docs(owner="skupperproject", branch="main", output_dir="input/docs"
 
         copy("build/skupper/latest/console", output_dir)
         copy("build/skupper/latest/overview", output_dir)
-        copy("build/skupper/latest/cli", output_dir)
+        copy("build/skupper/latest/cli/", output_dir)
         copy("build/skupper/latest/cli-reference", output_dir)
         copy("build/skupper/latest/cli-podman", output_dir)
         copy("build/skupper/latest/declarative", output_dir)

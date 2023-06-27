@@ -1,17 +1,17 @@
 ---
-title: Exploring a {service-network}
+title: Exploring a service network
 ---
 
 <article class="doc">
-<h1 class="page">Exploring a {service-network}</h1>
+<h1 class="page">Exploring a service network</h1>
 <div class="paragraph">
-<p>Skupper includes a command to allow you report all the sites and the services available on a {service-network}.</p>
+<p>Skupper includes a command to allow you report all the sites and the services available on a service network.</p>
 </div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
 <ul>
 <li>
-<p>A {service-network} with more than one site</p>
+<p>A service network with more than one site</p>
 </li>
 </ul>
 </div>
@@ -19,10 +19,10 @@ title: Exploring a {service-network}
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Set your Kubernetes context to a namespace on the {service-network}.</p>
+<p>Set your Kubernetes context to a namespace on the service network.</p>
 </li>
 <li>
-<p>Use the following command to report the status of the {service-network}:</p>
+<p>Use the following command to report the status of the service network:</p>
 <div class="openblock">
 <div class="content">
 <div class="listingblock">
@@ -67,7 +67,7 @@ title: Exploring a {service-network}
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The URL of the {service-network} router.
+<td>The URL of the service network router.
 This is required for other sites to connect to this site and is different from the console URL.
 If you require the URL of the console, use the <code>skupper status</code> command to display that URL.</td>
 </tr>
@@ -85,19 +85,19 @@ To update a site to the version of the CLI, use <code>skupper update</code>.</td
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>The name of a service exposed on the {service-network}.</td>
+<td>The name of a service exposed on the service network.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>The address of a service exposed on the {service-network}.</td>
+<td>The address of a service exposed on the service network.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>The protocol of a service exposed on the {service-network}.</td>
+<td>The protocol of a service exposed on the service network.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="8"></i><b>8</b></td>
-<td>The unique identifier of a remote site on the {service-network}.</td>
+<td>The unique identifier of a remote site on the service network.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="9"></i><b>9</b></td>
@@ -105,7 +105,7 @@ To update a site to the version of the CLI, use <code>skupper update</code>.</td
 </tr>
 <tr>
 <td><i class="conum" data-value="10"></i><b>10</b></td>
-<td>The name of the local Kubernetes object that is exposed on the {service-network}.
+<td>The name of the local Kubernetes object that is exposed on the service network.
 In this example, this is the <code>hello-world-backend</code> pod.</td>
 </tr>
 </table>
@@ -114,7 +114,7 @@ In this example, this is the <code>hello-world-backend</code> pod.</td>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 <div class="paragraph">

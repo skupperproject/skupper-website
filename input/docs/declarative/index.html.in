@@ -265,7 +265,7 @@ metadata:
 <p>Create a deployment, some pods, or a service in one of your sites, for example:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -278,7 +278,7 @@ metadata:
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ kubectl annotate deployment backend "skupper.io/address=backend" "skupper.io/port=8080" "skupper.io/proxy=tcp"</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ kubectl annotate deployment backend "skupper.io/address=backend" "skupper.io/port=8080" "skupper.io/proxy=tcp"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -303,7 +303,7 @@ For example, if you annotate a simple deployment named <code>backend</code> with
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -312,7 +312,8 @@ For example, if you want to expose the <code>backend</code> service:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ kubectl annotate service backend "skupper.io/address=van-backend" "skupper.io/port=8080" "skupper.io/proxy=tcp" "skupper.io/target=backend"</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ kubectl annotate service backend "skupper.io/address=van-backend" "skupper.io/port=8080" \
+"skupper.io/proxy=tcp" "skupper.io/target=backend"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -331,18 +332,18 @@ For example, if you want to expose the <code>backend</code> service:</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper service status
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service status
 Services exposed through Skupper:
 ╰─ backend (tcp port 8080)
    ╰─ Targets:
-      ╰─ app=hello-world-backend name=hello-world-backend</pre>
+      ╰─ app=hello-world-backend name=hello-world-backend</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 The related targets for services are only displayed when the target is available on the current cluster.
@@ -537,7 +538,7 @@ NOTE: You must enable <code>console</code> and <code>flow-collector</code> for t
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 All ingress types are supported using the same parameters as the <code>skupper</code> CLI.

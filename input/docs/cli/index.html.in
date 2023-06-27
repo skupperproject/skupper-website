@@ -15,7 +15,7 @@ title: Using the Skupper CLI
 </div>
 </div>
 <div class="sect1">
-<h2 id="installing-cli"><a class="anchor" href="#installing-cli"></a>Installing the <code>skupper</code> CLI</h2>
+<h2 id="installing-cli"><a class="anchor" href="#installing-cli"></a>Installing the Skupper CLI</h2>
 <div class="sectionbody">
 <div class="paragraph system:abstract">
 <p>Installing the <code>skupper</code> command-line interface (CLI) provides a simple method to get started with Skupper.</p>
@@ -61,7 +61,7 @@ $ mv skupper $HOME/bin</pre>
 <div class="listingblock">
 <div class="content">
 <pre>$ skupper version
-client version 1.4.0</pre>
+client version 1.4.1</pre>
 </div>
 </div>
 </li>
@@ -102,7 +102,7 @@ This section describes how to create a site using the default settings.</p>
 </div>
 <div class="paragraph">
 <p>Starting with Skupper release 1.3, the console is not enabled by default.
-To use the new console, which is a preview feature and may change, see <a href="#console:flow-console.adoc" class="xref unresolved">console:flow-console.adoc</a>.</p>
+To use the new console, which is a preview feature and may change, see <a href="../console/index.html" class="xref page">Using the Skupper console</a>.</p>
 </div>
 </li>
 <li>
@@ -118,7 +118,7 @@ Skupper is enabled for namespace "west" in interior mode. It is not connected to
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 The default message above is displayed when you initialize a site on a cluster that does not have the policy system installed.
@@ -143,7 +143,7 @@ If you install the policy system as described in <a href="/docs/policy/index.htm
 </div>
 <div class="paragraph">
 <p>Starting with Skupper release 1.3, the console is not enabled by default.
-To use the new console, which is a preview feature and may change, see <a href="#console:flow-console.adoc" class="xref unresolved">console:flow-console.adoc</a>.</p>
+To use the new console, which is a preview feature and may change, see <a href="../console/index.html" class="xref page">Using the Skupper console</a>.</p>
 </div>
 <div class="paragraph">
 <p>If you require a custom configuration, note the following options:</p>
@@ -202,7 +202,7 @@ If not specified, a random passwords is generated.</p>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 All sites are associated with a namespace, called the <em>active namespace</em> in this procedure.
@@ -273,7 +273,7 @@ This section describes how to link sites to form a service network.</p>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -352,7 +352,7 @@ In this case, you can specify a cost of greater than <code>1</code> on the alter
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 The distribution of open connections is statistical, that is, not a round robin system.
@@ -372,7 +372,7 @@ When there is only one path, traffic flows on that path regardless of cost.</p>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 If you start with two targets for a service, and one of the targets is no longer available, traffic flows on the remaining path regardless of cost.
@@ -417,7 +417,7 @@ After this threshold of open connections is reached, new connections are spread 
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 If a service can be called without traversing a link, that service is considered local, with an implicit cost of <code>0</code>.
@@ -463,7 +463,7 @@ You can view the traffic levels corresponding to each client.</p>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 If there are multiple clients on different sites, filter the view to each client to determine the effect of cost on traffic.
@@ -578,7 +578,7 @@ NOTE: You can specify more than one port by repeating this option.</p>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 If you do not specify ports, <code>skupper</code> uses the <code>containerPort</code> value of the deployment.
@@ -718,7 +718,7 @@ However, if you want to expose workloads, for example deployments, you must crea
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 The site does not require the extra permissions granted with the <code>--enable-cluster-permissions</code> to expose a Kubernetes service.
@@ -856,7 +856,7 @@ The site does not require the extra permissions granted with the <code>--enable-
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -1207,7 +1207,7 @@ $ sh ./launch.py</pre>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 Use <code>./launch.py -t podman</code> or <code>./launch.py -t docker</code> to run the Skupper router in a container.
@@ -1253,7 +1253,7 @@ Use <code>./launch.py -t podman</code> or <code>./launch.py -t docker</code> to 
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 You can later remove the gateway using <code>./remove.py</code>.
@@ -1289,7 +1289,7 @@ Gateway Definition:
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 If you need to change the gateway definition, for example to change port, you need to remove the existing gateway and repeat this procedure from the start to redefine the gateway.
@@ -1346,7 +1346,7 @@ If you need to change the gateway definition, for example to change port, you ne
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 If the local service requires more than one port, create separate bindings for each port.
@@ -1390,7 +1390,7 @@ If the local service requires more than one port, create separate bindings for e
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 If the network service requires more than one port, create separate forwards for each port.
@@ -1534,7 +1534,7 @@ In this example, this is the <code>hello-world-backend</code> pod.</td>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-note" title="💡"></i>
 </td>
 <td class="content">
 <div class="paragraph">
