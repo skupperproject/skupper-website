@@ -81,7 +81,7 @@ For example, if you have two sites, A and B, and resources are more expensive on
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-important" title="❗"></i>
 </td>
 <td class="content">
 Currently, you must enable the console on the same site as you enable the flow collector. This requirement may change before the console is fully supported by <a href="https://skupper.io">skupper.io</a>.

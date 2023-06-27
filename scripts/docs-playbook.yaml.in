@@ -20,3 +20,6 @@ asciidoc:
     getting-started-link: /start/index.html
     note-caption: 🛈
     tip-caption: 💡
+    important-caption: ❗
+    warning-caption: ⚠
+    
