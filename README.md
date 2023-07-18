@@ -33,14 +33,15 @@ Serving at http://localhost:8080
 Starting LiveReload v0.9.1 for /home/jross/code/skupper-website-ssorj/output on port 35729.
 ~~~
 
-If you change any of the files or settings in the `config` dir, you
-need to use the `--force` option with `render` or `serve` in order to
-re-render everything in light of the changes.
+If you change any of the files or settings in the `config` or
+`includes` directories, you need to use the `--force` option with
+`render` or `serve` in order to re-render everything in light of the
+changes.
 
 ## Generating the docs
 
-The docs source is in a distinct repo, skupper-docs and are written in
-AsciiDoc.
+The docs source is in a distinct repo, skupper-docs, and are written
+in AsciiDoc.
 
 The process of publishing these docs to the Skupper website uses
 [Antora](https://docs.antora.org) to convert them to HTML.
