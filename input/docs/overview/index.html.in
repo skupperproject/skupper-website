@@ -103,13 +103,13 @@ When a service is exposed, Skupper creates proxy endpoints to make that service 
 <div class="title">Additional information</div>
 <ul>
 <li>
-<p><a href="/docs/overview/security.html">Skupper security</a></p>
+<p><a href="security.html" class="xref page">Skupper security</a></p>
 </li>
 <li>
-<p><a href="/docs/overview/routing.html">Skupper routing</a></p>
+<p><a href="routing.html" class="xref page">Skupper routing</a></p>
 </li>
 <li>
-<p><a href="/docs/overview/connectivity.html">Skupper connectivity</a></p>
+<p><a href="connectivity.html" class="xref page">Skupper connectivity</a></p>
 </li>
 </ul>
 </div>

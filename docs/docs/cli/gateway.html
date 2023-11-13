@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Skupper - Exposing services on the service network from a local machine</title>
+    <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" defer="defer"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" defer="defer"/>
+    <link rel="stylesheet" href="/main.css"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/skupper-icon-32.png"/>
+    <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
+    <script type="text/javascript" src="/main.js" defer="defer"></script>
+
+
+
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-147980770-1');
+    </script>
+  </head>
+  <body>
+
+<header>
+  <nav id="-site-nav">
+    <a id="-site-menu-button" style="display: none;">
+      <span class="material-icons">menu</span>
+    </a>
+    <div>
+      <div id="-left-site-nav">
+        <a href="/index.html" id="-logotype">
+          <img src="/images/skupper-logo.svg"/>
+          <div>Skupper</div>
+        </a>
+        <a href="/start/index.html">
+          <div>Getting started</div>
+        </a>
+        <a href="/examples/index.html">
+          <div>Examples</div>
+        </a>
+        <a href="/docs/index.html">
+          <div>Documentation</div>
+        </a>
+        <a href="/releases/index.html">
+          <div>Releases</div>
+        </a>
+        <a href="/community/index.html">
+          <div>Community</div>
+        </a>
+      </div>
+      <div id="-right-site-nav">
+        <a href="https://github.com/skupperproject">
+          <div><span class="fab fa-github fa-lg"></span> GitHub</div>
+        </a>
+      </div>
+    </div>
+  </nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/index.html">Using the Skupper CLI</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/gateway.html">Exposing services on the service network from a local machine</a></div></nav>
+  <nav id="-site-menu-layer" style="display: none;">
+    <div>
+      <a href="/index.html">Home</a>
+      <a href="/start/index.html">Getting started</a>
+      <a href="/examples/index.html">Examples</a>
+      <a href="/docs/index.html">Documentation</a>
+      <a href="/community/index.html">Community</a>
+    </div>
+  </nav>
+</header>
+
+
+<section id="-main-and-toc">
+  <div>
+    <main>
+
+
+<article class="doc">
+<h1 class="page">Exposing services on the service network from a local machine</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>After creating a service network, you can expose services from a local machine on the service network.</p>
+</div>
+<div class="paragraph">
+<p>For example, if you run a database on a server in your data center, you can deploy a front end in a cluster that can access the data as if the database was running in the cluster.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="exposing-service-gateway"><a class="anchor" href="#exposing-service-gateway"></a>Exposing simple local services to the service network</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section shows how to expose a single service running locally on a service network.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>A service network. Only one site is required.</p>
+</li>
+<li>
+<p>Access to the service network.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Run your service locally.</p>
+</li>
+<li>
+<p>Log into your cluster and change to the namespace for your site.</p>
+</li>
+<li>
+<p>Expose the service on the service network:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway expose &lt;service&gt; localhost &lt;port&gt;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>&lt;service&gt; - the name of the service on the service network.</p>
+</li>
+<li>
+<p>&lt;port&gt; - the port that runs the service locally.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="🛈"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can also expose services from other machines on your local network, for example if MySQL is running on a dedicated server (with an IP address of <code>192.168.1.200</code>), but you are accessing the cluster from a machine in the same network:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper gateway expose mysql 192.168.1.200 3306</pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Check the status of Skupper gateways:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper gateway status
+
+Gateway Definition:
+╰─ machine-user type:service version:1
+   ╰─ Bindings:
+      ╰─ mydb:3306 tcp mydb:3306 localhost 3306</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This shows that there is only one exposed service and that service is only exposing a single port (BIND). There are no ports forwarded to the local host.</p>
+</div>
+<div class="paragraph">
+<p>The URL field shows the underlying communication and can be ignored.</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="exposing-services-gateway"><a class="anchor" href="#exposing-services-gateway"></a>Working with complex local services on the service network</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section shows more advanced usage of skupper gateway.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a Skupper gateway:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway init --type &lt;gateway-type&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default a <em>service</em> type gateway is created, however you can also specify:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>podman</code></p>
+</li>
+<li>
+<p><code>docker</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Create a service that can communicate on the service network:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service create &lt;name&gt; &lt;port&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>&lt;name&gt;</code> is the name of the service you want to create</p>
+</li>
+<li>
+<p><code>&lt;port&gt;</code> is the port the service uses</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service create mydb 3306</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Bind the service on the service network:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway bind &lt;service&gt; &lt;host&gt; &lt;port&gt;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>&lt;service&gt; - the name of the service on the service network, <code>mydb</code> in the example above.</p>
+</li>
+<li>
+<p>&lt;host&gt; - the host that runs the service.</p>
+</li>
+<li>
+<p>&lt;port&gt; - the port the service is running on, <code>3306</code> from the example above.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Check the status of Skupper gateways:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway status
+Gateway Definitions Summary
+
+Gateway Definition:
+╰─ machine-user type:service version:1
+   ╰─ Bindings:
+      ╰─ mydb:3306 tcp mydb:3306 localhost 3306</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This shows that there is only one exposed service and that service is only exposing a single port (BIND). There are no ports forwarded to the local host.</p>
+</div>
+<div class="paragraph">
+<p>The URL field shows the underlying communication and can be ignored.</p>
+</div>
+<div class="paragraph">
+<p>You can create more services in the service network and bind more local services to expose those services on the service network.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Forward a service from the service network to the local machine.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway forward &lt;service&gt; &lt;port&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>&lt;service&gt;</code> is the name of an existing service on the service network.</p>
+</li>
+<li>
+<p><code>&lt;port&gt;</code> is the port on the local machine that you want to use.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="exporting-gateway"><a class="anchor" href="#exporting-gateway"></a>Creating a gateway and applying it on a different machine</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you have access to a cluster from one machine but want to create a gateway to the service network from a different machine, you can create the gateway definition bundle on the first machine and later apply that definition bundle on a second machine as described in this procedure.
+For example, if you want to expose a local database service to the service network, but you never want to access the cluster from the database server, you can use this procedure to create the definition bundle and apply it on the database server.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log into your cluster from the first machine and change to the namespace for your site.</p>
+</li>
+<li>
+<p>Create a service that can communicate on the service network:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service create &lt;name&gt; &lt;port&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>&lt;name&gt;</code> is the name of the service you want to create</p>
+</li>
+<li>
+<p><code>&lt;port&gt;</code> is the port the service uses</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service create database 5432</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Create a YAML file to represent the service you want to expose, for example:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">name: database <i class="conum" data-value="1"></i><b>(1)</b>
+bindings:
+    - name: database <i class="conum" data-value="2"></i><b>(2)</b>
+      host: localhost <i class="conum" data-value="3"></i><b>(3)</b>
+      service:
+        address: database:5432 <i class="conum" data-value="4"></i><b>(4)</b>
+        protocol: tcp <i class="conum" data-value="5"></i><b>(5)</b>
+        ports:
+            - 5432 <i class="conum" data-value="6"></i><b>(6)</b>
+      target_ports:
+        - 5432 <i class="conum" data-value="7"></i><b>(7)</b>
+qdr-listeners:
+    - name: amqp
+      host: localhost
+      port: 5672</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Gateway name, useful for reference only.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Binding name, useful to track multiple bindings.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Name of host providing the service you want to expose.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Service name and port on service network. You created the service in a previous step.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>The protocol you want to use to expose the service, <code>tcp</code>, <code>http</code> or <code>http2</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>The port on the service network that you want this service to be available on.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>The port of the service running on the host specified in point 3.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Save the YAML file using the name of the gateway, for example, <code>gateway.yaml</code>.</p>
+</li>
+<li>
+<p>Generate a bundle that can be applied to the machine that hosts the service you want to expose on the service network:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway generate-bundle &lt;config-filename&gt; &lt;destination-directory&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>&lt;config-filename&gt; - the name of the YAML file, including suffix, that you generated in the previous step.</p>
+</li>
+<li>
+<p>&lt;destination-directory&gt; - the location where you want to save the resulting gateway bundle, for example <code>~/gateways</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway generate-bundle database.yaml ./</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This bundle contains the gateway definition YAML and a  certificate that allow access to the service network.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Copy the gateway definition file, for example, <code>mylaptop-jdoe.tar.gz</code> to the machine that hosts the service you want to expose on the service network.</p>
+</li>
+<li>
+<p>From the machine that hosts the service you want to expose:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ mkdir gateway
+
+$ tar -xvf &lt;gateway-definition-file&gt; --directory gateway
+$ cd gateway
+$ sh ./launch.py</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="🛈"></i>
+</td>
+<td class="content">
+Use <code>./launch.py -t podman</code> or <code>./launch.py -t docker</code> to run the Skupper router in a container.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Running the gateway bundle uses the gateway definition YAML and a certificate to access and expose the service on the service network.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Check the status of the gateway service:</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To check a <em>service</em> type gateway:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ systemctl --user status &lt;gateway-definition-name&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To check a <em>podman</em> type gateway:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ podman inspect</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To check a <em>docker</em> type gateway:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ docker inspect</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="🛈"></i>
+</td>
+<td class="content">
+You can later remove the gateway using <code>./remove.py</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>From the machine with cluster access, check the status of Skupper gateways:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper gateway status
+Gateway Definition:
+╰─ machine-user type:service version:1
+   ╰─ Bindings:
+      ╰─ mydb:3306 tcp mydb:3306 localhost 3306</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This shows that there is only one exposed service and that service is only exposing a single port (BIND). There are no ports forwarded to the local host.</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="🛈"></i>
+</td>
+<td class="content">
+If you need to change the gateway definition, for example to change port, you need to remove the existing gateway and repeat this procedure from the start to redefine the gateway.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gateway-reference"><a class="anchor" href="#gateway-reference"></a>Gateway YAML reference</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="#exporting-gateway">Creating a gateway and applying it on a different machine</a> describes how to create a gateway to apply on a separate machine using a gateway definition YAML file.</p>
+</div>
+<div class="paragraph">
+<p>The following are valid entries in a gateway definition YAML file.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">name</dt>
+<dd>
+<p>Name of gateway</p>
+</dd>
+<dt class="hdlist1">bindings.name</dt>
+<dd>
+<p>Name of binding for a single host.</p>
+</dd>
+<dt class="hdlist1">bindings.host</dt>
+<dd>
+<p>Hostname of local service.</p>
+</dd>
+<dt class="hdlist1">bindings.service</dt>
+<dd>
+<p>Definition of service you want to be available on service network.</p>
+</dd>
+<dt class="hdlist1">bindings.service.address</dt>
+<dd>
+<p>Address on the service network, name and port.</p>
+</dd>
+<dt class="hdlist1">bindings.service.protocol</dt>
+<dd>
+<p>Skupper protocol, <code>tcp</code>, <code>http</code> or <code>http2</code>.</p>
+</dd>
+<dt class="hdlist1">bindings.service.ports</dt>
+<dd>
+<p>A single port that becomes available on the service network.</p>
+</dd>
+<dt class="hdlist1">bindings.service.exposeIngress</dt>
+<dd>
+<p>(optional) The traffic direction, <code>ingress</code> or <code>egress</code>.</p>
+</dd>
+<dt class="hdlist1">bindings.service.tlscredentials</dt>
+<dd>
+<p>(optional) The TLS certificate and key for the service.</p>
+</dd>
+<dt class="hdlist1">bindings.service.tlscertauthority</dt>
+<dd>
+<p>(optional) The TLS public certificate.</p>
+</dd>
+<dt class="hdlist1">bindings.target_ports</dt>
+<dd>
+<p>A single port that you want to expose on the service network.</p>
+</dd>
+</dl>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="🛈"></i>
+</td>
+<td class="content">
+If the local service requires more than one port, create separate bindings for each port.
+</td>
+</tr>
+</table>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">forwards.name</dt>
+<dd>
+<p>Name of forward for a single host.</p>
+</dd>
+<dt class="hdlist1">forwards.host</dt>
+<dd>
+<p>Hostname of local service.</p>
+</dd>
+<dt class="hdlist1">forwards.service</dt>
+<dd>
+<p>Definition of service you want to be available locally.</p>
+</dd>
+<dt class="hdlist1">forwards.service.address</dt>
+<dd>
+<p>Address on the service network that you want to use locally, name and port.</p>
+</dd>
+<dt class="hdlist1">forwards.service.protocol</dt>
+<dd>
+<p>Skupper protocol, <code>tcp</code>, <code>http</code> or <code>http2</code>.</p>
+</dd>
+<dt class="hdlist1">forwards.service.ports</dt>
+<dd>
+<p>A single port that is available on the service network.</p>
+</dd>
+<dt class="hdlist1">forwards.target_ports</dt>
+<dd>
+<p>A single port that you want to use locally.</p>
+</dd>
+</dl>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="🛈"></i>
+</td>
+<td class="content">
+If the network service requires more than one port, create separate forwards for each port.
+</td>
+</tr>
+</table>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">qdr-listeners</dt>
+<dd>
+<p>Definition of skupper router listeners</p>
+</dd>
+<dt class="hdlist1">qdr-listeners.name</dt>
+<dd>
+<p>Name of skupper router, typically <code>amqp</code>.</p>
+</dd>
+<dt class="hdlist1">qdr-listeners.host</dt>
+<dd>
+<p>Hostname for skupper router, typically <code>localhost</code>.</p>
+</dd>
+<dt class="hdlist1">qdr-listeners.port</dt>
+<dd>
+<p>Port for skupper router, typically <code>5672</code>.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</article>
+
+
+    </main>
+    <nav id="-toc">
+      <h4>Contents</h4>
+      <div></div>
+    </nav>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div>
+      <p><a href="https://twitter.com/SkupperIO"><span class="fab fa-twitter fa-lg"></span> Twitter</a></p>
+      <p><a href="https://www.youtube.com/channel/UCQxHN2Qq8koCatcmKCJ4OEA"><span class="fab fa-youtube fa-lg"></span> YouTube</a></p>
+      <!-- <p><a href="https://stackoverflow.com/questions/tagged/skupper"><span class="fab fa-stack-overflow fa-lg"></span> Stack Overflow</a></p> -->
+      <p><a href="https://groups.google.com/forum/#!forum/skupper"><span class="fas fa-envelope fa-lg"></span> Mailing list</a></p>
+      <p><a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span> GitHub</a></p>
+    </div>
+    <div>
+      <h4>Skupper - Multicloud communication for Kubernetes</h4>
+      <p>Skupper enables secure communication across Kubernetes
+        clusters with no VPNs or special firewall rules</p>
+      <p>Copyright &#169; 2023 the Skupper authors</p>
+    </div>
+    <div>
+      <p>All code and documentation is licensed under
+        the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache
+        License version 2.0</a></p>
+      <p>Marks may be trademarks or registered trademarks of their
+        respective owners</p>
+      <p><a href="/site.html">About this site</a></p>
+    </div>
+  </div>
+</footer>
+
+
+
+  </body>
+</html>

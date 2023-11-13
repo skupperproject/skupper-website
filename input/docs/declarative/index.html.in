@@ -6,7 +6,7 @@ title: Configuring Skupper sites using YAML
 <h1 class="page">Configuring Skupper sites using YAML</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph system:abstract">
+<div class="paragraph">
 <p>Using YAML files to configure Skupper allows you to use source control to track and manage Skupper network changes.</p>
 </div>
 </div>
@@ -14,7 +14,7 @@ title: Configuring Skupper sites using YAML
 <div class="sect1">
 <h2 id="installing-using-yaml"><a class="anchor" href="#installing-using-yaml"></a>Installing Skupper using YAML</h2>
 <div class="sectionbody">
-<div class="paragraph system:abstract">
+<div class="paragraph">
 <p>Installing Skupper using YAML provides a declarative method to install Skupper.
 You can store your YAML files in source control to track and manage Skupper network changes.</p>
 </div>
@@ -89,7 +89,7 @@ skupper-site-controller-84694bdbb5-n8slb   1/1     Running   0          75s</pre
 <div class="sect1">
 <h2 id="creating-using-yaml"><a class="anchor" href="#creating-using-yaml"></a>Creating a Skupper site using YAML</h2>
 <div class="sectionbody">
-<div class="paragraph system:abstract">
+<div class="paragraph">
 <p>Using YAML files to create Skupper sites allows you to use source control to track and manage Skupper network changes.</p>
 </div>
 <div class="ulist">
@@ -112,7 +112,7 @@ skupper-site-controller-84694bdbb5-n8slb   1/1     Running   0          75s</pre
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>apiVersion: v1
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">apiVersion: v1
 kind: ConfigMap
 metadata:
   name: skupper-site
@@ -121,7 +121,7 @@ data:
   console: "true"
   console-user: "admin"
   console-password: "changeme"
-  flow-collector: "true"</pre>
+  flow-collector: "true"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -464,7 +464,7 @@ Applies to:</p>
 <div class="sect1">
 <h2 id="site-config-reference"><a class="anchor" href="#site-config-reference"></a>Appendix A: Site ConfigMap YAML reference</h2>
 <div class="sectionbody">
-<div class="paragraph system:abstract">
+<div class="paragraph">
 <p>Using YAML files to configure Skupper requires that you understand all the fields so that you provision the site you require.</p>
 </div>
 <div class="paragraph">

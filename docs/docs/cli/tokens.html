@@ -80,7 +80,7 @@
 <h1 class="page">Using Skupper tokens</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph system:abstract">
+<div class="paragraph">
 <p>Skupper tokens allow you to create links between sites.
 You create a token on one site and use that token from the other site to create a link between the two sites.</p>
 </div>
@@ -151,9 +151,9 @@ Protect it appropriately.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-claim-tokens-skupper-io"><a class="anchor" href="#creating-claim-tokens-skupper-io"></a>Creating claim tokens</h2>
+<h2 id="creating-claim-tokens"><a class="anchor" href="#creating-claim-tokens"></a>Creating claim tokens</h2>
 <div class="sectionbody">
-<div class="paragraph system:abstract">
+<div class="paragraph">
 <p>You can use a claim token to create a link to the site which issued that token.
 It does not includes a certificate from that site, but a certificate is passed from the site when the claim token is used.
 A claim token can be restricted by time or usage.</p>
@@ -209,16 +209,16 @@ Claim tokens are the default, the <code>-t claim</code> section of the command i
 <div class="title">Additional information</div>
 <ul>
 <li>
-<p>See the <a href="/docs/cli/index.html">Configuring Skupper sites using the CLI</a> for information about using the token to create links.</p>
+<p>See the <a href="index.html" class="xref page">Using the Skupper CLI</a> for information about using the token to create links.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-cert-tokens-skupper-io"><a class="anchor" href="#creating-cert-tokens-skupper-io"></a>Creating cert tokens</h2>
+<h2 id="creating-cert-tokens"><a class="anchor" href="#creating-cert-tokens"></a>Creating cert tokens</h2>
 <div class="sectionbody">
-<div class="paragraph system:abstract">
+<div class="paragraph">
 <p>A cert token allows you create many links to the service network from different sites without restrictions.</p>
 </div>
 <div class="olist arabic">
@@ -246,7 +246,7 @@ Claim tokens are the default, the <code>-t claim</code> section of the command i
 <i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
-Cert tokens are always valid and can be reused indefinitely unless revoked as described in <a href="#revoking-access-skupper-io">Revoking access to a site</a>
+Cert tokens are always valid and can be reused indefinitely unless revoked as described in <a href="#revoking-access">Revoking access to a site</a>
 </td>
 </tr>
 </table>
@@ -260,16 +260,16 @@ Cert tokens are always valid and can be reused indefinitely unless revoked as de
 <div class="title">Additional information</div>
 <ul>
 <li>
-<p>See the <a href="/docs/cli/index.html">Configuring Skupper sites using the CLI</a> for information about using the token to create links.</p>
+<p>See the <a href="index.html" class="xref page">Using the Skupper CLI</a> for information about using the token to create links.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="revoking-access-skupper-io"><a class="anchor" href="#revoking-access-skupper-io"></a>Revoking access to a site</h2>
+<h2 id="revoking-access"><a class="anchor" href="#revoking-access"></a>Revoking access to a site</h2>
 <div class="sectionbody">
-<div class="paragraph system:abstract">
+<div class="paragraph">
 <p>If a token is compromised, you can prevent unauthorized use of that token by invalidating  all the tokens created from a site.</p>
 </div>
 <div class="paragraph">
@@ -353,14 +353,6 @@ To recreate the link, you must first delete the link manually from the remote si
 </div>
 </li>
 </ol>
-</div>
-<div class="ulist">
-<div class="title">Additional information</div>
-<ul>
-<li>
-<p>See the <a href="/docs/cli/index.html">Configuring Skupper sites using the CLI</a>.</p>
-</li>
-</ul>
 </div>
 </div>
 </div>

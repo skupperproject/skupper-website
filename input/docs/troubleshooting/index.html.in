@@ -6,7 +6,7 @@ title: Troubleshooting a service network
 <h1 class="page">Troubleshooting a service network</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph system:abstract">
+<div class="paragraph">
 <p>Typically, you can create a service network without referencing this troubleshooting guide.
 However, this guide provides some tips for situations when the service network does not perform as expected.</p>
 </div>
@@ -21,7 +21,7 @@ However, this guide provides some tips for situations when the service network d
 <div class="sect1">
 <h2 id="checking-sites"><a class="anchor" href="#checking-sites"></a>Checking sites</h2>
 <div class="sectionbody">
-<div class="paragraph system:abstract">
+<div class="paragraph">
 <p>Using the <code>skupper</code> command-line interface (CLI) provides a simple method to get started with troubleshooting Skupper.</p>
 </div>
 <div class="olist arabic">
@@ -33,9 +33,9 @@ However, this guide provides some tips for situations when the service network d
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper status --namespace west
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper status --namespace west
 
-Skupper is enabled for namespace "west" in interior mode. It is connected to 2 other sites. It has 1 exposed services.</pre>
+Skupper is enabled for namespace "west" in interior mode. It is connected to 2 other sites. It has 1 exposed services.</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -63,7 +63,7 @@ Skupper is enabled for namespace "west" in interior mode. It is connected to 2 o
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper network status --namespace west
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper network status --namespace west
 
 Sites:
 ├─ [local] 05f8c38 - west
@@ -89,7 +89,7 @@ Sites:
          ╰─ Targets:
             ├─ name: backend-77f8f45fc8-smckp
             ├─ name: backend-77f8f45fc8-gh6tp
-            ╰─ name: backend-77f8f45fc8-m58tg</pre>
+            ╰─ name: backend-77f8f45fc8-m58tg</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -132,11 +132,11 @@ If the output is not what you expected, you might want to <a href="#checking-lin
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper service status
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service status
 Services exposed through Skupper:
 ╰─ backend (tcp port 8080)
    ╰─ Targets:
-      ╰─ app=backend name=backend</pre>
+      ╰─ app=backend name=backend</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -158,12 +158,12 @@ The related targets for services are only displayed when the target is available
 </div>
 </li>
 <li>
-<p>List the events for a site:</p>
+<p>List the Skupper events for a site:</p>
 <div class="openblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper debug events
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper debug events
 NAME                         COUNT                                                          AGE
 GatewayQueryRequest          3                                                              9m12s
                              3     gateway request                                          9m12s
@@ -198,12 +198,32 @@ IpMappingEvent               5                                                  
                                    skupper-service-controller-6c97c5cf5d-6nzph
                              1     172.17.0.3 mapped to skupper-router-547dffdcbf-l8pdc     11m4s
 TokenClaimVerification       1                                                              10m59s
-                             1     Claim for efe3a241-3e4f-11ed-95d0-482ae336eb38 succeeded 10m59s</pre>
+                             1     Claim for efe3a241-3e4f-11ed-95d0-482ae336eb38 succeeded 10m59s</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The output shows sites being linked and a service being exposed on a service network.
 However, this output is most useful when reporting an issue and is included in the Skupper debug tar file.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>List the Kubernetes events for a site:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get events | grep "service/skupper"
+10m         Normal    ServiceSyncEvent               service/skupper                                   Service sync receiver connection to amqps://skupper-router-local.private1.svc.cluster.local:5671 established
+10m         Normal    ServiceSyncEvent               service/skupper                                   Service sync sender connection to amqps://skupper-router-local.private1.svc.cluster.local:5671 established
+10m         Normal    ServiceControllerCreateEvent   service/skupper                                   Creating service productcatalogservice
+7m59s       Normal    TokenHandler                   service/skupper                                   Connecting using token link1
+7m54s       Normal    TokenHandler                   service/skupper                                   Connecting using token link2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output shows events relating to Kubernetes resources.</p>
 </div>
 </div>
 </div>
@@ -251,11 +271,11 @@ You can also generate tokens using the <code>-token-type cert</code> option for 
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper link status --namespace east
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper link status --namespace east
 
 Links created from this site:
 -------------------------------
-Link link1 is connected</pre>
+Link link1 is connected</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -298,14 +318,14 @@ A link from the namespace east on site east(536695a9-26dc-4448-b207-519f56e99b71
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper link status link1 --verbose --namespace east
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper link status link1 --verbose --namespace east
 
  Cost:          1
  Created:       2022-10-24 12:50:33 +0100 IST
  Name:          link1
  Namespace:     east
  Site:          east-536695a9-26dc-4448-b207-519f56e99b71
- Status:        Connected</pre>
+ Status:        Connected</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -350,7 +370,7 @@ For example:</p>
 <pre>$ skupper gateway status
 
 Gateway Definition:
-╰─ machine-user type:podman version:2.4.0
+╰─ machine-user type:podman version:1
    ╰─ Bindings:
       ╰─ mydb:3306 tcp mydb:3306 localhost 3306</pre>
 </div>
@@ -369,7 +389,7 @@ Gateway Definition:
 <div class="content">
 <pre>$ podman ps
 CONTAINER ID  IMAGE                                           COMMAND               CREATED         STATUS             PORTS                   NAMES
-4e308ef8ee58  quay.io/skupper/skupper-router:2.4.0             /home/skrouterd/b...  26 seconds ago  Up 27 seconds ago                          machine-user</pre>
+4e308ef8ee58  quay.io/skupper/skupper-router:1             /home/skrouterd/b...  26 seconds ago  Up 27 seconds ago                          machine-user</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -430,7 +450,7 @@ Skupper dump details written to compressed archive:  `my-site.tar.gz`</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ tar -xvf kind-site.tar.gz
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ tar -xvf kind-site.tar.gz
 
 k8s-versions.txt
 skupper-versions.txt
@@ -451,7 +471,7 @@ skupper-service-controller-7485756984-gvrf6-service-controller-logs.txt
 skupper-site-configmap.yaml
 skupper-services-configmap.yaml
 skupper-internal-configmap.yaml
-skupper-sasl-config-configmap.yaml</pre>
+skupper-sasl-config-configmap.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
