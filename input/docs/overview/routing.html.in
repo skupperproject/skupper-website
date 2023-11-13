@@ -52,13 +52,13 @@ If demand peaks, you can dynamically spill over to public cloud resources.</p>
 <div class="title">Additional information</div>
 <ul>
 <li>
-<p><a href="/docs/overview/index.html">Overview</a></p>
+<p><a href="index.html" class="xref page">Skupper overview</a></p>
 </li>
 <li>
-<p><a href="/docs/overview/security.html">Skupper security</a></p>
+<p><a href="security.html" class="xref page">Skupper security</a></p>
 </li>
 <li>
-<p><a href="/docs/overview/connectivity.html">Skupper connectivity</a></p>
+<p><a href="connectivity.html" class="xref page">Skupper connectivity</a></p>
 </li>
 </ul>
 </div>

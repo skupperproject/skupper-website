@@ -80,7 +80,7 @@
 <h1 class="page">Using Skupper podman</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph system:abstract">
+<div class="paragraph">
 <p>Skupper podman allow you to create a site using containers, without requiring Kubernetes.
 Typically, you create a site on a Linux host, allowing you to link to and from other sites, regardless of whether those sites are running in podman or Kubernetes.</p>
 </div>
@@ -99,7 +99,7 @@ This is a preview feature and may change before becoming fully supported by <a h
 </div>
 </div>
 <div class="sect1">
-<h2 id="about-skupper-io"><a class="anchor" href="#about-skupper-io"></a>About Skupper podman</h2>
+<h2 id="about"><a class="anchor" href="#about"></a>About Skupper podman</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Skupper podman is available with the following precedence:</p>
@@ -141,7 +141,7 @@ podman</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-a-site-skupper-io"><a class="anchor" href="#creating-a-site-skupper-io"></a>Creating a site using Skupper podman</h2>
+<h2 id="creating-a-site"><a class="anchor" href="#creating-a-site"></a>Creating a site using Skupper podman</h2>
 <div class="sectionbody">
 <div class="ulist">
 <div class="title">Prerequisites</div>
@@ -151,6 +151,43 @@ podman</pre>
 </li>
 <li>
 <p>Podman is installed, see <a href="https://podman.io/" class="bare">https://podman.io/</a></p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>By default, Podman v4 uses Netavark which works with Skupper.
+If you are using CNI, for example, if you upgrade from Podman v3, you must also install the <code>podman-plugins</code> package.
+For example, <code>dnf install podman-plugins</code> for RPM based distributions.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="🛈"></i>
+</td>
+<td class="content">
+CNI will be deprecated in the future in preference of Netavark.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Podman service endpoint.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Use <code>systemctl status podman.socket</code> to make sure the Podman API Socket is running.</p>
+</div>
+<div class="paragraph">
+<p>Use <code>systemctl --user enable --now podman.socket</code> to start the  Podman API Socket.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://github.com/containers/podman/blob/main/docs/tutorials/socket_activation.md">Podman socket activation</a> for information about enabling this endpoint.</p>
+</div>
+</div>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -159,7 +196,7 @@ podman</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ export SKUPPER_PLATFORM=podman</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ export SKUPPER_PLATFORM=podman</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -213,8 +250,8 @@ Skupper is now installed for user '&lt;username&gt;'.  Use 'skupper status' to g
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper status
-Skupper is enabled for "&lt;username&gt;" with site name "&lt;machine-name&gt;-&lt;username&gt;" in interior mode. It is not connected to any other sites. It has no exposed services.</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper status
+Skupper is enabled for "&lt;username&gt;" with site name "&lt;machine-name&gt;-&lt;username&gt;" in interior mode. It is not connected to any other sites. It has no exposed services.</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -331,9 +368,9 @@ No services defined</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ podman run -it --rm --network=skupper --name=myubi ubi8/ubi curl backend:8080/api/health
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ podman run -it --rm --network=skupper --name=myubi ubi8/ubi curl backend:8080/api/health
 
-OK</pre>
+OK</code></pre>
 </div>
 </div>
 <div class="paragraph">

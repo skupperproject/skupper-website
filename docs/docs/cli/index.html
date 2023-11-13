@@ -91,7 +91,7 @@
 <div class="sect1">
 <h2 id="installing-cli"><a class="anchor" href="#installing-cli"></a>Installing the Skupper CLI</h2>
 <div class="sectionbody">
-<div class="paragraph system:abstract">
+<div class="paragraph">
 <p>Installing the <code>skupper</code> command-line interface (CLI) provides a simple method to get started with Skupper.</p>
 </div>
 <div class="olist arabic">
@@ -135,7 +135,7 @@ $ mv skupper $HOME/bin</pre>
 <div class="listingblock">
 <div class="content">
 <pre>$ skupper version
-client version 1.4.1</pre>
+client version 1.4</pre>
 </div>
 </div>
 </li>
@@ -196,7 +196,7 @@ Skupper is enabled for namespace "west" in interior mode. It is not connected to
 </td>
 <td class="content">
 The default message above is displayed when you initialize a site on a cluster that does not have the policy system installed.
-If you install the policy system as described in <a href="/docs/policy/index.html">Securing a service network using policies</a>, the message becomes <code>Skupper is enabled for namespace "west" in interior mode (with policies)</code>.
+If you install the policy system as described in <a href="../policy/index.html" class="xref page">Securing a service network using policies</a>, the message becomes <code>Skupper is enabled for namespace "west" in interior mode (with policies)</code>.
 </td>
 </tr>
 </table>
@@ -334,7 +334,7 @@ This section describes how to link sites to form a service network.</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper token create &lt;filename&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper token create &lt;filename&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -355,7 +355,7 @@ This section describes how to link sites to form a service network.</p>
 Protect it appropriately.</p>
 </div>
 <div class="paragraph">
-<p>For more information about protecting access to the service network, see <a href="/docs/cli/tokens.html">Using Skupper tokens</a>.</p>
+<p>For more information about protecting access to the service network, see <a href="tokens.html" class="xref page">Using Skupper tokens</a>.</p>
 </div>
 </td>
 </tr>
@@ -481,7 +481,7 @@ After this threshold of open connections is reached, new connections are spread 
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper link create &lt;filename&gt; --cost &lt;integer-cost&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper link create &lt;filename&gt; --cost &lt;integer-cost&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -599,7 +599,7 @@ See <a href="#exposing-complex-services">Exposing complex services on the servic
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper expose [deployment &lt;name&gt;|pods &lt;selector&gt;|statefulset &lt;statefulsetname&gt;|service &lt;name&gt;]</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper expose [deployment &lt;name&gt;|pods &lt;selector&gt;|statefulset &lt;statefulsetname&gt;|service &lt;name&gt;]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -686,7 +686,7 @@ If you do not specify ports, <code>skupper</code> uses the <code>containerPort</
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper service create &lt;name&gt; &lt;port&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service create &lt;name&gt; &lt;port&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -719,7 +719,7 @@ If you do not specify ports, <code>skupper</code> uses the <code>containerPort</
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper service bind &lt;service-name&gt; &lt;target-type&gt; &lt;target-name&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service bind &lt;service-name&gt; &lt;target-type&gt; &lt;target-name&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -780,7 +780,7 @@ However, if you want to expose workloads, for example deployments, you must crea
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper init --enable-cluster-permissions</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper init --enable-cluster-permissions</code></pre>
 </div>
 </div>
 </div>
@@ -808,7 +808,7 @@ The site does not require the extra permissions granted with the <code>--enable-
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper expose service &lt;service&gt;.&lt;namespace&gt; --address &lt;service&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper expose service &lt;service&gt;.&lt;namespace&gt; --address &lt;service&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -838,7 +838,7 @@ The site does not require the extra permissions granted with the <code>--enable-
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper expose &lt;resource&gt; --port &lt;port-number&gt; --target-namespace &lt;namespace&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper expose &lt;resource&gt; --port &lt;port-number&gt; --target-namespace &lt;namespace&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -913,7 +913,7 @@ The site does not require the extra permissions granted with the <code>--enable-
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper gateway expose &lt;service&gt; localhost &lt;port&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway expose &lt;service&gt; localhost &lt;port&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -957,7 +957,7 @@ The site does not require the extra permissions granted with the <code>--enable-
 <pre>$ skupper gateway status
 
 Gateway Definition:
-╰─ machine-user type:service version:2.4.0
+╰─ machine-user type:service version:1
    ╰─ Bindings:
       ╰─ mydb:3306 tcp mydb:3306 localhost 3306</pre>
 </div>
@@ -1012,7 +1012,7 @@ Gateway Definition:
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper service create &lt;name&gt; &lt;port&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service create &lt;name&gt; &lt;port&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1033,7 +1033,7 @@ Gateway Definition:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper service create mydb 3306</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service create mydb 3306</code></pre>
 </div>
 </div>
 </div>
@@ -1045,7 +1045,7 @@ Gateway Definition:
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper gateway bind &lt;service&gt; &lt;host&gt; &lt;port&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway bind &lt;service&gt; &lt;host&gt; &lt;port&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -1070,13 +1070,13 @@ Gateway Definition:
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper gateway status
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway status
 Gateway Definitions Summary
 
 Gateway Definition:
-╰─ machine-user type:service version:2.4.0
+╰─ machine-user type:service version:1
    ╰─ Bindings:
-      ╰─ mydb:3306 tcp mydb:3306 localhost 3306</pre>
+      ╰─ mydb:3306 tcp mydb:3306 localhost 3306</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1097,7 +1097,7 @@ Gateway Definition:
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper gateway forward &lt;service&gt; &lt;port&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway forward &lt;service&gt; &lt;port&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1137,7 +1137,7 @@ For example, if you want to expose a local database service to the service netwo
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper service create &lt;name&gt; &lt;port&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service create &lt;name&gt; &lt;port&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1158,7 +1158,7 @@ For example, if you want to expose a local database service to the service netwo
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper service create database 5432</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service create database 5432</code></pre>
 </div>
 </div>
 </div>
@@ -1231,7 +1231,7 @@ qdr-listeners:
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper gateway generate-bundle &lt;config-filename&gt; &lt;destination-directory&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway generate-bundle &lt;config-filename&gt; &lt;destination-directory&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1252,7 +1252,7 @@ qdr-listeners:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper gateway generate-bundle database.yaml ./</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway generate-bundle database.yaml ./</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1270,11 +1270,11 @@ qdr-listeners:
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ mkdir gateway
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ mkdir gateway
 
 $ tar -xvf &lt;gateway-definition-file&gt; --directory gateway
 $ cd gateway
-$ sh ./launch.py</pre>
+$ sh ./launch.py</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -1304,7 +1304,7 @@ Use <code>./launch.py -t podman</code> or <code>./launch.py -t docker</code> to 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ systemctl --user status &lt;gateway-definition-name&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ systemctl --user status &lt;gateway-definition-name&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1312,7 +1312,7 @@ Use <code>./launch.py -t podman</code> or <code>./launch.py -t docker</code> to 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ podman inspect</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ podman inspect</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1320,7 +1320,7 @@ Use <code>./launch.py -t podman</code> or <code>./launch.py -t docker</code> to 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ docker inspect</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ docker inspect</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -1346,7 +1346,7 @@ You can later remove the gateway using <code>./remove.py</code>.
 <div class="content">
 <pre>$ skupper gateway status
 Gateway Definition:
-╰─ machine-user type:service version:2.4.0
+╰─ machine-user type:service version:1
    ╰─ Bindings:
       ╰─ mydb:3306 tcp mydb:3306 localhost 3306</pre>
 </div>
@@ -1410,7 +1410,19 @@ If you need to change the gateway definition, for example to change port, you ne
 <dd>
 <p>A single port that becomes available on the service network.</p>
 </dd>
-<dt class="hdlist1">bindings.service.target_ports</dt>
+<dt class="hdlist1">bindings.service.exposeIngress</dt>
+<dd>
+<p>(optional) The traffic direction, <code>ingress</code> or <code>egress</code>.</p>
+</dd>
+<dt class="hdlist1">bindings.service.tlscredentials</dt>
+<dd>
+<p>(optional) The TLS certificate and key for the service.</p>
+</dd>
+<dt class="hdlist1">bindings.service.tlscertauthority</dt>
+<dd>
+<p>(optional) The TLS public certificate.</p>
+</dd>
+<dt class="hdlist1">bindings.target_ports</dt>
 <dd>
 <p>A single port that you want to expose on the service network.</p>
 </dd>
@@ -1454,7 +1466,7 @@ If the local service requires more than one port, create separate bindings for e
 <dd>
 <p>A single port that is available on the service network.</p>
 </dd>
-<dt class="hdlist1">forwards.service.target_ports</dt>
+<dt class="hdlist1">forwards.target_ports</dt>
 <dd>
 <p>A single port that you want to use locally.</p>
 </dd>
@@ -1496,7 +1508,7 @@ If the network service requires more than one port, create separate forwards for
 </div>
 </div>
 <div class="sect1">
-<h2 id="network-service-skupper-io"><a class="anchor" href="#network-service-skupper-io"></a>Exploring a service network</h2>
+<h2 id="network-service"><a class="anchor" href="#network-service"></a>Exploring a service network</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Skupper includes a command to allow you report all the sites and the services available on a service network.</p>
@@ -1638,7 +1650,7 @@ In this example, this is the <code>hello-world-backend</code> pod.</td>
 This section describes additional security you can configure.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="/docs/policy/index.html">Securing a service network using policies</a> for information about creating granular policies for each cluster.</p>
+<p>See <a href="../policy/index.html" class="xref page">Securing a service network using policies</a> for information about creating granular policies for each cluster.</p>
 </div>
 <div class="sect2">
 <h3 id="network-policy"><a class="anchor" href="#network-policy"></a>Restricting access to services using network-policy</h3>
@@ -1792,7 +1804,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 </div>
 </div>
 <div class="sect1">
-<h2 id="protocols-skupper-io"><a class="anchor" href="#protocols-skupper-io"></a>Supported standards and protocols</h2>
+<h2 id="protocols"><a class="anchor" href="#protocols"></a>Supported standards and protocols</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Skupper supports the following protocols for your service network:</p>
@@ -1856,8 +1868,30 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 </div>
 </div>
 <div class="sect1">
-<h2 id="cli-global-options"><a class="anchor" href="#cli-global-options"></a>CLI options for working with different clusters</h2>
+<h2 id="cli-global-options"><a class="anchor" href="#cli-global-options"></a>CLI options</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>For a full list of options, see the <a href="../cli-reference/skupper.html" class="xref page">Kubernetes</a> and <a href="../cli-podman/skupper.html" class="xref page">Podman</a> reference documentation.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="⚠"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When you create a site and set logging level to <code>trace</code>, you can inadvertently log sensitive information from HTTP headers.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ skupper init --router-logging trace</pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>By default, all <code>skupper</code> commands apply to the cluster you are logged into and the current namespace.
 The following <code>skupper</code> options allow you to override that behavior and apply to all commands:</p>

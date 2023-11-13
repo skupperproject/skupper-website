@@ -21,7 +21,7 @@ When you define a service using Skupper, that service appears as a native servic
 <dt class="hdlist1">site</dt>
 <dd>
 <p>A Skupper site is an Skupper installation.
-You <em>link</em> sites to form a service network and share services</p>
+You <em>link</em> sites to form a service network and share services. You can create sites in a Kubernetes namespace or for a Linux user.</p>
 </dd>
 <dt class="hdlist1">link</dt>
 <dd>

@@ -4,7 +4,7 @@ title:
 
 <article class="doc">
 <div class="sect1">
-<h2 id="creating-site-using-operator-skupper-io"><a class="anchor" href="#creating-site-using-operator-skupper-io"></a>Creating a site using the Skupper Operator</h2>
+<h2 id="creating-site-using-operator"><a class="anchor" href="#creating-site-using-operator"></a>Creating a site using the Skupper Operator</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">

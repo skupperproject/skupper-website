@@ -18,7 +18,7 @@ You specify granular policies to allow only the service network communication yo
 <i class="fa icon-note" title="🛈"></i>
 </td>
 <td class="content">
-The policy system is distinct from the <code>network-policy</code> option which restricts access to Skupper services to the current namespace as described in <a href="/docs/cli/index.html">Configuring Skupper sites using the CLI</a>.
+The policy system is distinct from the <code>network-policy</code> option which restricts access to Skupper services to the current namespace as described in <a href="../cli/index.html" class="xref page">Using the Skupper CLI</a>.
 </td>
 </tr>
 </table>
@@ -127,7 +127,7 @@ spec:
   allowIncomingLinks: true
   allowedExposedResources:
     - "deployment/nginx"
-  allowedOutgoingLinksHostnames: [".*\\.example.com$"]
+  allowedOutgoingLinksHostnames: [".*\.example.com$"]
   allowedServices:
     - "*"</code></pre>
 </div>
@@ -186,7 +186,7 @@ Note that patterns are not supported.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>.*\\.com$</code> matches any string ending in <code>.com</code>.
+<p><code>.*\.com$</code> matches any string ending in <code>.com</code>.
 A double backslash is required to avoid issues in YAML.</p>
 </li>
 <li>
@@ -504,7 +504,7 @@ metadata:
 spec:
   namespaces:
     - "*"
-  allowedOutgoingLinksHostnames: ['.*\\.example\\.com']</code></pre>
+  allowedOutgoingLinksHostnames: ['.*\.example\.com']</code></pre>
 </div>
 </div>
 </div>

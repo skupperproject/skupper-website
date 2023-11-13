@@ -10,7 +10,7 @@ title: Using the Skupper Operator on Kubernetes
 <p>The Skupper Operator creates and manages Skupper sites in Kubernetes.</p>
 </div>
 <div class="paragraph">
-<p>You can install the Operator as described in <a href="#installing-operator-using-cli-skupper-io">Installing the Operator using the CLI</a>.</p>
+<p>You can install the Operator as described in <a href="#installing-operator-using-cli">Installing the Operator using the CLI</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -27,12 +27,12 @@ title: Using the Skupper Operator on Kubernetes
 </table>
 </div>
 <div class="paragraph">
-<p>After installing the Operator, you can create a site by deploying a ConfigMap as described in <a href="#creating-site-using-operator-skupper-io">Creating a site using the Skupper Operator</a></p>
+<p>After installing the Operator, you can create a site by deploying a ConfigMap as described in <a href="#creating-site-using-operator">Creating a site using the Skupper Operator</a></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="installing-operator-using-cli-skupper-io"><a class="anchor" href="#installing-operator-using-cli-skupper-io"></a>Installing the Operator using the CLI</h2>
+<h2 id="installing-operator-using-cli"><a class="anchor" href="#installing-operator-using-cli"></a>Installing the Operator using the CLI</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The steps in this section show how to use the <code>kubectl</code> command-line interface (CLI) to install and deploy the latest version of the Skupper Operator in a given Kubernetes cluster.</p>
@@ -137,7 +137,7 @@ skupper-site-controller-d7b57964-gxms6   1/1     Running   0          1m</code><
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-site-using-operator-skupper-io"><a class="anchor" href="#creating-site-using-operator-skupper-io"></a>Creating a site using the Skupper Operator</h2>
+<h2 id="creating-site-using-operator"><a class="anchor" href="#creating-site-using-operator"></a>Creating a site using the Skupper Operator</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
