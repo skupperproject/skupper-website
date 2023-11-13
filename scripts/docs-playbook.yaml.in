@@ -15,6 +15,8 @@ asciidoc:
     plantuml-fetch-diagram: true
     mod-loc: ROOT:partial$
     skupper-io: true
+    skupper-version: 1.5.0
+    skupper-cli-version: 1.5.0
     context: skupper-io
     linkroot: /docs/
     getting-started-link: /start/index.html
