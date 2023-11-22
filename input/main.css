@@ -39,7 +39,7 @@
     --code-label-bg-color-session-2: rgba(0, 64, 127, 0.06);
     --code-label-border-color-session-2: rgba(0, 64, 127, 0.3);
     --code-fg-color: rgba(0, 0, 0, 0.95);
-    --code-bg-color: rgba(0, 0, 0, 0.03);
+    --code-bg-color: rgba(247, 247, 247, 1.0);
     --heading-font-family: "Alegreya Sans", sans-serif;
     --body-font-family: "Lato", sans-serif;
     --mono-font-family: "Roboto Mono", monospace;
@@ -87,22 +87,34 @@ pre {
     font-size: 10pt;
     font-weight: 400;
     color: var(--code-fg-color);
+    position: relative;
 }
 
 a.copy-button {
-    display: none;
+    position: sticky;
+    left: 100%;
+    height: 0;
+    width: 0;
+    overflow: visible;
 }
 
 a.copy-button > span {
-    color: var(--code-fg-color);
+    color: var(--code-bg-color);
     font-size: 1.2em;
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
 }
 
-pre:hover a.copy-button {
-    display: block;
-    float: right;
-    padding: 0 0.2em;
-    cursor: pointer;
+pre:hover a.copy-button > span {
+    color: var(--code-fg-color);
+}
+
+a.copy-button:active > span {
+    top: 1px;
+    right: -1px;
 }
 
 p code, li code {

@@ -157,6 +157,8 @@ if (navigator.clipboard) {
         for (let pre of $$("pre")) {
             const code = pre.$("code");
 
+            if (!code) continue;
+
             const button = document.createElement("a");
             button.classList.add("copy-button");
 
