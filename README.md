@@ -54,8 +54,12 @@ The process of publishing these docs to the Skupper website uses
 
 ## Updating the site for new Skupper releases
 
-1. Update the `skupper_release` and `skupper_release_date` variables
-   in `config/config.py`.
-2. Add an entry for the previous release to `releases/index.md` in the
-   "Previous releases" section.
-3. Run `plano render --force` to update the site.
+Run the `generate-releases` command:
+
+~~~ console
+./plano generate-releases
+./plano render --force
+~~~
+
+This fetches release data from GitHub and updates the site for new
+releases.

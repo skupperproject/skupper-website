@@ -19,6 +19,8 @@
 
 from transom.planocommands import *
 
+import datetime as _datetime
+
 site.output_dir = "docs"
 
 @command
@@ -126,6 +128,65 @@ def generate_examples(output_file="input/examples/index.html.in"):
     write(output_file, "\n".join(out))
 
 @command
+def generate_releases(output_file="input/releases/index.md"):
+    """
+    Generate the release index using data from GitHub
+    """
+
+    _update_release_data()
+
+    releases = read_json("data/releases.json")
+    latest_release_version = releases["latest_release"]["version"]
+    out = list()
+
+    for release in releases["releases"]:
+        version = release["version"]
+
+        if version == latest_release_version:
+            continue
+
+        url = release["url"]
+        date = parse_timestamp(release["date"])
+
+        out.append(f"* [{version}]({url}) - {date.day} {date.strftime('%B %Y')}")
+
+    releases = "\n".join(out)
+    markdown = read("config/releases.md.in").replace("@releases@", releases)
+    output_file = get_absolute_path(output_file)
+
+    write(output_file, markdown)
+
+def _update_release_data():
+    releases = http_get_json("https://api.github.com/repos/skupperproject/skupper/releases?per_page=100")
+    latest_release = http_get_json("https://api.github.com/repos/skupperproject/skupper/releases/latest")
+
+    data = dict()
+
+    latest_release_tag = latest_release["tag_name"]
+
+    data["latest_release"] = {
+        "version": latest_release_tag,
+        "url": "https://github.com/skupperproject/skupper/releases/tag/{latest_release_tag}",
+        "date": latest_release["published_at"],
+    }
+
+    data["releases"] = list()
+
+    for release in releases:
+        if release["prerelease"] or release["draft"]:
+            continue
+
+        release_tag = release["tag_name"]
+
+        data["releases"].append({
+            "version": release_tag,
+            "url": f"https://github.com/skupperproject/skupper/releases/tag/{release_tag}",
+            "date": release["published_at"],
+        })
+
+    write_json("data/releases.json", data)
+
+@command
 def test():
     render()
     check_links()
@@ -136,3 +197,12 @@ def test():
             run("cat docs/install.sh | sh", shell=True)
 
         generate_docs(output_dir=d)
+
+def parse_timestamp(timestamp, format="%Y-%m-%dT%H:%M:%SZ"):
+    if timestamp is None:
+        return None
+
+    dt = _datetime.datetime.strptime(timestamp, format)
+    dt = dt.replace(tzinfo=_datetime.timezone.utc)
+
+    return dt

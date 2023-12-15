@@ -24,44 +24,45 @@ Skupper](/install/index.html).
 
 ## Previous releases
 
-<div style="column-count: 2;">
+<div style="column-count: 3;">
 
-* [1.4.3](https://github.com/skupperproject/skupper/releases/tag/1.4.3) - September 2023
-* [1.4.2](https://github.com/skupperproject/skupper/releases/tag/1.4.2) - July 2023
-* [1.4.1](https://github.com/skupperproject/skupper/releases/tag/1.4.1) - June 2023
-* [1.3.0](https://github.com/skupperproject/skupper/releases/tag/1.3.0) - March 2023
-* [1.2.5](https://github.com/skupperproject/skupper/releases/tag/1.2.5) - March 2023
-* [1.2.4](https://github.com/skupperproject/skupper/releases/tag/1.2.4) - March 2023
-* [1.2.3](https://github.com/skupperproject/skupper/releases/tag/1.2.3) - February 2023
-* [1.2.2](https://github.com/skupperproject/skupper/releases/tag/1.2.2) - January 2023
-* [1.2.1](https://github.com/skupperproject/skupper/releases/tag/1.2.1) - January 2023
-* [1.2.0](https://github.com/skupperproject/skupper/releases/tag/1.2.0) - November 2022
-* [1.1.1](https://github.com/skupperproject/skupper/releases/tag/1.1.1) - October 2022
-* [1.1.0](https://github.com/skupperproject/skupper/releases/tag/1.1.0) - October 2022
-* [1.0.2](https://github.com/skupperproject/skupper/releases/tag/1.0.2) - June 2022
-* [1.0.1](https://github.com/skupperproject/skupper/releases/tag/1.0.1) - June 2022
-* [1.0.0](https://github.com/skupperproject/skupper/releases/tag/1.0.0) - May 2022
-* [0.8.7](https://github.com/skupperproject/skupper/releases/tag/0.8.7) - March 2022
-* [0.8.6](https://github.com/skupperproject/skupper/releases/tag/0.8.6) - February 2022
-* [0.8.5](https://github.com/skupperproject/skupper/releases/tag/0.8.5) - January 2022
-* [0.8.4](https://github.com/skupperproject/skupper/releases/tag/0.8.4) - December 2021
-* [0.8.3](https://github.com/skupperproject/skupper/releases/tag/0.8.3) - November 2021
-* [0.8.2](https://github.com/skupperproject/skupper/releases/tag/0.8.2) - November 2021
-* [0.8.1](https://github.com/skupperproject/skupper/releases/tag/0.8.1) - November 2021
-* [0.8.0](https://github.com/skupperproject/skupper/releases/tag/0.8.0) - October 2021
-* [0.7.0](https://github.com/skupperproject/skupper/releases/tag/0.7.0) - July 2021
-* [0.6.0](https://github.com/skupperproject/skupper/releases/tag/0.6.0) - May 2021
-* [0.5.3](https://github.com/skupperproject/skupper/releases/tag/0.5.3) - April 2021
-* [0.5.2](https://github.com/skupperproject/skupper/releases/tag/0.5.2) - March 2021
-* [0.5.1](https://github.com/skupperproject/skupper/releases/tag/0.5.1) - March 2021
-* [0.5.0](https://github.com/skupperproject/skupper/releases/tag/0.5.0) - March 2021
-* [0.4.2](https://github.com/skupperproject/skupper/releases/tag/0.4.2) - January 2021
-* [0.4.1](https://github.com/skupperproject/skupper/releases/tag/0.4.1) - January 2021
-* [0.4.0](https://github.com/skupperproject/skupper/releases/tag/0.4.0) - December 2020
-* [0.3.2](https://github.com/skupperproject/skupper/releases/tag/0.3.2) - September 2020
-* [0.3.1](https://github.com/skupperproject/skupper/releases/tag/0.3.1) - August 2020
-* [0.3.0](https://github.com/skupperproject/skupper/releases/tag/0.3.0) - July 2020
-* [0.2.0](https://github.com/skupperproject/skupper/releases-cli/tag/0.2.0) - April 2020
+* [1.4.4](https://github.com/skupperproject/skupper/releases/tag/1.4.4) - 15 November 2023
+* [1.5.0](https://github.com/skupperproject/skupper/releases/tag/1.5.0) - 10 November 2023
+* [1.4.3](https://github.com/skupperproject/skupper/releases/tag/1.4.3) - 20 September 2023
+* [1.2.8](https://github.com/skupperproject/skupper/releases/tag/1.2.8) - 29 August 2023
+* [1.4.2](https://github.com/skupperproject/skupper/releases/tag/1.4.2) - 19 July 2023
+* [1.2.7](https://github.com/skupperproject/skupper/releases/tag/1.2.7) - 5 July 2023
+* [1.4.1](https://github.com/skupperproject/skupper/releases/tag/1.4.1) - 21 June 2023
+* [1.2.6](https://github.com/skupperproject/skupper/releases/tag/1.2.6) - 4 May 2023
+* [1.2.5](https://github.com/skupperproject/skupper/releases/tag/1.2.5) - 27 March 2023
+* [1.3.0](https://github.com/skupperproject/skupper/releases/tag/1.3.0) - 10 March 2023
+* [1.2.4](https://github.com/skupperproject/skupper/releases/tag/1.2.4) - 9 March 2023
+* [1.2.3](https://github.com/skupperproject/skupper/releases/tag/1.2.3) - 8 February 2023
+* [1.2.2](https://github.com/skupperproject/skupper/releases/tag/1.2.2) - 18 January 2023
+* [1.2.1](https://github.com/skupperproject/skupper/releases/tag/1.2.1) - 11 January 2023
+* [1.2.0](https://github.com/skupperproject/skupper/releases/tag/1.2.0) - 14 November 2022
+* [1.1.1](https://github.com/skupperproject/skupper/releases/tag/1.1.1) - 7 October 2022
+* [1.1.0](https://github.com/skupperproject/skupper/releases/tag/1.1.0) - 3 October 2022
+* [1.0.2](https://github.com/skupperproject/skupper/releases/tag/1.0.2) - 14 June 2022
+* [1.0.1](https://github.com/skupperproject/skupper/releases/tag/1.0.1) - 2 June 2022
+* [1.0.0](https://github.com/skupperproject/skupper/releases/tag/1.0.0) - 10 May 2022
+* [0.8.7](https://github.com/skupperproject/skupper/releases/tag/0.8.7) - 9 March 2022
+* [0.8.6](https://github.com/skupperproject/skupper/releases/tag/0.8.6) - 9 February 2022
+* [0.8.5](https://github.com/skupperproject/skupper/releases/tag/0.8.5) - 10 January 2022
+* [0.8.4](https://github.com/skupperproject/skupper/releases/tag/0.8.4) - 17 December 2021
+* [0.8.3](https://github.com/skupperproject/skupper/releases/tag/0.8.3) - 19 November 2021
+* [0.8.2](https://github.com/skupperproject/skupper/releases/tag/0.8.2) - 18 November 2021
+* [0.8.1](https://github.com/skupperproject/skupper/releases/tag/0.8.1) - 2 November 2021
+* [0.8.0](https://github.com/skupperproject/skupper/releases/tag/0.8.0) - 20 October 2021
+* [0.7.0](https://github.com/skupperproject/skupper/releases/tag/0.7.0) - 30 July 2021
+* [0.6.0](https://github.com/skupperproject/skupper/releases/tag/0.6.0) - 20 May 2021
+* [0.5.3](https://github.com/skupperproject/skupper/releases/tag/0.5.3) - 1 April 2021
+* [0.5.2](https://github.com/skupperproject/skupper/releases/tag/0.5.2) - 30 March 2021
+* [0.5.1](https://github.com/skupperproject/skupper/releases/tag/0.5.1) - 24 March 2021
+* [0.5.0](https://github.com/skupperproject/skupper/releases/tag/0.5.0) - 12 March 2021
+* [0.4.2](https://github.com/skupperproject/skupper/releases/tag/0.4.2) - 19 January 2021
+* [0.4.0](https://github.com/skupperproject/skupper/releases/tag/0.4.0) - 9 December 2020
+* [0.3.0](https://github.com/skupperproject/skupper/releases/tag/0.3.0) - 22 July 2020
 
 </div>
 
