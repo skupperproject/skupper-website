@@ -54,12 +54,10 @@ The process of publishing these docs to the Skupper website uses
 
 ## Updating the site for new Skupper releases
 
-Run the `generate-releases` command:
+The `generate-releases` command fetches release data from GitHub and
+updates the site for new releases.
 
 ~~~ console
 ./plano generate-releases
 ./plano render --force
 ~~~
-
-This fetches release data from GitHub and updates the site for new
-releases.

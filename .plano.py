@@ -135,18 +135,20 @@ def generate_releases(output_file="input/releases/index.md"):
 
     _update_release_data()
 
-    releases = read_json("data/releases.json")
-    latest_release_version = releases["latest_release"]["version"]
+    releases = read_json("input/data/releases.json")
+    latest_version = releases["latest"]["version"]
     out = list()
 
-    for release in releases["releases"]:
+    def sort(release):
+        return parse_timestamp(release["date"])
+
+    for release in sorted(releases.values(), key=sort, reverse=True):
         version = release["version"]
-
-        if version == latest_release_version:
-            continue
-
-        url = release["url"]
+        url = release["github_url"]
         date = parse_timestamp(release["date"])
+
+        if version == latest_version:
+            continue
 
         out.append(f"* [{version}]({url}) - {date.day} {date.strftime('%B %Y')}")
 
@@ -164,13 +166,11 @@ def _update_release_data():
 
     latest_release_tag = latest_release["tag_name"]
 
-    data["latest_release"] = {
+    data["latest"] = {
         "version": latest_release_tag,
-        "url": "https://github.com/skupperproject/skupper/releases/tag/{latest_release_tag}",
+        "github_url": f"https://github.com/skupperproject/skupper/releases/tag/{latest_release_tag}",
         "date": latest_release["published_at"],
     }
-
-    data["releases"] = list()
 
     for release in releases:
         if release["prerelease"] or release["draft"]:
@@ -178,13 +178,13 @@ def _update_release_data():
 
         release_tag = release["tag_name"]
 
-        data["releases"].append({
+        data[release_tag] = {
             "version": release_tag,
-            "url": f"https://github.com/skupperproject/skupper/releases/tag/{release_tag}",
+            "github_url": f"https://github.com/skupperproject/skupper/releases/tag/{release_tag}",
             "date": release["published_at"],
-        })
+        }
 
-    write_json("data/releases.json", data)
+    write_json("input/data/releases.json", data)
 
 @command
 def test():

@@ -15,7 +15,7 @@ def _parse_timestamp(timestamp, format="%Y-%m-%dT%H:%M:%SZ"):
 
     return dt
 
-_latest_release = read_json("data/releases.json")["latest_release"]
+_latest_release = read_json("input/data/releases.json")["latest"]
 _latest_release_date = _parse_timestamp(_latest_release["date"])
 
 skupper_release = _latest_release["version"]
