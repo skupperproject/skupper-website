@@ -52,15 +52,15 @@ def transom_options():
 @test
 def transom_init():
     run("transom init --help")
-    run("transom init --init-only --verbose config input")
+    run("transom init --init-only --verbose")
 
     with expect_system_exit():
-        TransomCommand(home=None).main(["init", "config", "input"])
+        TransomCommand(home=None).main(["init"])
 
-    transom_command.main(["init", "--init-only", "config", "input"])
+    transom_command.main(["init", "--init-only"])
 
     with working_dir():
-        transom_command.main(["init", "config", "input"])
+        transom_command.main(["init"])
 
         check_dir("config")
         check_dir("input")
@@ -69,20 +69,20 @@ def transom_init():
         check_file("input/main.css")
         check_file("input/main.js")
 
-        transom_command.main(["init", "config", "input"]) # Re-init
+        transom_command.main(["init"]) # Re-init
 
     with working_dir():
         touch("input/index.html") # A preexisting index file
 
-        transom_command.main(["init", "config", "input"])
+        transom_command.main(["init"])
 
 @test
 def transom_render():
     run("transom render --help")
-    run("transom render --init-only --quiet config input output")
+    run("transom render --init-only --quiet")
 
     with test_site():
-        transom_command.main(["render", "--verbose", "config", "input", "output"])
+        transom_command.main(["render", "--verbose"])
 
         check_dir("output")
         check_file("output/index.html")
@@ -95,33 +95,33 @@ def transom_render():
         assert "<title>Doorjamb</title>" in result, result
         assert "<h1 id=\"doorjamb\">Doorjamb</h1>" in result, result
 
-        transom_command.main(["render", "--quiet", "config", "input", "output"])
-        transom_command.main(["render", "--force", "--verbose", "config", "input", "output"])
+        transom_command.main(["render", "--quiet"])
+        transom_command.main(["render", "--force", "--verbose"])
 
     with test_site():
         touch("input/index.html") # A duplicate index file
 
         with expect_exception():
-            transom_command.main(["render", "--verbose", "config", "input", "output"])
+            transom_command.main(["render", "--verbose"])
 
     with test_site():
         remove("config/config.py") # No config.py
 
-        transom_command.main(["render", "--verbose", "config", "input", "output"])
+        transom_command.main(["render", "--verbose"])
 
     with test_site():
         remove("config/body.html") # No body template
 
-        transom_command.main(["render", "--verbose", "config", "input", "output"])
+        transom_command.main(["render", "--verbose"])
 
 @test
 def transom_serve():
     run("transom serve --help")
-    run("transom serve --init-only --port 9191 --quiet config input output")
+    run("transom serve --init-only --port 9191 --quiet")
 
     with test_site():
         def run_():
-            transom_command.main(["serve", "--port", "9191", "config", "input", "output"])
+            transom_command.main(["serve", "--port", "9191"])
 
         server = Thread(target=run_)
         server.start()
@@ -142,32 +142,32 @@ def transom_serve():
 @test
 def transom_check_links():
     run("transom check-links --help")
-    run("transom check-links --init-only --verbose config input output")
+    run("transom check-links --init-only --verbose")
 
     with test_site():
-        transom_command.main(["render", "config", "input", "output"])
-        transom_command.main(["check-links", "config", "input", "output"])
+        transom_command.main(["render"])
+        transom_command.main(["check-links"])
 
         append("input/test-1.md", "[Not there](not-there.html)")
 
-        transom_command.main(["render", "config", "input", "output"])
+        transom_command.main(["render"])
 
         with expect_system_exit():
-            transom_command.main(["check-links", "config", "input", "output"])
+            transom_command.main(["check-links"])
 
 @test
 def transom_check_files():
     run("transom check-files --help")
-    run("transom check-files --init-only --quiet config input output")
+    run("transom check-files --init-only --quiet")
 
     with test_site():
-        transom_command.main(["render", "config", "input", "output"])
+        transom_command.main(["render"])
 
         remove("input/test-1.md") # An extra output file
         remove("output/test-2.html") # A missing output file
 
         with expect_system_exit():
-            transom_command.main(["check-files", "config", "input", "output"])
+            transom_command.main(["check-files"])
 
 @test
 def plano_render():

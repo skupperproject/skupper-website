@@ -1,1 +1,1 @@
-../../files/input/main.js
+../../profiles/website/input/main.js

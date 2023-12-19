@@ -20,14 +20,6 @@
 from plano import *
 from transom import TransomCommand
 
-class _Site:
-    def __init__(self):
-        self.config_dir = "config"
-        self.input_dir = "input"
-        self.output_dir = "output"
-
-site = _Site()
-
 _force_param = CommandParameter("force", help="Render all input files, including unmodified ones")
 _verbose_param = CommandParameter("verbose", help="Print detailed logging to the console")
 
@@ -38,7 +30,7 @@ def render(force=False, verbose=False):
     """
 
     with project_env():
-        args = ["render", site.config_dir, site.input_dir, site.output_dir]
+        args = ["render"]
 
         if force:
             args.append("--force")
@@ -57,7 +49,7 @@ def serve(port=8080, force=False, verbose=False):
     """
 
     with project_env():
-        args = ["serve", "--port", str(port), site.config_dir, site.input_dir, site.output_dir]
+        args = ["serve", "--port", str(port)]
 
         if force:
             args.append("--force")
@@ -75,7 +67,7 @@ def check_links(verbose=False):
 
     render()
 
-    args = ["check-links", site.config_dir, site.input_dir, site.output_dir]
+    args = ["check-links"]
 
     if verbose:
         args.append("--verbose")
@@ -91,7 +83,7 @@ def check_files(verbose=False):
 
     render()
 
-    args = ["check-files", site.config_dir, site.input_dir, site.output_dir]
+    args = ["check-files"]
 
     if verbose:
         args.append("--verbose")

@@ -20,7 +20,7 @@
 from bullseye import *
 
 project.name = "transom"
-project.data_dirs = ["files", "test-site"]
+project.data_dirs = ["profiles", "test-site"]
 project.test_modules = ["transom.tests"]
 
 @command(parent=build)
@@ -32,7 +32,7 @@ def build(*args, **kwargs):
 
         with working_dir(quiet=True):
             touch("config/config.py", quiet=True)
-            run("transom render --init-only config input output", quiet=True)
+            run("transom render --init-only", quiet=True)
 
 @command(parent=clean)
 def clean(*args, **kwargs):
