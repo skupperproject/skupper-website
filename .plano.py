@@ -19,10 +19,6 @@
 
 from transom.planocommands import *
 
-import datetime as _datetime
-
-site.output_dir = "docs"
-
 @command
 def generate_docs(owner="skupperproject", branch="main", output_dir="input/docs"):
     """
@@ -150,7 +146,7 @@ def generate_releases(output_file="input/releases/index.md"):
         if version == latest_version:
             continue
 
-        out.append(f"* [{version}]({url}) - {date.day} {date.strftime('%B %Y')}")
+        out.append(f"* [{version}]({url}) - {format_date(date)}")
 
     releases = "\n".join(out)
     markdown = read("config/releases.md.in").replace("@releases@", releases)
@@ -197,12 +193,3 @@ def test():
             run("cat docs/install.sh | sh", shell=True)
 
         generate_docs(output_dir=d)
-
-def parse_timestamp(timestamp, format="%Y-%m-%dT%H:%M:%SZ"):
-    if timestamp is None:
-        return None
-
-    dt = _datetime.datetime.strptime(timestamp, format)
-    dt = dt.replace(tzinfo=_datetime.timezone.utc)
-
-    return dt
