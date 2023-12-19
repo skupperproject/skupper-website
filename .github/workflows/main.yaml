@@ -23,6 +23,7 @@ jobs:
       - run: pip install pyyaml
       - run: pip show pyyaml
       - run: python -m site
+      - run: /usr/bin/python3 -m site
       - run: npm install @antora/cli @antora/site-generator
       - run: echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
       - run: ./plano test
