@@ -10,4 +10,4 @@ _latest_release = read_json("input/data/releases.json")["latest"]
 _latest_release_date = parse_timestamp(_latest_release["date"])
 
 skupper_release = _latest_release["version"]
-skupper_release_date = f"{_latest_release_date.day} {_latest_release_date.strftime('%B %Y')}"
+skupper_release_date = format_date(_latest_release_date)
