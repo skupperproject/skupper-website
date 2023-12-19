@@ -20,6 +20,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: latest
+      - run: pip install pyyaml
       - run: npm install @antora/cli @antora/site-generator
       - run: echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
       - run: ./plano test
