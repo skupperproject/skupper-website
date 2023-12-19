@@ -124,14 +124,14 @@ def generate_examples(output_file="input/examples/index.html.in"):
     write(output_file, "\n".join(out))
 
 @command
-def generate_releases(output_file="input/releases/index.md"):
+def generate_releases(output_file="input/releases/index.md", data_file="input/data/releases.json"):
     """
     Generate the release index using data from GitHub
     """
 
-    _update_release_data()
+    _update_release_data(data_file)
 
-    releases = read_json("input/data/releases.json")
+    releases = read_json(data_file)
     latest_version = releases["latest"]["version"]
     out = list()
 
@@ -154,7 +154,7 @@ def generate_releases(output_file="input/releases/index.md"):
 
     write(output_file, markdown)
 
-def _update_release_data():
+def _update_release_data(output_file):
     releases = http_get_json("https://api.github.com/repos/skupperproject/skupper/releases?per_page=100")
     latest_release = http_get_json("https://api.github.com/repos/skupperproject/skupper/releases/latest")
 
@@ -180,7 +180,7 @@ def _update_release_data():
             "date": release["published_at"],
         }
 
-    write_json("input/data/releases.json", data)
+    write_json(output_file, data)
 
 @command
 def test():
@@ -193,3 +193,5 @@ def test():
             run("cat docs/install.sh | sh", shell=True)
 
         generate_docs(output_dir=d)
+        generate_examples(output_file=join(d, "examples.html.in"))
+        generate_releases(output_file=join(d, "releases.md"), data_file=join(d, "releases.json"))
