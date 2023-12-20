@@ -20,15 +20,15 @@
 from transom.planocommands import *
 
 @command
-def generate_docs(owner="skupperproject", branch="main", output_dir="input/docs"):
+def generate_docs(output_dir="input", owner="skupperproject", branch="main"):
     """
     Generate docs from the skupper-docs repo
     """
 
     check_program("antora")
 
+    docs_dir = get_absolute_path(f"{output_dir}/docs")
     playbook_in = get_absolute_path("scripts/docs-playbook.yaml.in")
-    output_dir = get_absolute_path(output_dir)
 
     with working_dir():
         content = read(playbook_in)
@@ -41,23 +41,24 @@ def generate_docs(owner="skupperproject", branch="main", output_dir="input/docs"
         for path in find("build", "*.html"):
             move(path, f"{path}.in")
 
-        copy("build/skupper/latest/console", output_dir)
-        copy("build/skupper/latest/overview", output_dir)
-        copy("build/skupper/latest/cli/", output_dir)
-        copy("build/skupper/latest/cli-reference", output_dir)
-        copy("build/skupper/latest/cli-podman", output_dir)
-        copy("build/skupper/latest/declarative", output_dir)
-        copy("build/skupper/latest/troubleshooting", output_dir)
-        copy("build/skupper/latest/policy", output_dir)
-        copy("build/skupper/latest/operator", output_dir)
-        copy("build/skupper/latest/_images", output_dir)
+        copy("build/skupper/latest/console", docs_dir)
+        copy("build/skupper/latest/overview", docs_dir)
+        copy("build/skupper/latest/cli/", docs_dir)
+        copy("build/skupper/latest/cli-reference", docs_dir)
+        copy("build/skupper/latest/cli-podman", docs_dir)
+        copy("build/skupper/latest/declarative", docs_dir)
+        copy("build/skupper/latest/troubleshooting", docs_dir)
+        copy("build/skupper/latest/policy", docs_dir)
+        copy("build/skupper/latest/operator", docs_dir)
+        copy("build/skupper/latest/_images", docs_dir)
 
 @command
-def generate_examples(output_file="input/examples/index.html.in"):
+def generate_examples(output_dir="input"):
     """
     Generate the example index using metadata in scripts/examples.yaml
     """
 
+    output_file = f"{output_dir}/examples/index.html.in"
     examples_data = read_yaml("scripts/examples.yaml")
     github_data = http_get_json("https://api.github.com/orgs/skupperproject/repos?per_page=100")
     repos = dict()
@@ -65,7 +66,6 @@ def generate_examples(output_file="input/examples/index.html.in"):
     for repo_data in github_data:
         repos[repo_data["name"]] = repo_data
 
-    output_file = get_absolute_path(output_file)
     out = list()
 
     out.append("---")
@@ -124,12 +124,15 @@ def generate_examples(output_file="input/examples/index.html.in"):
     write(output_file, "\n".join(out))
 
 @command
-def generate_releases(output_file="input/releases/index.md", data_file="input/data/releases.json"):
+def generate_releases(output_dir="input"):
     """
     Generate the release index using data from GitHub
     """
 
-    _update_release_data(data_file)
+    output_file = f"{output_dir}/releases/index.md"
+    data_file = f"{output_dir}/data/releases.json"
+
+    _update_release_data(output_dir)
 
     releases = read_json(data_file)
     latest_version = releases["latest"]["version"]
@@ -150,16 +153,16 @@ def generate_releases(output_file="input/releases/index.md", data_file="input/da
 
     releases = "\n".join(out)
     markdown = read("config/releases.md.in").replace("@releases@", releases)
-    output_file = get_absolute_path(output_file)
 
     write(output_file, markdown)
 
-def _update_release_data(output_file):
+def _update_release_data(output_dir):
+    output_file = f"{output_dir}/data/releases.json"
+
     releases = http_get_json("https://api.github.com/repos/skupperproject/skupper/releases?per_page=100")
     latest_release = http_get_json("https://api.github.com/repos/skupperproject/skupper/releases/latest")
 
     data = dict()
-
     latest_release_tag = latest_release["tag_name"]
 
     data["latest"] = {
@@ -188,10 +191,10 @@ def test():
     check_links()
     check_files()
 
-    with temp_dir() as d:
-        with working_env(HOME=d):
+    with temp_dir() as temp:
+        with working_env(HOME=temp):
             run("cat docs/install.sh | sh", shell=True)
 
-        generate_docs(output_dir=d)
-        generate_examples(output_file=join(d, "examples.html.in"))
-        generate_releases(output_file=join(d, "releases.md"), data_file=join(d, "releases.json"))
+        generate_docs(output_dir=temp)
+        generate_examples(output_dir=temp)
+        generate_releases(output_dir=temp)
