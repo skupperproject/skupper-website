@@ -191,7 +191,7 @@ def test():
 
     with temp_dir() as temp:
         with working_env(HOME=temp):
-            run("cat docs/install.sh | sh", shell=True)
+            run("cat docs/staging/install.sh | sh", shell=True)
 
         generate_docs(output_dir=temp)
         generate_examples(output_dir=temp)
