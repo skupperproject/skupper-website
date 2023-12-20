@@ -22,7 +22,7 @@ from transom.planocommands import *
 @command
 def generate_docs(output_dir="input", owner="skupperproject", branch="main"):
     """
-    Generate docs from the skupper-docs repo
+    Generate docs from the skupper-docs repo and config/docs-playbook.yaml.in
     """
 
     check_program("antora")
@@ -55,7 +55,7 @@ def generate_docs(output_dir="input", owner="skupperproject", branch="main"):
 @command
 def generate_examples(output_dir="input"):
     """
-    Generate the example index using metadata in config/examples.yaml
+    Generate the example index using data from GitHub and config/examples.yaml
     """
 
     output_file = f"{output_dir}/examples/index.md"
