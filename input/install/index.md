@@ -27,15 +27,15 @@ you to add the command to your path if necessary.
 Select the latest release for your platform:
 
 <nav class="button-group">
-  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-linux-amd64.tgz"><span class="material-icons">get_app</span> Linux</a>
-  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-mac-amd64.tgz"><span class="material-icons">get_app</span> Mac</a>
-  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{skupper_release}}/skupper-cli-{{skupper_release}}-windows-amd64.zip"><span class="material-icons">get_app</span> Windows</a>
+  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{latest_release_version}}/skupper-cli-{{latest_release_version}}-linux-amd64.tgz"><span class="material-icons">get_app</span> Linux</a>
+  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{latest_release_version}}/skupper-cli-{{latest_release_version}}-mac-amd64.tgz"><span class="material-icons">get_app</span> Mac</a>
+  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{latest_release_version}}/skupper-cli-{{latest_release_version}}-windows-amd64.zip"><span class="material-icons">get_app</span> Windows</a>
 </nav>
 
 To get artifacts for other operating systems and architectures, see
 the [GitHub release page][release-page].
 
-[release-page]: https://github.com/skupperproject/skupper/releases/tag/{{skupper_release}}
+[release-page]: https://github.com/skupperproject/skupper/releases/tag/{{latest_release_version}}
 
 ### Extract the Skupper command
 
@@ -44,13 +44,13 @@ Use `tar` or `unzip` to extract the command from the release archive:
 <div class="code-label">Linux or Mac</div>
 
 ~~~ shell
-tar -xf skupper-cli-{{skupper_release}}-linux-amd64.tgz
+tar -xf skupper-cli-{{latest_release_version}}-linux-amd64.tgz
 ~~~
 
 <div class="code-label">Windows</div>
 
 ~~~ shell
-unzip skupper-cli-{{skupper_release}}-windows-amd64.zip
+unzip skupper-cli-{{latest_release_version}}-windows-amd64.zip
 ~~~
 
 This produces an executable file named `skupper` in your current
@@ -85,7 +85,7 @@ should see output like this:
 
 ~~~ console
 $ skupper version
-client version                 {{skupper_release}}
+client version                 {{latest_release_version}}
 transport version              not-found (no configuration has been provided)
 controller version             not-found (no configuration has been provided)
 ~~~

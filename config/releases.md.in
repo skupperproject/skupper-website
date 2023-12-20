@@ -6,7 +6,7 @@ title: Releases
 
 ## The latest release
 
-[Skupper {{skupper_release}}][release-page] was released on {{skupper_release_date}}.
+[Skupper {{latest_release_version}}][release-page] was released on {{latest_release_date}}.
 
 For Linux or the Mac, use the [install script][install-script] to
 download and extract the Skupper command:
@@ -19,7 +19,7 @@ you to add the command to your path if necessary.
 For Windows and other installation options, see [Installing
 Skupper](/install/index.html).
 
-[release-page]: https://github.com/skupperproject/skupper/releases/tag/{{skupper_release}}
+[release-page]: https://github.com/skupperproject/skupper/releases/tag/{{latest_release_version}}
 [install-script]: https://github.com/skupperproject/skupper-website/blob/main/docs/install.sh
 
 ## Previous releases
