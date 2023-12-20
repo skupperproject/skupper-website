@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Installation</title>
+    <title>Skupper - Troubleshooting</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/install/index.html">Installation</a></div></nav>
+  <nav id="-path-nav"><div><a href="/install/index.html">Installation</a> <span class="path-separator">&#8250;</span> <a href="/install/troubleshooting.html">Troubleshooting</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -75,62 +75,22 @@
   <div>
     <main>
 
-<h1 id="installing-skupper">Installing Skupper</h1>
-<h2 id="using-the-install-script">Using the install script</h2>
-<p>On Linux or the Mac, you can use the <a href="https://github.com/skupperproject/skupper-website/blob/main/docs/install.sh">install script</a>
-to download and extract the command:</p>
-<div class="code-label">Linux or Mac</div>
+<h1 id="troubleshooting">Troubleshooting</h1>
+<h2 id="some-install-directories-are-not-writable">Some install directories are not writable</h2>
+<p>Change directory permissions.  Make sure your current user has
+permission to write to the <code>~/bin</code> directory.</p>
+<h2 id="some-required-programs-are-not-available">Some required programs are not available</h2>
+<p>Use your OS's package manager to install the required packages.</p>
+<pre><code>$ dnf whatprovides &lt;program&gt;
+$ sudo dnf install &lt;package&gt;
+</code></pre>
+<h2 id="some-required-network-resources-are-not-available">Some required network resources are not available</h2>
+<p>Check your network.  Use traceroute to find out where connectivity
+falters.</p>
+<!-- ## The checksum does not match the downloaded release archive -->
 
-<pre><code>curl https://skupper.io/install.sh | sh</code></pre>
-<p>The script installs the command under your home directory.  It prompts
-you to add the command to your path if necessary.</p>
-<h2 id="installing-manually">Installing manually</h2>
-<h3 id="download-the-latest-release">Download the latest release</h3>
-<p>Select the latest release for your platform:</p>
-<nav class="button-group">
-  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/1.5.1/skupper-cli-1.5.1-linux-amd64.tgz"><span class="material-icons">get_app</span> Linux</a>
-  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/1.5.1/skupper-cli-1.5.1-mac-amd64.tgz"><span class="material-icons">get_app</span> Mac</a>
-  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/1.5.1/skupper-cli-1.5.1-windows-amd64.zip"><span class="material-icons">get_app</span> Windows</a>
-</nav>
+<!-- - Try blowing away the cached download. -->
 
-<p>To get artifacts for other operating systems and architectures, see
-the <a href="https://github.com/skupperproject/skupper/releases/tag/1.5.1">GitHub release page</a>.</p>
-<h3 id="extract-the-skupper-command">Extract the Skupper command</h3>
-<p>Use <code>tar</code> or <code>unzip</code> to extract the command from the release archive:</p>
-<div class="code-label">Linux or Mac</div>
-
-<pre><code>tar -xf skupper-cli-1.5.1-linux-amd64.tgz</code></pre>
-<div class="code-label">Windows</div>
-
-<pre><code>unzip skupper-cli-1.5.1-windows-amd64.zip</code></pre>
-<p>This produces an executable file named <code>skupper</code> in your current
-directory.</p>
-<h3 id="place-the-command-on-your-path">Place the command on your path</h3>
-<p>Move the executable file to your preferred location and make it
-available on your path.  For example, this is how you might install it
-in your home directory:</p>
-<div class="code-label">Linux or Mac</div>
-
-<pre><code>mkdir $HOME/bin
-mv skupper $HOME/bin
-export PATH=$PATH:$HOME/bin</code></pre>
-<div class="code-label">Windows</div>
-
-<pre><code>mkdir %UserProfile%\bin
-move skupper.exe %UserProfile%\bin
-set PATH=%PATH%;%UserProfile%\bin</code></pre>
-<h3 id="check-the-command">Check the command</h3>
-<p>To test your installation, run the <code>skupper version</code> command.  You
-should see output like this:</p>
-<pre><code>$ skupper version
-client version                 1.5.1
-transport version              not-found (no configuration has been provided)
-controller version             not-found (no configuration has been provided)</code></pre>
-<h3 id="upgrade-sites">Upgrade sites</h3>
-<p>When you install a new version of the CLI, you can upgrade each site
-using the <code>skupper update</code> command.
-While we try to make Skupper compatible between sites with different
-versions, we recommend updating all sites at the same time.</p>
 
 
     </main>
