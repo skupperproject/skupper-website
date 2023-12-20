@@ -28,7 +28,7 @@ def generate_docs(output_dir="input", owner="skupperproject", branch="main"):
     check_program("antora")
 
     docs_dir = get_absolute_path(f"{output_dir}/docs")
-    playbook_in = get_absolute_path("scripts/docs-playbook.yaml.in")
+    playbook_in = get_absolute_path("config/docs-playbook.yaml.in")
 
     with working_dir():
         content = read(playbook_in)
@@ -55,11 +55,11 @@ def generate_docs(output_dir="input", owner="skupperproject", branch="main"):
 @command
 def generate_examples(output_dir="input"):
     """
-    Generate the example index using metadata in scripts/examples.yaml
+    Generate the example index using metadata in config/examples.yaml
     """
 
     output_file = f"{output_dir}/examples/index.html.in"
-    examples_data = read_yaml("scripts/examples.yaml")
+    examples_data = read_yaml("config/examples.yaml")
     github_data = http_get_json("https://api.github.com/orgs/skupperproject/repos?per_page=100")
     repos = dict()
 
