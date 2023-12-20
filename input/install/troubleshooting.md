@@ -23,6 +23,7 @@ Repo        : fedora
 Matched from:
 Filename    : /usr/bin/awk
 Provide    : /bin/awk
+
 $ sudo dnf install gawk
 ~~~
 

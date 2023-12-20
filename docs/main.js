@@ -159,6 +159,8 @@ if (navigator.clipboard) {
 
             if (!code) continue;
 
+            if (code.textContent.trim().startsWith("$")) continue;
+
             const button = document.createElement("a");
             button.classList.add("copy-button");
 
