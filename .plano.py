@@ -158,12 +158,16 @@ def generate_releases(output_dir="input"):
 
 def _update_release_data(output_dir):
     output_file = f"{output_dir}/data/releases.json"
+    install_script_data_file = f"{output_dir}/data/install.json"
 
     releases = http_get_json("https://api.github.com/repos/skupperproject/skupper/releases?per_page=100")
     latest_release = http_get_json("https://api.github.com/repos/skupperproject/skupper/releases/latest")
 
-    data = dict()
     latest_release_tag = latest_release["tag_name"]
+
+    write_json(install_script_data_file, {"version": latest_release_tag})
+
+    data = dict()
 
     data["latest"] = {
         "version": latest_release_tag,
