@@ -81,7 +81,8 @@
 to download and extract the command:</p>
 <div class="code-label">Linux or Mac</div>
 
-<pre><code>curl https://skupper.io/install.sh | sh</code></pre>
+<pre><code class="language-shell">curl https://skupper.io/install.sh | sh
+</code></pre>
 <p>The script installs the command under your home directory.  It prompts
 you to add the command to your path if necessary.</p>
 <h2 id="installing-manually">Installing manually</h2>
@@ -99,10 +100,12 @@ the <a href="https://github.com/skupperproject/skupper/releases/tag/1.5.1">GitHu
 <p>Use <code>tar</code> or <code>unzip</code> to extract the command from the release archive:</p>
 <div class="code-label">Linux or Mac</div>
 
-<pre><code>tar -xf skupper-cli-1.5.1-linux-amd64.tgz</code></pre>
+<pre><code class="language-shell">tar -xf skupper-cli-1.5.1-linux-amd64.tgz
+</code></pre>
 <div class="code-label">Windows</div>
 
-<pre><code>unzip skupper-cli-1.5.1-windows-amd64.zip</code></pre>
+<pre><code class="language-shell">unzip skupper-cli-1.5.1-windows-amd64.zip
+</code></pre>
 <p>This produces an executable file named <code>skupper</code> in your current
 directory.</p>
 <h3 id="place-the-command-on-your-path">Place the command on your path</h3>
@@ -111,26 +114,29 @@ available on your path.  For example, this is how you might install it
 in your home directory:</p>
 <div class="code-label">Linux or Mac</div>
 
-<pre><code>mkdir $HOME/bin
+<pre><code class="language-console">mkdir $HOME/bin
 mv skupper $HOME/bin
-export PATH=$PATH:$HOME/bin</code></pre>
+export PATH=$PATH:$HOME/bin
+</code></pre>
 <div class="code-label">Windows</div>
 
-<pre><code>mkdir %UserProfile%\bin
+<pre><code class="language-console">mkdir %UserProfile%\bin
 move skupper.exe %UserProfile%\bin
-set PATH=%PATH%;%UserProfile%\bin</code></pre>
+set PATH=%PATH%;%UserProfile%\bin
+</code></pre>
 <h3 id="check-the-command">Check the command</h3>
 <p>To test your installation, run the <code>skupper version</code> command.  You
 should see output like this:</p>
-<pre><code>$ skupper version
+<pre><code class="language-console">$ skupper version
 client version                 1.5.1
 transport version              not-found (no configuration has been provided)
-controller version             not-found (no configuration has been provided)</code></pre>
+controller version             not-found (no configuration has been provided)
+</code></pre>
 <h3 id="upgrade-sites">Upgrade sites</h3>
 <p>When you install a new version of the CLI, you can upgrade each site
-using the <code>skupper update</code> command.
-While we try to make Skupper compatible between sites with different
-versions, we recommend updating all sites at the same time.</p>
+using the <code>skupper update</code> command.  While we try to make Skupper
+compatible between sites with different versions, we recommend
+updating all sites at the same time.</p>
 
 
     </main>

@@ -77,16 +77,31 @@
 
 <h1 id="troubleshooting">Troubleshooting</h1>
 <h2 id="some-install-directories-are-not-writable">Some install directories are not writable</h2>
-<p>Change directory permissions.  Make sure your current user has
-permission to write to the <code>~/bin</code> directory.</p>
+<p>Make sure your current user has permission to write to the
+<code>$HOME/.local/bin</code> directory:</p>
+<pre><code class="language-console">$ ls -ld $HOME/.local/bin
+drwxrwxr-x. 1 fritz fritz 264 Dec 20 09:01 /home/fritz/.local/bin
+</code></pre>
 <h2 id="some-required-programs-are-not-available">Some required programs are not available</h2>
-<p>Use your OS's package manager to install the required packages.</p>
-<pre><code>$ dnf whatprovides &lt;program&gt;
-$ sudo dnf install &lt;package&gt;
+<p>Use your OS package manager to install the required packages.</p>
+<p>For example, this is how you find and install <code>awk</code> on Fedora:</p>
+<pre><code class="language-console">$ dnf whatprovides awk
+gawk-5.1.1-5.fc38.x86_64 : The GNU version of the AWK text processing utility
+Repo        : fedora
+Matched from:
+Filename    : /usr/bin/awk
+Provide    : /bin/awk
+$ sudo dnf install gawk
 </code></pre>
 <h2 id="some-required-network-resources-are-not-available">Some required network resources are not available</h2>
-<p>Check your network.  Use traceroute to find out where connectivity
-falters.</p>
+<p>Make sure you can reach github.com:</p>
+<pre><code class="language-console">$ ping github.com
+PING github.com (140.82.113.4) 56(84) bytes of data.
+64 bytes from lb-140-82-113-4-iad.github.com (140.82.113.4): icmp_seq=1 ttl=51 time=34.3 ms
+</code></pre>
+<p>Use <code>traceroute</code> to find out where connectivity falters:</p>
+<pre><code class="language-console">$ traceroute github.com
+</code></pre>
 <!-- ## The checksum does not match the downloaded release archive -->
 
 <!-- - Try blowing away the cached download. -->

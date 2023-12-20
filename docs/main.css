@@ -220,6 +220,10 @@ li {
     margin: 0;
 }
 
+li > *:last-child {
+    margin-bottom: 1em;
+}
+
 table th, table td {
     text-align: left;
     padding-right: 1em;

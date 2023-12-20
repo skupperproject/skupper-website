@@ -11,7 +11,9 @@ to download and extract the command:
 
 <div class="code-label">Linux or Mac</div>
 
-    curl https://skupper.io/install.sh | sh
+~~~ shell
+curl https://skupper.io/install.sh | sh
+~~~
 
 The script installs the command under your home directory.  It prompts
 you to add the command to your path if necessary.
@@ -41,11 +43,15 @@ Use `tar` or `unzip` to extract the command from the release archive:
 
 <div class="code-label">Linux or Mac</div>
 
-    tar -xf skupper-cli-{{skupper_release}}-linux-amd64.tgz
+~~~ shell
+tar -xf skupper-cli-{{skupper_release}}-linux-amd64.tgz
+~~~
 
 <div class="code-label">Windows</div>
 
-    unzip skupper-cli-{{skupper_release}}-windows-amd64.zip
+~~~ shell
+unzip skupper-cli-{{skupper_release}}-windows-amd64.zip
+~~~
 
 This produces an executable file named `skupper` in your current
 directory.
@@ -58,29 +64,35 @@ in your home directory:
 
 <div class="code-label">Linux or Mac</div>
 
-    mkdir $HOME/bin
-    mv skupper $HOME/bin
-    export PATH=$PATH:$HOME/bin
+~~~ console
+mkdir $HOME/bin
+mv skupper $HOME/bin
+export PATH=$PATH:$HOME/bin
+~~~
 
 <div class="code-label">Windows</div>
 
-    mkdir %UserProfile%\bin
-    move skupper.exe %UserProfile%\bin
-    set PATH=%PATH%;%UserProfile%\bin
+~~~ console
+mkdir %UserProfile%\bin
+move skupper.exe %UserProfile%\bin
+set PATH=%PATH%;%UserProfile%\bin
+~~~
 
 ### Check the command
 
 To test your installation, run the `skupper version` command.  You
 should see output like this:
 
-    $ skupper version
-    client version                 {{skupper_release}}
-    transport version              not-found (no configuration has been provided)
-    controller version             not-found (no configuration has been provided)
+~~~ console
+$ skupper version
+client version                 {{skupper_release}}
+transport version              not-found (no configuration has been provided)
+controller version             not-found (no configuration has been provided)
+~~~
 
 ### Upgrade sites
 
 When you install a new version of the CLI, you can upgrade each site
-using the `skupper update` command.
-While we try to make Skupper compatible between sites with different
-versions, we recommend updating all sites at the same time.
+using the `skupper update` command.  While we try to make Skupper
+compatible between sites with different versions, we recommend
+updating all sites at the same time.
