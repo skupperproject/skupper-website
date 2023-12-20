@@ -58,7 +58,7 @@ def generate_examples(output_dir="input"):
     Generate the example index using metadata in config/examples.yaml
     """
 
-    output_file = f"{output_dir}/examples/index.html.in"
+    output_file = f"{output_dir}/examples/index.md"
     examples_data = read_yaml("config/examples.yaml")
     github_data = http_get_json("https://api.github.com/orgs/skupperproject/repos?per_page=100")
     repos = dict()
@@ -67,15 +67,6 @@ def generate_examples(output_dir="input"):
         repos[repo_data["name"]] = repo_data
 
     out = list()
-
-    out.append("---")
-    out.append("title: Examples")
-    out.append("extra_headers: <link rel=\"stylesheet\" href=\"index.css\" type=\"text/css\" async=\"async\"/><link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0\"/>")
-    out.append("---")
-
-    out.append("<h1>Skupper examples</h1>")
-    out.append("")
-    out.append("<p>These examples provide step-by-step instructions to install and use Skupper for common multi-cluster and edge deployment scenarios.</p>")
 
     for category in examples_data["categories"]:
         category_title = category["title"]
@@ -99,7 +90,7 @@ def generate_examples(output_dir="input"):
             try:
                 repo_data = repos[name]
             except:
-                description = example_data.get("description")
+                description = example_data.get("description").strip()
                 url = example_data.get("url")
             else:
                 description = example_data.get("description", repo_data["description"])
@@ -121,7 +112,10 @@ def generate_examples(output_dir="input"):
         out.append("</div>")
         out.append("")
 
-    write(output_file, "\n".join(out))
+    examples = "\n".join(out)
+    markdown = read("config/examples.md.in").replace("@examples@", examples)
+
+    write(output_file, markdown)
 
 @command
 def generate_releases(output_dir="input"):

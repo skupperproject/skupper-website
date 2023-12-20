@@ -2,9 +2,12 @@
 title: Examples
 extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="async"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
 ---
-<h1>Skupper examples</h1>
 
-<p>These examples provide step-by-step instructions to install and use Skupper for common multi-cluster and edge deployment scenarios.</p>
+# Skupper examples
+
+These examples provide step-by-step instructions to install and use
+Skupper for common multi-cluster and edge deployment scenarios.
+
 <h2 id="featured-applications">Featured applications</h2>
 
 <p>Skupper works with your existing application code, no changes
@@ -76,7 +79,6 @@ NAT without changing your existing networking.
   <span class="material-symbols-outlined">horizontal_rule</span>
   <span class="material-symbols-outlined">business</span>
 </div>
-
 Connect from the cloud to services running on-prem
 </p>
 <nav class="inline-links">
@@ -92,7 +94,6 @@ Connect from the cloud to services running on-prem
   <span class="material-symbols-outlined">horizontal_rule</span>
   <span class="material-symbols-outlined">business</span>
 </div>
-
 Connect services in isolated on-prem sites
 </p>
 <nav class="inline-links">
@@ -108,7 +109,6 @@ Connect services in isolated on-prem sites
   <span class="material-symbols-outlined">horizontal_rule</span>
   <span class="material-symbols-outlined">business</span>
 </div>
-
 Connect services separated by firewalls and a DMZ
 </p>
 <nav class="inline-links">
@@ -279,3 +279,4 @@ protocols.
 </nav>
 </div>
 </div>
+

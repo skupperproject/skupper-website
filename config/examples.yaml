@@ -33,7 +33,6 @@ categories:
             <span class="material-symbols-outlined">horizontal_rule</span>
             <span class="material-symbols-outlined">business</span>
           </div>
-
           Connect from the cloud to services running on-prem
       - name: skupper-example-private-to-private
         title: Private to private
@@ -45,7 +44,6 @@ categories:
             <span class="material-symbols-outlined">horizontal_rule</span>
             <span class="material-symbols-outlined">business</span>
           </div>
-
           Connect services in isolated on-prem sites
       - name: skupper-example-dmz
         title: DMZ
@@ -57,7 +55,6 @@ categories:
             <span class="material-symbols-outlined">horizontal_rule</span>
             <span class="material-symbols-outlined">business</span>
           </div>
-
           Connect services separated by firewalls and a DMZ
   - title: Platforms
     description: |
