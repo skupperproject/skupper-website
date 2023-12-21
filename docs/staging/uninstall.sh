@@ -18,8 +18,7 @@
 # under the License.
 #
 
-site_url="https://raw.githubusercontent.com/skupperproject/skupper-install-script/main"
-troubleshooting_url="https://github.com/skupperproject/skupper-install-script/blob/main/troubleshooting.md"
+troubleshooting_url="https://skupper.io/install/troubleshooting.html"
 
 # Make the local keyword work with ksh93 and POSIX-style functions
 case "${KSH_VERSION:-}" in
@@ -271,7 +270,7 @@ usage() {
     cat <<EOF
 Usage: ${0} [-hvy] [-s <scheme>]
 
-A script that uninstalls ActiveMQ Artemis
+A script that uninstalls the Skupper command-line tool
 
 Options:
   -h            Print this help text and exit
@@ -396,7 +395,7 @@ main() {
         print
         print "To install Skupper again, use:"
         print
-        print "    curl ${site_url}/install.sh | sh"
+        print "    curl https://skupper.io/install.sh | sh"
         print
     } >&6 2>&6
 }

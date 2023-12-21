@@ -184,6 +184,14 @@ def _update_release_data(output_dir):
     write_json(output_file, data)
 
 @command
+def generate_install_scripts(output_dir="input"):
+    install_script = http_get("https://raw.githubusercontent.com/skupperproject/skupper-install-script/main/install.sh")
+    uninstall_script = http_get("https://raw.githubusercontent.com/skupperproject/skupper-install-script/main/uninstall.sh")
+
+    write(f"{output_dir}/staging/install.sh", install_script)
+    write(f"{output_dir}/staging/uninstall.sh", uninstall_script)
+
+@command
 def test():
     render()
     check_links()
@@ -192,6 +200,7 @@ def test():
     with temp_dir() as temp:
         with working_env(HOME=temp):
             run("cat docs/staging/install.sh | sh", shell=True)
+            run("cat docs/staging/uninstall.sh | sh", shell=True)
 
         generate_docs(output_dir=temp)
         generate_examples(output_dir=temp)

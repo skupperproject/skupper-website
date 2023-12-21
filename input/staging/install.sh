@@ -18,7 +18,6 @@
 # under the License.
 #
 
-site_url="https://skupper.io"
 troubleshooting_url="https://skupper.io/install/troubleshooting.html"
 
 # Make the local keyword work with ksh93 and POSIX-style functions
@@ -567,7 +566,7 @@ main() {
         print
         print "To uninstall Skupper, use:"
         print
-        print "    curl ${site_url}/uninstall.sh | sh"
+        print "    curl https://skupper.io/uninstall.sh | sh"
         print
     } >&6 2>&6
 }
