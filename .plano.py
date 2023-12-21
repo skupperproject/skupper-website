@@ -205,3 +205,4 @@ def test():
         generate_docs(output_dir=temp)
         generate_examples(output_dir=temp)
         generate_releases(output_dir=temp)
+        generate_install_scripts(output_dir=temp)
