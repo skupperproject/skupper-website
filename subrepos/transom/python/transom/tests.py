@@ -60,7 +60,7 @@ def transom_init():
     transom_command.main(["init", "--init-only"])
 
     with working_dir():
-        transom_command.main(["init"])
+        transom_command.main(["init", "--github", "--verbose"])
 
         check_dir("config")
         check_dir("input")
@@ -68,6 +68,10 @@ def transom_init():
         check_file("input/index.md")
         check_file("input/main.css")
         check_file("input/main.js")
+        check_file(".plano.py")
+        check_file(".nojekyll")
+        check_dir("python/mistune")
+        check_dir("python/transom")
 
         transom_command.main(["init"]) # Re-init
 
@@ -90,6 +94,7 @@ def transom_render():
         check_file("output/test-2.html")
         check_file("output/main.css")
         check_file("output/main.js")
+        check_file("output/steamboat.png")
 
         result = read("output/index.html")
         assert "<title>Doorjamb</title>" in result, result

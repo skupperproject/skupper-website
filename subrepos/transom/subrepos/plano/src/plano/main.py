@@ -155,6 +155,7 @@ _color_codes = {
     "magenta": "\u001b[35",
     "cyan": "\u001b[36",
     "white": "\u001b[37",
+    "gray": "\u001b[90",
 }
 
 _color_reset = "\u001b[0m"
@@ -414,7 +415,7 @@ def check_env(var, message=None):
 def check_module(module, message=None):
     if _pkgutil.find_loader(module) is None:
         if message is None:
-            message = "Module {} is not found".format(repr(module))
+            message = "Python module {} is not found".format(repr(module))
 
         raise PlanoError(message)
 
@@ -806,6 +807,7 @@ _DISABLED = _logging_levels.index("disabled")
 
 _logging_output = None
 _logging_threshold = _NOTICE
+_logging_contexts = list()
 
 def enable_logging(level="notice", output=None):
     assert level in _logging_levels
@@ -851,6 +853,16 @@ class logging_disabled(logging_enabled):
     def __init__(self):
         super().__init__(level="disabled")
 
+class logging_context:
+    def __init__(self, name):
+        self.name = name
+
+    def __enter__(self):
+        _logging_contexts.append(self.name)
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        _logging_contexts.pop()
+
 def fail(message, *args):
     error(message, *args)
 
@@ -882,28 +894,39 @@ def log(level, message, *args):
         _print_message(level, message, args)
 
 def _print_message(level, message, args):
+    line = list()
     out = nvl(_logging_output, _sys.stderr)
-    exception = None
+
+    line.append(cformat("{}:".format(get_program_name()), color="gray"))
+
+    level_color = ("cyan", "cyan", "cyan", "yellow", "red", None)[level]
+    level_bright = (False, False, False, False, True, False)[level]
+    level_text = "{}:".format(_logging_levels[level])
+
+    line.append(cformat(level_text, color=level_color, bright=level_bright))
+
+    for name in _logging_contexts:
+        line.append(cformat("{}:".format(name), color="yellow"))
 
     if isinstance(message, BaseException):
         exception = message
-        message = "{}: {}".format(type(message).__name__, str(message))
+
+        line.append(type(exception).__name__)
+        line.append(str(exception))
+
+        print(" ".join(line), file=out)
+
+        if hasattr(exception, "__traceback__"):
+            _traceback.print_exception(type(exception), exception, exception.__traceback__, file=out)
     else:
         message = str(message)
 
-    if args:
-        message = message.format(*args)
+        if args:
+            message = message.format(*args)
 
-    program = "{}:".format(get_program_name())
+        line.append(capitalize(message))
 
-    level_color = ("cyan", "cyan", "blue", "yellow", "red", None)[level]
-    level_bright = (False, False, False, False, True, False)[level]
-    level = cformat("{:>6}:".format(_logging_levels[level]), color=level_color, bright=level_bright, file=out)
-
-    print(program, level, capitalize(message), file=out)
-
-    if exception is not None and hasattr(exception, "__traceback__"):
-        _traceback.print_exception(type(exception), exception, exception.__traceback__, file=out)
+        print(" ".join(line), file=out)
 
     out.flush()
 
@@ -1648,7 +1671,7 @@ class Namespace:
 ## YAML operations
 
 def read_yaml(file):
-    check_module("yaml", "To install it, run 'pip install pyyaml'")
+    check_module("yaml", "Python module 'yaml' is not found.  To install it, run 'pip install pyyaml'.")
 
     import yaml as _yaml
 
@@ -1658,7 +1681,7 @@ def read_yaml(file):
         return _yaml.safe_load(f)
 
 def write_yaml(file, data):
-    check_module("yaml", "To install it, run 'pip install pyyaml'")
+    check_module("yaml", "Python module 'yaml' is not found.  To install it, run 'pip install pyyaml'.")
 
     import yaml as _yaml
 
@@ -1672,14 +1695,14 @@ def write_yaml(file, data):
     return file
 
 def parse_yaml(yaml):
-    check_module("yaml", "To install it, run 'pip install pyyaml'")
+    check_module("yaml", "Python module 'yaml' is not found.  To install it, run 'pip install pyyaml'.")
 
     import yaml as _yaml
 
     return _yaml.safe_load(yaml)
 
 def emit_yaml(data):
-    check_module("yaml", "To install it, run 'pip install pyyaml'")
+    check_module("yaml", "Python module 'yaml' is not found.  To install it, run 'pip install pyyaml'.")
 
     import yaml as _yaml
 

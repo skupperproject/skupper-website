@@ -530,6 +530,15 @@ def logging_operations():
             with logging_disabled():
                 error("Yikes")
 
+    with expect_output(contains="flipper") as out:
+        with logging_enabled(output=out):
+            with logging_context("flipper"):
+                notice("Whhat")
+
+    with logging_context("bip"):
+        with logging_context("boop"):
+            error("It's alarming!")
+
 @test
 def path_operations():
     abspath = _os.path.abspath
