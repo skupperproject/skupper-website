@@ -164,7 +164,16 @@ skupper-site-controller-d7b57964-gxms6   1/1     Running   0          1m</code><
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">Unresolved directive in creating-site-using-operator.adoc - include::example$site-cm.yaml[]</code></pre>
+<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: skupper-site
+  namespace: my-namespace
+data:
+  console: "true"
+  flow-collector: "true"
+  console-user: "admin"
+  console-password: "changeme"</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -185,7 +194,11 @@ Currently, you must enable the console on the same site as you enable the flow c
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">Unresolved directive in creating-site-using-operator.adoc - include::example$no-console.yaml[]</code></pre>
+<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: skupper-site
+  namespace: my-namespace</code></pre>
 </div>
 </div>
 </div>
