@@ -1,3 +1,6 @@
+---
+title: Troubleshooting a service network
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -682,6 +685,20 @@ Enter the following command:</p>
 <pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper init --ingress none</code></pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>See <a href="cli-reference:skupper_init.in">cli-reference:skupper_init.in</a> for more options.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </li>
@@ -792,7 +809,7 @@ You must specify an ingress to allow sites on other clusters to link to your sit
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-01-08 13:10:05 UTC
+Last updated 2024-01-08 13:12:16 UTC
 </div>
 </div>
 </body>
