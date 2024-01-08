@@ -189,9 +189,14 @@
         "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.5.1",
         "version": "1.5.1"
     },
+    "1.5.2": {
+        "date": "2024-01-08T16:32:28Z",
+        "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.5.2",
+        "version": "1.5.2"
+    },
     "latest": {
-        "date": "2023-12-06T13:33:03Z",
-        "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.5.1",
-        "version": "1.5.1"
+        "date": "2024-01-08T16:32:28Z",
+        "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.5.2",
+        "version": "1.5.2"
     }
 }
