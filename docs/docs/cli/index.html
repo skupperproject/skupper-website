@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Using the Skupper CLI</title>
+    <title>Skupper - </title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/index.html">Using the Skupper CLI</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/index.html"></a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -75,9 +75,23 @@
   <div>
     <main>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>Using the Skupper CLI</title>
+<style>
 
-<article class="doc">
-<h1 class="page">Using the Skupper CLI</h1>
+</style>
+</head>
+<body id="skupper-cli" class="article">
+<div id="header">
+<h1>Using the Skupper CLI</h1>
+</div>
+<div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -89,7 +103,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="installing-cli"><a class="anchor" href="#installing-cli"></a>Installing the Skupper CLI</h2>
+<h2 id="checking-cli">Checking the Skupper CLI</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Installing the <code>skupper</code> command-line interface (CLI) provides a simple method to get started with Skupper.</p>
@@ -98,44 +112,14 @@
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Install the <code>skupper</code> command-line interface.</p>
-<div class="openblock">
-<div class="content">
-<div class="paragraph">
-<p>For Linux:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/1.5.0/skupper-cli-1.5.0-linux-amd64.tgz | tar -xzf -</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For MacOS:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ curl -fL https://github.com/skupperproject/skupper/releases/download/1.5.0/skupper-cli-1.5.0-mac-amd64.tgz | tar -xzf -</pre>
-</div>
-</div>
-</div>
-</div>
-</li>
-<li>
-<p>Copy the <code>skupper</code> executable to a directory in your $PATH:</p>
-<div class="listingblock">
-<div class="content">
-<pre>$ mkdir -p $HOME/bin
-$ export PATH=$PATH:$HOME/bin
-$ mv skupper $HOME/bin</pre>
-</div>
-</div>
+<p>Follow the instructions for <a href="/install/index.html">Installing Skupper</a>.</p>
 </li>
 <li>
 <p>Verify the installation.</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper version
-client version 1.5.0</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper version
+client version 1.5</code></pre>
 </div>
 </div>
 </li>
@@ -144,7 +128,7 @@ client version 1.5.0</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-using-cli"><a class="anchor" href="#creating-using-cli"></a>Creating a site using the CLI</h2>
+<h2 id="creating-using-cli">Creating a site using the CLI</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A service network consists of Skupper sites.
@@ -171,53 +155,63 @@ This section describes how to create a site using the default settings.</p>
 <p>Create a default site:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper init</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper init</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Starting with Skupper release 1.3, the console is not enabled by default.
-To use the new console, which is a preview feature and may change, see <a href="../console/index.html" class="xref page">Using the Skupper console</a>.</p>
+To use the new console, which is a preview feature and may change, see <a href="../console/">Using the Skupper console</a>.</p>
 </div>
 </li>
 <li>
 <p>Check the site:</p>
+<div class="openblock">
+<div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper status
-
-Skupper is enabled for namespace "west" in interior mode. It is not connected to any other sites.</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper status</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output should look similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">Skupper is enabled for namespace "west" in interior mode. It is not connected to any other sites.</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
-The default message above is displayed when you initialize a site on a cluster that does not have the policy system installed.
-If you install the policy system as described in <a href="../policy/index.html" class="xref page">Securing a service network using policies</a>, the message becomes <code>Skupper is enabled for namespace "west" in interior mode (with policies)</code>.
+The default message above is displayed when you initialize a site on a cluster that does not have a Skupper policy installed.
+If you install a Skupper policy as described in <a href="../policy/">Securing a service network using policies</a>, the message becomes <code>Skupper is enabled for namespace "west" in interior mode (with policies)</code>.
 </td>
 </tr>
 </table>
-</div>
-</li>
-</ol>
 </div>
 <div class="paragraph">
 <p>By default, the site name defaults to the namespace name, for example, <code>west</code>.</p>
 </div>
 </div>
 </div>
+</li>
+</ol>
+</div>
+</div>
+</div>
 <div class="sect1">
-<h2 id="custom-sites"><a class="anchor" href="#custom-sites"></a>Custom sites</h2>
+<h2 id="custom-sites">Custom sites</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The default <code>skupper init</code> creates sites that satisfy typical requirements.</p>
 </div>
 <div class="paragraph">
 <p>Starting with Skupper release 1.3, the console is not enabled by default.
-To use the new console, which is a preview feature and may change, see <a href="../console/index.html" class="xref page">Using the Skupper console</a>.</p>
+To use the new console, which is a preview feature and may change, see <a href="../console/">Using the Skupper console</a>.</p>
 </div>
 <div class="paragraph">
 <p>If you require a custom configuration, note the following options:</p>
@@ -269,14 +263,14 @@ If not specified, a random passwords is generated.</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper init --create-network-policy</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper init --create-network-policy</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 All sites are associated with a namespace, called the <em>active namespace</em> in this procedure.
@@ -287,7 +281,7 @@ All sites are associated with a namespace, called the <em>active namespace</em> 
 <div class="paragraph">
 <p>Services in the active namespace may be accessible to pods in other namespaces on that cluster by default, depending on your cluster network policies.
 As a result, you can expose services to pods in namespaces not directly connected to the service network.
-This setting applies a network policy to restrict access to services to those pods in the active namespace.</p>
+This setting applies a Kubernetes network policy to restrict access to services to those pods in the active namespace.</p>
 </div>
 <div class="paragraph">
 <p>For example, if you create a site in the namespace <code>projectA</code> of <code>clusterA</code> and link that site to a service network where the <code>database</code> service is exposed, the <code>database</code> service is available to pods in <code>projectB</code> of <code>clusterA</code>.</p>
@@ -303,7 +297,7 @@ This setting applies a network policy to restrict access to services to those po
 </div>
 </div>
 <div class="sect1">
-<h2 id="linking-sites"><a class="anchor" href="#linking-sites"></a>Linking sites</h2>
+<h2 id="linking-sites">Linking sites</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A service network consists of Skupper sites.
@@ -334,7 +328,7 @@ This section describes how to link sites to form a service network.</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper token create &lt;filename&gt;</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper token create &lt;filename&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -347,7 +341,7 @@ This section describes how to link sites to form a service network.</p>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -355,7 +349,7 @@ This section describes how to link sites to form a service network.</p>
 Protect it appropriately.</p>
 </div>
 <div class="paragraph">
-<p>For more information about protecting access to the service network, see <a href="tokens.html" class="xref page">Using Skupper tokens</a>.</p>
+<p>For more information about protecting access to the service network, see <a href="cli:tokens.in">cli:tokens.in</a>.</p>
 </div>
 </td>
 </tr>
@@ -372,7 +366,7 @@ Protect it appropriately.</p>
 <p>Create a link to the service network:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper link create &lt;filename&gt; [-name &lt;link-name&gt;]</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper link create &lt;filename&gt; [-name &lt;link-name&gt;]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -383,8 +377,8 @@ Protect it appropriately.</p>
 <p>Check the link:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper link status
-Link link1 not connected</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper link status
+Link link1 not connected</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -398,7 +392,7 @@ Link link1 not connected</pre>
 <p>If you want to delete a link:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper link delete &lt;link-name&gt;</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper link delete &lt;link-name&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -410,7 +404,7 @@ Link link1 not connected</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="link-cost"><a class="anchor" href="#link-cost"></a>Specifying link cost</h2>
+<h2 id="link-cost">Specifying link cost</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>When linking sites, you can assign a cost to each link to influence the traffic flow.
@@ -426,7 +420,7 @@ In this case, you can specify a cost of greater than <code>1</code> on the alter
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 The distribution of open connections is statistical, that is, not a round robin system.
@@ -446,7 +440,7 @@ When there is only one path, traffic flows on that path regardless of cost.</p>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 If you start with two targets for a service, and one of the targets is no longer available, traffic flows on the remaining path regardless of cost.
@@ -481,7 +475,7 @@ After this threshold of open connections is reached, new connections are spread 
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper link create &lt;filename&gt; --cost &lt;integer-cost&gt;</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper link create &lt;filename&gt; --cost &lt;integer-cost&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -491,7 +485,7 @@ After this threshold of open connections is reached, new connections are spread 
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 If a service can be called without traversing a link, that service is considered local, with an implicit cost of <code>0</code>.
@@ -504,7 +498,7 @@ If a service can be called without traversing a link, that service is considered
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper link create token.yaml --cost 2</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper link create token.yaml --cost 2</code></pre>
 </div>
 </div>
 </div>
@@ -512,16 +506,26 @@ If a service can be called without traversing a link, that service is considered
 </li>
 <li>
 <p>Check the link cost:</p>
+<div class="openblock">
+<div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper link status link1 --verbose
-
- Cost:          2
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper link status link1 --verbose</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output is similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash"> Cost:          2
  Created:       2022-11-17 15:02:01 +0000 GMT
  Name:          link1
  Namespace:     default
  Site:          default-0d99d031-cee2-4cc6-a761-697fe0f76275
- Status:        Connected</pre>
+ Status:        Connected</code></pre>
+</div>
+</div>
 </div>
 </div>
 </li>
@@ -537,7 +541,7 @@ You can view the traffic levels corresponding to each client.</p>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 If there are multiple clients on different sites, filter the view to each client to determine the effect of cost on traffic.
@@ -554,7 +558,7 @@ For example, in a two site network linked with a high cost with servers and clie
 </div>
 </div>
 <div class="sect1">
-<h2 id="exposing-services-ns"><a class="anchor" href="#exposing-services-ns"></a>Exposing services on the service network from a namespace</h2>
+<h2 id="exposing-services-ns">Exposing services on the service network from a namespace</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>After creating a service network, exposed services can communicate across that network.</p>
@@ -575,7 +579,7 @@ See <a href="#exposing-complex-services">Exposing complex services on the servic
 </ul>
 </div>
 <div class="sect2">
-<h3 id="exposing-simple-services"><a class="anchor" href="#exposing-simple-services"></a>Exposing simple services on the service network</h3>
+<h3 id="exposing-simple-services">Exposing simple services on the service network</h3>
 <div class="paragraph">
 <p>This section describes how services can be enabled for a service network for simple use cases.</p>
 </div>
@@ -586,7 +590,7 @@ See <a href="#exposing-complex-services">Exposing complex services on the servic
 <p>Create a deployment, some pods, or a service in one of your sites, for example:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -599,7 +603,7 @@ See <a href="#exposing-complex-services">Exposing complex services on the servic
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper expose [deployment &lt;name&gt;|pods &lt;selector&gt;|statefulset &lt;statefulsetname&gt;|service &lt;name&gt;]</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper expose [deployment &lt;name&gt;|pods &lt;selector&gt;|statefulset &lt;statefulsetname&gt;|service &lt;name&gt;]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -652,7 +656,7 @@ NOTE: You can specify more than one port by repeating this option.</p>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 If you do not specify ports, <code>skupper</code> uses the <code>containerPort</code> value of the deployment.
@@ -662,7 +666,7 @@ If you do not specify ports, <code>skupper</code> uses the <code>containerPort</
 </div>
 </div>
 <div class="sect2">
-<h3 id="exposing-complex-services"><a class="anchor" href="#exposing-complex-services"></a>Exposing complex services on the service network</h3>
+<h3 id="exposing-complex-services">Exposing complex services on the service network</h3>
 <div class="paragraph">
 <p>This section describes how services can be enabled for a service network for more complex use cases.</p>
 </div>
@@ -673,7 +677,7 @@ If you do not specify ports, <code>skupper</code> uses the <code>containerPort</
 <p>Create a deployment, some pods, or a service in one of your sites, for example:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -686,7 +690,7 @@ If you do not specify ports, <code>skupper</code> uses the <code>containerPort</
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service create &lt;name&gt; &lt;port&gt;</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper service create &lt;name&gt; &lt;port&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -707,7 +711,7 @@ If you do not specify ports, <code>skupper</code> uses the <code>containerPort</
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper service create hello-world-backend 8080</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper service create hello-world-backend 8080</code></pre>
 </div>
 </div>
 </div>
@@ -719,7 +723,7 @@ If you do not specify ports, <code>skupper</code> uses the <code>containerPort</
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service bind &lt;service-name&gt; &lt;target-type&gt; &lt;target-name&gt;</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper service bind &lt;service-name&gt; &lt;target-type&gt; &lt;target-name&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -743,7 +747,7 @@ If you do not specify ports, <code>skupper</code> uses the <code>containerPort</
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper service bind hello-world-backend deployment hello-world-backend</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper service bind hello-world-backend deployment hello-world-backend</code></pre>
 </div>
 </div>
 </div>
@@ -753,7 +757,7 @@ If you do not specify ports, <code>skupper</code> uses the <code>containerPort</
 </div>
 </div>
 <div class="sect2">
-<h3 id="exposing-services-from-different-ns"><a class="anchor" href="#exposing-services-from-different-ns"></a>Exposing services from a different namespace to the service network</h3>
+<h3 id="exposing-services-from-different-ns">Exposing services from a different namespace to the service network</h3>
 <div class="paragraph">
 <p>This section shows how to expose a service from a namespace where Skupper is not deployed.</p>
 </div>
@@ -780,7 +784,7 @@ However, if you want to expose workloads, for example deployments, you must crea
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper init --enable-cluster-permissions</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper init --enable-cluster-permissions</code></pre>
 </div>
 </div>
 </div>
@@ -792,7 +796,7 @@ However, if you want to expose workloads, for example deployments, you must crea
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 The site does not require the extra permissions granted with the <code>--enable-cluster-permissions</code> to expose a Kubernetes service.
@@ -808,7 +812,7 @@ The site does not require the extra permissions granted with the <code>--enable-
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper expose service &lt;service&gt;.&lt;namespace&gt; --address &lt;service&gt;</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper expose service &lt;service&gt;.&lt;namespace&gt; --address &lt;service&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -826,7 +830,7 @@ The site does not require the extra permissions granted with the <code>--enable-
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper expose service backend.east-backend --port 8080 --address backend</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper expose service backend.east-backend --port 8080 --address backend</code></pre>
 </div>
 </div>
 </div>
@@ -838,7 +842,7 @@ The site does not require the extra permissions granted with the <code>--enable-
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper expose &lt;resource&gt; --port &lt;port-number&gt; --target-namespace &lt;namespace&gt;</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper expose &lt;resource&gt; --port &lt;port-number&gt; --target-namespace &lt;namespace&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -856,7 +860,7 @@ The site does not require the extra permissions granted with the <code>--enable-
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper expose deployment/backend --port 8080 --target-namespace east-backend</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper expose deployment/backend --port 8080 --target-namespace east-backend</code></pre>
 </div>
 </div>
 </div>
@@ -874,7 +878,7 @@ The site does not require the extra permissions granted with the <code>--enable-
 </div>
 </div>
 <div class="sect1">
-<h2 id="exposing-services-local"><a class="anchor" href="#exposing-services-local"></a>Exposing services on the service network from a local machine</h2>
+<h2 id="exposing-services-local">Exposing services on the service network from a local machine</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>After creating a service network, you can expose services from a local machine on the service network.</p>
@@ -883,7 +887,7 @@ The site does not require the extra permissions granted with the <code>--enable-
 <p>For example, if you run a database on a server in your data center, you can deploy a front end in a cluster that can access the data as if the database was running in the cluster.</p>
 </div>
 <div class="sect2">
-<h3 id="exposing-service-gateway"><a class="anchor" href="#exposing-service-gateway"></a>Exposing simple local services to the service network</h3>
+<h3 id="exposing-service-gateway">Exposing simple local services to the service network</h3>
 <div class="paragraph">
 <p>This section shows how to expose a single service running locally on a service network.</p>
 </div>
@@ -913,7 +917,7 @@ The site does not require the extra permissions granted with the <code>--enable-
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway expose &lt;service&gt; localhost &lt;port&gt;</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper gateway expose &lt;service&gt; localhost &lt;port&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -930,7 +934,7 @@ The site does not require the extra permissions granted with the <code>--enable-
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -938,7 +942,7 @@ The site does not require the extra permissions granted with the <code>--enable-
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper gateway expose mysql 192.168.1.200 3306</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper gateway expose mysql 192.168.1.200 3306</code></pre>
 </div>
 </div>
 </td>
@@ -954,12 +958,12 @@ The site does not require the extra permissions granted with the <code>--enable-
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper gateway status
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper gateway status
 
 Gateway Definition:
-╰─ machine-user type:service version:1
+╰─ machine-user type:service version:1.5
    ╰─ Bindings:
-      ╰─ mydb:3306 tcp mydb:3306 localhost 3306</pre>
+      ╰─ mydb:3306 tcp mydb:3306 localhost 3306</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -975,7 +979,7 @@ Gateway Definition:
 </div>
 </div>
 <div class="sect2">
-<h3 id="exposing-services-gateway"><a class="anchor" href="#exposing-services-gateway"></a>Working with complex local services on the service network</h3>
+<h3 id="exposing-services-gateway">Working with complex local services on the service network</h3>
 <div class="paragraph">
 <p>This section shows more advanced usage of skupper gateway.</p>
 </div>
@@ -987,7 +991,7 @@ Gateway Definition:
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway init --type &lt;gateway-type&gt;</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper gateway init --type &lt;gateway-type&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1012,7 +1016,7 @@ Gateway Definition:
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service create &lt;name&gt; &lt;port&gt;</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper service create &lt;name&gt; &lt;port&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1033,7 +1037,7 @@ Gateway Definition:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service create mydb 3306</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper service create mydb 3306</code></pre>
 </div>
 </div>
 </div>
@@ -1045,7 +1049,7 @@ Gateway Definition:
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway bind &lt;service&gt; &lt;host&gt; &lt;port&gt;</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper gateway bind &lt;service&gt; &lt;host&gt; &lt;port&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -1070,11 +1074,18 @@ Gateway Definition:
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway status
-Gateway Definitions Summary
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper gateway status</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output looks similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">Gateway Definitions Summary
 
 Gateway Definition:
-╰─ machine-user type:service version:1
+╰─ machine-user type:service version:1.5
    ╰─ Bindings:
       ╰─ mydb:3306 tcp mydb:3306 localhost 3306</code></pre>
 </div>
@@ -1097,7 +1108,7 @@ Gateway Definition:
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway forward &lt;service&gt; &lt;port&gt;</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper gateway forward &lt;service&gt; &lt;port&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1120,7 +1131,7 @@ Gateway Definition:
 </div>
 </div>
 <div class="sect2">
-<h3 id="exporting-gateway"><a class="anchor" href="#exporting-gateway"></a>Creating a gateway and applying it on a different machine</h3>
+<h3 id="exporting-gateway">Creating a gateway and applying it on a different machine</h3>
 <div class="paragraph">
 <p>If you have access to a cluster from one machine but want to create a gateway to the service network from a different machine, you can create the gateway definition bundle on the first machine and later apply that definition bundle on a second machine as described in this procedure.
 For example, if you want to expose a local database service to the service network, but you never want to access the cluster from the database server, you can use this procedure to create the definition bundle and apply it on the database server.</p>
@@ -1137,7 +1148,7 @@ For example, if you want to expose a local database service to the service netwo
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service create &lt;name&gt; &lt;port&gt;</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper service create &lt;name&gt; &lt;port&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1158,7 +1169,7 @@ For example, if you want to expose a local database service to the service netwo
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service create database 5432</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper service create database 5432</code></pre>
 </div>
 </div>
 </div>
@@ -1170,17 +1181,17 @@ For example, if you want to expose a local database service to the service netwo
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">name: database <i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">name: database <b class="conum">(1)</b>
 bindings:
-    - name: database <i class="conum" data-value="2"></i><b>(2)</b>
-      host: localhost <i class="conum" data-value="3"></i><b>(3)</b>
+    - name: database <b class="conum">(2)</b>
+      host: localhost <b class="conum">(3)</b>
       service:
-        address: database:5432 <i class="conum" data-value="4"></i><b>(4)</b>
-        protocol: tcp <i class="conum" data-value="5"></i><b>(5)</b>
+        address: database:5432 <b class="conum">(4)</b>
+        protocol: tcp <b class="conum">(5)</b>
         ports:
-            - 5432 <i class="conum" data-value="6"></i><b>(6)</b>
+            - 5432 <b class="conum">(6)</b>
       target_ports:
-        - 5432 <i class="conum" data-value="7"></i><b>(7)</b>
+        - 5432 <b class="conum">(7)</b>
 qdr-listeners:
     - name: amqp
       host: localhost
@@ -1188,36 +1199,29 @@ qdr-listeners:
 </div>
 </div>
 <div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Gateway name, useful for reference only.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Binding name, useful to track multiple bindings.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Name of host providing the service you want to expose.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Service name and port on service network. You created the service in a previous step.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>The protocol you want to use to expose the service, <code>tcp</code>, <code>http</code> or <code>http2</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>The port on the service network that you want this service to be available on.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>The port of the service running on the host specified in point 3.</td>
-</tr>
-</table>
+<ol>
+<li>
+<p>Gateway name, useful for reference only.</p>
+</li>
+<li>
+<p>Binding name, useful to track multiple bindings.</p>
+</li>
+<li>
+<p>Name of host providing the service you want to expose.</p>
+</li>
+<li>
+<p>Service name and port on service network. You created the service in a previous step.</p>
+</li>
+<li>
+<p>The protocol you want to use to expose the service, <code>tcp</code>, <code>http</code> or <code>http2</code>.</p>
+</li>
+<li>
+<p>The port on the service network that you want this service to be available on.</p>
+</li>
+<li>
+<p>The port of the service running on the host specified in point 3.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -1231,7 +1235,7 @@ qdr-listeners:
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway generate-bundle &lt;config-filename&gt; &lt;destination-directory&gt;</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper gateway generate-bundle &lt;config-filename&gt; &lt;destination-directory&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1252,7 +1256,7 @@ qdr-listeners:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper gateway generate-bundle database.yaml ./</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper gateway generate-bundle database.yaml ./</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1270,7 +1274,7 @@ qdr-listeners:
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ mkdir gateway
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ mkdir gateway
 
 $ tar -xvf &lt;gateway-definition-file&gt; --directory gateway
 $ cd gateway
@@ -1281,7 +1285,7 @@ $ sh ./launch.py</code></pre>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 Use <code>./launch.py -t podman</code> or <code>./launch.py -t docker</code> to run the Skupper router in a container.
@@ -1304,7 +1308,7 @@ Use <code>./launch.py -t podman</code> or <code>./launch.py -t docker</code> to 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ systemctl --user status &lt;gateway-definition-name&gt;</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ systemctl --user status &lt;gateway-definition-name&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1312,7 +1316,7 @@ Use <code>./launch.py -t podman</code> or <code>./launch.py -t docker</code> to 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ podman inspect</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ podman inspect</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1320,14 +1324,14 @@ Use <code>./launch.py -t podman</code> or <code>./launch.py -t docker</code> to 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ docker inspect</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker inspect</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 You can later remove the gateway using <code>./remove.py</code>.
@@ -1344,11 +1348,11 @@ You can later remove the gateway using <code>./remove.py</code>.
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper gateway status
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper gateway status
 Gateway Definition:
-╰─ machine-user type:service version:1
+╰─ machine-user type:service version:1.5
    ╰─ Bindings:
-      ╰─ mydb:3306 tcp mydb:3306 localhost 3306</pre>
+      ╰─ mydb:3306 tcp mydb:3306 localhost 3306</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1363,7 +1367,7 @@ Gateway Definition:
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 If you need to change the gateway definition, for example to change port, you need to remove the existing gateway and repeat this procedure from the start to redefine the gateway.
@@ -1373,7 +1377,7 @@ If you need to change the gateway definition, for example to change port, you ne
 </div>
 </div>
 <div class="sect2">
-<h3 id="gateway-reference"><a class="anchor" href="#gateway-reference"></a>Gateway YAML reference</h3>
+<h3 id="gateway-reference">Gateway YAML reference</h3>
 <div class="paragraph">
 <p>The <a href="#exporting-gateway">Creating a gateway and applying it on a different machine</a> describes how to create a gateway to apply on a separate machine using a gateway definition YAML file.</p>
 </div>
@@ -1432,7 +1436,7 @@ If you need to change the gateway definition, for example to change port, you ne
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 If the local service requires more than one port, create separate bindings for each port.
@@ -1476,7 +1480,7 @@ If the local service requires more than one port, create separate bindings for e
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 If the network service requires more than one port, create separate forwards for each port.
@@ -1508,7 +1512,7 @@ If the network service requires more than one port, create separate forwards for
 </div>
 </div>
 <div class="sect1">
-<h2 id="network-service"><a class="anchor" href="#network-service"></a>Exploring a service network</h2>
+<h2 id="network-service">Exploring a service network</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Skupper includes a command to allow you report all the sites and the services available on a service network.</p>
@@ -1533,7 +1537,7 @@ If the network service requires more than one port, create separate forwards for
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper network status</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper network status</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1541,99 +1545,56 @@ If the network service requires more than one port, create separate forwards for
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">Sites:
-├─ [local] 4dba248 - west  <i class="conum" data-value="1"></i><b>(1)</b>
-│  URL: 10.96.146.236 <i class="conum" data-value="2"></i><b>(2)</b>
-│  name: west <i class="conum" data-value="3"></i><b>(3)</b>
-│  namespace: west
-│  version: 0.8.6 <i class="conum" data-value="4"></i><b>(4)</b>
-│  ╰─ Services:
-│     ╰─ name: hello-world-backend <i class="conum" data-value="5"></i><b>(5)</b>
-│        address: hello-world-backend: 8080 <i class="conum" data-value="6"></i><b>(6)</b>
-│        protocol: tcp <i class="conum" data-value="7"></i><b>(7)</b>
-╰─ [remote] bca99d1 - east <i class="conum" data-value="8"></i><b>(8)</b>
-   URL:
-   name: east
-   namespace: east
-   sites linked to: 4dba248-west <i class="conum" data-value="9"></i><b>(9)</b>
-   version: 0.8.6
-   ╰─ Services:
-      ╰─ name: hello-world-backend
-         address: hello-world-backend: 8080
-         protocol: tcp
-         ╰─ Targets:
-            ╰─ name: hello-world-backend-7dfb45b98d-mhskw <i class="conum" data-value="10"></i><b>(10)</b></code></pre>
+<pre class="highlight"><code>Sites:
+├─ [local] a960b766-20bd-42c8-886d-741f3a9f6aa2(west) <b class="conum">(1)</b>
+│  │ namespace: west
+│  │ site name: west <b class="conum">(2)</b>
+│  │ version: 1.5.1 <b class="conum">(3)</b>
+│  ╰─ Linked sites:
+│     ├─ 496ca1de-0c80-4e70-bbb4-d0d6ec2a09c0(east)
+│     │  direction: outgoing
+│     ╰─ 484cccc3-401c-4c30-a6ed-73382701b18a()
+│        direction: incoming
+├─ [remote] 496ca1de-0c80-4e70-bbb4-d0d6ec2a09c0(east) <b class="conum">(4)</b>
+│  │ namespace: east
+│  │ site name: east
+│  │ version: 1.5.1
+│  ╰─ Linked sites:
+│     ╰─ a960b766-20bd-42c8-886d-741f3a9f6aa2(west) <b class="conum">(5)</b>
+│        direction: incoming
+╰─ [remote] 484cccc3-401c-4c30-a6ed-73382701b18a() <b class="conum">(6)</b>
+   │ site name: vm-user-c3d98
+   │ version: 1.5.1
+   ╰─ Linked sites:
+      ╰─ a960b766-20bd-42c8-886d-741f3a9f6aa2(west)
+         direction: outgoing</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The unique identifier of the site associated with the current context, that is, the <code>west</code> namespace</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The URL of the service network router.
-This is required for other sites to connect to this site and is different from the console URL.
-If you require the URL of the console, use the <code>skupper status</code> command to display that URL.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The site name.
+<ol>
+<li>
+<p>The unique identifier of the site associated with the current context, that is, the <code>west</code> namespace</p>
+</li>
+<li>
+<p>The site name.
 By default, skupper uses the name of the current namespace.
-If you want to specify a site name, use <code>skupper init  --site-name &lt;site-name&gt;</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>The version of Skupper running the site.
+If you want to specify a site name, use <code>skupper init  --site-name &lt;site-name&gt;</code>.</p>
+</li>
+<li>
+<p>The version of Skupper running the site.
 The site version can be different from the current <code>skupper</code> CLI version.
-To update a site to the version of the CLI, use <code>skupper update</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>The name of a service exposed on the service network.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>The address of a service exposed on the service network.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>The protocol of a service exposed on the service network.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="8"></i><b>8</b></td>
-<td>The unique identifier of a remote site on the service network.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="9"></i><b>9</b></td>
-<td>The sites that the remote site is linked to.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="10"></i><b>10</b></td>
-<td>The name of the local Kubernetes object that is exposed on the service network.
-In this example, this is the <code>hello-world-backend</code> pod.</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="🛈"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The URL for the east site has no value because that site was initialized without ingress using the following command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ skupper init --ingress none</pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
+To update a site to the version of the CLI, use <code>skupper update</code>.</p>
+</li>
+<li>
+<p>The unique identifier of a remote site on the service network.</p>
+</li>
+<li>
+<p>The sites that the remote site is linked to.</p>
+</li>
+<li>
+<p>The unique identifier of a remote podman site. Podman sites do not have an associated context.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -1643,17 +1604,17 @@ In this example, this is the <code>hello-world-backend</code> pod.</td>
 </div>
 </div>
 <div class="sect1">
-<h2 id="built-in-security-options"><a class="anchor" href="#built-in-security-options"></a>Securing a service network</h2>
+<h2 id="built-in-security-options">Securing a service network</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Skupper provides default, built-in security that scales across clusters and clouds.
 This section describes additional security you can configure.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="../policy/index.html" class="xref page">Securing a service network using policies</a> for information about creating granular policies for each cluster.</p>
+<p>See <a href="../policy/">Securing a service network using policies</a> for information about creating granular policies for each cluster.</p>
 </div>
 <div class="sect2">
-<h3 id="network-policy"><a class="anchor" href="#network-policy"></a>Restricting access to services using network-policy</h3>
+<h3 id="network-policy">Restricting access to services using a Kubernetes network policy</h3>
 <div class="paragraph">
 <p>By default, if you expose a service on the service network, that service is also accessible from other namespaces in the cluster.
 You can avoid this situation when creating a site using the <code>--create-network-policy</code> option.</p>
@@ -1662,10 +1623,10 @@ You can avoid this situation when creating a site using the <code>--create-netwo
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Create the service network router with a network policy:</p>
+<p>Create the service network router with a Kubernetes network policy:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper init --create-network-policy</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper init --create-network-policy</code></pre>
 </div>
 </div>
 </li>
@@ -1675,7 +1636,7 @@ You can avoid this situation when creating a site using the <code>--create-netwo
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper status</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper status</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1696,7 +1657,7 @@ You can avoid this situation when creating a site using the <code>--create-netwo
 </div>
 </div>
 <div class="sect2">
-<h3 id="tls"><a class="anchor" href="#tls"></a>Applying TLS to TCP or HTTP2 traffic on the service network</h3>
+<h3 id="tls">Applying TLS to TCP or HTTP2 traffic on the service network</h3>
 <div class="paragraph">
 <p>By default, the traffic between sites is encrypted, however the traffic between the service pod and the router pod is not encrypted.
 For services exposed as TCP or HTTP2, the traffic between the pod and the router pod can be encrypted using TLS.</p>
@@ -1730,7 +1691,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper expose deployment &lt;deployment-name&gt; --port 443 --enable-tls</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper expose deployment &lt;deployment-name&gt; --port 443 --enable-tls</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1746,7 +1707,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">...
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">...
     spec:
       containers:
       ...
@@ -1779,7 +1740,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 <p>Modify the frontend deployment to include the generated certificates, for example:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spec:
   template:
     spec:
       containers:
@@ -1804,7 +1765,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 </div>
 </div>
 <div class="sect1">
-<h2 id="protocols"><a class="anchor" href="#protocols"></a>Supported standards and protocols</h2>
+<h2 id="protocols">Supported standards and protocols</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Skupper supports the following protocols for your service network:</p>
@@ -1827,7 +1788,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ skupper expose deployment hello-world-backend --port 8080 --protocol &lt;protocol&gt;</code></pre>
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ skupper expose deployment hello-world-backend --port 8080 --protocol &lt;protocol&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1868,16 +1829,16 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 </div>
 </div>
 <div class="sect1">
-<h2 id="cli-global-options"><a class="anchor" href="#cli-global-options"></a>CLI options</h2>
+<h2 id="cli-global-options">CLI options</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For a full list of options, see the <a href="../cli-reference/skupper.html" class="xref page">Kubernetes</a> and <a href="../cli-podman/skupper.html" class="xref page">Podman</a> reference documentation.</p>
+<p>For a full list of options, see the <a href="cli-reference:skupper.in">Kubernetes</a> and <a href="cli-podman:skupper.in">Podman</a> reference documentation.</p>
 </div>
 <div class="admonitionblock warning">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-warning" title="⚠"></i>
+<div class="title">Warning</div>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -1885,7 +1846,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper init --router-logging trace</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper init --router-logging trace</code></pre>
 </div>
 </div>
 </td>
@@ -1903,7 +1864,7 @@ The following <code>skupper</code> options allow you to override that behavior a
 <p>Apply command to <code>&lt;namespace-name&gt;</code>. For example, if you are currently working on <code>frontend</code> namespace and want to initialize a site in the <code>backend</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper init --namespace backend</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper init --namespace backend</code></pre>
 </div>
 </div>
 </dd>
@@ -1919,8 +1880,14 @@ The following <code>skupper</code> options allow you to override that behavior a
 </div>
 </div>
 </div>
-</article>
-
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2024-01-08 11:24:45 UTC
+</div>
+</div>
+</body>
+</html>
 
     </main>
     <nav id="-toc">

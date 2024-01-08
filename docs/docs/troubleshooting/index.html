@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Troubleshooting a service network</title>
+    <title>Skupper - </title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/troubleshooting/index.html">Troubleshooting a service network</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/troubleshooting/index.html"></a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -75,9 +75,23 @@
   <div>
     <main>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>Troubleshooting a service network</title>
+<style>
 
-<article class="doc">
-<h1 class="page">Troubleshooting a service network</h1>
+</style>
+</head>
+<body id="troubleshooting" class="article">
+<div id="header">
+<h1>Troubleshooting a service network</h1>
+</div>
+<div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -93,7 +107,7 @@ However, this guide provides some tips for situations when the service network d
 </div>
 </div>
 <div class="sect1">
-<h2 id="checking-sites"><a class="anchor" href="#checking-sites"></a>Checking sites</h2>
+<h2 id="checking-sites">Checking sites</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Using the <code>skupper</code> command-line interface (CLI) provides a simple method to get started with troubleshooting Skupper.</p>
@@ -107,7 +121,7 @@ However, this guide provides some tips for situations when the service network d
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper status --namespace west
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper status --namespace west
 
 Skupper is enabled for namespace "west" in interior mode. It is connected to 2 other sites. It has 1 exposed services.</code></pre>
 </div>
@@ -137,40 +151,37 @@ Skupper is enabled for namespace "west" in interior mode. It is connected to 2 o
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper network status --namespace west
-
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper network status
 Sites:
-├─ [local] 05f8c38 - west
-│  URL: 10.110.15.54
-│  mode: interior
-│  name: west
-│  namespace: west
-│  version: 1.0.2
-│  ╰─ Services:
-│     ╰─ name: backend
-│        address: backend: 8080
-│        protocol: tcp
-╰─ [remote] 1537b82 - east
-   URL: 10.97.26.100
-   name: east
-   namespace: east
-   sites linked to: 05f8c38-west
-   version: 1.0.2
-   ╰─ Services:
-      ╰─ name: backend
-         address: backend: 8080
-         protocol: tcp
-         ╰─ Targets:
-            ├─ name: backend-77f8f45fc8-smckp
-            ├─ name: backend-77f8f45fc8-gh6tp
-            ╰─ name: backend-77f8f45fc8-m58tg</code></pre>
+├─ [local] a960b766-20bd-42c8-886d-741f3a9f6aa2(west)
+│  │ namespace: west
+│  │ site name: west
+│  │ version: 1.5.1
+│  ╰─ Linked sites:
+│     ├─ 496ca1de-0c80-4e70-bbb4-d0d6ec2a09c0(east)
+│     │  direction: outgoing
+│     ╰─ 484cccc3-401c-4c30-a6ed-73382701b18a()
+│        direction: incoming
+├─ [remote] 496ca1de-0c80-4e70-bbb4-d0d6ec2a09c0(east)
+│  │ namespace: east
+│  │ site name: east
+│  │ version: 1.5.1
+│  ╰─ Linked sites:
+│     ╰─ a960b766-20bd-42c8-886d-741f3a9f6aa2(west)
+│        direction: incoming
+╰─ [remote] 484cccc3-401c-4c30-a6ed-73382701b18a()
+   │ site name: vm-user-c3d98
+   │ version: 1.5.1
+   ╰─ Linked sites:
+      ╰─ a960b766-20bd-42c8-886d-741f3a9f6aa2(west)
+         direction: outgoing</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 If the output is not what you expected, you might want to <a href="#checking-links">check links</a> before proceeding.
@@ -184,16 +195,10 @@ If the output is not what you expected, you might want to <a href="#checking-lin
 <div class="ulist">
 <ul>
 <li>
-<p>There are 2 sites on the service network, <code>east</code> and <code>west</code>.</p>
+<p>There are 3 sites on the service network, <code>vm-user-c3d98</code>, <code>east</code> and <code>west</code>.</p>
 </li>
 <li>
 <p>Details for each site, for example the namespace names.</p>
-</li>
-<li>
-<p>The original services that are exposed (Targets), in this case the three backend services exposed using the <code>tcp</code> protocol.</p>
-</li>
-<li>
-<p>The services available on the service network, including the port number. For example, <code>backend:8080</code>.</p>
 </li>
 </ul>
 </div>
@@ -206,7 +211,7 @@ If the output is not what you expected, you might want to <a href="#checking-lin
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service status
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper service status
 Services exposed through Skupper:
 ╰─ backend (tcp port 8080)
    ╰─ Targets:
@@ -220,7 +225,7 @@ Services exposed through Skupper:
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 The related targets for services are only displayed when the target is available on the current cluster.
@@ -237,7 +242,7 @@ The related targets for services are only displayed when the target is available
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper debug events
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper debug events
 NAME                         COUNT                                                          AGE
 GatewayQueryRequest          3                                                              9m12s
                              3     gateway request                                          9m12s
@@ -288,7 +293,7 @@ However, this output is most useful when reporting an issue and is included in t
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get events | grep "service/skupper"
+<pre class="highlight"><code class="language-bash" data-lang="bash">kubectl get events | grep "service/skupper"
 10m         Normal    ServiceSyncEvent               service/skupper                                   Service sync receiver connection to amqps://skupper-router-local.private1.svc.cluster.local:5671 established
 10m         Normal    ServiceSyncEvent               service/skupper                                   Service sync sender connection to amqps://skupper-router-local.private1.svc.cluster.local:5671 established
 10m         Normal    ServiceControllerCreateEvent   service/skupper                                   Creating service productcatalogservice
@@ -315,7 +320,7 @@ However, this output is most useful when reporting an issue and is included in t
 </div>
 </div>
 <div class="sect1">
-<h2 id="checking-links"><a class="anchor" href="#checking-links"></a>Checking links</h2>
+<h2 id="checking-links">Checking links</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>You must link sites before you can expose services on the service network.</p>
@@ -324,7 +329,7 @@ However, this output is most useful when reporting an issue and is included in t
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 By default, tokens expire after 5 minutes and you can only use a token once.
@@ -345,7 +350,7 @@ You can also generate tokens using the <code>-token-type cert</code> option for 
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper link status --namespace east
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper link status --namespace east
 
 Links created from this site:
 -------------------------------
@@ -359,7 +364,7 @@ Link link1 is connected</code></pre>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 Running <code>skupper link status</code> on a connected site produces output only if a token was used to create a link.
@@ -392,7 +397,7 @@ A link from the namespace east on site east(536695a9-26dc-4448-b207-519f56e99b71
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper link status link1 --verbose --namespace east
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper link status link1 --verbose --namespace east
 
  Cost:          1
  Created:       2022-10-24 12:50:33 +0100 IST
@@ -424,7 +429,7 @@ A link from the namespace east on site east(536695a9-26dc-4448-b207-519f56e99b71
 </div>
 </div>
 <div class="sect1">
-<h2 id="debug-gateways"><a class="anchor" href="#debug-gateways"></a>Checking gateways</h2>
+<h2 id="debug-gateways">Checking gateways</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>By default, <code>skupper gateway</code> creates a service type gateway and these gateways run properly after a machine restart.</p>
@@ -444,7 +449,7 @@ For example:</p>
 <pre>$ skupper gateway status
 
 Gateway Definition:
-╰─ machine-user type:podman version:1
+╰─ machine-user type:podman version:1.5
    ╰─ Bindings:
       ╰─ mydb:3306 tcp mydb:3306 localhost 3306</pre>
 </div>
@@ -463,7 +468,7 @@ Gateway Definition:
 <div class="content">
 <pre>$ podman ps
 CONTAINER ID  IMAGE                                           COMMAND               CREATED         STATUS             PORTS                   NAMES
-4e308ef8ee58  quay.io/skupper/skupper-router:1             /home/skrouterd/b...  26 seconds ago  Up 27 seconds ago                          machine-user</pre>
+4e308ef8ee58  quay.io/skupper/skupper-router:1.5             /home/skrouterd/b...  26 seconds ago  Up 27 seconds ago                          machine-user</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -473,7 +478,7 @@ CONTAINER ID  IMAGE                                           COMMAND           
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 To view stopped containers, use <code>podman ps -a</code> or <code>docker ps -a</code>.
@@ -501,7 +506,80 @@ To view stopped containers, use <code>podman ps -a</code> or <code>docker ps -a<
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-debug"><a class="anchor" href="#creating-debug"></a>Creating a Skupper debug tar file</h2>
+<h2 id="checking-policies">Checking policies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As a developer you might not be aware of the Skupper policy applied to your site.
+Follow this procedure to explore the policies applied to the site.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log into a namespace where a Skupper site has been initialized.</p>
+</li>
+<li>
+<p>Check whether incoming links are permitted:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl exec deploy/skupper-service-controller -- get policies incominglink
+
+ALLOWED POLICY ENABLED ERROR                                                   ALLOWED BY
+false   true           Policy validation error: incoming links are not allowed</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example incoming links are not allowed by policy.</p>
+</div>
+</li>
+<li>
+<p>Check other policies:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl exec deploy/skupper-service-controller -- get policies
+Validates existing policies
+
+Usage:
+  get policies [command]
+
+Available Commands:
+  expose       Validates if the given resource can be exposed
+  incominglink Validates if incoming links can be created
+  outgoinglink Validates if an outgoing link to the given hostname is allowed
+  service      Validates if service can be created or imported</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As shown, there are commands to check each policy type by specifying what you want to do, for example, to check if you can expose an nginx deployment:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl  exec deploy/skupper-service-controller -- get policies expose deployment nginx
+ALLOWED POLICY ENABLED ERROR                                                       ALLOWED BY
+false   true           Policy validation error: deployment/nginx cannot be exposed</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you allowed an nginx deployment as described in <a href="#allowedExposedResources">[allowedExposedResources]</a>, the same command shows that the resource is allowed and displays the name of the policy CR that enabled it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl  exec deploy/skupper-service-controller -- get policies expose deployment nginx
+ALLOWED POLICY ENABLED ERROR                                                       ALLOWED BY
+true    true                                                                       allowedexposedresources</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-debug">Creating a Skupper debug tar file</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The debug tar file contains all the logs from the Skupper components for a site and provides detailed information to help debug issues.</p>
@@ -524,7 +602,7 @@ Skupper dump details written to compressed archive:  `my-site.tar.gz`</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ tar -xvf kind-site.tar.gz
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ tar -xvf kind-site.tar.gz
 
 k8s-versions.txt
 skupper-versions.txt
@@ -575,7 +653,7 @@ skupper-sasl-config-configmap.yaml</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="router-performance"><a class="anchor" href="#router-performance"></a>Improving Skupper router performance</h2>
+<h2 id="router-performance">Improving Skupper router performance</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>If you encounter Skupper router performance issues, you can scale the Skupper router to address those concerns.</p>
@@ -584,7 +662,7 @@ skupper-sasl-config-configmap.yaml</code></pre>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 Currently, you must delete and recreate a site to reconfigure the Skupper router.
@@ -604,7 +682,7 @@ Currently, you must delete and recreate a site to reconfigure the Skupper router
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper delete</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper delete</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -616,7 +694,7 @@ After validating the performance improvement, you can delete and recreate your o
 <p>Create a site with optimal performance CPU settings:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper init --router-cpu 5</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper init --router-cpu 5</code></pre>
 </div>
 </div>
 </li>
@@ -629,10 +707,10 @@ After validating the performance improvement, you can delete and recreate your o
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
-While you can address availability concerns by scaling the number of routers and somewhat improve performance, for example <code>skupper init --routers 3</code>, typically this is not necessary.
+While you can address availability concerns by scaling the number of routers, typically this is not necessary.
 </td>
 </tr>
 </table>
@@ -640,7 +718,7 @@ While you can address availability concerns by scaling the number of routers and
 </div>
 </div>
 <div class="sect1">
-<h2 id="common-problems"><a class="anchor" href="#common-problems"></a>Resolving common problems</h2>
+<h2 id="common-problems">Resolving common problems</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following issues and workarounds might help you debug simple scenarios when evaluating Skupper.</p>
@@ -655,19 +733,15 @@ While you can address availability concerns by scaling the number of routers and
 <ul>
 <li>
 <p>Check the load balancer.</p>
-<div class="openblock">
-<div class="content">
-<div class="paragraph">
-<p>If you are evaluating Skupper on minikube, use the following command to create a load balancer:</p>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre>$ minikube tunnel</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For other Kubernetes flavors, see the documentation from your provider.</p>
-</div>
+<pre class="highlight"><code class="language-bash" data-lang="bash">If you are evaluating Skupper on minikube, use the following command to create a load balancer:
+
+----
+$ minikube tunnel
+----
+
+For other Kubernetes flavors, see the documentation from your provider.</code></pre>
 </div>
 </div>
 </li>
@@ -682,22 +756,8 @@ Enter the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper init --ingress none</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper init --ingress none</code></pre>
 </div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="🛈"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>See <a href="../cli-reference/skupper_init.html" class="xref page">skupper init</a> for more options.</p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
@@ -725,12 +785,12 @@ For example, if one site is behind a firewall and the other site is on an AWS cl
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 <div class="paragraph">
 <p>By default, a token is valid for only 15 minutes and can only be used once.
-See <a href="../cli/tokens.html" class="xref page">Using Skupper tokens</a> for more information on creating different types of tokens.</p>
+See <a href="cli:tokens.in">cli:tokens.in</a> for more information on creating different types of tokens.</p>
 </div>
 </td>
 </tr>
@@ -741,7 +801,7 @@ See <a href="../cli/tokens.html" class="xref page">Using Skupper tokens</a> for 
 </div>
 <div class="paragraph">
 <p>Starting with Skupper release 1.3, the console is not enabled by default.
-To use the new console, which is a preview feature and may change, see <a href="../console/index.html" class="xref page">Using the Skupper console</a>.</p>
+To use the new console, which is a preview feature and may change, see <a href="../console/">Using the Skupper console</a>.</p>
 </div>
 <div class="paragraph">
 <p>Use <code>skupper status</code> to find the console URL.</p>
@@ -771,7 +831,7 @@ To use the new console, which is a preview feature and may change, see <a href="
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>Error: Failed to create token: Policy validation error: Skupper is not enabled in namespace</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">Error: Failed to create token: Policy validation error: Skupper is not enabled in namespace</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -789,7 +849,7 @@ To use the new console, which is a preview feature and may change, see <a href="
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>Token written to &lt;path&gt; (Note: token will only be valid for local cluster)</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">Token written to &lt;path&gt; (Note: token will only be valid for local cluster)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -806,8 +866,14 @@ You must specify an ingress to allow sites on other clusters to link to your sit
 </div>
 </div>
 </div>
-</article>
-
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2024-01-08 13:10:05 UTC
+</div>
+</div>
+</body>
+</html>
 
     </main>
     <nav id="-toc">

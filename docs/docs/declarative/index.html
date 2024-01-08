@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Configuring Skupper sites using YAML</title>
+    <title>Skupper - </title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/declarative/index.html">Configuring Skupper sites using YAML</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/declarative/index.html"></a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -75,9 +75,23 @@
   <div>
     <main>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>Configuring Skupper sites using YAML</title>
+<style>
 
-<article class="doc">
-<h1 class="page">Configuring Skupper sites using YAML</h1>
+</style>
+</head>
+<body id="skupper-declarative" class="article">
+<div id="header">
+<h1>Configuring Skupper sites using YAML</h1>
+</div>
+<div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -86,7 +100,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="installing-using-yaml"><a class="anchor" href="#installing-using-yaml"></a>Installing Skupper using YAML</h2>
+<h2 id="installing-using-yaml">Installing Skupper using YAML</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Installing Skupper using YAML provides a declarative method to install Skupper.
@@ -115,7 +129,7 @@ If you are deploying Skupper to be available for all namespaces, verify you have
 <p>To install Skupper into the current namespace deploy the site controller using the following YAML:</p>
 <div class="listingblock">
 <div class="content">
-<pre>kubectl apply -f deploy-watch-current-ns.yaml</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">kubectl apply -f deploy-watch-current-ns.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -133,7 +147,7 @@ If you are deploying Skupper to be available for all namespaces, verify you have
 <p>Deploy the site controller using the following YAML:</p>
 <div class="listingblock">
 <div class="content">
-<pre>kubectl apply -f deploy-watch-all-ns.yaml</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">kubectl apply -f deploy-watch-all-ns.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -150,9 +164,9 @@ If you are deploying Skupper to be available for all namespaces, verify you have
 <p>Verify the installation.</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get pods
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl get pods
 NAME                                       READY   STATUS    RESTARTS   AGE
-skupper-site-controller-84694bdbb5-n8slb   1/1     Running   0          75s</pre>
+skupper-site-controller-84694bdbb5-n8slb   1/1     Running   0          75s</code></pre>
 </div>
 </div>
 </li>
@@ -161,7 +175,7 @@ skupper-site-controller-84694bdbb5-n8slb   1/1     Running   0          75s</pre
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-using-yaml"><a class="anchor" href="#creating-using-yaml"></a>Creating a Skupper site using YAML</h2>
+<h2 id="creating-using-yaml">Creating a Skupper site using YAML</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Using YAML files to create Skupper sites allows you to use source control to track and manage Skupper network changes.</p>
@@ -186,16 +200,7 @@ skupper-site-controller-84694bdbb5-n8slb   1/1     Running   0          75s</pre
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: skupper-site
-data:
-  name: my-site
-  console: "true"
-  console-user: "admin"
-  console-password: "changeme"
-  flow-collector: "true"</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">Unresolved directive in index.adoc - include::example$my-site.yaml[]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -206,13 +211,7 @@ data:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: skupper-site
-data:
-  name: my-site
-  ingress: "false"</pre>
+<pre>Unresolved directive in index.adoc - include::example$no-ingress.yaml[]</pre>
 </div>
 </div>
 </div>
@@ -222,7 +221,7 @@ data:
 <p>Apply the YAML file to your cluster:</p>
 <div class="listingblock">
 <div class="content">
-<pre>kubectl apply -f ~/my-site.yml</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">kubectl apply -f ~/my-site.yml</code></pre>
 </div>
 </div>
 </li>
@@ -235,7 +234,7 @@ data:
 </div>
 </div>
 <div class="sect1">
-<h2 id="linking-sites-using-yaml"><a class="anchor" href="#linking-sites-using-yaml"></a>Linking sites using YAML</h2>
+<h2 id="linking-sites-using-yaml">Linking sites using YAML</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>While it is not possible to declaratively link sites, you can create a token using YAML.</p>
@@ -275,7 +274,7 @@ metadata:
 <p>Apply the YAML to the namespace to create a secret.</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ kubectl apply -f token-request.yml</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl apply -f token-request.yml</code></pre>
 </div>
 </div>
 </li>
@@ -283,7 +282,7 @@ metadata:
 <p>Create the token YAML from the secret.</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ kubectl get secret -o yaml secret-name | yq 'del(.metadata.namespace)' &gt; ~/token.yaml</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl get secret -o yaml secret-name | yq 'del(.metadata.namespace)' &gt; ~/token.yaml</code></pre>
 </div>
 </div>
 </li>
@@ -294,7 +293,7 @@ metadata:
 <p>Apply the token YAML.</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ kubectl apply -f token.yml</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl apply -f token.yml</code></pre>
 </div>
 </div>
 </li>
@@ -302,7 +301,7 @@ metadata:
 <p>Verify the link, allowing some time for the process to complete.</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper link status --wait 60</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper link status --wait 60</code></pre>
 </div>
 </div>
 </li>
@@ -311,13 +310,13 @@ metadata:
 </div>
 </div>
 <div class="sect1">
-<h2 id="skupper-annotations"><a class="anchor" href="#skupper-annotations"></a>Configuring services using annotations</h2>
+<h2 id="skupper-annotations">Configuring services using annotations</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>After creating and linking sites, you can use Kubernetes annotations to control which services are available on the service network.</p>
 </div>
 <div class="sect2">
-<h3 id="exposing-services-annotations"><a class="anchor" href="#exposing-services-annotations"></a>Exposing simple services on a service network using annotations</h3>
+<h3 id="exposing-services-annotations">Exposing simple services on a service network using annotations</h3>
 <div class="paragraph">
 <p>This section provides an alternative to the <code>skupper expose</code> command, allowing you to annotate existing resources to expose simple services on the service network.</p>
 </div>
@@ -339,7 +338,7 @@ metadata:
 <p>Create a deployment, some pods, or a service in one of your sites, for example:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -352,7 +351,7 @@ metadata:
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ kubectl annotate deployment backend "skupper.io/address=backend" "skupper.io/port=8080" "skupper.io/proxy=tcp"</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl annotate deployment backend "skupper.io/address=backend" "skupper.io/port=8080" "skupper.io/proxy=tcp"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -377,7 +376,7 @@ For example, if you annotate a simple deployment named <code>backend</code> with
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -386,7 +385,7 @@ For example, if you want to expose the <code>backend</code> service:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ kubectl annotate service backend "skupper.io/address=van-backend" "skupper.io/port=8080" \
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl annotate service backend "skupper.io/address=van-backend" "skupper.io/port=8080" \
 "skupper.io/proxy=tcp" "skupper.io/target=backend"</code></pre>
 </div>
 </div>
@@ -406,7 +405,7 @@ For example, if you want to expose the <code>backend</code> service:</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper service status
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper service status
 Services exposed through Skupper:
 ╰─ backend (tcp port 8080)
    ╰─ Targets:
@@ -417,7 +416,7 @@ Services exposed through Skupper:
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 The related targets for services are only displayed when the target is available on the current cluster.
@@ -432,7 +431,7 @@ The related targets for services are only displayed when the target is available
 </div>
 </div>
 <div class="sect2">
-<h3 id="understanding-annotations"><a class="anchor" href="#understanding-annotations"></a>Understanding Skupper annotations</h3>
+<h3 id="understanding-annotations">Understanding Skupper annotations</h3>
 <div class="paragraph">
 <p>Annotations allow you to expose services on the service network.
 This section provides details on the scope of those annotations</p>
@@ -536,7 +535,7 @@ Applies to:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="site-config-reference"><a class="anchor" href="#site-config-reference"></a>Appendix A: Site ConfigMap YAML reference</h2>
+<h2 id="site-config-reference">Appendix A: Site ConfigMap YAML reference</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Using YAML files to configure Skupper requires that you understand all the fields so that you provision the site you require.</p>
@@ -546,73 +545,63 @@ Applies to:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>apiVersion: v1
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: v1
 data:
-  name: my-site <i class="conum" data-value="1"></i><b>(1)</b>
-  console: "true" <i class="conum" data-value="2"></i><b>(2)</b>
-  flow-collector: "true" <i class="conum" data-value="3"></i><b>(3)</b>
-  console-authentication: internal <i class="conum" data-value="4"></i><b>(4)</b>
-  console-user: "username" <i class="conum" data-value="5"></i><b>(5)</b>
-  console-password: "password" <i class="conum" data-value="6"></i><b>(6)</b>
-  cluster-local: "false" <i class="conum" data-value="7"></i><b>(7)</b>
-  edge: "false" <i class="conum" data-value="8"></i><b>(8)</b>
-  service-sync: "true" <i class="conum" data-value="9"></i><b>(9)</b>
-  ingress: "true" <i class="conum" data-value="10"></i><b>(10)</b>
+  name: my-site //<b class="conum">(1)</b>
+  console: "true" //<b class="conum">(2)</b>
+  flow-collector: "true" //<b class="conum">(3)</b>
+  console-authentication: internal //<b class="conum">(4)</b>
+  console-user: "username" //<b class="conum">(5)</b>
+  console-password: "password" //<b class="conum">(6)</b>
+  cluster-local: "false" //<b class="conum">(7)</b>
+  edge: "false" //<b class="conum">(8)</b>
+  service-sync: "true" //<b class="conum">(9)</b>
+  ingress: "true" //<b class="conum">(10)</b>
 kind: ConfigMap
 metadata:
-  name: skupper-site</pre>
+  name: skupper-site</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Specifies the site name.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Enables the skupper console, defaults to <code>false</code>.
-NOTE: You must enable <code>console</code> and <code>flow-collector</code> for the console to function.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Enables the flow collector, defaults to <code>false</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Specifies the skupper console authentication method. The options are <code>openshift</code>, <code>internal</code>, <code>unsecured</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>Username for the <code>internal</code> authentication option.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>Password for the <code>internal</code> authentication option.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>Only accept connections from within the local cluster, defaults to <code>false</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="8"></i><b>8</b></td>
-<td>Specifies whether an edge site is created, defaults to <code>false</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="9"></i><b>9</b></td>
-<td>Specifies whether the services are synchronized across the service network, defaults to <code>true</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="10"></i><b>10</b></td>
-<td>Specifies whether the site supports ingress, for example, to create tokens usable from remote sites.</td>
-</tr>
-</table>
+<ol>
+<li>
+<p>Specifies the site name.</p>
+</li>
+<li>
+<p>Enables the skupper console, defaults to <code>false</code>.
+NOTE: You must enable <code>console</code> and <code>flow-collector</code> for the console to function.</p>
+</li>
+<li>
+<p>Enables the flow collector, defaults to <code>false</code>.</p>
+</li>
+<li>
+<p>Specifies the skupper console authentication method. The options are <code>openshift</code>, <code>internal</code>, <code>unsecured</code>.</p>
+</li>
+<li>
+<p>Username for the <code>internal</code> authentication option.</p>
+</li>
+<li>
+<p>Password for the <code>internal</code> authentication option.</p>
+</li>
+<li>
+<p>Only accept connections from within the local cluster, defaults to <code>false</code>.</p>
+</li>
+<li>
+<p>Specifies whether an edge site is created, defaults to <code>false</code>.</p>
+</li>
+<li>
+<p>Specifies whether the services are synchronized across the service network, defaults to <code>true</code>.</p>
+</li>
+<li>
+<p>Specifies whether the site supports ingress, for example, to create tokens usable from remote sites.</p>
+</li>
+</ol>
 </div>
 <div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 All ingress types are supported using the same parameters as the <code>skupper</code> CLI.
@@ -623,322 +612,39 @@ All ingress types are supported using the same parameters as the <code>skupper</
 </div>
 </div>
 <div class="sect1">
-<h2 id="watch-current-reference"><a class="anchor" href="#watch-current-reference"></a>Appendix B: YAML for watching current namespace</h2>
+<h2 id="watch-current-reference">Appendix B: YAML for watching current namespace</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following example deploys Skupper to watch the current namespace.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>---
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: skupper-site-controller
-  labels:
-    application: skupper-site-controller
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  labels:
-    application: skupper-site-controller
-  name: skupper-site-controller
-rules:
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  - pods
-  - pods/exec
-  - services
-  - secrets
-  - serviceaccounts
-  - events
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - delete
-  - patch
-- apiGroups:
-  - apps
-  resources:
-  - deployments
-  - statefulsets
-  - daemonsets
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - delete
-- apiGroups:
-  - route.openshift.io
-  resources:
-  - routes
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - networking.k8s.io
-  resources:
-  - ingresses
-  - networkpolicies
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - projectcontour.io
-  resources:
-  - httpproxies
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - rbac.authorization.k8s.io
-  resources:
-  - rolebindings
-  - roles
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  labels:
-    application: skupper-site-controller
-  name: skupper-site-controller
-subjects:
-- kind: ServiceAccount
-  name: skupper-site-controller
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: skupper-site-controller
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: skupper-site-controller
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      application: skupper-site-controller
-  template:
-    metadata:
-      labels:
-        application: skupper-site-controller
-    spec:
-      serviceAccountName: skupper-site-controller
-      # Please ensure that you can use SeccompProfile and do not use
-      # if your project must work on old Kubernetes
-      # versions &lt; 1.19 or on vendors versions which
-      # do NOT support this field by default
-      securityContext:
-        runAsNonRoot: true
-        seccompProfile:
-          type: RuntimeDefault
-      containers:
-      - name: site-controller
-        image: quay.io/skupper/site-controller:master
-        securityContext:
-          capabilities:
-            drop:
-            - ALL
-          runAsNonRoot: true
-          allowPrivilegeEscalation: false
-        env:
-        - name: WATCH_NAMESPACE
-          valueFrom:
-             fieldRef:
-               fieldPath: metadata.namespace</pre>
+<pre>Unresolved directive in index.adoc - include::example$deploy-watch-current-ns.yaml[]</pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="watch-all-reference"><a class="anchor" href="#watch-all-reference"></a>Appendix C: YAML for watching all namespaces</h2>
+<h2 id="watch-all-reference">Appendix C: YAML for watching all namespaces</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following example deploys Skupper to watch all namespaces.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>---
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: skupper-site-controller
-  namespace: skupper-site-controller
-  labels:
-    application: skupper-site-controller
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  labels:
-    application: skupper-site-controller
-  name: skupper-site-controller
-rules:
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  - pods
-  - pods/exec
-  - services
-  - secrets
-  - serviceaccounts
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - delete
-- apiGroups:
-  - apps
-  resources:
-  - deployments
-  - statefulsets
-  - daemonsets
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - delete
-- apiGroups:
-  - route.openshift.io
-  resources:
-  - routes
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - networking.k8s.io
-  resources:
-  - ingresses
-  - networkpolicies
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - projectcontour.io
-  resources:
-  - httpproxies
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - rbac.authorization.k8s.io
-  resources:
-  - rolebindings
-  - roles
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-  - update
-- apiGroups:
-  - rbac.authorization.k8s.io
-  resources:
-  - clusterrolebindings
-  verbs:
-  - create
-- apiGroups:
-  - rbac.authorization.k8s.io
-  resources:
-  - clusterroles
-  verbs:
-  - bind
-  resourceNames:
-  - skupper-service-controller
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  labels:
-    application: skupper-site-controller
-  name: skupper-site-controller
-subjects:
-- kind: ServiceAccount
-  name: skupper-site-controller
-  namespace: skupper-site-controller
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: skupper-site-controller
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: skupper-site-controller
-  namespace: skupper-site-controller
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      application: skupper-site-controller
-  template:
-    metadata:
-      labels:
-        application: skupper-site-controller
-    spec:
-      serviceAccountName: skupper-site-controller
-      # Please ensure that you can use SeccompProfile and do not use
-      # if your project must work on old Kubernetes
-      # versions &lt; 1.19 or on vendors versions which
-      # do NOT support this field by default
-      securityContext:
-        runAsNonRoot: true
-        seccompProfile:
-          type: RuntimeDefault
-      containers:
-      - name: site-controller
-        image: quay.io/skupper/site-controller:1.3.0
-        securityContext:
-          capabilities:
-            drop:
-            - ALL
-          runAsNonRoot: true
-          allowPrivilegeEscalation: false</pre>
+<pre>Unresolved directive in index.adoc - include::example$deploy-watch-all-ns.yaml[]</pre>
 </div>
 </div>
 </div>
 </div>
-</article>
-
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2024-01-08 12:42:15 UTC
+</div>
+</div>
+</body>
+</html>
 
     </main>
     <nav id="-toc">

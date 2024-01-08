@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Using the Skupper Operator on Kubernetes</title>
+    <title>Skupper - </title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/operator/index.html">Using the Skupper Operator on Kubernetes</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/operator/index.html"></a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -75,13 +75,27 @@
   <div>
     <main>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>Using the Skupper Operator on Kubernetes</title>
+<style>
 
-<article class="doc">
-<h1 class="page">Using the Skupper Operator on Kubernetes</h1>
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>Using the Skupper Operator on Kubernetes</h1>
+</div>
+<div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Skupper Operator creates and manages Skupper sites in Kubernetes.</p>
+<p>The Skupper operator creates and manages Skupper sites in Kubernetes.</p>
 </div>
 <div class="paragraph">
 <p>You can install the Operator as described in <a href="#installing-operator-using-cli">Installing the Operator using the CLI</a>.</p>
@@ -90,7 +104,7 @@
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -106,10 +120,10 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="installing-operator-using-cli"><a class="anchor" href="#installing-operator-using-cli"></a>Installing the Operator using the CLI</h2>
+<h2 id="installing-operator-using-cli">Installing the Operator using the CLI</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The steps in this section show how to use the <code>kubectl</code> command-line interface (CLI) to install and deploy the latest version of the Skupper Operator in a given Kubernetes cluster.</p>
+<p>The steps in this section show how to use the <code>kubectl</code> command-line interface (CLI) to install and deploy the latest version of the Skupper operator in a given Kubernetes cluster.</p>
 </div>
 <div class="ulist">
 <div class="title">Prerequisites</div>
@@ -140,7 +154,7 @@ NOTE: If you want to use a different namespace, you need to edit the referenced 
 <p>Create a new namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl create namespace my-namespace</code></pre>
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl create namespace my-namespace</code></pre>
 </div>
 </div>
 </li>
@@ -148,7 +162,7 @@ NOTE: If you want to use a different namespace, you need to edit the referenced 
 <p>Switch context to the namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl config set-context --current --namespace=my-namespace</code></pre>
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl config set-context --current --namespace=my-namespace</code></pre>
 </div>
 </div>
 </li>
@@ -159,7 +173,7 @@ NOTE: If you want to use a different namespace, you need to edit the referenced 
 <p>Create a CatalogSource in the <code>openshift-marketplace</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl apply -f examples/k8s/00-cs.yaml</code></pre>
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl apply -f examples/k8s/00-cs.yaml</code></pre>
 </div>
 </div>
 </li>
@@ -167,7 +181,7 @@ NOTE: If you want to use a different namespace, you need to edit the referenced 
 <p>Verify the skupper-operator catalog pod is running before continuing:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl -n olm get pods | grep skupper-operator</code></pre>
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl -n olm get pods | grep skupper-operator</code></pre>
 </div>
 </div>
 </li>
@@ -175,7 +189,7 @@ NOTE: If you want to use a different namespace, you need to edit the referenced 
 <p>Create an OperatorGroup in the <code>my-namespace</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl apply -f examples/k8s/10-og.yaml</code></pre>
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl apply -f examples/k8s/10-og.yaml</code></pre>
 </div>
 </div>
 </li>
@@ -183,7 +197,7 @@ NOTE: If you want to use a different namespace, you need to edit the referenced 
 <p>Create a Subscription  in the <code>my-namespace</code> namespace:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl apply -f examples/k8s/20-sub.yaml</code></pre>
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl apply -f examples/k8s/20-sub.yaml</code></pre>
 </div>
 </div>
 </li>
@@ -191,7 +205,7 @@ NOTE: If you want to use a different namespace, you need to edit the referenced 
 <p>Verify that the Operator is running:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl get pods -n my-namespace
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl get pods -n my-namespace
 
 NAME                                     READY   STATUS    RESTARTS   AGE
 skupper-site-controller-d7b57964-gxms6   1/1     Running   0          1m</code></pre>
@@ -211,7 +225,7 @@ skupper-site-controller-d7b57964-gxms6   1/1     Running   0          1m</code><
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-site-using-operator"><a class="anchor" href="#creating-site-using-operator"></a>Creating a site using the Skupper Operator</h2>
+<h2 id="creating-site-using-operator">Creating a site using the Skupper Operator</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -224,23 +238,14 @@ skupper-site-controller-d7b57964-gxms6   1/1     Running   0          1m</code><
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: skupper-site
-  namespace: my-namespace
-data:
-  console: "true"
-  flow-collector: "true"
-  console-user: "admin"
-  console-password: "changeme"</code></pre>
+<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">Unresolved directive in creating-site-using-operator.adoc - include::example$site-cm.yaml[]</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 The console is a preview feature and may change before becoming fully supported by <a href="https://skupper.io">skupper.io</a>.
@@ -254,11 +259,7 @@ Currently, you must enable the console on the same site as you enable the flow c
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: skupper-site
-  namespace: my-namespace</code></pre>
+<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">Unresolved directive in creating-site-using-operator.adoc - include::example$no-console.yaml[]</code></pre>
 </div>
 </div>
 </div>
@@ -268,7 +269,7 @@ metadata:
 <p>Apply the YAML to create a ConfigMap named <code>skupper-site</code> in the namespace you want to use:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl apply -f skupper-site.yaml</code></pre>
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl apply -f skupper-site.yaml</code></pre>
 </div>
 </div>
 </li>
@@ -276,7 +277,7 @@ metadata:
 <p>Verify that the site is created by checking that the Skupper router and service controller pods are running:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ kubectl get pods
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl get pods
 
 NAME                                          READY   STATUS    RESTARTS   AGE
 skupper-router-8c6cc6d76-27562                1/1     Running   0          40s
@@ -287,7 +288,7 @@ skupper-service-controller-57cdbb56c5-vc7s2   1/1     Running   0          34s</
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 If you deployed the Operator to a single namespace, an additional site controller pod is also running.
@@ -300,8 +301,14 @@ If you deployed the Operator to a single namespace, an additional site controlle
 </div>
 </div>
 </div>
-</article>
-
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2024-01-08 12:44:12 UTC
+</div>
+</div>
+</body>
+</html>
 
     </main>
     <nav id="-toc">

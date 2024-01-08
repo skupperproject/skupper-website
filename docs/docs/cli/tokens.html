@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Using Skupper tokens</title>
+    <title>Skupper - </title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/index.html">Using the Skupper CLI</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/tokens.html">Using Skupper tokens</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/index.html"></a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/tokens.html"></a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -75,9 +75,23 @@
   <div>
     <main>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>Using Skupper tokens</title>
+<style>
 
-<article class="doc">
-<h1 class="page">Using Skupper tokens</h1>
+</style>
+</head>
+<body id="using-skupper-tokens" class="article">
+<div id="header">
+<h1>Using Skupper tokens</h1>
+</div>
+<div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -88,7 +102,7 @@ You create a token on one site and use that token from the other site to create 
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 Although the linking process is directional, a Skupper link allows communication in both directions.
@@ -151,7 +165,7 @@ Protect it appropriately.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-claim-tokens"><a class="anchor" href="#creating-claim-tokens"></a>Creating claim tokens</h2>
+<h2 id="creating-claim-tokens">Creating claim tokens</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>You can use a claim token to create a link to the site which issued that token.
@@ -173,14 +187,14 @@ A claim token can be restricted by time or usage.</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ skupper token create $HOME/secret.yaml --expiry 30m0s --uses 2 -t claim</code></pre>
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ skupper token create $HOME/secret.yaml --expiry 30m0s --uses 2 -t claim</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 Claim tokens are the default, the <code>-t claim</code> section of the command is unnecessary.
@@ -209,14 +223,14 @@ Claim tokens are the default, the <code>-t claim</code> section of the command i
 <div class="title">Additional information</div>
 <ul>
 <li>
-<p>See the <a href="index.html" class="xref page">Using the Skupper CLI</a> for information about using the token to create links.</p>
+<p>See the <a href="../cli/">Using the Skupper CLI</a> for information about using the token to create links.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-cert-tokens"><a class="anchor" href="#creating-cert-tokens"></a>Creating cert tokens</h2>
+<h2 id="creating-cert-tokens">Creating cert tokens</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A cert token allows you create many links to the service network from different sites without restrictions.</p>
@@ -236,14 +250,14 @@ Claim tokens are the default, the <code>-t claim</code> section of the command i
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ skupper token create $HOME/secret.yaml -t cert</code></pre>
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ skupper token create $HOME/secret.yaml -t cert</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 Cert tokens are always valid and can be reused indefinitely unless revoked as described in <a href="#revoking-access">Revoking access to a site</a>
@@ -260,14 +274,14 @@ Cert tokens are always valid and can be reused indefinitely unless revoked as de
 <div class="title">Additional information</div>
 <ul>
 <li>
-<p>See the <a href="index.html" class="xref page">Using the Skupper CLI</a> for information about using the token to create links.</p>
+<p>See the <a href="../cli/">Using the Skupper CLI</a> for information about using the token to create links.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="revoking-access"><a class="anchor" href="#revoking-access"></a>Revoking access to a site</h2>
+<h2 id="revoking-access">Revoking access to a site</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>If a token is compromised, you can prevent unauthorized use of that token by invalidating  all the tokens created from a site.</p>
@@ -290,7 +304,7 @@ Cert tokens are always valid and can be reused indefinitely unless revoked as de
 <p>Check the status of the site:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ skupper status
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ skupper status
 Skupper is enabled for namespace "west" in interior mode. It is linked to 2 other sites.</code></pre>
 </div>
 </div>
@@ -299,7 +313,7 @@ Skupper is enabled for namespace "west" in interior mode. It is linked to 2 othe
 <p>Check outgoing links from the site:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ skupper link status
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ skupper link status
 Link link1 is connected</code></pre>
 </div>
 </div>
@@ -311,7 +325,7 @@ Link link1 is connected</code></pre>
 <p>Revoke access to the site from incoming links:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ skupper revoke-access</code></pre>
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ skupper revoke-access</code></pre>
 </div>
 </div>
 </li>
@@ -321,7 +335,7 @@ Link link1 is connected</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-bash hljs" data-lang="bash">$ skupper status
+<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ skupper status
 Skupper is enabled for namespace "west" in interior mode. It is linked to 1 other site.
 $ skupper link status
 Link link1 is connected</code></pre>
@@ -338,7 +352,7 @@ To revoke access, you must follow this procedure while logged into the appropria
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -356,8 +370,14 @@ To recreate the link, you must first delete the link manually from the remote si
 </div>
 </div>
 </div>
-</article>
-
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2024-01-08 12:49:05 UTC
+</div>
+</div>
+</body>
+</html>
 
     </main>
     <nav id="-toc">

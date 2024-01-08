@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Using Skupper podman</title>
+    <title>Skupper - </title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/index.html">Using the Skupper CLI</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/podman.html">Using Skupper podman</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/index.html"></a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/podman.html"></a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -75,20 +75,34 @@
   <div>
     <main>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>Using Skupper podman</title>
+<style>
 
-<article class="doc">
-<h1 class="page">Using Skupper podman</h1>
+</style>
+</head>
+<body id="using-skupper-podman" class="article">
+<div id="header">
+<h1>Using Skupper podman</h1>
+</div>
+<div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Skupper podman allow you to create a site using containers, without requiring Kubernetes.
+<p>Skupper podman allows you to create a site using containers, without requiring Kubernetes.
 Typically, you create a site on a Linux host, allowing you to link to and from other sites, regardless of whether those sites are running in podman or Kubernetes.</p>
 </div>
 <div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 This is a preview feature and may change before becoming fully supported by <a href="https://skupper.io">skupper.io</a>.
@@ -99,7 +113,7 @@ This is a preview feature and may change before becoming fully supported by <a h
 </div>
 </div>
 <div class="sect1">
-<h2 id="about"><a class="anchor" href="#about"></a>About Skupper podman</h2>
+<h2 id="about">About Skupper podman</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Skupper podman is available with the following precedence:</p>
@@ -115,7 +129,7 @@ This is a preview feature and may change before becoming fully supported by <a h
 <p>Use this command to use Skupper podman for the current session, for example, if you have two terminals set to different contexts. To set the environment to target Kubernetes sites:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ export SKUPPER_PLATFORM=kubernetes</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ export SKUPPER_PLATFORM=kubernetes</code></pre>
 </div>
 </div>
 </dd>
@@ -130,9 +144,9 @@ This is a preview feature and may change before becoming fully supported by <a h
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper switch
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper switch
 
-podman</pre>
+podman</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -141,7 +155,7 @@ podman</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-a-site"><a class="anchor" href="#creating-a-site"></a>Creating a site using Skupper podman</h2>
+<h2 id="creating-a-site">Creating a site using Skupper podman</h2>
 <div class="sectionbody">
 <div class="ulist">
 <div class="title">Prerequisites</div>
@@ -162,7 +176,7 @@ For example, <code>dnf install podman-plugins</code> for RPM based distributions
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 CNI will be deprecated in the future in preference of Netavark.
@@ -196,7 +210,7 @@ CNI will be deprecated in the future in preference of Netavark.
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ export SKUPPER_PLATFORM=podman</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ export SKUPPER_PLATFORM=podman</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -204,9 +218,9 @@ CNI will be deprecated in the future in preference of Netavark.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper switch
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper switch
 
-podman</pre>
+podman</code></pre>
 </div>
 </div>
 </div>
@@ -221,10 +235,10 @@ podman</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper init --ingress none
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper init --ingress none
 
 It is recommended to enable lingering for &lt;username&gt;, otherwise Skupper may not start on boot.
-Skupper is now installed for user '&lt;username&gt;'.  Use 'skupper status' to get more information.</pre>
+Skupper is now installed for user '&lt;username&gt;'.  Use 'skupper status' to get more information.</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -232,14 +246,14 @@ Skupper is now installed for user '&lt;username&gt;'.  Use 'skupper status' to g
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper init --ingress-host &lt;machine-address&gt;
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper init --ingress-host &lt;machine-address&gt;
 
 It is recommended to enable lingering for &lt;username&gt;, otherwise Skupper may not start on boot.
-Skupper is now installed for user '&lt;username&gt;'.  Use 'skupper status' to get more information.</pre>
+Skupper is now installed for user '&lt;username&gt;'.  Use 'skupper status' to get more information.</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For more information, see <a href="../cli-podman/skupper_init.html" class="xref page">podman skupper init</a>.</p>
+<p>For more information, see <a href="cli-podman:skupper_init.in">podman skupper init</a>.</p>
 </div>
 </div>
 </div>
@@ -250,7 +264,7 @@ Skupper is now installed for user '&lt;username&gt;'.  Use 'skupper status' to g
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper status
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper status
 Skupper is enabled for "&lt;username&gt;" with site name "&lt;machine-name&gt;-&lt;username&gt;" in interior mode. It is not connected to any other sites. It has no exposed services.</code></pre>
 </div>
 </div>
@@ -258,7 +272,7 @@ Skupper is enabled for "&lt;username&gt;" with site name "&lt;machine-name&gt;-&
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 You can only create one site per user. If you require a host to support many sites, create a user for each site.
@@ -277,7 +291,7 @@ You can only create one site per user. If you require a host to support many sit
 </div>
 </div>
 <div class="sect1">
-<h2 id="_linking_sites_using_skupper_podman"><a class="anchor" href="#_linking_sites_using_skupper_podman"></a>Linking sites using Skupper podman</h2>
+<h2 id="_linking_sites_using_skupper_podman">Linking sites using Skupper podman</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The general flow for linking podman sites is the same as for Kubernetes sites:</p>
@@ -288,7 +302,7 @@ You can only create one site per user. If you require a host to support many sit
 <p>Generate a token on one site:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper token create &lt;filename&gt;</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper token create &lt;filename&gt;</code></pre>
 </div>
 </div>
 </li>
@@ -296,7 +310,7 @@ You can only create one site per user. If you require a host to support many sit
 <p>Create a link from the other site:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper link create &lt;filename&gt;</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper link create &lt;filename&gt;</code></pre>
 </div>
 </div>
 </li>
@@ -307,13 +321,13 @@ You can only create one site per user. If you require a host to support many sit
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper link status</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper link status</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_working_with_services_using_skupper_podman"><a class="anchor" href="#_working_with_services_using_skupper_podman"></a>Working with services using Skupper podman</h2>
+<h2 id="_working_with_services_using_skupper_podman">Working with services using Skupper podman</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The general flow for working with services is the same for Kubernetes and Podman sites.</p>
@@ -322,7 +336,7 @@ You can only create one site per user. If you require a host to support many sit
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 Services exposed on Kubernetes are not automatically available to Podman sites.
@@ -345,9 +359,9 @@ You deploy the <code>frontend</code> as a container and that container can acces
 <p>Check the service from the Podman site:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper service status
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper service status
 
-No services defined</pre>
+No services defined</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -358,7 +372,7 @@ No services defined</pre>
 <p>Create a service on the Podman site matching the service exposed on the Kubernetes site:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper service create backend 8080</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper service create backend 8080</code></pre>
 </div>
 </div>
 </li>
@@ -368,7 +382,7 @@ No services defined</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ podman run -it --rm --network=skupper --name=myubi ubi8/ubi curl backend:8080/api/health
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ podman run -it --rm --network=skupper --name=myubi ubi8/ubi curl backend:8080/api/health
 
 OK</code></pre>
 </div>
@@ -383,7 +397,7 @@ OK</code></pre>
 <p>Run the frontend as a container:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ podman run -dp 8080:8080 --name hello-world-frontend --network skupper quay.io/skupper/hello-world-frontend</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ podman run -dp 8080:8080 --name hello-world-frontend --network skupper quay.io/skupper/hello-world-frontend</code></pre>
 </div>
 </div>
 </li>
@@ -398,7 +412,7 @@ OK</code></pre>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -406,9 +420,9 @@ OK</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper service status
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper service status
 Services exposed through Skupper:
-╰─ backend (tcp port 8080)</pre>
+╰─ backend (tcp port 8080)</code></pre>
 </div>
 </div>
 </td>
@@ -433,8 +447,8 @@ Services exposed through Skupper:
 <p>Create and expose a frontend deployment on the Kubernetes site:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
-$ kubectl expose deployment/frontend --port 8080 --type LoadBalancer</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
+$ kubectl expose deployment/frontend --port 8080 --type LoadBalancer</code></pre>
 </div>
 </div>
 </li>
@@ -442,7 +456,7 @@ $ kubectl expose deployment/frontend --port 8080 --type LoadBalancer</pre>
 <p>Run the backend as a container:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ podman run -d --name hello-world-backend --network skupper quay.io/skupper/hello-world-backend</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ podman run -d --name hello-world-backend --network skupper quay.io/skupper/hello-world-backend</code></pre>
 </div>
 </div>
 </li>
@@ -450,7 +464,7 @@ $ kubectl expose deployment/frontend --port 8080 --type LoadBalancer</pre>
 <p>Expose the <code>backend</code> from the Podman site.</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper expose host hello-world-backend --address backend --port 8080</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper expose host hello-world-backend --address backend --port 8080</code></pre>
 </div>
 </div>
 </li>
@@ -458,7 +472,7 @@ $ kubectl expose deployment/frontend --port 8080 --type LoadBalancer</pre>
 <p>From the Kubernetes site, create the <code>backend</code> service:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper service create backend 8080</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper service create backend 8080</code></pre>
 </div>
 </div>
 </li>
@@ -468,12 +482,18 @@ $ kubectl expose deployment/frontend --port 8080 --type LoadBalancer</pre>
 </ol>
 </div>
 <div class="paragraph">
-<p>For more information, see <a href="../cli-podman/skupper_expose.html" class="xref page">podman skupper expose</a>.</p>
+<p>For more information, see <a href="cli-podman:skupper_expose.in">podman skupper expose</a>.</p>
 </div>
 </div>
 </div>
-</article>
-
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2024-01-08 13:01:35 UTC
+</div>
+</div>
+</body>
+</html>
 
     </main>
     <nav id="-toc">

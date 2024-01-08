@@ -1,9 +1,20 @@
----
-title: Securing a service network
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>Securing a service network</title>
+<style>
 
-<article class="doc">
-<h1 class="page">Securing a service network</h1>
+</style>
+</head>
+<body id="built-in-security-options" class="article">
+<div id="header">
+<h1>Securing a service network</h1>
+</div>
+<div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -11,12 +22,12 @@ title: Securing a service network
 This section describes additional security you can configure.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="../policy/index.html" class="xref page">Securing a service network using policies</a> for information about creating granular policies for each cluster.</p>
+<p>See <a href="../policy/">Securing a service network using policies</a> for information about creating granular policies for each cluster.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="network-policy"><a class="anchor" href="#network-policy"></a>Restricting access to services using network-policy</h2>
+<h2 id="network-policy">Restricting access to services using a Kubernetes network policy</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>By default, if you expose a service on the service network, that service is also accessible from other namespaces in the cluster.
@@ -26,10 +37,10 @@ You can avoid this situation when creating a site using the <code>--create-netwo
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Create the service network router with a network policy:</p>
+<p>Create the service network router with a Kubernetes network policy:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper init --create-network-policy</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper init --create-network-policy</code></pre>
 </div>
 </div>
 </li>
@@ -39,7 +50,7 @@ You can avoid this situation when creating a site using the <code>--create-netwo
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper status</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper status</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -61,7 +72,7 @@ You can avoid this situation when creating a site using the <code>--create-netwo
 </div>
 </div>
 <div class="sect1">
-<h2 id="tls"><a class="anchor" href="#tls"></a>Applying TLS to TCP or HTTP2 traffic on the service network</h2>
+<h2 id="tls">Applying TLS to TCP or HTTP2 traffic on the service network</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>By default, the traffic between sites is encrypted, however the traffic between the service pod and the router pod is not encrypted.
@@ -96,7 +107,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ skupper expose deployment &lt;deployment-name&gt; --port 443 --enable-tls</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper expose deployment &lt;deployment-name&gt; --port 443 --enable-tls</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -112,7 +123,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">...
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">...
     spec:
       containers:
       ...
@@ -145,7 +156,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 <p>Modify the frontend deployment to include the generated certificates, for example:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spec:
   template:
     spec:
       containers:
@@ -168,4 +179,11 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 </div>
 </div>
 </div>
-</article>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2024-01-08 13:06:44 UTC
+</div>
+</div>
+</body>
+</html>

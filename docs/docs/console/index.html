@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Using the Skupper console</title>
+    <title>Skupper - </title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/console/index.html">Using the Skupper console</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/console/index.html"></a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -75,9 +75,23 @@
   <div>
     <main>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>Using the Skupper console</title>
+<style>
 
-<article class="doc">
-<h1 class="page">Using the Skupper console</h1>
+</style>
+</head>
+<body id="skupper-console" class="article">
+<div id="header">
+<h1>Using the Skupper console</h1>
+</div>
+<div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -87,7 +101,7 @@
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 This is a preview feature and may change before becoming fully supported by <a href="https://skupper.io">skupper.io</a>.
@@ -98,7 +112,7 @@ This is a preview feature and may change before becoming fully supported by <a h
 </div>
 </div>
 <div class="sect1">
-<h2 id="enabling-console"><a class="anchor" href="#enabling-console"></a>Enabling the Skupper console</h2>
+<h2 id="enabling-console">Enabling the Skupper console</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>By default, when you create a Skupper site, a Skupper console is not available.</p>
@@ -148,20 +162,8 @@ For example, if you have two sites, A and B, and resources are more expensive on
 <p>Create a site with the flow collector and console enabled:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper init --enable-console --enable-flow-collector</pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper init --enable-console --enable-flow-collector</code></pre>
 </div>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="❗"></i>
-</td>
-<td class="content">
-Currently, you must enable the console on the same site as you enable the flow collector. This requirement may change before the console is fully supported by <a href="https://skupper.io">skupper.io</a>.
-</td>
-</tr>
-</table>
 </div>
 </li>
 </ol>
@@ -169,7 +171,7 @@ Currently, you must enable the console on the same site as you enable the flow c
 </div>
 </div>
 <div class="sect1">
-<h2 id="accessing-console"><a class="anchor" href="#accessing-console"></a>Accessing the Skupper console</h2>
+<h2 id="accessing-console">Accessing the Skupper console</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>By default, the Skupper console is protected by credentials available in the <code>skupper-console-users</code> secret.</p>
@@ -181,10 +183,10 @@ Currently, you must enable the console on the same site as you enable the flow c
 <p>Determine the Skupper console URL using the <code>skupper</code> CLI, for example:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ skupper status
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper status
 
 Skupper is enabled for namespace "west" in interior mode. It is not connected to any other sites. It has no exposed services.
-The site console url is:  https://skupper-west.apps-crc.testing</pre>
+The site console url is:  https://skupper-west.apps-crc.testing</code></pre>
 </div>
 </div>
 </li>
@@ -221,7 +223,7 @@ JNZWzMHtyg</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="exploring-console"><a class="anchor" href="#exploring-console"></a>Exploring the Skupper console</h2>
+<h2 id="exploring-console">Exploring the Skupper console</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>After exposing a service on the service network, you create an <em>address</em>, that is, a service name and port number associated with a site.
@@ -258,7 +260,7 @@ In the console, both are shown so that you can view the traffic and these are ca
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../_images/skupper-adservice.png" alt="skupper adservice">
+<img src="ROOT:skupper-adservice.png" alt="ROOT:skupper adservice">
 </div>
 </div>
 <div class="olist arabic">
@@ -280,7 +282,7 @@ See the <strong>Topology</strong> tab to view how the sites are linked.</p>
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="🛈"></i>
+<div class="title">Note</div>
 </td>
 <td class="content">
 The process detail displays the associated image, host, and addresses.
@@ -299,7 +301,7 @@ You can also view the clients that are calling the process.
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-tip" title="💡"></i>
+<div class="title">Tip</div>
 </td>
 <td class="content">
 To view information about each window, click the <strong>?</strong> icon.
@@ -309,8 +311,14 @@ To view information about each window, click the <strong>?</strong> icon.
 </div>
 </div>
 </div>
-</article>
-
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2024-01-08 13:04:29 UTC
+</div>
+</div>
+</body>
+</html>
 
     </main>
     <nav id="-toc">
