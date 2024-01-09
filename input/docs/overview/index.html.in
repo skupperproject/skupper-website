@@ -1,9 +1,7 @@
 ---
 title: Skupper overview
 ---
-
-<article class="doc">
-<h1 class="page">Skupper overview</h1>
+<h1 id="skupper-overview">Skupper overview</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -16,7 +14,7 @@ While such a solution provides many benefits, it also presents a unique challeng
 </div>
 </div>
 <div class="sect1">
-<h2 id="virtual-application-networks"><a class="anchor" href="#virtual-application-networks"></a>Virtual Application Networks</h2>
+<h2 id="virtual-application-networks">Virtual Application Networks</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Skupper solves multi-cluster communication challenges through something called a Virtual Application Network (VAN).
@@ -28,7 +26,7 @@ In this diagram, a VAN connects three services, each of which is running in a di
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/overview-clouds.png" alt="overview clouds">
+<img src="../images/overview-clouds.png" alt="overview clouds">
 </div>
 </div>
 <div class="paragraph">
@@ -36,7 +34,7 @@ In this diagram, a VAN connects three services, each of which is running in a di
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/overview-application.png" alt="overview application">
+<img src="../images/overview-application.png" alt="overview application">
 </div>
 </div>
 <div class="paragraph">
@@ -46,7 +44,7 @@ They use <strong>Layer 7 application routers</strong> to route communication bet
 </div>
 </div>
 <div class="sect1">
-<h2 id="layer-7-application-routers"><a class="anchor" href="#layer-7-application-routers"></a>Layer 7 application routers</h2>
+<h2 id="layer-7-application-routers">Layer 7 application routers</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Layer 7 application routers form the backbone of a VAN in the same way that conventional network routers form the backbone of a VPN.
@@ -55,7 +53,7 @@ However, instead of routing IP packets between network endpoints, Layer 7 applic
 </div>
 </div>
 <div class="sect1">
-<h2 id="layer-7-application-addresses"><a class="anchor" href="#layer-7-application-addresses"></a>Layer 7 application addresses</h2>
+<h2 id="layer-7-application-addresses">Layer 7 application addresses</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A Layer 7 application address represents an endpoint, or destination in the VAN.
@@ -67,7 +65,7 @@ When an application sends a communication to an address, the Layer 7 application
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/overview-routers.png" alt="overview routers">
+<img src="../images/overview-routers.png" alt="overview routers">
 </div>
 </div>
 <div class="paragraph">
@@ -76,7 +74,7 @@ When an application sends a communication to an address, the Layer 7 application
 </div>
 </div>
 <div class="sect1">
-<h2 id="skupper"><a class="anchor" href="#skupper"></a>Skupper</h2>
+<h2 id="skupper">Skupper</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Skupper is an open source tool for creating VANs in Kubernetes.
@@ -87,7 +85,7 @@ By using Skupper, you can create a distributed application consisting of microse
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/overview-clusters.png" alt="overview clusters">
+<img src="../images/overview-clusters.png" alt="overview clusters">
 </div>
 </div>
 <div class="paragraph">
@@ -103,16 +101,15 @@ When a service is exposed, Skupper creates proxy endpoints to make that service 
 <div class="title">Additional information</div>
 <ul>
 <li>
-<p><a href="security.html" class="xref page">Skupper security</a></p>
+<p><a href="security.in">Security</a></p>
 </li>
 <li>
-<p><a href="routing.html" class="xref page">Skupper routing</a></p>
+<p><a href="routing.in">Routing</a></p>
 </li>
 <li>
-<p><a href="connectivity.html" class="xref page">Skupper connectivity</a></p>
+<p><a href="connectivity.in">Connectivity</a></p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-</article>
