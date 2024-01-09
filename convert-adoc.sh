@@ -6,10 +6,10 @@ process_file() {
     local output_file="input/docs/${dir_name}/${base_name}.html.in"
 
     # Run asciidoctor to convert the input file to HTML
-    asciidoctor -a stylesheet=null.css "skupper-docs/$input_file" -o "$output_file"
+    asciidoctor -e -a showtitle "skupper-docs/$input_file" -o "$output_file"
 
     # Extract the title from the output HTML file
-    local title=$(cat "$output_file" | htmlq -t h1)
+    title=$(head -1 "$output_file" |sed -e 's/<[^>]*>//g')
 
     # Insert the title at the beginning of the output file
     sed -i "1s;^;---\ntitle: $title\n---\n;" "$output_file"

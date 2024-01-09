@@ -1,23 +1,7 @@
 ---
 title: Securing a service network
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
-<title>Securing a service network</title>
-<style>
-
-</style>
-</head>
-<body id="built-in-security-options" class="article">
-<div id="header">
-<h1>Securing a service network</h1>
-</div>
-<div id="content">
+<h1 id="built-in-security-options">Securing a service network</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -182,11 +166,3 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 </div>
 </div>
 </div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2024-01-08 13:06:44 UTC
-</div>
-</div>
-</body>
-</html>

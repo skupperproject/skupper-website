@@ -1,23 +1,7 @@
 ---
 title: Configuring Skupper sites using YAML
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
-<title>Configuring Skupper sites using YAML</title>
-<style>
-
-</style>
-</head>
-<body id="skupper-declarative" class="article">
-<div id="header">
-<h1>Configuring Skupper sites using YAML</h1>
-</div>
-<div id="content">
+<h1 id="skupper-declarative">Configuring Skupper sites using YAML</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -867,11 +851,3 @@ spec:
 </div>
 </div>
 </div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2024-01-08 15:33:34 UTC
-</div>
-</div>
-</body>
-</html>
