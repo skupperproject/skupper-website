@@ -1,0 +1,28 @@
+= Skupper Documentation
+
+This repo is used to document Skupper using https://docs.asciidoctor.org/asciidoc/latest/[AsciiDoc] markup.
+The output is published at link:https://skupper.io/docs/index.html[Skupper - Documentation].
+
+
+== Contributing to the documentation
+
+This section explains how to edit and create documentation PRs.
+
+If you only want to make a small update, you might want to just edit the file and make the PR using your standard process.
+
+If you want to preview changes for more complex contributions, follow this procedure.
+
+.Prerequisites
+
+* link:https://docs.asciidoctor.org/asciidoctor/latest/install/[Install and Update | Asciidoctor Docs] 
+
+.Procedure 
+
+
+. Start the build:
++
+----
+$ bash scripts/convert-all.sh
+----
+
+. See the `build` directory for the HTML output.
