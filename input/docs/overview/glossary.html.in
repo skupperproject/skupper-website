@@ -7,7 +7,7 @@ title: Glossary
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">{service-network}</dt>
+<dt class="hdlist1">service network</dt>
 <dd>
 <p>A network of Skupper sites linked together to share services.</p>
 </dd>
@@ -19,7 +19,7 @@ When you define a service using Skupper, that service appears as a native servic
 <dt class="hdlist1">site</dt>
 <dd>
 <p>A Skupper site is an Skupper installation.
-You <em>link</em> sites to form a {service-network} and share services. You can create sites in a Kubernetes namespace or for a Linux user.</p>
+You <em>link</em> sites to form a service network and share services. You can create sites in a Kubernetes namespace or for a Linux user.</p>
 </dd>
 <dt class="hdlist1">link</dt>
 <dd>
@@ -27,7 +27,7 @@ You <em>link</em> sites to form a {service-network} and share services. You can 
 </dd>
 <dt class="hdlist1">gateway</dt>
 <dd>
-<p>A system service running on a Linux machine that enables you expose services, for example a database, on the {service-network}.</p>
+<p>A system service running on a Linux machine that enables you expose services, for example a database, on the service network.</p>
 </dd>
 </dl>
 </div>

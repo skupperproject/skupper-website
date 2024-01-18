@@ -6,7 +6,7 @@ process_file() {
     local output_file="input/docs/${dir_name}/${base_name}.html.in"
 
     # Run asciidoctor to convert the input file to HTML
-    asciidoctor -e -a showtitle "skupper-docs/$input_file" -o "$output_file"
+    asciidoctor -e -a showtitle "subrepos/skupper-docs/$input_file" -o "$output_file"
 
     # Extract the title from the output HTML file
     title=$(head -1 "$output_file" |sed -e 's/<[^>]*>//g')

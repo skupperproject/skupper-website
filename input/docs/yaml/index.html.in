@@ -136,7 +136,7 @@ metadata:
   name: skupper-site
 data:
   name: my-site
-  ingress: "false"</pre>
+  ingress: "none"</pre>
 </div>
 </div>
 </div>
@@ -481,7 +481,7 @@ data:
   cluster-local: "false" //<b class="conum">(7)</b>
   edge: "false" //<b class="conum">(8)</b>
   service-sync: "true" //<b class="conum">(9)</b>
-  ingress: "true" //<b class="conum">(10)</b>
+  ingress: "none" //<b class="conum">(10)</b>
 kind: ConfigMap
 metadata:
   name: skupper-site</code></pre>
@@ -518,7 +518,9 @@ NOTE: You must enable <code>console</code> and <code>flow-collector</code> for t
 <p>Specifies whether the services are synchronized across the service network, defaults to <code>true</code>.</p>
 </li>
 <li>
-<p>Specifies whether the site supports ingress, for example, to create tokens usable from remote sites.</p>
+<p>Specifies whether the site supports ingress.
+If you do not specify a value, the default ingress ('loadbalancer' on Kubernetes, 'route' on OpenShift) is enabled.
+This allows you to create tokens usable from remote sites.</p>
 </li>
 </ol>
 </div>
