@@ -94,10 +94,10 @@ fail() {
     printf "   %s %s\n\n" "$(red "ERROR:")" "$1" >&5
     log "$(red "ERROR:") $1"
 
-    if [ -n "${2:-}" ]
+    if [ -n "${2:-}" ] && [ -n "${troubleshooting_url:-}" ]
     then
-        printf "   See %s\n\n" "$2" >&5
-        log "See $2"
+        printf "   See ${troubleshooting_url}%s\n\n" "$2" >&5
+        log "See ${troubleshooting_url}$2"
     fi
 
     suppress_trouble_report=1
@@ -240,7 +240,7 @@ check_writable_directories() {
     if [ -n "${unwritable_dirs}" ]
     then
         fail "Some install directories are not writable: ${unwritable_dirs%??}" \
-             "${troubleshooting_url}#some-install-directories-are-not-writable"
+             "#some-install-directories-are-not-writable"
     fi
 }
 
@@ -268,19 +268,19 @@ usage() {
     fi
 
     cat <<EOF
-Usage: ${0} [-hvy] [-s <scheme>]
+Usage: uninstall.sh [OPTION...]
 
-A script that uninstalls the Skupper command-line tool
+Uninstall the Skupper command-line tool
 
 Options:
-  -h            Print this help text and exit
-  -i            Operate in interactive mode
-  -s <scheme>   Select the installation scheme (default "home")
-  -v            Print detailed logging to the console
+  -h, --help          Print this help text and exit
+  --scheme SCHEME     Select an installation scheme (default "home")
+  --interactive       Operate in interactive mode
+  --verbose           Print detailed logging to the console
 
-Installation schemes:
-  home          Install to ~/.local and ~/.config
-  opt           Install to /opt, /var/opt, and /etc/opt
+Schemes:
+  home                Uninstall from ~/.local/bin
+  opt                 Uninstall from /opt/skupper/bin
 EOF
 
     if [ -n "${error}" ]
@@ -291,6 +291,21 @@ EOF
     exit 0
 }
 
+require_option_arg() {
+    local opt="$1"
+    local optarg="$2"
+
+    if [ -z "${optarg}" ]
+    then
+        usage "Option ${opt} is missing a required argument"
+    fi
+
+    case "${optarg}" in
+        -*) usage "Option ${opt} is missing a required argument" ;;
+        *) : ;;
+    esac
+}
+
 main() {
     enable_strict_mode
 
@@ -299,28 +314,34 @@ main() {
         enable_debug_mode
     fi
 
-    local scheme="home"
-    local verbose=
+    local scheme=home
     local interactive=
+    local verbose=
 
-    while getopts :his:v option
+    while [ $# -gt 0 ]
     do
-        case "${option}" in
-            h) usage              ;;
-            i) interactive=1      ;;
-            s) scheme="${OPTARG}" ;;
-            v) verbose=1          ;;
-            *) usage "Unknown option: ${OPTARG}" ;;
+        case "$1" in
+            -h|--help) usage ;;
+            --scheme)
+                require_option_arg "$1" "${2:-}"
+                scheme="$2"
+                shift
+                ;;
+            --interactive) interactive=1 ;;
+            --verbose) verbose=1 ;;
+            *) usage "Unknown option: ${1}" ;;
         esac
+
+        shift
     done
 
     case "${scheme}" in
-        home) local skupper_bin_dir="${HOME}/.local/bin"     ;;
-        opt)  local skupper_bin_dir="/opt/skupper/bin"       ;;
+        home) local skupper_bin_dir="${TEST_INSTALL_PREFIX:-}${HOME}/.local/bin" ;;
+        opt)  local skupper_bin_dir="${TEST_INSTALL_PREFIX:-}/opt/skupper/bin" ;;
         *)    usage "Unknown installation scheme: ${scheme}" ;;
     esac
 
-    local work_dir="${HOME}/skupper-install-script"
+    local work_dir="${TEST_INSTALL_PREFIX:-}${HOME}/.cache/skupper-install-script"
     local log_file="${work_dir}/install.log"
     local backup_dir="${work_dir}/backup"
 
