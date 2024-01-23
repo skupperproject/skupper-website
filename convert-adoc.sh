@@ -3,17 +3,24 @@ process_file() {
     local input_file="$1"
     local base_name=$(basename "$input_file" .adoc)
     local dir_name=$(dirname "$input_file")
-    local output_file="input/docs/${dir_name}/${base_name}.html.in"
+    local output_file="input/docs/${dir_name}/${base_name}.md"
+    input_dir=`dirname $input_file`
 
-    # Run asciidoctor to convert the input file to HTML
-    asciidoctor -e -a showtitle "subrepos/skupper-docs/$input_file" -o "$output_file"
+    mkdir -p "output/$input_dir"
+
+
+    # Reduce file so that all includes are resolved
+    asciidoctor-reducer "subrepos/skupper-docs/$input_file" > "output/$input_file"
+
+    # Convert the asciidoc to markdown
+    npx downdoc -o "$output_file" "output/$input_file"
 
     # Extract the title from the output HTML file
-    title=$(head -1 "$output_file" |sed -e 's/<[^>]*>//g')
+    title=$(head -1 "$output_file" |sed -e 's/# //g')
 
     # Insert the title at the beginning of the output file
     sed -i "1s;^;---\ntitle: $title\n---\n;" "$output_file"
-    rm input/docs//${dir_name}/sed*
+    #rm input/docs//${dir_name}/sed*
 }
 
 # Check if at least one input file is provided
