@@ -75,100 +75,38 @@
   <div>
     <main>
 
-<h1>Skupper connectivity</h1>
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
+<h1 id="skupper-connectivity">Skupper connectivity</h1>
 <p>Skupper represents a new approach to connecting services across multiple Kubernetes clusters.
 See how Skupper can give you the flexibility to deploy your services where you need them.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_one_cluster">One cluster</h2>
-<div class="sectionbody">
-<div class="paragraph">
+<h2 id="one-cluster">One cluster</h2>
 <p>Kubernetes <strong>services</strong> provide a virtual network address for each element of your distributed application.
-Service "A" can contact service "B", "B" can contact "C", and so on.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/one-cluster.svg" alt="one cluster">
-</div>
-</div>
-<div class="paragraph">
+Service &quot;A&quot; can contact service &quot;B&quot;, &quot;B&quot; can contact &quot;C&quot;, and so on.</p>
+<p><img src="../images/one-cluster.svg" alt="one-cluster" /></p>
 <p>But if you want to deploy your application across multiple clusters, your options are limited.
 You have to either expose your services to the public internet or set up a VPN.</p>
-</div>
-<div class="paragraph">
 <p>Skupper offers a third way.
 It connects clusters to a secure layer 7 network.
 It uses that network to forward local service traffic to remote clusters.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_secure_hybrid_cloud_communication">Secure hybrid cloud communication</h2>
-<div class="sectionbody">
-<div class="paragraph">
+<h2 id="secure-hybrid-cloud-communication">Secure hybrid cloud communication</h2>
 <p>Deploy your application across public and private clusters.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/two-clusters.svg" alt="two clusters">
-</div>
-</div>
-<div class="paragraph">
+<p><img src="../images/two-clusters.svg" alt="two-clusters" /></p>
 <p>You can host your database on a private cluster and retain full connectivity with services running on the public cloud.
 All communication is secured by mutual TLS authentication and encryption.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_edge_to_edge_connectivity">Edge-to-edge connectivity</h2>
-<div class="sectionbody">
-<div class="paragraph">
+<h2 id="edgetoedge-connectivity">Edge-to-edge connectivity</h2>
 <p>Distribute application services across geographic regions.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/five-clusters.svg" alt="five clusters">
-</div>
-</div>
-<div class="paragraph">
+<p><img src="../images/five-clusters.svg" alt="five-clusters" /></p>
 <p>You can connect multiple retail sites to a central office.
 Once connected, each edge location can contact any other edge.
 You can add and remove sites on demand.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_scale_up_and_out">Scale up and out</h2>
-<div class="sectionbody">
-<div class="paragraph">
+<h2 id="scale-up-and-out">Scale up and out</h2>
 <p>Build large, robust networks of connected clusters.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/many-clusters.svg" alt="many clusters">
-</div>
-</div>
-<div class="ulist">
-<div class="title">Additional information</div>
+<p><img src="../images/many-clusters.svg" alt="many-clusters" /></p>
 <ul>
-<li>
-<p><a href="index.in">Overview</a></p>
-</li>
-<li>
-<p><a href="routing.in">Routing</a></p>
-</li>
-<li>
-<p><a href="#">Connectivity</a></p>
-</li>
+<li><a href="index.adoc">Overview</a></li>
+<li><a href="routing.adoc">Routing</a></li>
+<li><a href="connectivity.adoc">Connectivity</a></li>
 </ul>
-</div>
-</div>
-</div>
+
 
     </main>
     <nav id="-toc">

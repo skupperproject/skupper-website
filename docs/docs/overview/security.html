@@ -76,59 +76,25 @@
     <main>
 
 <h1 id="skupper-security">Skupper security</h1>
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
 <p>Skupper securely connects your services with TLS authentication and encryption.
 See how Skupper enables you to deploy your application securely across Kubernetes clusters.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="skupper-security-challenges">Security challenges in the cloud</h2>
-<div class="sectionbody">
-<div class="paragraph">
+<h2 id="security-challenges-in-the-cloud">Security challenges in the cloud</h2>
 <p>Moving an application to the cloud raises security risks.
 Either your services must be exposed to the public internet, or you must adopt complex layer 3 network controls like VPNs, firewall rules, and access policies.</p>
-</div>
-<div class="paragraph">
 <p>Increasing the challenge, layer 3 network controls do not extend easily to multiple clusters.
 These network controls must be duplicated for each cluster.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="service-network-isolation">Built-in network isolation</h2>
-<div class="sectionbody">
-<div class="paragraph">
+<h2 id="builtin-network-isolation">Built-in network isolation</h2>
 <p>Skupper provides default, built-in security that scales across clusters and clouds.
 In a Skupper network, the connections between Skupper routers are secured with mutual TLS using a private, dedicated certificate authority (CA).
 Each router is uniquely identified by its own certificate.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/clusters-tls.svg" alt="clusters tls">
-</div>
-</div>
-<div class="paragraph">
+<p><img src="../images/clusters-tls.svg" alt="clusters-tls" /></p>
 <p>This means that the Skupper network is isolated from external access, preventing security risks such as lateral attacks, malware infestations, and data exfiltration.</p>
-</div>
-<div class="ulist">
-<div class="title">Additional information</div>
 <ul>
-<li>
-<p><a href="index.in">Overview</a></p>
-</li>
-<li>
-<p><a href="connectivity.in">Connectivity</a></p>
-</li>
-<li>
-<p><a href="routing.in">Routing</a></p>
-</li>
+<li><a href="index.adoc">Overview</a></li>
+<li><a href="connectivity.adoc">Connectivity</a></li>
+<li><a href="routing.adoc">Routing</a></li>
 </ul>
-</div>
-</div>
-</div>
+
 
     </main>
     <nav id="-toc">

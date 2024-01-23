@@ -75,229 +75,109 @@
   <div>
     <main>
 
-<h1>Using the Skupper Operator on Kubernetes</h1>
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>The Skupper operator creates and manages Skupper sites in Kubernetes.</p>
-</div>
-<div class="paragraph">
-<p>You can install the Operator as described in <a href="#installing-operator-using-cli">Installing the Operator using the CLI</a>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
+<h1 id="using-the-skupper-operator-on-kubernetes">Using the Skupper Operator on Kubernetes</h1>
+<p>The {SkupperOperatorName} creates and manages Skupper sites in Kubernetes.</p>
+<p>You can install the Operator as described in <a href="#installing-the-operator-using-the-cli">Installing the Operator using the CLI</a>.</p>
+<dl><dt><strong>📌 NOTE</strong></dt><dd>
+
 <p>Installing an Operator requires administrator-level privileges for your Kubernetes cluster.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>After installing the Operator, you can create a site by deploying a ConfigMap as described in <a href="#creating-site-using-operator">Creating a site using the Skupper Operator</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="installing-operator-using-cli">Installing the Operator using the CLI</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The steps in this section show how to use the <code>kubectl</code> command-line interface (CLI) to install and deploy the latest version of the Skupper operator in a given Kubernetes cluster.</p>
-</div>
-<div class="ulist">
-<div class="title">Prerequisites</div>
+</dd></dl>
+
+<p>After installing the Operator, you can create a site by deploying a ConfigMap as described in <a href="#creating-a-site-using-the-skupper-operator">Creating a site using the Skupper Operator</a></p>
+<h2 id="installing-the-operator-using-the-cli">Installing the Operator using the CLI</h2>
+<p>The steps in this section show how to use the <code>kubectl</code> command-line interface (CLI) to install and deploy the latest version of the {SkupperOperatorName} in a given Kubernetes cluster.</p>
 <ul>
-<li>
-<p>The Operator Lifecycle Manager is installed in the cluster.
-For more information, see the <a href="https://olm.operatorframework.io/docs/getting-started/">QuickStart</a>.</p>
-</li>
+<li>The Operator Lifecycle Manager is installed in the cluster.
+For more information, see the <a href="https://olm.operatorframework.io/docs/getting-started/">QuickStart</a>.</li>
 </ul>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Download the Skupper Operator example files, for example:</p>
-<div class="listingblock">
-<div class="content">
-<pre>$ wget https://github.com/skupperproject/skupper-operator/archive/refs/heads/main.zip</pre>
-</div>
-</div>
+<ol>
+<li><p>Download the Skupper Operator example files, for example:</p>
+<pre><code>$ wget https://github.com/skupperproject/skupper-operator/archive/refs/heads/main.zip
+</code></pre>
 </li>
-<li>
-<p>Create a <code>my-namespace</code> namespace.
+<li><p>Create a <code>my-namespace</code> namespace.
 NOTE: If you want to use a different namespace, you need to edit the referenced YAML files.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Create a new namespace:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl create namespace my-namespace</code></pre>
-</div>
-</div>
+<ol>
+<li><p>Create a new namespace:</p>
+<pre><code class="language-bash">$ kubectl create namespace my-namespace
+</code></pre>
 </li>
-<li>
-<p>Switch context to the namespace:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl config set-context --current --namespace=my-namespace</code></pre>
-</div>
-</div>
+<li><p>Switch context to the namespace:</p>
+<pre><code class="language-bash">$ kubectl config set-context --current --namespace=my-namespace
+</code></pre>
 </li>
 </ol>
-</div>
 </li>
-<li>
-<p>Create a CatalogSource in the <code>openshift-marketplace</code> namespace:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl apply -f examples/k8s/00-cs.yaml</code></pre>
-</div>
-</div>
+<li><p>Create a CatalogSource in the <code>openshift-marketplace</code> namespace:</p>
+<pre><code class="language-bash">$ kubectl apply -f examples/k8s/00-cs.yaml
+</code></pre>
 </li>
-<li>
-<p>Verify the skupper-operator catalog pod is running before continuing:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl -n olm get pods | grep skupper-operator</code></pre>
-</div>
-</div>
+<li><p>Verify the skupper-operator catalog pod is running before continuing:</p>
+<pre><code class="language-bash">$ kubectl -n olm get pods | grep skupper-operator
+</code></pre>
 </li>
-<li>
-<p>Create an OperatorGroup in the <code>my-namespace</code> namespace:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl apply -f examples/k8s/10-og.yaml</code></pre>
-</div>
-</div>
+<li><p>Create an OperatorGroup in the <code>my-namespace</code> namespace:</p>
+<pre><code class="language-bash">$ kubectl apply -f examples/k8s/10-og.yaml
+</code></pre>
 </li>
-<li>
-<p>Create a Subscription  in the <code>my-namespace</code> namespace:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl apply -f examples/k8s/20-sub.yaml</code></pre>
-</div>
-</div>
+<li><p>Create a Subscription  in the <code>my-namespace</code> namespace:</p>
+<pre><code class="language-bash">$ kubectl apply -f examples/k8s/20-sub.yaml
+</code></pre>
 </li>
-<li>
-<p>Verify that the Operator is running:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl get pods -n my-namespace
+<li><p>Verify that the Operator is running:</p>
+<pre><code class="language-bash">$ kubectl get pods -n my-namespace
 
 NAME                                     READY   STATUS    RESTARTS   AGE
-skupper-site-controller-d7b57964-gxms6   1/1     Running   0          1m</code></pre>
-</div>
-</div>
-<div class="paragraph">
+skupper-site-controller-d7b57964-gxms6   1/1     Running   0          1m
+</code></pre>
 <p>If the output does not report the pod is running, use the following command to determine the issue that prevented it from running:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ kubectl describe pod -l name=skupper-operator</pre>
-</div>
-</div>
+<pre><code>$ kubectl describe pod -l name=skupper-operator
+</code></pre>
 </li>
 </ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="creating-site-using-operator">Creating a site using the Skupper Operator</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Create a YAML file defining the ConfigMap of the site you want to create.</p>
-<div class="openblock">
-<div class="content">
-<div class="paragraph">
+<h2 id="creating-a-site-using-the-skupper-operator">Creating a site using the Skupper Operator</h2>
+<ol>
+<li><p>Create a YAML file defining the ConfigMap of the site you want to create.</p>
 <p>For example, create <code>skupper-site.yaml</code> that provisions a site with a console:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 kind: ConfigMap
 metadata:
   name: skupper-site
   namespace: my-namespace
 data:
-  console: "true"
-  flow-collector: "true"
-  console-user: "admin"
-  console-password: "changeme"</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
+  console: &quot;true&quot;
+  flow-collector: &quot;true&quot;
+  console-user: &quot;admin&quot;
+  console-password: &quot;changeme&quot;
+
+</code></pre>
+<p><strong>📌 NOTE</strong><br />
 The console is a preview feature and may change before becoming fully supported by <a href="https://skupper.io">skupper.io</a>.
-Currently, you must enable the console on the same site as you enable the flow collector. This requirement may change before the console is fully supported by <a href="https://skupper.io">skupper.io</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
+Currently, you must enable the console on the same site as you enable the flow collector. This requirement may change before the console is fully supported by <a href="https://skupper.io">skupper.io</a>.</p>
 <p>You can also create a site without a console:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-yaml" data-lang="yaml">apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 kind: ConfigMap
 metadata:
   name: skupper-site
-  namespace: my-namespace</code></pre>
-</div>
-</div>
-</div>
-</div>
+  namespace: my-namespace
+</code></pre>
 </li>
-<li>
-<p>Apply the YAML to create a ConfigMap named <code>skupper-site</code> in the namespace you want to use:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl apply -f skupper-site.yaml</code></pre>
-</div>
-</div>
+<li><p>Apply the YAML to create a ConfigMap named <code>skupper-site</code> in the namespace you want to use:</p>
+<pre><code class="language-bash">$ kubectl apply -f skupper-site.yaml
+</code></pre>
 </li>
-<li>
-<p>Verify that the site is created by checking that the Skupper router and service controller pods are running:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-bash" data-lang="bash">$ kubectl get pods
+<li><p>Verify that the site is created by checking that the Skupper router and service controller pods are running:</p>
+<pre><code class="language-bash">$ kubectl get pods
 
 NAME                                          READY   STATUS    RESTARTS   AGE
 skupper-router-8c6cc6d76-27562                1/1     Running   0          40s
-skupper-service-controller-57cdbb56c5-vc7s2   1/1     Running   0          34s</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-If you deployed the Operator to a single namespace, an additional site controller pod is also running.
-</td>
-</tr>
-</table>
-</div>
+skupper-service-controller-57cdbb56c5-vc7s2   1/1     Running   0          34s
+</code></pre>
+<p><strong>📌 NOTE</strong><br />
+If you deployed the Operator to a single namespace, an additional site controller pod is also running.</p>
 </li>
 </ol>
-</div>
-</div>
-</div>
+
 
     </main>
     <nav id="-toc">

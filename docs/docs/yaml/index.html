@@ -75,552 +75,252 @@
   <div>
     <main>
 
-<h1 id="skupper-declarative">Configuring Skupper sites using YAML</h1>
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
+<h1 id="configuring-skupper-sites-using-yaml">Configuring Skupper sites using YAML</h1>
 <p>Using YAML files to configure Skupper allows you to use source control to track and manage Skupper network changes.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="installing-using-yaml">Installing Skupper using YAML</h2>
-<div class="sectionbody">
-<div class="paragraph">
+<h2 id="installing-skupper-using-yaml">Installing Skupper using YAML</h2>
 <p>Installing Skupper using YAML provides a declarative method to install Skupper.
 You can store your YAML files in source control to track and manage Skupper network changes.</p>
-</div>
-<div class="ulist">
-<div class="title">Prerequisites</div>
 <ul>
-<li>
-<p>Access to a Kubernetes cluster</p>
-</li>
+<li>Access to a Kubernetes cluster</li>
 </ul>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Log into your cluster.
+<ol>
+<li><p>Log into your cluster.
 If you are deploying Skupper to be available for all namespaces, verify you have <code>cluster-admin</code> privileges.</p>
 </li>
-<li>
-<p>Deploy the site controller:</p>
-<div class="ulist">
+<li><p>Deploy the site controller:</p>
 <ul>
-<li>
-<p>To install Skupper into the current namespace deploy the site controller using the following YAML:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">kubectl apply -f deploy-watch-current-ns.yaml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>where the contents of <code>deploy-watch-current-ns.yaml</code> is specified in the <a href="#watch-current-reference">YAML for watching current namespace</a> appendix.</p>
-</div>
+<li><p>To install Skupper into the current namespace deploy the site controller using the following YAML:</p>
+<pre><code class="language-bash">kubectl apply -f deploy-watch-current-ns.yaml
+</code></pre>
+<p>where the contents of <code>deploy-watch-current-ns.yaml</code> is specified in the <a href="#yaml-for-watching-current-namespace">YAML for watching current namespace</a> appendix.</p>
 </li>
-<li>
-<p>To install Skupper for all namespaces:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Create a namespace named <code>skupper-site-controller</code>.</p>
+<li><p>To install Skupper for all namespaces:</p>
+<ol>
+<li><p>Create a namespace named <code>skupper-site-controller</code>.</p>
 </li>
-<li>
-<p>Deploy the site controller using the following YAML:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">kubectl apply -f deploy-watch-all-ns.yaml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>where the contents of <code>deploy-watch-all-ns.yaml</code> is specified in the <a href="#watch-all-reference">YAML for watching all namespaces</a> appendix.</p>
-</div>
+<li><p>Deploy the site controller using the following YAML:</p>
+<pre><code class="language-bash">kubectl apply -f deploy-watch-all-ns.yaml
+</code></pre>
+<p>where the contents of <code>deploy-watch-all-ns.yaml</code> is specified in the <a href="#yaml-for-watching-all-namespaces">YAML for watching all namespaces</a> appendix.</p>
 </li>
 </ol>
-</div>
 </li>
 </ul>
-</div>
 </li>
-<li>
-<p>Verify the installation.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl get pods
+<li><p>Verify the installation.</p>
+<pre><code class="language-bash">$ kubectl get pods
 NAME                                       READY   STATUS    RESTARTS   AGE
-skupper-site-controller-84694bdbb5-n8slb   1/1     Running   0          75s</code></pre>
-</div>
-</div>
+skupper-site-controller-84694bdbb5-n8slb   1/1     Running   0          75s
+</code></pre>
 </li>
 </ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="creating-using-yaml">Creating a Skupper site using YAML</h2>
-<div class="sectionbody">
-<div class="paragraph">
+<h2 id="creating-a-skupper-site-using-yaml">Creating a Skupper site using YAML</h2>
 <p>Using YAML files to create Skupper sites allows you to use source control to track and manage Skupper network changes.</p>
-</div>
-<div class="ulist">
-<div class="title">Prerequisites</div>
 <ul>
-<li>
-<p>Skupper is installed in the cluster or namespace you want to target.</p>
-</li>
-<li>
-<p>You are logged into the cluster.</p>
-</li>
+<li>Skupper is installed in the cluster or namespace you want to target.</li>
+<li>You are logged into the cluster.</li>
 </ul>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Create a YAML file to define the site, for example, <code>my-site.yaml</code>:</p>
-<div class="openblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">apiVersion: v1
+<ol>
+<li><p>Create a YAML file to define the site, for example, <code>my-site.yaml</code>:</p>
+<pre><code class="language-bash">apiVersion: v1
 kind: ConfigMap
 metadata:
   name: skupper-site
 data:
   name: my-site
-  console: "true"
-  console-user: "admin"
-  console-password: "changeme"
-  flow-collector: "true"</code></pre>
-</div>
-</div>
-<div class="paragraph">
+  console: &quot;true&quot;
+  console-user: &quot;admin&quot;
+  console-password: &quot;changeme&quot;
+  flow-collector: &quot;true&quot;
+</code></pre>
 <p>The YAML creates a site with a console and you can create tokens from this site.</p>
-</div>
-<div class="paragraph">
 <p>To create a site that has no ingress:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>apiVersion: v1
+<pre><code>apiVersion: v1
 kind: ConfigMap
 metadata:
   name: skupper-site
 data:
   name: my-site
-  ingress: "none"</pre>
-</div>
-</div>
-</div>
-</div>
+  ingress: &quot;none&quot;
+</code></pre>
 </li>
-<li>
-<p>Apply the YAML file to your cluster:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">kubectl apply -f ~/my-site.yml</code></pre>
-</div>
-</div>
+<li><p>Apply the YAML file to your cluster:</p>
+<pre><code class="language-bash">kubectl apply -f ~/my-site.yml
+</code></pre>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<div class="title">Additional resources</div>
-<p>See the <a href="#site-config-reference">Site ConfigMap YAML reference</a> section for more reference.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
+<p>See the <a href="#site-configmap-yaml-reference">Site ConfigMap YAML reference</a> section for more reference.</p>
 <h2 id="linking-sites-using-yaml">Linking sites using YAML</h2>
-<div class="sectionbody">
-<div class="paragraph">
 <p>While it is not possible to declaratively link sites, you can create a token using YAML.</p>
-</div>
-<div class="ulist">
-<div class="title">Prerequisites</div>
 <ul>
-<li>
-<p>Skupper is installed on the clusters you want to link.</p>
-</li>
-<li>
-<p>You are logged into the cluster.</p>
-</li>
+<li>Skupper is installed on the clusters you want to link.</li>
+<li>You are logged into the cluster.</li>
 </ul>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Log into the cluster you want to link to and change context to the namespace where Skupper is installed.
+<ol>
+<li><p>Log into the cluster you want to link to and change context to the namespace where Skupper is installed.
 This site must have <code>ingress</code> enabled.</p>
 </li>
-<li>
-<p>Create a YAML file named <code>token-request.yml</code> to request a token:</p>
-<div class="listingblock">
-<div class="content">
-<pre>apiVersion: v1
+<li><p>Create a YAML file named <code>token-request.yml</code> to request a token:</p>
+<pre><code>apiVersion: v1
 kind: Secret
 metadata:
   labels:
     skupper.io/type: connection-token-request
-  name: secret-name</pre>
-</div>
-</div>
+  name: secret-name
+</code></pre>
 </li>
-<li>
-<p>Apply the YAML to the namespace to create a secret.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl apply -f token-request.yml</code></pre>
-</div>
-</div>
+<li><p>Apply the YAML to the namespace to create a secret.</p>
+<pre><code class="language-bash">$ kubectl apply -f token-request.yml
+</code></pre>
 </li>
-<li>
-<p>Create the token YAML from the secret.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl get secret -o yaml secret-name | yq 'del(.metadata.namespace)' &gt; ~/token.yaml</code></pre>
-</div>
-</div>
+<li><p>Create the token YAML from the secret.</p>
+<pre><code class="language-bash">$ kubectl get secret -o yaml secret-name | yq 'del(.metadata.namespace)' &gt; ~/token.yaml
+</code></pre>
 </li>
-<li>
-<p>Log into the cluster you want to link from and change context to the namespace where Skupper is installed.</p>
+<li><p>Log into the cluster you want to link from and change context to the namespace where Skupper is installed.</p>
 </li>
-<li>
-<p>Apply the token YAML.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl apply -f token.yml</code></pre>
-</div>
-</div>
+<li><p>Apply the token YAML.</p>
+<pre><code class="language-bash">$ kubectl apply -f token.yml
+</code></pre>
 </li>
-<li>
-<p>Verify the link, allowing some time for the process to complete.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper link status --wait 60</code></pre>
-</div>
-</div>
+<li><p>Verify the link, allowing some time for the process to complete.</p>
+<pre><code class="language-bash">$ skupper link status --wait 60
+</code></pre>
 </li>
 </ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="skupper-annotations">Configuring services using annotations</h2>
-<div class="sectionbody">
-<div class="paragraph">
+<h1 id="configuring-services-using-annotations">Configuring services using annotations</h1>
 <p>After creating and linking sites, you can use Kubernetes annotations to control which services are available on the service network.</p>
-</div>
-<div class="sect2">
-<h3 id="exposing-services-annotations">Exposing simple services on a service network using annotations</h3>
-<div class="paragraph">
+<h2 id="exposing-simple-services-on-a-service-network-using-annotations">Exposing simple services on a service network using annotations</h2>
 <p>This section provides an alternative to the <code>skupper expose</code> command, allowing you to annotate existing resources to expose simple services on the service network.</p>
-</div>
-<div class="ulist">
-<div class="title">Prerequisites</div>
 <ul>
-<li>
-<p>A site with a service you want to expose</p>
-</li>
+<li>A site with a service you want to expose</li>
 </ul>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Log into the namespace in your cluster that is configured as a site.</p>
+<ol>
+<li><p>Log into the namespace in your cluster that is configured as a site.</p>
 </li>
-<li>
-<p>Create a deployment, some pods, or a service in one of your sites, for example:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend</code></pre>
-</div>
-</div>
-<div class="paragraph">
+<li><p>Create a deployment, some pods, or a service in one of your sites, for example:</p>
+<pre><code class="language-bash">$ kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
+</code></pre>
 <p>This step is not Skupper-specific, that is, this process is unchanged from standard processes for your cluster.</p>
-</div>
 </li>
-<li>
-<p>Annotate the kubernetes resource to create a service that can communicate on the service network, for example:</p>
-<div class="openblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl annotate deployment backend "skupper.io/address=backend" "skupper.io/port=8080" "skupper.io/proxy=tcp"</code></pre>
-</div>
-</div>
-<div class="paragraph">
+<li><p>Annotate the kubernetes resource to create a service that can communicate on the service network, for example:</p>
+<pre><code class="language-bash">$ kubectl annotate deployment backend &quot;skupper.io/address=backend&quot; &quot;skupper.io/port=8080&quot; &quot;skupper.io/proxy=tcp&quot;
+</code></pre>
 <p>The annotations include:</p>
-</div>
-<div class="ulist">
 <ul>
-<li>
-<p><code>skupper.io/proxy</code> - the protocol you want to use, <code>tcp</code>, <code>http</code> or <code>http2</code>.
+<li><code>skupper.io/proxy</code> - the protocol you want to use, <code>tcp</code>, <code>http</code> or <code>http2</code>.
 This is the only annotation that is required.
-For example, if you annotate a simple deployment named <code>backend</code> with <code>skupper.io/proxy=tcp</code>, the service is exposed as <code>backend</code> and the <code>containerPort</code> value of the deployment is used as the port number.</p>
-</li>
-<li>
-<p><code>skupper.io/address</code> - the name of the service on the service network.</p>
-</li>
-<li>
-<p><code>skupper.io/port</code> - one or more ports for the service on the service network.</p>
-</li>
+For example, if you annotate a simple deployment named <code>backend</code> with <code>skupper.io/proxy=tcp</code>, the service is exposed as <code>backend</code> and the <code>containerPort</code> value of the deployment is used as the port number.</li>
+<li><code>skupper.io/address</code> - the name of the service on the service network.</li>
+<li><code>skupper.io/port</code> - one or more ports for the service on the service network.</li>
 </ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
+<dl><dt><strong>📌 NOTE</strong></dt><dd>
+
 <p>When exposing services, rather than other resources like deployments, you can use the <code>skupper.io/target</code> annotation to avoid modifying the original service.
 For example, if you want to expose the <code>backend</code> service:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ kubectl annotate service backend "skupper.io/address=van-backend" "skupper.io/port=8080" \
-"skupper.io/proxy=tcp" "skupper.io/target=backend"</code></pre>
-</div>
-</div>
-<div class="paragraph">
+<pre><code class="language-bash">$ kubectl annotate service backend &quot;skupper.io/address=van-backend&quot; &quot;skupper.io/port=8080&quot; \
+&quot;skupper.io/proxy=tcp&quot; &quot;skupper.io/target=backend&quot;
+</code></pre>
 <p>This allows you to delete and recreate the <code>backend</code> service without having to apply the annotation again.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
+</dd></dl>
+
 </li>
-<li>
-<p>Check that you have exposed the service:</p>
-<div class="openblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ skupper service status
+<li><p>Check that you have exposed the service:</p>
+<pre><code class="language-bash">$ skupper service status
 Services exposed through Skupper:
 ╰─ backend (tcp port 8080)
    ╰─ Targets:
-      ╰─ app=hello-world-backend name=hello-world-backend</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-The related targets for services are only displayed when the target is available on the current cluster.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
+      ╰─ app=hello-world-backend name=hello-world-backend
+</code></pre>
+<p><strong>📌 NOTE</strong><br />
+The related targets for services are only displayed when the target is available on the current cluster.</p>
 </li>
 </ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="understanding-annotations">Understanding Skupper annotations</h3>
-<div class="paragraph">
+<h2 id="understanding-skupper-annotations">Understanding Skupper annotations</h2>
 <p>Annotations allow you to expose services on the service network.
 This section provides details on the scope of those annotations</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">skupper.io/address</dt>
-<dd>
-<p>The name of the service on the service network.
-Applies to:</p>
-<div class="ulist">
 <ul>
-<li>
-<p>Deployments</p>
-</li>
-<li>
-<p>StatefulSets</p>
-</li>
-<li>
-<p>DaemonSets</p>
-</li>
-<li>
-<p>Services</p>
-</li>
+<li><strong>skupper.io/address</strong><br />
+The name of the service on the service network.
+Applies to:<ul>
+<li>Deployments</li>
+<li>StatefulSets</li>
+<li>DaemonSets</li>
+<li>Services</li>
 </ul>
-</div>
-</dd>
-<dt class="hdlist1">skupper.io/port</dt>
-<dd>
-<p>The port for the service on the service network.
-Applies to:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Deployments</p>
 </li>
-<li>
-<p>StatefulSets</p>
-</li>
-<li>
-<p>DaemonSets</p>
-</li>
+<li><strong>skupper.io/port</strong><br />
+The port for the service on the service network.
+Applies to:<ul>
+<li>Deployments</li>
+<li>StatefulSets</li>
+<li>DaemonSets</li>
 </ul>
-</div>
-</dd>
-<dt class="hdlist1">skupper.io/proxy</dt>
-<dd>
-<p>The protocol you want to use, <code>tcp</code>, <code>http</code> or <code>http2</code>.
-Applies to:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Deployments</p>
 </li>
-<li>
-<p>StatefulSets</p>
-</li>
-<li>
-<p>DaemonSets</p>
-</li>
-<li>
-<p>Services</p>
-</li>
+<li><strong>skupper.io/proxy</strong><br />
+The protocol you want to use, <code>tcp</code>, <code>http</code> or <code>http2</code>.
+Applies to:<ul>
+<li>Deployments</li>
+<li>StatefulSets</li>
+<li>DaemonSets</li>
+<li>Services</li>
 </ul>
-</div>
-</dd>
-<dt class="hdlist1">skupper.io/target</dt>
-<dd>
-<p>The name of the target service you want to expose.
-Applies to:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Services</p>
 </li>
+<li><strong>skupper.io/target</strong><br />
+The name of the target service you want to expose.
+Applies to:<ul>
+<li>Services</li>
 </ul>
-</div>
-</dd>
-<dt class="hdlist1">skupper.io/service-labels</dt>
-<dd>
-<p>A comma separated list of label keys and values for the exposed service.
+</li>
+<li><strong>skupper.io/service-labels</strong><br />
+A comma separated list of label keys and values for the exposed service.
 You can use this annotation to set up labels for monitoring exposed services.
-Applies to:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Deployments</p>
-</li>
-<li>
-<p>DaemonSets</p>
-</li>
-<li>
-<p>Services</p>
+Applies to:<ul>
+<li>Deployments</li>
+<li>DaemonSets</li>
+<li>Services</li>
+</ul>
 </li>
 </ul>
-</div>
-</dd>
-</dl>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="site-config-reference">Appendix A: Site ConfigMap YAML reference</h2>
-<div class="sectionbody">
-<div class="paragraph">
+<h2 id="site-configmap-yaml-reference">Site ConfigMap YAML reference</h2>
 <p>Using YAML files to configure Skupper requires that you understand all the fields so that you provision the site you require.</p>
-</div>
-<div class="paragraph">
 <p>The following YAML defines a Skupper site:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 data:
-  name: my-site //<b class="conum">(1)</b>
-  console: "true" //<b class="conum">(2)</b>
-  flow-collector: "true" //<b class="conum">(3)</b>
-  console-authentication: internal //<b class="conum">(4)</b>
-  console-user: "username" //<b class="conum">(5)</b>
-  console-password: "password" //<b class="conum">(6)</b>
-  cluster-local: "false" //<b class="conum">(7)</b>
-  edge: "false" //<b class="conum">(8)</b>
-  service-sync: "true" //<b class="conum">(9)</b>
-  ingress: "none" //<b class="conum">(10)</b>
+  name: my-site //&lt;.&gt;
+  console: &quot;true&quot; //&lt;.&gt;
+  flow-collector: &quot;true&quot; //&lt;.&gt;
+  console-authentication: internal //&lt;.&gt;
+  console-user: &quot;username&quot; //&lt;.&gt;
+  console-password: &quot;password&quot; //&lt;.&gt;
+  cluster-local: &quot;false&quot; //&lt;.&gt;
+  edge: &quot;false&quot; //&lt;.&gt;
+  service-sync: &quot;true&quot; //&lt;.&gt;
+  ingress: &quot;none&quot; //&lt;.&gt;
 kind: ConfigMap
 metadata:
-  name: skupper-site</code></pre>
-</div>
-</div>
-<div class="colist arabic">
+  name: skupper-site
+</code></pre>
 <ol>
-<li>
-<p>Specifies the site name.</p>
-</li>
-<li>
-<p>Enables the skupper console, defaults to <code>false</code>.
-NOTE: You must enable <code>console</code> and <code>flow-collector</code> for the console to function.</p>
-</li>
-<li>
-<p>Enables the flow collector, defaults to <code>false</code>.</p>
-</li>
-<li>
-<p>Specifies the skupper console authentication method. The options are <code>openshift</code>, <code>internal</code>, <code>unsecured</code>.</p>
-</li>
-<li>
-<p>Username for the <code>internal</code> authentication option.</p>
-</li>
-<li>
-<p>Password for the <code>internal</code> authentication option.</p>
-</li>
-<li>
-<p>Only accept connections from within the local cluster, defaults to <code>false</code>.</p>
-</li>
-<li>
-<p>Specifies whether an edge site is created, defaults to <code>false</code>.</p>
-</li>
-<li>
-<p>Specifies whether the services are synchronized across the service network, defaults to <code>true</code>.</p>
-</li>
-<li>
-<p>Specifies whether the site supports ingress.
+<li>Specifies the site name.</li>
+<li>Enables the skupper console, defaults to <code>false</code>.
+NOTE: You must enable <code>console</code> and <code>flow-collector</code> for the console to function.</li>
+<li>Enables the flow collector, defaults to <code>false</code>.</li>
+<li>Specifies the skupper console authentication method. The options are <code>openshift</code>, <code>internal</code>, <code>unsecured</code>.</li>
+<li>Username for the <code>internal</code> authentication option.</li>
+<li>Password for the <code>internal</code> authentication option.</li>
+<li>Only accept connections from within the local cluster, defaults to <code>false</code>.</li>
+<li>Specifies whether an edge site is created, defaults to <code>false</code>.</li>
+<li>Specifies whether the services are synchronized across the service network, defaults to <code>true</code>.</li>
+<li>Specifies whether the site supports ingress.
 If you do not specify a value, the default ingress ('loadbalancer' on Kubernetes, 'route' on OpenShift) is enabled.
-This allows you to create tokens usable from remote sites.</p>
-</li>
+This allows you to create tokens usable from remote sites.</li>
 </ol>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-All ingress types are supported using the same parameters as the <code>skupper</code> CLI.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="watch-current-reference">Appendix B: YAML for watching current namespace</h2>
-<div class="sectionbody">
-<div class="paragraph">
+<p><strong>📌 NOTE</strong><br />
+All ingress types are supported using the same parameters as the <code>skupper</code> CLI.</p>
+<h2 id="yaml-for-watching-current-namespace">YAML for watching current namespace</h2>
 <p>The following example deploys Skupper to watch the current namespace.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>---
+<pre><code>---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -636,7 +336,7 @@ metadata:
   name: skupper-site-controller
 rules:
 - apiGroups:
-  - ""
+  - &quot;&quot;
   resources:
   - configmaps
   - pods
@@ -759,20 +459,11 @@ spec:
         - name: WATCH_NAMESPACE
           valueFrom:
              fieldRef:
-               fieldPath: metadata.namespace</pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="watch-all-reference">Appendix C: YAML for watching all namespaces</h2>
-<div class="sectionbody">
-<div class="paragraph">
+               fieldPath: metadata.namespace
+</code></pre>
+<h2 id="yaml-for-watching-all-namespaces">YAML for watching all namespaces</h2>
 <p>The following example deploys Skupper to watch all namespaces.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>---
+<pre><code>---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -789,7 +480,7 @@ metadata:
   name: skupper-site-controller
 rules:
 - apiGroups:
-  - ""
+  - &quot;&quot;
   resources:
   - configmaps
   - pods
@@ -922,11 +613,9 @@ spec:
             drop:
             - ALL
           runAsNonRoot: true
-          allowPrivilegeEscalation: false</pre>
-</div>
-</div>
-</div>
-</div>
+          allowPrivilegeEscalation: false
+</code></pre>
+
 
     </main>
     <nav id="-toc">
