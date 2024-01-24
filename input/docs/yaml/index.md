@@ -122,11 +122,11 @@ This site must have `ingress` enabled.
    $ skupper link status --wait 60
    ```
 
-# Configuring services using annotations
+## Configuring services using annotations
 
 After creating and linking sites, you can use Kubernetes annotations to control which services are available on the service network.
 
-## Exposing simple services on a service network using annotations
+### Exposing simple services on a service network using annotations
 
 This section provides an alternative to the `skupper expose` command, allowing you to annotate existing resources to expose simple services on the service network.
 
@@ -154,8 +154,7 @@ This section provides an alternative to the `skupper expose` command, allowing y
    * `skupper.io/address` - the name of the service on the service network.
    * `skupper.io/port` - one or more ports for the service on the service network.
 
-   <dl><dt><strong>📌 NOTE</strong></dt><dd>
-
+   =====
    When exposing services, rather than other resources like deployments, you can use the `skupper.io/target` annotation to avoid modifying the original service.
    For example, if you want to expose the `backend` service:
 
@@ -165,7 +164,7 @@ This section provides an alternative to the `skupper expose` command, allowing y
    ```
 
    This allows you to delete and recreate the `backend` service without having to apply the annotation again.
-   </dd></dl>
+   =====
 4. Check that you have exposed the service:
 
    ```bash
@@ -179,7 +178,7 @@ This section provides an alternative to the `skupper expose` command, allowing y
    **📌 NOTE**\
    The related targets for services are only displayed when the target is available on the current cluster.
 
-## Understanding Skupper annotations
+### Understanding Skupper annotations
 
 Annotations allow you to expose services on the service network.
 This section provides details on the scope of those annotations
@@ -216,7 +215,7 @@ Applies to:
   * DaemonSets
   * Services
 
-## Site ConfigMap YAML reference
+### Site ConfigMap YAML reference
 
 Using YAML files to configure Skupper requires that you understand all the fields so that you provision the site you require.
 
@@ -256,7 +255,7 @@ This allows you to create tokens usable from remote sites.
 **📌 NOTE**\
 All ingress types are supported using the same parameters as the `skupper` CLI.
 
-## YAML for watching current namespace
+### YAML for watching current namespace
 
 The following example deploys Skupper to watch the current namespace.
 
@@ -403,7 +402,7 @@ spec:
                fieldPath: metadata.namespace
 ```
 
-## YAML for watching all namespaces
+### YAML for watching all namespaces
 
 The following example deploys Skupper to watch all namespaces.
 

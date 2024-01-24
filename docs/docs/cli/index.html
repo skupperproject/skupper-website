@@ -371,10 +371,10 @@ The site does not require the extra permissions granted with the <code>--enable-
 </ol>
 </li>
 </ul>
-<h1 id="exposing-services-on-the-service-network-from-a-local-machine">Exposing services on the service network from a local machine</h1>
+<h2 id="exposing-services-on-the-service-network-from-a-local-machine">Exposing services on the service network from a local machine</h2>
 <p>After creating a service network, you can expose services from a local machine on the service network.</p>
 <p>For example, if you run a database on a server in your data center, you can deploy a front end in a cluster that can access the data as if the database was running in the cluster.</p>
-<h2 id="exposing-simple-local-services-to-the-service-network">Exposing simple local services to the service network</h2>
+<h3 id="exposing-simple-local-services-to-the-service-network">Exposing simple local services to the service network</h3>
 <p>This section shows how to expose a single service running locally on a service network.</p>
 <ul>
 <li>A service network. Only one site is required.</li>
@@ -392,13 +392,11 @@ The site does not require the extra permissions granted with the <code>--enable-
 <li>&lt;service&gt; - the name of the service on the service network.</li>
 <li>&lt;port&gt; - the port that runs the service locally.</li>
 </ul>
-<dl><dt><strong>📌 NOTE</strong></dt><dd>
-
-<p>You can also expose services from other machines on your local network, for example if MySQL is running on a dedicated server (with an IP address of <code>192.168.1.200</code>), but you are accessing the cluster from a machine in the same network:</p>
+<p>=====
+You can also expose services from other machines on your local network, for example if MySQL is running on a dedicated server (with an IP address of <code>192.168.1.200</code>), but you are accessing the cluster from a machine in the same network:</p>
 <pre><code class="language-bash">$ skupper gateway expose mysql 192.168.1.200 3306
 </code></pre>
-</dd></dl>
-
+<p>=====</p>
 </li>
 <li><p>Check the status of Skupper gateways:</p>
 <pre><code class="language-bash">$ skupper gateway status
@@ -413,7 +411,7 @@ Gateway Definition:
 <p>The URL field shows the underlying communication and can be ignored.</p>
 </li>
 </ol>
-<h2 id="working-with-complex-local-services-on-the-service-network">Working with complex local services on the service network</h2>
+<h3 id="working-with-complex-local-services-on-the-service-network">Working with complex local services on the service network</h3>
 <p>This section shows more advanced usage of skupper gateway.</p>
 <ol>
 <li><p>Create a Skupper gateway:</p>
@@ -472,7 +470,7 @@ Gateway Definition:
 </ul>
 </li>
 </ol>
-<h2 id="creating-a-gateway-and-applying-it-on-a-different-machine">Creating a gateway and applying it on a different machine</h2>
+<h3 id="creating-a-gateway-and-applying-it-on-a-different-machine">Creating a gateway and applying it on a different machine</h3>
 <p>If you have access to a cluster from one machine but want to create a gateway to the service network from a different machine, you can create the gateway definition bundle on the first machine and later apply that definition bundle on a second machine as described in this procedure.
 For example, if you want to expose a local database service to the service network, but you never want to access the cluster from the database server, you can use this procedure to create the definition bundle and apply it on the database server.</p>
 <ol>
@@ -570,7 +568,7 @@ Gateway Definition:
 </ol>
 <p><strong>📌 NOTE</strong><br />
 If you need to change the gateway definition, for example to change port, you need to remove the existing gateway and repeat this procedure from the start to redefine the gateway.</p>
-<h2 id="gateway-yaml-reference">Gateway YAML reference</h2>
+<h3 id="gateway-yaml-reference">Gateway YAML reference</h3>
 <p>The <a href="#creating-a-gateway-and-applying-it-on-a-different-machine">Creating a gateway and applying it on a different machine</a> describes how to create a gateway to apply on a separate machine using a gateway definition YAML file.</p>
 <p>The following are valid entries in a gateway definition YAML file.</p>
 <ul>
@@ -627,7 +625,7 @@ Hostname for skupper router, typically <code>localhost</code>.</li>
 <li><strong>qdr-listeners.port</strong><br />
 Port for skupper router, typically <code>5672</code>.</li>
 </ul>
-<h1 id="exploring-a-service-network">Exploring a service network</h1>
+<h3 id="exploring-a-service-network">Exploring a service network</h3>
 <p>Skupper includes a command to allow you report all the sites and the services available on a service network.</p>
 <ul>
 <li>A service network with more than one site</li>
@@ -677,11 +675,11 @@ To update a site to the version of the CLI, use <code>skupper update</code>.</li
 </ol>
 </li>
 </ol>
-<h1 id="securing-a-service-network">Securing a service network</h1>
+<h4 id="securing-a-service-network">Securing a service network</h4>
 <p>Skupper provides default, built-in security that scales across clusters and clouds.
 This section describes additional security you can configure.</p>
 <p>See <a href="../policy/">Securing a service network using policies</a> for information about creating granular policies for each cluster.</p>
-<h2 id="restricting-access-to-services-using-a-kubernetes-network-policy">Restricting access to services using a Kubernetes network policy</h2>
+<h5 id="restricting-access-to-services-using-a-kubernetes-network-policy">Restricting access to services using a Kubernetes network policy</h5>
 <p>By default, if you expose a service on the service network, that service is also accessible from other namespaces in the cluster.
 You can avoid this situation when creating a site using the <code>--create-network-policy</code> option.</p>
 <ol>
@@ -698,7 +696,7 @@ You can avoid this situation when creating a site using the <code>--create-netwo
 </li>
 </ol>
 <p>You can now expose services on the service network and those services are not accessible from other namespaces in the cluster.</p>
-<h2 id="applying-tls-to-tcp-or-http2-traffic-on-the-service-network">Applying TLS to TCP or HTTP2 traffic on the service network</h2>
+<h5 id="applying-tls-to-tcp-or-http2-traffic-on-the-service-network">Applying TLS to TCP or HTTP2 traffic on the service network</h5>
 <p>By default, the traffic between sites is encrypted, however the traffic between the service pod and the router pod is not encrypted.
 For services exposed as TCP or HTTP2, the traffic between the pod and the router pod can be encrypted using TLS.</p>
 <ul>
@@ -761,7 +759,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 <li><p>Test calling the service from a TLS enabled frontend.</p>
 </li>
 </ol>
-<h1 id="supported-standards-and-protocols">Supported standards and protocols</h1>
+<h5 id="supported-standards-and-protocols">Supported standards and protocols</h5>
 <p>Skupper supports the following protocols for your service network:</p>
 <ul>
 <li>TCP - default</li>
@@ -787,15 +785,13 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 <p>TCP is implemented as a single streamed message, whereas HTTP1 and HTTP2 are implemented as request/response message routing.</p>
 </li>
 </ul>
-<h2 id="cli-options">CLI options</h2>
+<h6 id="cli-options">CLI options</h6>
 <p>For a full list of options, see the <a href="cli-reference:skupper.adoc">Kubernetes</a> and <a href="cli-podman:skupper.adoc">Podman</a> reference documentation.</p>
-<dl><dt><strong>⚠️ WARNING</strong></dt><dd>
-
-<p>When you create a site and set logging level to <code>trace</code>, you can inadvertently log sensitive information from HTTP headers.</p>
+<p>========
+When you create a site and set logging level to <code>trace</code>, you can inadvertently log sensitive information from HTTP headers.</p>
 <pre><code class="language-bash">$ skupper init --router-logging trace
 </code></pre>
-</dd></dl>
-
+<p>========</p>
 <p>By default, all <code>skupper</code> commands apply to the cluster you are logged into and the current namespace.
 The following <code>skupper</code> options allow you to override that behavior and apply to all commands:</p>
 <ul>

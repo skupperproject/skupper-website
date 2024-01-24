@@ -349,13 +349,13 @@ However, if you want to expose workloads, for example deployments, you must crea
         $ skupper expose deployment/backend --port 8080 --target-namespace east-backend
         ```
 
-# Exposing services on the service network from a local machine
+## Exposing services on the service network from a local machine
 
 After creating a service network, you can expose services from a local machine on the service network.
 
 For example, if you run a database on a server in your data center, you can deploy a front end in a cluster that can access the data as if the database was running in the cluster.
 
-## Exposing simple local services to the service network
+### Exposing simple local services to the service network
 
 This section shows how to expose a single service running locally on a service network.
 
@@ -373,14 +373,13 @@ This section shows how to expose a single service running locally on a service n
    * &lt;service> - the name of the service on the service network.
    * &lt;port> - the port that runs the service locally.
 
-   <dl><dt><strong>📌 NOTE</strong></dt><dd>
-
+   =====
    You can also expose services from other machines on your local network, for example if MySQL is running on a dedicated server (with an IP address of `192.168.1.200`), but you are accessing the cluster from a machine in the same network:
 
    ```bash
    $ skupper gateway expose mysql 192.168.1.200 3306
    ```
-   </dd></dl>
+   =====
 4. Check the status of Skupper gateways:
 
    ```bash
@@ -396,7 +395,7 @@ This section shows how to expose a single service running locally on a service n
 
    The URL field shows the underlying communication and can be ignored.
 
-## Working with complex local services on the service network
+### Working with complex local services on the service network
 
 This section shows more advanced usage of skupper gateway.
 
@@ -468,7 +467,7 @@ This section shows more advanced usage of skupper gateway.
    * `<service>` is the name of an existing service on the service network.
    * `<port>` is the port on the local machine that you want to use.
 
-## Creating a gateway and applying it on a different machine
+### Creating a gateway and applying it on a different machine
 
 If you have access to a cluster from one machine but want to create a gateway to the service network from a different machine, you can create the gateway definition bundle on the first machine and later apply that definition bundle on a second machine as described in this procedure.
 For example, if you want to expose a local database service to the service network, but you never want to access the cluster from the database server, you can use this procedure to create the definition bundle and apply it on the database server.
@@ -582,7 +581,7 @@ For example, if you want to expose a local database service to the service netwo
 **📌 NOTE**\
 If you need to change the gateway definition, for example to change port, you need to remove the existing gateway and repeat this procedure from the start to redefine the gateway.
 
-## Gateway YAML reference
+### Gateway YAML reference
 
 The [Creating a gateway and applying it on a different machine](#creating-a-gateway-and-applying-it-on-a-different-machine) describes how to create a gateway to apply on a separate machine using a gateway definition YAML file.
 
@@ -641,7 +640,7 @@ Hostname for skupper router, typically `localhost`.
 * **qdr-listeners.port**\
 Port for skupper router, typically `5672`.
 
-# Exploring a service network
+### Exploring a service network
 
 Skupper includes a command to allow you report all the sites and the services available on a service network.
 
@@ -693,14 +692,14 @@ Skupper includes a command to allow you report all the sites and the services av
    5. The sites that the remote site is linked to.
    6. The unique identifier of a remote podman site. Podman sites do not have an associated context.
 
-# Securing a service network
+#### Securing a service network
 
 Skupper provides default, built-in security that scales across clusters and clouds.
 This section describes additional security you can configure.
 
 See [Securing a service network using policies](../policy/) for information about creating granular policies for each cluster.
 
-## Restricting access to services using a Kubernetes network policy
+##### Restricting access to services using a Kubernetes network policy
 
 By default, if you expose a service on the service network, that service is also accessible from other namespaces in the cluster.
 You can avoid this situation when creating a site using the `--create-network-policy` option.
@@ -722,7 +721,7 @@ You can avoid this situation when creating a site using the `--create-network-po
 
 You can now expose services on the service network and those services are not accessible from other namespaces in the cluster.
 
-## Applying TLS to TCP or HTTP2 traffic on the service network
+##### Applying TLS to TCP or HTTP2 traffic on the service network
 
 By default, the traffic between sites is encrypted, however the traffic between the service pod and the router pod is not encrypted.
 For services exposed as TCP or HTTP2, the traffic between the pod and the router pod can be encrypted using TLS.
@@ -787,7 +786,7 @@ Enabling TLS creates the necessary certificates required for TLS backends and st
    ```
 3. Test calling the service from a TLS enabled frontend.
 
-# Supported standards and protocols
+##### Supported standards and protocols
 
 Skupper supports the following protocols for your service network:
 
@@ -815,19 +814,18 @@ When choosing which protocol to specify, note the following:
 
   TCP is implemented as a single streamed message, whereas HTTP1 and HTTP2 are implemented as request/response message routing.
 
-## CLI options
+###### CLI options
 
 For a full list of options, see the [Kubernetes](cli-reference:skupper.adoc) and [Podman](cli-podman:skupper.adoc) reference documentation.
 
-<dl><dt><strong>⚠️ WARNING</strong></dt><dd>
-
+========
 When you create a site and set logging level to `trace`, you can inadvertently log sensitive information from HTTP headers.
 
 ```bash
 $ skupper init --router-logging trace
 ```
 
-</dd></dl>
+========
 
 By default, all `skupper` commands apply to the cluster you are logged into and the current namespace.
 The following `skupper` options allow you to override that behavior and apply to all commands:

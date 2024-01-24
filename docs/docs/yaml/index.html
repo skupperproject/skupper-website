@@ -188,9 +188,9 @@ metadata:
 </code></pre>
 </li>
 </ol>
-<h1 id="configuring-services-using-annotations">Configuring services using annotations</h1>
+<h2 id="configuring-services-using-annotations">Configuring services using annotations</h2>
 <p>After creating and linking sites, you can use Kubernetes annotations to control which services are available on the service network.</p>
-<h2 id="exposing-simple-services-on-a-service-network-using-annotations">Exposing simple services on a service network using annotations</h2>
+<h3 id="exposing-simple-services-on-a-service-network-using-annotations">Exposing simple services on a service network using annotations</h3>
 <p>This section provides an alternative to the <code>skupper expose</code> command, allowing you to annotate existing resources to expose simple services on the service network.</p>
 <ul>
 <li>A site with a service you want to expose</li>
@@ -214,16 +214,13 @@ For example, if you annotate a simple deployment named <code>backend</code> with
 <li><code>skupper.io/address</code> - the name of the service on the service network.</li>
 <li><code>skupper.io/port</code> - one or more ports for the service on the service network.</li>
 </ul>
-<dl><dt><strong>📌 NOTE</strong></dt><dd>
-
-<p>When exposing services, rather than other resources like deployments, you can use the <code>skupper.io/target</code> annotation to avoid modifying the original service.
+<p>=====
+When exposing services, rather than other resources like deployments, you can use the <code>skupper.io/target</code> annotation to avoid modifying the original service.
 For example, if you want to expose the <code>backend</code> service:</p>
 <pre><code class="language-bash">$ kubectl annotate service backend &quot;skupper.io/address=van-backend&quot; &quot;skupper.io/port=8080&quot; \
 &quot;skupper.io/proxy=tcp&quot; &quot;skupper.io/target=backend&quot;
 </code></pre>
-<p>This allows you to delete and recreate the <code>backend</code> service without having to apply the annotation again.</p>
-</dd></dl>
-
+<h1 id="this-allows-you-to-delete-and-recreate-the-codebackendcode-service-without-having-to-apply-the-annotation-again">This allows you to delete and recreate the <code>backend</code> service without having to apply the annotation again.</h1>
 </li>
 <li><p>Check that you have exposed the service:</p>
 <pre><code class="language-bash">$ skupper service status
@@ -236,7 +233,7 @@ Services exposed through Skupper:
 The related targets for services are only displayed when the target is available on the current cluster.</p>
 </li>
 </ol>
-<h2 id="understanding-skupper-annotations">Understanding Skupper annotations</h2>
+<h3 id="understanding-skupper-annotations">Understanding Skupper annotations</h3>
 <p>Annotations allow you to expose services on the service network.
 This section provides details on the scope of those annotations</p>
 <ul>
@@ -282,7 +279,7 @@ Applies to:<ul>
 </ul>
 </li>
 </ul>
-<h2 id="site-configmap-yaml-reference">Site ConfigMap YAML reference</h2>
+<h3 id="site-configmap-yaml-reference">Site ConfigMap YAML reference</h3>
 <p>Using YAML files to configure Skupper requires that you understand all the fields so that you provision the site you require.</p>
 <p>The following YAML defines a Skupper site:</p>
 <pre><code class="language-yaml">apiVersion: v1
@@ -318,7 +315,7 @@ This allows you to create tokens usable from remote sites.</li>
 </ol>
 <p><strong>📌 NOTE</strong><br />
 All ingress types are supported using the same parameters as the <code>skupper</code> CLI.</p>
-<h2 id="yaml-for-watching-current-namespace">YAML for watching current namespace</h2>
+<h3 id="yaml-for-watching-current-namespace">YAML for watching current namespace</h3>
 <p>The following example deploys Skupper to watch the current namespace.</p>
 <pre><code>---
 apiVersion: v1
@@ -461,7 +458,7 @@ spec:
              fieldRef:
                fieldPath: metadata.namespace
 </code></pre>
-<h2 id="yaml-for-watching-all-namespaces">YAML for watching all namespaces</h2>
+<h3 id="yaml-for-watching-all-namespaces">YAML for watching all namespaces</h3>
 <p>The following example deploys Skupper to watch all namespaces.</p>
 <pre><code>---
 apiVersion: v1
