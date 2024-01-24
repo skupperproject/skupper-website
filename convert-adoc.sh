@@ -9,18 +9,18 @@ process_file() {
     mkdir -p "output/$input_dir"
 
 
-    # Reduce file so that all includes are resolved
-    asciidoctor-reducer "subrepos/skupper-docs/$input_file" > "output/$input_file"
-
-    # Convert the asciidoc to markdown
-    npx downdoc -o "$output_file" "output/$input_file"
+    # Reduce file so that all includes are resolved and convert to asciidoc
+    # requires https://github.com/opendevise/downdoc and https://github.com/asciidoctor/asciidoctor-reducer
+    asciidoctor-reducer "subrepos/skupper-docs/$input_file" | downdoc -o "$output_file" -
 
     # Extract the title from the output HTML file
     title=$(head -1 "$output_file" |sed -e 's/# //g')
 
     # Insert the title at the beginning of the output file
     sed -i "1s;^;---\ntitle: $title\n---\n;" "$output_file"
-    #rm input/docs//${dir_name}/sed*
+
+    # Sometimes found sed* files after above cmd.
+    # rm input/docs//${dir_name}/sed*
 }
 
 # Check if at least one input file is provided
