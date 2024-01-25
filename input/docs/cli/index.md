@@ -373,13 +373,14 @@ This section shows how to expose a single service running locally on a service n
    * &lt;service> - the name of the service on the service network.
    * &lt;port> - the port that runs the service locally.
 
-   =====
+   <dl><dt><strong>📌 NOTE</strong></dt><dd>
+
    You can also expose services from other machines on your local network, for example if MySQL is running on a dedicated server (with an IP address of `192.168.1.200`), but you are accessing the cluster from a machine in the same network:
 
    ```bash
    $ skupper gateway expose mysql 192.168.1.200 3306
    ```
-   =====
+   </dd></dl>
 4. Check the status of Skupper gateways:
 
    ```bash
@@ -818,14 +819,15 @@ When choosing which protocol to specify, note the following:
 
 For a full list of options, see the [Kubernetes](cli-reference:skupper.adoc) and [Podman](cli-podman:skupper.adoc) reference documentation.
 
-========
+<dl><dt><strong>⚠️ WARNING</strong></dt><dd>
+
 When you create a site and set logging level to `trace`, you can inadvertently log sensitive information from HTTP headers.
 
 ```bash
 $ skupper init --router-logging trace
 ```
 
-========
+</dd></dl>
 
 By default, all `skupper` commands apply to the cluster you are logged into and the current namespace.
 The following `skupper` options allow you to override that behavior and apply to all commands:

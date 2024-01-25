@@ -392,11 +392,13 @@ The site does not require the extra permissions granted with the <code>--enable-
 <li>&lt;service&gt; - the name of the service on the service network.</li>
 <li>&lt;port&gt; - the port that runs the service locally.</li>
 </ul>
-<p>=====
-You can also expose services from other machines on your local network, for example if MySQL is running on a dedicated server (with an IP address of <code>192.168.1.200</code>), but you are accessing the cluster from a machine in the same network:</p>
+<dl><dt><strong>📌 NOTE</strong></dt><dd>
+
+<p>You can also expose services from other machines on your local network, for example if MySQL is running on a dedicated server (with an IP address of <code>192.168.1.200</code>), but you are accessing the cluster from a machine in the same network:</p>
 <pre><code class="language-bash">$ skupper gateway expose mysql 192.168.1.200 3306
 </code></pre>
-<p>=====</p>
+</dd></dl>
+
 </li>
 <li><p>Check the status of Skupper gateways:</p>
 <pre><code class="language-bash">$ skupper gateway status
@@ -787,11 +789,13 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 </ul>
 <h6 id="cli-options">CLI options</h6>
 <p>For a full list of options, see the <a href="cli-reference:skupper.adoc">Kubernetes</a> and <a href="cli-podman:skupper.adoc">Podman</a> reference documentation.</p>
-<p>========
-When you create a site and set logging level to <code>trace</code>, you can inadvertently log sensitive information from HTTP headers.</p>
+<dl><dt><strong>⚠️ WARNING</strong></dt><dd>
+
+<p>When you create a site and set logging level to <code>trace</code>, you can inadvertently log sensitive information from HTTP headers.</p>
 <pre><code class="language-bash">$ skupper init --router-logging trace
 </code></pre>
-<p>========</p>
+</dd></dl>
+
 <p>By default, all <code>skupper</code> commands apply to the cluster you are logged into and the current namespace.
 The following <code>skupper</code> options allow you to override that behavior and apply to all commands:</p>
 <ul>

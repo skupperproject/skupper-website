@@ -20,7 +20,7 @@ process_file() {
     sed -i "1s;^;---\ntitle: $title\n---\n;" "$output_file"
 
     # Sometimes found sed* files after above cmd.
-    # rm input/docs//${dir_name}/sed*
+    rm docs/docs//${dir_name}/sed*
 }
 
 # Check if at least one input file is provided

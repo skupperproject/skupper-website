@@ -154,7 +154,8 @@ This section provides an alternative to the `skupper expose` command, allowing y
    * `skupper.io/address` - the name of the service on the service network.
    * `skupper.io/port` - one or more ports for the service on the service network.
 
-   =====
+   <dl><dt><strong>📌 NOTE</strong></dt><dd>
+
    When exposing services, rather than other resources like deployments, you can use the `skupper.io/target` annotation to avoid modifying the original service.
    For example, if you want to expose the `backend` service:
 
@@ -164,7 +165,7 @@ This section provides an alternative to the `skupper expose` command, allowing y
    ```
 
    This allows you to delete and recreate the `backend` service without having to apply the annotation again.
-   =====
+   </dd></dl>
 4. Check that you have exposed the service:
 
    ```bash

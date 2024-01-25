@@ -214,13 +214,16 @@ For example, if you annotate a simple deployment named <code>backend</code> with
 <li><code>skupper.io/address</code> - the name of the service on the service network.</li>
 <li><code>skupper.io/port</code> - one or more ports for the service on the service network.</li>
 </ul>
-<p>=====
-When exposing services, rather than other resources like deployments, you can use the <code>skupper.io/target</code> annotation to avoid modifying the original service.
+<dl><dt><strong>📌 NOTE</strong></dt><dd>
+
+<p>When exposing services, rather than other resources like deployments, you can use the <code>skupper.io/target</code> annotation to avoid modifying the original service.
 For example, if you want to expose the <code>backend</code> service:</p>
 <pre><code class="language-bash">$ kubectl annotate service backend &quot;skupper.io/address=van-backend&quot; &quot;skupper.io/port=8080&quot; \
 &quot;skupper.io/proxy=tcp&quot; &quot;skupper.io/target=backend&quot;
 </code></pre>
-<h1 id="this-allows-you-to-delete-and-recreate-the-codebackendcode-service-without-having-to-apply-the-annotation-again">This allows you to delete and recreate the <code>backend</code> service without having to apply the annotation again.</h1>
+<p>This allows you to delete and recreate the <code>backend</code> service without having to apply the annotation again.</p>
+</dd></dl>
+
 </li>
 <li><p>Check that you have exposed the service:</p>
 <pre><code class="language-bash">$ skupper service status
