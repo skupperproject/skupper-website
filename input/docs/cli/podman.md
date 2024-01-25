@@ -84,7 +84,7 @@ To switch back to target Kubernetes sites: `skupper switch kubernetes`
      Skupper is now installed for user '<username>'.  Use 'skupper status' to get more information.
      ```
 
-     For more information, see [podman skupper init](cli-podman:skupper_init.adoc).
+     For more information, see the [Skupper Podman CLI reference](../podman-reference/skupper.html) documentation.
   3. Check the status of your site:
 
      ```bash
@@ -197,4 +197,4 @@ In this variation of the [hello world](https://github.com/skupperproject/skupper
    ```
 6. Check your service network is working as expected by navigating to your cluster URL, port 8080, and clicking **Say hello**.
 
-For more information, see [podman skupper expose](cli-podman:skupper_expose.adoc).
+For more information, see the [Skupper Podman CLI reference](../podman-reference/skupper.html) documentation.

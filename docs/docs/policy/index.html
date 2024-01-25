@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Securing a {service-network} using Skupper policies</title>
+    <title>Skupper - Securing a service network using Skupper policies</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/policy/index.html">Securing a {service-network} using Skupper policies</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/policy/index.html">Securing a service network using Skupper policies</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -75,13 +75,13 @@
   <div>
     <main>
 
-<h1 id="securing-a-servicenetwork-using-skupper-policies">Securing a {service-network} using Skupper policies</h1>
+<h1 id="securing-a-service-network-using-skupper-policies">Securing a service network using Skupper policies</h1>
 <p>By default, Skupper includes many security features, including using mutual TLS for all service network communication between sites.
 You can add extra security features by installing the Skupper policy CRD.
 By default, applying a Skupper policy CRD to a cluster prevents all service network communication to and from that cluster.
 You specify granular Skupper policies CRs to permit only the service network communication you require.</p>
 <p><strong>📌 NOTE</strong><br />
-A Skupper policy is distinct from the Kubernetes network policy, that is the <code>network-policy</code> option, which restricts access to Skupper services to the current namespace as described in <a href="../cli/">Using the Skupper CLI</a>.</p>
+A Skupper policy is distinct from the Kubernetes network policy, that is the <code>network-policy</code> option, which restricts access to Skupper services to the current namespace as described in <a href="../cli/index.html">Using the Skupper CLI</a>.</p>
 <p>Each site in a service network runs a Skupper router and has a private, dedicated certificate authority (CA).
 Communication between sites is secured with mutual TLS, so the service network is isolated from external access, preventing security risks such as lateral attacks, malware infestations, and data exfiltration.
 A set of Skupper policies adds another layer at a cluster level to help a cluster administrator control access to a service network.</p>

@@ -25,7 +25,7 @@ There are two types of Skupper token:
   All inter-site traffic is protected by mutual TLS using a private, dedicated certificate authority (CA).
   A claim token is not a certificate, but is securely exchanged for a certificate during the linking process.
   By implementing appropriate restrictions (for example, creating a single-use claim token), you can avoid the accidental exposure of certificates.
-* *Cert token *
+* **Cert token**
 
   You can use a cert token to create a link to the site which issued that token, it includes a valid certificate from that site.
 
@@ -55,7 +55,7 @@ A claim token can be restricted by time or usage.
    * **--uses**\
    The number of times you can use the token to create a  link, default `1`.
 
-* See the [Using the Skupper CLI](../cli/) for information about using the token to create links.
+* See the [Using the Skupper CLI](../cli/index.html) for information about using the token to create links.
 
 ## Creating cert tokens
 
@@ -72,7 +72,7 @@ A cert token allows you create many links to the service network from different 
    **📌 NOTE**\
    Cert tokens are always valid and can be reused indefinitely unless revoked as described in [Revoking access to a site](#revoking-access-to-a-site)
 
-* See the [Using the Skupper CLI](../cli/) for information about using the token to create links.
+* See the [Using the Skupper CLI](../cli/index.html) for information about using the token to create links.
 
 ## Revoking access to a site
 

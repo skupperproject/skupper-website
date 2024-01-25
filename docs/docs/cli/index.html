@@ -102,7 +102,7 @@ This section describes how to create a site using the default settings.</p>
 <pre><code class="language-bash">$ skupper init
 </code></pre>
 <p>Starting with Skupper release 1.3, the console is not enabled by default.
-To use the new console, which is a preview feature and may change, see <a href="../console/">Using the Skupper console</a>.</p>
+To use the new console, which is a preview feature and may change, see <a href="../console/index.html">Using the Skupper console</a>.</p>
 </li>
 <li><p>Check the site:</p>
 <pre><code class="language-bash">$ skupper status
@@ -112,14 +112,14 @@ To use the new console, which is a preview feature and may change, see <a href="
 </code></pre>
 <p><strong>📌 NOTE</strong><br />
 The default message above is displayed when you initialize a site on a cluster that does not have a Skupper policy installed.
-If you install a Skupper policy as described in <a href="../policy/">Securing a service network using policies</a>, the message becomes <code>Skupper is enabled for namespace &quot;west&quot; in interior mode (with policies)</code>.</p>
+If you install a Skupper policy as described in <a href="../policy/index.html">Securing a service network using policies</a>, the message becomes <code>Skupper is enabled for namespace &quot;west&quot; in interior mode (with policies)</code>.</p>
 <p>By default, the site name defaults to the namespace name, for example, <code>west</code>.</p>
 </li>
 </ol>
 <h2 id="custom-sites">Custom sites</h2>
 <p>The default <code>skupper init</code> creates sites that satisfy typical requirements.</p>
 <p>Starting with Skupper release 1.3, the console is not enabled by default.
-To use the new console, which is a preview feature and may change, see <a href="../console/">Using the Skupper console</a>.</p>
+To use the new console, which is a preview feature and may change, see <a href="../console/index.html">Using the Skupper console</a>.</p>
 <p>If you require a custom configuration, note the following options:</p>
 <ul>
 <li><p>Configuring console authentication.
@@ -172,26 +172,21 @@ This section describes how to link sites to form a service network.</p>
 
 <p>Access to this file provides access to the service network.
 Protect it appropriately.</p>
-<p>For more information about protecting access to the service network, see <a href="cli:tokens.adoc">cli:tokens.adoc</a>.</p>
+<p>For more information about protecting access to the service network, see <a href="../cli/tokens.html">Using Skupper tokens</a>.</p>
 </dd></dl>
 
 </li>
 <li><p>Use a token on the cluster that you want to connect from:</p>
-<ol>
-<li><p>Create a link to the service network:</p>
+<p>To create a link to the service network:</p>
 <pre><code class="language-bash">$ skupper link create &lt;filename&gt; [-name &lt;link-name&gt;]
 </code></pre>
 <p>where <code>&lt;filename&gt;</code> is the name of a YAML file generated from the <code>skupper token create</code> command and <code>&lt;link-name&gt;</code> is the name of the link.</p>
-</li>
-<li><p>Check the link:</p>
+<p>To check the link:</p>
 <pre><code class="language-bash">$ skupper link status
 Link link1 not connected
 </code></pre>
 <p>In this example no &lt;link-name&gt; was specified, the name defaulted to <code>link1</code>.</p>
-</li>
-</ol>
-</li>
-<li><p>If you want to delete a link:</p>
+<p>To delete a link:</p>
 <pre><code class="language-bash">$ skupper link delete &lt;link-name&gt;
 </code></pre>
 <p>where <code>&lt;link-name&gt;</code> is the name of the link specified during creation.</p>
@@ -335,16 +330,16 @@ However, if you want to expose workloads, for example deployments, you must crea
 <ul>
 <li>A namespace where Skupper is deployed.</li>
 <li>A network policy that allows communication between the namespaces</li>
-<li>cluster-admin permissions if you want to expose resources other than services<ol>
+<li>cluster-admin permissions if you want to expose resources other than services</li>
+</ul>
+<ol>
 <li><p>Create a site with cluster permissions if you want to expose a workload from a namespace other than the site namespace:</p>
+<p><strong>📌 NOTE</strong><br />
+The site does not require the extra permissions granted with the <code>--enable-cluster-permissions</code> to expose a Kubernetes service resource.</p>
 <pre><code class="language-bash">$ skupper init --enable-cluster-permissions
 </code></pre>
 </li>
-<li><p>Expose the service on the service network:</p>
-<p><strong>📌 NOTE</strong><br />
-The site does not require the extra permissions granted with the <code>--enable-cluster-permissions</code> to expose a Kubernetes service.</p>
-<ol>
-<li><p>If you want to expose a Kubernetes service from a namespace other than the site namespace:</p>
+<li><p>To expose a Kubernetes service from a namespace other than the site namespace:</p>
 <pre><code class="language-bash">$ skupper expose service &lt;service&gt;.&lt;namespace&gt; --address &lt;service&gt;
 </code></pre>
 <ul>
@@ -355,7 +350,7 @@ The site does not require the extra permissions granted with the <code>--enable-
 <pre><code class="language-bash">$ skupper expose service backend.east-backend --port 8080 --address backend
 </code></pre>
 </li>
-<li><p>If you want to expose a workload and you created a site with <code>--enable-cluster-permissions</code>:</p>
+<li><p>To expose a workload from a site created with <code>--enable-cluster-permissions</code>:</p>
 <pre><code class="language-bash">$ skupper expose &lt;resource&gt; --port &lt;port-number&gt; --target-namespace &lt;namespace&gt;
 </code></pre>
 <ul>
@@ -367,10 +362,6 @@ The site does not require the extra permissions granted with the <code>--enable-
 </code></pre>
 </li>
 </ol>
-</li>
-</ol>
-</li>
-</ul>
 <h2 id="exposing-services-on-the-service-network-from-a-local-machine">Exposing services on the service network from a local machine</h2>
 <p>After creating a service network, you can expose services from a local machine on the service network.</p>
 <p>For example, if you run a database on a server in your data center, you can deploy a front end in a cluster that can access the data as if the database was running in the cluster.</p>
@@ -680,7 +671,7 @@ To update a site to the version of the CLI, use <code>skupper update</code>.</li
 <h4 id="securing-a-service-network">Securing a service network</h4>
 <p>Skupper provides default, built-in security that scales across clusters and clouds.
 This section describes additional security you can configure.</p>
-<p>See <a href="../policy/">Securing a service network using policies</a> for information about creating granular policies for each cluster.</p>
+<p>See <a href="../policy/index.html">Securing a service network using policies</a> for information about creating granular policies for each cluster.</p>
 <h5 id="restricting-access-to-services-using-a-kubernetes-network-policy">Restricting access to services using a Kubernetes network policy</h5>
 <p>By default, if you expose a service on the service network, that service is also accessible from other namespaces in the cluster.
 You can avoid this situation when creating a site using the <code>--create-network-policy</code> option.</p>
@@ -710,12 +701,10 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 </li>
 <li><p>Expose your backend deployment on the service network, enabling TLS.</p>
 <p>For example, if you want to expose a TCP service:</p>
-</li>
-</ol>
 <pre><code class="language-bash">$ skupper expose deployment &lt;deployment-name&gt; --port 443 --enable-tls
 </code></pre>
 <p>Enabling TLS creates the necessary certificates required for TLS backends and stores them in a secret named <code>skupper-tls-&lt;deployment-name&gt;</code>.</p>
-<ol>
+</li>
 <li><p>Modify the backend deployment to include the generated certificates, for example:</p>
 <pre><code class="language-yaml">...
     spec:
@@ -788,7 +777,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 </li>
 </ul>
 <h6 id="cli-options">CLI options</h6>
-<p>For a full list of options, see the <a href="cli-reference:skupper.adoc">Kubernetes</a> and <a href="cli-podman:skupper.adoc">Podman</a> reference documentation.</p>
+<p>For a full list of options, see the <a href="../kubernetes-reference/skupper.html">Skupper Kubernetes CLI reference</a> and <a href="../podman-reference/skupper.html">Skupper Podman CLI reference</a> documentation.</p>
 <dl><dt><strong>⚠️ WARNING</strong></dt><dd>
 
 <p>When you create a site and set logging level to <code>trace</code>, you can inadvertently log sensitive information from HTTP headers.</p>

@@ -271,7 +271,7 @@ Follow this procedure to explore the policies applied to the site.
    false   true           Policy validation error: deployment/nginx cannot be exposed
    ```
 
-   If you allowed an nginx deployment as described in [allowedExposedResources](#allowedExposedResources), the same command shows that the resource is allowed and displays the name of the policy CR that enabled it:
+   If you allowed an nginx deployment, the same command shows that the resource is allowed and displays the name of the policy CR that enabled it:
 
    ```bash
    $ kubectl  exec deploy/skupper-service-controller -- get policies expose deployment nginx
@@ -384,7 +384,7 @@ If the `skupper init` command fails, consider the following options:
 
   <dl><dt><strong>📌 NOTE</strong></dt><dd>
 
-  See [cli-reference:skupper_init.adoc](cli-reference:skupper_init.adoc) for more options.
+  See the [Skupper Podman CLI reference](../podman-reference/skupper.html) documentation for `skupper init`.
   </dd></dl>
 
 **Cannot link sites**
@@ -398,13 +398,13 @@ For example, if one site is behind a firewall and the other site is on an AWS cl
 <dl><dt><strong>📌 NOTE</strong></dt><dd>
 
 By default, a token is valid for only 15 minutes and can only be used once.
-See [cli:tokens.adoc](cli:tokens.adoc) for more information on creating different types of tokens.
+See [Using Skupper tokens](../cli/tokens.html) for more information on creating different types of tokens.
 </dd></dl>
 
 **Cannot access Skupper console**
 
 Starting with Skupper release 1.3, the console is not enabled by default.
-To use the new console, which is a preview feature and may change, see [Using the Skupper console](../console/).
+To use the new console, which is a preview feature and may change, see [Using the Skupper console](../console/index.html).
 
 Use `skupper status` to find the console URL.
 

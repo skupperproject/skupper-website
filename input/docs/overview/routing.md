@@ -29,6 +29,6 @@ If demand peaks, you can dynamically spill over to public cloud resources.
 
 Skupper uses redundant network paths and smart routing to provide highly available connectivity at scale.
 
-* [Overview](index.adoc)
-* [Security](security.adoc)
-* [Connectivity](connectivity.adoc)
+* [Overview](../overview/index.html)
+* [Security](../overview/security.html)
+* [Connectivity](../overview/connectivity.html)

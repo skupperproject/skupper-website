@@ -1,12 +1,12 @@
 ---
-title: Securing a {service-network}
+title: Securing a service network
 ---
-# Securing a {service-network}
+# Securing a service network
 
 Skupper provides default, built-in security that scales across clusters and clouds.
 This section describes additional security you can configure.
 
-See [Securing a service network using policies](../policy/) for information about creating granular policies for each cluster.
+See [Securing a service network using policies](../policy/index.html) for information about creating granular policies for each cluster.
 
 ## Restricting access to services using a Kubernetes network policy
 
@@ -42,13 +42,13 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 2. Expose your backend deployment on the service network, enabling TLS.
 
    For example, if you want to expose a TCP service:
-```bash
-$ skupper expose deployment <deployment-name> --port 443 --enable-tls
-```
 
-Enabling TLS creates the necessary certificates required for TLS backends and stores them in a secret named `skupper-tls-<deployment-name>`.
+   ```bash
+   $ skupper expose deployment <deployment-name> --port 443 --enable-tls
+   ```
 
-1. Modify the backend deployment to include the generated certificates, for example:
+   Enabling TLS creates the necessary certificates required for TLS backends and stores them in a secret named `skupper-tls-<deployment-name>`.
+3. Modify the backend deployment to include the generated certificates, for example:
 
    ```yaml
    ...
@@ -75,7 +75,7 @@ Enabling TLS creates the necessary certificates required for TLS backends and st
    ```
 
    Each site creates the necessary certificates required for TLS clients and stores them in a secret named `skupper-service-client`.
-2. Modify the frontend deployment to include the generated certificates, for example:
+4. Modify the frontend deployment to include the generated certificates, for example:
 
    ```yaml
    spec:
@@ -93,4 +93,4 @@ Enabling TLS creates the necessary certificates required for TLS backends and st
              secretName: skupper-service-client
 
    ```
-3. Test calling the service from a TLS enabled frontend.
+5. Test calling the service from a TLS enabled frontend.

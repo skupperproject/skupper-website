@@ -95,7 +95,7 @@ For example, if you are creating a service network using both a public and priva
 A claim token is not a certificate, but is securely exchanged for a certificate during the linking process.
 By implementing appropriate restrictions (for example, creating a single-use claim token), you can avoid the accidental exposure of certificates.</p>
 </li>
-<li><p>*Cert token *</p>
+<li><p><strong>Cert token</strong></p>
 <p>You can use a cert token to create a link to the site which issued that token, it includes a valid certificate from that site.</p>
 <p>All inter-site traffic is protected by mutual TLS using a private, dedicated certificate authority (CA).
 A cert token is a certificate issued by the dedicated CA.
@@ -125,7 +125,7 @@ The number of times you can use the token to create a  link, default <code>1</co
 </li>
 </ol>
 <ul>
-<li>See the <a href="../cli/">Using the Skupper CLI</a> for information about using the token to create links.</li>
+<li>See the <a href="../cli/index.html">Using the Skupper CLI</a> for information about using the token to create links.</li>
 </ul>
 <h2 id="creating-cert-tokens">Creating cert tokens</h2>
 <p>A cert token allows you create many links to the service network from different sites without restrictions.</p>
@@ -142,7 +142,7 @@ Cert tokens are always valid and can be reused indefinitely unless revoked as de
 </li>
 </ol>
 <ul>
-<li>See the <a href="../cli/">Using the Skupper CLI</a> for information about using the token to create links.</li>
+<li>See the <a href="../cli/index.html">Using the Skupper CLI</a> for information about using the token to create links.</li>
 </ul>
 <h2 id="revoking-access-to-a-site">Revoking access to a site</h2>
 <p>If a token is compromised, you can prevent unauthorized use of that token by invalidating  all the tokens created from a site.</p>

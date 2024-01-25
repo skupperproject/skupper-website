@@ -308,7 +308,7 @@ Available Commands:
 ALLOWED POLICY ENABLED ERROR                                                       ALLOWED BY
 false   true           Policy validation error: deployment/nginx cannot be exposed
 </code></pre>
-<p>If you allowed an nginx deployment as described in <a href="#allowedExposedResources">allowedExposedResources</a>, the same command shows that the resource is allowed and displays the name of the policy CR that enabled it:</p>
+<p>If you allowed an nginx deployment, the same command shows that the resource is allowed and displays the name of the policy CR that enabled it:</p>
 <pre><code class="language-bash">$ kubectl  exec deploy/skupper-service-controller -- get policies expose deployment nginx
 ALLOWED POLICY ENABLED ERROR                                                       ALLOWED BY
 true    true                                                                       allowedexposedresources
@@ -400,7 +400,7 @@ Enter the following command:</p>
 </code></pre>
 <dl><dt><strong>📌 NOTE</strong></dt><dd>
 
-<p>See <a href="cli-reference:skupper_init.adoc">cli-reference:skupper_init.adoc</a> for more options.</p>
+<p>See the <a href="../podman-reference/skupper.html">Skupper Podman CLI reference</a> documentation for <code>skupper init</code>.</p>
 </dd></dl>
 
 </li>
@@ -415,12 +415,12 @@ For example, if one site is behind a firewall and the other site is on an AWS cl
 <dl><dt><strong>📌 NOTE</strong></dt><dd>
 
 <p>By default, a token is valid for only 15 minutes and can only be used once.
-See <a href="cli:tokens.adoc">cli:tokens.adoc</a> for more information on creating different types of tokens.</p>
+See <a href="../cli/tokens.html">Using Skupper tokens</a> for more information on creating different types of tokens.</p>
 </dd></dl>
 
 <p><strong>Cannot access Skupper console</strong></p>
 <p>Starting with Skupper release 1.3, the console is not enabled by default.
-To use the new console, which is a preview feature and may change, see <a href="../console/">Using the Skupper console</a>.</p>
+To use the new console, which is a preview feature and may change, see <a href="../console/index.html">Using the Skupper console</a>.</p>
 <p>Use <code>skupper status</code> to find the console URL.</p>
 <p>Use the following command to display the password for the <code>admin</code> user:doctype: article</p>
 <pre><code>$ kubectl get secret/skupper-console-users -o jsonpath={.data.admin} | base64 -d

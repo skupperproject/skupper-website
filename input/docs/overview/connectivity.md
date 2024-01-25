@@ -45,6 +45,6 @@ Build large, robust networks of connected clusters.
 
 ![many-clusters](../images/many-clusters.svg)
 
-* [Overview](index.adoc)
-* [Routing](routing.adoc)
-* [Connectivity](connectivity.adoc)
+* [Overview](../overview/index.html)
+* [Routing](../overview/routing.html)
+* [Connectivity](../overview/connectivity.html)

@@ -24,6 +24,6 @@ Each router is uniquely identified by its own certificate.
 
 This means that the Skupper network is isolated from external access, preventing security risks such as lateral attacks, malware infestations, and data exfiltration.
 
-* [Overview](index.adoc)
-* [Connectivity](connectivity.adoc)
-* [Routing](routing.adoc)
+* [Overview](../overview/index.html)
+* [Connectivity](../overview/connectivity.html)
+* [Routing](../overview/routing.html)

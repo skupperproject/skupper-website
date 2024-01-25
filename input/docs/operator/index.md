@@ -3,7 +3,7 @@ title: Using the Skupper Operator on Kubernetes
 ---
 # Using the Skupper Operator on Kubernetes
 
-The {SkupperOperatorName} creates and manages Skupper sites in Kubernetes.
+The Skupper operator creates and manages Skupper sites in Kubernetes.
 
 You can install the Operator as described in [Installing the Operator using the CLI](#installing-the-operator-using-the-cli).
 
@@ -16,7 +16,7 @@ After installing the Operator, you can create a site by deploying a ConfigMap as
 
 ## Installing the Operator using the CLI
 
-The steps in this section show how to use the `kubectl` command-line interface (CLI) to install and deploy the latest version of the {SkupperOperatorName} in a given Kubernetes cluster.
+The steps in this section show how to use the `kubectl` command-line interface (CLI) to install and deploy the latest version of the Skupper operator in a given Kubernetes cluster.
 
 * The Operator Lifecycle Manager is installed in the cluster.
 For more information, see the [QuickStart](https://olm.operatorframework.io/docs/getting-started/).
@@ -28,12 +28,14 @@ For more information, see the [QuickStart](https://olm.operatorframework.io/docs
    ```
 2. Create a `my-namespace` namespace.
 NOTE: If you want to use a different namespace, you need to edit the referenced YAML files.
-   1. Create a new namespace:
+
+   a. Create a new namespace:
 
       ```bash
       $ kubectl create namespace my-namespace
       ```
-   2. Switch context to the namespace:
+
+   b. Switch context to the namespace:
 
       ```bash
       $ kubectl config set-context --current --namespace=my-namespace

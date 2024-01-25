@@ -1,7 +1,7 @@
 ---
-title: Securing a {service-network} using Skupper policies
+title: Securing a service network using Skupper policies
 ---
-# Securing a {service-network} using Skupper policies
+# Securing a service network using Skupper policies
 
 By default, Skupper includes many security features, including using mutual TLS for all service network communication between sites.
 You can add extra security features by installing the Skupper policy CRD.
@@ -9,7 +9,7 @@ By default, applying a Skupper policy CRD to a cluster prevents all service netw
 You specify granular Skupper policies CRs to permit only the service network communication you require.
 
 **📌 NOTE**\
-A Skupper policy is distinct from the Kubernetes network policy, that is the `network-policy` option, which restricts access to Skupper services to the current namespace as described in [Using the Skupper CLI](../cli/).
+A Skupper policy is distinct from the Kubernetes network policy, that is the `network-policy` option, which restricts access to Skupper services to the current namespace as described in [Using the Skupper CLI](../cli/index.html).
 
 Each site in a service network runs a Skupper router and has a private, dedicated certificate authority (CA).
 Communication between sites is secured with mutual TLS, so the service network is isolated from external access, preventing security risks such as lateral attacks, malware infestations, and data exfiltration.
