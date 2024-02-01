@@ -20,7 +20,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: latest
+      - uses: tonynv/asciidoctor-action@master
       - run: pip install pyyaml
-      - run: npm install @antora/cli @antora/site-generator
+      - run: npm i -g downdoc
+      - run: ./convert-all.sh
       - run: echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
       - run: python plano test

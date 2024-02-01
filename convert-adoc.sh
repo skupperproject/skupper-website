@@ -18,9 +18,6 @@ process_file() {
 
     # Insert the title at the beginning of the output file
     sed -i "1s;^;---\ntitle: $title\n---\n;" "$output_file"
-
-    # Sometimes found sed* files after above cmd.
-    rm docs/docs//${dir_name}/sed*
 }
 
 # Check if at least one input file is provided
