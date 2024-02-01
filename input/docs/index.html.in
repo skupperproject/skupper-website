@@ -48,7 +48,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
     <nav>
       <!-- getting started -->
       <a href="/docs/cli/podman.html">CLI guide</a>
-      <a href="/docs/podman-reference/skupper.html">CLI reference</a>
+      <a href="/docs/podman-reference/">CLI reference</a>
 
     </nav>
   </div>

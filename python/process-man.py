@@ -14,7 +14,7 @@ def process_file(filepath, parent_dir):
         lines = file.readlines()
 
     title = extract_title(lines)
-    full_title = f"{parent_dir} - {title}"
+    full_title = f"{title}"
     processed_lines = add_yaml_header(full_title, lower_headings(comment_out_lines(convert_links_in_see_also(lines))))
 
     with open(filepath, 'w') as file:
@@ -46,6 +46,7 @@ def convert_links_in_see_also(lines):
             see_also_section = False
         if see_also_section:
             line = re.sub(r'\.md', '.html', line)
+            line = line.replace('(skupper.html)	 -','(index.html)')
         updated_lines.append(line)
     return updated_lines
 
