@@ -112,7 +112,7 @@ If there are existing sites on the cluster, see [Installing a Skupper policy CRD
 2. Download the CRD:
 
    ```bash
-   $ wget https://raw.githubusercontent.com/skupperproject/skupper/1.4/api/types/crds/skupper_cluster_policy_crd.yaml
+   $ wget https://raw.githubusercontent.com/skupperproject/skupper/{skupper-version}/api/types/crds/skupper_cluster_policy_crd.yaml
    ```
 3. Apply the CRD:
 

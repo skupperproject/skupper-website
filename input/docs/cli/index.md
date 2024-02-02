@@ -35,7 +35,7 @@ This section describes how to create a site using the default settings.
    ```
 
    Starting with Skupper release 1.3, the console is not enabled by default.
-   To use the new console, which is a preview feature and may change, see [Using the Skupper console](../console/index.html).
+   To use the new console, see [Using the Skupper console](../console/index.html).
 2. Check the site:
 
    ```bash
@@ -59,7 +59,7 @@ This section describes how to create a site using the default settings.
 The default `skupper init` creates sites that satisfy typical requirements.
 
 Starting with Skupper release 1.3, the console is not enabled by default.
-To use the new console, which is a preview feature and may change, see [Using the Skupper console](../console/index.html).
+To use the new console, see [Using the Skupper console](../console/index.html).
 
 If you require a custom configuration, note the following options:
 
@@ -820,7 +820,7 @@ When choosing which protocol to specify, note the following:
 
 ###### CLI options
 
-For a full list of options, see the [Skupper Kubernetes CLI reference](../kubernetes-reference/skupper.html) and [Skupper Podman CLI reference](../podman-reference/skupper.html) documentation.
+For a full list of options, see the [Skupper Kubernetes CLI reference](../kubernetes-reference/index.html) and [Skupper Podman CLI reference](../podman-reference/index.html) documentation.
 
 <dl><dt><strong>⚠️ WARNING</strong></dt><dd>
 

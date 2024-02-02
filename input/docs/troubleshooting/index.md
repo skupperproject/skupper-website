@@ -367,7 +367,7 @@ If the `skupper init` command fails, consider the following options:
 
   If you are evaluating Skupper on minikube, use the following command to create a load balancer:
 
-  ```
+  ```bash
   $ minikube tunnel
   ```
 
@@ -384,7 +384,7 @@ If the `skupper init` command fails, consider the following options:
 
   <dl><dt><strong>📌 NOTE</strong></dt><dd>
 
-  See the [Skupper Podman CLI reference](../podman-reference/skupper.html) documentation for `skupper init`.
+  See the [Skupper Podman CLI reference](../podman-reference/index.html) documentation for `skupper init`.
   </dd></dl>
 
 **Cannot link sites**
@@ -404,7 +404,7 @@ See [Using Skupper tokens](../cli/tokens.html) for more information on creating 
 **Cannot access Skupper console**
 
 Starting with Skupper release 1.3, the console is not enabled by default.
-To use the new console, which is a preview feature and may change, see [Using the Skupper console](../console/index.html).
+To use the new console, see [Using the Skupper console](../console/index.html).
 
 Use `skupper status` to find the console URL.
 

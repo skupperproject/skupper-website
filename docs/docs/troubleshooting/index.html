@@ -388,7 +388,7 @@ While you can address availability concerns by scaling the number of routers, ty
 <ul>
 <li><p>Check the load balancer.</p>
 <p>If you are evaluating Skupper on minikube, use the following command to create a load balancer:</p>
-<pre><code>$ minikube tunnel
+<pre><code class="language-bash">$ minikube tunnel
 </code></pre>
 <p>For other Kubernetes flavors, see the documentation from your provider.</p>
 </li>
@@ -400,7 +400,7 @@ Enter the following command:</p>
 </code></pre>
 <dl><dt><strong>📌 NOTE</strong></dt><dd>
 
-<p>See the <a href="../podman-reference/skupper.html">Skupper Podman CLI reference</a> documentation for <code>skupper init</code>.</p>
+<p>See the <a href="../podman-reference/index.html">Skupper Podman CLI reference</a> documentation for <code>skupper init</code>.</p>
 </dd></dl>
 
 </li>
@@ -420,7 +420,7 @@ See <a href="../cli/tokens.html">Using Skupper tokens</a> for more information o
 
 <p><strong>Cannot access Skupper console</strong></p>
 <p>Starting with Skupper release 1.3, the console is not enabled by default.
-To use the new console, which is a preview feature and may change, see <a href="../console/index.html">Using the Skupper console</a>.</p>
+To use the new console, see <a href="../console/index.html">Using the Skupper console</a>.</p>
 <p>Use <code>skupper status</code> to find the console URL.</p>
 <p>Use the following command to display the password for the <code>admin</code> user:doctype: article</p>
 <pre><code>$ kubectl get secret/skupper-console-users -o jsonpath={.data.admin} | base64 -d

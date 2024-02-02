@@ -6,9 +6,6 @@ title: Using Skupper podman
 Skupper podman allows you to create a site using containers, without requiring Kubernetes.
 Typically, you create a site on a Linux host, allowing you to link to and from other sites, regardless of whether those sites are running in podman or Kubernetes.
 
-**📌 NOTE**\
-This is a preview feature and may change before becoming fully supported by [skupper.io](https://skupper.io).
-
 ## About Skupper podman
 
 Skupper podman is available with the following precedence:
@@ -84,7 +81,7 @@ To switch back to target Kubernetes sites: `skupper switch kubernetes`
      Skupper is now installed for user '<username>'.  Use 'skupper status' to get more information.
      ```
 
-     For more information, see the [Skupper Podman CLI reference](../podman-reference/skupper.html) documentation.
+     For more information, see the [Skupper Podman CLI reference](../podman-reference/index.html) documentation.
   3. Check the status of your site:
 
      ```bash
@@ -197,4 +194,4 @@ In this variation of the [hello world](https://github.com/skupperproject/skupper
    ```
 6. Check your service network is working as expected by navigating to your cluster URL, port 8080, and clicking **Say hello**.
 
-For more information, see the [Skupper Podman CLI reference](../podman-reference/skupper.html) documentation.
+For more information, see the [Skupper Podman CLI reference](../podman-reference/index.html) documentation.

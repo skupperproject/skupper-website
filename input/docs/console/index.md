@@ -5,9 +5,6 @@ title: Using the Skupper console
 
 The Skupper console provides data and visualizations of the traffic flow between Skupper sites.
 
-**📌 NOTE**\
-This is a preview feature and may change before becoming fully supported by [skupper.io](https://skupper.io).
-
 ## Enabling the Skupper console
 
 By default, when you create a Skupper site, a Skupper console is not available.
