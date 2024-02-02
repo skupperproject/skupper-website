@@ -43,13 +43,9 @@ changes.
 The docs source is in a distinct repo, skupper-docs, and are written
 in AsciiDoc.
 
-The process of publishing these docs to the Skupper website uses
-[Antora](https://docs.antora.org) to convert them to HTML.
-
-1. Install  [Antora](https://docs.antora.org).
-2. Run `./plano generate-docs` to create HTML from the `master` branch
+1. Run `./convert-all.sh` to create Mardown files from the `master` branch
    of `skupper-docs`.
-3. Run `./plano test` to run tests and populate the `docs` directory
+2. Run `./plano test` to run tests and populate the `docs` directory
    of this repo with the HTML files from step 1.
 
 ## Updating the site for new Skupper releases
