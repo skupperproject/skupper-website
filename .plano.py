@@ -206,7 +206,6 @@ def test():
             run("cat docs/install.sh | sh", shell=True)
             run("cat docs/uninstall.sh | sh", shell=True)
 
-        generate_docs(output_dir=temp)
         generate_examples(output_dir=temp)
         generate_releases(output_dir=temp)
         generate_scripts(output_dir=temp)

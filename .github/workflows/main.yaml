@@ -13,14 +13,9 @@ jobs:
         version: [3.7, 3.x]
     runs-on: ${{matrix.os}}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{matrix.version}}
-      - uses: actions/setup-node@v3
-        with:
-          node-version: latest
       - run: pip install pyyaml
-      - run: npm install @antora/cli @antora/site-generator
-      - run: echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
       - run: python plano test
