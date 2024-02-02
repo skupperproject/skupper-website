@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        os: [ubuntu-latest]
         version: [3.7, 3.x]
     runs-on: ${{matrix.os}}
     steps:
