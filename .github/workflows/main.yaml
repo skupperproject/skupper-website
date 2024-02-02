@@ -13,10 +13,9 @@ jobs:
         version: [3.7, 3.x]
     runs-on: ${{matrix.os}}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: ${{matrix.version}}
       - run: pip install pyyaml
-      - run: echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
       - run: python plano test
