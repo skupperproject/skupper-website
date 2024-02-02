@@ -43,10 +43,11 @@ changes.
 The docs source is in a distinct repo, skupper-docs, and are written
 in AsciiDoc.
 
-1. Run `./convert-all.sh` to create Mardown files from the `master` branch
-   of `skupper-docs`.
-2. Run `./plano test` to run tests and populate the `docs` directory
-   of this repo with the HTML files from step 1.
+1. Run `git subrepo pull subrepos/skupper-docs/` to retrieve the latest
+   version of AsciiDoc files from the `main` branch of `skupper-docs`.
+2. Run `./convert-all.sh` to create Markdown files.
+3. Run `./plano test` to run tests and populate the `docs` directory
+   of this repo with the HTML files generated from the Markdown files.
 
 ## Updating the site for new Skupper releases
 
