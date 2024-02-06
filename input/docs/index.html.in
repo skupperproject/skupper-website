@@ -88,6 +88,19 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
 
 </div>
 
+<div class="columns">
+
+  <div>
+    <h2>Advanced deployments</h2>
+
+    <p>Allocate CPU resources for optimal network performance.</p>
+
+    <nav>
+      <a href="kubernetes/deployment-concerns.html">Deployment options on Kubernetes</a>
+    </nav>
+  </div>
+
+
 <div>
   <h2>Blog posts, articles, and videos</h2>
 
@@ -100,4 +113,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
     <a href="https://www.youtube.com/watch?v=np-eBAmB-bs">Cloud-Edge Interconnect: Doing It Right With The Skupper project</a>
     <a href="https://www.youtube.com/watch?v=FPsUgxmj25s">HTTP load-balancing with Skupper across OpenShift clusters</a>
   </nav>
+</div>
+
+
 </div>
