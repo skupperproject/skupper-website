@@ -63,6 +63,59 @@ conventional applications across multiple sites.
 </div>
 </div>
 
+<h2 id="platforms">Platforms</h2>
+
+<p>Skupper works with services running as pods on Kubernetes, as
+containers, or as ordinary processes on bare metal hosts or VMs.
+</p>
+
+<div class="examples">
+
+<div>
+<h3><a href="https://github.com/skupperproject/skupper-example-hello-world">Kubernetes</a></h3>
+<p>Connect services running as pods in Kubernetes
+</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-hello-world"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3><a href="https://github.com/skupperproject/skupper-example-podman">Podman</a></h3>
+<p>Connect services running as containers
+</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-podman"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3><a href="https://github.com/skupperproject/skupper-example-gateway">Bare metal or VM</a></h3>
+<p>Connect services running as system processes</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-gateway"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+</div>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<div class="examples">
+
+<div>
+<h3><a href="https://github.com/skupperproject/skupper-example-hello-world">Command line</a></h3>
+<p>A minimal multi-service HTTP application deployed across sites using the Skupper CLI</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-hello-world"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3><a href="https://github.com/skupperproject/skupper-example-yaml">YAML</a></h3>
+<p>Skupper Hello World deployed across sites using YAML</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-yaml"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+</div>
+
 <h2 id="connectivity-scenarios">Connectivity scenarios</h2>
 
 <p>Skupper helps you overcome tough networking obstacles.  See how
@@ -113,38 +166,6 @@ Connect services separated by firewalls and a DMZ
 </p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-dmz"><span class="fab fa-github fa-lg"></span> Example</a>
-</nav>
-</div>
-</div>
-
-<h2 id="platforms">Platforms</h2>
-
-<p>Skupper works with services running as pods on Kubernetes, as
-containers, or as ordinary processes on bare metal hosts or VMs.
-</p>
-
-<div class="examples">
-
-<div>
-<h3><a href="https://github.com/skupperproject/skupper-example-hello-world">Kubernetes</a></h3>
-<p>Connect services running as pods in Kubernetes
-</p>
-<nav class="inline-links">
-<a href="https://github.com/skupperproject/skupper-example-hello-world"><span class="fab fa-github fa-lg"></span> Example</a>
-</nav>
-</div>
-<div>
-<h3><a href="https://github.com/skupperproject/skupper-example-containers">Docker or Podman</a></h3>
-<p>Connect services running as Docker or Podman containers</p>
-<nav class="inline-links">
-<a href="https://github.com/skupperproject/skupper-example-containers"><span class="fab fa-github fa-lg"></span> Example</a>
-</nav>
-</div>
-<div>
-<h3><a href="https://github.com/skupperproject/skupper-example-gateway">Bare metal or VM</a></h3>
-<p>Connect services running as system processes</p>
-<nav class="inline-links">
-<a href="https://github.com/skupperproject/skupper-example-gateway"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
 </div>
 </div>
@@ -269,13 +290,6 @@ protocols.
 <p>Gather Prometheus metrics from endpoints deployed across multiple clusters</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-prometheus"><span class="fab fa-github fa-lg"></span> Example</a>
-</nav>
-</div>
-<div>
-<h3><a href="https://github.com/skupperproject/skupper-example-declarative">YAML Hello World</a></h3>
-<p>A minimal multi-service HTTP application deployed across sites using YAML</p>
-<nav class="inline-links">
-<a href="https://github.com/skupperproject/skupper-example-declarative"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
 </div>
 </div>

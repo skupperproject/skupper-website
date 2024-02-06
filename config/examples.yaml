@@ -19,6 +19,29 @@ categories:
       - name: skupper-example-http-load-balancing
         title: HTTP load balancing
         video_url: https://www.youtube.com/watch?v=4GmXT3nj8lc
+  - title: Platforms
+    description: |
+      Skupper works with services running as pods on Kubernetes, as
+      containers, or as ordinary processes on bare metal hosts or VMs.
+    examples:
+      - name: skupper-example-hello-world
+        title: Kubernetes
+        description: |
+          Connect services running as pods in Kubernetes
+      - name: skupper-example-podman
+        title: Podman
+        description: |
+          Connect services running as containers
+      - name: skupper-example-gateway
+        title: Bare metal or VM
+  - title: Interfaces
+    examples:
+      - name: skupper-example-hello-world
+        title: Command line
+      - name: skupper-example-yaml
+        title: YAML
+      # - name: skupper-example-console
+      #   title: Console
   - title: Connectivity scenarios
     description: |
       Skupper helps you overcome tough networking obstacles.  See how
@@ -56,19 +79,6 @@ categories:
             <span class="material-symbols-outlined">business</span>
           </div>
           Connect services separated by firewalls and a DMZ
-  - title: Platforms
-    description: |
-      Skupper works with services running as pods on Kubernetes, as
-      containers, or as ordinary processes on bare metal hosts or VMs.
-    examples:
-      - name: skupper-example-hello-world
-        title: Kubernetes
-        description: |
-          Connect services running as pods in Kubernetes
-      - name: skupper-example-containers
-        title: Docker or Podman
-      - name: skupper-example-gateway
-        title: Bare metal or VM
   - title: Database examples
     description: |
       With Skupper you can locate your data whereever you need it to
@@ -114,5 +124,3 @@ categories:
         title: iPerf
       - name: skupper-example-prometheus
         title: Prometheus
-      - name: skupper-example-declarative
-        title: YAML Hello World
