@@ -10,12 +10,12 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-latest, ubuntu-latest]
-        version: [3.7, 3.x]
+        python-version: [3.7, 3.x]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{matrix.version}}
+          python-version: ${{matrix.python-version}}
       - run: pip install pyyaml
       - run: python plano test
