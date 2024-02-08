@@ -136,7 +136,10 @@ controller version             not-found (no configuration has been provided)
 <p>When you install a new version of the CLI, you can upgrade each site
 using the <code>skupper update</code> command.  While we try to make Skupper
 compatible between sites with different versions, we recommend
-updating all sites at the same time.</p>
+updating all sites at the same time.
+Updating can take some time. Wait a minute before running the
+<code>skupper version</code> command to validate your upgrade.</p>
+<p>Do not use <code>skupper update</code> on sites created using the Skupper Operator. See <a href="/docs/operator/index.html">Using the Skupper Operator on Kubernetes</a> for more information about using the Operator.</p>
 
 
     </main>

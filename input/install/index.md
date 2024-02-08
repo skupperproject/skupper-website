@@ -96,3 +96,7 @@ When you install a new version of the CLI, you can upgrade each site
 using the `skupper update` command.  While we try to make Skupper
 compatible between sites with different versions, we recommend
 updating all sites at the same time.
+Updating can take some time. Wait a minute before running the 
+`skupper version` command to validate your upgrade.
+
+Do not use `skupper update` on sites created using the Skupper Operator. See [Using the Skupper Operator on Kubernetes](/docs/operator/index.html) for more information about using the Operator.
