@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/kubernetes/deployment-concerns.html">Deployment options on Kubernetes</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html"></a> <span class="path-separator">&#8250;</span> <a href="/docs/kubernetes/deployment-concerns.html">Deployment options on Kubernetes</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -76,7 +76,7 @@
     <main>
 
 <h1 id="deployment-options-on-kubernetes">Deployment options on Kubernetes</h1>
-<p>When you create a site on Kubernetes, there are many options you can use, for example, the number of pods for each component and the resource allocations for the associated pods.
+<p>When you create a site on Kubernetes, there are many options you can use.  For example, you can set the number of pods and the resources allocated to each pod.
 This guide focusses on the following goals:</p>
 <ul>
 <li><a href="#scaling-for-increased-traffic">Scaling for increased traffic</a></li>
@@ -84,25 +84,43 @@ This guide focusses on the following goals:</p>
 </ul>
 <h2 id="scaling-for-increased-traffic">Scaling for increased traffic</h2>
 <p>For optimal network latency and throughput, you can adjust the CPU allocation for the router using the <code>router-cpu</code> option.
-Adjusting other allocations does not affect network performance.</p>
+Router CPU is the primary factor governing Skupper network performance.</p>
 <p><strong>📌 NOTE</strong><br />
-Increasing the number of routers does not improve network performance.</p>
+Increasing the number of routers does not improve network performance.  An incoming router-to-router link is associated with just one active router.  Additional routers do not receive traffic while that router is responding</p>
 <ol>
 <li><p>Determine the router CPU allocation you require.</p>
 <p>By default, the router CPU allocation is <code>BestEffort</code> as described in <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#besteffort">Pod Quality of Service Classes</a>.</p>
 <p>Consider the following CPU allocation options:</p>
-<p>|     |     |
-| --- | --- |
-| Router CPU | Description |
-| 1 | Helps avoid issues with <code>BestEffort</code> on low resource clusters. |
-| 2 | Suitable for production environments. |
-| 5 | Maximum performance. |</p>
 </li>
-<li><p>If you are using the <code>skupper</code> CLI, set the CPU allocation for the router using the <code>--router-cpu</code> option, for example:</p>
+</ol>
+<table>
+<thead>
+<tr>
+  <th>Router CPU</th>
+  <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>Helps avoid issues with <code>BestEffort</code> on low resource clusters</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Suitable for production environments</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>Maximum performance</td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li><p>If you are using the Skupper CLI, set the CPU allocation for the router using the <code>--router-cpu</code> option.  For example:</p>
 <pre><code class="language-bash">$ skupper init --router-cpu 2
 </code></pre>
 </li>
-<li><p>If you are using YAML, set the CPU allocation for the router by setting a value for <code>router-cpu</code>, for example:</p>
+<li><p>If you are using YAML, set the CPU allocation for the router by setting a value for the <code>router-cpu</code> attribute.  For example:</p>
 <pre><code class="language-YAML">apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -114,15 +132,15 @@ data:
 </li>
 </ol>
 <h2 id="creating-a-high-availability-site">Creating a high availability site</h2>
-<p>By default, Kubernetes restarts any router that become unresponsive.
-If you encounter router pod issues, consider <a href="#scaling-for-increased-traffic">Scaling for increased traffic</a> before increasing the number of routers.</p>
-<p>To address high availability concerns, increase the number of routers to 2 as follows:</p>
+<p>By default, Kubernetes restarts any router that becomes unresponsive.
+(If you encounter router restarts, consider <a href="#scaling-for-increased-traffic">Scaling for increased traffic</a> in order to improve responsiveness.)</p>
+<p>If the cluster where you are running Skupper is very busy, it may take time for Kubernetes to schedule a new router pod.  You can &quot;preschedule&quot; a backup router by deploying two routers in a site.</p>
 <ol>
-<li><p>If you are using the <code>skupper</code> CLI, set the number of routers to <code>2</code> using the <code>--routers</code> option:</p>
+<li><p>If you are using the Skupper CLI, set the number of routers to <code>2</code> using the <code>--routers</code> option:</p>
 <pre><code class="language-bash">$ skupper init --routers 2
 </code></pre>
 </li>
-<li><p>If you are using YAML, set the number of routers to <code>2</code> by setting the <code>routers</code> value:</p>
+<li><p>If you are using YAML, set the number of routers to <code>2</code> by setting the <code>routers</code> attribute:</p>
 <pre><code class="language-YAML">apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -131,9 +149,11 @@ data:
   name: &quot;my-site&quot;
   routers: 2
 </code></pre>
-<p>Setting the number of routers to more than 2 adversely affects performance.</p>
 </li>
 </ol>
+<p>Setting the number of routers to more than two does not provide increased availability and can adversely affect performance.</p>
+<p>Note that clients must reconnect when a router restarts or traffic is
+redirected to a backup router.</p>
 
 
     </main>

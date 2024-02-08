@@ -22,6 +22,8 @@ def process_adoc_content(content):
         elif line.startswith('=') and not in_block:
             heading_level = line.count('=') + level_offset
             processed_lines.append('=' * heading_level + line.lstrip('='))
+        elif line.lstrip().startswith('|') and line.startswith('   '):  # Check for indented table lines
+            processed_lines.append(line.lstrip())  # Remove leading whitespace for table lines
         else:
             processed_lines.append(line)
 
