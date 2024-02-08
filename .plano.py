@@ -22,35 +22,12 @@ from transom.planocommands import *
 @command
 def generate_docs(output_dir="input", owner="skupperproject", branch="main"):
     """
-    Generate docs from the skupper-docs repo and config/docs-playbook.yaml.in
+    Generate markdown docs from the skupper-docs repo
     """
 
-    check_program("antora")
+    # check_program("downdoc")
+    print("Follow the instructions in README.")
 
-    docs_dir = get_absolute_path(f"{output_dir}/docs")
-    playbook_in = get_absolute_path("config/docs-playbook.yaml.in")
-
-    with working_dir():
-        content = read(playbook_in)
-        content = content.replace("@branch@", branch)
-        content = content.replace("@owner@", owner)
-        playbook = write("docs-playbook.yaml", content)
-
-        run(f"antora --fetch {playbook}")
-
-        for path in find("build", "*.html"):
-            move(path, f"{path}.in")
-
-        copy("build/skupper/latest/console", docs_dir)
-        copy("build/skupper/latest/overview", docs_dir)
-        copy("build/skupper/latest/cli/", docs_dir)
-        copy("build/skupper/latest/cli-reference", docs_dir)
-        copy("build/skupper/latest/cli-podman", docs_dir)
-        copy("build/skupper/latest/declarative", docs_dir)
-        copy("build/skupper/latest/troubleshooting", docs_dir)
-        copy("build/skupper/latest/policy", docs_dir)
-        copy("build/skupper/latest/operator", docs_dir)
-        copy("build/skupper/latest/_images", docs_dir)
 
 @command
 def generate_examples(output_dir="input"):

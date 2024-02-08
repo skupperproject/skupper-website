@@ -81,8 +81,8 @@ categories:
           Connect services separated by firewalls and a DMZ
   - title: Database examples
     description: |
-      With Skupper you can locate your data whereever you need it to
-      be, while accessing it from whereever your services are running.
+      With Skupper you can locate your data wherever you need it to
+      be, while accessing it from wherever your services are running.
     examples:
       - name: skupper-example-mongodb-replica-set
         title: MongoDB
