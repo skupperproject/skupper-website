@@ -35,13 +35,19 @@ categories:
       - name: skupper-example-gateway
         title: Bare metal or VM
   - title: Interfaces
+    description: |
+      Skupper provides a command-line interface for interactive
+      control and a YAML interface for declarative configuration.  The
+      Skupper web console helps you observe your application network.
     examples:
       - name: skupper-example-hello-world
         title: Command line
+        description: |
+          Hello World deployed across sites using the Skupper CLI
       - name: skupper-example-yaml
         title: YAML
-      # - name: skupper-example-console
-      #   title: Console
+      - name: skupper-example-console
+        title: Web console
   - title: Connectivity scenarios
     description: |
       Skupper helps you overcome tough networking obstacles.  See how
