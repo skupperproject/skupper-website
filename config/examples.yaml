@@ -130,3 +130,5 @@ categories:
         title: iPerf
       - name: skupper-example-prometheus
         title: Prometheus
+      - name: skupper-example-policy
+        title: Policy

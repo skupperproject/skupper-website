@@ -305,5 +305,12 @@ protocols.
 <a href="https://github.com/skupperproject/skupper-example-prometheus"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
 </div>
+<div>
+<h3><a href="https://github.com/skupperproject/skupper-example-policy">Policy</a></h3>
+<p>Use Skupper cluster policy to restrict site linking and service exposure</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-policy"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
 </div>
 
