@@ -133,6 +133,60 @@ conventional applications across multiple sites.
 </div>
 </div>
 
+<h2 id="connectivity-scenarios">Connectivity scenarios</h2>
+
+<p>Skupper helps you overcome tough networking obstacles.  See how
+you can securely connect services in sites behind firewalls or
+NAT without changing your existing networking.
+</p>
+
+<div class="examples">
+
+<div>
+<h3><a href="https://github.com/skupperproject/skupper-example-public-to-private">Public to private</a></h3>
+<p><div style="padding-bottom: 0.8em;">
+  <span class="material-symbols-outlined">cloud</span>
+  <span class="material-symbols-outlined">horizontal_rule</span>
+  <span class="material-symbols-outlined">business</span>
+</div>
+Connect from the cloud to services running on-prem
+</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-public-to-private"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3><a href="https://github.com/skupperproject/skupper-example-private-to-private">Private to private</a></h3>
+<p><div style="padding-bottom: 0.8em;">
+  <span class="material-symbols-outlined">business</span>
+  <span class="material-symbols-outlined">horizontal_rule</span>
+  <span class="material-symbols-outlined">cloud</span>
+  <span class="material-symbols-outlined">horizontal_rule</span>
+  <span class="material-symbols-outlined">business</span>
+</div>
+Connect services in isolated on-prem sites
+</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-private-to-private"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+<div>
+<h3><a href="https://github.com/skupperproject/skupper-example-dmz">DMZ</a></h3>
+<p><div style="padding-bottom: 0.8em;">
+  <span class="material-symbols-outlined">cloud</span>
+  <span class="material-symbols-outlined">horizontal_rule</span>
+  <span class="material-symbols-outlined">shield</span>
+  <span class="material-symbols-outlined">horizontal_rule</span>
+  <span class="material-symbols-outlined">business</span>
+</div>
+Connect services separated by firewalls and a DMZ
+</p>
+<nav class="inline-links">
+<a href="https://github.com/skupperproject/skupper-example-dmz"><span class="fab fa-github fa-lg"></span> Example</a>
+</nav>
+</div>
+</div>
+
 <h2 id="platforms">Platforms</h2>
 
 <p>Skupper works with services running as pods on Kubernetes, as
@@ -199,56 +253,26 @@ Skupper web console helps you observe your application network.
 </div>
 </div>
 
-<h2 id="connectivity-scenarios">Connectivity scenarios</h2>
+<h2 id="administration">Administration</h2>
 
-<p>Skupper helps you overcome tough networking obstacles.  See how
-you can securely connect services in sites behind firewalls or
-NAT without changing your existing networking.
+<p>Skupper gives administrators tools to manage Skupper networks in
+large organizations.
 </p>
 
 <div class="examples">
 
 <div>
-<h3><a href="https://github.com/skupperproject/skupper-example-public-to-private">Public to private</a></h3>
-<p><div style="padding-bottom: 0.8em;">
-  <span class="material-symbols-outlined">cloud</span>
-  <span class="material-symbols-outlined">horizontal_rule</span>
-  <span class="material-symbols-outlined">business</span>
-</div>
-Connect from the cloud to services running on-prem
-</p>
+<h3><a href="https://github.com/skupperproject/skupper-example-policy">Policy</a></h3>
+<p>Use Skupper cluster policy to restrict site linking and service exposure</p>
 <nav class="inline-links">
-<a href="https://github.com/skupperproject/skupper-example-public-to-private"><span class="fab fa-github fa-lg"></span> Example</a>
+<a href="https://github.com/skupperproject/skupper-example-policy"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
 </div>
 <div>
-<h3><a href="https://github.com/skupperproject/skupper-example-private-to-private">Private to private</a></h3>
-<p><div style="padding-bottom: 0.8em;">
-  <span class="material-symbols-outlined">business</span>
-  <span class="material-symbols-outlined">horizontal_rule</span>
-  <span class="material-symbols-outlined">cloud</span>
-  <span class="material-symbols-outlined">horizontal_rule</span>
-  <span class="material-symbols-outlined">business</span>
-</div>
-Connect services in isolated on-prem sites
-</p>
+<h3><a href="https://github.com/skupperproject/skupper-example-ansible">Ansible</a></h3>
+<p>Use Skupper Ansible to automate network deployment</p>
 <nav class="inline-links">
-<a href="https://github.com/skupperproject/skupper-example-private-to-private"><span class="fab fa-github fa-lg"></span> Example</a>
-</nav>
-</div>
-<div>
-<h3><a href="https://github.com/skupperproject/skupper-example-dmz">DMZ</a></h3>
-<p><div style="padding-bottom: 0.8em;">
-  <span class="material-symbols-outlined">cloud</span>
-  <span class="material-symbols-outlined">horizontal_rule</span>
-  <span class="material-symbols-outlined">shield</span>
-  <span class="material-symbols-outlined">horizontal_rule</span>
-  <span class="material-symbols-outlined">business</span>
-</div>
-Connect services separated by firewalls and a DMZ
-</p>
-<nav class="inline-links">
-<a href="https://github.com/skupperproject/skupper-example-dmz"><span class="fab fa-github fa-lg"></span> Example</a>
+<a href="https://github.com/skupperproject/skupper-example-ansible"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
 </div>
 </div>
@@ -350,7 +374,7 @@ protocols.
 </div>
 </div>
 
-<h2 id="other-examples">Other examples</h2>
+<h2 id="more-examples">More examples</h2>
 
 <div class="examples">
 
@@ -373,13 +397,6 @@ protocols.
 <p>Gather Prometheus metrics from endpoints deployed across multiple clusters</p>
 <nav class="inline-links">
 <a href="https://github.com/skupperproject/skupper-example-prometheus"><span class="fab fa-github fa-lg"></span> Example</a>
-</nav>
-</div>
-<div>
-<h3><a href="https://github.com/skupperproject/skupper-example-policy">Policy</a></h3>
-<p>Use Skupper cluster policy to restrict site linking and service exposure</p>
-<nav class="inline-links">
-<a href="https://github.com/skupperproject/skupper-example-policy"><span class="fab fa-github fa-lg"></span> Example</a>
 </nav>
 </div>
 </div>

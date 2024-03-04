@@ -19,35 +19,6 @@ categories:
       - name: skupper-example-http-load-balancing
         title: HTTP load balancing
         video_url: https://www.youtube.com/watch?v=4GmXT3nj8lc
-  - title: Platforms
-    description: |
-      Skupper works with services running as pods on Kubernetes, as
-      containers, or as ordinary processes on bare metal hosts or VMs.
-    examples:
-      - name: skupper-example-hello-world
-        title: Kubernetes
-        description: |
-          Connect services running as pods in Kubernetes
-      - name: skupper-example-podman
-        title: Podman
-        description: |
-          Connect services running as containers
-      - name: skupper-example-gateway
-        title: Bare metal or VM
-  - title: Interfaces
-    description: |
-      Skupper provides a command-line interface for interactive
-      control and a YAML interface for declarative configuration.  The
-      Skupper web console helps you observe your application network.
-    examples:
-      - name: skupper-example-hello-world
-        title: Command line
-        description: |
-          Hello World deployed across sites using the Skupper CLI
-      - name: skupper-example-yaml
-        title: YAML
-      - name: skupper-example-console
-        title: Web console
   - title: Connectivity scenarios
     description: |
       Skupper helps you overcome tough networking obstacles.  See how
@@ -85,6 +56,45 @@ categories:
             <span class="material-symbols-outlined">business</span>
           </div>
           Connect services separated by firewalls and a DMZ
+  - title: Platforms
+    description: |
+      Skupper works with services running as pods on Kubernetes, as
+      containers, or as ordinary processes on bare metal hosts or VMs.
+    examples:
+      - name: skupper-example-hello-world
+        title: Kubernetes
+        description: |
+          Connect services running as pods in Kubernetes
+      - name: skupper-example-podman
+        title: Podman
+        description: |
+          Connect services running as containers
+      - name: skupper-example-gateway
+        title: Bare metal or VM
+  - title: Interfaces
+    description: |
+      Skupper provides a command-line interface for interactive
+      control and a YAML interface for declarative configuration.  The
+      Skupper web console helps you observe your application network.
+    examples:
+      - name: skupper-example-hello-world
+        title: Command line
+        description: |
+          Hello World deployed across sites using the Skupper CLI
+      - name: skupper-example-yaml
+        title: YAML
+      - name: skupper-example-console
+        title: Web console
+  - title: Administration
+    description: |
+      Skupper gives administrators tools to manage Skupper networks in
+      large organizations.
+    examples:
+      - name: skupper-example-policy
+        title: Policy
+      - name: skupper-example-ansible
+        title: Ansible
+        description: Use Skupper Ansible to automate network deployment
   - title: Database examples
     description: |
       With Skupper you can locate your data wherever you need it to
@@ -122,7 +132,7 @@ categories:
         title: HTTP
       - name: skupper-example-ftp
         title: FTP
-  - title: Other examples
+  - title: More examples
     examples:
       - name: skupper-example-camel-integration
         title: Camel
@@ -130,5 +140,3 @@ categories:
         title: iPerf
       - name: skupper-example-prometheus
         title: Prometheus
-      - name: skupper-example-policy
-        title: Policy
