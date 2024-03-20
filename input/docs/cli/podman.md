@@ -1,25 +1,27 @@
 ---
-title: Using Skupper podman
+title: Using Skupper Podman
 ---
-# Using Skupper podman
+# Using Skupper Podman
 
-Skupper podman allows you to create a site using containers, without requiring Kubernetes.
-Typically, you create a site on a Linux host, allowing you to link to and from other sites, regardless of whether those sites are running in podman or Kubernetes.
+Using the `skupper` command-line interface (CLI) allows you to create and manage Skupper sites from the context of the current Linux user.
+Skupper Podman allows you to create a site using containers, without requiring Kubernetes.
 
-## About Skupper podman
+A typical workflow is to create a site, link sites together, and expose services to the service network.
 
-Skupper podman is available with the following precedence:
+## About Skupper Podman
+
+Skupper Podman is available with the following precedence:
 
 * **`skupper --platform podman <command>`**\
-Use this option to avoid changing mode, for example, if you are working on Kubernetes and podman simultaneously.
+Use this option to avoid changing mode, for example, if you are working on Kubernetes and Podman simultaneously.
 * **`export SKUPPER_PLATFORM=podman`**\
-Use this command to use Skupper podman for the current session, for example, if you have two terminals set to different contexts. To set the environment to target Kubernetes sites:
+Use this command to use Skupper Podman for the current session, for example, if you have two terminals set to different contexts. To set the environment to target Kubernetes sites:
 
   ```bash
   $ export SKUPPER_PLATFORM=kubernetes
   ```
 * **`skupper switch podman`**\
-If you enter this command, all subsequent command target podman rather than Kubernetes for all terminal sessions.
+If you enter this command, all subsequent command target Podman rather than Kubernetes for all terminal sessions.
 
 To determine which mode is currently active:
 ```bash
@@ -30,7 +32,22 @@ podman
 
 To switch back to target Kubernetes sites: `skupper switch kubernetes`
 
+<dl><dt><strong>📌 NOTE</strong></dt><dd>
+
+Services exposed on remote sites are not automatically available to Podman sites.
+This is the equivalent to Kubernetes sites created using `skupper init --enable-service-sync false`.
+
+To consume an exposed service on a Podman site, check that it exists using `skupper service status` on the original site and use that information to create the service on the Podman site:
+```bash
+$ skupper service create <name> <port>
+```
+</dd></dl>
+
 ## Creating a site using Skupper podman
+
+A service network consists of Skupper sites.
+This section describes how to create a site in on a Linux host using the default settings.
+See [Using the Skupper CLI](../cli/index.html) for information about using the Skupper CLI to create Podman sites.
 
 * The latest `skupper` CLI is installed.
 * Podman is installed, see https://podman.io/
@@ -48,7 +65,7 @@ To switch back to target Kubernetes sites: `skupper switch kubernetes`
   Use `systemctl --user enable --now podman.socket` to start the  Podman API Socket.
 
   See [Podman socket activation](https://github.com/containers/podman/blob/main/docs/tutorials/socket_activation.md) for information about enabling this endpoint.
-  1. Set your session to use Skupper podman:
+  1. Set your session to use Skupper Podman:
 
      ```bash
      $ export SKUPPER_PLATFORM=podman
@@ -66,22 +83,25 @@ To switch back to target Kubernetes sites: `skupper switch kubernetes`
      The simplest Skupper site allows you to link to other sites, but does not support linking _to_ the current site.
 
      ```bash
-     $ skupper init --ingress none
+     $ skupper init
 
      It is recommended to enable lingering for <username>, otherwise Skupper may not start on boot.
      Skupper is now installed for user '<username>'.  Use 'skupper status' to get more information.
      ```
 
-     If you require that other sites can link to the site you are creating:
+     If you do not require that other sites can link to the site you are creating:
 
      ```bash
-     $ skupper init --ingress-host <machine-address>
-
-     It is recommended to enable lingering for <username>, otherwise Skupper may not start on boot.
-     Skupper is now installed for user '<username>'.  Use 'skupper status' to get more information.
+     $ skupper init --ingress none
      ```
 
-     For more information, see the [Skupper Podman CLI reference](../podman-reference/index.html) documentation.
+     In this guide we assume you have enabled ingress using the first command.
+     This allows you create tokens that allow links from every network interface on the host.
+
+     **📌 NOTE**\
+     When creating a token you can specify the ingress host.
+
+     You can also restrict ingress to an IP address or hostname when initializing as described in the [Skupper Podman CLI reference](../podman-reference/index.html) documentation.
   3. Check the status of your site:
 
      ```bash
@@ -92,14 +112,29 @@ To switch back to target Kubernetes sites: `skupper switch kubernetes`
      **📌 NOTE**\
      You can only create one site per user. If you require a host to support many sites, create a user for each site.
 
-## Linking sites using Skupper podman
+## Linking sites using Skupper Podman
 
-The general flow for linking podman sites is the same as for Kubernetes sites:
+A service network consists of Skupper sites.
+This section describes how to link sites to form a service network.
+
+Linking two sites requires a single initial directional connection. However:
+
+* Communication between the two sites is bidirectional, only the initial linking is directional.
+* The choice of direction for linking is typically determined by accessibility. For example, if you are linking a virtual machine running in the cloud with a Linux host running behind a firewall, you must link from the Linux host to the cloud virtual machine because that route is accessible.
 
 1. Generate a token on one site:
 
    ```bash
    $ skupper token create <filename>
+   ```
+
+   The `metadata` section of the resulting YAML file shows which interface is available for linking.
+
+   To specify the interface, use `ifconfig` to determine the IP address of the interface you want to use.
+   You can then specify that IP address when creating the token:
+
+   ```bash
+   $ skupper token create <filename> --ingress-host <IP Address>
    ```
 2. Create a link from the other site:
 
@@ -112,86 +147,164 @@ After you have linked to a network, you can check the link status:
 $ skupper link status
 ```
 
-## Working with services using Skupper podman
+## Specifying link cost
+
+When linking sites, you can assign a cost to each link to influence the traffic flow.
+By default, link cost is set to `1` for a new link.
+In a service network, the routing algorithm attempts to use the path with the lowest total cost from client to target server.
+
+* If you have services distributed across different sites, you might want a client to favor a particular target or link.
+In this case, you can specify a cost of greater than `1` on the alternative links to reduce the usage of those links.
+
+  **📌 NOTE**\
+  The distribution of open connections is statistical, that is, not a round robin system.
+* If a connection only traverses one link, then the path cost is equal to the link cost.
+If the connection traverses more than one link, the path cost is the sum of all the links involved in the path.
+* Cost acts as a threshold for using a path from client to server in the network.
+When there is only one path, traffic flows on that path regardless of cost.
+
+  **📌 NOTE**\
+  If you start with two targets for a service, and one of the targets is no longer available, traffic flows on the remaining path regardless of cost.
+* When there are a number of paths from a client to server instances or a service, traffic flows on the lowest cost path until the number of connections exceeds the cost of an alternative path.
+After this threshold of open connections is reached, new connections are spread across the alternative path and the lowest cost path.
+
+* You have set your Kubernetes context to a site that you want to link _from_.
+* A token for the site that you want to link _to_.
+
+1. Create a link to the service network:
+
+   ```bash
+   $ skupper link create <filename> --cost <integer-cost>
+   ```
+
+   where `<integer-cost>` is an integer greater than 1 and traffic favors lower cost links.
+
+   **📌 NOTE**\
+   If a service can be called without traversing a link, that service is considered local, with an implicit cost of `0`.
+
+   For example, create a link with cost set to `2` using a token file named `token.yaml`:
+
+   ```bash
+   $ skupper link create token.yaml --cost 2
+   ```
+2. Check the link cost:
+
+   ```bash
+   $ skupper link status link1 --verbose
+   ```
+
+   The output is similar to the following:
+
+   ```bash
+    Cost:          2
+    Created:       2022-11-17 15:02:01 +0000 GMT
+    Name:          link1
+    Namespace:     default
+    Site:          default-0d99d031-cee2-4cc6-a761-697fe0f76275
+    Status:        Connected
+   ```
+3. Observe traffic using the console.
+
+   If you have a console on a site, log in and navigate to the processes for each server.
+   You can view the traffic levels corresponding to each client.
+
+   **📌 NOTE**\
+   If there are multiple clients on different sites, filter the view to each client to determine the effect of cost on traffic.
+   For example, in a two site network linked with a high cost with servers and clients on both sites, you can see that a client is served by the local servers while a local server is available.
+
+### Exposing services on the service network from a Linux host
+
+After creating a service network, exposed services can communicate across that network.
 
 The general flow for working with services is the same for Kubernetes and Podman sites.
 
-**📌 NOTE**\
-Services exposed on Kubernetes are not automatically available to Podman sites.
+The `skupper` CLI has two options for exposing services that already exist on a host:
+
+* `expose` supports simple use cases, for example, a host with a single service.
+See [skupper-podman_exposing-simple-services](#skupper-podman_exposing-simple-services) for instructions.
+* `service create` and `service bind` is a more flexible method of exposing services, for example, if you have multiple services for a host.
+See [exposing-complex-services](#exposing-complex-services) for instructions.
+
+#### Exposing simple services on the service network
+This section describes how services can be enabled for a service network for simple use cases.
+
+* A Skupper Podman site
+
+1. Run a server, for example:
+
+   ```bash
+   $ podman run --name backend-target --network skupper --detach --rm -p 8080:8080 quay.io/skupper/hello-world-backend
+   ```
+
+   This step is not Skupper-specific, that is, this process is unchanged from standard processes for your host.
+2. Create a service that can communicate on the service network:
+
+   ```bash
+   $ skupper expose [host <hostname|ip>]
+   ```
+
+   where
+
+   * `<host>` is the name of the host where the server is running.
+   For example, the name of the container if you run the server as a container.
+   * `<ip>` is the IP address where the server is running
+
+   For the example deployment in step 1, you create a service using the following command:
+   ```
+   $ skupper expose host backend-target --address backend --port 8080
+   ```
+
+   Options for this command include:
+
+   * `--port <port-number>`:: Specify the port number that this service is available on the service network.
+   NOTE: You can specify more than one port by repeating this option.
+   * `--target-port <port-number>`:: Specify the port number of pods that you want to expose.
+   * `--protocol <protocol>` allows you specify the protocol you want to use, `tcp`, `http` or `http2`
+3. Create the service on another site in the service network:
+
+   ```bash
+   $ skupper service create backend 8080
+   ```
+
+#### Consuming simple services from the service network
+
+Services exposed on Podman sites are not automatically available to other sites.
 This is the equivalent to Kubernetes sites created using `skupper init --enable-service-sync false`.
 
-In this variation of the [hello world](https://github.com/skupperproject/skupper-example-hello-world) example, the `backend` service is exposed on Kubernetes site and a Podman site is linked.
-You deploy the `frontend` as a container and that container can access the `backend` service.
+* A remote site where a service is exposed on the service network
+* A Podman site
 
-1. Create a Podman site and link it to a Kubernetes site.
-2. Check the service from the Podman site:
-
-   ```bash
-   $ skupper service status
-
-   No services defined
-   ```
-
-   This result is expected because services exposed on Kubernetes are not automatically available to Podman sites.
-3. Create a service on the Podman site matching the service exposed on the Kubernetes site:
+1. Log into the host as the user associated with the Skupper site.
+2. Create the local service:
 
    ```bash
-   $ skupper service create backend 8080
+   $ skupper service create <service-name> <port number>
    ```
-4. Validate the service from the Podman site by checking the backend API health URL:
+
+### Deleting a Podman site
+
+When you no longer want the Linux host to be part of the service network, you can delete the site.
+
+<dl><dt><strong>📌 NOTE</strong></dt><dd>
+
+This procedure removes all containers, volumes and networks labeled `application=skupper`.
+
+To check the labels associated with running containers:
+
+```bash
+$ podman ps -a --format "{{.ID}}  {{.Image}}  {{.Labels}}
+```
+</dd></dl>
+
+1. Make sure you are logged in as the user that created the site:
 
    ```bash
-   $ podman run -it --rm --network=skupper --name=myubi ubi8/ubi curl backend:8080/api/health
-
-   OK
+   $ skupper status
+   Skupper is enabled for "<username>" with site name "<machine-name>-<username>".
    ```
-
-   This command runs a container using the `skupper` network and returns the results from `http://backend:8080/api/health`
-5. Run the frontend as a container:
+2. Delete the site and all podman resources (containers, volumes and networks) labeled with "application=skupper":
 
    ```bash
-   $ podman run -dp 8080:8080 --name hello-world-frontend --network skupper quay.io/skupper/hello-world-frontend
+   $ skupper delete
+   Skupper is now removed for user "<username>".
    ```
-6. Check your service network is working as expected by navigating to http://localhost:8080 and click **Say hello**.
-
-   Each of the backend replicas respond, for example `Hi, Perfect Parrot. I am Kind Hearted Component (backend-7c84887f9f-wxhxp).`
-
-   <dl><dt><strong>📌 NOTE</strong></dt><dd>
-
-   In this scenario, running the `skupper service status` command on the Podman site does not provide much detail about the service:
-
-   ```bash
-   $ skupper service status
-   Services exposed through Skupper:
-   ╰─ backend (tcp port 8080)
-   ```
-
-   </dd></dl>
-
-In this variation of the [hello world](https://github.com/skupperproject/skupper-example-hello-world) example, the `backend` service is exposed on Podman site and consumed from a `frontend` on a Kubernetes site.
-
-1. Create a Podman site and link it to a Kubernetes site.
-2. Create and expose a frontend deployment on the Kubernetes site:
-
-   ```bash
-   $ kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
-   $ kubectl expose deployment/frontend --port 8080 --type LoadBalancer
-   ```
-3. Run the backend as a container:
-
-   ```bash
-   $ podman run -d --name hello-world-backend --network skupper quay.io/skupper/hello-world-backend
-   ```
-4. Expose the `backend` from the Podman site.
-
-   ```bash
-   $ skupper expose host hello-world-backend --address backend --port 8080
-   ```
-5. From the Kubernetes site, create the `backend` service:
-
-   ```bash
-   $ skupper service create backend 8080
-   ```
-6. Check your service network is working as expected by navigating to your cluster URL, port 8080, and clicking **Say hello**.
-
-For more information, see the [Skupper Podman CLI reference](../podman-reference/index.html) documentation.

@@ -123,12 +123,12 @@ Using the `skupper` command-line interface (CLI) provides a simple method to get
 5. List the Kubernetes events for a site:
 
    ```bash
-   kubectl get events | grep "service/skupper"
-   10m         Normal    ServiceSyncEvent               service/skupper                                   Service sync receiver connection to amqps://skupper-router-local.private1.svc.cluster.local:5671 established
-   10m         Normal    ServiceSyncEvent               service/skupper                                   Service sync sender connection to amqps://skupper-router-local.private1.svc.cluster.local:5671 established
-   10m         Normal    ServiceControllerCreateEvent   service/skupper                                   Creating service productcatalogservice
-   7m59s       Normal    TokenHandler                   service/skupper                                   Connecting using token link1
-   7m54s       Normal    TokenHandler                   service/skupper                                   Connecting using token link2
+   kubectl get events | grep "deployment/skupper-service-controller"
+   10m         Normal    ServiceSyncEvent               deployment/skupper-service-controller   Service sync receiver connection to amqps://skupper-router-local.private1.svc.cluster.local:5671 established
+   10m         Normal    ServiceSyncEvent               deployment/skupper-service-controller   Service sync sender connection to amqps://skupper-router-local.private1.svc.cluster.local:5671 established
+   10m         Normal    ServiceControllerCreateEvent   deployment/skupper-service-controller   Creating service productcatalogservice
+   7m59s       Normal    TokenHandler                   deployment/skupper-service-controller   Connecting using token link1
+   7m54s       Normal    TokenHandler                   deployment/skupper-service-controller   Connecting using token link2
    ```
 
    The output shows events relating to Kubernetes resources.

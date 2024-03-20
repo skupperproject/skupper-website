@@ -91,9 +91,8 @@ Increasing the number of routers does not improve network performance.  An incom
 <li><p>Determine the router CPU allocation you require.</p>
 <p>By default, the router CPU allocation is <code>BestEffort</code> as described in <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#besteffort">Pod Quality of Service Classes</a>.</p>
 <p>Consider the following CPU allocation options:</p>
-<p>|     |     |
+<p>| Router CPU | Description |
 | --- | --- |
-| Router CPU | Description |
 | 1 | Helps avoid issues with <code>BestEffort</code> on low resource clusters |
 | 2 | Suitable for production environments |
 | 5 | Maximum performance |</p>

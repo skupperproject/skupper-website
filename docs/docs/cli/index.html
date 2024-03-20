@@ -91,7 +91,8 @@ client version 1.5
 </ol>
 <h2 id="creating-a-site-using-the-cli">Creating a site using the CLI</h2>
 <p>A service network consists of Skupper sites.
-This section describes how to create a site using the default settings.</p>
+This section describes how to create a site in a Kubernetes cluster using the default settings.
+See <a href="../cli/podman.html">Using Skupper Podman</a> for information about using the Skupper CLI to create Podman sites.</p>
 <ul>
 <li>The <code>skupper</code> CLI is installed.</li>
 <li>You are logged into the cluster.</li>
@@ -249,16 +250,16 @@ If there are multiple clients on different sites, filter the view to each client
 For example, in a two site network linked with a high cost with servers and clients on both sites, you can see that a client is served by the local servers while a local server is available.</p>
 </li>
 </ol>
-<h2 id="exposing-services-on-the-service-network-from-a-namespace">Exposing services on the service network from a namespace</h2>
+<h3 id="exposing-services-on-the-service-network-from-a-namespace">Exposing services on the service network from a namespace</h3>
 <p>After creating a service network, exposed services can communicate across that network.</p>
 <p>The <code>skupper</code> CLI has two options for exposing services that already exist in a namespace:</p>
 <ul>
 <li><code>expose</code> supports simple use cases, for example, a deployment with a single service.
-See <a href="#exposing-simple-services-on-the-service-network">Exposing simple services on the service network</a> for instructions.</li>
+See <a href="#skupper-kubernetes_exposing-simple-services">skupper-kubernetes_exposing-simple-services</a> for instructions.</li>
 <li><code>service create</code> and <code>service bind</code> is a more flexible method of exposing services, for example, if you have multiple services for a deployment.
 See <a href="#exposing-complex-services-on-the-service-network">Exposing complex services on the service network</a> for instructions.</li>
 </ul>
-<h3 id="exposing-simple-services-on-the-service-network">Exposing simple services on the service network</h3>
+<h4 id="exposing-simple-services-on-the-service-network">Exposing simple services on the service network</h4>
 <p>This section describes how services can be enabled for a service network for simple use cases.</p>
 <ol>
 <li><p>Create a deployment, some pods, or a service in one of your sites, for example:</p>
@@ -289,7 +290,7 @@ NOTE: You can specify more than one port by repeating this option.</li>
 </ol>
 <p><strong>📌 NOTE</strong><br />
 If you do not specify ports, <code>skupper</code> uses the <code>containerPort</code> value of the deployment.</p>
-<h3 id="exposing-complex-services-on-the-service-network">Exposing complex services on the service network</h3>
+<h4 id="exposing-complex-services-on-the-service-network">Exposing complex services on the service network</h4>
 <p>This section describes how services can be enabled for a service network for more complex use cases.</p>
 <ol>
 <li><p>Create a deployment, some pods, or a service in one of your sites, for example:</p>
@@ -323,7 +324,7 @@ If you do not specify ports, <code>skupper</code> uses the <code>containerPort</
 </code></pre>
 </li>
 </ol>
-<h3 id="exposing-services-from-a-different-namespace-to-the-service-network">Exposing services from a different namespace to the service network</h3>
+<h4 id="exposing-services-from-a-different-namespace-to-the-service-network">Exposing services from a different namespace to the service network</h4>
 <p>This section shows how to expose a service from a namespace where Skupper is not deployed.</p>
 <p>Skupper allows you expose Kubernetes services from other namespaces for any site.
 However, if you want to expose workloads, for example deployments, you must create a site as described in this section.</p>
@@ -362,10 +363,17 @@ The site does not require the extra permissions granted with the <code>--enable-
 </code></pre>
 </li>
 </ol>
-<h2 id="exposing-services-on-the-service-network-from-a-local-machine">Exposing services on the service network from a local machine</h2>
+<h3 id="exposing-services-on-the-service-network-from-a-local-machine">Exposing services on the service network from a local machine</h3>
 <p>After creating a service network, you can expose services from a local machine on the service network.</p>
 <p>For example, if you run a database on a server in your data center, you can deploy a front end in a cluster that can access the data as if the database was running in the cluster.</p>
-<h3 id="exposing-simple-local-services-to-the-service-network">Exposing simple local services to the service network</h3>
+<dl><dt><strong>📌 NOTE</strong></dt><dd>
+
+<p>This documentation describes creating a gateway from a local host to a cluster site.
+An alternative approach is to create a site on the local host and link to the cluster site.
+See <a href="../cli/podman.html">Using Skupper Podman</a> for information about using the Skupper CLI to create Podman sites.</p>
+</dd></dl>
+
+<h4 id="exposing-simple-local-services-to-the-service-network">Exposing simple local services to the service network</h4>
 <p>This section shows how to expose a single service running locally on a service network.</p>
 <ul>
 <li>A service network. Only one site is required.</li>
@@ -404,7 +412,7 @@ Gateway Definition:
 <p>The URL field shows the underlying communication and can be ignored.</p>
 </li>
 </ol>
-<h3 id="working-with-complex-local-services-on-the-service-network">Working with complex local services on the service network</h3>
+<h4 id="working-with-complex-local-services-on-the-service-network">Working with complex local services on the service network</h4>
 <p>This section shows more advanced usage of skupper gateway.</p>
 <ol>
 <li><p>Create a Skupper gateway:</p>
@@ -463,7 +471,7 @@ Gateway Definition:
 </ul>
 </li>
 </ol>
-<h3 id="creating-a-gateway-and-applying-it-on-a-different-machine">Creating a gateway and applying it on a different machine</h3>
+<h4 id="creating-a-gateway-and-applying-it-on-a-different-machine">Creating a gateway and applying it on a different machine</h4>
 <p>If you have access to a cluster from one machine but want to create a gateway to the service network from a different machine, you can create the gateway definition bundle on the first machine and later apply that definition bundle on a second machine as described in this procedure.
 For example, if you want to expose a local database service to the service network, but you never want to access the cluster from the database server, you can use this procedure to create the definition bundle and apply it on the database server.</p>
 <ol>
@@ -561,7 +569,7 @@ Gateway Definition:
 </ol>
 <p><strong>📌 NOTE</strong><br />
 If you need to change the gateway definition, for example to change port, you need to remove the existing gateway and repeat this procedure from the start to redefine the gateway.</p>
-<h3 id="gateway-yaml-reference">Gateway YAML reference</h3>
+<h4 id="gateway-yaml-reference">Gateway YAML reference</h4>
 <p>The <a href="#creating-a-gateway-and-applying-it-on-a-different-machine">Creating a gateway and applying it on a different machine</a> describes how to create a gateway to apply on a separate machine using a gateway definition YAML file.</p>
 <p>The following are valid entries in a gateway definition YAML file.</p>
 <ul>
@@ -618,7 +626,7 @@ Hostname for skupper router, typically <code>localhost</code>.</li>
 <li><strong>qdr-listeners.port</strong><br />
 Port for skupper router, typically <code>5672</code>.</li>
 </ul>
-<h3 id="exploring-a-service-network">Exploring a service network</h3>
+<h4 id="exploring-a-service-network">Exploring a service network</h4>
 <p>Skupper includes a command to allow you report all the sites and the services available on a service network.</p>
 <ul>
 <li>A service network with more than one site</li>
@@ -668,11 +676,11 @@ To update a site to the version of the CLI, use <code>skupper update</code>.</li
 </ol>
 </li>
 </ol>
-<h4 id="securing-a-service-network">Securing a service network</h4>
+<h5 id="securing-a-service-network">Securing a service network</h5>
 <p>Skupper provides default, built-in security that scales across clusters and clouds.
 This section describes additional security you can configure.</p>
 <p>See <a href="../policy/index.html">Securing a service network using policies</a> for information about creating granular policies for each cluster.</p>
-<h5 id="restricting-access-to-services-using-a-kubernetes-network-policy">Restricting access to services using a Kubernetes network policy</h5>
+<h6 id="restricting-access-to-services-using-a-kubernetes-network-policy">Restricting access to services using a Kubernetes network policy</h6>
 <p>By default, if you expose a service on the service network, that service is also accessible from other namespaces in the cluster.
 You can avoid this situation when creating a site using the <code>--create-network-policy</code> option.</p>
 <ol>
@@ -689,7 +697,7 @@ You can avoid this situation when creating a site using the <code>--create-netwo
 </li>
 </ol>
 <p>You can now expose services on the service network and those services are not accessible from other namespaces in the cluster.</p>
-<h5 id="applying-tls-to-tcp-or-http2-traffic-on-the-service-network">Applying TLS to TCP or HTTP2 traffic on the service network</h5>
+<h6 id="applying-tls-to-tcp-or-http2-traffic-on-the-service-network">Applying TLS to TCP or HTTP2 traffic on the service network</h6>
 <p>By default, the traffic between sites is encrypted, however the traffic between the service pod and the router pod is not encrypted.
 For services exposed as TCP or HTTP2, the traffic between the pod and the router pod can be encrypted using TLS.</p>
 <ul>
@@ -750,7 +758,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 <li><p>Test calling the service from a TLS enabled frontend.</p>
 </li>
 </ol>
-<h5 id="supported-standards-and-protocols">Supported standards and protocols</h5>
+<h6 id="supported-standards-and-protocols">Supported standards and protocols</h6>
 <p>Skupper supports the following protocols for your service network:</p>
 <ul>
 <li>TCP - default</li>
@@ -776,7 +784,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 <p>TCP is implemented as a single streamed message, whereas HTTP1 and HTTP2 are implemented as request/response message routing.</p>
 </li>
 </ul>
-<h6 id="cli-options">CLI options</h6>
+<p><a name="cli-global-options"></a>======= CLI options</p>
 <p>For a full list of options, see the <a href="../kubernetes-reference/index.html">Skupper Kubernetes CLI reference</a> and <a href="../podman-reference/index.html">Skupper Podman CLI reference</a> documentation.</p>
 <dl><dt><strong>⚠️ WARNING</strong></dt><dd>
 

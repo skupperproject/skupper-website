@@ -58,6 +58,6 @@ This means that each Skupper instance is always aware of every service that has 
 Once a Skupper network is formed across Kubernetes namespaces, any of the services in those namespaces can be exposed (through annotation) to the Skupper network.
 When a service is exposed, Skupper creates proxy endpoints to make that service available on each namespace in the Skupper network.
 
-* link:{security-link}
-* link:{routing-link}
-* link:{connectivity-link}
+* [Security](../overview/security.html)
+* [Routing](../overview/routing.html)
+* [Connectivity](../overview/connectivity.html)
