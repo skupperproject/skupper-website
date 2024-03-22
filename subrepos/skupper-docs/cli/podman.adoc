@@ -203,13 +203,13 @@ The general flow for working with services is the same for Kubernetes and Podman
 The `skupper` CLI has two options for exposing services that already exist on a host:
 
 * `expose` supports simple use cases, for example, a host with a single service.
-See xref:{context}_exposing-simple-services[] for instructions.
+See xref:skupper-podman_exposing-simple-services[] for instructions.
 
 * `service create` and `service bind` is a more flexible method of exposing services, for example, if you have multiple services for a host.
 See xref:exposing-complex-services[] for instructions.
 
 // Type: procedure
-[id="{context}_exposing-simple-services"] 
+[id="skupper-podman_exposing-simple-services"] 
 === Exposing simple services on the {service-network}
 This section describes how services can be enabled for a {service-network} for simple use cases.
 

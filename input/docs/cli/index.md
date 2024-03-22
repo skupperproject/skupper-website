@@ -221,7 +221,7 @@ After creating a service network, exposed services can communicate across that n
 The `skupper` CLI has two options for exposing services that already exist in a namespace:
 
 * `expose` supports simple use cases, for example, a deployment with a single service.
-See [skupper-kubernetes_exposing-simple-services](#skupper-kubernetes_exposing-simple-services) for instructions.
+See [Exposing simple services on the service network](#exposing-simple-services-on-the-service-network) for instructions.
 * `service create` and `service bind` is a more flexible method of exposing services, for example, if you have multiple services for a deployment.
 See [Exposing complex services on the service network](#exposing-complex-services-on-the-service-network) for instructions.
 
