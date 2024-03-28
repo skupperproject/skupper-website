@@ -22,7 +22,8 @@ Installing the `skupper` command-line interface (CLI) provides a simple method t
 ## Creating a site using the CLI
 
 A service network consists of Skupper sites.
-This section describes how to create a site using the default settings.
+This section describes how to create a site in a Kubernetes cluster using the default settings.
+See [Using Skupper Podman](../cli/podman.html) for information about using the Skupper CLI to create Podman sites.
 
 * The `skupper` CLI is installed.
 * You are logged into the cluster.
@@ -358,6 +359,13 @@ After creating a service network, you can expose services from a local machine o
 
 For example, if you run a database on a server in your data center, you can deploy a front end in a cluster that can access the data as if the database was running in the cluster.
 
+<dl><dt><strong>📌 NOTE</strong></dt><dd>
+
+This documentation describes creating a gateway from a local host to a cluster site.
+An alternative approach is to create a site on the local host and link to the cluster site.
+See [Using Skupper Podman](../cli/podman.html) for information about using the Skupper CLI to create Podman sites.
+</dd></dl>
+
 ### Exposing simple local services to the service network
 
 This section shows how to expose a single service running locally on a service network.
@@ -644,7 +652,7 @@ Hostname for skupper router, typically `localhost`.
 * **qdr-listeners.port**\
 Port for skupper router, typically `5672`.
 
-### Exploring a service network
+## Exploring a service network
 
 Skupper includes a command to allow you report all the sites and the services available on a service network.
 
@@ -696,14 +704,14 @@ Skupper includes a command to allow you report all the sites and the services av
    5. The sites that the remote site is linked to.
    6. The unique identifier of a remote podman site. Podman sites do not have an associated context.
 
-#### Securing a service network
+## Securing a service network
 
 Skupper provides default, built-in security that scales across clusters and clouds.
 This section describes additional security you can configure.
 
 See [Securing a service network using policies](../policy/index.html) for information about creating granular policies for each cluster.
 
-##### Restricting access to services using a Kubernetes network policy
+### Restricting access to services using a Kubernetes network policy
 
 By default, if you expose a service on the service network, that service is also accessible from other namespaces in the cluster.
 You can avoid this situation when creating a site using the `--create-network-policy` option.
@@ -725,7 +733,7 @@ You can avoid this situation when creating a site using the `--create-network-po
 
 You can now expose services on the service network and those services are not accessible from other namespaces in the cluster.
 
-##### Applying TLS to TCP or HTTP2 traffic on the service network
+### Applying TLS to TCP or HTTP2 traffic on the service network
 
 By default, the traffic between sites is encrypted, however the traffic between the service pod and the router pod is not encrypted.
 For services exposed as TCP or HTTP2, the traffic between the pod and the router pod can be encrypted using TLS.
@@ -790,7 +798,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
    ```
 5. Test calling the service from a TLS enabled frontend.
 
-##### Supported standards and protocols
+## Supported standards and protocols
 
 Skupper supports the following protocols for your service network:
 
@@ -818,7 +826,7 @@ When choosing which protocol to specify, note the following:
 
   TCP is implemented as a single streamed message, whereas HTTP1 and HTTP2 are implemented as request/response message routing.
 
-###### CLI options
+## CLI options
 
 For a full list of options, see the [Skupper Kubernetes CLI reference](../kubernetes-reference/index.html) and [Skupper Podman CLI reference](../podman-reference/index.html) documentation.
 

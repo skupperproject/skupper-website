@@ -183,12 +183,12 @@ TokenClaimVerification       1                                                  
 However, this output is most useful when reporting an issue and is included in the Skupper debug tar file.</p>
 </li>
 <li><p>List the Kubernetes events for a site:</p>
-<pre><code class="language-bash">kubectl get events | grep &quot;service/skupper&quot;
-10m         Normal    ServiceSyncEvent               service/skupper                                   Service sync receiver connection to amqps://skupper-router-local.private1.svc.cluster.local:5671 established
-10m         Normal    ServiceSyncEvent               service/skupper                                   Service sync sender connection to amqps://skupper-router-local.private1.svc.cluster.local:5671 established
-10m         Normal    ServiceControllerCreateEvent   service/skupper                                   Creating service productcatalogservice
-7m59s       Normal    TokenHandler                   service/skupper                                   Connecting using token link1
-7m54s       Normal    TokenHandler                   service/skupper                                   Connecting using token link2
+<pre><code class="language-bash">kubectl get events | grep &quot;deployment/skupper-service-controller&quot;
+10m         Normal    ServiceSyncEvent               deployment/skupper-service-controller   Service sync receiver connection to amqps://skupper-router-local.private1.svc.cluster.local:5671 established
+10m         Normal    ServiceSyncEvent               deployment/skupper-service-controller   Service sync sender connection to amqps://skupper-router-local.private1.svc.cluster.local:5671 established
+10m         Normal    ServiceControllerCreateEvent   deployment/skupper-service-controller   Creating service productcatalogservice
+7m59s       Normal    TokenHandler                   deployment/skupper-service-controller   Connecting using token link1
+7m54s       Normal    TokenHandler                   deployment/skupper-service-controller   Connecting using token link2
 </code></pre>
 <p>The output shows events relating to Kubernetes resources.</p>
 </li>
@@ -466,7 +466,7 @@ You must specify an ingress to allow sites on other clusters to link to your sit
       <h4>Skupper - Multicloud communication for Kubernetes</h4>
       <p>Skupper enables secure communication across Kubernetes
         clusters with no VPNs or special firewall rules</p>
-      <p>Copyright &#169; 2023 the Skupper authors</p>
+      <p>Copyright &#169; 2024 the Skupper authors</p>
     </div>
     <div>
       <p>All code and documentation is licensed under

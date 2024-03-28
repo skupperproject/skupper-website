@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Securing a service network</title>
+    <title>Skupper - #Securing a service network</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/index.html">Using the Skupper CLI</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/native-security-options.html">Securing a service network</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/index.html">Using the Skupper CLI</a> <span class="path-separator">&#8250;</span> <a href="/docs/cli/native-security-options.html">#Securing a service network</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -75,11 +75,11 @@
   <div>
     <main>
 
-<h1 id="securing-a-service-network">Securing a service network</h1>
+<h2 id="securing-a-service-network">Securing a service network</h2>
 <p>Skupper provides default, built-in security that scales across clusters and clouds.
 This section describes additional security you can configure.</p>
 <p>See <a href="../policy/index.html">Securing a service network using policies</a> for information about creating granular policies for each cluster.</p>
-<h2 id="restricting-access-to-services-using-a-kubernetes-network-policy">Restricting access to services using a Kubernetes network policy</h2>
+<h3 id="restricting-access-to-services-using-a-kubernetes-network-policy">Restricting access to services using a Kubernetes network policy</h3>
 <p>By default, if you expose a service on the service network, that service is also accessible from other namespaces in the cluster.
 You can avoid this situation when creating a site using the <code>--create-network-policy</code> option.</p>
 <ol>
@@ -96,7 +96,7 @@ You can avoid this situation when creating a site using the <code>--create-netwo
 </li>
 </ol>
 <p>You can now expose services on the service network and those services are not accessible from other namespaces in the cluster.</p>
-<h2 id="applying-tls-to-tcp-or-http2-traffic-on-the-service-network">Applying TLS to TCP or HTTP2 traffic on the service network</h2>
+<h3 id="applying-tls-to-tcp-or-http2-traffic-on-the-service-network">Applying TLS to TCP or HTTP2 traffic on the service network</h3>
 <p>By default, the traffic between sites is encrypted, however the traffic between the service pod and the router pod is not encrypted.
 For services exposed as TCP or HTTP2, the traffic between the pod and the router pod can be encrypted using TLS.</p>
 <ul>
@@ -180,7 +180,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
       <h4>Skupper - Multicloud communication for Kubernetes</h4>
       <p>Skupper enables secure communication across Kubernetes
         clusters with no VPNs or special firewall rules</p>
-      <p>Copyright &#169; 2023 the Skupper authors</p>
+      <p>Copyright &#169; 2024 the Skupper authors</p>
     </div>
     <div>
       <p>All code and documentation is licensed under

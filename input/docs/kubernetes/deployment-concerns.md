@@ -23,9 +23,8 @@ Increasing the number of routers does not improve network performance.  An incom
 
    Consider the following CPU allocation options:
 
-   |     |     |
-   | --- | --- |
    | Router CPU | Description |
+   | --- | --- |
    | 1 | Helps avoid issues with `BestEffort` on low resource clusters |
    | 2 | Suitable for production environments |
    | 5 | Maximum performance |

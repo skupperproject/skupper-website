@@ -91,7 +91,8 @@ client version 1.5
 </ol>
 <h2 id="creating-a-site-using-the-cli">Creating a site using the CLI</h2>
 <p>A service network consists of Skupper sites.
-This section describes how to create a site using the default settings.</p>
+This section describes how to create a site in a Kubernetes cluster using the default settings.
+See <a href="../cli/podman.html">Using Skupper Podman</a> for information about using the Skupper CLI to create Podman sites.</p>
 <ul>
 <li>The <code>skupper</code> CLI is installed.</li>
 <li>You are logged into the cluster.</li>
@@ -365,6 +366,13 @@ The site does not require the extra permissions granted with the <code>--enable-
 <h2 id="exposing-services-on-the-service-network-from-a-local-machine">Exposing services on the service network from a local machine</h2>
 <p>After creating a service network, you can expose services from a local machine on the service network.</p>
 <p>For example, if you run a database on a server in your data center, you can deploy a front end in a cluster that can access the data as if the database was running in the cluster.</p>
+<dl><dt><strong>📌 NOTE</strong></dt><dd>
+
+<p>This documentation describes creating a gateway from a local host to a cluster site.
+An alternative approach is to create a site on the local host and link to the cluster site.
+See <a href="../cli/podman.html">Using Skupper Podman</a> for information about using the Skupper CLI to create Podman sites.</p>
+</dd></dl>
+
 <h3 id="exposing-simple-local-services-to-the-service-network">Exposing simple local services to the service network</h3>
 <p>This section shows how to expose a single service running locally on a service network.</p>
 <ul>
@@ -618,7 +626,7 @@ Hostname for skupper router, typically <code>localhost</code>.</li>
 <li><strong>qdr-listeners.port</strong><br />
 Port for skupper router, typically <code>5672</code>.</li>
 </ul>
-<h3 id="exploring-a-service-network">Exploring a service network</h3>
+<h2 id="exploring-a-service-network">Exploring a service network</h2>
 <p>Skupper includes a command to allow you report all the sites and the services available on a service network.</p>
 <ul>
 <li>A service network with more than one site</li>
@@ -668,11 +676,11 @@ To update a site to the version of the CLI, use <code>skupper update</code>.</li
 </ol>
 </li>
 </ol>
-<h4 id="securing-a-service-network">Securing a service network</h4>
+<h2 id="securing-a-service-network">Securing a service network</h2>
 <p>Skupper provides default, built-in security that scales across clusters and clouds.
 This section describes additional security you can configure.</p>
 <p>See <a href="../policy/index.html">Securing a service network using policies</a> for information about creating granular policies for each cluster.</p>
-<h5 id="restricting-access-to-services-using-a-kubernetes-network-policy">Restricting access to services using a Kubernetes network policy</h5>
+<h3 id="restricting-access-to-services-using-a-kubernetes-network-policy">Restricting access to services using a Kubernetes network policy</h3>
 <p>By default, if you expose a service on the service network, that service is also accessible from other namespaces in the cluster.
 You can avoid this situation when creating a site using the <code>--create-network-policy</code> option.</p>
 <ol>
@@ -689,7 +697,7 @@ You can avoid this situation when creating a site using the <code>--create-netwo
 </li>
 </ol>
 <p>You can now expose services on the service network and those services are not accessible from other namespaces in the cluster.</p>
-<h5 id="applying-tls-to-tcp-or-http2-traffic-on-the-service-network">Applying TLS to TCP or HTTP2 traffic on the service network</h5>
+<h3 id="applying-tls-to-tcp-or-http2-traffic-on-the-service-network">Applying TLS to TCP or HTTP2 traffic on the service network</h3>
 <p>By default, the traffic between sites is encrypted, however the traffic between the service pod and the router pod is not encrypted.
 For services exposed as TCP or HTTP2, the traffic between the pod and the router pod can be encrypted using TLS.</p>
 <ul>
@@ -750,7 +758,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 <li><p>Test calling the service from a TLS enabled frontend.</p>
 </li>
 </ol>
-<h5 id="supported-standards-and-protocols">Supported standards and protocols</h5>
+<h2 id="supported-standards-and-protocols">Supported standards and protocols</h2>
 <p>Skupper supports the following protocols for your service network:</p>
 <ul>
 <li>TCP - default</li>
@@ -776,7 +784,7 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 <p>TCP is implemented as a single streamed message, whereas HTTP1 and HTTP2 are implemented as request/response message routing.</p>
 </li>
 </ul>
-<h6 id="cli-options">CLI options</h6>
+<h2 id="cli-options">CLI options</h2>
 <p>For a full list of options, see the <a href="../kubernetes-reference/index.html">Skupper Kubernetes CLI reference</a> and <a href="../podman-reference/index.html">Skupper Podman CLI reference</a> documentation.</p>
 <dl><dt><strong>⚠️ WARNING</strong></dt><dd>
 
@@ -823,7 +831,7 @@ The kubeconfig file can contain defined contexts, and this option allows you to 
       <h4>Skupper - Multicloud communication for Kubernetes</h4>
       <p>Skupper enables secure communication across Kubernetes
         clusters with no VPNs or special firewall rules</p>
-      <p>Copyright &#169; 2023 the Skupper authors</p>
+      <p>Copyright &#169; 2024 the Skupper authors</p>
     </div>
     <div>
       <p>All code and documentation is licensed under

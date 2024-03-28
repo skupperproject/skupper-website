@@ -21,3 +21,8 @@ cp -r subrepos/skupper-docs/images/ input/docs/
 # To process nested numbered lists
 python python/nested-numbers.py input/docs/operator/
 
+# To workaround https://github.com/ssorj/plano/issues/3
+
+sed -i 's/.ID/ID/g' input/docs/cli/podman.md
+sed -i 's/.Image/Image/g' input/docs/cli/podman.md
+sed -i 's/.Labels/Labels/g' input/docs/cli/podman.md
