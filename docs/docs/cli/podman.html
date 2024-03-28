@@ -254,7 +254,7 @@ For example, in a two site network linked with a high cost with servers and clie
 <li><code>expose</code> supports simple use cases, for example, a host with a single service.
 See <a href="#exposing-simple-services-on-the-service-network">Exposing simple services on the service network</a> for instructions.</li>
 <li><code>service create</code> and <code>service bind</code> is a more flexible method of exposing services, for example, if you have multiple services for a host.
-See <a href="#exposing-complex-services">exposing-complex-services</a> for instructions.</li>
+See <a href="#exposing-complex-services-on-the-service-network">Exposing complex services on the service network</a> for instructions.</li>
 </ul>
 <h4 id="exposing-simple-services-on-the-service-network">Exposing simple services on the service network</h4>
 <p>This section describes how services can be enabled for a service network for simple use cases.</p>
@@ -289,6 +289,43 @@ NOTE: You can specify more than one port by repeating this option.</li>
 </li>
 <li><p>Create the service on another site in the service network:</p>
 <pre><code class="language-bash">$ skupper service create backend 8080
+</code></pre>
+</li>
+</ol>
+<h4 id="exposing-complex-services-on-the-service-network">Exposing complex services on the service network</h4>
+<p>This section describes how services can be enabled for a service network for more complex use cases.</p>
+<ul>
+<li>A Skupper Podman site</li>
+</ul>
+<ol>
+<li><p>Run a server, for example:</p>
+<pre><code class="language-bash">$ podman run --name backend-target --network skupper --detach --rm -p 8080:8080 quay.io/skupper/hello-world-backend
+</code></pre>
+<p>This step is not Skupper-specific, that is, this process is unchanged from standard processes for your host.</p>
+</li>
+<li><p>Create a service that can communicate on the service network:</p>
+<pre><code class="language-bash">$ skupper service create &lt;name&gt; &lt;port&gt;
+</code></pre>
+<p>where</p>
+<ul>
+<li><code>&lt;name&gt;</code> is the name of the service you want to create</li>
+<li><code>&lt;port&gt;</code> is the port the service uses</li>
+</ul>
+<p>For the example deployment in step 1, you create a service using the following command:</p>
+<pre><code class="language-bash">$ skupper service create hello-world-backend 8080
+</code></pre>
+</li>
+<li><p>Bind the service to a cluster service:</p>
+<pre><code class="language-bash">$ skupper service bind &lt;service-name&gt; &lt;target-type&gt; &lt;target-name&gt;
+</code></pre>
+<p>where</p>
+<ul>
+<li><code>&lt;service-name&gt;</code> is the name of the service on the service network</li>
+<li><code>&lt;target-type&gt;</code> is the object you want to expose, <code>host</code> is the only current valid value.</li>
+<li><code>&lt;target-name&gt;</code> is the name of the cluster service</li>
+</ul>
+<p>For the example deployment in step 1, you bind the service using the following command:</p>
+<pre><code class="language-bash">$ skupper service bind hello-world-backend host hello-world-backend
 </code></pre>
 </li>
 </ol>

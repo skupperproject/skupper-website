@@ -223,7 +223,7 @@ The `skupper` CLI has two options for exposing services that already exist on a 
 * `expose` supports simple use cases, for example, a host with a single service.
 See [Exposing simple services on the service network](#exposing-simple-services-on-the-service-network) for instructions.
 * `service create` and `service bind` is a more flexible method of exposing services, for example, if you have multiple services for a host.
-See [exposing-complex-services](#exposing-complex-services) for instructions.
+See [Exposing complex services on the service network](#exposing-complex-services-on-the-service-network) for instructions.
 
 #### Exposing simple services on the service network
 This section describes how services can be enabled for a service network for simple use cases.
@@ -264,6 +264,51 @@ This section describes how services can be enabled for a service network for sim
 
    ```bash
    $ skupper service create backend 8080
+   ```
+
+#### Exposing complex services on the service network
+
+This section describes how services can be enabled for a service network for more complex use cases.
+
+* A Skupper Podman site
+
+1. Run a server, for example:
+
+   ```bash
+   $ podman run --name backend-target --network skupper --detach --rm -p 8080:8080 quay.io/skupper/hello-world-backend
+   ```
+
+   This step is not Skupper-specific, that is, this process is unchanged from standard processes for your host.
+2. Create a service that can communicate on the service network:
+
+   ```bash
+   $ skupper service create <name> <port>
+   ```
+
+   where
+
+   * `<name>` is the name of the service you want to create
+   * `<port>` is the port the service uses
+
+   For the example deployment in step 1, you create a service using the following command:
+   ```bash
+   $ skupper service create hello-world-backend 8080
+   ```
+3. Bind the service to a cluster service:
+
+   ```bash
+   $ skupper service bind <service-name> <target-type> <target-name>
+   ```
+
+   where
+
+   * `<service-name>` is the name of the service on the service network
+   * `<target-type>` is the object you want to expose, `host` is the only current valid value.
+   * `<target-name>` is the name of the cluster service
+
+   For the example deployment in step 1, you bind the service using the following command:
+   ```bash
+   $ skupper service bind hello-world-backend host hello-world-backend
    ```
 
 #### Consuming simple services from the service network
