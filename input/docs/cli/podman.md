@@ -212,7 +212,7 @@ After this threshold of open connections is reached, new connections are spread 
    If there are multiple clients on different sites, filter the view to each client to determine the effect of cost on traffic.
    For example, in a two site network linked with a high cost with servers and clients on both sites, you can see that a client is served by the local servers while a local server is available.
 
-### Exposing services on the service network from a Linux host
+## Exposing services on the service network from a Linux host
 
 After creating a service network, exposed services can communicate across that network.
 
@@ -225,7 +225,7 @@ See [Exposing simple services on the service network](#exposing-simple-services-
 * `service create` and `service bind` is a more flexible method of exposing services, for example, if you have multiple services for a host.
 See [Exposing complex services on the service network](#exposing-complex-services-on-the-service-network) for instructions.
 
-#### Exposing simple services on the service network
+### Exposing simple services on the service network
 This section describes how services can be enabled for a service network for simple use cases.
 
 * A Skupper Podman site
@@ -266,7 +266,7 @@ This section describes how services can be enabled for a service network for sim
    $ skupper service create backend 8080
    ```
 
-#### Exposing complex services on the service network
+### Exposing complex services on the service network
 
 This section describes how services can be enabled for a service network for more complex use cases.
 
@@ -311,7 +311,7 @@ This section describes how services can be enabled for a service network for mor
    $ skupper service bind hello-world-backend host hello-world-backend
    ```
 
-#### Consuming simple services from the service network
+### Consuming simple services from the service network
 
 Services exposed on Podman sites are not automatically available to other sites.
 This is the equivalent to Kubernetes sites created using `skupper init --enable-service-sync false`.
@@ -326,7 +326,7 @@ This is the equivalent to Kubernetes sites created using `skupper init --enable-
    $ skupper service create <service-name> <port number>
    ```
 
-### Deleting a Podman site
+## Deleting a Podman site
 
 When you no longer want the Linux host to be part of the service network, you can delete the site.
 

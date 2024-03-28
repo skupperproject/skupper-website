@@ -246,7 +246,7 @@ If there are multiple clients on different sites, filter the view to each client
 For example, in a two site network linked with a high cost with servers and clients on both sites, you can see that a client is served by the local servers while a local server is available.</p>
 </li>
 </ol>
-<h3 id="exposing-services-on-the-service-network-from-a-linux-host">Exposing services on the service network from a Linux host</h3>
+<h2 id="exposing-services-on-the-service-network-from-a-linux-host">Exposing services on the service network from a Linux host</h2>
 <p>After creating a service network, exposed services can communicate across that network.</p>
 <p>The general flow for working with services is the same for Kubernetes and Podman sites.</p>
 <p>The <code>skupper</code> CLI has two options for exposing services that already exist on a host:</p>
@@ -256,7 +256,7 @@ See <a href="#exposing-simple-services-on-the-service-network">Exposing simple s
 <li><code>service create</code> and <code>service bind</code> is a more flexible method of exposing services, for example, if you have multiple services for a host.
 See <a href="#exposing-complex-services-on-the-service-network">Exposing complex services on the service network</a> for instructions.</li>
 </ul>
-<h4 id="exposing-simple-services-on-the-service-network">Exposing simple services on the service network</h4>
+<h3 id="exposing-simple-services-on-the-service-network">Exposing simple services on the service network</h3>
 <p>This section describes how services can be enabled for a service network for simple use cases.</p>
 <ul>
 <li>A Skupper Podman site</li>
@@ -292,7 +292,7 @@ NOTE: You can specify more than one port by repeating this option.</li>
 </code></pre>
 </li>
 </ol>
-<h4 id="exposing-complex-services-on-the-service-network">Exposing complex services on the service network</h4>
+<h3 id="exposing-complex-services-on-the-service-network">Exposing complex services on the service network</h3>
 <p>This section describes how services can be enabled for a service network for more complex use cases.</p>
 <ul>
 <li>A Skupper Podman site</li>
@@ -329,7 +329,7 @@ NOTE: You can specify more than one port by repeating this option.</li>
 </code></pre>
 </li>
 </ol>
-<h4 id="consuming-simple-services-from-the-service-network">Consuming simple services from the service network</h4>
+<h3 id="consuming-simple-services-from-the-service-network">Consuming simple services from the service network</h3>
 <p>Services exposed on Podman sites are not automatically available to other sites.
 This is the equivalent to Kubernetes sites created using <code>skupper init --enable-service-sync false</code>.</p>
 <ul>
@@ -344,7 +344,7 @@ This is the equivalent to Kubernetes sites created using <code>skupper init --en
 </code></pre>
 </li>
 </ol>
-<h3 id="deleting-a-podman-site">Deleting a Podman site</h3>
+<h2 id="deleting-a-podman-site">Deleting a Podman site</h2>
 <p>When you no longer want the Linux host to be part of the service network, you can delete the site.</p>
 <dl><dt><strong>📌 NOTE</strong></dt><dd>
 
