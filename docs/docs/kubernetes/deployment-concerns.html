@@ -91,12 +91,31 @@ Increasing the number of routers does not improve network performance.  An incom
 <li><p>Determine the router CPU allocation you require.</p>
 <p>By default, the router CPU allocation is <code>BestEffort</code> as described in <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#besteffort">Pod Quality of Service Classes</a>.</p>
 <p>Consider the following CPU allocation options:</p>
-<p>| Router CPU | Description |
-| --- | --- |
-| 1 | Helps avoid issues with <code>BestEffort</code> on low resource clusters |
-| 2 | Suitable for production environments |
-| 5 | Maximum performance |</p>
 </li>
+</ol>
+<table>
+<thead>
+<tr>
+  <th>Router CPU</th>
+  <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>Helps avoid issues with <code>BestEffort</code> on low resource clusters</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Suitable for production environments</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>Maximum performance</td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
 <li><p>If you are using the Skupper CLI, set the CPU allocation for the router using the <code>--router-cpu</code> option.  For example:</p>
 <pre><code class="language-bash">$ skupper init --router-cpu 2
 </code></pre>
