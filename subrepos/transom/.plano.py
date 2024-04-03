@@ -18,6 +18,7 @@
 #
 
 from bullseye import *
+from plano.github import *
 
 project.name = "transom"
 project.data_dirs = ["profiles", "test-site"]
@@ -42,3 +43,24 @@ def clean(*args, **kwargs):
     remove("qpid-site/output")
     remove("htmlcov")
     remove(".coverage")
+
+@command
+def update_bullseye():
+    """
+    Update the embedded Bullseye repo
+    """
+    update_external_from_github("external/bullseye", "ssorj", "bullseye")
+
+@command
+def update_plano():
+    """
+    Update the embedded Plano repo
+    """
+    update_external_from_github("external/plano", "ssorj", "plano")
+
+@command
+def update_mistune():
+    """
+    Update the embedded Mistune repo
+    """
+    update_external_from_github("external/mistune", "lepture", "mistune", ref="v3.0.2")

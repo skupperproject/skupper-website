@@ -95,3 +95,44 @@ Starting LiveReload v0.9.3 for /tmp/tmp.57gwncgHua/output on port 35729.
 <!-- Once you have set up the project, you can use the `./plano` command in -->
 <!-- the root of the project to perform project tasks.  It accepts a -->
 <!-- subcommand.  Use `./plano --help` to list the available commands. -->
+
+## Dependencies
+
+PyYAML:
+
+~~~
+pip install pyyaml
+~~~
+
+## Setting up Transom for a website repo
+
+Change directory to the root of your project:
+
+    cd <project-dir>/
+
+Add the Transom code as a subdirectory:
+
+    mkdir -p external
+    curl -sfL https://github.com/ssorj/transom/archive/main.tar.gz | tar -C external -xz
+    mv external/transom-main external/transom
+
+Symlink the Transom and Plano libraries into your `python` directory:
+
+    mkdir -p python
+    ln -s ../external/transom/python/transom python/transom
+    ln -s ../external/transom/python/mistune python/mistune
+    ln -s ../external/transom/python/plano python/plano
+
+Copy the `plano` command into the root of your project:
+
+    cp external/transom/plano plano
+
+Copy the standard config files:
+
+    cp external/transom/profiles/website/.plano.py .plano.py
+    cp external/transom/profiles/website/.gitignore .gitignore
+
+Copy the standard workflow file:
+
+    mkdir -p .github/workflows
+    cp external/transom/profiles/website/.github/workflows/main.yaml .github/workflows/main.yaml

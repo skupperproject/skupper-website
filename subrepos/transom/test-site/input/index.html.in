@@ -1,6 +1,8 @@
 ---
 title: Doorjamb
 root_class: windowsill
+test_attribute: |
+  abc
 ---
 
 <h1 id="doorjamb">Doorjamb</h1>

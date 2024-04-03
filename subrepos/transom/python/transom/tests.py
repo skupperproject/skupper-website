@@ -68,8 +68,8 @@ def transom_init():
         check_file("input/index.md")
         check_file("input/main.css")
         check_file("input/main.js")
+        check_file(".gitignore")
         check_file(".plano.py")
-        check_file(".nojekyll")
         check_dir("python/mistune")
         check_dir("python/transom")
 

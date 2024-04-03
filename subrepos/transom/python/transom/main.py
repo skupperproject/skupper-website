@@ -33,6 +33,7 @@ import subprocess as _subprocess
 import sys as _sys
 import threading as _threading
 import types as _types
+import yaml as _yaml
 
 from html import escape as _escape
 from html.parser import HTMLParser as _HTMLParser
@@ -42,7 +43,7 @@ _default_page_template = "{{page.body}}"
 _default_body_template = "{{page.content}}"
 _index_file_names = "index.md", "index.html.in", "index.html"
 _markdown_title_regex = _re.compile(r"(#|##)(.+)")
-_variable_regex = _re.compile(r"({{.+?}})")
+_variable_regex = _re.compile(r"({{{.+?}}}|{{.+?}})")
 
 # An improvised solution for trouble on Mac OS
 _once = False
@@ -87,7 +88,7 @@ class Transom:
         try:
             exec(_read_file(_os.path.join(self.config_dir, "config.py")), self._config)
         except FileNotFoundError as e:
-            self.warn("Config file not found: {}", e)
+            self.warning("Config file not found: {}", e)
 
     def _init_files(self):
         self._files.clear()
@@ -168,7 +169,8 @@ class Transom:
             watcher.start()
 
         try:
-            livereload = _subprocess.Popen(f"livereload {self.output_dir} --wait 100", shell=True)
+            livereload = _subprocess.Popen(f"livereload {self.output_dir} --wait 100",
+                                           shell=True, stdout=_subprocess.DEVNULL, stderr=_subprocess.DEVNULL)
         except _subprocess.CalledProcessError as e: # pragma: nocover
             self.notice("Failed to start the livereload server, so I won't auto-reload the browser")
             self.notice("Use 'npm install -g livereload' to install the server")
@@ -236,7 +238,7 @@ class Transom:
 
         return errors
 
-    def info(self, message, *args):
+    def debug(self, message, *args):
         if self.verbose:
             print(message.format(*args))
 
@@ -244,7 +246,7 @@ class Transom:
         if not self.quiet:
             print(message.format(*args))
 
-    def warn(self, message, *args):
+    def warning(self, message, *args):
         print("Warning:", message.format(*args))
 
 class _File:
@@ -290,7 +292,7 @@ class _File:
         if not force and not self._is_modified():
             return
 
-        self.site.info("Rendering {}", self)
+        self.site.debug("Rendering {}", self)
 
         self._render_content()
 
@@ -347,7 +349,7 @@ class _LinkParser(_HTMLParser):
             normalized_url = _urlparse.urljoin(self.file.url, f"#{attrs['id']}")
 
             if normalized_url in self.link_targets:
-                self.file.site.warn("Duplicate link target in '{}'", normalized_url)
+                self.file.site.warning("Duplicate link target in '{}'", normalized_url)
 
             self.link_targets.add(normalized_url)
 
@@ -644,7 +646,7 @@ class TransomCommand:
         if not self.quiet:
             self.print_message(message, *args)
 
-    def warn(self, message, *args):
+    def warning(self, message, *args):
         message = "Warning: {}".format(message)
         self.print_message(message, *args)
 
@@ -693,13 +695,12 @@ class TransomCommand:
         if self.args.github:
             python_dir = _os.path.join(self.home, "python")
 
+            copy(_os.path.join(profile_dir, ".github/workflows/main.yaml"),
+                 _os.path.join(project_dir, ".github/workflows/main.yaml"))
+            copy(_os.path.join(profile_dir, ".gitignore"), _os.path.join(project_dir, ".gitignore"))
             copy(_os.path.join(profile_dir, ".plano.py"), _os.path.join(project_dir, ".plano.py"))
-            copy(_os.path.join(profile_dir, ".nojekyll"), _os.path.join(project_dir, ".nojekyll"))
             copy(_os.path.join(python_dir, "mistune"), _os.path.join(project_dir, "python", "mistune"))
             copy(_os.path.join(python_dir, "transom"), _os.path.join(project_dir, "python", "transom"))
-
-            with open(_os.path.join(project_dir, "config", "config.py"), "a") as f:
-                f.write("\nsite.output_dir = \"docs\"\n")
 
     def render_command(self):
         self.lib.render(force=self.args.force)
@@ -720,7 +721,7 @@ class TransomCommand:
         missing_files, extra_files = self.lib.check_files()
 
         if extra_files != 0:
-            self.warn("{} extra files in the output", extra_files)
+            self.warning("{} extra files in the output", extra_files)
 
         if missing_files == 0:
             self.notice("PASSED")
@@ -755,19 +756,14 @@ def _copy_path(from_path, to_path):
         _copy_file(from_path, to_path)
 
 def _extract_metadata(text):
-    attrs = dict()
-
     if text.startswith("---\n"):
         end = text.index("---\n", 4)
-        lines = text[4:end].strip().split("\n")
-
-        for line in lines:
-            key, value = (x.strip() for x in line.split(":", 1))
-            attrs[key] = None if value.lower() in ("none", "null") else value
-
+        yaml = text[4:end]
         text = text[end + 4:]
 
-    return text, attrs
+        return text, _yaml.safe_load(yaml)
+
+    return text, dict()
 
 def _load_template(path, default_text):
     if path is None or not _os.path.isfile(path):
@@ -777,7 +773,9 @@ def _load_template(path, default_text):
 
 def _parse_template(text):
     for token in _variable_regex.split(text):
-        if token.startswith("{{") and token.endswith("}}"):
+        if token.startswith("{{{") and token.endswith("}}}"):
+            yield token[1:-1]
+        elif token.startswith("{{") and token.endswith("}}"):
             yield compile(token[2:-2], "<string>", "eval")
         else:
             yield token

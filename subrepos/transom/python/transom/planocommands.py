@@ -18,82 +18,57 @@
 #
 
 from plano import *
+from plano.github import *
 from transom import TransomCommand
 
-_force_param = CommandParameter("force", help="Render all input files, including unmodified ones")
-_verbose_param = CommandParameter("verbose", help="Print detailed logging to the console")
-
-@command(parameters=(_force_param, _verbose_param))
-def render(force=False, verbose=False):
+@command(passthrough=True)
+def render(passthrough_args=[]):
     """
     Render site output
     """
-
     with project_env():
-        args = ["render"]
-
-        if force:
-            args.append("--force")
-
-        if verbose:
-            args.append("--verbose")
-
-        TransomCommand().main(args)
+        TransomCommand().main(["render"] + passthrough_args)
 
 # https://stackoverflow.com/questions/22475849/node-js-what-is-enospc-error-and-how-to-solve
 # $ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-@command(parameters=[CommandParameter("port", help="Serve on PORT"), _force_param, _verbose_param])
-def serve(port=8080, force=False, verbose=False):
+@command(passthrough=True)
+def serve(passthrough_args=[]):
     """
     Serve the site and rerender when input files change
     """
-
     with project_env():
-        args = ["serve", "--port", str(port)]
+        TransomCommand().main(["serve"] + passthrough_args)
 
-        if force:
-            args.append("--force")
-
-        if verbose:
-            args.append("--verbose")
-
-        TransomCommand().main(args)
-
-@command(parameters=[_verbose_param])
-def check_links(verbose=False):
+@command(passthrough=True)
+def check_links(passthrough_args=[]):
     """
     Check for broken links
     """
-
     render()
 
-    args = ["check-links"]
-
-    if verbose:
-        args.append("--verbose")
-
     with project_env():
-        TransomCommand().main(args)
+        TransomCommand().main(["check-links"] + passthrough_args)
 
-@command(parameters=[_verbose_param])
-def check_files(verbose=False):
+@command(passthrough=True)
+def check_files(passthrough_args=[]):
     """
     Check for missing or extra files
     """
-
     render()
 
-    args = ["check-files"]
-
-    if verbose:
-        args.append("--verbose")
-
     with project_env():
-        TransomCommand().main(args)
+        TransomCommand().main(["check-files"] + passthrough_args)
 
 @command
 def clean():
     remove(find(".", "__pycache__"))
+
+@command
+def update_transom():
+    """
+    Update the embedded Transom repo
+    """
+    update_external_from_github("external/transom", "ssorj", "transom")
 
 class project_env(working_env):
     def __init__(self):

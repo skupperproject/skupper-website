@@ -17,10 +17,6 @@
 # under the License.
 #
 
-import sys
-
-sys.path.insert(0, "../python")
-
 from transom.planocommands import *
 
 result_file = "output/result.json"
