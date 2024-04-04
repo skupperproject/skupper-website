@@ -1,4 +1,10 @@
 ---
+title: ---
+---
+---
+title: ---
+---
+---
 title: Using Skupper Podman
 ---
 # Using Skupper Podman
@@ -337,7 +343,7 @@ This procedure removes all containers, volumes and networks labeled `application
 To check the labels associated with running containers:
 
 ```bash
-$ podman ps -a --format "{{{.ID}}}  {{{.Image}}}  {{{.Labels}}}"
+$ podman ps -a --format "{{{{{.ID}}}}}  {{{{{.Image}}}}}  {{{{{.Labels}}}}}"
 ```
 </dd></dl>
 

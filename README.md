@@ -43,7 +43,7 @@ changes.
 The docs source is in a distinct repo, skupper-docs, and are written
 in AsciiDoc.
 
-1. Run `git subrepo pull subrepos/skupper-docs/` to retrieve the latest
+1. Run `./plano update-skupper-docs` to retrieve the latest
    version of AsciiDoc files from the `main` branch of `skupper-docs`.
 2. Run `./convert-all.sh` to create Markdown files.
 3. Run `./plano test` to run tests and populate the `docs` directory

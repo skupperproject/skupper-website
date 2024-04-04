@@ -11,7 +11,7 @@ process_file() {
 
     # Reduce file so that all includes are resolved and convert to asciidoc
     # requires https://github.com/opendevise/downdoc and https://github.com/asciidoctor/asciidoctor-reducer
-    asciidoctor-reducer "subrepos/skupper-docs/$input_file" | python python/process.py | downdoc -o "$output_file" -
+    asciidoctor-reducer "external/skupper-docs/$input_file" | python python/process.py | downdoc -o "$output_file" -
 
     # Extract the title from the output HTML file
     title=$(head -1 "$output_file" |sed -e 's/# //g')

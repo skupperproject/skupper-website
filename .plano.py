@@ -186,3 +186,17 @@ def test():
         generate_examples(output_dir=temp)
         generate_releases(output_dir=temp)
         generate_scripts(output_dir=temp)
+
+@command
+def update_skupper_docs():
+    """
+    Update the embedded Skupper docs repo
+    """
+    update_external_from_github("external/skupper-docs", "skupperproject", "skupper-docs")
+
+@command
+def update_transom():
+    """
+    Update the embedded Transom repo
+    """
+    update_external_from_github("external/transom", "ssorj", "transom")

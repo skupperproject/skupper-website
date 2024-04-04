@@ -16,7 +16,7 @@ overview/routing.adoc \
 overview/security.adoc \
 kubernetes/deployment-concerns.adoc
 
-cp -r subrepos/skupper-docs/images/ input/docs/
+cp -r external/skupper-docs/images/ input/docs/
 
 # To process nested numbered lists
 python python/nested-numbers.py input/docs/operator/
