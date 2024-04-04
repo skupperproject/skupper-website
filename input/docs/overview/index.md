@@ -1,10 +1,4 @@
 ---
-title: ---
----
----
-title: ---
----
----
 title: Skupper overview
 ---
 # Skupper overview

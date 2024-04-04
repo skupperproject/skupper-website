@@ -1,10 +1,4 @@
 ---
-title: ---
----
----
-title: ---
----
----
 title: Using the Skupper CLI
 ---
 # Using the Skupper CLI

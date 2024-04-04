@@ -1,10 +1,4 @@
 ---
-title: ---
----
----
-title: ---
----
----
 title: Using the Skupper Operator on Kubernetes
 ---
 # Using the Skupper Operator on Kubernetes

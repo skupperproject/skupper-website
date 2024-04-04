@@ -1,10 +1,4 @@
 ---
-title: ---
----
----
-title: ---
----
----
 title: Securing a service network using Skupper policies
 ---
 # Securing a service network using Skupper policies

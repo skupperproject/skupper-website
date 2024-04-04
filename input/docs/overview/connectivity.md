@@ -1,10 +1,4 @@
 ---
-title: ---
----
----
-title: ---
----
----
 title: Skupper connectivity
 ---
 # Skupper connectivity
