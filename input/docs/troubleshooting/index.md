@@ -210,7 +210,7 @@ For example:
    $ skupper gateway status
 
    Gateway Definition:
-   ╰─ machine-user type:podman version:1.5
+   ╰─ machine-user type:podman version:1.7
       ╰─ Bindings:
          ╰─ mydb:3306 tcp mydb:3306 localhost 3306
 
@@ -221,7 +221,7 @@ For example:
    ```
    $ podman ps
    CONTAINER ID  IMAGE                                           COMMAND               CREATED         STATUS             PORTS                   NAMES
-   4e308ef8ee58  quay.io/skupper/skupper-router:1.5             /home/skrouterd/b...  26 seconds ago  Up 27 seconds ago                          machine-user
+   4e308ef8ee58  quay.io/skupper/skupper-router:1.7             /home/skrouterd/b...  26 seconds ago  Up 27 seconds ago                          machine-user
 
    ```
    This shows the container running.
@@ -389,7 +389,7 @@ If the `skupper init` command fails, consider the following options:
 
   <dl><dt><strong>📌 NOTE</strong></dt><dd>
 
-  See the [Skupper Podman CLI reference](../podman-reference/index.html) documentation for `skupper init`.
+  See the [Skupper Podman CLI reference](https://skupper.io/docs/kubernetes-reference/index.html) documentation for `skupper init`.
   </dd></dl>
 
 **Cannot link sites**

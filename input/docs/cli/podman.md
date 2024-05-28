@@ -122,7 +122,7 @@ See [Using the Skupper CLI](../cli/index.html) for information about using the S
      **📌 NOTE**\
      When creating a token you can specify the ingress host.
 
-     You can also restrict ingress to an IP address or hostname when initializing as described in the [Skupper Podman CLI reference](../podman-reference/index.html) documentation.
+     You can also restrict ingress to an IP address or hostname when initializing as described in the [Skupper Podman CLI reference](https://skupper.io/docs/kubernetes-reference/index.html) documentation.
   3. Check the status of your site:
 
      ```bash

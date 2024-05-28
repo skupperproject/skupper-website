@@ -11,12 +11,12 @@ A typical workflow is to create a site, link sites together, and expose services
 
 Installing the `skupper` command-line interface (CLI) provides a simple method to get started with Skupper.
 
-1. Follow the instructions for [Installing Skupper](/install/index.html).
+1. Follow the instructions for [Installing Skupper](https://skupper.io/install/index.html).
 2. Verify the installation.
 
    ```bash
    $ skupper version
-   client version 1.5
+   client version 1.7
    ```
 
 ## Creating a site using the CLI
@@ -223,7 +223,7 @@ The `skupper` CLI has two options for exposing services that already exist in a 
 * `expose` supports simple use cases, for example, a deployment with a single service.
 See [Exposing simple services on the service network](#exposing-simple-services-on-the-service-network) for instructions.
 * `service create` and `service bind` is a more flexible method of exposing services, for example, if you have multiple services for a deployment.
-See [exposing-complex-services](#exposing-complex-services) for instructions.
+See [Exposing complex services on the service network](#exposing-complex-services-on-the-service-network) for instructions.
 
 ### Exposing simple services on the service network
 This section describes how services can be enabled for a service network for simple use cases.
@@ -305,51 +305,50 @@ This section describes how services can be enabled for a service network for sim
                ╰─ backend:8080 name=backend-9d84544df-rbzjx
    ```
 
-   <a name="exposing-complex-services"></a>=== Exposing complex services on the service network
+### Exposing complex services on the service network
 
-   This section describes how services can be enabled for a service network for more complex use cases.
+This section describes how services can be enabled for a service network for more complex use cases.
 
-   1. Create a deployment, some pods, or a service in one of your sites, for example:
+1. Create a deployment, some pods, or a service in one of your sites, for example:
 
-      ```bash
-      $ kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
-      ```
+   ```bash
+   $ kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
+   ```
 
-      This step is not Skupper-specific, that is, this process is unchanged from standard processes for your cluster.
-   2. Create a service that can communicate on the service network:
+   This step is not Skupper-specific, that is, this process is unchanged from standard processes for your cluster.
+2. Create a service that can communicate on the service network:
 
    ```bash
    $ skupper service create <name> <port>
    ```
 
-where
+   where
 
-* `<name>` is the name of the service you want to create
-* `<port>` is the port the service uses
+   * `<name>` is the name of the service you want to create
+   * `<port>` is the port the service uses
 
-For the example deployment in step 1, you create a service using the following command:
-```bash
-$ skupper service create hello-world-backend 8080
-```
+   For the example deployment in step 1, you create a service using the following command:
+   ```bash
+   $ skupper service create hello-world-backend 8080
+   ```
+3. Bind the service to a cluster service:
 
-1. Bind the service to a cluster service:
+   ```bash
+   $ skupper service bind <service-name> <target-type> <target-name>
+   ```
 
-```bash
-$ skupper service bind <service-name> <target-type> <target-name>
-```
+   where
 
-where
+   * `<service-name>` is the name of the service on the service network
+   * `<target-type>` is the object you want to expose, `deployment`, `statefulset`, `pods`, or `service`.
+   * `<target-name>` is the name of the cluster service
 
-* `<service-name>` is the name of the service on the service network
-* `<target-type>` is the object you want to expose, `deployment`, `statefulset`, `pods`, or `service`.
-* `<target-name>` is the name of the cluster service
+   For the example deployment in step 1, you bind the service using the following command:
+   ```bash
+   $ skupper service bind hello-world-backend deployment hello-world-backend
+   ```
 
-For the example deployment in step 1, you bind the service using the following command:
-```bash
-$ skupper service bind hello-world-backend deployment hello-world-backend
-```
-
-<a name="exposing-services-from-different-ns"></a>=== Exposing services from a different namespace to the service network
+### Exposing services from a different namespace to the service network
 
 This section shows how to expose a service from a namespace where Skupper is not deployed.
 
@@ -362,44 +361,42 @@ However, if you want to expose workloads, for example deployments, you must crea
 
 1. Create a site with cluster permissions if you want to expose a workload from a namespace other than the site namespace:
 
-**📌 NOTE**\
-The site does not require the extra permissions granted with the `--enable-cluster-permissions` to expose a Kubernetes service resource.
+   **📌 NOTE**\
+   The site does not require the extra permissions granted with the `--enable-cluster-permissions` to expose a Kubernetes service resource.
 
-```bash
-$ skupper init --enable-cluster-permissions
-```
+   ```bash
+   $ skupper init --enable-cluster-permissions
+   ```
+2. To expose a Kubernetes service from a namespace other than the site namespace:
 
-1. To expose a Kubernetes service from a namespace other than the site namespace:
+   ```bash
+   $ skupper expose service <service>.<namespace> --address <service>
+   ```
 
-```bash
-$ skupper expose service <service>.<namespace> --address <service>
-```
+   * &lt;service> - the name of the service on the service network.
+   * &lt;namespace> - the name of the namespace where the service you want to expose runs.
 
-* &lt;service> - the name of the service on the service network.
-* &lt;namespace> - the name of the namespace where the service you want to expose runs.
+   For example, if you deployed Skupper in the `east` namespace and you created a `backend` Kubernetes service in the `east-backend` namespace, you set the context to the `east` namespace and expose the service as `backend` on the service network using:
 
-For example, if you deployed Skupper in the `east` namespace and you created a `backend` Kubernetes service in the `east-backend` namespace, you set the context to the `east` namespace and expose the service as `backend` on the service network using:
+   ```bash
+   $ skupper expose service backend.east-backend --port 8080 --address backend
+   ```
+3. To expose a workload from a site created with `--enable-cluster-permissions`:
 
-```bash
-$ skupper expose service backend.east-backend --port 8080 --address backend
-```
+   ```bash
+   $ skupper expose <resource> --port <port-number> --target-namespace <namespace>
+   ```
 
-1. To expose a workload from a site created with `--enable-cluster-permissions`:
+   * &lt;resource> - the name of the resource.
+   * &lt;namespace> - the name of the namespace where the resource you want to expose runs.
 
-```bash
-$ skupper expose <resource> --port <port-number> --target-namespace <namespace>
-```
+   For example, if you deployed Skupper in the `east` namespace and you created a `backend` deployment in the `east-backend` namespace, you set the context to the `east` namespace and expose the service as `backend` on the service network using:
 
-* &lt;resource> - the name of the resource.
-* &lt;namespace> - the name of the namespace where the resource you want to expose runs.
+   ```bash
+   $ skupper expose deployment/backend --port 8080 --target-namespace east-backend
+   ```
 
-For example, if you deployed Skupper in the `east` namespace and you created a `backend` deployment in the `east-backend` namespace, you set the context to the `east` namespace and expose the service as `backend` on the service network using:
-
-```bash
-$ skupper expose deployment/backend --port 8080 --target-namespace east-backend
-```
-
-<a name="exposing-services-local"></a>== Exposing services on the service network from a local machine
+## Exposing services on the service network from a local machine
 
 After creating a service network, you can expose services from a local machine on the service network.
 
@@ -412,7 +409,7 @@ An alternative approach is to create a site on the local host and link to the cl
 See [Using Skupper Podman](../cli/podman.html) for information about using the Skupper CLI to create Podman sites.
 </dd></dl>
 
-<a name="exposing-service-gateway"></a>=== Exposing simple local services to the service network
+### Exposing simple local services to the service network
 
 This section shows how to expose a single service running locally on a service network.
 
@@ -423,114 +420,109 @@ This section shows how to expose a single service running locally on a service n
 2. Log into your cluster and change to the namespace for your site.
 3. Expose the service on the service network:
 
-```bash
-$ skupper gateway expose <service> localhost <port>
-```
+   ```bash
+   $ skupper gateway expose <service> localhost <port>
+   ```
 
-* &lt;service> - the name of the service on the service network.
-* &lt;port> - the port that runs the service locally.
+   * &lt;service> - the name of the service on the service network.
+   * &lt;port> - the port that runs the service locally.
 
-<dl><dt><strong>📌 NOTE</strong></dt><dd>
+   <dl><dt><strong>📌 NOTE</strong></dt><dd>
 
-You can also expose services from other machines on your local network, for example if MySQL is running on a dedicated server (with an IP address of `192.168.1.200`), but you are accessing the cluster from a machine in the same network:
+   You can also expose services from other machines on your local network, for example if MySQL is running on a dedicated server (with an IP address of `192.168.1.200`), but you are accessing the cluster from a machine in the same network:
 
-```bash
-$ skupper gateway expose mysql 192.168.1.200 3306
-```
-</dd></dl>
+   ```bash
+   $ skupper gateway expose mysql 192.168.1.200 3306
+   ```
+   </dd></dl>
+4. Check the status of Skupper gateways:
 
-1. Check the status of Skupper gateways:
+   ```bash
+   $ skupper gateway status
 
-```bash
-$ skupper gateway status
+   Gateway Definition:
+   ╰─ machine-user type:service version:1.7
+      ╰─ Bindings:
+         ╰─ mydb:3306 tcp mydb:3306 localhost 3306
 
-Gateway Definition:
-╰─ machine-user type:service version:1.5
-   ╰─ Bindings:
-      ╰─ mydb:3306 tcp mydb:3306 localhost 3306
+   ```
+   This shows that there is only one exposed service and that service is only exposing a single port (BIND). There are no ports forwarded to the local host.
 
-```
-This shows that there is only one exposed service and that service is only exposing a single port (BIND). There are no ports forwarded to the local host.
+   The URL field shows the underlying communication and can be ignored.
 
-The URL field shows the underlying communication and can be ignored.
-
-<a name="exposing-services-gateway"></a>=== Working with complex local services on the service network
+### Working with complex local services on the service network
 
 This section shows more advanced usage of skupper gateway.
 
 1. Create a Skupper gateway:
 
-```bash
-$ skupper gateway init --type <gateway-type>
-```
+   ```bash
+   $ skupper gateway init --type <gateway-type>
+   ```
 
-By default a _service_ type gateway is created, however you can also specify:
+   By default a _service_ type gateway is created, however you can also specify:
 
-* `podman`
-* `docker`
+   * `podman`
+   * `docker`
+2. Create a service that can communicate on the service network:
 
-1. Create a service that can communicate on the service network:
+   ```bash
+   $ skupper service create <name> <port>
+   ```
 
-```bash
-$ skupper service create <name> <port>
-```
+   where
 
-where
+   * `<name>` is the name of the service you want to create
+   * `<port>` is the port the service uses
 
-* `<name>` is the name of the service you want to create
-* `<port>` is the port the service uses
+   For example:
 
-For example:
+   ```bash
+   $ skupper service create mydb 3306
+   ```
+3. Bind the service on the service network:
 
-```bash
-$ skupper service create mydb 3306
-```
+   ```bash
+   $ skupper gateway bind <service> <host> <port>
+   ```
 
-1. Bind the service on the service network:
+   * &lt;service> - the name of the service on the service network, `mydb` in the example above.
+   * &lt;host> - the host that runs the service.
+   * &lt;port> - the port the service is running on, `3306` from the example above.
+4. Check the status of Skupper gateways:
 
-```bash
-$ skupper gateway bind <service> <host> <port>
-```
+   ```bash
+   $ skupper gateway status
+   ```
 
-* &lt;service> - the name of the service on the service network, `mydb` in the example above.
-* &lt;host> - the host that runs the service.
-* &lt;port> - the port the service is running on, `3306` from the example above.
+   The output looks similar to the following:
 
-1. Check the status of Skupper gateways:
+   ```bash
+   Gateway Definitions Summary
 
-```bash
-$ skupper gateway status
-```
+   Gateway Definition:
+   ╰─ machine-user type:service version:1.7
+      ╰─ Bindings:
+         ╰─ mydb:3306 tcp mydb:3306 localhost 3306
 
-The output looks similar to the following:
+   ```
+   This shows that there is only one exposed service and that service is only exposing a single port (BIND). There are no ports forwarded to the local host.
 
-```bash
-Gateway Definitions Summary
+   The URL field shows the underlying communication and can be ignored.
 
-Gateway Definition:
-╰─ machine-user type:service version:1.5
-   ╰─ Bindings:
-      ╰─ mydb:3306 tcp mydb:3306 localhost 3306
+   You can create more services in the service network and bind more local services to expose those services on the service network.
+5. Forward a service from the service network to the local machine.
 
-```
-This shows that there is only one exposed service and that service is only exposing a single port (BIND). There are no ports forwarded to the local host.
+   ```bash
+   $ skupper gateway forward <service> <port>
+   ```
 
-The URL field shows the underlying communication and can be ignored.
+   where
 
-You can create more services in the service network and bind more local services to expose those services on the service network.
+   * `<service>` is the name of an existing service on the service network.
+   * `<port>` is the port on the local machine that you want to use.
 
-1. Forward a service from the service network to the local machine.
-
-```bash
-$ skupper gateway forward <service> <port>
-```
-
-where
-
-* `<service>` is the name of an existing service on the service network.
-* `<port>` is the port on the local machine that you want to use.
-
-<a name="exporting-gateway"></a>=== Creating a gateway and applying it on a different machine
+### Creating a gateway and applying it on a different machine
 
 If you have access to a cluster from one machine but want to create a gateway to the service network from a different machine, you can create the gateway definition bundle on the first machine and later apply that definition bundle on a second machine as described in this procedure.
 For example, if you want to expose a local database service to the service network, but you never want to access the cluster from the database server, you can use this procedure to create the definition bundle and apply it on the database server.
@@ -538,120 +530,115 @@ For example, if you want to expose a local database service to the service netwo
 1. Log into your cluster from the first machine and change to the namespace for your site.
 2. Create a service that can communicate on the service network:
 
-```bash
-$ skupper service create <name> <port>
-```
+   ```bash
+   $ skupper service create <name> <port>
+   ```
 
-where
+   where
 
-* `<name>` is the name of the service you want to create
-* `<port>` is the port the service uses
+   * `<name>` is the name of the service you want to create
+   * `<port>` is the port the service uses
 
-For example:
+   For example:
 
-```bash
-$ skupper service create database 5432
-```
+   ```bash
+   $ skupper service create database 5432
+   ```
+3. Create a YAML file to represent the service you want to expose, for example:
 
-1. Create a YAML file to represent the service you want to expose, for example:
+   ```yaml
+   name: database ①
+   bindings:
+       - name: database ②
+         host: localhost ③
+         service:
+           address: database:5432 ④
+           protocol: tcp ⑤
+           ports:
+               - 5432 ⑥
+         target_ports:
+           - 5432 ⑦
+   qdr-listeners:
+       - name: amqp
+         host: localhost
+         port: 5672
+   ```
+   1. Gateway name, useful for reference only.
+   2. Binding name, useful to track multiple bindings.
+   3. Name of host providing the service you want to expose.
+   4. Service name and port on service network. You created the service in a previous step.
+   5. The protocol you want to use to expose the service, `tcp`, `http` or `http2`.
+   6. The port on the service network that you want this service to be available on.
+   7. The port of the service running on the host specified in point 3.
+4. Save the YAML file using the name of the gateway, for example, `gateway.yaml`.
+5. Generate a bundle that can be applied to the machine that hosts the service you want to expose on the service network:
 
-```yaml
-name: database ①
-bindings:
-    - name: database ②
-      host: localhost ③
-      service:
-        address: database:5432 ④
-        protocol: tcp ⑤
-        ports:
-            - 5432 ⑥
-      target_ports:
-        - 5432 ⑦
-qdr-listeners:
-    - name: amqp
-      host: localhost
-      port: 5672
-```
-1. Gateway name, useful for reference only.
-2. Binding name, useful to track multiple bindings.
-3. Name of host providing the service you want to expose.
-4. Service name and port on service network. You created the service in a previous step.
-5. The protocol you want to use to expose the service, `tcp`, `http` or `http2`.
-6. The port on the service network that you want this service to be available on.
-7. The port of the service running on the host specified in point 3.
+   ```bash
+   $ skupper gateway generate-bundle <config-filename> <destination-directory>
+   ```
 
-1. Save the YAML file using the name of the gateway, for example, `gateway.yaml`.
-2. Generate a bundle that can be applied to the machine that hosts the service you want to expose on the service network:
+   where:
 
-```bash
-$ skupper gateway generate-bundle <config-filename> <destination-directory>
-```
+   * &lt;config-filename> - the name of the YAML file, including suffix, that you generated in the previous step.
+   * &lt;destination-directory> - the location where you want to save the resulting gateway bundle, for example `~/gateways`.
 
-where:
+   For example:
+   ```bash
+   $ skupper gateway generate-bundle database.yaml ./
+   ```
 
-* &lt;config-filename> - the name of the YAML file, including suffix, that you generated in the previous step.
-* &lt;destination-directory> - the location where you want to save the resulting gateway bundle, for example `~/gateways`.
+   This bundle contains the gateway definition YAML and a  certificate that allow access to the service network.
+6. Copy the gateway definition file, for example, `mylaptop-jdoe.tar.gz` to the machine that hosts the service you want to expose on the service network.
+7. From the machine that hosts the service you want to expose:
 
-For example:
-```bash
-$ skupper gateway generate-bundle database.yaml ./
-```
+   ```bash
+   $ mkdir gateway
 
-This bundle contains the gateway definition YAML and a  certificate that allow access to the service network.
+   $ tar -xvf <gateway-definition-file> --directory gateway
+   $ cd gateway
+   $ sh ./launch.py
+   ```
 
-1. Copy the gateway definition file, for example, `mylaptop-jdoe.tar.gz` to the machine that hosts the service you want to expose on the service network.
-2. From the machine that hosts the service you want to expose:
+   **📌 NOTE**\
+   Use `./launch.py -t podman` or `./launch.py -t docker` to run the Skupper router in a container.
 
-```bash
-$ mkdir gateway
+   Running the gateway bundle uses the gateway definition YAML and a certificate to access and expose the service on the service network.
+8. Check the status of the gateway service:
 
-$ tar -xvf <gateway-definition-file> --directory gateway
-$ cd gateway
-$ sh ./launch.py
-```
+   To check a _service_ type gateway:
+   ```bash
+   $ systemctl --user status <gateway-definition-name>
+   ```
 
-**📌 NOTE**\
-Use `./launch.py -t podman` or `./launch.py -t docker` to run the Skupper router in a container.
+   To check a _podman_ type gateway:
+   ```bash
+   $ podman inspect
+   ```
 
-Running the gateway bundle uses the gateway definition YAML and a certificate to access and expose the service on the service network.
+   To check a _docker_ type gateway:
+   ```bash
+   $ docker inspect
+   ```
 
-1. Check the status of the gateway service:
+   **📌 NOTE**\
+   You can later remove the gateway using `./remove.py`.
+9. From the machine with cluster access, check the status of Skupper gateways:
 
-To check a _service_ type gateway:
-```bash
-$ systemctl --user status <gateway-definition-name>
-```
-
-To check a _podman_ type gateway:
-```bash
-$ podman inspect
-```
-
-To check a _docker_ type gateway:
-```bash
-$ docker inspect
-```
-
-**📌 NOTE**\
-You can later remove the gateway using `./remove.py`.
-
-1. From the machine with cluster access, check the status of Skupper gateways:
-
-```bash
-$ skupper gateway status
-Gateway Definition:
-╰─ machine-user type:service version:1.5
-   ╰─ Bindings:
-      ╰─ mydb:3306 tcp mydb:3306 localhost 3306
-```
-This shows that there is only one exposed service and that service is only exposing a single port (BIND). There are no ports forwarded to the local host.
+   ```bash
+   $ skupper gateway status
+   Gateway Definition:
+   ╰─ machine-user type:service version:1.7
+      ╰─ Bindings:
+         ╰─ mydb:3306 tcp mydb:3306 localhost 3306
+   ```
+   This shows that there is only one exposed service and that service is only exposing a single port (BIND). There are no ports forwarded to the local host.
 
 **📌 NOTE**\
 If you need to change the gateway definition, for example to change port, you need to remove the existing gateway and repeat this procedure from the start to redefine the gateway.
 
-<a name="gateway-reference"></a>=== Gateway YAML reference
+### Gateway YAML reference
 
-The [exporting-gateway](#exporting-gateway) describes how to create a gateway to apply on a separate machine using a gateway definition YAML file.
+The [Creating a gateway and applying it on a different machine](#creating-a-gateway-and-applying-it-on-a-different-machine) describes how to create a gateway to apply on a separate machine using a gateway definition YAML file.
 
 The following are valid entries in a gateway definition YAML file.
 
@@ -708,7 +695,7 @@ Hostname for skupper router, typically `localhost`.
 * **qdr-listeners.port**\
 Port for skupper router, typically `5672`.
 
-<a name="network-service"></a>== Exploring a service network
+## Exploring a service network
 
 Skupper includes a command to allow you report all the sites and the services available on a service network.
 
@@ -717,57 +704,57 @@ Skupper includes a command to allow you report all the sites and the services av
 1. Set your Kubernetes context to a namespace on the service network.
 2. Use the following command to report the status of the service network:
 
-```bash
-$ skupper network status
-```
+   ```bash
+   $ skupper network status
+   ```
 
-For example:
+   For example:
 
-```
-Sites:
-├─ [local] a960b766-20bd-42c8-886d-741f3a9f6aa2(west) ①
-│  │ namespace: west
-│  │ site name: west ②
-│  │ version: 1.5.1 ③
-│  ╰─ Linked sites:
-│     ├─ 496ca1de-0c80-4e70-bbb4-d0d6ec2a09c0(east)
-│     │  direction: outgoing
-│     ╰─ 484cccc3-401c-4c30-a6ed-73382701b18a()
-│        direction: incoming
-├─ [remote] 496ca1de-0c80-4e70-bbb4-d0d6ec2a09c0(east) ④
-│  │ namespace: east
-│  │ site name: east
-│  │ version: 1.5.1
-│  ╰─ Linked sites:
-│     ╰─ a960b766-20bd-42c8-886d-741f3a9f6aa2(west) ⑤
-│        direction: incoming
-╰─ [remote] 484cccc3-401c-4c30-a6ed-73382701b18a() ⑥
-   │ site name: vm-user-c3d98
-   │ version: 1.5.1
-   ╰─ Linked sites:
-      ╰─ a960b766-20bd-42c8-886d-741f3a9f6aa2(west)
-         direction: outgoing
-```
+   ```
+   Sites:
+   ├─ [local] a960b766-20bd-42c8-886d-741f3a9f6aa2(west) ①
+   │  │ namespace: west
+   │  │ site name: west ②
+   │  │ version: 1.5.1 ③
+   │  ╰─ Linked sites:
+   │     ├─ 496ca1de-0c80-4e70-bbb4-d0d6ec2a09c0(east)
+   │     │  direction: outgoing
+   │     ╰─ 484cccc3-401c-4c30-a6ed-73382701b18a()
+   │        direction: incoming
+   ├─ [remote] 496ca1de-0c80-4e70-bbb4-d0d6ec2a09c0(east) ④
+   │  │ namespace: east
+   │  │ site name: east
+   │  │ version: 1.5.1
+   │  ╰─ Linked sites:
+   │     ╰─ a960b766-20bd-42c8-886d-741f3a9f6aa2(west) ⑤
+   │        direction: incoming
+   ╰─ [remote] 484cccc3-401c-4c30-a6ed-73382701b18a() ⑥
+      │ site name: vm-user-c3d98
+      │ version: 1.5.1
+      ╰─ Linked sites:
+         ╰─ a960b766-20bd-42c8-886d-741f3a9f6aa2(west)
+            direction: outgoing
+   ```
 
-1. The unique identifier of the site associated with the current context, that is, the `west` namespace
-2. The site name.
-By default, skupper uses the name of the current namespace.
-If you want to specify a site name, use `skupper init  --site-name <site-name>`.
-3. The version of Skupper running the site.
-The site version can be different from the current `skupper` CLI version.
-To update a site to the version of the CLI, use `skupper update`.
-4. The unique identifier of a remote site on the service network.
-5. The sites that the remote site is linked to.
-6. The unique identifier of a remote podman site. Podman sites do not have an associated context.
+   1. The unique identifier of the site associated with the current context, that is, the `west` namespace
+   2. The site name.
+   By default, skupper uses the name of the current namespace.
+   If you want to specify a site name, use `skupper init  --site-name <site-name>`.
+   3. The version of Skupper running the site.
+   The site version can be different from the current `skupper` CLI version.
+   To update a site to the version of the CLI, use `skupper update`.
+   4. The unique identifier of a remote site on the service network.
+   5. The sites that the remote site is linked to.
+   6. The unique identifier of a remote podman site. Podman sites do not have an associated context.
 
-<a name="built-in-security-options"></a>== Securing a service network
+## Securing a service network
 
 Skupper provides default, built-in security that scales across clusters and clouds.
 This section describes additional security you can configure.
 
 See [Securing a service network using policies](../policy/index.html) for information about creating granular policies for each cluster.
 
-<a name="network-policy"></a>=== Restricting access to services using a Kubernetes network policy
+### Restricting access to services using a Kubernetes network policy
 
 By default, if you expose a service on the service network, that service is also accessible from other namespaces in the cluster.
 You can avoid this situation when creating a site using the `--create-network-policy` option.
@@ -779,17 +766,17 @@ You can avoid this situation when creating a site using the `--create-network-po
    ```
 2. Check the site status:
 
-```bash
-$ skupper status
-```
-The output should be similar to the following:
-```
-Skupper enabled for namespace 'west'. It is not connected to any other sites.
-```
+   ```bash
+   $ skupper status
+   ```
+   The output should be similar to the following:
+   ```
+   Skupper enabled for namespace 'west'. It is not connected to any other sites.
+   ```
 
 You can now expose services on the service network and those services are not accessible from other namespaces in the cluster.
 
-<a name="tls"></a>=== Applying TLS to TCP or HTTP2 traffic on the service network
+### Applying TLS to TCP or HTTP2 traffic on the service network
 
 By default, the traffic between sites is encrypted, however the traffic between the service pod and the router pod is not encrypted.
 For services exposed as TCP or HTTP2, the traffic between the pod and the router pod can be encrypted using TLS.
@@ -800,43 +787,41 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 1. Deploy your backend service.
 2. Expose your backend deployment on the service network, enabling TLS.
 
-For example, if you want to expose a TCP service:
+   For example, if you want to expose a TCP service:
 
-```bash
-$ skupper expose deployment <deployment-name> --port 443 --enable-tls
-```
+   ```bash
+   $ skupper expose deployment <deployment-name> --port 443 --enable-tls
+   ```
 
-Enabling TLS creates the necessary certificates required for TLS backends and stores them in a secret named `skupper-tls-<deployment-name>`.
+   Enabling TLS creates the necessary certificates required for TLS backends and stores them in a secret named `skupper-tls-<deployment-name>`.
+3. Modify the backend deployment to include the generated certificates, for example:
 
-1. Modify the backend deployment to include the generated certificates, for example:
+   ```yaml
+   ...
+       spec:
+         containers:
+         ...
+           command:
+           ...
+           - "/certs/tls.key"
+           - "/certs/tls.crt"
+           ...
+           volumeMounts:
+           ...
+           - mountPath: /certs
+             name: certs
+             readOnly: true
+         volumes:
+         - name: index-html
+           configMap:
+             name: index-html
+         - name: certs
+           secret:
+             secretName: skupper-tls-<deployment-name>
+   ```
 
-```yaml
-...
-    spec:
-      containers:
-      ...
-        command:
-        ...
-        - "/certs/tls.key"
-        - "/certs/tls.crt"
-        ...
-        volumeMounts:
-        ...
-        - mountPath: /certs
-          name: certs
-          readOnly: true
-      volumes:
-      - name: index-html
-        configMap:
-          name: index-html
-      - name: certs
-        secret:
-          secretName: skupper-tls-<deployment-name>
-```
-
-Each site creates the necessary certificates required for TLS clients and stores them in a secret named `skupper-service-client`.
-
-1. Modify the frontend deployment to include the generated certificates, for example:
+   Each site creates the necessary certificates required for TLS clients and stores them in a secret named `skupper-service-client`.
+4. Modify the frontend deployment to include the generated certificates, for example:
 
    ```yaml
    spec:
@@ -854,9 +839,9 @@ Each site creates the necessary certificates required for TLS clients and stores
              secretName: skupper-service-client
 
    ```
-2. Test calling the service from a TLS enabled frontend.
+5. Test calling the service from a TLS enabled frontend.
 
-<a name="protocols"></a>== Supported standards and protocols
+## Supported standards and protocols
 
 Skupper supports the following protocols for your service network:
 
@@ -884,9 +869,9 @@ When choosing which protocol to specify, note the following:
 
   TCP is implemented as a single streamed message, whereas HTTP1 and HTTP2 are implemented as request/response message routing.
 
-<a name="cli-global-options"></a>== CLI options
+## CLI options
 
-For a full list of options, see the [Skupper Kubernetes CLI reference](../kubernetes-reference/index.html) and [Skupper Podman CLI reference](../podman-reference/index.html) documentation.
+For a full list of options, see the [Skupper Kubernetes CLI reference](https://skupper.io/docs/kubernetes-reference/index.html) and [Skupper Podman CLI reference](https://skupper.io/docs/kubernetes-reference/index.html) documentation.
 
 <dl><dt><strong>⚠️ WARNING</strong></dt><dd>
 

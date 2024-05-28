@@ -257,7 +257,7 @@ For example:</p>
 <pre><code>$ skupper gateway status
 
 Gateway Definition:
-╰─ machine-user type:podman version:1.5
+╰─ machine-user type:podman version:1.7
    ╰─ Bindings:
       ╰─ mydb:3306 tcp mydb:3306 localhost 3306
 
@@ -267,7 +267,7 @@ Gateway Definition:
 <li><p>Check that the container is running:</p>
 <pre><code>$ podman ps
 CONTAINER ID  IMAGE                                           COMMAND               CREATED         STATUS             PORTS                   NAMES
-4e308ef8ee58  quay.io/skupper/skupper-router:1.5             /home/skrouterd/b...  26 seconds ago  Up 27 seconds ago                          machine-user
+4e308ef8ee58  quay.io/skupper/skupper-router:1.7             /home/skrouterd/b...  26 seconds ago  Up 27 seconds ago                          machine-user
 
 </code></pre>
 <p>This shows the container running.</p>
@@ -405,7 +405,7 @@ Enter the following command:</p>
 </code></pre>
 <dl><dt><strong>📌 NOTE</strong></dt><dd>
 
-<p>See the <a href="../podman-reference/index.html">Skupper Podman CLI reference</a> documentation for <code>skupper init</code>.</p>
+<p>See the <a href="https://skupper.io/docs/kubernetes-reference/index.html">Skupper Podman CLI reference</a> documentation for <code>skupper init</code>.</p>
 </dd></dl>
 
 </li>

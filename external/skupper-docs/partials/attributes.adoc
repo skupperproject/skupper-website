@@ -1,6 +1,6 @@
 :service-network: service network
-:skupper-cli-version: 1.5
-:service-version: 1.5
+:skupper-cli-version: 1.7
+:service-version: 1.7
 
 :policy-link: ../policy/index.html[Securing a service network using policies]
 :console-link: ../console/index.html[Using the Skupper console]
@@ -12,8 +12,8 @@
 :routing-link: ../overview/routing.html[Routing]
 :connectivity-link: ../overview/connectivity.html[Connectivity]
 :glossary-link: ../overview/glossary.html[Glossary]
-:kube-ref-link: ../kubernetes-reference/index.html[Skupper Kubernetes CLI reference]
-:pod-ref-link: ../podman-reference/index.html[Skupper Podman CLI reference]
+:kube-ref-link: https://skupper.io/docs/kubernetes-reference/index.html[Skupper Kubernetes CLI reference]
+:pod-ref-link: https://skupper.io/docs/kubernetes-reference/index.html[Skupper Podman CLI reference]
 :cost-link: ../cli/index.html#specifying-link-cost[Specifying link cost]
 
 
