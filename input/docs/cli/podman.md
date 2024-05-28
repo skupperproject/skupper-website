@@ -80,13 +80,34 @@ See [Using the Skupper CLI](../cli/index.html) for information about using the S
      ```
   2. Create a Skupper site:
 
-     The simplest Skupper site allows you to link to other sites, but does not support linking _to_ the current site.
+     Use the following command to create a site where tokens are created to link on any network interface:
 
      ```bash
      $ skupper init
+     ```
 
+     **📌 NOTE**\
+     By default, this command times out after 2 minutes for podman sites.
+     You can increase the time with the `--timeout` option.
+
+     The following output is displayed:
+
+     ```bash
      It is recommended to enable lingering for <username>, otherwise Skupper may not start on boot.
      Skupper is now installed for user '<username>'.  Use 'skupper status' to get more information.
+     ```
+
+     Use the following command to start the site service at system start and persist over logouts:
+
+     ```bash
+     # loginctl enable-linger <username>
+     ```
+
+     By default, `skupper init` tries to include all IP addresses associated with local network interfaces as valid ingress hosts.
+     You can use `--ingress-host <IP/Hostname>` to restrict token ingress to a specific network context:
+
+     ```bash
+     $ skupper init --ingress-host my-cloud-vm.example.com
      ```
 
      If you do not require that other sites can link to the site you are creating:
@@ -128,13 +149,11 @@ Linking two sites requires a single initial directional connection. However:
    $ skupper token create <filename>
    ```
 
-   The `metadata` section of the resulting YAML file shows which interface is available for linking.
-
-   To specify the interface, use `ifconfig` to determine the IP address of the interface you want to use.
-   You can then specify that IP address when creating the token:
+   If you created the site  without specifying an `ingress-host`, the token is valid for all network contexts.
+   You can use `--ingress-host <IP/Hostname>` to restrict token ingress to a specific network context:
 
    ```bash
-   $ skupper token create <filename> --ingress-host <IP Address>
+   $ skupper token create <filename> --ingress-host <IP/Hostname>
    ```
 2. Create a link from the other site:
 

@@ -129,16 +129,21 @@ If the output is not what you expected, you might want to <a href="#checking-lin
 <li>Details for each site, for example the namespace names.</li>
 </ul>
 </li>
-<li><p>Check the status of services exposed on the service network:</p>
-<pre><code class="language-bash">$ skupper service status
+<li><p>Check the status of services exposed on the service network (<code>-v</code> is only available on Kubernetes):</p>
+<pre><code class="language-bash">$ skupper service status -v
 Services exposed through Skupper:
-╰─ backend (tcp port 8080)
-   ╰─ Targets:
-      ╰─ app=backend name=backend
+╰─ backend:8080 (tcp)
+   ╰─ Sites:
+      ├─ 4d80f485-52fb-4d84-b10b-326b96e723b2(west)
+      │  policy: disabled
+      ╰─ 316fbe31-299b-490b-9391-7b46507d76f1(east)
+         │ policy: disabled
+         ╰─ Targets:
+            ╰─ backend:8080 name=backend-9d84544df-rbzjx
 </code></pre>
 <p>The output shows the <code>backend</code> service and the related target of that service.</p>
 <p><strong>📌 NOTE</strong><br />
-The related targets for services are only displayed when the target is available on the current cluster.</p>
+As part of output each site reports the status of the policy system on that cluster.</p>
 </li>
 <li><p>List the Skupper events for a site:</p>
 <pre><code class="language-bash">$ skupper debug events

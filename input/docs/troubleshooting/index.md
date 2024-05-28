@@ -63,20 +63,25 @@ Using the `skupper` command-line interface (CLI) provides a simple method to get
 
    * There are 3 sites on the service network, `vm-user-c3d98`, `east` and `west`.
    * Details for each site, for example the namespace names.
-3. Check the status of services exposed on the service network:
+3. Check the status of services exposed on the service network (`-v` is only available on Kubernetes):
 
    ```bash
-   $ skupper service status
+   $ skupper service status -v
    Services exposed through Skupper:
-   ╰─ backend (tcp port 8080)
-      ╰─ Targets:
-         ╰─ app=backend name=backend
+   ╰─ backend:8080 (tcp)
+      ╰─ Sites:
+         ├─ 4d80f485-52fb-4d84-b10b-326b96e723b2(west)
+         │  policy: disabled
+         ╰─ 316fbe31-299b-490b-9391-7b46507d76f1(east)
+            │ policy: disabled
+            ╰─ Targets:
+               ╰─ backend:8080 name=backend-9d84544df-rbzjx
    ```
 
    The output shows the `backend` service and the related target of that service.
 
    **📌 NOTE**\
-   The related targets for services are only displayed when the target is available on the current cluster.
+   As part of output each site reports the status of the policy system on that cluster.
 4. List the Skupper events for a site:
 
    ```bash

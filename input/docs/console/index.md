@@ -49,10 +49,19 @@ The credential prompt depends on how the site was created using `skupper init`:
    * Using the `--console-auth openshift` option, you are prompted to enter OpenShift cluster credentials.
    * Using the default or `--console-user <user>  --console-password <password>` options, you are prompted to enter those credentials.
 3. If you created the site using default settings, that is `skupper init`, a random password is generated for the `admin` user.
-To retrieve the password the `admin` user:
 
+   To retrieve the password the `admin` user for a Kubernetes site:
+   +
    ```
    $ kubectl get secret skupper-console-users -o jsonpath={.data.admin} | base64 -d
+
+   JNZWzMHtyg
+   ```
+
+   To retrieve the password the `admin` user for a Podman site:
+   +
+   ```
+   $ cat ~/.local/share/containers/storage/volumes/skupper-console-users/_data/admin
 
    JNZWzMHtyg
    ```

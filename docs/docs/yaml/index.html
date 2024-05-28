@@ -151,7 +151,8 @@ data:
 </ol>
 <p>See the <a href="#site-configmap-yaml-reference">Site ConfigMap YAML reference</a> section for more reference.</p>
 <h2 id="linking-sites-using-yaml">Linking sites using YAML</h2>
-<p>While it is not possible to declaratively link sites, you can create a token using YAML.</p>
+<p>While it is not possible to declaratively link sites, you can create a token using YAML.
+Only use this procedure to create links if the Skupper CLI is not available in your environment.</p>
 <ul>
 <li>Skupper is installed on the clusters you want to link.</li>
 <li>You are logged into the cluster.</li>
@@ -166,6 +167,8 @@ kind: Secret
 metadata:
   labels:
     skupper.io/type: connection-token-request
+  annotations:
+    skupper.io/cost: &quot;2&quot;
   name: secret-name
 </code></pre>
 </li>
@@ -188,6 +191,8 @@ metadata:
 </code></pre>
 </li>
 </ol>
+<p>Skupper recommends using the CLI to create links.</p>
+<p>A future release of Skupper will provide an alternative declarative method to create links.</p>
 <h2 id="configuring-services-using-annotations">Configuring services using annotations</h2>
 <p>After creating and linking sites, you can use Kubernetes annotations to control which services are available on the service network.</p>
 <h3 id="exposing-simple-services-on-a-service-network-using-annotations">Exposing simple services on a service network using annotations</h3>
@@ -226,11 +231,16 @@ For example, if you want to expose the <code>backend</code> service:</p>
 
 </li>
 <li><p>Check that you have exposed the service:</p>
-<pre><code class="language-bash">$ skupper service status
+<pre><code class="language-bash">$ skupper service status -v
 Services exposed through Skupper:
-╰─ backend (tcp port 8080)
-   ╰─ Targets:
-      ╰─ app=hello-world-backend name=hello-world-backend
+╰─ backend:8080 (tcp)
+   ╰─ Sites:
+      ├─ 4d80f485-52fb-4d84-b10b-326b96e723b2(west)
+      │  policy: disabled
+      ╰─ 316fbe31-299b-490b-9391-7b46507d76f1(east)
+         │ policy: disabled
+         ╰─ Targets:
+            ╰─ backend:8080 name=backend-9d84544df-rbzjx
 </code></pre>
 <p><strong>📌 NOTE</strong><br />
 The related targets for services are only displayed when the target is available on the current cluster.</p>
@@ -287,35 +297,45 @@ Applies to:<ul>
 <p>The following YAML defines a Skupper site:</p>
 <pre><code class="language-yaml">apiVersion: v1
 data:
-  name: my-site //&lt;.&gt;
-  console: &quot;true&quot; //&lt;.&gt;
-  flow-collector: &quot;true&quot; //&lt;.&gt;
-  console-authentication: internal //&lt;.&gt;
-  console-user: &quot;username&quot; //&lt;.&gt;
-  console-password: &quot;password&quot; //&lt;.&gt;
-  cluster-local: &quot;false&quot; //&lt;.&gt;
-  edge: &quot;false&quot; //&lt;.&gt;
-  service-sync: &quot;true&quot; //&lt;.&gt;
-  ingress: &quot;none&quot; //&lt;.&gt;
+  name: my-site
+  console: &quot;true&quot;
+  flow-collector: &quot;true&quot;
+  console-authentication: internal
+  console-user: &quot;username&quot;
+  console-password: &quot;password&quot;
+  cluster-local: &quot;false&quot;
+  edge: &quot;false&quot;
+  service-sync: &quot;true&quot;
+  ingress: &quot;none&quot;
 kind: ConfigMap
 metadata:
   name: skupper-site
 </code></pre>
-<ol>
-<li>Specifies the site name.</li>
-<li>Enables the skupper console, defaults to <code>false</code>.
+<ul>
+<li><strong>name</strong><br />
+Specifies the site name.</li>
+<li><strong>console</strong><br />
+Enables the skupper console, defaults to <code>false</code>.
 NOTE: You must enable <code>console</code> and <code>flow-collector</code> for the console to function.</li>
-<li>Enables the flow collector, defaults to <code>false</code>.</li>
-<li>Specifies the skupper console authentication method. The options are <code>openshift</code>, <code>internal</code>, <code>unsecured</code>.</li>
-<li>Username for the <code>internal</code> authentication option.</li>
-<li>Password for the <code>internal</code> authentication option.</li>
-<li>Only accept connections from within the local cluster, defaults to <code>false</code>.</li>
-<li>Specifies whether an edge site is created, defaults to <code>false</code>.</li>
-<li>Specifies whether the services are synchronized across the service network, defaults to <code>true</code>.</li>
-<li>Specifies whether the site supports ingress.
+<li><strong>flow-collector</strong><br />
+Enables the flow collector, defaults to <code>false</code>.</li>
+<li><strong>console-authentication</strong><br />
+Specifies the skupper console authentication method. The options are <code>openshift</code>, <code>internal</code>, <code>unsecured</code>.</li>
+<li><strong>console-user</strong><br />
+Username for the <code>internal</code> authentication option.</li>
+<li><strong>console-password</strong><br />
+Password for the <code>internal</code> authentication option.</li>
+<li><strong>cluster-local</strong><br />
+Only accept connections from within the local cluster, defaults to <code>false</code>.</li>
+<li><strong>edge</strong><br />
+Specifies whether an edge site is created, defaults to <code>false</code>.</li>
+<li><strong>service-sync</strong><br />
+Specifies whether the services are synchronized across the service network, defaults to <code>true</code>.</li>
+<li><strong>ingress</strong><br />
+Specifies whether the site supports ingress.
 If you do not specify a value, the default ingress ('loadbalancer' on Kubernetes, 'route' on OpenShift) is enabled.
 This allows you to create tokens usable from remote sites.</li>
-</ol>
+</ul>
 <p><strong>📌 NOTE</strong><br />
 All ingress types are supported using the same parameters as the <code>skupper</code> CLI.</p>
 <h3 id="yaml-for-watching-current-namespace">YAML for watching current namespace</h3>

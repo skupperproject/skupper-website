@@ -25,6 +25,7 @@ This enables you to configure a preference for one resource over another.
 If demand is normal, you can keep all traffic on your private cloud.
 If demand peaks, you can dynamically spill over to public cloud resources.
 
+See [Specifying link cost](../cli/index.html#specifying-link-cost) for more information.
 ## Reliable networks
 
 Skupper uses redundant network paths and smart routing to provide highly available connectivity at scale.

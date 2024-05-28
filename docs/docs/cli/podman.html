@@ -138,11 +138,22 @@ podman
 </code></pre>
 </li>
 <li><p>Create a Skupper site:</p>
-<p>The simplest Skupper site allows you to link to other sites, but does not support linking <em>to</em> the current site.</p>
+<p>Use the following command to create a site where tokens are created to link on any network interface:</p>
 <pre><code class="language-bash">$ skupper init
-
-It is recommended to enable lingering for &lt;username&gt;, otherwise Skupper may not start on boot.
+</code></pre>
+<p><strong>📌 NOTE</strong><br />
+By default, this command times out after 2 minutes for podman sites.
+You can increase the time with the <code>--timeout</code> option.</p>
+<p>The following output is displayed:</p>
+<pre><code class="language-bash">It is recommended to enable lingering for &lt;username&gt;, otherwise Skupper may not start on boot.
 Skupper is now installed for user '&lt;username&gt;'.  Use 'skupper status' to get more information.
+</code></pre>
+<p>Use the following command to start the site service at system start and persist over logouts:</p>
+<pre><code class="language-bash"># loginctl enable-linger &lt;username&gt;
+</code></pre>
+<p>By default, <code>skupper init</code> tries to include all IP addresses associated with local network interfaces as valid ingress hosts.
+You can use <code>--ingress-host &lt;IP/Hostname&gt;</code> to restrict token ingress to a specific network context:</p>
+<pre><code class="language-bash">$ skupper init --ingress-host my-cloud-vm.example.com
 </code></pre>
 <p>If you do not require that other sites can link to the site you are creating:</p>
 <pre><code class="language-bash">$ skupper init --ingress none
@@ -175,10 +186,9 @@ This section describes how to link sites to form a service network.</p>
 <li><p>Generate a token on one site:</p>
 <pre><code class="language-bash">$ skupper token create &lt;filename&gt;
 </code></pre>
-<p>The <code>metadata</code> section of the resulting YAML file shows which interface is available for linking.</p>
-<p>To specify the interface, use <code>ifconfig</code> to determine the IP address of the interface you want to use.
-You can then specify that IP address when creating the token:</p>
-<pre><code class="language-bash">$ skupper token create &lt;filename&gt; --ingress-host &lt;IP Address&gt;
+<p>If you created the site  without specifying an <code>ingress-host</code>, the token is valid for all network contexts.
+You can use <code>--ingress-host &lt;IP/Hostname&gt;</code> to restrict token ingress to a specific network context:</p>
+<pre><code class="language-bash">$ skupper token create &lt;filename&gt; --ingress-host &lt;IP/Hostname&gt;
 </code></pre>
 </li>
 <li><p>Create a link from the other site:</p>

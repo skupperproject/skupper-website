@@ -119,9 +119,16 @@ The credential prompt depends on how the site was created using <code>skupper in
 <li>Using the default or <code>--console-user &lt;user&gt;  --console-password &lt;password&gt;</code> options, you are prompted to enter those credentials.</li>
 </ul>
 </li>
-<li><p>If you created the site using default settings, that is <code>skupper init</code>, a random password is generated for the <code>admin</code> user.
-To retrieve the password the <code>admin</code> user:</p>
+<li><p>If you created the site using default settings, that is <code>skupper init</code>, a random password is generated for the <code>admin</code> user.</p>
+<p>To retrieve the password the <code>admin</code> user for a Kubernetes site:
++</p>
 <pre><code>$ kubectl get secret skupper-console-users -o jsonpath={.data.admin} | base64 -d
+
+JNZWzMHtyg
+</code></pre>
+<p>To retrieve the password the <code>admin</code> user for a Podman site:
++</p>
+<pre><code>$ cat ~/.local/share/containers/storage/volumes/skupper-console-users/_data/admin
 
 JNZWzMHtyg
 </code></pre>

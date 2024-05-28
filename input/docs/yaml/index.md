@@ -84,6 +84,7 @@ See the [Site ConfigMap YAML reference](#site-configmap-yaml-reference) section 
 ## Linking sites using YAML
 
 While it is not possible to declaratively link sites, you can create a token using YAML.
+Only use this procedure to create links if the Skupper CLI is not available in your environment.
 
 * Skupper is installed on the clusters you want to link.
 * You are logged into the cluster.
@@ -98,6 +99,8 @@ This site must have `ingress` enabled.
    metadata:
      labels:
        skupper.io/type: connection-token-request
+     annotations:
+       skupper.io/cost: "2"
      name: secret-name
    ```
 3. Apply the YAML to the namespace to create a secret.
@@ -121,6 +124,10 @@ This site must have `ingress` enabled.
    ```bash
    $ skupper link status --wait 60
    ```
+
+Skupper recommends using the CLI to create links.
+
+A future release of Skupper will provide an alternative declarative method to create links.
 
 ## Configuring services using annotations
 
@@ -169,11 +176,16 @@ This section provides an alternative to the `skupper expose` command, allowing y
 4. Check that you have exposed the service:
 
    ```bash
-   $ skupper service status
+   $ skupper service status -v
    Services exposed through Skupper:
-   ╰─ backend (tcp port 8080)
-      ╰─ Targets:
-         ╰─ app=hello-world-backend name=hello-world-backend
+   ╰─ backend:8080 (tcp)
+      ╰─ Sites:
+         ├─ 4d80f485-52fb-4d84-b10b-326b96e723b2(west)
+         │  policy: disabled
+         ╰─ 316fbe31-299b-490b-9391-7b46507d76f1(east)
+            │ policy: disabled
+            ╰─ Targets:
+               ╰─ backend:8080 name=backend-9d84544df-rbzjx
    ```
 
    **📌 NOTE**\
@@ -224,32 +236,42 @@ The following YAML defines a Skupper site:
 ```yaml
 apiVersion: v1
 data:
-  name: my-site //<.>
-  console: "true" //<.>
-  flow-collector: "true" //<.>
-  console-authentication: internal //<.>
-  console-user: "username" //<.>
-  console-password: "password" //<.>
-  cluster-local: "false" //<.>
-  edge: "false" //<.>
-  service-sync: "true" //<.>
-  ingress: "none" //<.>
+  name: my-site
+  console: "true"
+  flow-collector: "true"
+  console-authentication: internal
+  console-user: "username"
+  console-password: "password"
+  cluster-local: "false"
+  edge: "false"
+  service-sync: "true"
+  ingress: "none"
 kind: ConfigMap
 metadata:
   name: skupper-site
 ```
 
-1. Specifies the site name.
-2. Enables the skupper console, defaults to `false`.
+* **name**\
+Specifies the site name.
+* **console**\
+Enables the skupper console, defaults to `false`.
 NOTE: You must enable `console` and `flow-collector` for the console to function.
-3. Enables the flow collector, defaults to `false`.
-4. Specifies the skupper console authentication method. The options are `openshift`, `internal`, `unsecured`.
-5. Username for the `internal` authentication option.
-6. Password for the `internal` authentication option.
-7. Only accept connections from within the local cluster, defaults to `false`.
-8. Specifies whether an edge site is created, defaults to `false`.
-9. Specifies whether the services are synchronized across the service network, defaults to `true`.
-10. Specifies whether the site supports ingress.
+* **flow-collector**\
+Enables the flow collector, defaults to `false`.
+* **console-authentication**\
+Specifies the skupper console authentication method. The options are `openshift`, `internal`, `unsecured`.
+* **console-user**\
+Username for the `internal` authentication option.
+* **console-password**\
+Password for the `internal` authentication option.
+* **cluster-local**\
+Only accept connections from within the local cluster, defaults to `false`.
+* **edge**\
+Specifies whether an edge site is created, defaults to `false`.
+* **service-sync**\
+Specifies whether the services are synchronized across the service network, defaults to `true`.
+* **ingress**\
+Specifies whether the site supports ingress.
 If you do not specify a value, the default ingress ('loadbalancer' on Kubernetes, 'route' on OpenShift) is enabled.
 This allows you to create tokens usable from remote sites.
 
