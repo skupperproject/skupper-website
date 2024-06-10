@@ -19,6 +19,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
       <a href="overview/security.html">Security</a>
       <a href="overview/connectivity.html">Connectivity</a>
       <a href="overview/routing.html">Routing</a>
+      <a href="overview/load.html">Load balancing</a>
       <a href="/start/index.html">Getting started</a>
     </nav>
   </div>
