@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Skupper - Deployment options on Kubernetes</title>
+    <title>Skupper - Skupper load balancing and failover</title>
     <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
@@ -58,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/kubernetes/deployment-concerns.html">Deployment options on Kubernetes</a></div></nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/overview/index.html">Skupper overview</a> <span class="path-separator">&#8250;</span> <a href="/docs/overview/load.html">Skupper load balancing and failover</a></div></nav>
   <nav id="-site-menu-layer" style="display: none;">
     <div>
       <a href="/index.html">Home</a>
@@ -75,84 +75,30 @@
   <div>
     <main>
 
-<h1 id="deployment-options-on-kubernetes">Deployment options on Kubernetes</h1>
-<p>When you create a site on Kubernetes, there are many options you can use.  For example, you can set the number of pods and the resources allocated to each pod.
-This guide focusses on the following goals:</p>
+<h1 id="skupper-load-balancing-and-failover">Skupper load balancing and failover</h1>
+<p>Skupper enables load balancing and failover across servers located across the service network.
+Specifically, Skupper balances <strong>active TCP connections</strong> across workloads deployed in distinct sites.
+If a workload at one site becomes unavailable, traffic is automatically rerouted to available sites.
+For example, if you deploy the same backend code on two sites and expose the backend on the service network, concurrent requests from a third site to the backend service are processed by both sites.</p>
+<p>In a service network, the routing algorithm attempts to use the path with the lowest total <strong>cost</strong> from client to target server.</p>
+<h2 id="understanding-link-cost">Understanding link cost</h2>
+<p>Link cost is a configurable value when creating links between sites.
+In the earlier example, the link cost from the client to each server is the same by default (1).
+However, if one server is more powerful and has better latency, it processes TCP requests more quickly, resulting in more traffic being directed to that server.
+Skupper determines the perceived cost with the context of knowing the configured cost and the current number of open TCP connections and  directs traffic to the server with the lowest cost.</p>
 <ul>
-<li><a href="#scaling-for-increased-traffic">Scaling for increased traffic</a></li>
-<li><a href="#creating-a-high-availability-site">Creating a high availability site</a></li>
+<li>Local workloads have a link cost of 0.</li>
+<li>If connecting to a workload requires traversing two or more links, the total of all link costs constitutes the link cost.</li>
 </ul>
-<h2 id="scaling-for-increased-traffic">Scaling for increased traffic</h2>
-<p>For optimal network latency and throughput, you can adjust the CPU allocation for the router using the <code>router-cpu</code> option.
-Router CPU is the primary factor governing Skupper network performance.</p>
 <p><strong>📌 NOTE</strong><br />
-Increasing the number of routers does not improve network performance.  An incoming router-to-router link is associated with just one active router.  Additional routers do not receive traffic while that router is responding</p>
-<ol>
-<li><p>Determine the router CPU allocation you require.</p>
-<p>By default, the router CPU allocation is <code>BestEffort</code> as described in <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#besteffort">Pod Quality of Service Classes</a>.</p>
-<p>Consider the following CPU allocation options:</p>
-</li>
-</ol>
-<table>
-<thead>
-<tr>
-  <th>Router CPU</th>
-  <th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td>1</td>
-  <td>Helps avoid issues with <code>BestEffort</code> on low resource clusters</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td>Suitable for production environments</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td>Maximum performance</td>
-</tr>
-</tbody>
-</table>
-<ol start="2">
-<li><p>If you are using the Skupper CLI, set the CPU allocation for the router using the <code>--router-cpu</code> option.  For example:</p>
-<pre><code class="language-bash">$ skupper init --router-cpu 2
-</code></pre>
-</li>
-<li><p>If you are using YAML, set the CPU allocation for the router by setting a value for the <code>router-cpu</code> attribute.  For example:</p>
-<pre><code class="language-YAML">apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: &quot;skupper-site&quot;
-data:
-  name: &quot;my-site&quot;
-  router-cpu: 2
-</code></pre>
-</li>
-</ol>
-<h2 id="creating-a-high-availability-site">Creating a high availability site</h2>
-<p>By default, Kubernetes restarts any router that becomes unresponsive.
-(If you encounter router restarts, consider <a href="#scaling-for-increased-traffic">Scaling for increased traffic</a> in order to improve responsiveness.)</p>
-<p>If the cluster where you are running Skupper is very busy, it may take time for Kubernetes to schedule a new router pod.  You can &quot;preschedule&quot; a backup router by deploying two routers in a site.</p>
-<ol>
-<li><p>If you are using the Skupper CLI, set the number of routers to <code>2</code> using the <code>--routers</code> option:</p>
-<pre><code class="language-bash">$ skupper init --routers 2
-</code></pre>
-</li>
-<li><p>If you are using YAML, set the number of routers to <code>2</code> by setting the <code>routers</code> attribute:</p>
-<pre><code class="language-YAML">apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: &quot;skupper-site&quot;
-data:
-  name: &quot;my-site&quot;
-  routers: 2
-</code></pre>
-</li>
-</ol>
-<p>Setting the number of routers to more than two does not provide increased availability and can adversely affect performance.</p>
-<p>Note: Clients must reconnect when a router restarts or traffic is redirected to a backup router.</p>
+Traffic load is based on the number of concurrent TCP connections, so 'round robin' behavior should not be expected.</p>
+<h2 id="using-skupper-load-balancing-to-achieve-failover">Using Skupper load balancing to achieve failover</h2>
+<p>You can configure the network so that a specific location handles all traffic until failure.
+After failure at that location, all traffic is handled by a different location.
+To achieve this behavior, you set the cost from the client to the backup server high, for example 9999,  as described in ../cli/index.html#specifying-link-cost[Specifying link cost].</p>
+<p><strong>📌 NOTE</strong><br />
+Link cost is configured for all services between two sites.
+It is currently not possible to set different costs for distinct services.</p>
 
 
     </main>

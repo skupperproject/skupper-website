@@ -96,8 +96,7 @@ NOTE: If you want to use a different namespace, you need to edit the referenced 
    ```
 
    **📌 NOTE**\
-   The console is a preview feature and may change before becoming fully supported by [skupper.io](https://skupper.io).
-   Currently, you must enable the console on the same site as you enable the flow collector. This requirement may change before the console is fully supported by [skupper.io](https://skupper.io).
+   Currently, you must enable the console on the same site as you enable the flow collector.
 
    You can also create a site without a console:
 

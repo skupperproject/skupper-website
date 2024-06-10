@@ -71,5 +71,4 @@ If the cluster where you are running Skupper is very busy, it may take time for 
 
 Setting the number of routers to more than two does not provide increased availability and can adversely affect performance.
 
-Note that clients must reconnect when a router restarts or traffic is
-redirected to a backup router.
+Note: Clients must reconnect when a router restarts or traffic is redirected to a backup router.
