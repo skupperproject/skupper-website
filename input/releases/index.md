@@ -28,6 +28,7 @@ Skupper](/install/index.html).
 
 * [1.5.4](https://github.com/skupperproject/skupper/releases/tag/1.5.4) - 7 June 2024
 * [1.4.5](https://github.com/skupperproject/skupper/releases/tag/1.4.5) - 7 June 2024
+* [1.7.0](https://github.com/skupperproject/skupper/releases/tag/1.7.0) - 2 May 2024
 * [1.6.0](https://github.com/skupperproject/skupper/releases/tag/1.6.0) - 21 February 2024
 * [1.5.3](https://github.com/skupperproject/skupper/releases/tag/1.5.3) - 17 January 2024
 * [1.5.2](https://github.com/skupperproject/skupper/releases/tag/1.5.2) - 8 January 2024
