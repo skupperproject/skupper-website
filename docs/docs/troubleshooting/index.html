@@ -364,6 +364,73 @@ See the <code>skupper-service-controller-*-events.txt</code> file to view detail
 </ul>
 </li>
 </ol>
+<h2 id="understanding-skupper-sizing">Understanding Skupper sizing</h2>
+<p>In September 2023, a number of tests were performed to explore Skupper performance at varying allocations of router CPU.
+You can view the results in the <a href="https://access.redhat.com/solutions/7074294">sizing guide</a>.</p>
+<p>The conclusions for router CPU and memory are shown below.</p>
+<p>The primary factor to consider when scaling Skupper for your workload is router CPU.  (Note that due to the nature of cluster ingress and connection routing, it is important to focus on scaling the router vertically, not horizontally.)</p>
+<p>Two CPU cores (2,000 millicores) per router is a good starting point. It includes some headroom and provides low latencies for a large set of workloads.</p>
+<p>If the peak throughput required by your workload is low, it is possible to achieve satisfactory latencies with less router CPU.</p>
+<p>Some workloads are sensitive to network latency. In these cases, the overhead introduced by the router can limit the achievable throughput. This is when CPU amounts higher than two cores per router may be required.</p>
+<p>On the flip side, some workloads are tolerant of network latency.  In these cases, one core or less may be sufficient.</p>
+<p>These benchmark results are not the last word.  They depend on the specifics of our test environment.  To get a better idea of how Skupper performs in your environment, you can run these benchmarks yourself.</p>
+<p>Router memory use scales with the number of open connections.  In general, a good starting point is 4G.</p>
+<table>
+<thead>
+<tr>
+  <th></th>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><em><strong>Memory</strong></em></td>
+  <td><em><strong>Concurrent open connections</strong></em></td>
+  <td></td>
+</tr>
+<tr>
+  <td>512M</td>
+  <td>8,192</td>
+  <td></td>
+</tr>
+<tr>
+  <td>1G</td>
+  <td>16,384</td>
+  <td></td>
+</tr>
+<tr>
+  <td>2G</td>
+  <td>32,768</td>
+  <td></td>
+</tr>
+<tr>
+  <td><em><strong>4G</strong></em></td>
+  <td><em><strong>65,536</strong></em></td>
+  <td></td>
+</tr>
+<tr>
+  <td>8G</td>
+  <td>131,072</td>
+  <td></td>
+</tr>
+<tr>
+  <td>16G</td>
+  <td>262,144</td>
+  <td></td>
+</tr>
+<tr>
+  <td>32G</td>
+  <td>524,288</td>
+  <td></td>
+</tr>
+<tr>
+  <td>64G</td>
+  <td>104,8576</td>
+  <td></td>
+</tr>
+</tbody>
+</table>
 <h2 id="improving-skupper-router-performance">Improving Skupper router performance</h2>
 <p>If you encounter Skupper router performance issues, you can scale the Skupper router to address those concerns.</p>
 <p><strong>📌 NOTE</strong><br />

@@ -117,16 +117,30 @@ See <a href="../cli/index.html">Using the Skupper CLI</a> for information about 
 <li><p>The latest <code>skupper</code> CLI is installed.</p>
 </li>
 <li><p>Podman is installed, see https://podman.io/</p>
-<p>By default, Podman v4 uses Netavark which works with Skupper.
-If you are using CNI, for example, if you upgrade from Podman v3, you must also install the <code>podman-plugins</code> package.
+</li>
+<li><p><code>netavark</code> is configured as the podman network backend.</p>
+<p>By default, Podman v4 uses Netavark which works with Skupper.</p>
+<p>If you are using CNI, for example, if you upgrade from Podman v3, you must also install the <code>podman-plugins</code> package.
 For example, <code>dnf install podman-plugins</code> for RPM based distributions.</p>
 <p><strong>📌 NOTE</strong><br />
 CNI will be deprecated in the future in preference of Netavark.</p>
+<p>To check if <code>netavark</code> is configured as the podman network backend:</p>
+<pre><code>$ podman info | grep networkBackend
+</code></pre>
+<p>To install <code>netavark</code> on rpm based Linux, eg RHEL8:</p>
+<pre><code>$ sudo dnf install netavark
+</code></pre>
+<p>Configure podman to use <code>netavark</code> by making sure the following lines exist in the <code>/etc/containers/containers.conf</code> file:</p>
+<pre><code>[network]
+network_backend = &quot;netavark&quot;
+</code></pre>
 </li>
 <li><p>Podman service endpoint.</p>
 <p>Use <code>systemctl status podman.socket</code> to make sure the Podman API Socket is running.</p>
 <p>Use <code>systemctl --user enable --now podman.socket</code> to start the  Podman API Socket.</p>
 <p>See <a href="https://github.com/containers/podman/blob/main/docs/tutorials/socket_activation.md">Podman socket activation</a> for information about enabling this endpoint.</p>
+</li>
+</ul>
 <ol>
 <li><p>Set your session to use Skupper Podman:</p>
 <pre><code class="language-bash">$ export SKUPPER_PLATFORM=podman
@@ -172,8 +186,6 @@ Skupper is enabled for &quot;&lt;username&gt;&quot; with site name &quot;&lt;mac
 You can only create one site per user. If you require a host to support many sites, create a user for each site.</p>
 </li>
 </ol>
-</li>
-</ul>
 <h2 id="linking-sites-using-skupper-podman">Linking sites using Skupper Podman</h2>
 <p>A service network consists of Skupper sites.
 This section describes how to link sites to form a service network.</p>

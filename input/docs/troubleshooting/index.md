@@ -331,6 +331,39 @@ The debug tar file contains all the logs from the Skupper components for a site 
    * **linking and services**\
    See the `skupper-service-controller-*-events.txt` file to view details of token usage and service exposure.
 
+## Understanding Skupper sizing
+
+In September 2023, a number of tests were performed to explore Skupper performance at varying allocations of router CPU.
+You can view the results in the [sizing guide](https://access.redhat.com/solutions/7074294).
+
+The conclusions for router CPU and memory are shown below.
+
+The primary factor to consider when scaling Skupper for your workload is router CPU.  (Note that due to the nature of cluster ingress and connection routing, it is important to focus on scaling the router vertically, not horizontally.)
+
+Two CPU cores (2,000 millicores) per router is a good starting point. It includes some headroom and provides low latencies for a large set of workloads.
+
+If the peak throughput required by your workload is low, it is possible to achieve satisfactory latencies with less router CPU.
+
+Some workloads are sensitive to network latency. In these cases, the overhead introduced by the router can limit the achievable throughput. This is when CPU amounts higher than two cores per router may be required.
+
+On the flip side, some workloads are tolerant of network latency.  In these cases, one core or less may be sufficient.
+
+These benchmark results are not the last word.  They depend on the specifics of our test environment.  To get a better idea of how Skupper performs in your environment, you can run these benchmarks yourself.
+
+Router memory use scales with the number of open connections.  In general, a good starting point is 4G.
+
+|     |     |     |
+| --- | --- | --- |
+| ***Memory*** | ***Concurrent open connections*** |  |
+| 512M | 8,192 |  |
+| 1G | 16,384 |  |
+| 2G | 32,768 |  |
+| ***4G*** | ***65,536*** |  |
+| 8G | 131,072 |  |
+| 16G | 262,144 |  |
+| 32G | 524,288 |  |
+| 64G | 104,8576 |  |
+
 ## Improving Skupper router performance
 
 If you encounter Skupper router performance issues, you can scale the Skupper router to address those concerns.

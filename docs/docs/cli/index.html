@@ -446,6 +446,12 @@ Gateway Definition:
 <h3 id="working-with-complex-local-services-on-the-service-network">Working with complex local services on the service network</h3>
 <p>This section shows more advanced usage of skupper gateway.</p>
 <ol>
+<li><p>If you want to create a service type gateway on Linux, you need the <code>skrouterd</code> binary in your path.</p>
+<p>Use the <code>yum</code> or <code>dnf</code> command to install the <code>skupper-router</code> package:</p>
+<pre><code>$ sudo dnf install skupper-router
+</code></pre>
+<p>For podman or docker type gateways, you can skip this step.</p>
+</li>
 <li><p>Create a Skupper gateway:</p>
 <pre><code class="language-bash">$ skupper gateway init --type &lt;gateway-type&gt;
 </code></pre>

@@ -454,7 +454,16 @@ This section shows how to expose a single service running locally on a service n
 
 This section shows more advanced usage of skupper gateway.
 
-1. Create a Skupper gateway:
+1. If you want to create a service type gateway on Linux, you need the `skrouterd` binary in your path.
+
+   Use the `yum` or `dnf` command to install the `skupper-router` package:
+
+   ```
+   $ sudo dnf install skupper-router
+   ```
+
+   For podman or docker type gateways, you can skip this step.
+2. Create a Skupper gateway:
 
    ```bash
    $ skupper gateway init --type <gateway-type>
@@ -464,7 +473,7 @@ This section shows more advanced usage of skupper gateway.
 
    * `podman`
    * `docker`
-2. Create a service that can communicate on the service network:
+3. Create a service that can communicate on the service network:
 
    ```bash
    $ skupper service create <name> <port>
@@ -480,7 +489,7 @@ This section shows more advanced usage of skupper gateway.
    ```bash
    $ skupper service create mydb 3306
    ```
-3. Bind the service on the service network:
+4. Bind the service on the service network:
 
    ```bash
    $ skupper gateway bind <service> <host> <port>
@@ -489,7 +498,7 @@ This section shows more advanced usage of skupper gateway.
    * &lt;service> - the name of the service on the service network, `mydb` in the example above.
    * &lt;host> - the host that runs the service.
    * &lt;port> - the port the service is running on, `3306` from the example above.
-4. Check the status of Skupper gateways:
+5. Check the status of Skupper gateways:
 
    ```bash
    $ skupper gateway status
@@ -511,7 +520,7 @@ This section shows more advanced usage of skupper gateway.
    The URL field shows the underlying communication and can be ignored.
 
    You can create more services in the service network and bind more local services to expose those services on the service network.
-5. Forward a service from the service network to the local machine.
+6. Forward a service from the service network to the local machine.
 
    ```bash
    $ skupper gateway forward <service> <port>
