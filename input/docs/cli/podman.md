@@ -51,13 +51,34 @@ See [Using the Skupper CLI](../cli/index.html) for information about using the S
 
 * The latest `skupper` CLI is installed.
 * Podman is installed, see https://podman.io/
+* `netavark` is configured as the podman network backend.
 
   By default, Podman v4 uses Netavark which works with Skupper.
+
   If you are using CNI, for example, if you upgrade from Podman v3, you must also install the `podman-plugins` package.
   For example, `dnf install podman-plugins` for RPM based distributions.
 
   **📌 NOTE**\
   CNI will be deprecated in the future in preference of Netavark.
+
+  To check if `netavark` is configured as the podman network backend:
+
+  ```
+  $ podman info | grep networkBackend
+  ```
+
+  To install `netavark` on rpm based Linux, eg RHEL8:
+
+  ```
+  $ sudo dnf install netavark
+  ```
+
+  Configure podman to use `netavark` by making sure the following lines exist in the `/etc/containers/containers.conf` file:
+
+  ```
+  [network]
+  network_backend = "netavark"
+  ```
 * Podman service endpoint.
 
   Use `systemctl status podman.socket` to make sure the Podman API Socket is running.
@@ -65,73 +86,74 @@ See [Using the Skupper CLI](../cli/index.html) for information about using the S
   Use `systemctl --user enable --now podman.socket` to start the  Podman API Socket.
 
   See [Podman socket activation](https://github.com/containers/podman/blob/main/docs/tutorials/socket_activation.md) for information about enabling this endpoint.
-  1. Set your session to use Skupper Podman:
 
-     ```bash
-     $ export SKUPPER_PLATFORM=podman
-     ```
+1. Set your session to use Skupper Podman:
 
-     To verify the `skupper` mode:
+   ```bash
+   $ export SKUPPER_PLATFORM=podman
+   ```
 
-     ```bash
-     $ skupper switch
+   To verify the `skupper` mode:
 
-     podman
-     ```
-  2. Create a Skupper site:
+   ```bash
+   $ skupper switch
 
-     Use the following command to create a site where tokens are created to link on any network interface:
+   podman
+   ```
+2. Create a Skupper site:
 
-     ```bash
-     $ skupper init
-     ```
+   Use the following command to create a site where tokens are created to link on any network interface:
 
-     **📌 NOTE**\
-     By default, this command times out after 2 minutes for podman sites.
-     You can increase the time with the `--timeout` option.
+   ```bash
+   $ skupper init
+   ```
 
-     The following output is displayed:
+   **📌 NOTE**\
+   By default, this command times out after 2 minutes for podman sites.
+   You can increase the time with the `--timeout` option.
 
-     ```bash
-     It is recommended to enable lingering for <username>, otherwise Skupper may not start on boot.
-     Skupper is now installed for user '<username>'.  Use 'skupper status' to get more information.
-     ```
+   The following output is displayed:
 
-     Use the following command to start the site service at system start and persist over logouts:
+   ```bash
+   It is recommended to enable lingering for <username>, otherwise Skupper may not start on boot.
+   Skupper is now installed for user '<username>'.  Use 'skupper status' to get more information.
+   ```
 
-     ```bash
-     # loginctl enable-linger <username>
-     ```
+   Use the following command to start the site service at system start and persist over logouts:
 
-     By default, `skupper init` tries to include all IP addresses associated with local network interfaces as valid ingress hosts.
-     You can use `--ingress-host <IP/Hostname>` to restrict token ingress to a specific network context:
+   ```bash
+   # loginctl enable-linger <username>
+   ```
 
-     ```bash
-     $ skupper init --ingress-host my-cloud-vm.example.com
-     ```
+   By default, `skupper init` tries to include all IP addresses associated with local network interfaces as valid ingress hosts.
+   You can use `--ingress-host <IP/Hostname>` to restrict token ingress to a specific network context:
 
-     If you do not require that other sites can link to the site you are creating:
+   ```bash
+   $ skupper init --ingress-host my-cloud-vm.example.com
+   ```
 
-     ```bash
-     $ skupper init --ingress none
-     ```
+   If you do not require that other sites can link to the site you are creating:
 
-     In this guide we assume you have enabled ingress using the first command.
-     This allows you create tokens that allow links from every network interface on the host.
+   ```bash
+   $ skupper init --ingress none
+   ```
 
-     **📌 NOTE**\
-     When creating a token you can specify the ingress host.
+   In this guide we assume you have enabled ingress using the first command.
+   This allows you create tokens that allow links from every network interface on the host.
 
-     You can also restrict ingress to an IP address or hostname when initializing as described in the [Skupper Podman CLI reference](https://skupper.io/docs/kubernetes-reference/index.html) documentation.
-  3. Check the status of your site:
+   **📌 NOTE**\
+   When creating a token you can specify the ingress host.
 
-     ```bash
-     $ skupper status
-     Skupper is enabled for "<username>" with site name "<machine-name>-<username>" in interior mode. It is not connected to any other sites. It has no exposed services.
-     ```
+   You can also restrict ingress to an IP address or hostname when initializing as described in the [Skupper Podman CLI reference](https://skupper.io/docs/kubernetes-reference/index.html) documentation.
+3. Check the status of your site:
 
-     **📌 NOTE**\
-     You can only create one site per user. If you require a host to support many sites, create a user for each site.
+   ```bash
+   $ skupper status
+   Skupper is enabled for "<username>" with site name "<machine-name>-<username>" in interior mode. It is not connected to any other sites. It has no exposed services.
+   ```
+
+   **📌 NOTE**\
+   You can only create one site per user. If you require a host to support many sites, create a user for each site.
 
 ## Linking sites using Skupper Podman
 
