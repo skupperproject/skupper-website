@@ -244,9 +244,14 @@
         "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.7.2",
         "version": "1.7.2"
     },
+    "1.7.3": {
+        "date": "2024-07-16T14:04:57Z",
+        "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.7.3",
+        "version": "1.7.3"
+    },
     "latest": {
-        "date": "2024-07-10T18:58:08Z",
-        "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.7.2",
-        "version": "1.7.2"
+        "date": "2024-07-16T14:04:57Z",
+        "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.7.3",
+        "version": "1.7.3"
     }
 }
