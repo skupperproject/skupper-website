@@ -136,8 +136,8 @@ network_backend = &quot;netavark&quot;
 </code></pre>
 </li>
 <li><p>Podman service endpoint.</p>
-<p>Use <code>systemctl status podman.socket</code> to make sure the Podman API Socket is running.</p>
-<p>Use <code>systemctl --user enable --now podman.socket</code> to start the  Podman API Socket.</p>
+<p>Use <code>systemctl --user status podman.socket</code> to make sure the Podman API Socket is running.</p>
+<p>If the socket isn’t running, use <code>systemctl --user enable --now podman.socket</code> to start it.</p>
 <p>See <a href="https://github.com/containers/podman/blob/main/docs/tutorials/socket_activation.md">Podman socket activation</a> for information about enabling this endpoint.</p>
 </li>
 </ul>

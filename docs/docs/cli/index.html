@@ -795,6 +795,77 @@ For services exposed as TCP or HTTP2, the traffic between the pod and the router
 <li><p>Test calling the service from a TLS enabled frontend.</p>
 </li>
 </ol>
+<h2 id="deploying-a-single-logical-service-across-many-sites-for-failover">Deploying a single logical service across many sites for failover</h2>
+<p>A typical scenario for using Skupper is to deploy a server process on two sites with the intention that if one site fails, the other site seamlessly processes any further requests.
+In this scenario the primary server responds to all requests while that server is available and traffic is only directed to the secondary server when the primary server is not available.
+The procedure describes two servers, however this technique works for many servers.</p>
+<ul>
+<li>Two or more unlinked sites.</li>
+<li>A basic understanding of Skupper and its networking model.</li>
+</ul>
+<ol>
+<li><p>Create sites by using <code>skupper init</code>.</p>
+</li>
+<li><p>Deploy your servers on different sites.</p>
+</li>
+<li><p>Generate a token on the first site:</p>
+<pre><code class="language-bash">$ skupper token create token.yaml
+</code></pre>
+<p>This file contains a key and the location of the site that created it.</p>
+<dl><dt><strong>📌 NOTE</strong></dt><dd>
+
+<p>Access to this file provides access to the service network.
+Protect it appropriately.</p>
+</dd></dl>
+
+</li>
+<li><p>Use the token on the cluster that you want to connect from:</p>
+<p>To create a link to the first site:</p>
+<pre><code class="language-bash">$ skupper link create token.yaml --cost 99999
+</code></pre>
+<p>The high cost setting means that traffic is not directed to this site under normal circumstances.
+However, if there is no other server available, all traffic is directed to this site.</p>
+</li>
+<li><p>Expose the servers on the service network for both sites.</p>
+<ol>
+<li><p>Create the service:</p>
+<pre><code class="language-bash">$ skupper service create &lt;name&gt; &lt;port&gt;
+</code></pre>
+<p>where</p>
+<ul>
+<li><code>&lt;name&gt;</code> is the name of the service you want to create.</li>
+<li><code>&lt;port&gt;</code> is the port the service uses.</li>
+</ul>
+<p>By default, this service is now visible on both sites, although there is no server available to process requests to this service.</p>
+<dl><dt><strong>📌 NOTE</strong></dt><dd>
+
+<p>By default, if you create a service on one site, it is available on all sites.
+However, if <code>enable-service-sync</code> is set to <code>false</code> you need to create the service on both sites.</p>
+</dd></dl>
+
+</li>
+<li><p>Bind the service with the server on both sites.</p>
+<pre><code class="language-bash">$ skupper service bind &lt;service-name&gt; &lt;target-type&gt; &lt;target-name&gt;
+</code></pre>
+<p>where</p>
+<ul>
+<li><code>&lt;service-name&gt;</code> is the name of the service on the service network</li>
+<li><code>&lt;target-type&gt;</code> is the object you want to expose, <code>deployment</code>, <code>statefulset</code>, <code>pods</code>, or <code>service</code>.</li>
+<li><code>&lt;target-name&gt;</code> is the name of the cluster service</li>
+</ul>
+<p>For example:</p>
+<pre><code class="language-bash">$ skupper service bind hello-world-backend deployment hello-world-backend
+</code></pre>
+</li>
+</ol>
+</li>
+<li><p>You can use the console to check the traffic flow or monitor the services using your tooling.
+Clients can connect to either site, and the server on that site processes the requests until the server is not available.
+Further requests are processed by the server on the other site.</p>
+</li>
+</ol>
+<p>If the server on the original site becomes available, it processes all further requests.
+However existing TCP connections to the secondary or backup server will persist until those TCP connections are closed.</p>
 <h2 id="supported-standards-and-protocols">Supported standards and protocols</h2>
 <p>Skupper supports the following protocols for your service network:</p>
 <ul>
