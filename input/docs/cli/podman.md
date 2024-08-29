@@ -81,9 +81,9 @@ See [Using the Skupper CLI](../cli/index.html) for information about using the S
   ```
 * Podman service endpoint.
 
-  Use `systemctl status podman.socket` to make sure the Podman API Socket is running.
+  Use `systemctl --user status podman.socket` to make sure the Podman API Socket is running.
 
-  Use `systemctl --user enable --now podman.socket` to start the  Podman API Socket.
+  If the socket isn’t running, use `systemctl --user enable --now podman.socket` to start it.
 
   See [Podman socket activation](https://github.com/containers/podman/blob/main/docs/tutorials/socket_activation.md) for information about enabling this endpoint.
 
