@@ -503,11 +503,6 @@ main() {
         shift
     done
 
-    case "${version}" in
-        latest|main|[0123456789].[0123456789].[0123456789]) ;;
-        *) usage "Illegal version argument: ${version}" ;;
-    esac
-
     case "${scheme}" in
         home) local skupper_bin_dir="${TEST_INSTALL_PREFIX:-}${HOME}/.local/bin" ;;
         opt)  local skupper_bin_dir="${TEST_INSTALL_PREFIX:-}/opt/skupper/bin" ;;
