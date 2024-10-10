@@ -76,13 +76,124 @@
     <main>
 
 <h1 id="skupper-v2">Skupper v2</h1>
-<!-- A major improvement to Skupper is coming soon. -->
+<p><em>10 October 2024</em></p>
+<p>Skupper v2 is a major change and a major improvement over v1.  Here's
+why we're doing it and what it means for our users and contributors.</p>
+<h2 id="why-a-new-major-version">Why a new major version?</h2>
+<p>Skupper first became available four years ago.  Since then, we've
+learned a lot about what users need from Skupper.  We've also learned
+about the pain points for both users and Skupper developers in our
+existing design and implementation.  The changes we are making for v2
+will result in a version of Skupper that is easier to operate, easier
+to extend, and easier to maintain.</p>
+<h2 id="the-move-to-custom-resources">The move to custom resources</h2>
+<p>Skupper v1 uses a combination of ConfigMaps and resource annotations
+as its declarative interface.  Skupper v2 instead uses Kubernetes
+<a href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">custom resources</a>.</p>
+<p>Custom resources have two key advantages.  First, they are subject to
+standard Kubernetes <a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/">role-based access control</a>, so cluster
+admins can use standard tooling to control use of Skupper if they
+choose.  Second, they provide a standard mechanism for reporting
+resource status.</p>
+<p>Choosing custom resources comes with a trade off: installing custom
+resource definitions (CRDs) requires cluster admin privileges,
+something v1 did not require.  This is an advantage for some of our
+users, but a disadvantage for others.  We believe that custom
+resources are, on balance, the right choice.</p>
+<!-- ref the adr -->
 
-<!-- ## What's in v2? -->
+<h2 id="a-uniform-declarative-api">A uniform declarative API</h2>
+<p>V2 has a new, uniform API for site configuration, site linking, and
+service exposure.  In v2, all of Skupper's interfaces and platforms
+use this common API.</p>
+<p>The following are the core API resources in v2, organized by function:</p>
+<table>
+<thead>
+<tr>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><em>Site configuration</em></td>
+  <td><a href="https://skupperproject.github.io/refdog/resources/site.html">Site</a></td>
+</tr>
+<tr>
+  <td><em>Site linking</em></td>
+  <td><a href="https://skupperproject.github.io/refdog/resources/link.html">Link</a>, <a href="https://skupperproject.github.io/refdog/resources/accessgrant.html">AccessGrant</a>, <a href="https://skupperproject.github.io/refdog/resources/accesstoken.html">AccessToken</a></td>
+</tr>
+<tr>
+  <td><em>Service exposure</em></td>
+  <td><a href="https://skupperproject.github.io/refdog/resources/connector.html">Connector</a>, <a href="https://skupperproject.github.io/refdog/resources/listener.html">Listener</a></td>
+</tr>
+</tbody>
+</table>
+<p>The new API is designed to enable automation with GitOps and other
+tools and to provide a foundation for third-party integrations.</p>
+<p>Service exposure in particular sees a change in v2.  In v1, service
+exposure is implicit: exposing a service in one site by default
+exposed it in all the linked sites.  In v2, service exposure is
+instead explicit.  A connector binds a local workload to a routing
+key.  In another site, a listener with a matching routing key makes it
+available for application connections.  Only those sites with a
+listener can connect to the service.</p>
+<!-- V2 also has a new approach to exposing pods in another namespace. -->
 
-<!-- <\!-- We've had 1.x for over two years. -\-> -->
+<!-- AttachedConnector and AttachedConnectorAnchor.  A better security -->
 
-<!-- ## Why the big change? -->
+<!-- model. -->
+
+<h2 id="a-new-controller-and-cli">A new controller and CLI</h2>
+<p>The new controller combines the previous service and site controllers
+into one that can be deployed at cluster or namespace scope.  The
+improved implementation is easier to maintain and understand.</p>
+<p>The new controller also addresses a v1 pain point: it allows site
+configuration changes without requiring re-creation of the site.
+Notably, you can reconfigure your site without losing existing
+site-to-site links.</p>
+<p>The new CLI closely follows the API, and indeed the CLI is really just
+a thin layer on top of the API.  To simplify its use, the CLI blocks
+until operations are complete.</p>
+<!-- XXX use of CLI to generate YAML -->
+
+<!-- ## Router improvements -->
+
+<!-- XXX -->
+
+<!-- A new, faster TCP adaptor. -->
+
+<!-- Cut through.  Input IO thread directly to output IO thread, without going through a third coordinating thread. -->
+
+<!-- Protocol observers built in to said adaptor. -->
+
+<!-- Lower latency, and lower CPU utilization. -->
+
+<!-- No more dedicated HTTP adaptors.  This simplifies our work and makes the code easier to maintain. -->
+
+<!-- HA router configuration -->
+
+<!-- ## Docker, Podman, and Systemd sites -->
+
+<!-- XXX -->
+
+<!-- Simpler and more uniform. -->
+
+<!-- Multiple sites per single user -->
+
+<!-- Uses the standard resources and API. -->
+
+<!-- Gateways go away. -->
+
+<!-- ## The observability components stand apart -->
+
+<!-- Deployment is separate from that of sites. -->
+
+<!-- ## More stuff -->
+
+<!-- Cert reloading -->
+
+<!-- OpenShift site console plugin -->
 
 <!-- - CRDs! -->
 
@@ -132,24 +243,25 @@
 
 <!-- | Gateways | Docker, Podman, and Systemd sites | -->
 
-<!-- ## When will it be available? -->
-
-<!-- ## Try it now -->
-
-<!-- Feedback requested! -->
-
-<pre><code>kubectl apply -f https://skupper.io/v2/install.yaml
-</code></pre>
-<pre><code>curl https://skupper.io/install.sh | sh -s -- --version 2.0.0-preview-1
-</code></pre>
-<!-- Things are still changing! -->
-
-<!-- This is preview 1.  Another preview is planned for the end of October. -->
-
-<!-- We are aiming for a 2.0 release in November! -->
-
-<!-- <https://skupperproject.github.io/refdog/> -->
-
+<h2 id="when-will-v2-be-available">When will v2 be available?</h2>
+<p>The preview 1 release is available now.  Preview 2 is set for the end
+of October, and we are aiming to release 2.0 at the end of November.</p>
+<p>Note that things are still changing in the preview releases as we
+review interfaces and make improvements.</p>
+<h2 id="try-it-out">Try it out</h2>
+<p>The best way to start exploring v2 is with our examples.  With preview
+1, we have converted our CLI and YAML Hello World examples:</p>
+<ul>
+<li><a href="https://github.com/skupperproject/skupper-example-hello-world/tree/v2">Hello World using the CLI</a></li>
+<li><a href="https://github.com/skupperproject/skupper-example-yaml/tree/v2">Hello World using YAML</a></li>
+</ul>
+<p>We would love to get your feedback!</p>
+<h2 id="more-resources">More resources</h2>
+<ul>
+<li><a href="https://skupperproject.github.io/refdog/resources/">V2 API reference</a></li>
+<li><a href="https://skupperproject.github.io/refdog/commands/">V2 CLI reference</a></li>
+<li><a href="https://skupper.io/v2/install.yaml">V2 installation YAML</a></li>
+</ul>
 
 
     </main>
