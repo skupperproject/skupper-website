@@ -100,8 +100,6 @@ resource definitions (CRDs) requires cluster admin privileges,
 something v1 did not require.  This is an advantage for some of our
 users, but a disadvantage for others.  We believe that custom
 resources are, on balance, the right choice.</p>
-<!-- ref the adr -->
-
 <h2 id="a-uniform-declarative-api">A uniform declarative API</h2>
 <p>V2 has a new, uniform API for site configuration, site linking, and
 service exposure.  In v2, all of Skupper's interfaces and platforms
@@ -134,16 +132,10 @@ tools and to provide a foundation for third-party integrations.</p>
 <p>Service exposure in particular sees a change in v2.  In v1, service
 exposure is implicit: exposing a service in one site by default
 exposed it in all the linked sites.  In v2, service exposure is
-instead explicit.  A connector binds a local workload to a routing
+instead <em>explicit</em>.  A connector binds a local workload to a routing
 key.  In another site, a listener with a matching routing key makes it
 available for application connections.  Only those sites with a
-listener can connect to the service.</p>
-<!-- V2 also has a new approach to exposing pods in another namespace. -->
-
-<!-- AttachedConnector and AttachedConnectorAnchor.  A better security -->
-
-<!-- model. -->
-
+matching listener can connect to the service.</p>
 <h2 id="a-new-controller-and-cli">A new controller and CLI</h2>
 <p>The new controller combines the previous service and site controllers
 into one that can be deployed at cluster or namespace scope.  The
@@ -152,39 +144,27 @@ improved implementation is easier to maintain and understand.</p>
 configuration changes without requiring re-creation of the site.
 Notably, you can reconfigure your site without losing existing
 site-to-site links.</p>
-<p>The new CLI closely follows the API, and indeed the CLI is really just
-a thin layer on top of the API.  To simplify its use, the CLI blocks
-until operations are complete.</p>
-<!-- XXX use of CLI to generate YAML -->
-
-<!-- ## Router improvements -->
-
-<!-- XXX -->
-
-<!-- A new, faster TCP adaptor. -->
-
-<!-- Cut through.  Input IO thread directly to output IO thread, without going through a third coordinating thread. -->
-
-<!-- Protocol observers built in to said adaptor. -->
-
-<!-- Lower latency, and lower CPU utilization. -->
-
-<!-- No more dedicated HTTP adaptors.  This simplifies our work and makes the code easier to maintain. -->
+<p>The new CLI closely follows the API.  Indeed, in v2 the CLI is really
+just a thin layer on top of the API.  To simplify its use, the CLI
+blocks until operations are complete.</p>
+<h2 id="router-improvements">Router improvements</h2>
+<p>The router in v2 has a new, faster TCP adaptor with improved buffer
+handling and reduced threading overhead.  The new TCP adaptor
+incorporates lightweight protocol observers for capturing HTTP traffic
+metrics.  Together these reduce application latency and router CPU
+utilization.</p>
+<!-- In v1, HA for routers was  -->
 
 <!-- HA router configuration -->
 
-<!-- ## Docker, Podman, and Systemd sites -->
+<!-- - HA routers! -->
 
-<!-- XXX -->
-
-<!-- Simpler and more uniform. -->
-
-<!-- Multiple sites per single user -->
-
-<!-- Uses the standard resources and API. -->
-
-<!-- Gateways go away. -->
-
+<h2 id="nonkube-sites">Non-Kube sites</h2>
+<p>Skupper is not just for Kubernetes.  Skupper sites can run on Docker,
+Podman, VMs, or bare metal.  In v2, we've made the support for
+non-Kube sites simpler and more uniform.  They use the same YAML
+resources as Kube sites.  One codebase implements support for all of
+the non-Kube platforms.</p>
 <!-- ## The observability components stand apart -->
 
 <!-- Deployment is separate from that of sites. -->
@@ -195,47 +175,33 @@ until operations are complete.</p>
 
 <!-- OpenShift site console plugin -->
 
-<!-- - CRDs! -->
-
-<!-- - Uniform model.  Declarative API.  Everything goes through the CRDs. -->
-
-<!--   - New CLI that follows the new model.  The CLI isn't doing anything clever.  It's just a convenient tool for producing CRs. -->
-
-<!--   - Same model and CRDs across site types (Kubernetes, Docker, Podman, and Systemd sites) -->
-
-<!--   - GitOps -->
-
-<!--   - Integrations -->
-
-<!-- - A uniform model and API across platforms and interfaces. -->
-
 <!-- - Service exposure model! -->
 
 <!-- - (?) Attached connectors - Tracking pods in namespaces other than that of the site -->
-
-<!-- - No more service sync -->
-
-<!-- - A new controller impl. -->
-
-<!-- - Combine site and service controllers. -->
-
-<!-- - Avoiding site recreation! -->
-
-<!-- - HA routers! -->
-
-<!-- - Faster routers! -->
 
 <!-- - Gordon's preso -->
 
 <!-- - My planning docs -->
 
-<!-- - Observability decoupled -->
+<!-- - Observability decoupled - flexible deployment -->
 
 <!-- ## Important to know -->
+
+<!-- Gateways go away. -->
 
 <!-- 1.x is _not_ backward compatible with 2. -->
 
 <!-- We are developing tooling to migrate 1.x config to 2.x config. -->
+
+<!-- stateful sets! -->
+
+<!-- Multiple sites per single user -->
+
+<!-- V2 also has a new approach to exposing pods in another namespace. -->
+
+<!-- AttachedConnector and AttachedConnectorAnchor.  A better security -->
+
+<!-- model. -->
 
 <!-- | 1.x | 2.x | -->
 

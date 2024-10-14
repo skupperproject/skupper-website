@@ -32,8 +32,6 @@ something v1 did not require.  This is an advantage for some of our
 users, but a disadvantage for others.  We believe that custom
 resources are, on balance, the right choice.
 
-<!-- ref the adr -->
-
 [custom-resources]: https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/
 [rbac]: https://kubernetes.io/docs/reference/access-authn-authz/rbac/
 
@@ -64,14 +62,10 @@ tools and to provide a foundation for third-party integrations.
 Service exposure in particular sees a change in v2.  In v1, service
 exposure is implicit: exposing a service in one site by default
 exposed it in all the linked sites.  In v2, service exposure is
-instead explicit.  A connector binds a local workload to a routing
+instead *explicit*.  A connector binds a local workload to a routing
 key.  In another site, a listener with a matching routing key makes it
 available for application connections.  Only those sites with a
-listener can connect to the service.
-
-<!-- V2 also has a new approach to exposing pods in another namespace. -->
-<!-- AttachedConnector and AttachedConnectorAnchor.  A better security -->
-<!-- model. -->
+matching listener can connect to the service.
 
 ## A new controller and CLI
 
@@ -84,32 +78,29 @@ configuration changes without requiring re-creation of the site.
 Notably, you can reconfigure your site without losing existing
 site-to-site links.
 
-The new CLI closely follows the API, and indeed the CLI is really just
-a thin layer on top of the API.  To simplify its use, the CLI blocks
-until operations are complete.
+The new CLI closely follows the API.  Indeed, in v2 the CLI is really
+just a thin layer on top of the API.  To simplify its use, the CLI
+blocks until operations are complete.
 
-<!-- XXX use of CLI to generate YAML -->
+## Router improvements
 
-<!-- ## Router improvements -->
+The router in v2 has a new, faster TCP adaptor with improved buffer
+handling and reduced threading overhead.  The new TCP adaptor
+incorporates lightweight protocol observers for capturing HTTP traffic
+metrics.  Together these reduce application latency and router CPU
+utilization.
 
-<!-- XXX -->
-<!-- A new, faster TCP adaptor. -->
-<!-- Cut through.  Input IO thread directly to output IO thread, without going through a third coordinating thread. -->
-<!-- Protocol observers built in to said adaptor. -->
-<!-- Lower latency, and lower CPU utilization. -->
-
-<!-- No more dedicated HTTP adaptors.  This simplifies our work and makes the code easier to maintain. -->
-
+<!-- In v1, HA for routers was  -->
 <!-- HA router configuration -->
+<!-- - HA routers! -->
 
-<!-- ## Docker, Podman, and Systemd sites -->
+## Non-Kube sites
 
-<!-- XXX -->
-<!-- Simpler and more uniform. -->
-<!-- Multiple sites per single user -->
-<!-- Uses the standard resources and API. -->
-
-<!-- Gateways go away. -->
+Skupper is not just for Kubernetes.  Skupper sites can run on Docker,
+Podman, VMs, or bare metal.  In v2, we've made the support for
+non-Kube sites simpler and more uniform.  They use the same YAML
+resources as Kube sites.  One codebase implements support for all of
+the non-Kube platforms.
 
 <!-- ## The observability components stand apart -->
 
@@ -120,34 +111,26 @@ until operations are complete.
 <!-- Cert reloading -->
 <!-- OpenShift site console plugin -->
 
-<!-- - CRDs! -->
-<!-- - Uniform model.  Declarative API.  Everything goes through the CRDs. -->
-<!--   - New CLI that follows the new model.  The CLI isn't doing anything clever.  It's just a convenient tool for producing CRs. -->
-<!--   - Same model and CRDs across site types (Kubernetes, Docker, Podman, and Systemd sites) -->
-<!--   - GitOps -->
-<!--   - Integrations -->
-<!-- - A uniform model and API across platforms and interfaces. -->
-
 <!-- - Service exposure model! -->
 <!-- - (?) Attached connectors - Tracking pods in namespaces other than that of the site -->
-<!-- - No more service sync -->
 
-<!-- - A new controller impl. -->
-<!-- - Combine site and service controllers. -->
-<!-- - Avoiding site recreation! -->
-
-<!-- - HA routers! -->
-<!-- - Faster routers! -->
 
 <!-- - Gordon's preso -->
 <!-- - My planning docs -->
 
-<!-- - Observability decoupled -->
+<!-- - Observability decoupled - flexible deployment -->
 
 <!-- ## Important to know -->
 
+<!-- Gateways go away. -->
 <!-- 1.x is _not_ backward compatible with 2. -->
 <!-- We are developing tooling to migrate 1.x config to 2.x config. -->
+<!-- stateful sets! -->
+
+<!-- Multiple sites per single user -->
+<!-- V2 also has a new approach to exposing pods in another namespace. -->
+<!-- AttachedConnector and AttachedConnectorAnchor.  A better security -->
+<!-- model. -->
 
 <!-- | 1.x | 2.x | -->
 <!-- |-|-| -->
