@@ -30,6 +30,15 @@ the Apache Qpid website, which is large (about 2 gigs) and has many
 files (more than 30,000).  Transom can render everything in less than
 a second.
 
+## Installation
+
+Install the dependencies and then use `./plano install`:
+
+~~~
+pip install pyyaml
+./plano install
+~~~
+
 ## Using the transom command
 
 To generate a starter website project, use `transom init`.  The
@@ -41,9 +50,9 @@ starter site is really basic.  It just lays down an index page
 $ cd <your-new-project-dir>
 
 $ transom init
-transom: Creating 'config/body.html'
 transom: Creating 'config/config.py'
-transom: Creating 'config/page.html'
+transom: Creating 'config/head.html'
+transom: Creating 'config/body.html'
 transom: Creating 'input/index.md'
 transom: Creating 'input/main.css'
 transom: Creating 'input/main.js'
@@ -96,13 +105,40 @@ Starting LiveReload v0.9.3 for /tmp/tmp.57gwncgHua/output on port 35729.
 <!-- the root of the project to perform project tasks.  It accepts a -->
 <!-- subcommand.  Use `./plano --help` to list the available commands. -->
 
-## Dependencies
+<!-- ## Site configuration -->
 
-PyYAML:
+<!-- ## Page configuration -->
 
+## Templates
+
+Transom templates allow you to generate output by embedding Python
+expressions inside `{{ }}` placeholders.  These expressions are
+designed to execute Python code using Python's `eval` function.
+
+You can call functions or access variables you've defined in
+`config.py`.  You also have access to the Transom `site` and `page`
+objects, which have APIs for site and page metadata.
+
+You can use `{{{ }}}` to produce literal `{{ }}` output.
+
+`config/config.py`:
+
+~~~ python
+def get_page_info(page):
+    return page.url, page.title, page.parent, page.site
 ~~~
-pip install pyyaml
+
+`input/index.md`:
+
+~~~ html
+<pre>{{get_page_info(page)}}</pre>
 ~~~
+
+<!-- ## Site API -->
+
+<!-- ## Page API -->
+
+<!-- ## HTML generation functions -->
 
 ## Setting up Transom for a website repo
 

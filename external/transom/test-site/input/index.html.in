@@ -1,6 +1,5 @@
 ---
 title: Doorjamb
-root_class: windowsill
 test_attribute: |
   abc
 ---

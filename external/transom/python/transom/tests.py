@@ -19,7 +19,7 @@
 
 import csv as _csv
 
-from .main import TransomCommand, _lipsum, _plural, _html_table, _html_table_csv
+from .main import TransomCommand, lipsum, plural, html_table, html_table_csv
 from plano import *
 from threading import Thread
 from xml.etree.ElementTree import XML
@@ -112,7 +112,7 @@ def transom_render():
     with test_site():
         remove("config/config.py") # No config.py
 
-        transom_command.main(["render", "--verbose"])
+        transom_command.main(["render", "--verbose", "--init-only"])
 
     with test_site():
         remove("config/body.html") # No body template
@@ -229,36 +229,36 @@ def plano_modules():
 
 @test
 def lipsum_function():
-    result = _lipsum(0, end="")
+    result = lipsum(0, end="")
     assert result == "", result
 
-    result = _lipsum(1)
+    result = lipsum(1)
     assert result == "Lorem."
 
-    result = _lipsum(1000)
+    result = lipsum(1000)
     assert result
 
 @test
 def plural_function():
-    result = _plural(None)
+    result = plural(None)
     assert result == "", result
 
-    result = _plural("")
+    result = plural("")
     assert result == "", result
 
-    result = _plural("test")
+    result = plural("test")
     assert result == "tests", result
 
-    result = _plural("test", 1)
+    result = plural("test", 1)
     assert result == "test", result
 
-    result = _plural("bus")
+    result = plural("bus")
     assert result == "busses", result
 
-    result = _plural("bus", 1)
+    result = plural("bus", 1)
     assert result == "bus", result
 
-    result = _plural("terminus", 2, "termini")
+    result = plural("terminus", 2, "termini")
     assert result == "termini", result
 
 @test
@@ -269,12 +269,12 @@ def html_table_functions():
         (None, "", 0),
     )
 
-    XML(_html_table(data, class_="X"))
-    XML(_html_table(data, headings=("A", "B", "C")))
+    XML(html_table(data, class_="X"))
+    XML(html_table(data, headings=("A", "B", "C")))
 
     with working_dir():
         with open("test.csv", "w", newline="") as f:
             writer = _csv.writer(f)
             writer.writerows(data)
 
-        XML(_html_table_csv("test.csv"))
+        XML(html_table_csv("test.csv"))

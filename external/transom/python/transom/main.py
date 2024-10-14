@@ -36,13 +36,35 @@ import types as _types
 import yaml as _yaml
 
 from html import escape as _escape
-from html.parser import HTMLParser as _HTMLParser
+from html.parser import HTMLParser
 from urllib import parse as _urlparse
 
-_default_page_template = "{{page.body}}"
-_default_body_template = "{{page.content}}"
+__all__ = ["Transom", "TransomCommand"]
+
+_default_page_template = """
+<!DOCTYPE html>
+<html>
+  {{page.head}}
+  {{page.body}}
+</html>
+"""
+
+_default_head_template = """
+<head>
+  <title>{{page.title}}</title>
+  <link rel="icon" href="data:;"/>
+  {{page.extra_headers}}
+</head>
+"""
+
+_default_body_template = """
+<body>
+  {{page.content}}
+</body>
+"""
+
 _index_file_names = "index.md", "index.html.in", "index.html"
-_markdown_title_regex = _re.compile(r"(#|##)(.+)")
+_markdown_title_regex = _re.compile(r"(#|##) (.+)")
 _variable_regex = _re.compile(r"({{{.+?}}}|{{.+?}})")
 
 # An improvised solution for trouble on Mac OS
@@ -66,29 +88,42 @@ class Transom:
 
         self._config = {
             "site": self,
-            "lipsum": _lipsum,
-            "plural": _plural,
-            "html_table": _html_table,
-            "html_table_csv": _html_table_csv,
+            "lipsum": lipsum,
+            "plural": plural,
+            "html_table": html_table,
+            "html_table_csv": html_table_csv,
         }
 
         self._body_template = None
         self._page_template = None
 
+        self._config_modified = False
+
         self._files = list()
         self._index_files = dict() # parent input dir => _File
 
     def init(self):
-        self._page_template = _load_template(_os.path.join(self.config_dir, "page.html"), _default_page_template)
-        self._body_template = _load_template(_os.path.join(self.config_dir, "body.html"), _default_body_template)
+        self._page_template = load_site_template(_os.path.join(self.config_dir, "page.html"), _default_page_template)
+        self._head_template = load_site_template(_os.path.join(self.config_dir, "head.html"), _default_head_template)
+        self._body_template = load_site_template(_os.path.join(self.config_dir, "body.html"), _default_body_template)
 
         self._ignored_file_regex = "({})".format("|".join([_fnmatch.translate(x) for x in self.ignored_file_patterns]))
         self._ignored_file_regex = _re.compile(self._ignored_file_regex)
 
         try:
-            exec(_read_file(_os.path.join(self.config_dir, "config.py")), self._config)
+            exec(read_file(_os.path.join(self.config_dir, "config.py")), self._config)
         except FileNotFoundError as e:
             self.warning("Config file not found: {}", e)
+
+    def _get_config_modified(self, output_mtime):
+        for root, dirs, names in _os.walk(self.config_dir):
+            for name in {x for x in names if not self._ignored_file_regex.match(x)}:
+                mtime = _os.path.getmtime(_os.path.join(root, name))
+
+                if mtime > output_mtime:
+                    return True
+
+        return False
 
     def _init_files(self):
         self._files.clear()
@@ -111,20 +146,25 @@ class Transom:
         output_path = _os.path.join(self.output_dir, input_path[len(self.input_dir) + 1:])
 
         if input_path.endswith(".md"):
-            return _MarkdownPage(self, input_path, f"{output_path[:-3]}.html")
+            return MarkdownPage(self, input_path, f"{output_path[:-3]}.html")
         elif input_path.endswith(".html.in"):
-            return _TemplatePage(self, input_path, output_path[:-3])
+            return TemplatePage(self, input_path, output_path[:-3])
         else:
-            return _File(self, input_path, output_path)
+            return File(self, input_path, output_path)
 
     def render(self, force=False):
         self.notice("Rendering files from '{}' to '{}'", self.input_dir, self.output_dir)
 
+        if _os.path.exists(self.output_dir):
+            output_mtime = _os.path.getmtime(self.output_dir)
+            self._config_modified = self._get_config_modified(output_mtime)
+
         self._init_files()
 
-        self.notice("Found {:,} input {}", len(self._files), _plural("file", len(self._files)))
+        self.notice("Found {:,} input {}", len(self._files), plural("file", len(self._files)))
 
-        for file_ in self._index_files.values():
+        # XXX Consider parallizing this too
+        for file_ in self._files:
             file_._process_input()
 
         proc_count = _os.cpu_count()
@@ -135,13 +175,16 @@ class Transom:
             start = i * batch_size
             end = start + batch_size
 
-            procs.append(_RenderProcess(self._files[start:end], force))
+            procs.append(RenderProcess(self._files[start:end], force))
 
         for proc in procs:
             proc.start()
 
         for proc in procs:
             proc.join()
+
+            if proc.exitcode != 0:
+                raise Exception("A child render process failed")
 
         if _os.path.exists(self.output_dir):
             _os.utime(self.output_dir)
@@ -153,14 +196,13 @@ class Transom:
         if unmodified_count > 0:
             unmodified_note = " ({:,} unchanged)".format(unmodified_count)
 
-        self.notice("Rendered {:,} output {}{}", rendered_count, _plural("file", rendered_count), unmodified_note)
+        self.notice("Rendered {:,} output {}{}", rendered_count, plural("file", rendered_count), unmodified_note)
 
     def serve(self, port=8080):
         watcher = None
-        livereload = None
 
         try:
-            watcher = _WatcherThread(self)
+            watcher = WatcherThread(self)
         except ImportError: # pragma: nocover
             self.notice("Failed to import pyinotify, so I won't auto-render updated input files")
             self.notice("Try installing the Python inotify package")
@@ -169,27 +211,16 @@ class Transom:
             watcher.start()
 
         try:
-            livereload = _subprocess.Popen(f"livereload {self.output_dir} --wait 100",
-                                           shell=True, stdout=_subprocess.DEVNULL, stderr=_subprocess.DEVNULL)
-        except _subprocess.CalledProcessError as e: # pragma: nocover
-            self.notice("Failed to start the livereload server, so I won't auto-reload the browser")
-            self.notice("Use 'npm install -g livereload' to install the server")
-            self.notice("Subprocess error: {}", e)
-
-        try:
-            server = _ServerThread(self, port)
+            server = ServerThread(self, port)
             server.run()
         finally:
-            if livereload is not None:
-                livereload.terminate()
-
             if watcher is not None:
                 watcher.stop()
 
     def check_files(self):
         self._init_files()
 
-        expected_paths = {x._output_path for x in self._files}
+        expected_paths = {x.output_path for x in self._files}
         found_paths = set()
 
         for root, dirs, names in _os.walk(self.output_dir):
@@ -234,7 +265,7 @@ class Transom:
                 print(f"Error: Link to '{link}' has no destination")
 
                 for source in link_sources[link]:
-                    print(f"  Source: {source._input_path}")
+                    print(f"  Source: {source.input_path}")
 
         return errors
 
@@ -249,26 +280,26 @@ class Transom:
     def warning(self, message, *args):
         print("Warning:", message.format(*args))
 
-class _File:
-    __slots__ = "site", "_input_path", "_input_mtime", "_output_path", "_output_mtime", "_rendered", \
+class File:
+    __slots__ = "site", "input_path", "_input_mtime", "output_path", "_output_mtime", "_rendered", \
         "url", "title", "parent"
 
     def __init__(self, site, input_path, output_path):
         self.site = site
 
-        self._input_path = input_path
-        self._input_mtime = _os.path.getmtime(self._input_path)
+        self.input_path = input_path
+        self._input_mtime = _os.path.getmtime(self.input_path)
 
-        self._output_path = output_path
+        self.output_path = output_path
         self._output_mtime = None
 
         self._rendered = False
 
-        self.url = self._output_path[len(self.site.output_dir):]
+        self.url = self.output_path[len(self.site.output_dir):]
         self.title = ""
         self.parent = None
 
-        dir_, name = _os.path.split(self._input_path)
+        dir_, name = _os.path.split(self.input_path)
 
         if name in _index_file_names:
             self.site._index_files[dir_] = self
@@ -283,7 +314,7 @@ class _File:
                 break
 
     def __repr__(self):
-        return f"{self.__class__.__name__}({self._input_path}, {self._output_path})"
+        return f"{self.__class__.__name__}({self.input_path}, {self.output_path})"
 
     def _process_input(self): # pragma: nocover
         pass
@@ -301,14 +332,14 @@ class _File:
     def _is_modified(self):
         if self._output_mtime is None:
             try:
-                self._output_mtime = _os.path.getmtime(self._output_path)
+                self._output_mtime = _os.path.getmtime(self.output_path)
             except FileNotFoundError:
                 return True
 
         return self._input_mtime > self._output_mtime
 
     def _render_content(self):
-        _copy_file(self._input_path, self._output_path)
+        copy_file(self.input_path, self.output_path)
 
     def _collect_link_data(self, link_sources, link_targets):
         link_targets.add(self.url)
@@ -316,10 +347,24 @@ class _File:
         if not self.url.endswith(".html"):
             return
 
-        parser = _LinkParser(self, link_sources, link_targets)
-        parser.feed(_read_file(self._output_path))
+        parser = LinkParser(self, link_sources, link_targets)
+        parser.feed(read_file(self.output_path))
 
-class _LinkParser(_HTMLParser):
+    @property
+    def ancestors(self):
+        file_ = self
+
+        while file_ is not None:
+            yield file_
+            file_ = file_.parent
+
+    @property
+    def children(self):
+        for file_ in self.site._files:
+            if file_.parent is self:
+                yield file_
+
+class LinkParser(HTMLParser):
     def __init__(self, file_, link_sources, link_targets):
         super().__init__()
 
@@ -353,42 +398,50 @@ class _LinkParser(_HTMLParser):
 
             self.link_targets.add(normalized_url)
 
-class _TemplatePage(_File):
-    __slots__ = "_content", "_attributes", "_page_template", "_body_template"
+class TemplatePage(File):
+    __slots__ = "_content", "metadata", "_page_template", "_head_template", "_body_template"
 
     def _process_input(self):
-        self._content = _read_file(self._input_path)
-        self._content, self._attributes = _extract_metadata(self._content)
+        self._content = read_file(self.input_path)
+        self._content, self.metadata = extract_metadata(self._content)
 
-        self.title = self._attributes.get("title", self.title)
+        self.title = self.metadata.get("title", self.title)
 
         try:
-            self._page_template = _load_template(self._attributes["page_template"], _default_page_template)
+            self._page_template = load_page_template(self.metadata["page_template"], "")
         except KeyError:
             self._page_template = self.site._page_template
 
         try:
-            self._body_template = _load_template(self._attributes["body_template"], _default_body_template)
+            self._head_template = load_page_template(self.metadata["head_template"], "")
+        except KeyError:
+            self._head_template = self.site._head_template
+
+        try:
+            self._body_template = load_page_template(self.metadata["body_template"], "{{page.content}}")
         except KeyError:
             self._body_template = self.site._body_template
+
+    def _is_modified(self):
+        return self.site._config_modified or super()._is_modified()
 
     def _render_content(self):
         if not hasattr(self, "_content"):
             self._process_input()
 
-        _os.makedirs(_os.path.dirname(self._output_path), exist_ok=True)
+        _os.makedirs(_os.path.dirname(self.output_path), exist_ok=True)
 
-        with open(self._output_path, "w") as f:
+        with open(self.output_path, "w") as f:
             for elem in self._render_template(self._page_template):
                 f.write(elem)
 
     @property
-    def root_class(self):
-        return self._attributes.get("root_class", "")
+    def head(self):
+        return self._render_template(self._head_template)
 
     @property
     def extra_headers(self):
-        return self._attributes.get("extra_headers", "")
+        return self.metadata.get("extra_headers", "")
 
     @property
     def body(self):
@@ -396,27 +449,19 @@ class _TemplatePage(_File):
 
     @property
     def content(self):
-        parsed = _parse_template(self._content)
+        parsed = parse_template(self._content)
         rendered = "".join(self._render_template(parsed))
 
         return self._convert_content(rendered)
 
+    def path_nav(self, start=None, end=None):
+        files = reversed(list(self.ancestors))
+        links = [f"<a href=\"{x.url}\">{x.title}</a>" for x in files]
+
+        return f"<nav class=\"path-nav\">{''.join(links)}</nav>"
+
     def _convert_content(self, content):
         return content
-
-    @property
-    def path_nav_links(self):
-        files = [self]
-        file_ = self.parent
-
-        while file_ is not None:
-            files.append(file_)
-            file_ = file_.parent
-
-        return (f"<a href=\"{x.url}\">{x.title}</a>" for x in reversed(files))
-
-    def path_nav(self, start=None, end=None):
-        return f"<nav id=\"-path-nav\">{''.join(list(self.path_nav_links)[start:end])}</nav>"
 
     def _render_template(self, template):
         local_vars = {"page": self}
@@ -434,14 +479,14 @@ class _TemplatePage(_File):
 
     def render_text(self, text, markdown=False):
         if markdown:
-            text = _convert_markdown(text)
+            text = convert_markdown(text)
 
-        return self._render_template(_parse_template(text))
+        return self._render_template(parse_template(text))
 
     def include(self, input_path):
-        return self.render_text(_read_file(input_path), markdown=input_path.endswith(".md"))
+        return self.render_text(read_file(input_path), markdown=input_path.endswith(".md"))
 
-class _MarkdownPage(_TemplatePage):
+class MarkdownPage(TemplatePage):
     __slots__ = ()
 
     def _process_input(self):
@@ -452,9 +497,9 @@ class _MarkdownPage(_TemplatePage):
             self.title = match.group(2).strip() if match else ""
 
     def _convert_content(self, content):
-        return _convert_markdown(content)
+        return convert_markdown(content)
 
-class _RenderProcess(_multiprocessing.Process):
+class RenderProcess(_multiprocessing.Process):
     def __init__(self, files, force):
         super().__init__()
 
@@ -473,7 +518,7 @@ class _RenderProcess(_multiprocessing.Process):
 
         self.rendered_count.value = rendered_count
 
-class _WatcherThread:
+class WatcherThread:
     def __init__(self, site):
         import pyinotify as _pyinotify
 
@@ -497,7 +542,7 @@ class _WatcherThread:
 
         def render_site(event):
             self.site.init()
-            self.site.render(force=True)
+            self.site.render()
 
         watcher.add_watch(self.site.input_dir, mask, render_file, rec=True, auto_add=True)
         watcher.add_watch(self.site.config_dir, mask, render_site, rec=True, auto_add=True)
@@ -511,51 +556,35 @@ class _WatcherThread:
     def stop(self):
         self.notifier.stop()
 
-class _ServerThread(_threading.Thread):
+class ServerThread(_threading.Thread):
     def __init__(self, site, port):
         super().__init__(name="server", daemon=True)
 
         self.site = site
         self.port = port
-        self.server = _Server(site, port)
+        self.server = Server(site, port)
 
     def run(self):
         self.site.notice("Serving at http://localhost:{}", self.port)
         self.server.serve_forever()
 
-class _Server(_http.ThreadingHTTPServer):
+class Server(_http.ThreadingHTTPServer):
     def __init__(self, site, port):
-        super().__init__(("localhost", port), _ServerRequestHandler)
+        super().__init__(("localhost", port), ServerRequestHandler)
 
         self.site = site
 
-class _ServerRequestHandler(_http.SimpleHTTPRequestHandler):
+class ServerRequestHandler(_http.SimpleHTTPRequestHandler):
     def __init__(self, request, client_address, server, directory=None):
         super().__init__(request, client_address, server, directory=server.site.output_dir)
 
-    def do_GET(self):
-        path = _os.path.join(self.directory, self.path[1:])
-
-        if _os.path.isdir(path):
-            path = _os.path.join(path, "index.html")
-
-        if path.endswith(".html"):
-            with open(path) as file_:
-                content = file_.read()
-                content = content.replace("</head>", "<script src=\"http://localhost:35729/livereload.js\"></script></head>")
-
-                self.send_response(_http.HTTPStatus.OK)
-                self.send_header("Content-type", "text/html; charset=UTF-8")
-                self.send_header("Content-length", len(content))
-                self.end_headers()
-
-                self.wfile.write(content.encode("utf-8"))
-        else:
-            super().do_GET()
-
     def do_POST(self):
-        if self.path == "/STOP":
+        if self.path == "/RENDER":
+            self.server.site.render()
+        elif self.path == "/STOP":
             self.server.shutdown()
+        else:
+            raise Exception()
 
         self.send_response(_http.HTTPStatus.OK)
         self.end_headers()
@@ -576,12 +605,14 @@ class TransomCommand:
         subparsers = self.parser.add_subparsers(title="subcommands")
 
         common = _argparse.ArgumentParser()
+        common.add_argument("--init-only", action="store_true",
+                            help=_argparse.SUPPRESS)
         common.add_argument("--verbose", action="store_true",
                             help="Print detailed logging to the console")
         common.add_argument("--quiet", action="store_true",
                             help="Print no logging to the console")
-        common.add_argument("--init-only", action="store_true",
-                            help=_argparse.SUPPRESS)
+        common.add_argument("--output", metavar="OUTPUT-DIR",
+                            help="The output directory (default: PROJECT-DIR/output)")
         common.add_argument("project_dir", metavar="PROJECT-DIR", nargs="?", default=".",
                             help="The project root directory (default: current directory)")
 
@@ -627,6 +658,10 @@ class TransomCommand:
 
         if self.args.command_fn != self.init_command:
             self.lib = Transom(self.args.project_dir, verbose=self.verbose, quiet=self.quiet)
+
+            if self.args.output:
+                self.lib.output_dir = self.args.output
+
             self.lib.init()
 
     def main(self, args=None):
@@ -675,7 +710,7 @@ class TransomCommand:
                 self.notice("Skipping '{}'. It already exists.", to_path)
                 return
 
-            _copy_path(from_path, to_path)
+            copy_path(from_path, to_path)
 
             self.notice("Creating '{}'", to_path)
 
@@ -728,18 +763,18 @@ class TransomCommand:
         else:
             self.fail("FAILED")
 
-def _read_file(path):
+def read_file(path):
     with open(path, "r") as f:
         return f.read()
 
-def _copy_file(from_path, to_path):
+def copy_file(from_path, to_path):
     try:
         _shutil.copyfile(from_path, to_path)
     except FileNotFoundError:
         _os.makedirs(_os.path.dirname(to_path), exist_ok=True)
         _shutil.copyfile(from_path, to_path)
 
-def _copy_dir(from_dir, to_dir):
+def copy_dir(from_dir, to_dir):
     for name in _os.listdir(from_dir):
         if name == "__pycache__":
             continue
@@ -747,15 +782,15 @@ def _copy_dir(from_dir, to_dir):
         from_path = _os.path.join(from_dir, name)
         to_path = _os.path.join(to_dir, name)
 
-        _copy_path(from_path, to_path)
+        copy_path(from_path, to_path)
 
-def _copy_path(from_path, to_path):
+def copy_path(from_path, to_path):
     if _os.path.isdir(from_path):
-        _copy_dir(from_path, to_path)
+        copy_dir(from_path, to_path)
     else:
-        _copy_file(from_path, to_path)
+        copy_file(from_path, to_path)
 
-def _extract_metadata(text):
+def extract_metadata(text):
     if text.startswith("---\n"):
         end = text.index("---\n", 4)
         yaml = text[4:end]
@@ -765,13 +800,19 @@ def _extract_metadata(text):
 
     return text, dict()
 
-def _load_template(path, default_text):
-    if path is None or not _os.path.isfile(path):
-        return list(_parse_template(default_text))
+def load_site_template(path, default_text):
+    if path is None or not _os.path.exists(path):
+        return list(parse_template(default_text))
 
-    return list(_parse_template(_read_file(path)))
+    return list(parse_template(read_file(path)))
 
-def _parse_template(text):
+def load_page_template(path, default_text):
+    if path is None:
+        return list(parse_template(default_text))
+
+    return list(parse_template(read_file(path)))
+
+def parse_template(text):
     for token in _variable_regex.split(text):
         if token.startswith("{{{") and token.endswith("}}}"):
             yield token[1:-1]
@@ -783,7 +824,7 @@ def _parse_template(text):
 _heading_id_regex_1 = _re.compile(r"[^a-zA-Z0-9_ ]+")
 _heading_id_regex_2 = _re.compile(r"[_ ]")
 
-class _HtmlRenderer(_mistune.renderers.html.HTMLRenderer):
+class HtmlRenderer(_mistune.renderers.html.HTMLRenderer):
     def heading(self, text, level, **attrs):
         id = _heading_id_regex_1.sub("", text)
         id = _heading_id_regex_2.sub("-", id)
@@ -791,13 +832,14 @@ class _HtmlRenderer(_mistune.renderers.html.HTMLRenderer):
 
         return f"<h{level} id=\"{id}\">{text}</h{level}>\n"
 
-class _MarkdownLocal(_threading.local):
+class MarkdownLocal(_threading.local):
     def __init__(self):
-        self.value = _mistune.create_markdown(renderer=_HtmlRenderer(escape=False), plugins=["table"])
+        self.value = _mistune.create_markdown(renderer=HtmlRenderer(escape=False), plugins=["table"])
+        self.value.block.list_rules += ['table', 'nptable']
 
-_markdown_local = _MarkdownLocal()
+_markdown_local = MarkdownLocal()
 
-def _convert_markdown(text):
+def convert_markdown(text):
     lines = (x for x in text.splitlines(keepends=True) if not x.startswith(";;"))
     return _markdown_local.value("".join(lines))
 
@@ -809,10 +851,10 @@ _lipsum_words = [
     "ligula", "consequat", "condimentum", "integer", "tempus", "sem",
 ]
 
-def _lipsum(count=50, end="."):
+def lipsum(count=50, end="."):
     return (" ".join((_lipsum_words[i % len(_lipsum_words)] for i in range(count))) + end).capitalize()
 
-def _plural(noun, count=0, plural=None):
+def plural(noun, count=0, plural=None):
     if noun in (None, ""):
         return ""
 
@@ -827,30 +869,30 @@ def _plural(noun, count=0, plural=None):
 
     return plural
 
-def _html_table_csv(path, **attrs):
+def html_table_csv(path, **attrs):
     with open(path, newline="") as f:
-        return _html_table(_csv.reader(f), **attrs)
+        return html_table(_csv.reader(f), **attrs)
 
-def _html_table_cell(column_index, value):
-    return _html_elem("td", str(value if value is not None else ""))
+def html_table_cell(column_index, value):
+    return html_elem("td", str(value if value is not None else ""))
 
-def _html_table(data, headings=None, cell_fn=_html_table_cell, **attrs):
-    return _html_elem("table", _html_elem("tbody", _html_table_rows(data, headings, cell_fn)), **attrs)
+def html_table(data, headings=None, cell_fn=html_table_cell, **attrs):
+    return html_elem("table", html_elem("tbody", html_table_rows(data, headings, cell_fn)), **attrs)
 
-def _html_table_rows(data, headings, cell_fn):
+def html_table_rows(data, headings, cell_fn):
     if headings:
-        yield _html_elem("tr", (_html_elem("th", x) for x in headings))
+        yield html_elem("tr", (html_elem("th", x) for x in headings))
 
     for row in data:
-        yield _html_elem("tr", (cell_fn(i, x) for i, x in enumerate(row)))
+        yield html_elem("tr", (cell_fn(i, x) for i, x in enumerate(row)))
 
-def _html_elem(tag, content, **attrs):
+def html_elem(tag, content, **attrs):
     if isinstance(content, _abc.Iterable) and not isinstance(content, str):
         content = "".join(content)
 
-    return f"<{tag}{''.join(_html_attrs(attrs))}>{content or ''}</{tag}>"
+    return f"<{tag}{''.join(html_attrs(attrs))}>{content or ''}</{tag}>"
 
-def _html_attrs(attrs):
+def html_attrs(attrs):
     for name, value in attrs.items():
         name = "class" if name in ("class_", "_class") else name
         value = name if value is True else value
