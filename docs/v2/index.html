@@ -50,6 +50,9 @@
         <a href="/community/index.html">
           <div>Community</div>
         </a>
+        <a href="/news/index.html">
+          <div>News</div>
+        </a>
       </div>
       <div id="-right-site-nav">
         <a href="https://github.com/skupperproject">
@@ -66,6 +69,7 @@
       <a href="/examples/index.html">Examples</a>
       <a href="/docs/index.html">Documentation</a>
       <a href="/community/index.html">Community</a>
+      <a href="/news/index.html">News</a>
     </div>
   </nav>
 </header>
@@ -76,7 +80,7 @@
     <main>
 
 <h1 id="skupper-v2">Skupper v2</h1>
-<p><em>10 October 2024</em></p>
+<p><em>16 October 2024</em></p>
 <p>Skupper v2 is a major change and a major improvement over v1.  Here's
 why we're doing it and what it means for our users and contributors.</p>
 <h2 id="why-a-new-major-version">Why a new major version?</h2>
@@ -105,6 +109,18 @@ resources are, on balance, the right choice.</p>
 service exposure.  In v2, all of Skupper's interfaces and platforms
 use this common API.</p>
 <p>The following are the core API resources in v2, organized by function:</p>
+<style>
+.data-table table {
+    border-collapse: collapse;
+}
+.data-table td {
+    border: 1px solid gray;
+    padding: 0.2em 0.4em;
+}
+</style>
+
+<div class="data-table">
+
 <table>
 <thead>
 <tr>
@@ -127,6 +143,8 @@ use this common API.</p>
 </tr>
 </tbody>
 </table>
+</div>
+
 <p>The new API is designed to enable automation with GitOps and other
 tools and to provide a foundation for third-party integrations.</p>
 <p>Service exposure in particular sees a change in v2.  In v1, service
@@ -165,6 +183,11 @@ Podman, VMs, or bare metal.  In v2, we've made the support for
 non-Kube sites simpler and more uniform.  They use the same YAML
 resources as Kube sites.  One codebase implements support for all of
 the non-Kube platforms.</p>
+<h2 id="upgrades">Upgrades</h2>
+<p>V2 is not backward compatible with v1.  We are developing tooling to
+convert v1 configuration to v2 custom resources.  Those upgrading from
+v1 to v2 will have a small period of downtime while the v1 components
+shut down and the v2 components start up.</p>
 <!-- ## The observability components stand apart -->
 
 <!-- Deployment is separate from that of sites. -->
@@ -203,18 +226,12 @@ the non-Kube platforms.</p>
 
 <!-- model. -->
 
-<!-- | 1.x | 2.x | -->
-
-<!-- |-|-| -->
-
-<!-- | Gateways | Docker, Podman, and Systemd sites | -->
-
 <h2 id="when-will-v2-be-available">When will v2 be available?</h2>
 <p>The preview 1 release is available now.  Preview 2 is set for the end
 of October, and we are aiming to release 2.0 at the end of November.</p>
 <p>Note that things are still changing in the preview releases as we
 review interfaces and make improvements.</p>
-<h2 id="try-it-out">Try it out</h2>
+<h2 id="try-it-today">Try it today</h2>
 <p>The best way to start exploring v2 is with our examples.  With preview
 1, we have converted our CLI and YAML Hello World examples:</p>
 <ul>

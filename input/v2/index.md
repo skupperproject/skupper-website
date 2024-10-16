@@ -1,6 +1,6 @@
 # Skupper v2
 
-_10 October 2024_
+_16 October 2024_
 
 Skupper v2 is a major change and a major improvement over v1.  Here's
 why we're doing it and what it means for our users and contributors.
@@ -43,11 +43,25 @@ use this common API.
 
 The following are the core API resources in v2, organized by function:
 
+<style>
+.data-table table {
+    border-collapse: collapse;
+}
+.data-table td {
+    border: 1px solid gray;
+    padding: 0.2em 0.4em;
+}
+</style>
+
+<div class="data-table">
+
 | | |
 | - | - |
 | *Site configuration* | [Site][site-ref] |
 | *Site linking* |  [Link][link-ref], [AccessGrant][access-grant-ref], [AccessToken][access-token-ref] |
 | *Service exposure* | [Connector][connector-ref], [Listener][listener-ref] |
+
+</div>
 
 [site-ref]: https://skupperproject.github.io/refdog/resources/site.html
 [link-ref]: https://skupperproject.github.io/refdog/resources/link.html
@@ -102,6 +116,13 @@ non-Kube sites simpler and more uniform.  They use the same YAML
 resources as Kube sites.  One codebase implements support for all of
 the non-Kube platforms.
 
+## Upgrades
+
+V2 is not backward compatible with v1.  We are developing tooling to
+convert v1 configuration to v2 custom resources.  Those upgrading from
+v1 to v2 will have a small period of downtime while the v1 components
+shut down and the v2 components start up.
+
 <!-- ## The observability components stand apart -->
 
 <!-- Deployment is separate from that of sites. -->
@@ -132,10 +153,6 @@ the non-Kube platforms.
 <!-- AttachedConnector and AttachedConnectorAnchor.  A better security -->
 <!-- model. -->
 
-<!-- | 1.x | 2.x | -->
-<!-- |-|-| -->
-<!-- | Gateways | Docker, Podman, and Systemd sites | -->
-
 ## When will v2 be available?
 
 The preview 1 release is available now.  Preview 2 is set for the end
@@ -144,7 +161,7 @@ of October, and we are aiming to release 2.0 at the end of November.
 Note that things are still changing in the preview releases as we
 review interfaces and make improvements.
 
-## Try it out
+## Try it today
 
 The best way to start exploring v2 is with our examples.  With preview
 1, we have converted our CLI and YAML Hello World examples:
