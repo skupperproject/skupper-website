@@ -65,8 +65,8 @@ The following are the core API resources in v2, organized by function:
 
 [site-ref]: https://skupperproject.github.io/refdog/resources/site.html
 [link-ref]: https://skupperproject.github.io/refdog/resources/link.html
-[access-grant-ref]: https://skupperproject.github.io/refdog/resources/accessgrant.html
-[access-token-ref]: https://skupperproject.github.io/refdog/resources/accesstoken.html
+[access-grant-ref]: https://skupperproject.github.io/refdog/resources/access-grant.html
+[access-token-ref]: https://skupperproject.github.io/refdog/resources/access-token.html
 [connector-ref]: https://skupperproject.github.io/refdog/resources/connector.html
 [listener-ref]: https://skupperproject.github.io/refdog/resources/listener.html
 
