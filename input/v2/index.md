@@ -41,7 +41,7 @@ V2 has a new, uniform API for site configuration, site linking, and
 service exposure.  In v2, all of Skupper's interfaces and platforms
 use this common API.
 
-The following are the core API resources in v2, organized by function:
+The following are the key API resources in v2:
 
 <style>
 .data-table table {
@@ -57,16 +57,13 @@ The following are the core API resources in v2, organized by function:
 
 | | |
 | - | - |
-| *Site configuration* | [Site][site-ref] |
-| *Site linking* |  [Link][link-ref], [AccessGrant][access-grant-ref], [AccessToken][access-token-ref] |
+| *Sites and networks* | [Site][site-ref], [Link][link-ref] |
 | *Service exposure* | [Connector][connector-ref], [Listener][listener-ref] |
 
 </div>
 
 [site-ref]: https://skupperproject.github.io/refdog/resources/site.html
 [link-ref]: https://skupperproject.github.io/refdog/resources/link.html
-[access-grant-ref]: https://skupperproject.github.io/refdog/resources/access-grant.html
-[access-token-ref]: https://skupperproject.github.io/refdog/resources/access-token.html
 [connector-ref]: https://skupperproject.github.io/refdog/resources/connector.html
 [listener-ref]: https://skupperproject.github.io/refdog/resources/listener.html
 
