@@ -21,12 +21,12 @@ as its declarative interface.  Skupper v2 instead uses Kubernetes
 [custom resources][custom-resources].
 
 Custom resources have two key advantages.  First, they are subject to
-standard Kubernetes [role-based access control][rbac], so cluster
-admins can use standard tooling to control use of Skupper if they
-choose.  Second, they provide a standard mechanism for reporting
-resource status.
+Kubernetes [role-based access control][rbac], so cluster admins can
+use standard tooling to control use of Skupper if they choose.
+Second, they provide a standard mechanism for reporting resource
+status.
 
-Choosing custom resources comes with a trade off: installing custom
+Choosing custom resources comes with a trade off. Installing custom
 resource definitions (CRDs) requires cluster admin privileges,
 something v1 did not require.  This is an advantage for some of our
 users, but a disadvantage for others.  We believe that custom
@@ -155,8 +155,8 @@ shut down and the v2 components start up.
 
 ## When will v2 be available?
 
-The preview 1 release is available now.  Preview 2 is set for the end
-of October, and we are aiming to release 2.0 at the end of November.
+The preview 2 release is available now.  We are aiming to release 2.0
+in January 2025.
 
 Note that things are still changing in the preview releases as we
 review interfaces and make improvements.

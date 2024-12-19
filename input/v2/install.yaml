@@ -1,3 +1,5 @@
+---
+# Source: skupper-setup/crds/skupper_access_grant_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -5,7 +7,7 @@ metadata:
 spec:
   group: skupper.io
   versions:
-    - name: v1alpha1
+    - name: v2alpha1
       served: true
       storage: true
       schema:
@@ -24,6 +26,10 @@ spec:
                   type: string
                 issuer:
                   type: string
+                settings:
+                  type: object
+                  additionalProperties:
+                    type: string
             status:
               type: object
               properties:
@@ -33,12 +39,14 @@ spec:
                   type: string
                 ca:
                   type: string
-                redeemed:
+                redemptions:
                   type: integer
-                expiration:
+                expirationTime:
                   type: string
                   format: date-time
                 status:
+                  type: string
+                message:
                   type: string
                 conditions:
                   type: array
@@ -82,7 +90,7 @@ spec:
       - name: Redemptions Allowed
         type: integer
         description: The number of claims the grant is valid for
-        jsonPath: .spec.claims
+        jsonPath: .spec.redemptionsAllowed
       - name: Redemptions Made
         type: integer
         description: The number of times an access token originating from this grant has been redeemed
@@ -95,12 +103,18 @@ spec:
         type: string
         description: The status of the grant
         jsonPath: .status.status
+      - name: Message
+        type: string
+        description: Any human readable message relevant to the grant
+        jsonPath: .status.message
   scope: Namespaced
   names:
     plural: accessgrants
     singular: accessgrant
     kind: AccessGrant
+
 ---
+# Source: skupper-setup/crds/skupper_access_token_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -108,7 +122,7 @@ metadata:
 spec:
   group: skupper.io
   versions:
-    - name: v1alpha1
+    - name: v2alpha1
       served: true
       storage: true
       schema:
@@ -124,6 +138,12 @@ spec:
                   type: string
                 ca:
                   type: string
+                linkCost:
+                  type: integer
+                settings:
+                  type: object
+                  additionalProperties:
+                    type: string
               required:
               - url
               - code
@@ -134,6 +154,8 @@ spec:
                 redeemed:
                   type: boolean
                 status:
+                  type: string
+                message:
                   type: string
                 conditions:
                   type: array
@@ -186,20 +208,26 @@ spec:
         type: string
         description: The status of the access token
         jsonPath: .status.status
+      - name: Message
+        type: string
+        description: Any human readable message relevant to the token
+        jsonPath: .status.message
   scope: Namespaced
   names:
     plural: accesstokens
     singular: accesstoken
     kind: AccessToken
+
 ---
+# Source: skupper-setup/crds/skupper_attached_connector_binding_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  name: attachedconnectoranchors.skupper.io
+  name: attachedconnectorbindings.skupper.io
 spec:
   group: skupper.io
   versions:
-    - name: v1alpha1
+    - name: v2alpha1
       served: true
       storage: true
       schema:
@@ -213,6 +241,12 @@ spec:
                   type: string
                 routingKey:
                   type: string
+                exposePodsByName:
+                  type: boolean
+                settings:
+                  type: object
+                  additionalProperties:
+                    type: string
               required:
               - connectorNamespace
               - routingKey
@@ -257,8 +291,8 @@ spec:
                     - reason
                     - status
                     - type
-                matchingListenerCount:
-                  type: integer
+                hasMatchingListener:
+                  type: boolean
       subresources:
         status: {}
       additionalPrinterColumns:
@@ -274,16 +308,18 @@ spec:
         type: string
         description: The status of the connector
         jsonPath: .status.status
-      - name: Matching Listener Count
+      - name: Has Matching Listener
         type: integer
-        description: The number of listeners in the network with a matching routing key.
-        jsonPath: .status.matchingListenerCount
+        description: Whether there is at least one listener in the network with a matching routing key.
+        jsonPath: .status.hasMatchingListener
   scope: Namespaced
   names:
-    plural: attachedconnectoranchors
-    singular: attachedconnectoranchor
-    kind: AttachedConnectorAnchor
+    plural: attachedconnectorbindings
+    singular: attachedconnectorbinding
+    kind: AttachedConnectorBinding
+
 ---
+# Source: skupper-setup/crds/skupper_attached_connector_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -291,7 +327,7 @@ metadata:
 spec:
   group: skupper.io
   versions:
-    - name: v1alpha1
+    - name: v2alpha1
       served: true
       storage: true
       schema:
@@ -311,8 +347,12 @@ spec:
                   type: string
                 type:
                   type: string
-                includeNotReady:
+                includeNotReadyPods:
                   type: boolean
+                settings:
+                  type: object
+                  additionalProperties:
+                    type: string
               required:
               - port
               - selector
@@ -367,8 +407,6 @@ spec:
                         type: string
                       ip:
                         type: string
-                matchingListenerCount:
-                  type: integer
       subresources:
         status: {}
       additionalPrinterColumns:
@@ -393,7 +431,9 @@ spec:
     plural: attachedconnectors
     singular: attachedconnector
     kind: AttachedConnector
+
 ---
+# Source: skupper-setup/crds/skupper_certificate_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -401,7 +441,7 @@ metadata:
 spec:
   group: skupper.io
   versions:
-    - name: v1alpha1
+    - name: v2alpha1
       served: true
       storage: true
       schema:
@@ -425,6 +465,10 @@ spec:
                   type: boolean
                 signing:
                   type: boolean
+                settings:
+                  type: object
+                  additionalProperties:
+                    type: string
               required:
               - ca
               - subject
@@ -432,6 +476,8 @@ spec:
               type: object
               properties:
                 status:
+                  type: string
+                message:
                   type: string
                 conditions:
                   type: array
@@ -499,12 +545,18 @@ spec:
         type: string
         description: The expiration of the certificate if relevant
         jsonPath: .status.expiration
+      - name: Message
+        type: string
+        description: Any relevant human readable message
+        jsonPath: .status.message
   scope: Namespaced
   names:
     plural: certificates
     singular: certificate
     kind: Certificate
+
 ---
+# Source: skupper-setup/crds/skupper_connector_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -512,7 +564,7 @@ metadata:
 spec:
   group: skupper.io
   versions:
-    - name: v1alpha1
+    - name: v2alpha1
       served: true
       storage: true
       schema:
@@ -532,24 +584,34 @@ spec:
                   type: string
                 tlsCredentials:
                   type: string
+                useClientCert:
+                  type: boolean
+                verifyHostname:
+                  type: boolean
                 type:
                   type: string
-                includeNotReady:
+                includeNotReadyPods:
                   type: boolean
+                exposePodsByName:
+                  type: boolean
+                settings:
+                  type: object
+                  additionalProperties:
+                    type: string
               required:
               - routingKey
               - port
               oneOf:
-                - properties:
-                  required:
-                  - selector
-                - properties:
-                  required:
-                  - host
+              - required:
+                - selector
+              - required:
+                - host
             status:
               type: object
               properties:
                 status:
+                  type: string
+                message:
                   type: string
                 conditions:
                   type: array
@@ -596,8 +658,8 @@ spec:
                         type: string
                       ip:
                         type: string
-                matchingListenerCount:
-                  type: integer
+                hasMatchingListener:
+                  type: boolean
       subresources:
         status: {}
       additionalPrinterColumns:
@@ -621,16 +683,22 @@ spec:
         type: string
         description: The status of the connector
         jsonPath: .status.status
-      - name: Matching Listener Count
-        type: integer
-        description: The number of listeners in the network with a matching routing key.
-        jsonPath: .status.matchingListenerCount
+      - name: Has Matching Listener
+        type: boolean
+        description: Whether there is at least one listener in the network with a matching routing key.
+        jsonPath: .status.hasMatchingListener
+      - name: Message
+        type: string
+        description: Any human readable message relevant to the connector
+        jsonPath: .status.message
   scope: Namespaced
   names:
     plural: connectors
     singular: connector
     kind: Connector
+
 ---
+# Source: skupper-setup/crds/skupper_link_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -638,7 +706,7 @@ metadata:
 spec:
   group: skupper.io
   versions:
-    - name: v1alpha1
+    - name: v2alpha1
       served: true
       storage: true
       schema:
@@ -665,14 +733,18 @@ spec:
                   type: string
                 cost:
                   type: integer
-                noClientAuth:
-                  type: boolean
+                settings:
+                  type: object
+                  additionalProperties:
+                    type: string
               required:
                 - endpoints
             status:
               type: object
               properties:
                 status:
+                  type: string
+                message:
                   type: string
                 remoteSiteId:
                   type: string
@@ -725,12 +797,18 @@ spec:
         type: string
         description: The name of the site linked to
         jsonPath: .status.remoteSiteName
+      - name: Message
+        type: string
+        description: Any human readable message relevant to the link
+        jsonPath: .status.message
   scope: Namespaced
   names:
     plural: links
     singular: link
     kind: Link
+
 ---
+# Source: skupper-setup/crds/skupper_listener_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -738,7 +816,7 @@ metadata:
 spec:
   group: skupper.io
   versions:
-    - name: v1alpha1
+    - name: v2alpha1
       served: true
       storage: true
       schema:
@@ -758,6 +836,12 @@ spec:
                   type: string
                 type:
                   type: string
+                exposePodsByName:
+                  type: boolean
+                settings:
+                  type: object
+                  additionalProperties:
+                    type: string
               required:
                 - routingKey
                 - host
@@ -766,6 +850,8 @@ spec:
               type: object
               properties:
                 status:
+                  type: string
+                message:
                   type: string
                 conditions:
                   type: array
@@ -803,8 +889,8 @@ spec:
                     - reason
                     - status
                     - type
-                matchingConnectorCount:
-                  type: integer
+                hasMatchingConnector:
+                  type: boolean
       subresources:
         status: {}
       additionalPrinterColumns:
@@ -824,16 +910,22 @@ spec:
         type: string
         description: The status of the listener
         jsonPath: .status.status
-      - name: Matching Connector Count
-        type: integer
-        description: The number of connectors in the network with a matching routing key.
-        jsonPath: .status.matchingConnectorCount
+      - name: Has Matching Connector
+        type: boolean
+        description: Whether there is at least one connector in the network with a matching routing key.
+        jsonPath: .status.hasMtchingConnector
+      - name: Message
+        type: string
+        description: Any human readable message relevant to the listener
+        jsonPath: .status.message
   scope: Namespaced
   names:
     plural: listeners
     singular: listener
     kind: Listener
+
 ---
+# Source: skupper-setup/crds/skupper_router_access_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -841,7 +933,7 @@ metadata:
 spec:
   group: skupper.io
   versions:
-    - name: v1alpha1
+    - name: v2alpha1
       served: true
       storage: true
       schema:
@@ -874,7 +966,7 @@ spec:
                   type: array
                   items:
                     type: string
-                options:
+                settings:
                   type: object
                   additionalProperties:
                     type: string
@@ -885,6 +977,8 @@ spec:
               type: object
               properties:
                 status:
+                  type: string
+                message:
                   type: string
                 conditions:
                   type: array
@@ -942,12 +1036,18 @@ spec:
         type: string
         description: The status of the router access
         jsonPath: .status.status
+      - name: Message
+        type: string
+        description: Any relevant human readable message
+        jsonPath: .status.message
   scope: Namespaced
   names:
     plural: routeraccesses
     singular: routeraccess
     kind: RouterAccess
+
 ---
+# Source: skupper-setup/crds/skupper_secured_access_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -955,7 +1055,7 @@ metadata:
 spec:
   group: skupper.io
   versions:
-    - name: v1alpha1
+    - name: v2alpha1
       served: true
       storage: true
       schema:
@@ -988,7 +1088,7 @@ spec:
                   type: string
                 accessType:
                   type: string
-                options:
+                settings:
                   type: object
                   additionalProperties:
                     type: string
@@ -1014,6 +1114,8 @@ spec:
                 ca:
                   type: string
                 status:
+                  type: string
+                message:
                   type: string
                 conditions:
                   type: array
@@ -1058,12 +1160,18 @@ spec:
         type: string
         description: The status of the secured access
         jsonPath: .status.status
+      - name: Message
+        type: string
+        description: Any relevant human readable message
+        jsonPath: .status.message
   scope: Namespaced
   names:
     plural: securedaccesses
     singular: securedaccess
     kind: SecuredAccess
+
 ---
+# Source: skupper-setup/crds/skupper_site_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -1071,7 +1179,7 @@ metadata:
 spec:
   group: skupper.io
   versions:
-    - name: v1alpha1
+    - name: v2alpha1
       served: true
       storage: true
       schema:
@@ -1081,8 +1189,6 @@ spec:
             spec:
               type: object
               properties:
-                routerMode:
-                  type: string
                 serviceAccount:
                   type: string
                 linkAccess:
@@ -1090,6 +1196,8 @@ spec:
                 defaultIssuer:
                   type: string
                 ha:
+                  type: boolean
+                edge:
                   type: boolean
                 settings:
                   type: object
@@ -1100,9 +1208,9 @@ spec:
               properties:
                 defaultIssuer:
                   type: string
-                active:
-                  type: boolean
                 status:
+                  type: string
+                message:
                   type: string
                 conditions:
                   type: array
@@ -1209,175 +1317,222 @@ spec:
         type: integer
         description: The number of sites in the network
         jsonPath: .status.sitesInNetwork
+      - name: Message
+        type: string
+        description: Any human readable message relevant to the site
+        jsonPath: .status.message
   scope: Namespaced
   names:
     plural: sites
     singular: site
     kind: Site
+
 ---
+# Source: skupper-setup/templates/deploy_controller.yaml
 apiVersion: v1
 kind: Namespace
 metadata:
   name: skupper
 ---
+# Source: skupper-setup/templates/deploy_controller.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: skupper-controller
+  
   namespace: skupper
+  
   labels:
     application: skupper-controller
 ---
+# Source: skupper-setup/templates/deploy_controller.yaml
 apiVersion: rbac.authorization.k8s.io/v1
+
 kind: ClusterRole
+
 metadata:
   labels:
     application: skupper-controller
   name: skupper-controller
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - nodes
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  - pods
-  - pods/exec
-  - services
-  - secrets
-  - serviceaccounts
-  - events
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - delete
-  - patch
-- apiGroups:
-  - apps
-  resources:
-  - deployments
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - delete
-  - patch
-- apiGroups:
-  - route.openshift.io
-  resources:
-  - routes
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-  - update
-- apiGroups:
-    - apps.openshift.io
-  resources:
-    - deploymentconfigs
-  verbs:
-    - get
-    - list
-    - watch
-- apiGroups:
-  - networking.k8s.io
-  resources:
-  - ingresses
-  - networkpolicies
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - projectcontour.io
-  resources:
-  - httpproxies
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - rbac.authorization.k8s.io
-  resources:
-  - rolebindings
-  - roles
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-  - update
-- apiGroups:
-  - skupper.io
-  resources:
-  - sites
-  - sites/status
-  - links
-  - links/status
-  - accesstokens
-  - accesstokens/status
-  - accessgrants
-  - accessgrants/status
-  - listeners
-  - listeners/status
-  - connectors
-  - connectors/status
-  - attachedconnectors
-  - attachedconnectors/status
-  - attachedconnectoranchors
-  - attachedconnectoranchors/status
-  - routeraccesses
-  - routeraccesses/status
-  - securedaccesses
-  - securedaccesses/status
-  - certificates
-  - certificates/status
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - delete
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+      - pods
+      - pods/exec
+      - services
+      - secrets
+      - serviceaccounts
+      - events
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - delete
+      - patch
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - delete
+      - patch
+  - apiGroups:
+      - route.openshift.io
+    resources:
+      - routes
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - update
+  - apiGroups:
+      - apps.openshift.io
+    resources:
+      - deploymentconfigs
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - update
+  - apiGroups:
+      - projectcontour.io
+    resources:
+      - httpproxies
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - update
+  - apiGroups:
+      - gateway.networking.k8s.io
+    resources:
+      - gateways
+      - tlsroutes
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - update
+      - patch
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - update
+  - apiGroups:
+      - rbac.authorization.k8s.io
+    resources:
+      - rolebindings
+      - roles
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - update
+  - apiGroups:
+      - skupper.io
+    resources:
+      - sites
+      - sites/status
+      - links
+      - links/status
+      - accesstokens
+      - accesstokens/status
+      - accessgrants
+      - accessgrants/status
+      - listeners
+      - listeners/status
+      - connectors
+      - connectors/status
+      - attachedconnectors
+      - attachedconnectors/status
+      - attachedconnectorbindings
+      - attachedconnectorbindings/status
+      - routeraccesses
+      - routeraccesses/status
+      - securedaccesses
+      - securedaccesses/status
+      - certificates
+      - certificates/status
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - delete
 ---
+# Source: skupper-setup/templates/deploy_controller.yaml
 apiVersion: rbac.authorization.k8s.io/v1
+
 kind: ClusterRoleBinding
+
 metadata:
   labels:
     application: skupper-controller
   name: skupper-controller
 subjects:
-- kind: ServiceAccount
-  name: skupper-controller
-  namespace: skupper
+  - kind: ServiceAccount
+    name: skupper-controller
+    
+    namespace: skupper
+    
 roleRef:
   apiGroup: rbac.authorization.k8s.io
+  
   kind: ClusterRole
+  
   name: skupper-controller
 ---
+# Source: skupper-setup/templates/deploy_controller.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: skupper-controller
+  
   namespace: skupper
+  
 spec:
   replicas: 1
   selector:
@@ -1403,23 +1558,24 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       containers:
-      - name: controller
-        image: quay.io/skupper/controller:2.0.0-preview-1
-        imagePullPolicy: Always
-        command: ["/app/controller"]
-        args: ["-enable-grants", "-grant-server-autoconfigure"]
-        env:
-        - name: SKUPPER_CONFIG_SYNC_IMAGE
-          value: quay.io/skupper/config-sync:2.0.0-preview-1
-        securityContext:
-          capabilities:
-            drop:
-            - ALL
-          runAsNonRoot: true
-          allowPrivilegeEscalation: false
-        volumeMounts:
-        - name: tls-credentials
-          mountPath: /etc/controller
+        - name: controller
+          image: quay.io/skupper/controller:2.0.0-preview-2
+          imagePullPolicy: Always
+          command: ["/app/controller"]
+          args: ["-enable-grants", "-grant-server-autoconfigure"]
+          env:
+            - name: SKUPPER_KUBE_ADAPTOR_IMAGE
+              value: quay.io/skupper/kube-adaptor:2.0.0-preview-2
+            
+          securityContext:
+            capabilities:
+              drop:
+                - ALL
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+          volumeMounts:
+            - name: tls-credentials
+              mountPath: /etc/controller
       volumes:
-      - name: tls-credentials
-        emptyDir: {}
+        - name: tls-credentials
+          emptyDir: {}
