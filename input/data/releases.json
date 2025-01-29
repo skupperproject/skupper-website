@@ -264,9 +264,14 @@
         "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.8.2",
         "version": "1.8.2"
     },
+    "1.8.3": {
+        "date": "2025-01-08T19:59:08Z",
+        "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.8.3",
+        "version": "1.8.3"
+    },
     "latest": {
-        "date": "2024-11-06T15:59:31Z",
-        "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.8.2",
-        "version": "1.8.2"
+        "date": "2025-01-08T19:59:08Z",
+        "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.8.3",
+        "version": "1.8.3"
     }
 }
