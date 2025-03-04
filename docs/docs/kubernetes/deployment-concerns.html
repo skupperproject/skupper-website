@@ -85,6 +85,7 @@ This guide focusses on the following goals:</p>
 <ul>
 <li><a href="#scaling-for-increased-traffic">Scaling for increased traffic</a></li>
 <li><a href="#creating-a-high-availability-site">Creating a high availability site</a></li>
+<li><a href="#service-synchronization">Service synchronization</a></li>
 </ul>
 <h2 id="scaling-for-increased-traffic">Scaling for increased traffic</h2>
 <p>For optimal network latency and throughput, you can adjust the CPU allocation for the router using the <code>router-cpu</code> option.
@@ -157,6 +158,42 @@ data:
 </ol>
 <p>Setting the number of routers to more than two does not provide increased availability and can adversely affect performance.</p>
 <p>Note: Clients must reconnect when a router restarts or traffic is redirected to a backup router.</p>
+<h2 id="service-synchronization">Service synchronization</h2>
+<p>By default, creating a site enables that site to synchronize all services from other default sites.
+This means that all services exposed on the service network are available in the current site.
+For example, if you expose the backend service in the <code>east</code> site, that service is automatically created in the <code>west</code> site.</p>
+<p>However, if you want more granular control over which services are available, you can disable <code>service-sync</code>.
+This might be required if:</p>
+<ul>
+<li>You expose many services and not all are required on all sites.</li>
+<li>You are concerned that a specific service is not available on a specific site.</li>
+</ul>
+<p>To disable service synchronization:</p>
+<pre><code class="language-bash">$ skupper init --service-sync false
+</code></pre>
+<p>or use the following YAML:</p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: skupper-site
+data:
+  name: my-site
+  service-sync: false
+</code></pre>
+<p>To check whether synchronization is enabled, check the value for <code>service-sync</code> in the output from the following command:</p>
+<pre><code class="language-bash">$ kubectl get cm skupper-site -o json
+</code></pre>
+<p>If you disable service-sync and you want to consume an exposed service on a specific site, you can create that service using the following command:</p>
+<pre><code class="language-bash">skupper service create &lt;name&gt; &lt;port&gt;
+</code></pre>
+<p>where <code>&lt;name&gt;</code> is the service name on the site where the service is exposed
+and <code>&lt;port&gt;</code> is the port used to expose that service.</p>
+<p>Notes:</p>
+<ul>
+<li>When considering whether services are synchronized between two sites, <code>service-sync</code> must be enabled on both sites.</li>
+<li>If you use the command <code>skupper service delete</code> on a site, that command only works if the service was created on that site.</li>
+<li>Podman sites do not support <code>service-sync</code>.</li>
+</ul>
 
 
     </main>

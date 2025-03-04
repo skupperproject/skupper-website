@@ -8,6 +8,7 @@ This guide focusses on the following goals:
 
 * [Scaling for increased traffic](#scaling-for-increased-traffic)
 * [Creating a high availability site](#creating-a-high-availability-site)
+* [Service synchronization](#service-synchronization)
 
 ## Scaling for increased traffic
 
@@ -72,3 +73,54 @@ If the cluster where you are running Skupper is very busy, it may take time for 
 Setting the number of routers to more than two does not provide increased availability and can adversely affect performance.
 
 Note: Clients must reconnect when a router restarts or traffic is redirected to a backup router.
+
+## Service synchronization
+
+By default, creating a site enables that site to synchronize all services from other default sites.
+This means that all services exposed on the service network are available in the current site.
+For example, if you expose the backend service in the `east` site, that service is automatically created in the `west` site.
+
+However, if you want more granular control over which services are available, you can disable `service-sync`.
+This might be required if:
+
+* You expose many services and not all are required on all sites.
+* You are concerned that a specific service is not available on a specific site.
+
+To disable service synchronization:
+
+```bash
+$ skupper init --service-sync false
+```
+
+or use the following YAML:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: skupper-site
+data:
+  name: my-site
+  service-sync: false
+```
+
+To check whether synchronization is enabled, check the value for `service-sync` in the output from the following command:
+
+```bash
+$ kubectl get cm skupper-site -o json
+```
+
+If you disable service-sync and you want to consume an exposed service on a specific site, you can create that service using the following command:
+
+```bash
+skupper service create <name> <port>
+```
+
+where `<name>` is the service name on the site where the service is exposed
+and `<port>` is the port used to expose that service.
+
+Notes:
+
+* When considering whether services are synchronized between two sites, `service-sync` must be enabled on both sites.
+* If you use the command `skupper service delete` on a site, that command only works if the service was created on that site.
+* Podman sites do not support `service-sync`.

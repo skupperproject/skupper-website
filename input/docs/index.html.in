@@ -76,6 +76,7 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
       <a href="cli/tokens.html">Working with tokens</a>
       <a href="cli/native-security-options.html">Network policy and TLS</a>
       <a href="policy/index.html">Applying granular policies to your cluster</a>
+      <a href="kubernetes/con-tls.html">Understanding TLS certificates for Kubernetes sites</a>
     </nav>
   </div>
   <div>
