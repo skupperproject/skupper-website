@@ -53,32 +53,13 @@ See [Using the Skupper CLI](../cli/index.html) for information about using the S
 * Podman is installed, see https://podman.io/
 * `netavark` is configured as the podman network backend.
 
-  By default, Podman v4 uses Netavark which works with Skupper.
-
-  If you are using CNI, for example, if you upgrade from Podman v3, you must also install the `podman-plugins` package.
-  For example, `dnf install podman-plugins` for RPM based distributions.
-
-  **📌 NOTE**\
-  CNI will be deprecated in the future in preference of Netavark.
-
   To check if `netavark` is configured as the podman network backend:
 
   ```
-  $ podman info | grep networkBackend
+  $ podman info --format {{{.Host.NetworkBackend}}}
   ```
 
-  To install `netavark` on rpm based Linux, eg RHEL8:
-
-  ```
-  $ sudo dnf install netavark
-  ```
-
-  Configure podman to use `netavark` by making sure the following lines exist in the `/etc/containers/containers.conf` file:
-
-  ```
-  [network]
-  network_backend = "netavark"
-  ```
+  If the output is something other than `netavark`, see [Configuring Podman networkBackend for Skupper](../cli/networkBackend.html).
 * Podman service endpoint.
 
   Use `systemctl --user status podman.socket` to make sure the Podman API Socket is running.
@@ -253,6 +234,17 @@ After this threshold of open connections is reached, new connections are spread 
    If there are multiple clients on different sites, filter the view to each client to determine the effect of cost on traffic.
    For example, in a two site network linked with a high cost with servers and clients on both sites, you can see that a client is served by the local servers while a local server is available.
 
+A common use-case for specifying cost is to provide automatic failover.
+As described in ../cli/index.html#deploying-single-logical-service[Deploying a single logical service], you might have two instances of a server with a high cost for the link to the backup server:
+
+* local server (effective cost = 0)
+* remote server (link cost = 99999)
+
+In this case, connections are always routed to the local server and fails over to the remote server when the local server becomes available.
+
+Some complex applications, especially stateful ones, require "orchestrated" failover, meaning you need control over the order in which traffic is redirected from one set of workloads to another.
+Skupper does not offer this type of orchestration, you need to implement that orchestration for those applications.
+
 ## Exposing services on the service network from a Linux host
 
 After creating a service network, exposed services can communicate across that network.
@@ -277,7 +269,7 @@ This section describes how services can be enabled for a service network for sim
    $ podman run --name backend-target --network skupper --detach --rm -p 8080:8080 quay.io/skupper/hello-world-backend
    ```
 
-   This step is not Skupper-specific, that is, this process is unchanged from standard processes for your host.
+   This step is not Skupper-specific, that is, this process is unchanged from standard processes for your host, for example you might have a native process you want to expose.
 2. Create a service that can communicate on the service network:
 
    ```bash
@@ -301,6 +293,13 @@ This section describes how services can be enabled for a service network for sim
    NOTE: You can specify more than one port by repeating this option.
    * `--target-port <port-number>`:: Specify the port number of pods that you want to expose.
    * `--protocol <protocol>` allows you specify the protocol you want to use, `tcp`, `http` or `http2`
+
+   If you are exposing a service that is running on the same host as your site that is not a podman container, do not use `localhost`.
+   Instead, use `host.containers.internal` when exposing local services:
+
+   ```bash
+   skupper expose host host.containers.internal --address backend --port 8080
+   ```
 3. Create the service on another site in the service network:
 
    ```bash

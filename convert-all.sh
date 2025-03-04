@@ -10,6 +10,9 @@ python python/nested-numbers.py input/docs/operator/
 sed -i 's/.ID}} /{.ID}}} /g' input/docs/cli/podman.md
 sed -i 's/ {{.Image/ {{{.Image}/g' input/docs/cli/podman.md
 sed -i 's/ {{.Labels/ {{{.Labels}/g' input/docs/cli/podman.md
+sed -i 's/ {{.Host.NetworkBackend/ {{{.Host.NetworkBackend}/g' input/docs/cli/podman.md
+sed -i 's/ {{.Host.NetworkBackend/ {{{.Host.NetworkBackend}/g' input/docs/cli/networkBackend.md
+
 
 # To workaround https://github.com/skupperproject/skupper-website/issues/81
 sed -i 's/   | /| /g' input/docs/kubernetes/deployment-concerns.md
