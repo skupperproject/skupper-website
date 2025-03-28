@@ -1,5 +1,12 @@
 # News
 
+## Skupper v2: 2.0 is now available
+
+_7 March 2025_
+
+We are happy to announce that Skupper 2.0 has been released.  See the
+[v2 overview and resources][v2] to for more information.
+
 ## Skupper v2: Preview 2 is available
 
 _17 December 2024_

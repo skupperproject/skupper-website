@@ -1,6 +1,6 @@
 # Skupper v2
 
-_16 October 2024_
+_26 March 2025_
 
 Skupper v2 is a major change and a major improvement over v1.  Here's
 why we're doing it and what it means for our users and contributors.
@@ -132,7 +132,6 @@ shut down and the v2 components start up.
 <!-- - Service exposure model! -->
 <!-- - (?) Attached connectors - Tracking pods in namespaces other than that of the site -->
 
-
 <!-- - Gordon's preso -->
 <!-- - My planning docs -->
 
@@ -152,24 +151,25 @@ shut down and the v2 components start up.
 
 ## When will v2 be available?
 
-The preview 2 release is available now.  We are aiming to release 2.0
-in January 2025.
-
-Note that things are still changing in the preview releases as we
-review interfaces and make improvements.
+V2 is available now.  Skupper 2.0.0 was released on 7 March 2025.
 
 ## Try it today
 
-The best way to start exploring v2 is with our examples.  With preview
-1, we have converted our CLI and YAML Hello World examples:
+The best way to start exploring v2 is with our examples.  We have
+converted the following examples:
 
 - [Hello World using the CLI](https://github.com/skupperproject/skupper-example-hello-world/tree/v2)
 - [Hello World using YAML](https://github.com/skupperproject/skupper-example-yaml/tree/v2)
+- [Hello World using Podman](https://github.com/skupperproject/skupper-example-podman/tree/v2)
+- [Patient Portal](https://github.com/skupperproject/skupper-example-patient-portal/tree/v2)
 
 We would love to get your feedback!
 
 ## More resources
 
+- [V2 installation YAML](https://skupper.io/v2/install.yaml)
+- [V2 documentation](https://skupperproject.github.io/skupper-docs/)
+- [V2 concepts](https://skupperproject.github.io/refdog/concepts/)
 - [V2 API reference](https://skupperproject.github.io/refdog/resources/)
 - [V2 CLI reference](https://skupperproject.github.io/refdog/commands/)
-- [V2 installation YAML](https://skupper.io/v2/install.yaml)
+- [V2 CLI install script](https://skupper.io/v2/install.sh)
