@@ -1,1538 +1,1555 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: skupper
 ---
-# Source: skupper-setup/crds/skupper_access_grant_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: accessgrants.skupper.io
 spec:
   group: skupper.io
-  versions:
-    - name: v2alpha1
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                redemptionsAllowed:
-                  type: integer
-                expirationWindow:
-                  type: string
-                  format: duration
-                code:
-                  type: string
-                issuer:
-                  type: string
-                settings:
-                  type: object
-                  additionalProperties:
-                    type: string
-            status:
-              type: object
-              properties:
-                url:
-                  type: string
-                code:
-                  type: string
-                ca:
-                  type: string
-                redemptions:
-                  type: integer
-                expirationTime:
-                  type: string
-                  format: date-time
-                status:
-                  type: string
-                message:
-                  type: string
-                conditions:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      lastTransitionTime:
-                        format: date-time
-                        type: string
-                      message:
-                        maxLength: 32768
-                        type: string
-                      observedGeneration:
-                        format: int64
-                        minimum: 0
-                        type: integer
-                      reason:
-                        maxLength: 1024
-                        minLength: 1
-                        pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
-                        type: string
-                      status:
-                        enum:
-                        - "True"
-                        - "False"
-                        - Unknown
-                        type: string
-                      type:
-                        maxLength: 316
-                        pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][- A-Za-z0-9_.]*)?[A-Za-z0-9])$
-                        type: string
-                    required:
-                    - lastTransitionTime
-                    - message
-                    - reason
-                    - status
-                    - type
-      subresources:
-        status: {}
-      additionalPrinterColumns:
-      - name: Redemptions Allowed
-        type: integer
-        description: The number of claims the grant is valid for
-        jsonPath: .spec.redemptionsAllowed
-      - name: Redemptions Made
-        type: integer
-        description: The number of times an access token originating from this grant has been redeemed
-        jsonPath: .status.redeemed
-      - name: Expiration
-        type: string
-        description: When the grant will expire
-        jsonPath: .status.expiration
-      - name: Status
-        type: string
-        description: The status of the grant
-        jsonPath: .status.status
-      - name: Message
-        type: string
-        description: Any human readable message relevant to the grant
-        jsonPath: .status.message
-  scope: Namespaced
   names:
-    plural: accessgrants
-    singular: accessgrant
     kind: AccessGrant
-
+    plural: accessgrants
+    shortNames:
+    - grant
+    - gr
+    singular: accessgrant
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The number of claims the grant is valid for
+      jsonPath: .spec.redemptionsAllowed
+      name: Redemptions Allowed
+      type: integer
+    - description: The number of times an access token originating from this grant
+        has been redeemed
+      jsonPath: .status.redemptions
+      name: Redemptions Made
+      type: integer
+    - description: When the grant will expire
+      jsonPath: .status.expirationTime
+      name: Expiration
+      type: string
+    - description: The status of the grant
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: Any human readable message relevant to the grant
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: Permission to redeem access tokens for links to the local site
+        properties:
+          spec:
+            properties:
+              code:
+                type: string
+              expirationWindow:
+                format: duration
+                type: string
+              issuer:
+                type: string
+              redemptionsAllowed:
+                type: integer
+              settings:
+                additionalProperties:
+                  type: string
+                type: object
+            type: object
+          status:
+            properties:
+              ca:
+                type: string
+              code:
+                type: string
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              expirationTime:
+                format: date-time
+                type: string
+              message:
+                type: string
+              redemptions:
+                type: integer
+              status:
+                type: string
+              url:
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
 ---
-# Source: skupper-setup/crds/skupper_access_token_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: accesstokens.skupper.io
 spec:
   group: skupper.io
-  versions:
-    - name: v2alpha1
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                url:
-                  type: string
-                code:
-                  type: string
-                ca:
-                  type: string
-                linkCost:
-                  type: integer
-                settings:
-                  type: object
-                  additionalProperties:
-                    type: string
-              required:
-              - url
-              - code
-              - ca
-            status:
-              type: object
-              properties:
-                redeemed:
-                  type: boolean
-                status:
-                  type: string
-                message:
-                  type: string
-                conditions:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      lastTransitionTime:
-                        format: date-time
-                        type: string
-                      message:
-                        maxLength: 32768
-                        type: string
-                      observedGeneration:
-                        format: int64
-                        minimum: 0
-                        type: integer
-                      reason:
-                        maxLength: 1024
-                        minLength: 1
-                        pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
-                        type: string
-                      status:
-                        enum:
-                        - "True"
-                        - "False"
-                        - Unknown
-                        type: string
-                      type:
-                        maxLength: 316
-                        pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][- A-Za-z0-9_.]*)?[A-Za-z0-9])$
-                        type: string
-                    required:
-                    - lastTransitionTime
-                    - message
-                    - reason
-                    - status
-                    - type
-      subresources:
-        status: {}
-      additionalPrinterColumns:
-      - name: URL
-        type: string
-        description: The URL the access token is redeemed at
-        jsonPath: .spec.url
-      - name: Redeemed
-        type: boolean
-        description: Whether the access token has already been redeemed
-        jsonPath: .status.redeemed
-      - name: Status
-        type: string
-        description: The status of the access token
-        jsonPath: .status.status
-      - name: Message
-        type: string
-        description: Any human readable message relevant to the token
-        jsonPath: .status.message
-  scope: Namespaced
   names:
-    plural: accesstokens
-    singular: accesstoken
     kind: AccessToken
-
+    plural: accesstokens
+    shortNames:
+    - token
+    - to
+    singular: accesstoken
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The URL the access token is redeemed at
+      jsonPath: .spec.url
+      name: URL
+      type: string
+    - description: Whether the access token has already been redeemed
+      jsonPath: .status.redeemed
+      name: Redeemed
+      type: boolean
+    - description: The status of the access token
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: Any human readable message relevant to the token
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: A short-lived credential used to create a link
+        properties:
+          spec:
+            properties:
+              ca:
+                type: string
+              code:
+                type: string
+              linkCost:
+                type: integer
+              settings:
+                additionalProperties:
+                  type: string
+                type: object
+              url:
+                type: string
+            required:
+            - url
+            - code
+            - ca
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              message:
+                type: string
+              redeemed:
+                type: boolean
+              status:
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
 ---
-# Source: skupper-setup/crds/skupper_attached_connector_binding_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: attachedconnectorbindings.skupper.io
 spec:
   group: skupper.io
-  versions:
-    - name: v2alpha1
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                connectorNamespace:
-                  type: string
-                routingKey:
-                  type: string
-                exposePodsByName:
-                  type: boolean
-                settings:
-                  type: object
-                  additionalProperties:
-                    type: string
-              required:
-              - connectorNamespace
-              - routingKey
-            status:
-              type: object
-              properties:
-                status:
-                  type: string
-                conditions:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      lastTransitionTime:
-                        format: date-time
-                        type: string
-                      message:
-                        maxLength: 32768
-                        type: string
-                      observedGeneration:
-                        format: int64
-                        minimum: 0
-                        type: integer
-                      reason:
-                        maxLength: 1024
-                        minLength: 1
-                        pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
-                        type: string
-                      status:
-                        enum:
-                        - "True"
-                        - "False"
-                        - Unknown
-                        type: string
-                      type:
-                        maxLength: 316
-                        pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][- A-Za-z0-9_.]*)?[A-Za-z0-9])$
-                        type: string
-                    required:
-                    - lastTransitionTime
-                    - message
-                    - reason
-                    - status
-                    - type
-                hasMatchingListener:
-                  type: boolean
-      subresources:
-        status: {}
-      additionalPrinterColumns:
-      - name: Routing Key
-        type: string
-        description: An identifier that associates connectors with listeners.
-        jsonPath: .spec.routingKey
-      - name: Connector Namespace
-        type: string
-        description: The namespace where the associated AttachableConnector is located.
-        jsonPath: .spec.connectorNamespace
-      - name: Status
-        type: string
-        description: The status of the connector
-        jsonPath: .status.status
-      - name: Has Matching Listener
-        type: integer
-        description: Whether there is at least one listener in the network with a matching routing key.
-        jsonPath: .status.hasMatchingListener
-  scope: Namespaced
   names:
-    plural: attachedconnectorbindings
-    singular: attachedconnectorbinding
     kind: AttachedConnectorBinding
-
+    plural: attachedconnectorbindings
+    shortNames:
+    - acnrb
+    singular: attachedconnectorbinding
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: An identifier that associates connectors with listeners.
+      jsonPath: .spec.routingKey
+      name: Routing Key
+      type: string
+    - description: The namespace where the associated AttachableConnector is located.
+      jsonPath: .spec.connectorNamespace
+      name: Connector Namespace
+      type: string
+    - description: The status of the connector
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: Whether there is at least one listener in the network with a matching
+        routing key.
+      jsonPath: .status.hasMatchingListener
+      name: Has Matching Listener
+      type: boolean
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: A binding to an attached connector in a peer namespace
+        properties:
+          spec:
+            properties:
+              connectorNamespace:
+                type: string
+              exposePodsByName:
+                type: boolean
+              routingKey:
+                type: string
+              settings:
+                additionalProperties:
+                  type: string
+                type: object
+            required:
+            - connectorNamespace
+            - routingKey
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              hasMatchingListener:
+                type: boolean
+              message:
+                type: string
+              status:
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
 ---
-# Source: skupper-setup/crds/skupper_attached_connector_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: attachedconnectors.skupper.io
 spec:
   group: skupper.io
-  versions:
-    - name: v2alpha1
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                siteNamespace:
-                  type: string
-                port:
-                  type: integer
-                selector:
-                  type: string
-                tlsCredentials:
-                  type: string
-                type:
-                  type: string
-                includeNotReadyPods:
-                  type: boolean
-                settings:
-                  type: object
-                  additionalProperties:
-                    type: string
-              required:
-              - port
-              - selector
-              - siteNamespace
-            status:
-              type: object
-              properties:
-                status:
-                  type: string
-                conditions:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      lastTransitionTime:
-                        format: date-time
-                        type: string
-                      message:
-                        maxLength: 32768
-                        type: string
-                      observedGeneration:
-                        format: int64
-                        minimum: 0
-                        type: integer
-                      reason:
-                        maxLength: 1024
-                        minLength: 1
-                        pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
-                        type: string
-                      status:
-                        enum:
-                        - "True"
-                        - "False"
-                        - Unknown
-                        type: string
-                      type:
-                        maxLength: 316
-                        pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][- A-Za-z0-9_.]*)?[A-Za-z0-9])$
-                        type: string
-                    required:
-                    - lastTransitionTime
-                    - message
-                    - reason
-                    - status
-                    - type
-                selectedPods:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                      ip:
-                        type: string
-      subresources:
-        status: {}
-      additionalPrinterColumns:
-      - name: Port
-        type: integer
-        description: The port to connect to.
-        jsonPath: .spec.port
-      - name: Selector
-        type: string
-        description: The selector that identifies the pods to connect to.
-        jsonPath: .spec.selector
-      - name: Site Namespace
-        type: string
-        description: The namespace in which the site this connector should be attached to is defined.
-        jsonPath: .spec.siteNamespace
-      - name: Status
-        type: string
-        description: The status of the connector.
-        jsonPath: .status.status
-  scope: Namespaced
   names:
-    plural: attachedconnectors
-    singular: attachedconnector
     kind: AttachedConnector
-
+    plural: attachedconnectors
+    shortNames:
+    - acnr
+    singular: attachedconnector
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The port to connect to.
+      jsonPath: .spec.port
+      name: Port
+      type: integer
+    - description: The selector that identifies the pods to connect to.
+      jsonPath: .spec.selector
+      name: Selector
+      type: string
+    - description: The namespace in which the site this connector should be attached
+        to is defined.
+      jsonPath: .spec.siteNamespace
+      name: Site Namespace
+      type: string
+    - description: The status of the connector.
+      jsonPath: .status.status
+      name: Status
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: A connector in a peer namespace
+        properties:
+          spec:
+            properties:
+              includeNotReadyPods:
+                type: boolean
+              port:
+                type: integer
+              selector:
+                type: string
+              settings:
+                additionalProperties:
+                  type: string
+                type: object
+              siteNamespace:
+                type: string
+              tlsCredentials:
+                type: string
+              type:
+                type: string
+              useClientCert:
+                type: boolean
+            required:
+            - port
+            - selector
+            - siteNamespace
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              message:
+                type: string
+              selectedPods:
+                items:
+                  properties:
+                    ip:
+                      type: string
+                    name:
+                      type: string
+                  type: object
+                type: array
+              status:
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
 ---
-# Source: skupper-setup/crds/skupper_certificate_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: certificates.skupper.io
 spec:
   group: skupper.io
-  versions:
-    - name: v2alpha1
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                ca:
-                  type: string
-                subject:
-                  type: string
-                hosts:
-                  type: array
-                  items:
-                    type: string
-                client:
-                  type: boolean
-                server:
-                  type: boolean
-                signing:
-                  type: boolean
-                settings:
-                  type: object
-                  additionalProperties:
-                    type: string
-              required:
-              - ca
-              - subject
-            status:
-              type: object
-              properties:
-                status:
-                  type: string
-                message:
-                  type: string
-                conditions:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      lastTransitionTime:
-                        format: date-time
-                        type: string
-                      message:
-                        maxLength: 32768
-                        type: string
-                      observedGeneration:
-                        format: int64
-                        minimum: 0
-                        type: integer
-                      reason:
-                        maxLength: 1024
-                        minLength: 1
-                        pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
-                        type: string
-                      status:
-                        enum:
-                        - "True"
-                        - "False"
-                        - Unknown
-                        type: string
-                      type:
-                        maxLength: 316
-                        pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][- A-Za-z0-9_.]*)?[A-Za-z0-9])$
-                        type: string
-                    required:
-                    - lastTransitionTime
-                    - message
-                    - reason
-                    - status
-                    - type
-                expiration:
-                  type: string
-                  format: date-time
-      subresources:
-        status: {}
-      additionalPrinterColumns:
-      - name: CA
-        type: string
-        description: Identifies the CA to be used in signing the certificate
-        jsonPath: .spec.ca
-      - name: Server
-        type: boolean
-        description: Whether or not the certificate is valid for use as a server
-        jsonPath: .spec.server
-      - name: Client
-        type: boolean
-        description: Whether or not the certificate is valid for use as a client
-        jsonPath: .spec.client
-      - name: Signing
-        type: boolean
-        description: Whether or not the certificate is valid for use as a CA
-        jsonPath: .spec.signing
-      - name: Status
-        type: string
-        description: The status of the certificate
-        jsonPath: .status.status
-      - name: Expiration
-        type: string
-        description: The expiration of the certificate if relevant
-        jsonPath: .status.expiration
-      - name: Message
-        type: string
-        description: Any relevant human readable message
-        jsonPath: .status.message
-  scope: Namespaced
   names:
+    kind: Certificate
     plural: certificates
     singular: certificate
-    kind: Certificate
-
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: Identifies the CA to be used in signing the certificate
+      jsonPath: .spec.ca
+      name: CA
+      type: string
+    - description: Whether or not the certificate is valid for use as a server
+      jsonPath: .spec.server
+      name: Server
+      type: boolean
+    - description: Whether or not the certificate is valid for use as a client
+      jsonPath: .spec.client
+      name: Client
+      type: boolean
+    - description: Whether or not the certificate is valid for use as a CA
+      jsonPath: .spec.signing
+      name: Signing
+      type: boolean
+    - description: The status of the certificate
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: The expiration of the certificate if relevant
+      jsonPath: .status.expiration
+      name: Expiration
+      type: string
+    - description: Any relevant human readable message
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: An internal resource used to indicate TLS credentials to be created
+        properties:
+          spec:
+            properties:
+              ca:
+                type: string
+              client:
+                type: boolean
+              hosts:
+                items:
+                  type: string
+                type: array
+              server:
+                type: boolean
+              settings:
+                additionalProperties:
+                  type: string
+                type: object
+              signing:
+                type: boolean
+              subject:
+                type: string
+            required:
+            - ca
+            - subject
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              expiration:
+                format: date-time
+                type: string
+              message:
+                type: string
+              status:
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
 ---
-# Source: skupper-setup/crds/skupper_connector_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: connectors.skupper.io
 spec:
   group: skupper.io
-  versions:
-    - name: v2alpha1
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                routingKey:
-                  type: string
-                port:
-                  type: integer
-                selector:
-                  type: string
-                host:
-                  type: string
-                tlsCredentials:
-                  type: string
-                useClientCert:
-                  type: boolean
-                verifyHostname:
-                  type: boolean
-                type:
-                  type: string
-                includeNotReadyPods:
-                  type: boolean
-                exposePodsByName:
-                  type: boolean
-                settings:
-                  type: object
-                  additionalProperties:
-                    type: string
-              required:
-              - routingKey
-              - port
-              oneOf:
-              - required:
-                - selector
-              - required:
-                - host
-            status:
-              type: object
-              properties:
-                status:
-                  type: string
-                message:
-                  type: string
-                conditions:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      lastTransitionTime:
-                        format: date-time
-                        type: string
-                      message:
-                        maxLength: 32768
-                        type: string
-                      observedGeneration:
-                        format: int64
-                        minimum: 0
-                        type: integer
-                      reason:
-                        maxLength: 1024
-                        minLength: 1
-                        pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
-                        type: string
-                      status:
-                        enum:
-                        - "True"
-                        - "False"
-                        - Unknown
-                        type: string
-                      type:
-                        maxLength: 316
-                        pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][- A-Za-z0-9_.]*)?[A-Za-z0-9])$
-                        type: string
-                    required:
-                    - lastTransitionTime
-                    - message
-                    - reason
-                    - status
-                    - type
-                selectedPods:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                      ip:
-                        type: string
-                hasMatchingListener:
-                  type: boolean
-      subresources:
-        status: {}
-      additionalPrinterColumns:
-      - name: Routing Key
-        type: string
-        description: The key that ties connectors and listeners together
-        jsonPath: .spec.routingKey
-      - name: Port
-        type: integer
-        description: The port to connect to
-        jsonPath: .spec.port
-      - name: Host
-        type: string
-        description: The host to connect to
-        jsonPath: .spec.host
-      - name: Selector
-        type: string
-        description: The selector that identifies the pods to connect to
-        jsonPath: .spec.selector
-      - name: Status
-        type: string
-        description: The status of the connector
-        jsonPath: .status.status
-      - name: Has Matching Listener
-        type: boolean
-        description: Whether there is at least one listener in the network with a matching routing key.
-        jsonPath: .status.hasMatchingListener
-      - name: Message
-        type: string
-        description: Any human readable message relevant to the connector
-        jsonPath: .status.message
-  scope: Namespaced
   names:
-    plural: connectors
-    singular: connector
     kind: Connector
-
+    plural: connectors
+    shortNames:
+    - cnr
+    singular: connector
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The key that ties connectors and listeners together
+      jsonPath: .spec.routingKey
+      name: Routing Key
+      type: string
+    - description: The port to connect to
+      jsonPath: .spec.port
+      name: Port
+      type: integer
+    - description: The host to connect to
+      jsonPath: .spec.host
+      name: Host
+      type: string
+    - description: The selector that identifies the pods to connect to
+      jsonPath: .spec.selector
+      name: Selector
+      type: string
+    - description: The status of the connector
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: Whether there is at least one listener in the network with a matching
+        routing key.
+      jsonPath: .status.hasMatchingListener
+      name: Has Matching Listener
+      type: boolean
+    - description: Any human readable message relevant to the connector
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: A connector binds a local workload to listeners in remote sites
+        properties:
+          spec:
+            oneOf:
+            - required:
+              - selector
+            - required:
+              - host
+            properties:
+              exposePodsByName:
+                type: boolean
+              host:
+                type: string
+              includeNotReadyPods:
+                type: boolean
+              port:
+                type: integer
+              routingKey:
+                type: string
+              selector:
+                type: string
+              settings:
+                additionalProperties:
+                  type: string
+                type: object
+              tlsCredentials:
+                type: string
+              type:
+                type: string
+              useClientCert:
+                type: boolean
+              verifyHostname:
+                type: boolean
+            required:
+            - routingKey
+            - port
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              hasMatchingListener:
+                type: boolean
+              message:
+                type: string
+              selectedPods:
+                items:
+                  properties:
+                    ip:
+                      type: string
+                    name:
+                      type: string
+                  type: object
+                type: array
+              status:
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
 ---
-# Source: skupper-setup/crds/skupper_link_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: links.skupper.io
 spec:
   group: skupper.io
-  versions:
-    - name: v2alpha1
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                endpoints:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                      host:
-                        type: string
-                      port:
-                        type: string
-                      group:
-                        type: string
-                tlsCredentials:
-                  type: string
-                cost:
-                  type: integer
-                settings:
-                  type: object
-                  additionalProperties:
-                    type: string
-              required:
-                - endpoints
-            status:
-              type: object
-              properties:
-                status:
-                  type: string
-                message:
-                  type: string
-                remoteSiteId:
-                  type: string
-                remoteSiteName:
-                  type: string
-                conditions:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      lastTransitionTime:
-                        format: date-time
-                        type: string
-                      message:
-                        maxLength: 32768
-                        type: string
-                      observedGeneration:
-                        format: int64
-                        minimum: 0
-                        type: integer
-                      reason:
-                        maxLength: 1024
-                        minLength: 1
-                        pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
-                        type: string
-                      status:
-                        enum:
-                        - "True"
-                        - "False"
-                        - Unknown
-                        type: string
-                      type:
-                        maxLength: 316
-                        pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][- A-Za-z0-9_.]*)?[A-Za-z0-9])$
-                        type: string
-                    required:
-                    - lastTransitionTime
-                    - message
-                    - reason
-                    - status
-                    - type
-      subresources:
-        status: {}
-      additionalPrinterColumns:
-      - name: Status
-        type: string
-        description: The status of the link
-        jsonPath: .status.status
-      - name: Remote Site
-        type: string
-        description: The name of the site linked to
-        jsonPath: .status.remoteSiteName
-      - name: Message
-        type: string
-        description: Any human readable message relevant to the link
-        jsonPath: .status.message
-  scope: Namespaced
   names:
-    plural: links
-    singular: link
     kind: Link
-
+    plural: links
+    shortNames:
+    - ln
+    singular: link
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The status of the link
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: The name of the site linked to
+      jsonPath: .status.remoteSiteName
+      name: Remote Site
+      type: string
+    - description: Any human readable message relevant to the link
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: A link is a channel for communication between sites
+        properties:
+          spec:
+            properties:
+              cost:
+                type: integer
+              endpoints:
+                items:
+                  properties:
+                    group:
+                      type: string
+                    host:
+                      type: string
+                    name:
+                      type: string
+                    port:
+                      type: string
+                  type: object
+                type: array
+              settings:
+                additionalProperties:
+                  type: string
+                type: object
+              tlsCredentials:
+                type: string
+            required:
+            - endpoints
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              message:
+                type: string
+              remoteSiteId:
+                type: string
+              remoteSiteName:
+                type: string
+              status:
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
 ---
-# Source: skupper-setup/crds/skupper_listener_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: listeners.skupper.io
 spec:
   group: skupper.io
-  versions:
-    - name: v2alpha1
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                routingKey:
-                  type: string
-                host:
-                  type: string
-                port:
-                  type: integer
-                tlsCredentials:
-                  type: string
-                type:
-                  type: string
-                exposePodsByName:
-                  type: boolean
-                settings:
-                  type: object
-                  additionalProperties:
-                    type: string
-              required:
-                - routingKey
-                - host
-                - port
-            status:
-              type: object
-              properties:
-                status:
-                  type: string
-                message:
-                  type: string
-                conditions:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      lastTransitionTime:
-                        format: date-time
-                        type: string
-                      message:
-                        maxLength: 32768
-                        type: string
-                      observedGeneration:
-                        format: int64
-                        minimum: 0
-                        type: integer
-                      reason:
-                        maxLength: 1024
-                        minLength: 1
-                        pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
-                        type: string
-                      status:
-                        enum:
-                        - "True"
-                        - "False"
-                        - Unknown
-                        type: string
-                      type:
-                        maxLength: 316
-                        pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][- A-Za-z0-9_.]*)?[A-Za-z0-9])$
-                        type: string
-                    required:
-                    - lastTransitionTime
-                    - message
-                    - reason
-                    - status
-                    - type
-                hasMatchingConnector:
-                  type: boolean
-      subresources:
-        status: {}
-      additionalPrinterColumns:
-      - name: Routing Key
-        type: string
-        description: The key that ties connectors and listeners together
-        jsonPath: .spec.routingKey
-      - name: Port
-        type: integer
-        description: The port the service listens on
-        jsonPath: .spec.port
-      - name: Host
-        type: string
-        description: The name of the service
-        jsonPath: .spec.host
-      - name: Status
-        type: string
-        description: The status of the listener
-        jsonPath: .status.status
-      - name: Has Matching Connector
-        type: boolean
-        description: Whether there is at least one connector in the network with a matching routing key.
-        jsonPath: .status.hasMtchingConnector
-      - name: Message
-        type: string
-        description: Any human readable message relevant to the listener
-        jsonPath: .status.message
-  scope: Namespaced
   names:
-    plural: listeners
-    singular: listener
     kind: Listener
-
+    plural: listeners
+    shortNames:
+    - lnr
+    singular: listener
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The key that ties connectors and listeners together
+      jsonPath: .spec.routingKey
+      name: Routing Key
+      type: string
+    - description: The port the service listens on
+      jsonPath: .spec.port
+      name: Port
+      type: integer
+    - description: The name of the service
+      jsonPath: .spec.host
+      name: Host
+      type: string
+    - description: The status of the listener
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: Whether there is at least one connector in the network with a matching
+        routing key.
+      jsonPath: .status.hasMatchingConnector
+      name: Has Matching Connector
+      type: boolean
+    - description: Any human readable message relevant to the listener
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: A listener binds a local connection endpoint to connectors in
+          remote sites
+        properties:
+          spec:
+            properties:
+              exposePodsByName:
+                type: boolean
+              host:
+                type: string
+              port:
+                type: integer
+              routingKey:
+                type: string
+              settings:
+                additionalProperties:
+                  type: string
+                type: object
+              tlsCredentials:
+                type: string
+              type:
+                type: string
+            required:
+            - routingKey
+            - host
+            - port
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              hasMatchingConnector:
+                type: boolean
+              message:
+                type: string
+              status:
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
 ---
-# Source: skupper-setup/crds/skupper_router_access_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: routeraccesses.skupper.io
 spec:
   group: skupper.io
-  versions:
-    - name: v2alpha1
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                roles:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                      port:
-                        type: integer
-                generateTlsCredentials:
-                  type: boolean
-                issuer:
-                  type: string
-                accessType:
-                  type: string
-                tlsCredentials:
-                  type: string
-                bindHost:
-                  type: string
-                subjectAlternativeNames:
-                  type: array
-                  items:
-                    type: string
-                settings:
-                  type: object
-                  additionalProperties:
-                    type: string
-              required:
-              - roles
-              - tlsCredentials
-            status:
-              type: object
-              properties:
-                status:
-                  type: string
-                message:
-                  type: string
-                conditions:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      lastTransitionTime:
-                        format: date-time
-                        type: string
-                      message:
-                        maxLength: 32768
-                        type: string
-                      observedGeneration:
-                        format: int64
-                        minimum: 0
-                        type: integer
-                      reason:
-                        maxLength: 1024
-                        minLength: 1
-                        pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
-                        type: string
-                      status:
-                        enum:
-                        - "True"
-                        - "False"
-                        - Unknown
-                        type: string
-                      type:
-                        maxLength: 316
-                        pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][- A-Za-z0-9_.]*)?[A-Za-z0-9])$
-                        type: string
-                    required:
-                    - lastTransitionTime
-                    - message
-                    - reason
-                    - status
-                    - type
-                endpoints:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                      host:
-                        type: string
-                      port:
-                        type: string
-                      group:
-                        type: string
-      subresources:
-        status: {}
-      additionalPrinterColumns:
-      - name: Status
-        type: string
-        description: The status of the router access
-        jsonPath: .status.status
-      - name: Message
-        type: string
-        description: Any relevant human readable message
-        jsonPath: .status.message
-  scope: Namespaced
   names:
+    kind: RouterAccess
     plural: routeraccesses
     singular: routeraccess
-    kind: RouterAccess
-
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The status of the router access
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: Any relevant human readable message
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: Configuration for secure access to the site router
+        properties:
+          spec:
+            properties:
+              accessType:
+                type: string
+              bindHost:
+                type: string
+              generateTlsCredentials:
+                type: boolean
+              issuer:
+                type: string
+              roles:
+                items:
+                  properties:
+                    name:
+                      type: string
+                    port:
+                      type: integer
+                  required:
+                  - name
+                  type: object
+                type: array
+              settings:
+                additionalProperties:
+                  type: string
+                type: object
+              subjectAlternativeNames:
+                items:
+                  type: string
+                type: array
+              tlsCredentials:
+                type: string
+            required:
+            - roles
+            - tlsCredentials
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              endpoints:
+                items:
+                  properties:
+                    group:
+                      type: string
+                    host:
+                      type: string
+                    name:
+                      type: string
+                    port:
+                      type: string
+                  type: object
+                type: array
+              message:
+                type: string
+              status:
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
 ---
-# Source: skupper-setup/crds/skupper_secured_access_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: securedaccesses.skupper.io
 spec:
   group: skupper.io
-  versions:
-    - name: v2alpha1
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                ports:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                      port:
-                        type: integer
-                      targetPort:
-                        type: integer
-                      protocol:
-                        type: string
-                selector:
-                  type: object
-                  additionalProperties:
-                    type: string
-                issuer:
-                  type: string
-                certificate:
-                  type: string
-                accessType:
-                  type: string
-                settings:
-                  type: object
-                  additionalProperties:
-                    type: string
-              required:
-              - selector
-              - ports
-            status:
-              type: object
-              properties:
-                endpoints:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                      host:
-                        type: string
-                      port:
-                        type: string
-                      group:
-                        type: string
-                ca:
-                  type: string
-                status:
-                  type: string
-                message:
-                  type: string
-                conditions:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      lastTransitionTime:
-                        format: date-time
-                        type: string
-                      message:
-                        maxLength: 32768
-                        type: string
-                      observedGeneration:
-                        format: int64
-                        minimum: 0
-                        type: integer
-                      reason:
-                        maxLength: 1024
-                        minLength: 1
-                        pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
-                        type: string
-                      status:
-                        enum:
-                        - "True"
-                        - "False"
-                        - Unknown
-                        type: string
-                      type:
-                        maxLength: 316
-                        pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][- A-Za-z0-9_.]*)?[A-Za-z0-9])$
-                        type: string
-                    required:
-                    - lastTransitionTime
-                    - message
-                    - reason
-                    - status
-                    - type
-      subresources:
-        status: {}
-      additionalPrinterColumns:
-      - name: Status
-        type: string
-        description: The status of the secured access
-        jsonPath: .status.status
-      - name: Message
-        type: string
-        description: Any relevant human readable message
-        jsonPath: .status.message
-  scope: Namespaced
   names:
+    kind: SecuredAccess
     plural: securedaccesses
     singular: securedaccess
-    kind: SecuredAccess
-
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The status of the secured access
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: Any relevant human readable message
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: An internal resource used to create secure access to pods
+        properties:
+          spec:
+            properties:
+              accessType:
+                type: string
+              certificate:
+                type: string
+              issuer:
+                type: string
+              ports:
+                items:
+                  properties:
+                    name:
+                      type: string
+                    port:
+                      type: integer
+                    protocol:
+                      type: string
+                    targetPort:
+                      type: integer
+                  required:
+                  - name
+                  - port
+                  type: object
+                type: array
+              selector:
+                additionalProperties:
+                  type: string
+                type: object
+              settings:
+                additionalProperties:
+                  type: string
+                type: object
+            required:
+            - selector
+            - ports
+            type: object
+          status:
+            properties:
+              ca:
+                type: string
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              endpoints:
+                items:
+                  properties:
+                    group:
+                      type: string
+                    host:
+                      type: string
+                    name:
+                      type: string
+                    port:
+                      type: string
+                  type: object
+                type: array
+              message:
+                type: string
+              status:
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
 ---
-# Source: skupper-setup/crds/skupper_site_crd.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: sites.skupper.io
 spec:
   group: skupper.io
-  versions:
-    - name: v2alpha1
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                serviceAccount:
-                  type: string
-                linkAccess:
-                  type: string
-                defaultIssuer:
-                  type: string
-                ha:
-                  type: boolean
-                edge:
-                  type: boolean
-                settings:
-                  type: object
-                  additionalProperties:
-                    type: string
-            status:
-              type: object
-              properties:
-                defaultIssuer:
-                  type: string
-                status:
-                  type: string
-                message:
-                  type: string
-                conditions:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      lastTransitionTime:
-                        format: date-time
-                        type: string
-                      message:
-                        maxLength: 32768
-                        type: string
-                      observedGeneration:
-                        format: int64
-                        minimum: 0
-                        type: integer
-                      reason:
-                        maxLength: 1024
-                        minLength: 1
-                        pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
-                        type: string
-                      status:
-                        enum:
-                        - "True"
-                        - "False"
-                        - Unknown
-                        type: string
-                      type:
-                        maxLength: 316
-                        pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][- A-Za-z0-9_.]*)?[A-Za-z0-9])$
-                        type: string
-                    required:
-                    - lastTransitionTime
-                    - message
-                    - reason
-                    - status
-                    - type
-                endpoints:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      host:
-                        type: string
-                      port:
-                        type: string
-                      name:
-                        type: string
-                      group:
-                        type: string
-                sitesInNetwork:
-                  type: integer
-                network:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                      name:
-                        type: string
-                      namespace:
-                        type: string
-                      platform:
-                        type: string
-                      version:
-                        type: string
-                      links:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            name:
-                              type: string
-                            remoteSiteId:
-                              type: string
-                            remoteSiteName:
-                              type: string
-                            operational:
-                              type: boolean
-                      services:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            routingKey:
-                              type: string
-                            connectors:
-                              type: array
-                              items:
-                                type: string
-                            listeners:
-                              type: array
-                              items:
-                                type: string
-      subresources:
-        status: {}
-      additionalPrinterColumns:
-      - name: Status
-        type: string
-        description: The status of the site
-        jsonPath: .status.status
-      - name: Sites In Network
-        type: integer
-        description: The number of sites in the network
-        jsonPath: .status.sitesInNetwork
-      - name: Message
-        type: string
-        description: Any human readable message relevant to the site
-        jsonPath: .status.message
-  scope: Namespaced
   names:
-    plural: sites
-    singular: site
     kind: Site
-
+    plural: sites
+    shortNames:
+    - st
+    singular: site
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The status of the site
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: The number of sites in the network
+      jsonPath: .status.sitesInNetwork
+      name: Sites In Network
+      type: integer
+    - description: Any human readable message relevant to the site
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: A site is a place on the network where application workloads
+          are running
+        properties:
+          spec:
+            properties:
+              defaultIssuer:
+                type: string
+              edge:
+                type: boolean
+              ha:
+                type: boolean
+              linkAccess:
+                type: string
+              serviceAccount:
+                type: string
+              settings:
+                additionalProperties:
+                  type: string
+                type: object
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              controller:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                  version:
+                    type: string
+                type: object
+              defaultIssuer:
+                type: string
+              endpoints:
+                items:
+                  properties:
+                    group:
+                      type: string
+                    host:
+                      type: string
+                    name:
+                      type: string
+                    port:
+                      type: string
+                  type: object
+                type: array
+              message:
+                type: string
+              network:
+                items:
+                  properties:
+                    id:
+                      type: string
+                    links:
+                      items:
+                        properties:
+                          name:
+                            type: string
+                          operational:
+                            type: boolean
+                          remoteSiteId:
+                            type: string
+                          remoteSiteName:
+                            type: string
+                        type: object
+                      type: array
+                    name:
+                      type: string
+                    namespace:
+                      type: string
+                    platform:
+                      type: string
+                    services:
+                      items:
+                        properties:
+                          connectors:
+                            items:
+                              type: string
+                            type: array
+                          listeners:
+                            items:
+                              type: string
+                            type: array
+                          routingKey:
+                            type: string
+                        type: object
+                      type: array
+                    version:
+                      type: string
+                  type: object
+                type: array
+              sitesInNetwork:
+                type: integer
+              status:
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
 ---
-# Source: skupper-setup/templates/deploy_controller.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: skupper
----
-# Source: skupper-setup/templates/deploy_controller.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: skupper-controller
-  
-  namespace: skupper
-  
   labels:
+    app.kubernetes.io/name: skupper-operator
     application: skupper-controller
+  name: skupper-controller
+  namespace: skupper
 ---
-# Source: skupper-setup/templates/deploy_controller.yaml
 apiVersion: rbac.authorization.k8s.io/v1
-
 kind: ClusterRole
-
 metadata:
   labels:
     application: skupper-controller
   name: skupper-controller
 rules:
-  - apiGroups:
-      - ""
-    resources:
-      - nodes
-    verbs:
-      - get
-      - list
-      - watch
-  - apiGroups:
-      - ""
-    resources:
-      - configmaps
-      - pods
-      - pods/exec
-      - services
-      - secrets
-      - serviceaccounts
-      - events
-    verbs:
-      - get
-      - list
-      - watch
-      - create
-      - update
-      - delete
-      - patch
-  - apiGroups:
-      - apps
-    resources:
-      - deployments
-    verbs:
-      - get
-      - list
-      - watch
-      - create
-      - update
-      - delete
-      - patch
-  - apiGroups:
-      - route.openshift.io
-    resources:
-      - routes
-    verbs:
-      - get
-      - list
-      - watch
-      - create
-      - delete
-      - update
-  - apiGroups:
-      - apps.openshift.io
-    resources:
-      - deploymentconfigs
-    verbs:
-      - get
-      - list
-      - watch
-  - apiGroups:
-      - networking.k8s.io
-    resources:
-      - ingresses
-    verbs:
-      - get
-      - list
-      - watch
-      - create
-      - delete
-      - update
-  - apiGroups:
-      - projectcontour.io
-    resources:
-      - httpproxies
-    verbs:
-      - get
-      - list
-      - watch
-      - create
-      - delete
-      - update
-  - apiGroups:
-      - gateway.networking.k8s.io
-    resources:
-      - gateways
-      - tlsroutes
-    verbs:
-      - get
-      - list
-      - watch
-      - create
-      - delete
-      - update
-      - patch
-  - apiGroups:
-      - coordination.k8s.io
-    resources:
-      - leases
-    verbs:
-      - get
-      - list
-      - watch
-      - create
-      - delete
-      - update
-  - apiGroups:
-      - rbac.authorization.k8s.io
-    resources:
-      - rolebindings
-      - roles
-    verbs:
-      - get
-      - list
-      - watch
-      - create
-      - delete
-      - update
-  - apiGroups:
-      - skupper.io
-    resources:
-      - sites
-      - sites/status
-      - links
-      - links/status
-      - accesstokens
-      - accesstokens/status
-      - accessgrants
-      - accessgrants/status
-      - listeners
-      - listeners/status
-      - connectors
-      - connectors/status
-      - attachedconnectors
-      - attachedconnectors/status
-      - attachedconnectorbindings
-      - attachedconnectorbindings/status
-      - routeraccesses
-      - routeraccesses/status
-      - securedaccesses
-      - securedaccesses/status
-      - certificates
-      - certificates/status
-    verbs:
-      - get
-      - list
-      - watch
-      - create
-      - update
-      - delete
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  - pods
+  - pods/exec
+  - services
+  - secrets
+  - serviceaccounts
+  - events
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - delete
+  - patch
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - delete
+  - patch
+- apiGroups:
+  - route.openshift.io
+  resources:
+  - routes
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+- apiGroups:
+  - apps.openshift.io
+  resources:
+  - deploymentconfigs
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - ingresses
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+- apiGroups:
+  - projectcontour.io
+  resources:
+  - httpproxies
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+- apiGroups:
+  - gateway.networking.k8s.io
+  resources:
+  - gateways
+  - tlsroutes
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - rolebindings
+  - roles
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+- apiGroups:
+  - skupper.io
+  resources:
+  - sites
+  - sites/status
+  - links
+  - links/status
+  - accesstokens
+  - accesstokens/status
+  - accessgrants
+  - accessgrants/status
+  - listeners
+  - listeners/status
+  - connectors
+  - connectors/status
+  - attachedconnectors
+  - attachedconnectors/status
+  - attachedconnectorbindings
+  - attachedconnectorbindings/status
+  - routeraccesses
+  - routeraccesses/status
+  - securedaccesses
+  - securedaccesses/status
+  - certificates
+  - certificates/status
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - delete
 ---
-# Source: skupper-setup/templates/deploy_controller.yaml
 apiVersion: rbac.authorization.k8s.io/v1
-
 kind: ClusterRoleBinding
-
 metadata:
   labels:
     application: skupper-controller
   name: skupper-controller
-subjects:
-  - kind: ServiceAccount
-    name: skupper-controller
-    
-    namespace: skupper
-    
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  
   kind: ClusterRole
-  
   name: skupper-controller
+subjects:
+- kind: ServiceAccount
+  name: skupper-controller
+  namespace: skupper
 ---
-# Source: skupper-setup/templates/deploy_controller.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: skupper-controller
-  
   namespace: skupper
-  
 spec:
   replicas: 1
   selector:
@@ -1541,41 +1558,44 @@ spec:
   template:
     metadata:
       labels:
+        app.kubernetes.io/name: skupper-controller
         app.kubernetes.io/part-of: skupper
         application: skupper-controller
+        skupper.io/component: controller
     spec:
-      serviceAccountName: skupper-controller
-      # Prevent kubernetes from injecting env vars for grant service
-      # as these then collide with those that actually configure the
-      # controller:
+      containers:
+      - args:
+        - -enable-grants
+        - -grant-server-autoconfigure
+        command:
+        - /app/controller
+        env:
+        - name: SKUPPER_KUBE_ADAPTOR_IMAGE
+          value: quay.io/skupper/kube-adaptor:2.0.0
+        - name: SKUPPER_KUBE_ADAPTOR_IMAGE_PULL_POLICY
+          value: Always
+        - name: SKUPPER_ROUTER_IMAGE
+          value: quay.io/skupper/skupper-router:3.2.0
+        - name: SKUPPER_ROUTER_IMAGE_PULL_POLICY
+          value: Always
+        image: quay.io/skupper/controller:2.0.0
+        imagePullPolicy: Always
+        name: controller
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
+        volumeMounts:
+        - mountPath: /etc/controller
+          name: tls-credentials
       enableServiceLinks: false
-      # Please ensure that you can use SeccompProfile and do not use
-      # if your project must work on old Kubernetes
-      # versions < 1.19 or on vendors versions which
-      # do NOT support this field by default
       securityContext:
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
-      containers:
-        - name: controller
-          image: quay.io/skupper/controller:2.0.0-preview-2
-          imagePullPolicy: Always
-          command: ["/app/controller"]
-          args: ["-enable-grants", "-grant-server-autoconfigure"]
-          env:
-            - name: SKUPPER_KUBE_ADAPTOR_IMAGE
-              value: quay.io/skupper/kube-adaptor:2.0.0-preview-2
-            
-          securityContext:
-            capabilities:
-              drop:
-                - ALL
-            runAsNonRoot: true
-            allowPrivilegeEscalation: false
-          volumeMounts:
-            - name: tls-credentials
-              mountPath: /etc/controller
+      serviceAccountName: skupper-controller
       volumes:
-        - name: tls-credentials
-          emptyDir: {}
+      - emptyDir: {}
+        name: tls-credentials
