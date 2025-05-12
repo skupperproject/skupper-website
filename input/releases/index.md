@@ -26,6 +26,12 @@ Skupper](/install/index.html).
 
 <div style="column-count: 3;">
 
+* [1.9.1](https://github.com/skupperproject/skupper/releases/tag/1.9.1) - 7 May 2025
+* [1.8.5](https://github.com/skupperproject/skupper/releases/tag/1.8.5) - 10 April 2025
+* [1.9.0](https://github.com/skupperproject/skupper/releases/tag/1.9.0) - 8 April 2025
+* [1.8.4](https://github.com/skupperproject/skupper/releases/tag/1.8.4) - 27 March 2025
+* [2.0.0-rc1](https://github.com/skupperproject/skupper/releases/tag/2.0.0-rc1) - 3 February 2025
+* [1.8.3](https://github.com/skupperproject/skupper/releases/tag/1.8.3) - 8 January 2025
 * [1.8.2](https://github.com/skupperproject/skupper/releases/tag/1.8.2) - 6 November 2024
 * [1.8.1](https://github.com/skupperproject/skupper/releases/tag/1.8.1) - 9 September 2024
 * [1.8.0](https://github.com/skupperproject/skupper/releases/tag/1.8.0) - 28 August 2024
