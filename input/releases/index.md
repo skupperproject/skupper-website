@@ -8,6 +8,8 @@ title: Releases
 
 [Skupper {{latest_release_version}}][release-page] was released on {{latest_release_date}}.
 
+See [Skupper v2](/v2/index.html) for Version 2 information.
+
 For Linux or the Mac, use the [install script][install-script] to
 download and extract the Skupper command:
 
