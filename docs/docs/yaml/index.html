@@ -150,7 +150,7 @@ data:
 </code></pre>
 <p><strong>📌 NOTE</strong><br />
 By default, <code>service-sync</code> is enabled and if you create a service on one site, Skupper creates a matching service on all sites.
-If <code>service-sync</code> is set to false for a site, you need to create the service on that site as described in <a href="#creating-a-service-when-service-sync-is-disabled">Creating a service when service-sync is disabled</a>.</p>
+If <code>service-sync</code> is set to false for a site, you need to create the service on that site as described in the next section.</p>
 </li>
 <li><p>Apply the YAML file to your cluster:</p>
 <pre><code class="language-bash">kubectl apply -f ~/my-site.yml
@@ -158,6 +158,36 @@ If <code>service-sync</code> is set to false for a site, you need to create the 
 </li>
 </ol>
 <p>See the <a href="#site-configmap-yaml-reference">Site ConfigMap YAML reference</a> section for more reference.</p>
+<h3 id="creating-a-service-when-servicesync-is-disabled">Creating a service when service-sync is disabled</h3>
+<p>If you set <code>service-sync: &quot;false&quot;</code> when creating a site and you want to consume a service exposed on another site:</p>
+<ol>
+<li><p>Create <code>backend.yaml</code> similar to the following:</p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  annotations:
+    skupper.io/proxy: tcp
+    skupper.io/address: backend
+    skupper.io/port: &quot;8080&quot;
+    skupper.io/ingress-only: &quot;true&quot;
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+</code></pre>
+<p><strong>📌 NOTE</strong><br />
+The <code>skupper.io/address</code> annotation must match the service name you have previously exposed on another site.</p>
+</li>
+<li><p>Apply that yaml in the context of the site where <code>service-sync</code> is disabled:</p>
+<pre><code class="language-yaml">$ kubectl apply -f backend.yaml
+</code></pre>
+</li>
+<li><p>Test the service.</p>
+</li>
+</ol>
 <h2 id="linking-sites-using-yaml">Linking sites using YAML</h2>
 <p>While it is not possible to declaratively link sites, you can create a token using YAML.
 Only use this procedure to create links if the Skupper CLI is not available in your environment.</p>
@@ -300,36 +330,6 @@ Applies to:<ul>
 </ul>
 </li>
 </ul>
-<h2 id="creating-a-service-when-servicesync-is-disabled">Creating a service when service-sync is disabled</h2>
-<p>If you set <code>service-sync: &quot;false&quot;</code> when creating a site and you want to consume a service exposed on another site:</p>
-<ol>
-<li><p>Create <code>backend.yaml</code> similar to the following:</p>
-<pre><code class="language-yaml">apiVersion: v1
-kind: Service
-metadata:
-  name: backend
-  annotations:
-    skupper.io/proxy: tcp
-    skupper.io/address: backend
-    skupper.io/port: &quot;8080&quot;
-    skupper.io/ingress-only: &quot;true&quot;
-spec:
-  ports:
-    - name: http
-      protocol: TCP
-      port: 8080
-      targetPort: 8080
-</code></pre>
-<p><strong>📌 NOTE</strong><br />
-The <code>skupper.io/address</code> annotation must match the service name you have previously exposed on another site.</p>
-</li>
-<li><p>Apply that yaml in the context of the site where <code>service-sync</code> is disabled:</p>
-<pre><code class="language-yaml">$ kubectl apply -f backend.yaml
-</code></pre>
-</li>
-<li><p>Test the service.</p>
-</li>
-</ol>
 <h3 id="site-configmap-yaml-reference">Site ConfigMap YAML reference</h3>
 <p>Using YAML files to configure Skupper requires that you understand all the fields so that you provision the site you require.</p>
 <p>The following YAML defines a Skupper site:</p>

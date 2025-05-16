@@ -178,36 +178,6 @@ Applies to:<ul>
 </ul>
 </li>
 </ul>
-<h1 id="creating-a-service-when-servicesync-is-disabled">Creating a service when service-sync is disabled</h1>
-<p>If you set <code>service-sync: &quot;false&quot;</code> when creating a site and you want to consume a service exposed on another site:</p>
-<ol>
-<li><p>Create <code>backend.yaml</code> similar to the following:</p>
-<pre><code class="language-yaml">apiVersion: v1
-kind: Service
-metadata:
-  name: backend
-  annotations:
-    skupper.io/proxy: tcp
-    skupper.io/address: backend
-    skupper.io/port: &quot;8080&quot;
-    skupper.io/ingress-only: &quot;true&quot;
-spec:
-  ports:
-    - name: http
-      protocol: TCP
-      port: 8080
-      targetPort: 8080
-</code></pre>
-<p><strong>📌 NOTE</strong><br />
-The <code>skupper.io/address</code> annotation must match the service name you have previously exposed on another site.</p>
-</li>
-<li><p>Apply that yaml in the context of the site where <code>service-sync</code> is disabled:</p>
-<pre><code class="language-yaml">$ kubectl apply -f backend.yaml
-</code></pre>
-</li>
-<li><p>Test the service.</p>
-</li>
-</ol>
 
 
     </main>
