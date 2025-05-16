@@ -35,7 +35,7 @@ Using the `skupper` command-line interface (CLI) provides a simple method to get
    ├─ [local] a960b766-20bd-42c8-886d-741f3a9f6aa2(west)
    │  │ namespace: west
    │  │ site name: west
-   │  │ version: 1.8.1
+   │  │ version: 1.9.1
    │  ╰─ Linked sites:
    │     ├─ 496ca1de-0c80-4e70-bbb4-d0d6ec2a09c0(east)
    │     │  direction: outgoing
@@ -44,13 +44,13 @@ Using the `skupper` command-line interface (CLI) provides a simple method to get
    ├─ [remote] 496ca1de-0c80-4e70-bbb4-d0d6ec2a09c0(east)
    │  │ namespace: east
    │  │ site name: east
-   │  │ version: 1.8.1
+   │  │ version: 1.9.1
    │  ╰─ Linked sites:
    │     ╰─ a960b766-20bd-42c8-886d-741f3a9f6aa2(west)
    │        direction: incoming
    ╰─ [remote] 484cccc3-401c-4c30-a6ed-73382701b18a()
       │ site name: vm-user-c3d98
-      │ version: 1.8.1
+      │ version: 1.9.1
       ╰─ Linked sites:
          ╰─ a960b766-20bd-42c8-886d-741f3a9f6aa2(west)
             direction: outgoing
@@ -210,7 +210,7 @@ For example:
    $ skupper gateway status
 
    Gateway Definition:
-   ╰─ machine-user type:podman version:1.7
+   ╰─ machine-user type:podman version:1.9
       ╰─ Bindings:
          ╰─ mydb:3306 tcp mydb:3306 localhost 3306
 
@@ -221,7 +221,7 @@ For example:
    ```
    $ podman ps
    CONTAINER ID  IMAGE                                           COMMAND               CREATED         STATUS             PORTS                   NAMES
-   4e308ef8ee58  quay.io/skupper/skupper-router:1.7             /home/skrouterd/b...  26 seconds ago  Up 27 seconds ago                          machine-user
+   4e308ef8ee58  quay.io/skupper/skupper-router:1.9             /home/skrouterd/b...  26 seconds ago  Up 27 seconds ago                          machine-user
 
    ```
    This shows the container running.

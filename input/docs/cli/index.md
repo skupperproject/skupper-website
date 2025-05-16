@@ -16,7 +16,7 @@ Installing the `skupper` command-line interface (CLI) provides a simple method t
 
    ```bash
    $ skupper version
-   client version 1.7
+   client version 1.9
    ```
 
 ## Creating a site using the CLI
@@ -487,7 +487,7 @@ This section shows how to expose a single service running locally on a service n
    $ skupper gateway status
 
    Gateway Definition:
-   ╰─ machine-user type:service version:1.7
+   ╰─ machine-user type:service version:1.9
       ╰─ Bindings:
          ╰─ mydb:3306 tcp mydb:3306 localhost 3306
 
@@ -556,7 +556,7 @@ This section shows more advanced usage of skupper gateway.
    Gateway Definitions Summary
 
    Gateway Definition:
-   ╰─ machine-user type:service version:1.7
+   ╰─ machine-user type:service version:1.9
       ╰─ Bindings:
          ╰─ mydb:3306 tcp mydb:3306 localhost 3306
 
@@ -682,7 +682,7 @@ For example, if you want to expose a local database service to the service netwo
    ```bash
    $ skupper gateway status
    Gateway Definition:
-   ╰─ machine-user type:service version:1.7
+   ╰─ machine-user type:service version:1.9
       ╰─ Bindings:
          ╰─ mydb:3306 tcp mydb:3306 localhost 3306
    ```
@@ -770,7 +770,7 @@ Skupper includes a command to allow you report all the sites and the services av
    ├─ [local] a960b766-20bd-42c8-886d-741f3a9f6aa2(west) ①
    │  │ namespace: west
    │  │ site name: west ②
-   │  │ version: 1.8.1 ③
+   │  │ version: 1.9.1 ③
    │  ╰─ Linked sites:
    │     ├─ 496ca1de-0c80-4e70-bbb4-d0d6ec2a09c0(east)
    │     │  direction: outgoing
@@ -779,13 +779,13 @@ Skupper includes a command to allow you report all the sites and the services av
    ├─ [remote] 496ca1de-0c80-4e70-bbb4-d0d6ec2a09c0(east) ④
    │  │ namespace: east
    │  │ site name: east
-   │  │ version: 1.8.1
+   │  │ version: 1.9.1
    │  ╰─ Linked sites:
    │     ╰─ a960b766-20bd-42c8-886d-741f3a9f6aa2(west) ⑤
    │        direction: incoming
    ╰─ [remote] 484cccc3-401c-4c30-a6ed-73382701b18a() ⑥
       │ site name: vm-user-c3d98
-      │ version: 1.8.1
+      │ version: 1.9.1
       ╰─ Linked sites:
          ╰─ a960b766-20bd-42c8-886d-741f3a9f6aa2(west)
             direction: outgoing

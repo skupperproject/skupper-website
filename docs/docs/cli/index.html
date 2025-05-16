@@ -89,7 +89,7 @@
 </li>
 <li><p>Verify the installation.</p>
 <pre><code class="language-bash">$ skupper version
-client version 1.7
+client version 1.9
 </code></pre>
 </li>
 </ol>
@@ -475,7 +475,7 @@ See <a href="../cli/podman.html">Using Skupper Podman</a> for information about 
 <pre><code class="language-bash">$ skupper gateway status
 
 Gateway Definition:
-╰─ machine-user type:service version:1.7
+╰─ machine-user type:service version:1.9
    ╰─ Bindings:
       ╰─ mydb:3306 tcp mydb:3306 localhost 3306
 
@@ -530,7 +530,7 @@ Gateway Definition:
 <pre><code class="language-bash">Gateway Definitions Summary
 
 Gateway Definition:
-╰─ machine-user type:service version:1.7
+╰─ machine-user type:service version:1.9
    ╰─ Bindings:
       ╰─ mydb:3306 tcp mydb:3306 localhost 3306
 
@@ -638,7 +638,7 @@ You can later remove the gateway using <code>./remove.py</code>.</p>
 <li><p>From the machine with cluster access, check the status of Skupper gateways:</p>
 <pre><code class="language-bash">$ skupper gateway status
 Gateway Definition:
-╰─ machine-user type:service version:1.7
+╰─ machine-user type:service version:1.9
    ╰─ Bindings:
       ╰─ mydb:3306 tcp mydb:3306 localhost 3306
 </code></pre>
@@ -720,7 +720,7 @@ Port for skupper router, typically <code>5672</code>.</li>
 ├─ [local] a960b766-20bd-42c8-886d-741f3a9f6aa2(west) ①
 │  │ namespace: west
 │  │ site name: west ②
-│  │ version: 1.8.1 ③
+│  │ version: 1.9.1 ③
 │  ╰─ Linked sites:
 │     ├─ 496ca1de-0c80-4e70-bbb4-d0d6ec2a09c0(east)
 │     │  direction: outgoing
@@ -729,13 +729,13 @@ Port for skupper router, typically <code>5672</code>.</li>
 ├─ [remote] 496ca1de-0c80-4e70-bbb4-d0d6ec2a09c0(east) ④
 │  │ namespace: east
 │  │ site name: east
-│  │ version: 1.8.1
+│  │ version: 1.9.1
 │  ╰─ Linked sites:
 │     ╰─ a960b766-20bd-42c8-886d-741f3a9f6aa2(west) ⑤
 │        direction: incoming
 ╰─ [remote] 484cccc3-401c-4c30-a6ed-73382701b18a() ⑥
    │ site name: vm-user-c3d98
-   │ version: 1.8.1
+   │ version: 1.9.1
    ╰─ Linked sites:
       ╰─ a960b766-20bd-42c8-886d-741f3a9f6aa2(west)
          direction: outgoing
