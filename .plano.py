@@ -192,7 +192,7 @@ def update_skupper_docs():
     """
     Update the embedded Skupper docs repo
     """
-    update_external_from_github("external/skupper-docs", "skupperproject", "skupper-docs")
+    update_external_from_github("external/skupper-docs", "skupperproject", "skupper-docs", "v1")
 
 @command
 def update_transom():

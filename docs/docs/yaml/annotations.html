@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Skupper - Configuring services using annotations</title>
+    <meta name="description" content="Multicluster communication for Kubernetes.  Skupper is a layer 7 service interconnect.  It enables secure communication across Kubernetes clusters with no VPNs or special firewall rules."/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto+Mono:400,400italic|Alegreya+Sans:300,300italic,400,400italic,500,500italic,700,700italic;display=optional"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" defer="defer"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" defer="defer"/>
+    <link rel="stylesheet" href="/main.css"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/skupper-icon-32.png"/>
+    <link rel="icon" type="image/png" sizes="256x256" href="/images/skupper-icon-256.png"/>
+    <script type="text/javascript" src="/main.js" defer="defer"></script>
+
+
+
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-147980770-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-147980770-1');
+    </script>
+  </head>
+  <body>
+
+<header>
+  <nav id="-site-nav">
+    <a id="-site-menu-button" style="display: none;">
+      <span class="material-icons">menu</span>
+    </a>
+    <div>
+      <div id="-left-site-nav">
+        <a href="/index.html" id="-logotype">
+          <img src="/images/skupper-logo.svg"/>
+          <div>Skupper</div>
+        </a>
+        <a href="/start/index.html">
+          <div>Getting started</div>
+        </a>
+        <a href="/examples/index.html">
+          <div>Examples</div>
+        </a>
+        <a href="/docs/index.html">
+          <div>Documentation</div>
+        </a>
+        <a href="/releases/index.html">
+          <div>Releases</div>
+        </a>
+        <a href="/community/index.html">
+          <div>Community</div>
+        </a>
+        <a href="/news/index.html">
+          <div>News</div>
+        </a>
+      </div>
+      <div id="-right-site-nav">
+        <a href="https://github.com/skupperproject">
+          <div><span class="fab fa-github fa-lg"></span> GitHub</div>
+        </a>
+      </div>
+    </div>
+  </nav>
+  <nav id="-path-nav"><div><a href="/docs/index.html">Documentation</a> <span class="path-separator">&#8250;</span> <a href="/docs/yaml/index.html">Configuring Skupper sites using YAML</a> <span class="path-separator">&#8250;</span> <a href="/docs/yaml/annotations.html">Configuring services using annotations</a></div></nav>
+  <nav id="-site-menu-layer" style="display: none;">
+    <div>
+      <a href="/index.html">Home</a>
+      <a href="/start/index.html">Getting started</a>
+      <a href="/examples/index.html">Examples</a>
+      <a href="/docs/index.html">Documentation</a>
+      <a href="/community/index.html">Community</a>
+      <a href="/news/index.html">News</a>
+    </div>
+  </nav>
+</header>
+
+
+<section id="-main-and-toc">
+  <div>
+    <main>
+
+<h1 id="configuring-services-using-annotations">Configuring services using annotations</h1>
+<p>After creating and linking sites, you can use Kubernetes annotations to control which services are available on the {service-network}.</p>
+<h2 id="exposing-simple-services-on-a-servicenetwork-using-annotations">Exposing simple services on a {service-network} using annotations</h2>
+<p>This section provides an alternative to the <code>skupper expose</code> command, allowing you to annotate existing resources to expose simple services on the {service-network}.</p>
+<ul>
+<li>A site with a service you want to expose</li>
+</ul>
+<ol>
+<li><p>Log into the namespace in your cluster that is configured as a site.</p>
+</li>
+<li><p>Create a deployment, some pods, or a service in one of your sites, for example:</p>
+<pre><code class="language-bash">$ kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
+</code></pre>
+<p>This step is not Skupper-specific, that is, this process is unchanged from standard processes for your cluster.</p>
+</li>
+<li><p>Annotate the kubernetes resource to create a service that can communicate on the {service-network}, for example:</p>
+<pre><code class="language-bash">$ kubectl annotate deployment backend &quot;skupper.io/address=backend&quot; &quot;skupper.io/port=8080&quot; &quot;skupper.io/proxy=tcp&quot;
+</code></pre>
+<p>The annotations include:</p>
+<ul>
+<li><code>skupper.io/proxy</code> - the protocol you want to use, <code>tcp</code>, <code>http</code> or <code>http2</code>.
+This is the only annotation that is required.
+For example, if you annotate a simple deployment named <code>backend</code> with <code>skupper.io/proxy=tcp</code>, the service is exposed as <code>backend</code> and the <code>containerPort</code> value of the deployment is used as the port number.</li>
+<li><code>skupper.io/address</code> - the name of the service on the {service-network}.</li>
+<li><code>skupper.io/port</code> - one or more ports for the service on the {service-network}.</li>
+</ul>
+<dl><dt><strong>📌 NOTE</strong></dt><dd>
+
+<p>When exposing services, rather than other resources like deployments, you can use the <code>skupper.io/target</code> annotation to avoid modifying the original service.
+For example, if you want to expose the <code>backend</code> service:</p>
+<pre><code class="language-bash">$ kubectl annotate service backend &quot;skupper.io/address=van-backend&quot; &quot;skupper.io/port=8080&quot; \
+&quot;skupper.io/proxy=tcp&quot; &quot;skupper.io/target=backend&quot;
+</code></pre>
+<p>This allows you to delete and recreate the <code>backend</code> service without having to apply the annotation again.</p>
+</dd></dl>
+
+</li>
+<li><p>Check that you have exposed the service:</p>
+<pre><code class="language-bash">$ skupper service status -v
+Services exposed through Skupper:
+╰─ backend:8080 (tcp)
+   ╰─ Sites:
+      ├─ 4d80f485-52fb-4d84-b10b-326b96e723b2(west)
+      │  policy: disabled
+      ╰─ 316fbe31-299b-490b-9391-7b46507d76f1(east)
+         │ policy: disabled
+         ╰─ Targets:
+            ╰─ backend:8080 name=backend-9d84544df-rbzjx
+</code></pre>
+<p><strong>📌 NOTE</strong><br />
+The related targets for services are only displayed when the target is available on the current cluster.</p>
+</li>
+</ol>
+<h2 id="understanding-skupper-annotations">Understanding Skupper annotations</h2>
+<p>Annotations allow you to expose services on the {service-network}.
+This section provides details on the scope of those annotations</p>
+<ul>
+<li><strong>skupper.io/address</strong><br />
+The name of the service on the {service-network}.
+Applies to:<ul>
+<li>Deployments</li>
+<li>StatefulSets</li>
+<li>DaemonSets</li>
+<li>Services</li>
+</ul>
+</li>
+<li><strong>skupper.io/port</strong><br />
+The port for the service on the {service-network}.
+Applies to:<ul>
+<li>Deployments</li>
+<li>StatefulSets</li>
+<li>DaemonSets</li>
+</ul>
+</li>
+<li><strong>skupper.io/proxy</strong><br />
+The protocol you want to use, <code>tcp</code>, <code>http</code> or <code>http2</code>.
+Applies to:<ul>
+<li>Deployments</li>
+<li>StatefulSets</li>
+<li>DaemonSets</li>
+<li>Services</li>
+</ul>
+</li>
+<li><strong>skupper.io/target</strong><br />
+The name of the target service you want to expose.
+Applies to:<ul>
+<li>Services</li>
+</ul>
+</li>
+<li><strong>skupper.io/service-labels</strong><br />
+A comma separated list of label keys and values for the exposed service.
+You can use this annotation to set up labels for monitoring exposed services.
+Applies to:<ul>
+<li>Deployments</li>
+<li>DaemonSets</li>
+<li>Services</li>
+</ul>
+</li>
+</ul>
+<h1 id="creating-a-service-when-servicesync-is-disabled">Creating a service when service-sync is disabled</h1>
+<p>If you set <code>service-sync: &quot;false&quot;</code> when creating a site and you want to consume a service exposed on another site:</p>
+<ol>
+<li><p>Create <code>backend.yaml</code> similar to the following:</p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  annotations:
+    skupper.io/proxy: tcp
+    skupper.io/address: backend
+    skupper.io/port: &quot;8080&quot;
+    skupper.io/ingress-only: &quot;true&quot;
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+</code></pre>
+<p><strong>📌 NOTE</strong><br />
+The <code>skupper.io/address</code> annotation must match the service name you have previously exposed on another site.</p>
+</li>
+<li><p>Apply that yaml in the context of the site where <code>service-sync</code> is disabled:</p>
+<pre><code class="language-yaml">$ kubectl apply -f backend.yaml
+</code></pre>
+</li>
+<li><p>Test the service.</p>
+</li>
+</ol>
+
+
+    </main>
+    <nav id="-toc">
+      <h4>Contents</h4>
+      <div></div>
+    </nav>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div>
+      <p><a href="https://twitter.com/SkupperIO"><span class="fab fa-twitter fa-lg"></span> Twitter</a></p>
+      <p><a href="https://www.youtube.com/channel/UCQxHN2Qq8koCatcmKCJ4OEA"><span class="fab fa-youtube fa-lg"></span> YouTube</a></p>
+      <!-- <p><a href="https://stackoverflow.com/questions/tagged/skupper"><span class="fab fa-stack-overflow fa-lg"></span> Stack Overflow</a></p> -->
+      <p><a href="https://groups.google.com/forum/#!forum/skupper"><span class="fas fa-envelope fa-lg"></span> Mailing list</a></p>
+      <p><a href="https://github.com/skupperproject"><span class="fab fa-github fa-lg"></span> GitHub</a></p>
+    </div>
+    <div>
+      <h4>Skupper - Multicloud communication for Kubernetes</h4>
+      <p>Skupper enables secure communication across Kubernetes
+        clusters with no VPNs or special firewall rules</p>
+      <p>Copyright &#169; 2024 the Skupper authors</p>
+    </div>
+    <div>
+      <p>All code and documentation is licensed under
+        the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache
+        License version 2.0</a></p>
+      <p>Marks may be trademarks or registered trademarks of their
+        respective owners</p>
+      <p><a href="/site.html">About this site</a></p>
+    </div>
+  </div>
+</footer>
+
+
+
+  </body>
+</html>
