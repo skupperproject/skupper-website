@@ -1,103 +1,84 @@
----
-title: Using the Skupper console
----
-# Using the Skupper console
+<a id="console"></a>
+# Using the Network console
 
-The Skupper console provides data and visualizations of the traffic flow between Skupper sites.
+The Network console provides data and visualizations of the traffic flow between sites.
 
-## Enabling the Skupper console
+<a id="console-enabling"></a>
+## Enabling the Network console
 
-By default, when you create a Skupper site, a Skupper console is not available.
+**Prerequisites**
 
-When enabled, the Skupper console URL is displayed whenever you check site status using `skupper status`.
+* A Kubernetes site
 
-* A Kubernetes namespace where you plan to create a site
 
-1. Determine which site in your service network is best to enable the console.
+**Procedure**
 
-   Enabling the console also requires that you enable the flow-collector component, which requires resources to process traffic data from all sites.
-   You might locate the console using the following criteria:
+1. Determine which site in your network is best to enable the Network console using the following criteria:
 
-   * Does the service network cross a firewall?
-   For example, if you want the console to be available only inside the firewall, you need to locate the flow-collector and console on a site inside the firewall.
-   * Is there a site that processes more traffic than other sites?
-   For example, if you have a _frontend_ component that calls a set of services from other sites, it might make sense to locate the flow collector and console on that site to minimize data traffic.
-   * Is there a site with more or cheaper resources that you want to use?
-   For example, if you have two sites, A and B, and resources are more expensive on site A, you might want to locate the flow collector and console on site B.
-2. Create a site with the flow collector and console enabled:
+   * Does the application network cross a firewall? For example, if you want the console to be available only inside the firewall, you need to locate the Network console on a site inside the firewall.
+   * Is there a site that processes more traffic than other sites? For example, if you have a frontend component that calls a set of services from other sites, it might make sense to locate the Network console on that site to minimize data traffic.
+   * Is there a site with more or cheaper resources that you want to use? For example, if you have two sites, A and B, and resources are more expensive on site A, you might want to locate the Network console on site B.
 
-   ```bash
-   $ skupper init --enable-console --enable-flow-collector
+2. Change context to a site namespace.
+
+3. Deploy the network observer helm chart:
+   ```
+   helm install skupper-network-observer oci://quay.io/skupper/helm/network-observer --version {{skupper_cli_version}}
    ```
 
-## Accessing the Skupper console
-
-By default, the Skupper console is protected by credentials available in the `skupper-console-users` secret.
-
-1. Determine the Skupper console URL using the `skupper` CLI, for example:
-
-   ```bash
-   $ skupper status
-
-   Skupper is enabled for namespace "west" in interior mode. It is not connected to any other sites. It has no exposed services.
-   The site console url is:  https://skupper-west.apps-crc.testing
+   The output is similar to the following:
    ```
-2. Browse to the Skupper console URL.
-The credential prompt depends on how the site was created using `skupper init`:
+   Pulled: quay.io/skupper/helm/network-observer:2.1.1
+   Digest: sha256:557c8a3f4b5d8bb6e779a81e6214fa87c2ad3ad0c957a5c08b8dd3cb20fc7cfe
+   NAME: skupper-network-observer
+   LAST DEPLOYED: Sun Mar  9 19:47:09 2025
+   NAMESPACE: default
+   STATUS: deployed
+   REVISION: 1
+   TEST SUITE: None
+   NOTES:
+   You have installed the skupper network observer!
+   
+   Accessing the console:
+   The network-observer application is exposed as a service inside of your
+   cluster. To access the application externally you must either enable an
+   ingress of some sort or use port forwarding to access the service
+   temporarily.
+   Expose the application at https://127.0.0.1:8443 with the command:
+   kubectl --namespace default port-forward service/skupper-network-observer 8443:443
 
-   * Using the `--console-auth unsecured` option, you are not prompted for credentials.
-   * Using the `--console-auth openshift` option, you are prompted to enter OpenShift cluster credentials.
-   * Using the default or `--console-user <user>  --console-password <password>` options, you are prompted to enter those credentials.
-3. If you created the site using default settings, that is `skupper init`, a random password is generated for the `admin` user.
+   Basic Authentication is enabled.
 
-   To retrieve the password the `admin` user for a Kubernetes site:
-   +
+   Users are configured in the skupper-network-observer-auth secret.
+   This secret has been prepopulated with a single user "skupper" and a randomly
+   generated password stored in plaintext. It is recommended that these
+   credentials be rotated and replaced with a secure password hash (bcrypt.)
+ 
+   Retrieve the password with this command:
+   kubectl --namespace default \
+         get secret skupper-network-observer-auth \
+         -o jsonpath='{.data.htpasswd}' | base64 -d | sed 's/\(.*\):{PLAIN}\(.*\)/\1 \2\n/'
    ```
-   $ kubectl get secret skupper-console-users -o jsonpath={.data.admin} | base64 -d
+4. Expose the `skupper-network-observer` service to make the Network console available, for example on OpenShift:
 
-   JNZWzMHtyg
+   ```
+   oc expose skupper-network-observer
    ```
 
-   To retrieve the password the `admin` user for a Podman site:
-   +
-   ```
-   $ cat ~/.local/share/containers/storage/volumes/skupper-console-users/_data/admin
+<a id="console-exploring"></a>
+## Exploring the Network console
 
-   JNZWzMHtyg
-   ```
-
-## Exploring the Skupper console
-
-After exposing a service on the service network, you create an _address_, that is, a service name and port number associated with a site.
-There might be many replicas associated with an address.
-These replicas are shown in the Skupper console as _processes_.
-Not all participants on a service network are services.
-For example, a _frontend_ deployment might call an exposed service named _backend_, but that frontend is not part of the service network.
-In the console, both are shown so that you can view the traffic and these are called _components_.
-
-The Skupper console provides an overview of the following:
+The Network console provides an overview of the following:
 
 * Topology
-* Addresses
+* Services
 * Sites
 * Components
 * Processes
 
-The Skupper console also provides useful networking information about the service network, for example, traffic levels.
+For example, consider the following service:
 
-![skupper-adservice](../images/skupper-adservice.png)
-
-1. Check the **Sites** tab.
-All your sites should be listed.
-See the **Topology** tab to view how the sites are linked.
-2. Check that all the services you exposed are visible in the **Components** tab.
-3. Click a component to show the component details and associated processes.
-4. Click on a process to display the process traffic.
-
-   **📌 NOTE**\
-   The process detail displays the associated image, host, and addresses.
-   You can also view the clients that are calling the process.
-5. Click **Addresses** and choose an address to show the details for that address. This shows the set of servers that are exposed across the service network.
-
-**💡 TIP**\
-To view information about each window, click the **?** icon.
+<img src="../images/console.png" alt="adservice in london and berlin" style="width: 100%;">
+<!--
+![services](../images/console.png)
+-->

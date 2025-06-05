@@ -1,17 +1,21 @@
-{{page.include("includes/header.html")}}
+<body class="{{page.metadata.get('body_class', 'none')}}">
 
-<section id="-main-and-toc">
-  <div>
-    <main>
+{{page.include("config/header.html")}}
+
+  <main>
+
+{{page.path_nav(start=1, min=2)}}
 
 {{page.content}}
 
-    </main>
-    <nav id="-toc">
-      <h4>Contents</h4>
-      <div></div>
-    </nav>
-  </div>
-</section>
+  </main>
+  <aside>
 
-{{page.include("includes/footer.html")}}
+    <nav id="-toc">
+    </nav>
+
+  </aside>
+
+{{page.include("config/footer.html")}}
+
+</body>

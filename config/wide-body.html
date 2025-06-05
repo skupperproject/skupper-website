@@ -1,11 +1,18 @@
-{{page.include("includes/header.html")}}
+<body class="{{page.metadata.get('body_class', 'none')}}">
+  <header>
+    <div>
 
-<section>
-  <div>
+{{page.path_nav()}}
+
+    </div>
+  </header>
+  <main>
 
 {{page.content}}
 
-  </div>
-</section>
-
-{{page.include("includes/footer.html")}}
+  </main>
+  <footer>
+    <div>
+    </div>
+  </footer>
+</body>

@@ -70,7 +70,7 @@ Rendered 3 output files
 
 Now you have the HTML website under `<your-project-dir>/output`.  You
 can send that whereever you need it to be for publishing purposes.
-Since I often use GitHub pages for publishing, I set my output dir to
+Since I often use GitHub Pages for publishing, I set my output dir to
 `docs` and then configure the GitHub project to serve those files.
 
 For local development, you will likely want to use the `transom serve`
@@ -86,7 +86,6 @@ Found 3 input files
 Rendered 0 output files (3 unchanged)
 Watching for input file changes
 Serving at http://localhost:8080
-Starting LiveReload v0.9.3 for /tmp/tmp.57gwncgHua/output on port 35729.
 ~~~
 
 <!-- Site checks for files and links -->
@@ -134,7 +133,25 @@ def get_page_info(page):
 <pre>{{get_page_info(page)}}</pre>
 ~~~
 
-<!-- ## Site API -->
+## Site configuration
+
+`config/config.py`
+
+**site.prefix** - A string prefix used in templates and for generated
+links.  It is inserted before the file path.  This is important when
+the published site lives under a directory prefix, as is the case for
+GitHub Pages.  The default is "", the empty string.
+
+**site.extra_input_dirs** - A list of directories to watch for
+changes.  If any file changes in these directories, the whole site is
+re-rendered.  The default is a list with one item, `config`.
+
+**site.ignored_file_patterns** - A list of shell globs for excluding
+input files from processing.  The default is `.git`, `.svn`, `.#*`,
+and `#*`.
+
+**site.ignored_link_patterns** - A list of shell globs for excluding
+link URLs from link checking.  The default is the empty list.
 
 <!-- ## Page API -->
 

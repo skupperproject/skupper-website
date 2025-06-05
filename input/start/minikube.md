@@ -1,7 +1,7 @@
 # Using Skupper with Minikube
 
 These notes provide Minikube specific instructions for running
-[Skupper examples](/examples/index.html).
+[Skupper examples]({{site.prefix}}/examples/index.html).
 
 ## Prerequisites
 

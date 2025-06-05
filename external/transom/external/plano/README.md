@@ -6,7 +6,13 @@ Python functions for writing shell-style system scripts.
 
 ## Installation
 
-To install plano globally for the current user:
+Install the dependencies if you need to:
+
+~~~
+sudo dnf -y install python-build python-pip python-pyyaml
+~~~
+
+Install plano globally for the current user:
 
 ~~~
 make install
@@ -101,19 +107,49 @@ pip install pyyaml
 
 Change directory to the root of your project:
 
-    cd <project-dir>/
+~~~ console
+cd <project-dir>/
+~~~
 
 Add the Plano code as a subdirectory:
 
-    mkdir -p external
-    curl -sfL https://github.com/ssorj/plano/archive/main.tar.gz | tar -C external -xz
-    mv external/plano-main external/plano
+~~~ shell
+mkdir -p external
+curl -sfL https://github.com/ssorj/plano/archive/main.tar.gz | tar -C external -xz
+mv external/plano-main external/plano
+~~~
 
 Symlink the Plano library into your `python` directory:
 
-    mkdir -p python
-    ln -s ../external/plano/src/plano python/plano
+~~~ shell
+mkdir -p python
+ln -s ../external/plano/src/plano python/plano
+~~~
 
 Copy the `plano` command into the root of your project:
 
-    cp external/plano/bin/plano plano
+~~~ shell
+cp external/plano/bin/plano plano
+~~~
+
+Optionally, add a command to `.plano.py` to update the embedded Plano:
+
+~~~ python
+from plano.github import *
+
+@command
+def update_plano():
+    """
+    Update the embedded Plano repo
+    """
+    update_external_from_github("external/plano", "ssorj", "plano")
+~~~
+
+## Extending an existing command
+
+~~~ python
+@command(parent=blammo)
+def blammo(*args, **kwargs):
+    parent(*args, **kwargs)
+    # Do child stuff
+~~~

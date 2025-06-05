@@ -1,155 +1,187 @@
-/*
- *
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *
- */
-
-"use strict";
+// Licensed to the Apache Software Foundation (ASF) under one
+// or more contributor license agreements.  See the NOTICE file
+// distributed with this work for additional information
+// regarding copyright ownership.  The ASF licenses this file
+// to you under the Apache License, Version 2.0 (the
+// "License"); you may not use this file except in compliance
+// with the License.  You may obtain a copy of the License at
+//
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 Element.prototype.$ = function () {
-  return this.querySelector.apply(this, arguments);
+    return this.querySelector.apply(this, arguments);
 };
 
 Element.prototype.$$ = function () {
-  return this.querySelectorAll.apply(this, arguments);
+    return this.querySelectorAll.apply(this, arguments);
 };
 
 window.addEventListener("load", () => {
     let path = window.location.pathname;
-    let child = $("#-left-site-nav").firstChild;
 
-    if (path.charAt(path.length - 1) === "/") {
-        path += "index.html";
+    if (path.endsWith("/")) {
+	path += "index.html";
     }
 
-    while (child) {
-        if (child.nodeType === 1 && child.id !== "-logotype") {
-            let prefix = new URL(child.href).pathname.slice(0, -10);
+    for (const elem of $$("#-tabs > a.selected")) {
+	elem.classList.remove("selected");
+    }
 
-            if (path.startsWith(prefix)) {
-                child.classList.add("selected");
-            }
+    for (const elem of $$("#-tabs > a")) {
+	const href = new URL(elem.href).pathname;
+
+	if (href == path) {
+	    elem.classList.add("selected");
+	    break;
+	}
+    }
+});
+
+function createLink(parent, href, text) {
+    const elem = document.createElement("a");
+    const textNode = document.createTextNode(text);
+
+    elem.setAttribute("href", href);
+    elem.appendChild(textNode);
+
+    parent.appendChild(elem);
+}
+
+window.addEventListener("load", () => {
+    const oldToc = $("#-toc");
+
+    if (oldToc === null) {
+        return;
+    }
+
+    if (oldToc.children.length !== 0) {
+        return;
+    }
+
+    const parent = $("h1").parentElement;
+    const headings = new Map(); // Element heading => Array of subheadings
+    let currHeading = null;
+    let currSubheadings = null;
+
+    for (let i = 0; i < parent.children.length; i++) {
+        const child = parent.children[i];
+        const tag = child.tagName.toLowerCase();
+
+        if (tag === "h2") {
+            currHeading = child;
+            currSubheadings = [];
+
+            headings.set(currHeading, currSubheadings);
         }
 
-        child = child.nextSibling;
+        if (tag === "h3" && currSubheadings) {
+            currSubheadings.push(child);
+        }
     }
-});
 
-window.addEventListener("load", () => {
-    let oldTocLinks = $("#-toc > div");
+    if (headings.size === 0) {
+        // Remove the TOC element so it doesn't affect page layout
+        oldToc.remove();
 
-    if (!oldTocLinks) {
         return;
     }
 
-    let headings = $$("h2");
+    const toc = document.createElement("section");
+    const tocHeading = document.createElement("h4");
+    const tocHeadingText = document.createTextNode("Contents");
 
-    if (headings.length == 0) {
-        return;
+    tocHeading.appendChild(tocHeadingText);
+    toc.appendChild(tocHeading);
+    toc.setAttribute("id", "-toc");
+
+    const tocLinks = document.createElement("nav");
+
+    createLink(tocLinks, "#", $("h1").textContent);
+
+    // XXX Another variant I considered
+    // createLink(tocLinks, "#", "Top");
+
+    for (const [heading, subheadings] of headings) {
+        createLink(tocLinks, `#${heading.id}`, heading.textContent);
+
+        if (subheadings.length === 0) {
+            continue;
+        }
+
+        const sublinks = document.createElement("nav");
+
+        for (const subheading of subheadings) {
+            createLink(sublinks, `#${subheading.id}`, subheading.textContent);
+        }
+
+        tocLinks.appendChild(sublinks);
     }
 
-    let newTocLinks = document.createElement("div");
-
-    for (let heading of headings) {
-        let link = document.createElement("a");
-        let text = document.createTextNode(heading.textContent);
-
-        link.setAttribute("href", `#${heading.id}`);
-        link.appendChild(text);
-
-        newTocLinks.appendChild(link);
-    }
-
-    oldTocLinks.parentNode.replaceChild(newTocLinks, oldTocLinks);
-
-    $("#-toc").style.display = "block";
+    toc.appendChild(tocLinks);
+    oldToc.replaceWith(toc);
 });
 
 window.addEventListener("load", () => {
-    let tocLinks = $("#-toc > div");
+    const tocLinks = $("#-toc nav");
 
     if (!tocLinks) {
         return;
     }
 
-    let updateHeadingSelection = () => {
-        let currHash = window.location.hash;
+    const updateHeadingSelection = () => {
+        const currHash = window.location.hash;
 
-        if (!currHash) {
-            return;
+        for (const elem of tocLinks.$$(".selected")) {
+            elem.classList.remove("selected");
         }
 
-        for (let link of tocLinks.$$("a")) {
-            let linkHash = new URL(link.href).hash;
+        if (currHash) {
+            for (const link of tocLinks.$$("a")) {
+                const linkHash = new URL(link.href).hash;
 
-            if (linkHash === currHash) {
-                link.classList.add("selected");
-            } else {
-                link.classList.remove("selected");
+                if (linkHash === currHash) {
+                    link.classList.add("selected");
+                    break;
+                }
             }
+
+            $(currHash).parentElement.parentElement.classList.add("selected");
+        } else {
+            // Select the top heading by default
+            tocLinks.$("a").classList.add("selected");
         }
     }
 
-    window.addEventListener("load", updateHeadingSelection);
+    updateHeadingSelection();
+
     window.addEventListener("hashchange", updateHeadingSelection);
 });
 
 window.addEventListener("load", () => {
-    let updateScrollState = () => {
-        if (window.scrollY > 20) {
-            $("body").classList.add("scrolled");
-        } else {
-            $("body").classList.remove("scrolled");
-        }
-    };
+    for (const block of $$("pre > code.language-console")) {
+        const lines = block.innerHTML.split("\n");
 
-    updateScrollState();
-    window.addEventListener("scroll", updateScrollState);
-});
-
-window.addEventListener("load", () => {
-    let pathNav = $("#-path-nav");
-
-    if (pathNav.$$("a").length > 1) {
-        $("section:first-of-type > div").style.paddingTop = "9.5em";
-        $("#-toc").style.top = "9.5em";
-        $("html").style.scrollPaddingTop = "9em";
-
-        pathNav.style.display = "inherit";
+        block.innerHTML = lines.map(line => {
+            switch (line[0]) {
+            case "#":
+                return `<span class="shell-comment">${line}</span>`;
+            case "$":
+                return `<span class="shell-command">${line}</span>`;
+            default:
+                return `<span class="shell-output">${line}</span>`;
+            }
+        }).join("\n");
     }
-});
-
-window.addEventListener("load", () => {
-    let button = $("#-site-menu-button");
-    let layer = $("#-site-menu-layer");
-
-    button.addEventListener("click", () => {
-        layer.style.display = "inherit";
-    });
-
-    layer.addEventListener("click", (e) => {
-        if (e.target === layer) {
-            layer.style.display = "none";
-        }
-    });
 });
 
 if (navigator.clipboard) {
@@ -177,3 +209,49 @@ if (navigator.clipboard) {
         }
     });
 }
+
+window.addEventListener("load", () => {
+    for (const elem of $$("div.attribute > div.attribute-heading")) {
+        elem.addEventListener("click", () => {
+            elem.parentElement.classList.toggle("collapsed");
+        });
+    }
+});
+
+window.addEventListener("load", () => {
+    if ($("a#expand-all")) {
+        $("a#expand-all").addEventListener("click", () => {
+            for (const elem of $$("div.attribute.collapsed")) {
+                elem.classList.remove("collapsed");
+            }
+        });
+    }
+
+    if ($("a#collapse-all")) {
+        $("a#collapse-all").addEventListener("click", () => {
+            for (const elem of $$("div.attribute")) {
+                elem.classList.add("collapsed");
+            }
+        });
+    }
+});
+
+// // Function to open an image in fullscreen
+// function openFullscreen(elem) {
+//   if (elem.requestFullscreen) {
+//     elem.requestFullscreen();
+//   } else if (elem.mozRequestFullScreen) { // Firefox
+//     elem.mozRequestFullScreen();
+//   } else if (elem.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+//     elem.webkitRequestFullscreen();
+//   } else if (elem.msRequestFullscreen) { // IE/Edge
+//     elem.msRequestFullscreen();
+//   }
+// }
+
+// // Attach click event listeners to all img elements
+// document.querySelectorAll("img").forEach(img => {
+//   img.addEventListener("click", () => {
+//     openFullscreen(img);
+//   });
+// });

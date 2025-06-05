@@ -1,0 +1,15 @@
+kind: Site
+metadata:
+  name: west
+  namespace: hello-world-west
+spec:
+  linkAccess: default
+--
+kind: Listener
+metadata:
+  name: backend
+  namespace: hello-world-west
+spec:
+  routingKey: backend
+  host: backend
+  port: 8080

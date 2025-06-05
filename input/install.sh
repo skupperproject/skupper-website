@@ -367,7 +367,7 @@ fetch_skupper_release() {
         latest)
             log "Looking up the latest release version"
 
-            run curl -sf "https://skupper.io/data/install.json" \
+            run curl -sf "https://www.ssorj.net/skupper-website/data/install.json" \
                 | awk 'match($0, /"version": "[0-9]+\.[0-9]+\.[0-9]+"/) { print substr($0, RSTART+12, RLENGTH-13) }' \
                       >| "${release_version_file}"
             ;;

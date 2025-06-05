@@ -1,0 +1,2029 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: skupper
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: accessgrants.skupper.io
+spec:
+  group: skupper.io
+  names:
+    kind: AccessGrant
+    plural: accessgrants
+    shortNames:
+    - grant
+    - gr
+    singular: accessgrant
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The number of claims the grant is valid for
+      jsonPath: .spec.redemptionsAllowed
+      name: Redemptions Allowed
+      type: integer
+    - description: The number of times an access token originating from this grant
+        has been redeemed
+      jsonPath: .status.redemptions
+      name: Redemptions Made
+      type: integer
+    - description: When the grant will expire
+      jsonPath: .status.expirationTime
+      name: Expiration
+      type: string
+    - description: The status of the grant
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: Any human readable message relevant to the grant
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: |-
+          Permission to redeem access tokens for links to the local site.
+          A remote site can use a token containing the grant URL and secret
+          code to obtain a certificate signed by the grant's certificate authority (CA),
+          within a certain expiration window and for a limited number of redemptions.
+
+          The code, url, and ca properties of the resource status are used to generate access tokens from the grant.
+        properties:
+          spec:
+            properties:
+              code:
+                description: |-
+                  Advanced. The secret code to use to authenticate access tokens submitted for redemption.
+                  If not set, a value is generated and placed in the code status property.
+                type: string
+              expirationWindow:
+                description: |-
+                  The period of time in which an access token for this grant can be redeemed.
+                  The default value is `15m`.
+                format: duration
+                type: string
+              issuer:
+                description: |-
+                  Advanced. The name of a Kubernetes secret used to generate a certificate when redeeming a token for this grant.
+                  If not set, `defaultIssuer` on the Site resource is used.
+                type: string
+              redemptionsAllowed:
+                description: |-
+                  The maximum number of times an access token for this grant can be redeemed.
+                  The default value is `1`.
+                type: integer
+              settings:
+                additionalProperties:
+                  type: string
+                description: |-
+                  Advanced. A map containing additional settings. Each map
+                  entry has a string name and a string value.
+
+                  **Note:** In  general, we recommend not changing `settings`
+                  from their default values.
+                type: object
+            type: object
+          status:
+            properties:
+              ca:
+                description: The trusted server certificate of the token-redemption
+                  service for this grant.
+                type: string
+              code:
+                description: The secret code used to authenticate access tokens submitted
+                  for redemption.
+                type: string
+              conditions:
+                description: |-
+                  A set of named conditions describing the current state of the resource.
+
+                  - `Processed`: The controller has accepted the grant.
+                  - `Resolved`: The grant service is available to process tokens for this grant.
+                  - `Ready`: The grant is ready to use. All other conditions are true.
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              expirationTime:
+                description: The point in time when the grant expires.
+                format: date-time
+                type: string
+              message:
+                description: A human-readable status message. Error messages are reported
+                  here.
+                type: string
+              redemptions:
+                description: The number of times a token for this grant has been redeemed.
+                type: integer
+              status:
+                description: |-
+                  The current state of the resource.
+                  - `Pending`: The resource is being processed.
+                  - `Error`: There was an error processing the resource. See `message` for more information.
+                  - `Ready`: The resource is ready to use.
+                type: string
+              url:
+                description: The URL of the token-redemption service for this grant.
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: accesstokens.skupper.io
+spec:
+  group: skupper.io
+  names:
+    kind: AccessToken
+    plural: accesstokens
+    shortNames:
+    - token
+    - to
+    singular: accesstoken
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The URL the access token is redeemed at
+      jsonPath: .spec.url
+      name: URL
+      type: string
+    - description: Whether the access token has already been redeemed
+      jsonPath: .status.redeemed
+      name: Redeemed
+      type: boolean
+    - description: The status of the access token
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: Any human readable message relevant to the token
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: |-
+          A short-lived credential used to create a link between sites.
+          An access token contains the URL and secret code of a corresponding access grant.
+          **Note:** Access tokens are typically issued and redeemed using the Skupper CLI.
+        properties:
+          spec:
+            properties:
+              ca:
+                description: The trusted server certificate of the grant service at
+                  the remote site.
+                type: string
+              code:
+                description: The secret code used to authenticate the token when submitted
+                  for redemption.
+                type: string
+              linkCost:
+                description: The link cost to use when creating the link.
+                type: integer
+              settings:
+                additionalProperties:
+                  type: string
+                description: |-
+                  Advanced. A map containing additional settings. Each map
+                  entry has a string name and a string value.
+
+                  **Note:** In  general, we recommend not changing settings
+                  from their default values.
+                type: object
+              url:
+                description: The URL of the grant service at the remote site.
+                type: string
+            required:
+            - url
+            - code
+            - ca
+            type: object
+          status:
+            properties:
+              conditions:
+                description: |-
+                  A set of named conditions describing the current state of the resource.
+
+                  - `Redeemed`: The token has been exchanged for a link.
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              message:
+                description: A human-readable status message. Error messages are reported
+                  here.
+                type: string
+              redeemed:
+                description: True if the token has been redeemed. Once a token is
+                  redeemed, it cannot be used again.
+                type: boolean
+              status:
+                description: |-
+                  The current state of the resource.
+                  - `Pending`: The resource is being processed.
+                  - `Error`: There was an error processing the resource. See `message` for more information.
+                  - `Ready`: The resource is ready to use.
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: attachedconnectorbindings.skupper.io
+spec:
+  group: skupper.io
+  names:
+    kind: AttachedConnectorBinding
+    plural: attachedconnectorbindings
+    shortNames:
+    - acnrb
+    singular: attachedconnectorbinding
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: An identifier that associates connectors with listeners.
+      jsonPath: .spec.routingKey
+      name: Routing Key
+      type: string
+    - description: The namespace where the associated AttachableConnector is located.
+      jsonPath: .spec.connectorNamespace
+      name: Connector Namespace
+      type: string
+    - description: The status of the connector
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: Whether there is at least one listener in the network with a matching
+        routing key.
+      jsonPath: .status.hasMatchingListener
+      name: Has Matching Listener
+      type: boolean
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: "An attached connector binding is a binding to an attached connector
+          in a peer namespace that allows you to \nbring a workload into your existing
+          VAN without creating a separate site or establishing inter-site links.\nThe
+          name of this resource must be the same as that of the associated AttachedConnector
+          resource in the peer \nnamespace."
+        properties:
+          spec:
+            properties:
+              connectorNamespace:
+                description: The name of the namespace where the associated AttachedConnector
+                  is located.
+                type: string
+              exposePodsByName:
+                description: If true, expose each pod as an individual service.
+                type: boolean
+              routingKey:
+                description: "The identifier used to route traffic from listeners
+                  to connectors. To expose a local workload to a \nremote site, the
+                  remote listener and the local connector must have matching routing
+                  keys."
+                type: string
+              settings:
+                additionalProperties:
+                  type: string
+                description: |-
+                  Advanced. A map containing additional settings. Each map entry has a string name and a string value.
+                  **Note**: In general, we recommend not changing settings from their default values.
+                type: object
+            required:
+            - connectorNamespace
+            - routingKey
+            type: object
+          status:
+            properties:
+              conditions:
+                description: A set of named conditions describing the current state
+                  of the resource.
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              hasMatchingListener:
+                description: Whether there is at least one listener in the network
+                  with a matching routing key.
+                type: boolean
+              message:
+                description: A human-readable status message. Error messages are reported
+                  here.
+                type: string
+              status:
+                description: |-
+                  The current state of the resource.
+                  - `Pending`: The resource is being processed.
+                  - `Error`: There was an error processing the resource. See message for more information.
+                  - `Ready`: The resource is ready to use.
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: attachedconnectors.skupper.io
+spec:
+  group: skupper.io
+  names:
+    kind: AttachedConnector
+    plural: attachedconnectors
+    shortNames:
+    - acnr
+    singular: attachedconnector
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The port to connect to.
+      jsonPath: .spec.port
+      name: Port
+      type: integer
+    - description: The selector that identifies the pods to connect to.
+      jsonPath: .spec.selector
+      name: Selector
+      type: string
+    - description: The namespace in which the site this connector should be attached
+        to is defined.
+      jsonPath: .spec.siteNamespace
+      name: Site Namespace
+      type: string
+    - description: The status of the connector.
+      jsonPath: .status.status
+      name: Status
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: |-
+          An attached connector is a connector in a peer namespace that allows you to bring a workload into your existing VAN without creating a separate site or establishing inter-site links.
+          The name of this resource must be the same as that of the associated AttachedConnectorBinding resource in the site namespace.
+        properties:
+          spec:
+            properties:
+              includeNotReadyPods:
+                description: Advanced. If true, include server pods in the NotReady
+                  state. By default it is false.
+                type: boolean
+              port:
+                description: The port on the target server to connect to.
+                type: integer
+              selector:
+                description: |-
+                  A Kubernetes label selector for specifying target server pods. It uses <label-name>=<label-value> syntax.
+                  On Kubernetes, either selector or host is required.
+                type: string
+              settings:
+                additionalProperties:
+                  type: string
+                description: |-
+                  Advanced. A map containing additional settings. Each map entry has a string name and a string value.
+                  Note: In general, we recommend not changing settings from their default values.
+                type: object
+              siteNamespace:
+                description: The name of the namespace in which the site this connector
+                  should be attached to is defined.
+                type: string
+              tlsCredentials:
+                description: |-
+                  Advanced. The name of a bundle of TLS certificates used for secure router-to-server communication. The bundle contains the trusted server certificate (usually a CA). It optionally includes a client certificate and key for mutual TLS.
+                  On Kubernetes, the value is the name of a Secret in the current namespace. On Docker, Podman, and Linux, the value is the name of a directory under input/certs/ in the current namespace.
+                type: string
+              type:
+                description: Selected protocol for service networking. By default,
+                  its value is TCP, the only option available.
+                type: string
+              useClientCert:
+                description: Advanced. Send the client certificate when connecting
+                  in order to enable mutual TLS. Default value is false.
+                type: boolean
+            required:
+            - port
+            - selector
+            - siteNamespace
+            type: object
+          status:
+            properties:
+              conditions:
+                description: A set of named conditions describing the current state
+                  of the resource.
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              message:
+                description: A human-readable status message. Error messages are reported
+                  here.
+                type: string
+              selectedPods:
+                items:
+                  properties:
+                    ip:
+                      type: string
+                    name:
+                      type: string
+                  type: object
+                type: array
+              status:
+                description: |-
+                  The current state of the resource.
+                  - `Pending`: The resource is being processed.
+                  - `Error`: There was an error processing the resource. See message for more information.
+                  - `Ready`: The resource is ready to use.
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: certificates.skupper.io
+spec:
+  group: skupper.io
+  names:
+    kind: Certificate
+    plural: certificates
+    singular: certificate
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: Identifies the CA to be used in signing the certificate
+      jsonPath: .spec.ca
+      name: CA
+      type: string
+    - description: Whether or not the certificate is valid for use as a server
+      jsonPath: .spec.server
+      name: Server
+      type: boolean
+    - description: Whether or not the certificate is valid for use as a client
+      jsonPath: .spec.client
+      name: Client
+      type: boolean
+    - description: Whether or not the certificate is valid for use as a CA
+      jsonPath: .spec.signing
+      name: Signing
+      type: boolean
+    - description: The status of the certificate
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: The expiration of the certificate if relevant
+      jsonPath: .status.expiration
+      name: Expiration
+      type: string
+    - description: Any relevant human readable message
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: An internal resource used to indicate TLS credentials to be created
+        properties:
+          spec:
+            properties:
+              ca:
+                type: string
+              client:
+                type: boolean
+              hosts:
+                items:
+                  type: string
+                type: array
+              server:
+                type: boolean
+              settings:
+                additionalProperties:
+                  type: string
+                type: object
+              signing:
+                type: boolean
+              subject:
+                type: string
+            required:
+            - ca
+            - subject
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              expiration:
+                format: date-time
+                type: string
+              message:
+                type: string
+              status:
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: connectors.skupper.io
+spec:
+  group: skupper.io
+  names:
+    kind: Connector
+    plural: connectors
+    shortNames:
+    - cnr
+    singular: connector
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The key that ties connectors and listeners together
+      jsonPath: .spec.routingKey
+      name: Routing Key
+      type: string
+    - description: The port to connect to
+      jsonPath: .spec.port
+      name: Port
+      type: integer
+    - description: The host to connect to
+      jsonPath: .spec.host
+      name: Host
+      type: string
+    - description: The selector that identifies the pods to connect to
+      jsonPath: .spec.selector
+      name: Selector
+      type: string
+    - description: The status of the connector
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: Whether there is at least one listener in the network with a matching
+        routing key.
+      jsonPath: .status.hasMatchingListener
+      name: Has Matching Listener
+      type: boolean
+    - description: Any human readable message relevant to the connector
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: |-
+          A connector binds a local workload to listeners in remote sites. Listeners
+          and connectors are matched by routing key.
+
+          On Kubernetes, a Connector resource has a selector and port for specifying
+          workload pods.
+
+          On Docker, Podman, and Linux, a Connector resource has a host and port for
+          specifying a local server. Optionally, Kubernetes can also use a host and port.
+        properties:
+          spec:
+            oneOf:
+            - required:
+              - selector
+            - required:
+              - host
+            properties:
+              exposePodsByName:
+                description: If true, expose each pod as an individual service.
+                type: boolean
+              host:
+                description: |-
+                  The hostname or IP address of the server. This is an alternative to
+                  selector for specifying the target server.
+
+                  On Kubernetes, either selector or host is required.
+
+                  On Docker, Podman, or Linux, host is required.
+                type: string
+              includeNotReadyPods:
+                description: If true, include server pods in the NotReady state.
+                type: boolean
+              port:
+                description: The port on the target server to connect to.
+                type: integer
+              routingKey:
+                description: |-
+                  The identifier used to route traffic from listeners to connectors.
+                  To expose a local workload to a remote site, the remote listener and
+                  the local connector must have matching routing keys.
+                type: string
+              selector:
+                description: |-
+                  A Kubernetes label selector for specifying target server pods. It uses
+                  <label-name>=<label-value> syntax.
+
+                  On Kubernetes, either selector or host is required.
+                type: string
+              settings:
+                additionalProperties:
+                  type: string
+                description: |-
+                  A map containing additional settings. Each map entry has a string name and a
+                  string value.
+
+                  Note: In general, we recommend not changing settings from their default values.
+                type: object
+              tlsCredentials:
+                description: |-
+                  The name of a bundle of TLS certificates used for secure router-to-server
+                  communication. The bundle contains the trusted server certificate
+                  (usually a CA). It optionally includes a client certificate and key for
+                  mutual TLS.
+
+                  On Kubernetes, the value is the name of a Secret in the current namespace.
+                  On Docker, Podman, and Linux, the value is the name of a directory under
+                  input/certs/ in the current namespace.
+                type: string
+              type:
+                type: string
+              useClientCert:
+                description: Send the client certificate when connecting in order
+                  to enable mutual TLS.
+                type: boolean
+              verifyHostname:
+                description: |-
+                  If true, require that the hostname of the server connected to matches the
+                  hostname in the server's certificate.
+                type: boolean
+            required:
+            - routingKey
+            - port
+            type: object
+          status:
+            properties:
+              conditions:
+                description: |-
+                  A set of named conditions describing the current state of the resource.
+                  - `Configured`: The connector configuration has been applied to the router.
+                  - `Matched`: There is at least one listener corresponding to this connector.
+                  - `Ready`: The connector is ready to use. All other conditions are true.
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              hasMatchingListener:
+                description: True if there is at least one listener with a matching
+                  routing key (usually in a remote site).
+                type: boolean
+              message:
+                description: A human-readable status message. Error messages are reported
+                  here.
+                type: string
+              selectedPods:
+                items:
+                  properties:
+                    ip:
+                      type: string
+                    name:
+                      type: string
+                  type: object
+                type: array
+              status:
+                description: |-
+                  The current state of the resource.
+                  - `Pending`: The resource is being processed.
+                  - `Error`: There was an error processing the resource. See `message` for more information.
+                  - `Ready`: The resource is ready to use.
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: links.skupper.io
+spec:
+  group: skupper.io
+  names:
+    kind: Link
+    plural: links
+    shortNames:
+    - ln
+    singular: link
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The status of the link
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: The name of the site linked to
+      jsonPath: .status.remoteSiteName
+      name: Remote Site
+      type: string
+    - description: Any human readable message relevant to the link
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: |-
+          A link is a channel for communication between sites.
+          Links carry application connections and requests.  A set of linked
+          sites constitutes a network.
+
+          A Link resource specifies remote connection endpoints and TLS
+          credentials for establishing a mutual TLS connection to a remote
+          site.  To create an active link, the remote site must first enable
+          _link access_.  Link access provides an external access point for
+          accepting links.
+
+          **Note:** Links are not usually created directly.  Instead, you can
+          use an AccessToken to obtain a link.
+        properties:
+          spec:
+            properties:
+              cost:
+                description: The configured routing cost of sending traffic over the
+                  link.
+                type: integer
+              endpoints:
+                description: |-
+                  An array of connection endpoints. Each item has a name, host,
+                  port, and group.
+                items:
+                  properties:
+                    group:
+                      type: string
+                    host:
+                      type: string
+                    name:
+                      type: string
+                    port:
+                      type: string
+                  type: object
+                type: array
+              settings:
+                additionalProperties:
+                  type: string
+                description: |-
+                  A map containing additional settings.  Each map entry has a
+                  string name and a string value.
+
+                  **Note:** In general, we recommend not changing `settings` from
+                  their default values.
+                type: object
+              tlsCredentials:
+                description: |-
+                  The name of a bundle of certificates used for mutual TLS
+                  router-to-router communication.  The bundle contains the
+                  client certificate and key and the trusted server certificate
+                  (usually a CA).
+
+                  On Kubernetes, the value is the name of a Secret in the
+                  current namespace.
+
+                  On Docker, Podman, and Linux, the value is the name of a
+                  directory under `input/certs/` in the current namespace.
+                type: string
+            required:
+            - endpoints
+            type: object
+          status:
+            properties:
+              conditions:
+                description: |-
+                  A set of named conditions describing the current state of the resource.
+
+                  - `Configured`: The link configuration has been applied to the router.
+                  - `Operational`: The link to the remote site is active.
+                  - `Ready`: The link is ready for use. All other conditions are true.
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              message:
+                description: A human-readable status message. Error messages are reported
+                  here.
+                type: string
+              remoteSiteId:
+                description: The unique ID of the site linked to.
+                type: string
+              remoteSiteName:
+                description: The name of the site linked to.
+                type: string
+              status:
+                description: |-
+                  The current state of the resource.
+                  - `Pending`: The resource is being processed.
+                  - `Error`: There was an error processing the resource. See `message` for more information.
+                  - `Ready`: The resource is ready to use.
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: listeners.skupper.io
+spec:
+  group: skupper.io
+  names:
+    kind: Listener
+    plural: listeners
+    shortNames:
+    - lnr
+    singular: listener
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The key that ties connectors and listeners together
+      jsonPath: .spec.routingKey
+      name: Routing Key
+      type: string
+    - description: The port the service listens on
+      jsonPath: .spec.port
+      name: Port
+      type: integer
+    - description: The name of the service
+      jsonPath: .spec.host
+      name: Host
+      type: string
+    - description: The status of the listener
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: Whether there is at least one connector in the network with a matching
+        routing key.
+      jsonPath: .status.hasMatchingConnector
+      name: Has Matching Connector
+      type: boolean
+    - description: Any human readable message relevant to the listener
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: |-
+          A listener binds a local connection endpoint to connectors in remote sites.
+          Listeners and connector are matched by routing key.
+
+          A Listener resource specifies a host and port for accepting connections
+          from local client. To expose a multi-port service, create multiple listeners
+          with the same host value.
+        properties:
+          spec:
+            properties:
+              exposePodsByName:
+                description: |-
+                  If true, expose each pod as an individual service. This allows individual
+                  pods to be directly connected across a network. The pod names will be used
+                  to create each service.
+                type: boolean
+              host:
+                description: |-
+                  The hostname or IP address of the local listener. Clients at this
+                  site use the listener host and port to establish connections to the
+                  remote service.
+                type: string
+              port:
+                description: |-
+                  The port of the local listener. Clients at this site use the listener
+                  host and port to establish connections to the remote service.
+                type: integer
+              routingKey:
+                description: |-
+                  The identifier to route traffic from listeners to connectors. To
+                  enable connecting to a service at a remote site, the local listener
+                  and the remote connector must have matching routingKeys.
+                type: string
+              settings:
+                additionalProperties:
+                  type: string
+                description: |-
+                  A map containing additional settings. Each map entry has a string name and a string value.
+
+                  **Note:** In general, we recommend not changing settings from
+                  their default values.
+                type: object
+              tlsCredentials:
+                description: |-
+                  The name of a bundle of TLS certificates used for secure client-to-router
+                  communication. The bundle contains the server certificate and key. It
+                  optionally includes the trusted client certificate (usually a CA) for
+                  mutual TLS.
+
+                  On Kubernetes, the value is the name of a Secret in the current namespace.
+                  On Docker, Podman, and Linux, the value is the name of a directory under
+                  input/certs/ in the current namespace.
+                type: string
+              type:
+                type: string
+            required:
+            - routingKey
+            - host
+            - port
+            type: object
+          status:
+            properties:
+              conditions:
+                description: |-
+                  A set of named conditions describing the current state of the resource.
+
+                  - `Configured`: The listener configuration has been applied to the router.
+                  - `Operational`: There is at least one connector corresponding to this listener.
+                  - `Ready`: The listener is ready for use. All other conditions are true.
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              hasMatchingConnector:
+                description: True if there is at least one connector with a matching
+                  routing key (usually in a remote site).
+                type: boolean
+              message:
+                description: A human-readable status message. Error messages are reported
+                  here.
+                type: string
+              status:
+                description: |-
+                  The current state of the resource.
+                  - `Pending`: The resource is being processed.
+                  - `Error`: There was an error processing the resource. See `message` for more information.
+                  - `Ready`: The resource is ready to use.
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: routeraccesses.skupper.io
+spec:
+  group: skupper.io
+  names:
+    kind: RouterAccess
+    plural: routeraccesses
+    singular: routeraccess
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The status of the router access
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: Any relevant human readable message
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: |-
+          Configuration for secure access to the site router.  The
+          configuration includes TLS credentials and router ports.  The
+          RouterAccess resource is used to implement link access for sites.
+        properties:
+          spec:
+            properties:
+              accessType:
+                description: |-
+                  Configures the access type for the router endpoints.
+                  Available access types and the default selection is
+                  configured on the Skupper controller for Kubernetes.
+
+                  The options available by default are:
+                    - `local`: No external ingress. Implies a Kubernetes Service with type CluterIP.
+                    - `route`: Exposed via an OpenShift Route.
+                    - `loadbalancer`: Exposed via a Kubernetes Service with type LoadBalancer.
+                type: string
+              bindHost:
+                description: |-
+                  The hostname or IP address of the network interface to bind
+                  to.  By default, Skupper binds all the interfaces on the host.
+                type: string
+              generateTlsCredentials:
+                description: |-
+                  When set, Skupper generates the TLS credentials to be
+                  stored in the Secret specified by `tlsCredentials`. See
+                  also `issuer`.
+                type: boolean
+              issuer:
+                description: |-
+                  The name of the Kubernetes Secret containing the signing CA
+                  used to generate TLS certificates for the RouterAccess when
+                  `generateTlsCredentials` is set.
+                type: string
+              roles:
+                description: |-
+                  The named interfaces by which a router can be accessed.  These
+                  include "inter-router" for links between interior routers and
+                  "edge" for links from edge routers to interior routers.
+                items:
+                  properties:
+                    name:
+                      description: The role name. Either "inter-router" or "edge".
+                      type: string
+                    port:
+                      description: The port for the router to bind. Must not conflict
+                        with another role.
+                      type: integer
+                  required:
+                  - name
+                  type: object
+                type: array
+              settings:
+                additionalProperties:
+                  type: string
+                description: |-
+                  Advanced. A map containing additional settings. Each map
+                  entry has a string name and a string value.
+
+                  **Note:** In  general, we recommend not changing `settings`
+                  from their default values.
+                type: object
+              subjectAlternativeNames:
+                description: The hostnames and IPs secured by the router TLS certificate.
+                items:
+                  type: string
+                type: array
+              tlsCredentials:
+                description: |-
+                  The name of a bundle of TLS certificates used for mutual TLS
+                  router-to-router communication.  The bundle contains the
+                  server certificate and key and the trusted client certificate
+                  (usually a CA).
+
+                  On Kubernetes, the value is the name of a Secret in the
+                  current namespace.
+
+                  On Docker, Podman, and Linux, the value is the name of a
+                  directory under `input/certs/` in the current namespace.
+                type: string
+            required:
+            - roles
+            - tlsCredentials
+            type: object
+          status:
+            properties:
+              conditions:
+                description: |-
+                  A set of named conditions describing the current state of the resource.
+
+                   - `Configured`: The output resources for this resource have been created.
+                   - `Resolved`: The connection endpoints are available.
+                   - `Ready`: The router access is ready for use. All other conditions are true.
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              endpoints:
+                description: |-
+                  An array of connection endpoints.  Each item has a name, host,
+                  port, and group.
+                items:
+                  properties:
+                    group:
+                      type: string
+                    host:
+                      type: string
+                    name:
+                      type: string
+                    port:
+                      type: string
+                  type: object
+                type: array
+              message:
+                description: A human-readable status message. Error messages are reported
+                  here.
+                type: string
+              status:
+                description: |-
+                  The current state of the resource.
+                   - `Pending`: The resource is being processed.
+                   - `Error`: There was an error processing the resource. See `message` for more information.
+                   - `Ready`: The resource is ready to use.
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: securedaccesses.skupper.io
+spec:
+  group: skupper.io
+  names:
+    kind: SecuredAccess
+    plural: securedaccesses
+    singular: securedaccess
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The status of the secured access
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: Any relevant human readable message
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: An internal resource used to create secure access to pods
+        properties:
+          spec:
+            properties:
+              accessType:
+                type: string
+              certificate:
+                type: string
+              issuer:
+                type: string
+              ports:
+                items:
+                  properties:
+                    name:
+                      type: string
+                    port:
+                      type: integer
+                    protocol:
+                      type: string
+                    targetPort:
+                      type: integer
+                  required:
+                  - name
+                  - port
+                  type: object
+                type: array
+              selector:
+                additionalProperties:
+                  type: string
+                type: object
+              settings:
+                additionalProperties:
+                  type: string
+                type: object
+            required:
+            - selector
+            - ports
+            type: object
+          status:
+            properties:
+              ca:
+                type: string
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              endpoints:
+                items:
+                  properties:
+                    group:
+                      type: string
+                    host:
+                      type: string
+                    name:
+                      type: string
+                    port:
+                      type: string
+                  type: object
+                type: array
+              message:
+                type: string
+              status:
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: sites.skupper.io
+spec:
+  group: skupper.io
+  names:
+    kind: Site
+    plural: sites
+    shortNames:
+    - st
+    singular: site
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The status of the site
+      jsonPath: .status.status
+      name: Status
+      type: string
+    - description: The number of sites in the network
+      jsonPath: .status.sitesInNetwork
+      name: Sites In Network
+      type: integer
+    - description: Any human readable message relevant to the site
+      jsonPath: .status.message
+      name: Message
+      type: string
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: |-
+          A site is a place on the network where application workloads are
+          running. Sites are joined by links.
+
+          The Site resource is the basis for site configuration. It is the
+          parent of all Skupper resources in its namespace. There can be only
+          one active Site resource per namespace.
+        properties:
+          spec:
+            properties:
+              defaultIssuer:
+                description: |-
+                  Advanced. The name of a Kubernetes secret containing the
+                  signing CA used to generate a certificate from a token. A
+                  secret is generated if none is specified.
+
+                  This issuer is used by AccessGrant and RouterAccess if a
+                  specific issuer is not set. Defaults to `skupper-site-ca`
+                type: string
+              edge:
+                description: |-
+                  Advanced. Configure the site to operate in edge mode. Edge
+                  sites cannot accept links from remote sites.
+
+                  Edge mode can help you scale your network to large numbers
+                  of sites. However, for networks with 16 or fewer sites,
+                  there is little benefit.
+
+                  Currently, edge sites cannot also have HA enabled.
+                type: boolean
+              ha:
+                description: |-
+                  Configure the site for high availability (HA). HA sites
+                  have two active routers.
+
+                  Note that Skupper routers are stateless, and they restart
+                  after failure. This already provides a high level of
+                  availability. Enabling HA goes further and reduces the
+                  window of downtime caused by restarts.
+
+                  By default, Pod anti-affinity will be configured on the router
+                  Deployments when HA is enabled. To overwrite this behavior
+                  see the `disable-anti-affinity` Site setting.
+                type: boolean
+              linkAccess:
+                description: |-
+                  Configure external access for links from remote sites. When
+                  set, implies a RouterAccess resource with accessType set
+                  according to the linkAccess value.
+
+                  Sites and links are the basis for creating application
+                  networks. In a simple two-site network, at least one of the
+                  sites must have link access enabled. Choices include:
+                  - `none`: No linking to this site is enabled.
+                  - `default`: Use the default link access for the current platform. For OpenShift, the default is `route`. For other Kubernetes flavors, the default is `loadbalancer`.
+                  - `route`: Use an OpenShift route.
+                  - `loadbalancer`: Use a Kubernetes load balancer.
+                type: string
+              serviceAccount:
+                description: |-
+                  Advanced. The name of the Kubernetes service account under
+                  which to run the Skupper router. A service account is
+                  generated if none is specified.
+                type: string
+              settings:
+                additionalProperties:
+                  type: string
+                description: |-
+                  Advanced. A map containing additional settings. Each map
+                  entry has a string name and a string value.
+
+                  **Note:** In  general, we recommend not changing `settings`
+                  from their default values.
+
+                  - `routerDataConnections`: Set the number of router worker threads. Minimum 2.
+                  - `routerLogging`: Set the number of router logging level. Options are "info", "warning", "error".
+                  - `disable-anti-affinity`: Set to "true" in order to prevent skupper from specifying router pod affinity.
+                  - `size`: The desired site sizing profile to use for constraining pod resources. Corresponds to a ConfigMap with matching `skupper.io/site-sizing` label.
+                  - `tls-prior-valid-revisions`: Set the number of revisions to TLS Secrets backing Site Link connections that are permissible to hold open to preserve established service connections. An unsigned integer defaults to 1. Set to 0 to immediately disrupt connections secured with old TLS configurations.
+                type: object
+            type: object
+          status:
+            properties:
+              conditions:
+                description: |-
+                  A set of named conditions describing the current state of the resource.
+
+                  - `Configured`: The output resources for this resource have been created.
+                  - `Running`: There is at least one router pod running.
+                  - `Resolved`: The hostname or IP address for link access is available.
+                  - `Ready`: The site is ready for use. All other conditions are true.
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              controller:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                  version:
+                    type: string
+                type: object
+              defaultIssuer:
+                description: The name of the Kubernetes secret containing the active
+                  default signing CA.
+                type: string
+              endpoints:
+                description: An array of connection endpoints. Each item has a name,
+                  host, port, and group. These include connection endpoints for link
+                  access.
+                items:
+                  properties:
+                    group:
+                      type: string
+                    host:
+                      type: string
+                    name:
+                      type: string
+                    port:
+                      type: string
+                  type: object
+                type: array
+              message:
+                description: A human-readable status message. Error messages are reported
+                  here.
+                type: string
+              network:
+                items:
+                  properties:
+                    id:
+                      type: string
+                    links:
+                      items:
+                        properties:
+                          name:
+                            type: string
+                          operational:
+                            type: boolean
+                          remoteSiteId:
+                            type: string
+                          remoteSiteName:
+                            type: string
+                        type: object
+                      type: array
+                    name:
+                      type: string
+                    namespace:
+                      type: string
+                    platform:
+                      type: string
+                    services:
+                      items:
+                        properties:
+                          connectors:
+                            items:
+                              type: string
+                            type: array
+                          listeners:
+                            items:
+                              type: string
+                            type: array
+                          routingKey:
+                            type: string
+                        type: object
+                      type: array
+                    version:
+                      type: string
+                  type: object
+                type: array
+              sitesInNetwork:
+                type: integer
+              status:
+                description: |-
+                  The current state of the resource.
+                  - `Pending`: The resource is being processed.
+                  - `Error`: There was an error processing the resource. See `message` for more information.
+                  - `Ready`: The resource is ready to use.
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/name: skupper-controller
+    application: skupper-controller
+  name: skupper-controller
+  namespace: skupper
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    application: skupper-controller
+  name: skupper-controller
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  - pods
+  - pods/exec
+  - services
+  - secrets
+  - serviceaccounts
+  - events
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - delete
+  - patch
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - delete
+  - patch
+- apiGroups:
+  - route.openshift.io
+  resources:
+  - routes
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+- apiGroups:
+  - apps.openshift.io
+  resources:
+  - deploymentconfigs
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - ingresses
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+- apiGroups:
+  - projectcontour.io
+  resources:
+  - httpproxies
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+- apiGroups:
+  - gateway.networking.k8s.io
+  resources:
+  - gateways
+  - tlsroutes
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - rolebindings
+  - roles
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+- apiGroups:
+  - skupper.io
+  resources:
+  - sites
+  - sites/status
+  - links
+  - links/status
+  - accesstokens
+  - accesstokens/status
+  - accessgrants
+  - accessgrants/status
+  - listeners
+  - listeners/status
+  - connectors
+  - connectors/status
+  - attachedconnectors
+  - attachedconnectors/status
+  - attachedconnectorbindings
+  - attachedconnectorbindings/status
+  - routeraccesses
+  - routeraccesses/status
+  - securedaccesses
+  - securedaccesses/status
+  - certificates
+  - certificates/status
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - delete
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    application: skupper-controller
+  name: skupper-controller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: skupper-controller
+subjects:
+- kind: ServiceAccount
+  name: skupper-controller
+  namespace: skupper
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skupper-controller
+  namespace: skupper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      application: skupper-controller
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: skupper-controller
+        app.kubernetes.io/part-of: skupper
+        application: skupper-controller
+        skupper.io/component: controller
+    spec:
+      containers:
+      - args:
+        - -enable-grants
+        - -grant-server-autoconfigure
+        command:
+        - /app/controller
+        env:
+        - name: SKUPPER_KUBE_ADAPTOR_IMAGE
+          value: quay.io/skupper/kube-adaptor:2.1.1
+        - name: SKUPPER_KUBE_ADAPTOR_IMAGE_PULL_POLICY
+          value: Always
+        - name: SKUPPER_ROUTER_IMAGE
+          value: quay.io/skupper/skupper-router:3.4.0
+        - name: SKUPPER_ROUTER_IMAGE_PULL_POLICY
+          value: Always
+        image: quay.io/skupper/controller:2.1.1
+        imagePullPolicy: Always
+        name: controller
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
+        volumeMounts:
+        - mountPath: /etc/controller
+          name: tls-credentials
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccountName: skupper-controller
+      volumes:
+      - emptyDir: {}
+        name: tls-credentials

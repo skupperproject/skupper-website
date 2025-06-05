@@ -3,6 +3,29 @@ Changelog
 
 Here is the full history of mistune v3.
 
+Version 3.1.2
+-------------
+
+**Released on Feb 19, 2025**
+
+* Fix ``footnotes`` plugin for AST renderer
+
+Version 3.1.1
+-------------
+
+**Released on Jan 28, 2025**
+
+* Fix ``render_toc_ul`` method for empty iterable
+* Fix ruby plugin's regex pattern and HTML rendering
+
+Version 3.1.0
+-------------
+
+**Released on Dec 30, 2024**
+
+* Fix only HTML-escape URLs when rendering to HTML
+* Add block_quote prefix on empty lines too
+
 Version 3.0.2
 -------------
 
