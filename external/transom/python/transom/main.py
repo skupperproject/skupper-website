@@ -134,7 +134,7 @@ class Transom:
             index_files = {x for x in names if x in _index_file_names}
 
             if len(index_files) > 1:
-                raise Exception(f"Duplicate index files in {root}")
+                raise TransomError(f"Duplicate index files in {root}")
 
             for name in index_files:
                 self._files.append(self._init_file(_os.path.join(root, name)))
@@ -184,7 +184,7 @@ class Transom:
             proc.join()
 
             if proc.exitcode != 0:
-                raise Exception("A child render process failed")
+                raise TransomError("A child render process failed")
 
         if _os.path.exists(self.output_dir):
             _os.utime(self.output_dir)
@@ -213,6 +213,12 @@ class Transom:
         try:
             server = ServerThread(self, port)
             server.run()
+        except OSError as e:
+            # OSError: [Errno 98] Address already in use
+            if e.errno == 98:
+                raise TransomError(f"Port {port} is already in use")
+            else:
+                raise
         finally:
             if watcher is not None:
                 watcher.stop()
@@ -364,6 +370,9 @@ class File:
             if file_.parent is self:
                 yield file_
 
+class TransomError(Exception):
+    pass
+
 class LinkParser(HTMLParser):
     def __init__(self, file_, link_sources, link_targets):
         super().__init__()
@@ -449,7 +458,7 @@ class TemplatePage(File):
 
     @property
     def content(self):
-        parsed = parse_template(self._content)
+        parsed = parse_template(self._content, self.input_path)
         rendered = "".join(self._render_template(parsed))
 
         return self._convert_content(rendered)
@@ -481,7 +490,7 @@ class TemplatePage(File):
         if markdown:
             text = convert_markdown(text)
 
-        return self._render_template(parse_template(text))
+        return self._render_template(parse_template(text, "[none]"))
 
     def include(self, input_path):
         return self.render_text(read_file(input_path), markdown=input_path.endswith(".md"))
@@ -531,10 +540,17 @@ class WatcherThread:
             input_path = _os.path.relpath(event.pathname, _os.getcwd())
             _, base_name = _os.path.split(input_path)
 
-            if _os.path.isdir(input_path) or self.site._ignored_file_regex.match(base_name):
+            if _os.path.isdir(input_path):
                 return True
 
-            file_ = self.site._init_file(input_path)
+            if self.site._ignored_file_regex.match(base_name):
+                return True
+
+            try:
+                file_ = self.site._init_file(input_path)
+            except FileNotFoundError:
+                return True
+
             file_._render()
 
             if _os.path.exists(self.site.output_dir):
@@ -674,6 +690,8 @@ class TransomCommand:
 
         try:
             self.args.command_fn()
+        except TransomError as e:
+            self.fail(str(e))
         except KeyboardInterrupt: # pragma: nocover
             pass
 
@@ -802,22 +820,25 @@ def extract_metadata(text):
 
 def load_site_template(path, default_text):
     if path is None or not _os.path.exists(path):
-        return list(parse_template(default_text))
+        return list(parse_template(default_text, "[default]"))
 
-    return list(parse_template(read_file(path)))
+    return list(parse_template(read_file(path), path))
 
 def load_page_template(path, default_text):
     if path is None:
-        return list(parse_template(default_text))
+        return list(parse_template(default_text, "[default]"))
 
-    return list(parse_template(read_file(path)))
+    return list(parse_template(read_file(path), path))
 
-def parse_template(text):
+def parse_template(text, context):
     for token in _variable_regex.split(text):
         if token.startswith("{{{") and token.endswith("}}}"):
             yield token[1:-1]
         elif token.startswith("{{") and token.endswith("}}"):
-            yield compile(token[2:-2], "<string>", "eval")
+            try:
+                yield compile(token[2:-2], "<string>", "eval")
+            except Exception as e:
+                raise TransomError(f"Error parsing template: {context}: {e}")
         else:
             yield token
 

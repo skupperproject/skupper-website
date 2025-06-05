@@ -1,57 +1,113 @@
 import re
 import string
+from typing import Any, Dict, Tuple, Union
+
 from .util import escape_url
 
-PREVENT_BACKSLASH = r'(?<!\\)(?:\\\\)*'
-PUNCTUATION = r'[' + re.escape(string.punctuation) + r']'
+PREVENT_BACKSLASH = r"(?<!\\)(?:\\\\)*"
+PUNCTUATION = r"[" + re.escape(string.punctuation) + r"]"
 
-LINK_LABEL = r'(?:[^\\\[\]]|\\.){0,500}'
+LINK_LABEL = r"(?:[^\\\[\]]|\\.){0,500}"
 
-LINK_BRACKET_START = re.compile(r'[ \t]*\n?[ \t]*<')
-LINK_BRACKET_RE = re.compile(r'<([^<>\n\\\x00]*)>')
-LINK_HREF_BLOCK_RE = re.compile(r'[ \t]*\n?[ \t]*([^\s]+)(?:\s|$)')
+LINK_BRACKET_START = re.compile(r"[ \t]*\n?[ \t]*<")
+LINK_BRACKET_RE = re.compile(r"<([^<>\n\\\x00]*)>")
+LINK_HREF_BLOCK_RE = re.compile(r"[ \t]*\n?[ \t]*([^\s]+)(?:\s|$)")
 LINK_HREF_INLINE_RE = re.compile(
-    r'[ \t]*\n?[ \t]*([^ \t\n]*?)(?:[ \t\n]|'
-    r'(?:' + PREVENT_BACKSLASH + r'\)))'
+    r"[ \t]*\n?[ \t]*([^ \t\n]*?)(?:[ \t\n]|"
+    r"(?:" + PREVENT_BACKSLASH + r"\)))"
 )
 
 LINK_TITLE_RE = re.compile(
-    r'[ \t\n]+('
+    r"[ \t\n]+("
     r'"(?:\\' + PUNCTUATION + r'|[^"\x00])*"|'  # "title"
     r"'(?:\\" + PUNCTUATION + r"|[^'\x00])*'"  # 'title'
-    r')'
+    r")"
 )
-PAREN_END_RE = re.compile(r'\s*\)')
+PAREN_END_RE = re.compile(r"\s*\)")
 
-HTML_TAGNAME = r'[A-Za-z][A-Za-z0-9-]*'
+HTML_TAGNAME = r"[A-Za-z][A-Za-z0-9-]*"
 HTML_ATTRIBUTES = (
-    r'(?:\s+[A-Za-z_:][A-Za-z0-9_.:-]*'
+    r"(?:\s+[A-Za-z_:][A-Za-z0-9_.:-]*"
     r'(?:\s*=\s*(?:[^ !"\'=<>`]+|\'[^\']*?\'|"[^\"]*?"))?)*'
 )
 
 BLOCK_TAGS = (
-    'address', 'article', 'aside', 'base', 'basefont', 'blockquote',
-    'body', 'caption', 'center', 'col', 'colgroup', 'dd', 'details',
-    'dialog', 'dir', 'div', 'dl', 'dt', 'fieldset', 'figcaption',
-    'figure', 'footer', 'form', 'frame', 'frameset', 'h1', 'h2', 'h3',
-    'h4', 'h5', 'h6', 'head', 'header', 'hr', 'html', 'iframe',
-    'legend', 'li', 'link', 'main', 'menu', 'menuitem', 'meta', 'nav',
-    'noframes', 'ol', 'optgroup', 'option', 'p', 'param', 'section',
-    'source', 'summary', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead',
-    'title', 'tr', 'track', 'ul'
+    "address",
+    "article",
+    "aside",
+    "base",
+    "basefont",
+    "blockquote",
+    "body",
+    "caption",
+    "center",
+    "col",
+    "colgroup",
+    "dd",
+    "details",
+    "dialog",
+    "dir",
+    "div",
+    "dl",
+    "dt",
+    "fieldset",
+    "figcaption",
+    "figure",
+    "footer",
+    "form",
+    "frame",
+    "frameset",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "head",
+    "header",
+    "hr",
+    "html",
+    "iframe",
+    "legend",
+    "li",
+    "link",
+    "main",
+    "menu",
+    "menuitem",
+    "meta",
+    "nav",
+    "noframes",
+    "ol",
+    "optgroup",
+    "option",
+    "p",
+    "param",
+    "section",
+    "source",
+    "summary",
+    "table",
+    "tbody",
+    "td",
+    "tfoot",
+    "th",
+    "thead",
+    "title",
+    "tr",
+    "track",
+    "ul",
 )
-PRE_TAGS = ('pre', 'script', 'style', 'textarea')
+PRE_TAGS = ("pre", "script", "style", "textarea")
 
-_INLINE_LINK_LABEL_RE = re.compile(LINK_LABEL + r'\]')
-_INLINE_SQUARE_BRACKET_RE = re.compile(PREVENT_BACKSLASH + r'[\[\]]')
-_ESCAPE_CHAR_RE = re.compile(r'\\(' + PUNCTUATION + r')')
-
-
-def unescape_char(text):
-    return _ESCAPE_CHAR_RE.sub(r'\1', text)
+_INLINE_LINK_LABEL_RE = re.compile(LINK_LABEL + r"\]")
+_INLINE_SQUARE_BRACKET_RE = re.compile(PREVENT_BACKSLASH + r"[\[\]]")
+_ESCAPE_CHAR_RE = re.compile(r"\\(" + PUNCTUATION + r")")
 
 
-def parse_link_text(src, pos):
+def unescape_char(text: str) -> str:
+    return _ESCAPE_CHAR_RE.sub(r"\1", text)
+
+
+def parse_link_text(src: str, pos: int) -> Union[Tuple[str, int], Tuple[None, None]]:
     level = 1
     found = False
     start_pos = pos
@@ -63,7 +119,7 @@ def parse_link_text(src, pos):
 
         pos = m.end()
         marker = m.group(0)
-        if marker == ']':
+        if marker == "]":
             level -= 1
             if level == 0:
                 found = True
@@ -72,12 +128,12 @@ def parse_link_text(src, pos):
             level += 1
 
     if found:
-        text = src[start_pos:pos-1]
+        text = src[start_pos : pos - 1]
         return text, pos
     return None, None
 
 
-def parse_link_label(src, start_pos):
+def parse_link_label(src: str, start_pos: int) -> Union[Tuple[str, int], Tuple[None, None]]:
     m = _INLINE_LINK_LABEL_RE.match(src, start_pos)
     if m:
         label = m.group(0)[:-1]
@@ -85,7 +141,7 @@ def parse_link_label(src, start_pos):
     return None, None
 
 
-def parse_link_href(src, start_pos, block=False):
+def parse_link_href(src: str, start_pos: int, block: bool = False) -> Union[Tuple[str, int], Tuple[None, None]]:
     m = LINK_BRACKET_START.match(src, start_pos)
     if m:
         start_pos = m.end() - 1
@@ -110,7 +166,7 @@ def parse_link_href(src, start_pos, block=False):
     return href, end_pos - 1
 
 
-def parse_link_title(src, start_pos, max_pos):
+def parse_link_title(src: str, start_pos: int, max_pos: int) -> Union[Tuple[str, int], Tuple[None, None]]:
     m = LINK_TITLE_RE.match(src, start_pos, max_pos)
     if m:
         title = m.group(1)[1:-1]
@@ -119,11 +175,11 @@ def parse_link_title(src, start_pos, max_pos):
     return None, None
 
 
-def parse_link(src, pos):
+def parse_link(src: str, pos: int) -> Union[Tuple[Dict[str, Any], int], Tuple[None, None]]:
     href, href_pos = parse_link_href(src, pos)
     if href is None:
         return None, None
-
+    assert href_pos is not None
     title, title_pos = parse_link_title(src, href_pos, len(src))
     next_pos = title_pos or href_pos
     m = PAREN_END_RE.match(src, next_pos)
@@ -131,7 +187,7 @@ def parse_link(src, pos):
         return None, None
 
     href = unescape_char(href)
-    attrs = {'url': escape_url(href)}
+    attrs = {"url": escape_url(href)}
     if title:
-        attrs['title'] = title
+        attrs["title"] = title
     return attrs, m.end()

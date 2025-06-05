@@ -1,17 +1,42 @@
-{{page.include("includes/header.html")}}
+<body class="{{page.metadata.get('body_class', 'none')}}">
+  <header>
+    <div>
 
-<section id="-main-and-toc">
-  <div>
-    <main>
+{{path_nav(page)}}
+
+    </div>
+  </header>
+  <main>
 
 {{page.content}}
 
-    </main>
-    <nav id="-toc">
-      <h4>Contents</h4>
-      <div></div>
-    </nav>
-  </div>
-</section>
+  </main>
+  <aside>
 
-{{page.include("includes/footer.html")}}
+    <nav id="-toc">
+    </nav>
+
+  </aside>
+  <footer>
+    <div>
+    </div>
+  </footer>
+</body>
+
+<!-- {{{page.include("includes/header.html")}}} -->
+
+<!-- <section id="-main-and-toc"> -->
+<!--   <div> -->
+<!--     <main> -->
+
+<!-- {{{page.content}}} -->
+
+<!--     </main> -->
+<!--     <nav id="-toc"> -->
+<!--       <h4>Contents</h4> -->
+<!--       <div></div> -->
+<!--     </nav> -->
+<!--   </div> -->
+<!-- </section> -->
+
+<!-- {{{page.include("includes/footer.html")}}} -->

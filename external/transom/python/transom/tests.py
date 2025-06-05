@@ -106,7 +106,7 @@ def transom_render():
     with test_site():
         touch("input/index.html") # A duplicate index file
 
-        with expect_exception():
+        with expect_system_exit():
             transom_command.main(["render", "--verbose"])
 
     with test_site():

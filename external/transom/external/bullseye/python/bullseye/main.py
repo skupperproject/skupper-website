@@ -175,10 +175,10 @@ def install(staging_dir="", prefix=None):
     # > plano-self-test: notice: Copying 'build\\bin\\chucker' to 'stagingC:\\Users\\runneradmin\\.local\\build\\bin\\chucker'
 
     for path in find(join(project.build_dir, "bin")):
-        copy(path, join(install_prefix, remove_prefix(path, build_prefix)), inside=False, symlinks=False)
+        copy(path, join(install_prefix, path.removeprefix(build_prefix)), inside=False, symlinks=False)
 
     for path in find(join(project.build_dir, project.name)):
-        copy(path, join(install_prefix, "lib", remove_prefix(path, build_prefix)), inside=False, symlinks=False)
+        copy(path, join(install_prefix, "lib", path.removeprefix(build_prefix)), inside=False, symlinks=False)
 
 @command
 def clean():
