@@ -1,7 +1,6 @@
 # See https://github.com/actions/starter-workflows/blob/main/pages/static.yml
 on:
   push:
-    branches: [$default-branch]
 permissions:
   contents: read
   pages: write
