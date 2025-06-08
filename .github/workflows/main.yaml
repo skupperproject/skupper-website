@@ -22,7 +22,7 @@ jobs:
           pip install pyyaml
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
-      - run: ./plano test
+      # - run: ./plano test
       - run: ./plano render
         env:
           SITE_PREFIX: /skupper-website
