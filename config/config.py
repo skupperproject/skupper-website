@@ -10,13 +10,6 @@ def path_nav(page):
 
     return f"<nav class=\"path-nav\">{''.join(links)}</nav>"
 
-# def path_nav(page):
-#     files = reversed(list(page.ancestors)[:-1])
-#     links = [f"<a href=\"{x.url}\">{x.title}</a>" for x in files]
-#     links = " <span class=\"path-separator\">&#8250;</span> ".join(links)
-
-#     return f"<nav id=\"-path-nav\"><div>{links}</div></nav>"
-
 def directory_nav(page):
     def sort_fn(x):
         return x.title

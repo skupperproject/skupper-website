@@ -507,3 +507,30 @@ figcaption {
     text-align: left;
     border: 1px solid hsl(0, 0%, 80%);
 }
+
+/* -- */
+
+.code-label {
+    text-transform: uppercase;
+    font-size: 0.7em;
+    padding: 0.2em 0.6em 0 0.6em;
+    color: hsl(0, 0%, 40%);
+    background-color: hsl(0, 0%, 94%);
+    border-bottom: 1px solid hsl(0, 0%, 80%);
+}
+
+/* .session-1 { */
+/*     color: var(--code-label-fg-color-session-1); */
+/*     background-color: var(--code-label-bg-color-session-1); */
+/*     border-bottom: 0.1em solid var(--code-label-border-color-session-1); */
+/* } */
+
+/* .session-2 { */
+/*     color: var(--code-label-fg-color-session-2); */
+/*     background-color: var(--code-label-bg-color-session-2); */
+/*     border-bottom: 0.1em solid var(--code-label-border-color-session-2); */
+/* } */
+
+pre {
+    margin: 0;
+}
