@@ -6,9 +6,11 @@ title: Releases
 
 ## The latest release
 
-[Skupper {{latest_release_version}}][release-page] was released on {{latest_release_date}}.
 
 See [Skupper v2](/v2/index.html) for Version 2 information.
+
+
+[Skupper {{latest_release_version}}][release-page] was released on {{latest_release_date}}.
 
 For Linux or the Mac, use the [install script][install-script] to
 download and extract the Skupper command:
@@ -28,6 +30,8 @@ Skupper](/install/index.html).
 
 <div style="column-count: 3;">
 
+* [1.4.8](https://github.com/skupperproject/skupper/releases/tag/1.4.8) - 5 June 2025
+* [1.9.1](https://github.com/skupperproject/skupper/releases/tag/1.9.1) - 7 May 2025
 * [1.8.5](https://github.com/skupperproject/skupper/releases/tag/1.8.5) - 10 April 2025
 * [1.9.0](https://github.com/skupperproject/skupper/releases/tag/1.9.0) - 8 April 2025
 * [1.8.4](https://github.com/skupperproject/skupper/releases/tag/1.8.4) - 27 March 2025

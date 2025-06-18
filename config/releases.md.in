@@ -6,6 +6,10 @@ title: Releases
 
 ## The latest release
 
+
+See [Skupper v2](/v2/index.html) for Version 2 information.
+
+
 [Skupper {{latest_release_version}}][release-page] was released on {{latest_release_date}}.
 
 For Linux or the Mac, use the [install script][install-script] to
