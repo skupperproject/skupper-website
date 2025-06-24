@@ -10,6 +10,4 @@
 
 [Community](community/)
 
-[News](news/)
-
 [Skupper v1](v1/)

@@ -20,16 +20,6 @@
 from transom.planocommands import *
 
 @command
-def generate_docs(output_dir="input", owner="skupperproject", branch="main"):
-    """
-    Generate markdown docs from the skupper-docs repo
-    """
-
-    # check_program("downdoc")
-    print("Follow the instructions in README.")
-
-
-@command
 def generate_examples(output_dir="input"):
     """
     Generate the example index using data from GitHub and config/examples.yaml
