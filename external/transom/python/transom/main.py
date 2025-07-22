@@ -86,6 +86,8 @@ class Transom:
         self.ignored_file_patterns = [".git", ".svn", ".#*", "#*"]
         self.ignored_link_patterns = []
 
+        self.prefix = ""
+
         self._config = {
             "site": self,
             "lipsum": lipsum,
@@ -190,13 +192,13 @@ class Transom:
             _os.utime(self.output_dir)
 
         rendered_count = sum([x.rendered_count.value for x in procs])
-        unmodified_count = len(self._files) - rendered_count
-        unmodified_note = ""
+        unchanged_count = len(self._files) - rendered_count
+        unchanged_note = ""
 
-        if unmodified_count > 0:
-            unmodified_note = " ({:,} unchanged)".format(unmodified_count)
+        if unchanged_count > 0:
+            unchanged_note = " ({:,} unchanged)".format(unchanged_count)
 
-        self.notice("Rendered {:,} output {}{}", rendered_count, plural("file", rendered_count), unmodified_note)
+        self.notice("Rendered {:,} output {}{}", rendered_count, plural("file", rendered_count), unchanged_note)
 
     def serve(self, port=8080):
         watcher = None
@@ -301,7 +303,7 @@ class File:
 
         self._rendered = False
 
-        self.url = self.output_path[len(self.site.output_dir):]
+        self.url = self.site.prefix + self.output_path[len(self.site.output_dir):]
         self.title = ""
         self.parent = None
 
@@ -469,6 +471,15 @@ class TemplatePage(File):
 
         return f"<nav class=\"path-nav\">{''.join(links)}</nav>"
 
+    def directory_nav(page):
+        def sort_fn(x):
+            return x.title
+
+        children = sorted(page.children, key=sort_fn)
+        links = [f"<a href=\"{x.url}\">{x.title}</a>" for x in children]
+
+        return f"<nav class=\"directory-nav\">{''.join(links)}</nav>"
+
     def _convert_content(self, content):
         return content
 
@@ -605,6 +616,28 @@ class ServerRequestHandler(_http.SimpleHTTPRequestHandler):
         self.send_response(_http.HTTPStatus.OK)
         self.end_headers()
 
+    def intercept_fetch(self):
+        if self.path == "/" and self.server.site.prefix:
+            self.send_response(_http.HTTPStatus.FOUND)
+            self.send_header("Location", self.server.site.prefix + "/")
+            self.end_headers()
+
+            return True # redirected
+
+        self.path = self.path.removeprefix(self.server.site.prefix)
+
+    def do_HEAD(self):
+        redirected = self.intercept_fetch()
+
+        if not redirected:
+            super().do_HEAD()
+
+    def do_GET(self):
+        redirected = self.intercept_fetch()
+
+        if not redirected:
+            super().do_GET()
+
 class TransomCommand:
     def __init__(self, home=None):
         self.home = home
@@ -633,7 +666,7 @@ class TransomCommand:
                             help="The project root directory (default: current directory)")
 
         init = subparsers.add_parser("init", parents=[common], add_help=False,
-                                     help="Prepare an input directory")
+                                     help="Create files and directories for a new project")
         init.set_defaults(command_fn=self.init_command)
         init.add_argument("--profile", metavar="PROFILE", choices=("website", "webapp"), default="website",
                           help="Select starter files for different scenarios (default: website)")
@@ -644,7 +677,7 @@ class TransomCommand:
                                        help="Generate output files")
         render.set_defaults(command_fn=self.render_command)
         render.add_argument("--force", action="store_true",
-                            help="Render all input files, including unmodified ones")
+                            help="Render all input files, including unchanged ones")
 
         render = subparsers.add_parser("serve", parents=[common], add_help=False,
                                        help="Generate output files and serve the site on a local port")
@@ -652,7 +685,7 @@ class TransomCommand:
         render.add_argument("--port", type=int, metavar="PORT", default=8080,
                             help="Listen on PORT (default 8080)")
         render.add_argument("--force", action="store_true",
-                            help="Render all input files, including unmodified ones")
+                            help="Render all input files, including unchanged ones")
 
         check_links = subparsers.add_parser("check-links", parents=[common], add_help=False,
                                             help="Check for broken links")

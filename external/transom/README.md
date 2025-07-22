@@ -86,7 +86,6 @@ Found 3 input files
 Rendered 0 output files (3 unchanged)
 Watching for input file changes
 Serving at http://localhost:8080
-Starting LiveReload v0.9.3 for /tmp/tmp.57gwncgHua/output on port 35729.
 ~~~
 
 <!-- Site checks for files and links -->

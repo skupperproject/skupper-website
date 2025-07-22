@@ -21,12 +21,81 @@ from transom.planocommands import *
 
 @command
 def generate_examples(output_dir="input"):
+    output_file = f"{output_dir}/examples/index.md"
+    examples_data = read_yaml("config/examples.yaml")
+    repos = dict()
+
+    for repo_data in http_get_json("https://api.github.com/orgs/skupperproject/repos?per_page=100"):
+        repos[repo_data["name"]] = repo_data
+
+    append = StringBuilder()
+
+    for category_data in examples_data["categories"]:
+        category_title = category_data["title"]
+        category_description = category_data.get("description")
+
+        append(f"## {category_title}")
+        append()
+
+        if category_description is not None:
+            append(category_description)
+            append()
+
+        append("<div class=\"examples\">")
+        append()
+
+        for example_data in category_data["examples"]:
+            example_name = example_data["name"]
+            example_title = example_data["title"]
+
+            try:
+                repo_data = repos[example_name]
+            except:
+                description = example_data.get("description").strip()
+                url = example_data.get("url")
+            else:
+                description = example_data.get("description", repo_data["description"])
+                url = example_data.get("url", repo_data["html_url"])
+
+            # out.append("<div>")
+            # out.append(f"<h3><a href=\"{url}\">{title}</a></h3>")
+            # out.append(f"<p>{description}</p>")
+            # out.append("<nav class=\"inline-links\">")
+            # out.append(f"<a href=\"{url}\"><span class=\"fab fa-github fa-lg\"></span> Example</a>")
+                #         if "video_url" in example_data:
+                # video_url = example_data["video_url"]
+                # out.append(f"<a href=\"{video_url}\"><span class=\"fab fa-youtube fa-lg\"></span> Video</a>")
+
+            # out.append("</nav>")
+            # out.append("</div>")
+
+            append("<section>")
+            append()
+            append(f"#### {example_title}")
+            append()
+            append(description)
+            append()
+            append(f"<a href=\"{url}\"><span class=\"fab fa-github fa-lg\"></span> Example</a>")
+            append()
+            append("</section>")
+            append()
+
+        append("</div>")
+        append()
+
+    markdown = read("config/examples.md.in").replace("@examples@", str(append))
+
+    write(output_file, markdown)
+
+@command
+def x_generate_examples(output_dir="input"):
     """
     Generate the example index using data from GitHub and config/examples.yaml
     """
 
     output_file = f"{output_dir}/examples/index.md"
     examples_data = read_yaml("config/examples.yaml")
+
     github_data = http_get_json("https://api.github.com/orgs/skupperproject/repos?per_page=100")
     repos = dict()
 

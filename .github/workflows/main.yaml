@@ -24,8 +24,6 @@ jobs:
       - uses: actions/configure-pages@v5
       # - run: ./plano test
       - run: ./plano render
-        env:
-          SITE_PREFIX: /skupper-website
       - uses: actions/upload-pages-artifact@v3
         with:
           path: output

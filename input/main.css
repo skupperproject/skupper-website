@@ -534,3 +534,13 @@ figcaption {
 pre {
     margin: 0;
 }
+
+/* -- */
+
+div.examples {
+    columns: 3;
+}
+
+div.examples > section {
+    break-inside: avoid-column;
+}
