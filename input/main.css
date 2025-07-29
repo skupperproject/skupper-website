@@ -544,3 +544,13 @@ div.examples {
 div.examples > section {
     break-inside: avoid-column;
 }
+
+/* -- */
+
+div.side-by-side {
+    display: flex;
+}
+
+div.side-by-side > * {
+    flex: auto;
+}

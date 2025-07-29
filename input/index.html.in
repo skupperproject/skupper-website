@@ -1,0 +1,117 @@
+---
+title: Skupper
+body_template: null
+---
+
+<style>
+
+  body.front {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr auto;
+      grid-template-areas: "header" "main" "footer";
+  }
+
+  body.front > header {
+      border: none;
+  }
+
+  body.front > main {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+  }
+
+  body.front > main > section {
+      display: flex;
+      justify-content: center;
+  }
+
+  body.front > main > section > div {
+      width: var(--page-width);
+      padding: 1em 1em 2em 1em;
+  }
+
+  header,
+  header a,
+  #-lead,
+  #-lead a {
+      background-color: #5eba7d;
+      color: white !important;
+  }
+
+  #-main-links {
+      display: flex;
+      gap: 1em;
+      flex-wrap: wrap;
+  }
+
+  #-main-links > a {
+      display: block;
+      border-radius: 0.5em;
+      background-color: hsl(140, 40%, 40%);
+      padding: 1em;
+      font-weight: 600;
+  }
+
+</style>
+
+<body class="front">
+  <header>
+    <div>
+
+{{page.path_nav()}}
+
+    </div>
+  </header>
+  <main>
+    <section id="-lead">
+      <div>
+        <h1>Skupper: Safe and simple networking for the real world</h1>
+
+        <p>Skupper provides secure networking for applications that span
+          Kubernetes clusters, containers, VMs, and bare-metal hosts,
+          without exposing services to the public internet.</p>
+
+        <nav id="-main-links">
+          <a href="start/index.html">Getting started</a>
+          <a href="install/index.html">Installation</a>
+          <a href="examples/index.html">Examples</a>
+          <a href="resources/index.html">API</a>
+          <a href="commands/index.html">CLI</a>
+          <a href="docs/index.html">Documentation</a>
+          <a href="community/index.html">Community</a>
+          <a href="v1/index.html">Skupper v1</a>
+        </nav>
+      </div>
+    </section>
+    <section id="-yaml">
+      <div>
+        <h2>YAML API</h2>
+
+        <div class="side-by-side">
+          <pre><code>{{page.include("includes/west.yaml")}}</code></pre>
+          <pre><code>{{page.include("includes/east.yaml")}}</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div>
+    </div>
+  </footer>
+</body>
+
+
+
+<!-- [Getting started](start/) -->
+
+<!-- [Installation](install/) -->
+
+<!-- [Examples](examples/) -->
+
+<!-- [Documentation](docs/) -->
+
+<!-- [Community](community/) -->
+
+<!-- [Skupper v1](v1/) -->

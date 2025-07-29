@@ -1,7 +1,5 @@
 ---
 title: Documentation
-body_template: config/wide-body.html
-extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="async"/>
 ---
 
 <h1>Skupper documentation</h1>
@@ -105,4 +103,3 @@ extra_headers: <link rel="stylesheet" href="index.css" type="text/css" async="as
     <a href="https://www.youtube.com/watch?v=FPsUgxmj25s">HTTP load-balancing with Skupper across OpenShift clusters</a>
   </nav>
 </div>
-
