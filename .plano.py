@@ -20,23 +20,6 @@
 from transom.planocommands import *
 
 @command
-def generate_resources(output_dir="input"):
-    url = "https://github.com/skupperproject/refdog/archive/main.tar.gz"
-
-    with temp_file() as temp:
-        assert exists(temp)
-
-        http_get(url, output_file=temp)
-
-        with working_dir(quiet=True):
-            extract_archive(temp)
-
-            extracted_dir = list_dir()[0]
-            assert is_dir(extracted_dir)
-
-            # replace(dir, extracted_dir)
-
-@command
 def generate_examples(output_dir="input"):
     output_file = f"{output_dir}/examples/index.md"
     examples_data = read_yaml("config/examples.yaml")
@@ -169,6 +152,38 @@ def x_generate_examples(output_dir="input"):
     markdown = read("config/examples.md.in").replace("@examples@", examples)
 
     write(output_file, markdown)
+
+@command
+def generate_resources(output_dir="input"):
+    dir = join(get_absolute_path(output_dir), "resources")
+    url = "https://github.com/skupperproject/refdog/archive/main.tar.gz"
+
+    with temp_file() as temp:
+        http_get(url, output_file=temp)
+
+        with working_dir(quiet=True):
+            extract_archive(temp)
+
+            extracted_dir = list_dir()[0]
+            assert is_dir(extracted_dir)
+
+            replace(dir, join(extracted_dir, "input", "resources"))
+
+@command
+def generate_commands(output_dir="input"):
+    dir = join(get_absolute_path(output_dir), "commands")
+    url = "https://github.com/skupperproject/refdog/archive/main.tar.gz"
+
+    with temp_file() as temp:
+        http_get(url, output_file=temp)
+
+        with working_dir(quiet=True):
+            extract_archive(temp)
+
+            extracted_dir = list_dir()[0]
+            assert is_dir(extracted_dir)
+
+            replace(dir, join(extracted_dir, "input", "commands"))
 
 @command
 def generate_releases(output_dir="input"):

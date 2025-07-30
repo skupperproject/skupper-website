@@ -3,7 +3,16 @@ metadata:
   name: west
   namespace: hello-world-west
 spec:
+  defaultIssuer: your-ca
   linkAccess: default
+--
+kind: AccessGrant
+metadata:
+  name: west-grant
+  namespace: west
+spec:
+  code: your-secret-code
+
 --
 kind: Listener
 metadata:
@@ -13,6 +22,3 @@ spec:
   routingKey: backend
   host: backend
   port: 8080
-
-# To link sites:
-# skupper token issue ~/token.yaml

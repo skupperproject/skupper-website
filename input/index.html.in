@@ -6,10 +6,11 @@ body_template: null
 <style>
 
   body.front {
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: auto 1fr auto;
-      grid-template-areas: "header" "main" "footer";
+      /* A simplification of the standard page structure */
+      grid-template-areas:
+          "header header header header"
+          "main main main main"
+          "footer footer footer footer";
   }
 
   body.front > header {
@@ -25,11 +26,12 @@ body_template: null
   body.front > main > section {
       display: flex;
       justify-content: center;
+      margin: 0;
   }
 
   body.front > main > section > div {
       width: var(--page-width);
-      padding: 1em 1em 2em 1em;
+      padding: 2em 1em;
   }
 
   header,
@@ -44,6 +46,7 @@ body_template: null
       display: flex;
       gap: 1em;
       flex-wrap: wrap;
+      font-size: 0.95em;
   }
 
   #-main-links > a {
@@ -59,9 +62,11 @@ body_template: null
 <body class="front">
   <header>
     <div>
+      <a href="{{site.prefix}}/index.html" id="-logotype">
+        <img src="{{site.prefix}}/images/skupper-logo.svg">
+      </a>
 
-{{page.path_nav()}}
-
+      {{page.path_nav()}}
     </div>
   </header>
   <main>
@@ -74,24 +79,51 @@ body_template: null
           without exposing services to the public internet.</p>
 
         <nav id="-main-links">
+          <a href="concepts/index.html">Concepts</a>
           <a href="start/index.html">Getting started</a>
           <a href="install/index.html">Installation</a>
           <a href="examples/index.html">Examples</a>
-          <a href="resources/index.html">API</a>
-          <a href="commands/index.html">CLI</a>
+          <a href="resources/index.html">YAML resources</a>
+          <a href="commands/index.html">CLI commands</a>
           <a href="docs/index.html">Documentation</a>
           <a href="community/index.html">Community</a>
-          <a href="v1/index.html">Skupper v1</a>
+          <!-- <a href="v1/index.html">Skupper v1</a> -->
         </nav>
       </div>
     </section>
-    <section id="-yaml">
+    <section id="-cli">
       <div>
-        <h2>YAML API</h2>
+        <h2>CLI</h2>
+
+        <h4>Install the Skupper CLI</h4>
+
+        <div><pre><code>curl https://skupper.io/install.sh | sh</code></pre></div>
+
+        <h4>Install Skupper on Kubernetes</h4>
+
+        <div><pre><code>kubectl -f https://skupper.io/install.yaml</code></pre></div>
+
+        <h4>Create sites, link sites, and expose services</h4>
 
         <div class="side-by-side">
-          <pre><code>{{page.include("includes/west.yaml")}}</code></pre>
-          <pre><code>{{page.include("includes/east.yaml")}}</code></pre>
+          <pre><code>{{page.include("include/west.sh")}}</code></pre>
+          <pre><code>{{page.include("include/east.sh")}}</code></pre>
+        </div>
+      </div>
+    </section>
+    <section id="-kubernetes">
+      <div>
+        <h2>YAML</h2>
+
+        <h4>Install Skupper on Kubernetes</h4>
+
+        <div><pre><code>kubectl -f https://skupper.io/install.yaml</code></pre></div>
+
+        <h4>Create sites, link sites, and expose services</h4>
+
+        <div class="side-by-side">
+          <pre><code>{{page.include("include/west.yaml")}}</code></pre>
+          <pre><code>{{page.include("include/east.yaml")}}</code></pre>
         </div>
       </div>
     </section>

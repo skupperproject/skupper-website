@@ -99,7 +99,7 @@ article:only-child, section:only-child {
 
 html {
     overflow-y: scroll;
-    scroll-padding-top: 5em;
+    scroll-padding-top: 6.5em;
 }
 
 body {
@@ -145,7 +145,7 @@ aside {
     flex-direction: column;
     align-self: start; /* Important for sticky positioning */
     position: sticky;
-    top: 6em;
+    top: 7.5em;
     margin: 0 0 0 1em;
     padding: 0 1em 0 2em;
     border-left: 1px solid var(--line-color);
@@ -553,4 +553,64 @@ div.side-by-side {
 
 div.side-by-side > * {
     flex: auto;
+}
+
+/* -- */
+
+/* #-left-site-nav { */
+/*     flex: 4; */
+/* } */
+
+/* #-left-site-nav, */
+/* #-right-site-nav { */
+/*     display: flex; */
+/*     align-items: center; */
+/*     margin: 0; */
+/* } */
+
+/* #-logotype { */
+/*     font-family: var(--heading-font-family); */
+/*     font-size: 16pt; */
+/*     font-weight: 700; */
+/* } */
+
+/* #-logotype > img { */
+/*     display: block; */
+/*     height: 46px; */
+/*     margin-right: 10px; */
+/*     position: relative; */
+/*     top: -2px; */
+/* } */
+
+header a {
+    color: inherit;
+}
+
+header > div {
+    display: flex;
+    align-items: center;
+}
+
+#-logotype {
+    font-family: var(--heading-font-family);
+    font-size: 16pt;
+    font-weight: 700;
+}
+
+#-logotype > img {
+    display: block;
+    height: 46px;
+    margin-right: 10px;
+    position: relative;
+    top: -2px;
+}
+
+.path-nav > a:first-child {
+    font-family: var(--heading-font-family);
+    font-size: 16pt;
+    font-weight: 700;
+}
+
+.path-nav > a:first-child::after {
+    content: " \00a0\00a0\00a0\00a0 "
 }
