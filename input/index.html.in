@@ -81,23 +81,51 @@ body_template: null
   <main>
     <section id="-lead">
       <div>
-        <h1>Skupper: Safe and simple networking for the real world</h1>
+        <h1 style="font-size: 2em;">Skupper: Multi-site, multi-platform networking for your application</h1>
 
-        <p>Skupper provides secure networking for applications that span
+        <img style="width: 200px; margin-right: 4em; float: left; padding-bottom: 2em" src="/images/skupper-logo.svg">
+
+        <div style="width: 300px; margin-left: 4em; float: right;">
+          <ul>
+            <li>{{lipsum(6)}}</li>
+            <li>{{lipsum(6)}}</li>
+            <li>{{lipsum(6)}}</li>
+            <li>{{lipsum(6)}}</li>
+            <li>{{lipsum(6)}}</li>
+            <li>{{lipsum(6)}}</li>
+          </ul>
+        </div>
+
+        <p style="font-size: 1.3em; line-height: 1.6em;">Skupper is an application-layer service interconnect.  It
+          provides secure networking for applications that span
           Kubernetes clusters, containers, VMs, and bare-metal hosts,
           without exposing services to the public internet.</p>
 
-        <nav id="-main-links">
-          <a href="concepts/index.html">Concepts</a>
-          <a href="start/index.html">Getting started</a>
+        <p>
+        <nav id="-main-links" style="clear: left;">
+          <a href="start/index.html">Get started</a>
           <a href="install/index.html">Installation</a>
           <a href="examples/index.html">Examples</a>
-          <a href="resources/index.html">YAML resources</a>
-          <a href="commands/index.html">CLI commands</a>
+          <a href="concepts/index.html">Concepts</a>
+          <a href="resources/index.html">YAML</a>
+          <a href="commands/index.html">CLI</a>
           <a href="docs/index.html">Documentation</a>
           <a href="community/index.html">Community</a>
-          <!-- <a href="v1/index.html">Skupper v1</a> -->
+          <a href="v1/index.html">Skupper v1</a>
         </nav>
+        </p>
+      </div>
+    </section>
+    <section>
+      <div style="display: flex; justify-content: center;">
+        <div>
+          <iframe style="width: 50em; height: 28em;" src="https://www.youtube.com/embed/pm8OP9bG2mU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div>
+        <h2>Platforms, topologies, and use cases</h2>
       </div>
     </section>
     <section id="-cli">

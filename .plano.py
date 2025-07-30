@@ -154,8 +154,8 @@ def x_generate_examples(output_dir="input"):
     write(output_file, markdown)
 
 @command
-def generate_resources(output_dir="input"):
-    dir = join(get_absolute_path(output_dir), "resources")
+def generate_reference(output_dir="input"):
+    output_dir = get_absolute_path(output_dir)
     url = "https://github.com/skupperproject/refdog/archive/main.tar.gz"
 
     with temp_file() as temp:
@@ -167,23 +167,9 @@ def generate_resources(output_dir="input"):
             extracted_dir = list_dir()[0]
             assert is_dir(extracted_dir)
 
-            replace(dir, join(extracted_dir, "input", "resources"))
-
-@command
-def generate_commands(output_dir="input"):
-    dir = join(get_absolute_path(output_dir), "commands")
-    url = "https://github.com/skupperproject/refdog/archive/main.tar.gz"
-
-    with temp_file() as temp:
-        http_get(url, output_file=temp)
-
-        with working_dir(quiet=True):
-            extract_archive(temp)
-
-            extracted_dir = list_dir()[0]
-            assert is_dir(extracted_dir)
-
-            replace(dir, join(extracted_dir, "input", "commands"))
+            replace(join(output_dir, "concepts"), join(extracted_dir, "input", "concepts"))
+            replace(join(output_dir, "resources"), join(extracted_dir, "input", "resources"))
+            replace(join(output_dir, "commands"), join(extracted_dir, "input", "commands"))
 
 @command
 def generate_releases(output_dir="input"):
