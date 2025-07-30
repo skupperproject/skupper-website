@@ -42,6 +42,10 @@ body_template: null
       color: white !important;
   }
 
+  #-lead > div {
+      padding-top: 1em;
+  }
+
   #-main-links {
       display: flex;
       gap: 1em;
@@ -67,6 +71,10 @@ body_template: null
       </a>
 
       {{page.path_nav()}}
+
+      <a href="https://github.com/skupperproject">
+        <div><span class="fab fa-github fa-lg"></span> GitHub</div>
+      </a>
     </div>
   </header>
   <main>
@@ -93,7 +101,7 @@ body_template: null
     </section>
     <section id="-cli">
       <div>
-        <h2>CLI</h2>
+        <h2>The Skupper CLI</h2>
 
         <h4>Install the Skupper CLI</h4>
 
@@ -113,7 +121,7 @@ body_template: null
     </section>
     <section id="-kubernetes">
       <div>
-        <h2>YAML</h2>
+        <h2>Skupper YAML</h2>
 
         <h4>Install Skupper on Kubernetes</h4>
 

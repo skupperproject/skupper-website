@@ -605,6 +605,10 @@ header > div {
     top: -2px;
 }
 
+.path-nav {
+    flex-grow: 1;
+}
+
 .path-nav > a:first-child {
     font-family: var(--heading-font-family);
     font-size: 16pt;
@@ -613,4 +617,16 @@ header > div {
 
 .path-nav > a:first-child::after {
     content: " \00a0\00a0\00a0\00a0 "
+}
+
+/* header > div > a:last-child { */
+/*     justify-self: right; */
+/* } */
+
+/* -- */
+
+span.fab,
+span.fas {
+    margin-right: 0.2em;
+    vertical-align: -0.11em;
 }
