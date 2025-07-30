@@ -27,6 +27,7 @@ body_template: null
       display: flex;
       justify-content: center;
       margin: 0;
+      border-bottom: 3px solid var(--line-color);
   }
 
   body.front > main > section > div {
