@@ -1,12 +1,10 @@
----
-title: Skupper connectivity
----
+<a id="overview-connectivity"></a>
 # Skupper connectivity
 
 Skupper represents a new approach to connecting services across multiple Kubernetes clusters.
 See how Skupper can give you the flexibility to deploy your services where you need them.
 
-## One cluster
+**One cluster**
 
 Kubernetes **services** provide a virtual network address for each element of your distributed application.
 Service "A" can contact service "B", "B" can contact "C", and so on.
@@ -20,7 +18,7 @@ Skupper offers a third way.
 It connects clusters to a secure layer 7 network.
 It uses that network to forward local service traffic to remote clusters.
 
-## Secure hybrid cloud communication
+**Secure hybrid cloud communication**
 
 Deploy your application across public and private clusters.
 
@@ -29,7 +27,7 @@ Deploy your application across public and private clusters.
 You can host your database on a private cluster and retain full connectivity with services running on the public cloud.
 All communication is secured by mutual TLS authentication and encryption.
 
-## Edge-to-edge connectivity
+**Edge-to-edge connectivity**
 
 Distribute application services across geographic regions.
 
@@ -39,12 +37,9 @@ You can connect multiple retail sites to a central office.
 Once connected, each edge location can contact any other edge.
 You can add and remove sites on demand.
 
-## Scale up and out
+**Scale up and out**
 
 Build large, robust networks of connected clusters.
 
 ![many-clusters](../images/many-clusters.svg)
 
-* [Overview](../overview/index.html)
-* [Routing](../overview/routing.html)
-* [Connectivity](../overview/connectivity.html)

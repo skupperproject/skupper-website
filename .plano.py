@@ -92,10 +92,11 @@ def generate_examples(output_dir="input"):
     write(output_file, markdown)
 
 @command
-def generate_references(output_dir="input"):
+def update_refs(output_dir="input"):
     """
-    Generate the concept, resource, and command references
+    Update the concept, resource, and command references
     """
+
     output_dir = get_absolute_path(output_dir)
     url = "https://github.com/skupperproject/refdog/archive/main.tar.gz"
 
@@ -111,6 +112,22 @@ def generate_references(output_dir="input"):
             replace(join(output_dir, "concepts"), join(extracted_dir, "input", "concepts"))
             replace(join(output_dir, "resources"), join(extracted_dir, "input", "resources"))
             replace(join(output_dir, "commands"), join(extracted_dir, "input", "commands"))
+
+@command
+def update_docs(output_dir="input"):
+    output_dir = get_absolute_path(output_dir)
+    url = "https://github.com/ssorj/skupper-docs/archive/main.tar.gz"
+
+    with temp_file() as temp:
+        http_get(url, output_file=temp)
+
+        with working_dir(quiet=True):
+            extract_archive(temp)
+
+            extracted_dir = list_dir()[0]
+            assert is_dir(extracted_dir)
+
+            replace(join(output_dir, "docs"), join(extracted_dir, "input"))
 
 @command
 def generate_releases(output_dir="input"):
@@ -205,12 +222,12 @@ def test():
         generate_releases(output_dir=temp)
         generate_scripts(output_dir=temp)
 
-@command
-def update_skupper_docs():
-    """
-    Update the embedded Skupper docs repo
-    """
-    update_external_from_github("external/skupper-docs", "skupperproject", "skupper-docs", "v1")
+# @command
+# def update_skupper_docs():
+#     """
+#     Update the embedded Skupper docs repo
+#     """
+#     update_external_from_github("external/skupper-docs", "skupperproject", "skupper-docs", "v1")
 
 @command
 def update_transom():
