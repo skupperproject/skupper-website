@@ -81,29 +81,35 @@ body_template: null
   <main>
     <section id="-lead">
       <div>
-        <h1 style="font-size: 2.5em; line-height: 1em;">Multicloud cross-platform networking for your application</h1>
+        <!-- <h1 style="font-size: 2.5em; line-height: 1em;">Multicloud cross-platform networking for your application</h1> -->
+        <h1 style="font-size: 2.5em; line-height: 1em;">Networking that goes anywhere so your app can run anywhere</h1>
 
-        <iframe style="width: 17.8em; height: 10em; margin: 0 2em 2em 0; float: left;" src="https://www.youtube.com/embed/pm8OP9bG2mU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
+        <div style="display: flex; gap: 2em; margin: 2em 0;">
+          <iframe style="flex: 3;" src="https://www.youtube.com/embed/pm8OP9bG2mU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
 
-        <p style="font-family: 'Alegreya Sans'; font-size: 1.6em;
-          font-weight: 400; line-height: 1.6em;"><b>Skupper</b> is a
-          multi-platform service interconnect.  It enables you to
-          create private application networks that span Kubernetes
-          clusters, containers, VMs, and bare-metal hosts.</p>
+          <div style="flex: 3; font-family: 'Alegreya Sans'; font-size: 1.4em;
+            font-weight: 400; line-height: 2em;"><b>Skupper</b> is an
+            over-the-top, cross-platform service interconnect.  It
+            enables you to create private application networks that
+            span Kubernetes clusters, containers, VMs, and bare-metal
+            hosts.</div>
 
-        <p>
-        <nav id="-main-links" style="clear: left;">
+          <ul style="flex: 2;">
+            <li>No changes to your existing code</li>
+            <li>No VPNs or special firewall rules</li>
+            <li>Secured by mutual TLS</li>
+          </ul>
+        </div>
+
+        <nav id="-main-links">
           <a href="start/index.html">Getting started</a>
-          <a href="install/index.html">Installation</a>
           <a href="examples/index.html">Examples</a>
-          <a href="concepts/index.html">Concepts</a>
-          <a href="resources/index.html">YAML</a>
-          <a href="commands/index.html">CLI</a>
           <a href="docs/index.html">Documentation</a>
+          <a href="resources/index.html">YAML resources</a>
+          <a href="commands/index.html">CLI commands</a>
           <a href="community/index.html">Community</a>
           <a href="v1/index.html">Skupper v1</a>
         </nav>
-        </p>
       </div>
     </section>
     <section>
@@ -123,7 +129,7 @@ body_template: null
           <h4>Use cases</h4>
 
           <ul>
-            <li>Connect from the cloud to services running on-prem</li>
+            <li>Secure access from the public cloud to private cloud services without VPNs</li>
             <li>Connect services in isolated on-prem sites</li>
             <li>Connect services separated by firewalls</li>
             <li>Connect services in widely distributed edge environments</li>
