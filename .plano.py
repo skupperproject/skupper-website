@@ -59,7 +59,7 @@ def generate_examples(output_dir="input"):
                 url = example_data.get("url")
             else:
                 description = example_data.get("description", repo_data["description"])
-                url = example_data.get("url", repo_data["html_url"])
+                url = example_data.get("url", repo_data["html_url"] + "/tree/v2") # XXX v2
 
             # out.append("<div>")
             # out.append(f"<h3><a href=\"{url}\">{title}</a></h3>")

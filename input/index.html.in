@@ -129,7 +129,7 @@ body_template: null
           <h4>Use cases</h4>
 
           <ul>
-            <li>Secure access from the public cloud to private cloud services without VPNs</li>
+            <li>Secure access from the public cloud to private on-prem services</li>
             <li>Connect services in isolated on-prem sites</li>
             <li>Connect services separated by firewalls</li>
             <li>Connect services in widely distributed edge environments</li>
