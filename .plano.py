@@ -21,6 +21,10 @@ from transom.planocommands import *
 
 @command
 def generate_examples(output_dir="input"):
+    """
+    Generate the example index using data from GitHub and config/examples.yaml
+    """
+
     output_file = f"{output_dir}/examples/index.md"
     examples_data = read_yaml("config/examples.yaml")
     repos = dict()
@@ -88,73 +92,10 @@ def generate_examples(output_dir="input"):
     write(output_file, markdown)
 
 @command
-def x_generate_examples(output_dir="input"):
+def generate_references(output_dir="input"):
     """
-    Generate the example index using data from GitHub and config/examples.yaml
+    Generate the concept, resource, and command references
     """
-
-    output_file = f"{output_dir}/examples/index.md"
-    examples_data = read_yaml("config/examples.yaml")
-
-    github_data = http_get_json("https://api.github.com/orgs/skupperproject/repos?per_page=100")
-    repos = dict()
-
-    for repo_data in github_data:
-        repos[repo_data["name"]] = repo_data
-
-    out = list()
-
-    for category in examples_data["categories"]:
-        category_title = category["title"]
-        category_id = category_title.lower().replace(" ", "-")
-        category_description = category.get("description")
-
-        out.append(f"<h2 id=\"{category_id}\">{category_title}</h2>")
-        out.append("")
-
-        if category_description is not None:
-            out.append(f"<p>{category_description}</p>")
-            out.append("")
-
-        out.append("<div class=\"examples\">")
-        out.append("")
-
-        for example_data in category["examples"]:
-            name = example_data["name"]
-            title = example_data["title"]
-
-            try:
-                repo_data = repos[name]
-            except:
-                description = example_data.get("description").strip()
-                url = example_data.get("url")
-            else:
-                description = example_data.get("description", repo_data["description"])
-                url = example_data.get("url", repo_data["html_url"])
-
-            out.append("<div>")
-            out.append(f"<h3><a href=\"{url}\">{title}</a></h3>")
-            out.append(f"<p>{description}</p>")
-            out.append("<nav class=\"inline-links\">")
-            out.append(f"<a href=\"{url}\"><span class=\"fab fa-github fa-lg\"></span> Example</a>")
-
-            if "video_url" in example_data:
-                video_url = example_data["video_url"]
-                out.append(f"<a href=\"{video_url}\"><span class=\"fab fa-youtube fa-lg\"></span> Video</a>")
-
-            out.append("</nav>")
-            out.append("</div>")
-
-        out.append("</div>")
-        out.append("")
-
-    examples = "\n".join(out)
-    markdown = read("config/examples.md.in").replace("@examples@", examples)
-
-    write(output_file, markdown)
-
-@command
-def generate_reference(output_dir="input"):
     output_dir = get_absolute_path(output_dir)
     url = "https://github.com/skupperproject/refdog/archive/main.tar.gz"
 
