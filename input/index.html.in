@@ -85,17 +85,6 @@ body_template: null
 
         <iframe style="width: 17.8em; height: 10em; margin: 0 2em 2em 0; float: left;" src="https://www.youtube.com/embed/pm8OP9bG2mU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
 
-        <!-- <div style="width: 300px; margin-left: 4em; float: right;"> -->
-        <!--   <ul> -->
-        <!--     <li>{{lipsum(6)}}</li> -->
-        <!--     <li>{{lipsum(6)}}</li> -->
-        <!--     <li>{{lipsum(6)}}</li> -->
-        <!--     <li>{{lipsum(6)}}</li> -->
-        <!--     <li>{{lipsum(6)}}</li> -->
-        <!--     <li>{{lipsum(6)}}</li> -->
-        <!--   </ul> -->
-        <!-- </div> -->
-
         <p style="font-family: 'Alegreya Sans'; font-size: 1.6em;
           font-weight: 400; line-height: 1.6em;"><b>Skupper</b> is a
           multi-platform service interconnect.  It enables you to
@@ -118,14 +107,28 @@ body_template: null
       </div>
     </section>
     <section>
-      <div style="display: flex; justify-content: center;">
-        <div>
+      <div style="display: flex; gap: 2em;">
+        <div style="flex: auto;">
+          <h4>Platforms</h4>
+
+          <ul>
+            <li>Kubernetes</li>
+            <li>Docker</li>
+            <li>Podman</li>
+            <li>Linux</li>
+          </ul>
         </div>
-      </div>
-    </section>
-    <section>
-      <div>
-        <h2>Platforms, connectivity scenarios, and use cases</h2>
+
+        <div style="flex: auto;">
+          <h4>Use cases</h4>
+
+          <ul>
+            <li>Connect from the cloud to services running on-prem</li>
+            <li>Connect services in isolated on-prem sites</li>
+            <li>Connect services separated by firewalls</li>
+            <li>Connect services in widely distributed edge environments</li>
+          </ul>
+        </div>
       </div>
     </section>
     <section id="-cli">
