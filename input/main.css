@@ -568,13 +568,13 @@ div.side-by-side > * {
 /*     margin: 0; */
 /* } */
 
-/* #-logotype { */
+/* #-logo { */
 /*     font-family: var(--heading-font-family); */
 /*     font-size: 16pt; */
 /*     font-weight: 700; */
 /* } */
 
-/* #-logotype > img { */
+/* #-logo > img { */
 /*     display: block; */
 /*     height: 46px; */
 /*     margin-right: 10px; */
@@ -591,13 +591,21 @@ header > div {
     align-items: center;
 }
 
-#-logotype {
+#-menu-button {
+    margin-right: 10px;
+}
+
+#-menu-button > span {
+    vertical-align: -0.2em;
+}
+
+#-logo {
     font-family: var(--heading-font-family);
     font-size: 16pt;
     font-weight: 700;
 }
 
-#-logotype > img {
+#-logo > img {
     display: block;
     height: 46px;
     margin-right: 10px;

@@ -65,19 +65,9 @@ body_template: null
 </style>
 
 <body class="front">
-  <header>
-    <div>
-      <a href="{{site.prefix}}/index.html" id="-logotype">
-        <img src="{{site.prefix}}/images/skupper-logo.svg">
-      </a>
 
-      {{page.path_nav()}}
+{{page.include("include/header.html")}}
 
-      <a href="https://github.com/skupperproject">
-        <div><span class="fab fa-github fa-lg"></span> GitHub</div>
-      </a>
-    </div>
-  </header>
   <main>
     <section id="-lead">
       <div>
@@ -85,16 +75,16 @@ body_template: null
         <h1 style="font-size: 2.5em; line-height: 1em;">Networking that goes anywhere so your app can run anywhere</h1>
 
         <div style="display: flex; gap: 2em; margin: 2em 0;">
-          <iframe style="flex: 3;" src="https://www.youtube.com/embed/pm8OP9bG2mU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
+          <iframe style="flex: 2;" src="https://www.youtube.com/embed/pm8OP9bG2mU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
 
           <div style="flex: 3; font-family: 'Alegreya Sans'; font-size: 1.4em;
-            font-weight: 400; line-height: 2em;"><b>Skupper</b> is an
+            font-weight: 400; line-height: 1.6em;"><b>Skupper</b> is an
             over-the-top, cross-platform service interconnect.  It
             enables you to create private application networks that
             span Kubernetes clusters, containers, VMs, and bare-metal
             hosts.</div>
 
-          <ul style="flex: 2;">
+          <ul style="flex: 2; margin-top: 0;">
             <li>No changes to your existing code</li>
             <li>No VPNs or special firewall rules</li>
             <li>Secured by mutual TLS</li>
@@ -174,22 +164,7 @@ body_template: null
       </div>
     </section>
   </main>
-  <footer>
-    <div>
-    </div>
-  </footer>
+
+{{page.include("include/footer.html")}}
+
 </body>
-
-
-
-<!-- [Getting started](start/) -->
-
-<!-- [Installation](install/) -->
-
-<!-- [Examples](examples/) -->
-
-<!-- [Documentation](docs/) -->
-
-<!-- [Community](community/) -->
-
-<!-- [Skupper v1](v1/) -->

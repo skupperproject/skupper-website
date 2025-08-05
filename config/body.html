@@ -1,17 +1,7 @@
 <body class="{{page.metadata.get('body_class', 'none')}}">
-  <header>
-    <div>
-      <a href="{{site.prefix}}/index.html" id="-logotype">
-        <img src="{{site.prefix}}/images/skupper-logo.svg">
-      </a>
 
-      {{page.path_nav()}}
+{{page.include("include/header.html")}}
 
-      <a href="https://github.com/skupperproject">
-        <div><span class="fab fa-github fa-lg"></span> GitHub</div>
-      </a>
-    </div>
-  </header>
   <main>
 
 {{page.content}}
@@ -23,8 +13,7 @@
     </nav>
 
   </aside>
-  <footer>
-    <div>
-    </div>
-  </footer>
+
+{{page.include("include/footer.html")}}
+
 </body>
