@@ -67,6 +67,7 @@ ul > li {
 </ul>
 
 <nav class="links">
+  <a style="color: gray;">Use case overview</a>
   <a href="examples/index.html">Examples</a>
 </nav>
 
