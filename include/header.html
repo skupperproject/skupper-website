@@ -1,17 +1,42 @@
 <header>
-  <div>
-    <a id="-menu-button">
-      <span class="material-symbols-outlined">menu</span>
-    </a>
+  <!-- <a id="-menu-button"> -->
+  <!--   <span class="material-symbols-outlined">menu</span> -->
+  <!-- </a> -->
 
+  <nav>
     <a href="{{site.prefix}}/index.html" id="-logo">
       <img src="{{site.prefix}}/images/skupper-logo.svg">
+      <div>Skupper</div>
     </a>
 
-    {{page.path_nav()}}
+    <a href="{{site.prefix}}/start/index.html">
+      <div>Getting started</div>
+    </a>
 
+    <a href="{{site.prefix}}/examples/index.html">
+      <div>Examples</div>
+    </a>
+
+    <a href="{{site.prefix}}/docs/index.html">
+      <div>Documentation</div>
+    </a>
+
+    <a href="{{site.prefix}}/resources/index.html">
+      <div>YAML resources</div>
+    </a>
+
+    <a href="{{site.prefix}}/commands/index.html">
+      <div>CLI commands</div>
+    </a>
+
+    <a href="{{site.prefix}}/community/index.html">
+      <div>Community</div>
+    </a>
+  </nav>
+
+  <nav>
     <a href="https://github.com/skupperproject">
       <div><span class="fab fa-github fa-lg"></span> GitHub</div>
     </a>
-  </div>
+  </nav>
 </header>

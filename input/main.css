@@ -120,18 +120,13 @@ body {
 header {
     grid-area: header;
     display: flex;
-    justify-content: center;
     background-color: var(--body-background-color);
     border-bottom: 1px solid var(--line-color);
     align-self: start; /* Important for sticky positioning */
     position: sticky;
     top: 0;
     z-index: 1;
-}
-
-header > div {
     padding: 1em;
-    width: var(--page-width);
 }
 
 main {
@@ -183,10 +178,6 @@ footer > div {
             "aside"
             "main"
             "footer";
-    }
-
-    header > div {
-        width: 100%;
     }
 
     aside {
@@ -582,15 +573,6 @@ div.side-by-side > * {
 /*     top: -2px; */
 /* } */
 
-header a {
-    color: inherit;
-}
-
-header > div {
-    display: flex;
-    align-items: center;
-}
-
 #-menu-button {
     margin-right: 10px;
 }
@@ -637,4 +619,32 @@ span.fab,
 span.fas {
     margin-right: 0.2em;
     vertical-align: -0.11em;
+}
+
+/* -- */
+
+header {
+    padding: 0 1em;
+}
+
+header a {
+    color: inherit;
+}
+
+header > nav {
+    display: flex;
+}
+
+header > nav > a {
+    display: flex;
+    align-items: center;
+    height: 70px;
+}
+
+header > nav:first-child {
+    flex: 1;
+}
+
+header > nav:first-child > a {
+    margin-right: 2em;
 }
