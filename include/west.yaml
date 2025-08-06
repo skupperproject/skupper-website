@@ -3,7 +3,7 @@ metadata:
   name: west
   namespace: hello-world-west
 spec:
-  defaultIssuer: your-ca
+  defaultIssuer: &lt;your-ca&gt;
   linkAccess: default
 --
 kind: AccessGrant
@@ -11,8 +11,7 @@ metadata:
   name: west-grant
   namespace: west
 spec:
-  code: your-secret-code
-
+  code: &lt;your-secret-code&gt;
 --
 kind: Listener
 metadata:

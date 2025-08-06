@@ -3,16 +3,15 @@ metadata:
   name: east
   namespace: hello-world-east
 spec:
-  defaultIssuer: your-ca
-
+  defaultIssuer: &lt;your-ca&gt;
 --
 kind: AccessToken
 metadata:
   name: west-token
   namespace: hello-world-east
 spec:
-  code: your-secret-code
-  url: https://west.your-platform.net:9090/west-grant
+  code: &lt;your-secret-code&gt;
+  url: &lt;west-grant-server-url&gt;
 --
 kind: Connector
 metadata:

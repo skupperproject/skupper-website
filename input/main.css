@@ -538,16 +538,6 @@ div.examples > section {
 
 /* -- */
 
-div.side-by-side {
-    display: flex;
-}
-
-div.side-by-side > * {
-    flex: auto;
-}
-
-/* -- */
-
 /* #-left-site-nav { */
 /*     flex: 4; */
 /* } */
@@ -647,4 +637,24 @@ header > nav:first-child {
 
 header > nav:first-child > a {
     margin-right: 2em;
+}
+
+/* -- */
+
+nav.links {
+    display: flex;
+    gap: 1em;
+    margin: 1em 0;
+}
+
+/* nav.links > a { */
+/*     color: gray; */
+/* } */
+
+nav.links > a::before {
+    font-family: "Material Icons";
+    content: "\e5c8";
+    color: inherit;
+    vertical-align: -2px;
+    margin: 0 3px 0 0;
 }

@@ -1,0 +1,126 @@
+# Skupper
+
+Skupper is an over-the-top, multi-platform service interconnect.
+Skupper makes it easy to deploy private application networks that span
+multiples sites and platforms.
+
+<style>
+ul {
+    margin-bottom: -1em;
+}
+ul > li {
+    margin-bottom: 1em;
+}
+</style>
+<ul style="columns: 2;">
+  <li><strong>Over-the-top</strong> - Skupper operates at the
+    application layer, on top of existing IP networks.  Services
+    connect across network boundaries without VPNs or special firewall
+    rules.</li>
+
+  <li><strong>Multi-platform</strong> - Skupper supports any flavor of
+    Kubernetes, Docker, Podman, VMs, and bare-metal hosts.</li>
+
+  <li><strong>Application-centric</strong> - Skupper creates isolated
+    application-focused networks with logical service addresses that
+    support application portability.</li>
+
+  <li><strong>Secure</strong> - Skupper uses mutual TLS authentication
+    and encryption to protect all communication.  Application services
+    are never exposed on the public internet.</li>
+</ul>
+
+<nav class="links">
+  <a href="concepts/index.html">Concepts</a>
+  <a style="color: gray;">Architecture</a>
+</nav>
+
+<p>
+  <iframe style="width: 20em; float: right; margin-left: 1em;" src="https://www.youtube.com/embed/pm8OP9bG2mU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
+
+  <strong>Skupper v2</strong> is the latest generation of Skupper.  It
+  has a new declarative API based on CRDs, a new CLI, improved
+  performance, and broader platform support.  {{lipsum(15)}}
+</p>
+
+<nav class="links">
+  <a href="v2/index.html">V2 overview</a>
+  <a href="v1/index.html">V1 resources</a>
+</nav>
+
+## Use cases
+
+<ul style="columns: 2;">
+  <li><strong>Remote resource access</strong> - Access on-prem
+  resources from the public cloud.  Access cloud resources from the
+  private cloud.</li>
+
+  <li><strong>Platform migration</strong> - {{lipsum(15)}}</li>
+
+  <li><strong>Application resiliency</strong> - High availability and
+  disaster recovery.  Data distribution and load balancing.</li>
+
+  <li><strong>Highly distributed applications</strong> - Multi-geo
+  retail and logistics applications.  Edge applications with diverse
+  compute environments.</li>
+</ul>
+
+<nav class="links">
+  <a href="examples/index.html">Examples</a>
+</nav>
+
+## Installation
+
+Install Skupper on Kubernetes:
+
+~~~ shell
+kubectl apply -f https://skupper.io/install.yaml
+~~~
+
+Install the Skupper CLI:
+
+~~~ shell
+curl https://skupper.io/install.sh | sh
+~~~
+
+<nav class="links">
+  <a href="docs/kube-install/index.html">Installing on Kubernetes</a>
+  <a href="docs/cli-install/index.html">Installing the CLI</a>
+</nav>
+
+## The Skupper API
+
+<style>
+div.side-by-side {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    font-size: 0.95em;
+}
+</style>
+<div class="side-by-side">
+  <div class="code-label">Site 1</div>
+  <div class="code-label">Site 2</div>
+  <pre><code>{{page.include("include/west.yaml")}}</code></pre>
+  <pre><code>{{page.include("include/east.yaml")}}</code></pre>
+</div>
+
+<nav class="links">
+  <a href="docs/kube-yaml/index.html">Using the API on Kubernetes</a>
+  <a href="docs/system-yaml/index.html">Using the API on Docker, Podman, and Linux</a>
+  <a href="resources/index.html">API reference</a>
+</nav>
+
+## The Skupper CLI
+
+<div class="side-by-side">
+  <div class="code-label">Site 1</div>
+  <div class="code-label">Site 2</div>
+  <pre><code>{{page.include("include/west.sh")}}</code></pre>
+  <pre><code>{{page.include("include/east.sh")}}</code></pre>
+</div>
+
+<nav class="links">
+  <a href="docs/kube-cli/index.html">Using the CLI on Kubernetes</a>
+  <a href="docs/system-cli/index.html">Using the CLI on Docker, Podman, and Linux</a>
+  <a href="commands/index.html">CLI reference</a>
+</nav>

@@ -64,7 +64,7 @@ body_template: null
 
 <!-- </style> -->
 
-<body class="front">
+<body>
 
 {{page.include("include/header.html")}}
 
