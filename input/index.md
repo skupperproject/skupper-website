@@ -14,20 +14,21 @@ ul > li {
 </style>
 <ul style="columns: 2;">
   <li><strong>Over-the-top</strong> - Skupper operates at the
-    application layer, on top of existing IP networks.  Services
-    connect across network boundaries without VPNs or special firewall
-    rules.</li>
+  application layer, on top of existing IP networks.  Services connect
+  across network boundaries without VPNs or special firewall
+  rules.</li>
 
-  <li><strong>Multi-platform</strong> - Skupper supports any flavor of
-    Kubernetes, Docker, Podman, VMs, and bare-metal hosts.</li>
+  <li><strong>Multi-platform</strong> - Skupper works on Kubernetes,
+  Docker, Podman, and Linux.  It scales up to multi-tenant clusters
+  and down to edge devices.</li>
 
   <li><strong>Application-centric</strong> - Skupper creates isolated
-    application-focused networks with logical service addresses that
-    support application portability.</li>
+  application-focused networks with logical service addresses that
+  support application portability.</li>
 
   <li><strong>Secure</strong> - Skupper uses mutual TLS authentication
-    and encryption to protect all communication.  Application services
-    are never exposed on the public internet.</li>
+  and encryption to protect all communication.  Application services
+  are never exposed on the public internet.</li>
 </ul>
 
 <nav class="links">
