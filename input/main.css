@@ -321,10 +321,8 @@ aside h4 {
 }
 
 footer {
+    display: flex;
     border-top: 3px solid var(--line-color);
-}
-
-footer > div {
     padding: 2em 1em;
 }
 
