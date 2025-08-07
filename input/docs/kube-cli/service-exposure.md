@@ -100,4 +100,4 @@ There are many options to consider when creating connectors using the CLI, see [
 [cli-ref]: https://skupperproject.github.io/refdog/commands/index.html
 [connector]: https://skupperproject.github.io/refdog/concepts/connector.html
 [listener]: https://skupperproject.github.io/refdog/concepts/listener.html
-[attached]: ../kube-yaml/service-exposure.html#kube-creating-attachedconnector-yaml
+[attached]: ../kube-yaml/service-exposure.html#creating-a-connector-for-a-different-namespace-using-yaml
