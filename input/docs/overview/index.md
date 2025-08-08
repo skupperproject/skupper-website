@@ -1,4 +1,3 @@
-<a id="skupper-overview"></a>
 # Skupper overview
 
 Hybrid clouds enable organizations to combine on-premises, private cloud, and public cloud resources.
@@ -6,7 +5,6 @@ While such a solution provides many benefits, it also presents a unique challeng
 
 Skupper provides a solution to this challenge with an Application Network that simply and securely connects applications running in different network locations.
 
-<a id="application-networks"></a>
 ## Application Networks
 
 Skupper solves multi-cluster communication challenges through something called a Virtual Application Network or just application network.
@@ -24,7 +22,6 @@ In essence, the application network connects the services in a distributed appli
 Application networks are able to provide connectivity across the hybrid cloud because they operate at Layer 7 (the application layer).
 They use **Layer 7 application routers** to route communication between **Layer 7 application services**.
 
-<a id="layer-7-application-routers"></a>
 ## Layer 7 application routers
 
 Layer 7 application routers form the backbone of an application network in the same way that conventional network routers form the backbone of a VPN.
@@ -44,7 +41,6 @@ In the diagram, `skupper-router` is a container or systemd process that acts as 
 
 Application networks provide multiple routing patterns, so communications can be distributed in anycast (balanced or closest) or multicast patterns.
 
-<a id="skupper"></a>
 ## Skupper
 
 Skupper is an open source tool for creating application networks in Kubernetes or Linux.
@@ -60,4 +56,3 @@ This means that each Skupper instance is always aware of every service that has 
 
 Once a Skupper network is formed across Kubernetes namespaces, any of the services in those namespaces can be exposed (through annotation) to the Skupper network.
 When a service is exposed, Skupper creates proxy endpoints to make that service available on each namespace in the Skupper network.
-

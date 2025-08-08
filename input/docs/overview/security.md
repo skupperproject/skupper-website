@@ -1,4 +1,3 @@
-<a id="skupper-security"></a>
 # Skupper security
 
 Skupper securely connects your services with TLS authentication and encryption.
@@ -21,4 +20,3 @@ Each router is uniquely identified by its own certificate.
 ![clusters-tls](../images/clusters-tls.svg)
 
 This means that the Skupper network is isolated from external access, preventing security risks such as lateral attacks, malware infestations, and data exfiltration.
-

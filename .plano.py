@@ -162,6 +162,14 @@ def generate_releases(output_dir="input"):
 
     write(output_file, markdown)
 
+    # XXX
+
+    install_yaml = http_get(f"https://github.com/skupperproject/skupper/releases/download/{latest_version}/skupper-cluster-scope.yaml")
+
+    write(f"{output_dir}/install.yaml", install_yaml)
+
+    # End XXX
+
 def _update_release_data(output_dir):
     output_file = f"{output_dir}/data/releases.json"
     install_script_data_file = f"{output_dir}/data/install.json"

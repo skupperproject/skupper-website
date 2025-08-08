@@ -1370,7 +1370,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    app.kubernetes.io/name: skupper-operator
+    app.kubernetes.io/name: skupper-controller
     application: skupper-controller
   name: skupper-controller
   namespace: skupper
@@ -1571,14 +1571,14 @@ spec:
         - /app/controller
         env:
         - name: SKUPPER_KUBE_ADAPTOR_IMAGE
-          value: quay.io/skupper/kube-adaptor:2.0.0
+          value: quay.io/skupper/kube-adaptor:2.1.0
         - name: SKUPPER_KUBE_ADAPTOR_IMAGE_PULL_POLICY
           value: Always
         - name: SKUPPER_ROUTER_IMAGE
-          value: quay.io/skupper/skupper-router:3.2.0
+          value: quay.io/skupper/skupper-router:3.4.0
         - name: SKUPPER_ROUTER_IMAGE_PULL_POLICY
           value: Always
-        image: quay.io/skupper/controller:2.0.0
+        image: quay.io/skupper/controller:2.1.0
         imagePullPolicy: Always
         name: controller
         securityContext:

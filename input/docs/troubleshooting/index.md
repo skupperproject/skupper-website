@@ -1,4 +1,3 @@
-<a id="troubleshooting"></a>
 # Troubleshooting an application network
 
 Typically, you can create a network without referencing this troubleshooting guide.
@@ -8,7 +7,6 @@ See [Resolving common problems](#resolving-common-problems) if you have encounte
 
 A typical troubleshooting workflow is to check all the sites and create debug tar files.
 
-<a id="checking-sites"></a>
 ## Checking sites
 
 Using the `skupper` command-line interface (CLI) provides a simple method to get started with troubleshooting Skupper.
@@ -33,7 +31,7 @@ Using the `skupper` command-line interface (CLI) provides a simple method to get
 
    ```bash
    kubectl get site -o yaml
-   
+
    apiVersion: v1
    items:
    - apiVersion: skupper.io/v2alpha1
@@ -93,7 +91,7 @@ Using the `skupper` command-line interface (CLI) provides a simple method to get
 
    ```bash
    skupper connector status
-   
+
    NAME    STATUS  ROUTING-KEY     SELECTOR        HOST    PORT    HAS MATCHING LISTENERMESSAGE
    backend Ready   backend         app=backend             8080    true                 OK
    ```
@@ -114,7 +112,6 @@ Using the `skupper` command-line interface (CLI) provides a simple method to get
 
    The output shows the links .
 
-<a id="checking-links"></a>
 ## Checking links
 
 You must link sites before you can expose services on the network.
@@ -130,7 +127,7 @@ This section outlines some advanced options for checking links.
 
    ```bash
    skupper link status -n east
-   
+
    NAME                                            STATUS  COST    MESSAGE
    west-48b5feee-89e9-4a53-b8d0-e94304cc951f       Ready   1       OK
    ```
@@ -152,7 +149,6 @@ This section outlines some advanced options for checking links.
 
 - [checking-sites](#checking-sites)
 
-<a id="resolving-common-problems"></a>
 ## Resolving common problems
 
 The following issues and workarounds might help you debug simple scenarios when evaluating Skupper.

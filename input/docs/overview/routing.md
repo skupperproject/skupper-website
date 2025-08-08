@@ -1,4 +1,3 @@
-<a id="skupper-routing"></a>
 # Skupper routing
 
 Skupper uses layer 7 addressing and routing to connect services.
