@@ -656,3 +656,9 @@ nav.links > a::before {
     vertical-align: -2px;
     margin: 0 3px 0 0;
 }
+
+/* -- */
+
+ul.column-list {
+    columns: 2;
+}

@@ -68,16 +68,3 @@ scope=namespace` option.
 **NOTE**: If you install the controller at cluster scope, you can
 create sites in any namespace.  If you install the controller at
 namespace scope, you can create sites only in that namespace.
-
-<!-- ## Installing the Skupper controller using the Skupper Operator -->
-
-<!-- Prerequisites: -->
-
-<!-- * Cluster administrator access (`cluster-admin`) -->
-<!-- * OpenShift -->
-
-<!-- 1. Navigate to the **OperatorHub** in the **Administrator** view. -->
-<!-- 2. Search for `Skupper`, provided by `Skupper project`. -->
-<!-- 3. Select **stable-2.0** from **Channel**. -->
-<!-- 4. Select the latest **Version**. -->
-<!-- 5. Click **Install**. -->

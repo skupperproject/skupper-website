@@ -48,10 +48,9 @@ These instructions require `kubectl` version 1.15 or later.  See the
 
 ## Step 1: Install the Skupper command-line tool in your environment
 
-~~The `skupper` command-line tool is the primary entrypoint for
-installing and configuring the Skupper infrastructure.~~ You need to
-install the `skupper` command only once for each development
-environment.
+This guide uses the Skupper command-line interface (CLI) to deploy a
+Skupper network.  You need to install the `skupper` command only once
+for each development environment.
 
 Use the [install script][install-script] to download and extract the
 command:
@@ -63,8 +62,8 @@ command:
 The script installs the command under your home directory.  It prompts
 you to add the command to your path if necessary.
 
-For Windows and other installation options, see [Installing
-the Skupper CLI]({{site.prefix}}/docs/cli-install/index.html).
+For other installation options, see [Installing the Skupper
+CLI]({{site.prefix}}/docs/installation/cli.html).
 
 [install-script]: https://github.com/skupperproject/skupper-website/blob/main/docs/install.sh
 
@@ -155,7 +154,7 @@ set the current namespace for each session.
 <!--     $ skupper status -->
 <!--     Skupper is not enabled in namespace 'east' -->
 
-## Step 2.5: Install Skupper on your clusters
+## Step 3: Install Skupper on your clusters
 
 <div class="code-label session-2">West</div>
 
@@ -167,7 +166,7 @@ set the current namespace for each session.
 
 [Installing Skupper on Kubernetes]({{site.prefix}}/docs/kube-install/index.html)
 
-## Step 3: Create a site in each namespace
+## Step 4: Create your sites
 
 The `skupper site create` command sets up a Skupper site in the
 current namespace.
@@ -211,19 +210,17 @@ command.
     NAME    STATUS  MESSAGE
     east    Ready   OK
 
-## Step 4: Link your namespaces
-
-XXX namespace -> site
+## Step 5: Link your sites
 
 After installation, you have the infrastructure you need, but your
-namespaces are not linked.  Creating a link requires use of
-two `skupper` commands in conjunction, `skupper token issue` and
-`skupper token redeem`.
+sites are not linked.  Creating a link requires use of two `skupper`
+commands in conjunction, `skupper token issue` and `skupper token
+redeem`.
 
 The `skupper token issue` command generates a secret token that
 signifies permission to create a link.  The token also carries the
 link details.  The `skupper token redeem` command then uses the link
-token to create a link to the namespace that generated it.
+token to create a link to the site that generated it.
 
 **Note:** The link token is truly a *secret*.  Anyone who has
 the token can link to your namespace.  Make sure that only those
@@ -235,16 +232,16 @@ In West, use the `skupper token issue` command to generate a token.
 
 <div class="code-label session-2">West</div>
 
-    skupper token issue ~/west.token
+    skupper token issue $HOME/west.token
 
 #### Use the token to create a link
 
-With the token in hand, you are ready to link the namespaces.  Pass
+With the token in hand, you are ready to link the sites.  Pass
 the token from West to the `skupper tokek redeem` command in East.
 
 <div class="code-label session-1">East</div>
 
-    skupper token redeem ~/west.token
+    skupper token redeem $HOME/west.token
 
 If your console sessions are on different machines, you might need to
 use `sftp` or a similar tool to transfer the token.
@@ -260,16 +257,17 @@ established.  You should see the following output:
     NAME                                        STATUS  COST    MESSAGE
     west-9b55e1b1-34b8-4520-bb40-5c63e2b27667   Ready   1       OK
 
-## Step 5: Expose your services
+## Step 6: Expose your services
+
+<!-- XXX Not skupper expose -->
 
 You now have a Skupper network capable of multi-cluster communication,
 but no services are attached to it.  This step uses the `skupper
-expose` command to make a Kubernetes deployment on one namespace
-available on all the linked namespaces.
+listener` and `skupper connector` commands to make a Kubernetes
+deployment on one namespace available on all the linked namespaces.
 
-In the examples below, we use the Hello World application to
-demonstrate service exposure.  The same steps apply for your own
-application.
+In this guide, we use the Hello World application to demonstrate
+service exposure.  The same steps apply for your own application.
 
 #### Deploy the frontend and backend services
 
@@ -289,18 +287,16 @@ East.
 #### Expose the backend service
 
 At this point, we have the frontend and backend services running, but
-the frontend has no way to contact the backend.  The frontend and
+the frontend has no way to connect to the backend.  The frontend and
 backend are in different namespaces (and perhaps different clusters),
 and the backend has no public ingress.
 
-~~Use the `skupper expose` command in East to make the `backend`
-service available in West.~~
+In West, use the skupper listener create command to create a listener
+for the backend. In East, use the skupper connector create command to
+create a matching connector.
 
-<div class="code-label session-2">West</div>
-
-    $ skupper listener create backend 8080
-    Waiting for create to complete...
-    Listener "backend" is configured.
+Use the `skupper connector create` command in East to create a
+connector for the target workload.
 
 <div class="code-label session-1">East</div>
 
@@ -308,10 +304,25 @@ service available in West.~~
     Waiting for create to complete...
     Connector "backend" is configured.
 
+Use the `skupper listener create` command in West to create a matching
+listener.
+
+<div class="code-label session-2">West</div>
+
+    $ skupper listener create backend 8080
+    Waiting for create to complete...
+    Listener "backend" is configured.
+
+The commands shown above use the name argument, `backend`, to also set
+the default routing key and workload.  You can use the `--routing-key`
+and `--workload` options to set specific values.
+
 #### Check the backend service
 
 Use `kubectl get` in West to make sure the `backend` service from East
 is present.  You should see output like this:
+
+<!-- XXX skupper listener status -->
 
 <div class="code-label session-2">West</div>
 
@@ -321,22 +332,13 @@ is present.  You should see output like this:
 
 #### Test your application
 
-~~To test our Hello World, we need external access to the frontend (not
-the backend).  Use `kubectl expose` with `--type LoadBalancer` to make
-the frontend accessible using a conventional Kubernetes ingress.~~
+To test our Hello World, we need external access to the frontend.
+Use `kubectl port-forward` to make the frontend available at
+`localhost:8080`.
 
 <div class="code-label session-2">West</div>
 
     kubectl port-forward deployment/frontend 8080:8080
-
-Now we're ready to try it out. ~~Use `kubectl get` in West to look up
-the external IP of the frontend service.~~ Then use `curl` or a
-similar tool to request the `/api/health` endpoint at that address.
-
-<div class="code-label session-2">West</div>
-
-    $ curl http://localhost:8080/api/health
-    OK
 
 If everything is in order, you can now access the web interface by
 navigating to this URL in your browser:
@@ -346,7 +348,7 @@ navigating to this URL in your browser:
 The frontend assigns each new user a name.  Click **Say hello** to
 send a greeting to the backend and get a greeting in response.
 
-XXX Replace image
+<!-- XXX Replace image -->
 
 <img style="width: 100%;" src="/images/hello-world-frontend.png"/>
 
@@ -380,9 +382,9 @@ See the [Hello World example][example] for more detail.
     kubectl apply -f https://skupper.io/install.yaml
     kubectl create namespace west
     kubectl config set-context --current --namespace west
+    kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
     skupper site create west --enable-link-access
     skupper token issue ~/west.token
-    kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
     skupper listener create backend 8080
 
 <div class="code-label session-1">East: Setup</div>
@@ -392,9 +394,9 @@ See the [Hello World example][example] for more detail.
     kubectl apply -f https://skupper.io/install.yaml
     kubectl create namespace east
     kubectl config set-context --current --namespace east
+    kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 3
     skupper site create east
     skupper token redeem ~/west.token
-    kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 3
     skupper connector create backend 8080
 
 <div class="code-label session-2">West: Testing</div>

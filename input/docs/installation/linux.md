@@ -1,4 +1,4 @@
-# Installing Skupper on Linux systems
+# Installing Skupper on Linux
 
 Docker and Podman!  Bare metal and VMs!
 

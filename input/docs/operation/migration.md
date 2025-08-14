@@ -1,5 +1,5 @@
 <a id="migrating"></a>
-# Migrating from Skupper v1
+# Migrating from Skupper v1 to v2
 
 Skupper v1 sites are not compatible with Skupper v2 sites.
 While there are plans to create migration tooling, currently, the only way migrate an application network is to create a new network.
