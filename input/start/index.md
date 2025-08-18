@@ -46,28 +46,7 @@ These instructions require `kubectl` version 1.15 or later.  See the
 
 [kubectl-install]: https://kubernetes.io/docs/tasks/tools/
 
-## Step 1: Install the Skupper command-line tool in your environment
-
-This guide uses the Skupper command-line interface (CLI) to deploy a
-Skupper network.  You need to install the `skupper` command only once
-for each development environment.
-
-Use the [install script][install-script] to download and extract the
-command:
-
-<div class="code-label">Linux or Mac</div>
-
-    curl https://skupper.io/install.sh | sh
-
-The script installs the command under your home directory.  It prompts
-you to add the command to your path if necessary.
-
-For other installation options, see [Installing the Skupper
-CLI]({{site.prefix}}/docs/installation/cli.html).
-
-[install-script]: https://github.com/skupperproject/skupper-website/blob/main/docs/install.sh
-
-## Step 2: Configure access to multiple namespaces
+## Step 1: Configure access to multiple namespaces
 
 Skupper is designed for use with multiple namespaces, typically on
 different clusters.  The `skupper` command uses your
@@ -154,7 +133,14 @@ set the current namespace for each session.
 <!--     $ skupper status -->
 <!--     Skupper is not enabled in namespace 'east' -->
 
-## Step 3: Install Skupper on your clusters
+## Step 2: Install Skupper on your clusters
+
+To use Skupper on your Kubernetes, you need to deploy the Skupper
+controller and custom resource definitions (CRDs).
+
+Use `kubectl apply` with the [install
+YAML](https://skupper.io/install.yaml) to install Skupper on each
+cluster:
 
 <div class="code-label session-2">West</div>
 
@@ -164,7 +150,29 @@ set the current namespace for each session.
 
     kubectl apply -f https://skupper.io/install.yaml
 
-[Installing Skupper on Kubernetes]({{site.prefix}}/docs/kube-install/index.html)
+For other installation options, see [Installing Skupper on
+Kubernetes]({{site.prefix}}/docs/installation/kubernetes.html).
+
+## Step 3: Install the Skupper CLI
+
+This guide uses the Skupper command-line interface (CLI) to deploy a
+Skupper network.  You need to install the `skupper` command only once
+for each development environment.
+
+Use the [install script][install-script] to download and extract the
+command:
+
+<div class="code-label">Linux or Mac</div>
+
+    curl https://skupper.io/install.sh | sh
+
+The script installs the command under your home directory.  It prompts
+you to add the command to your path if necessary.
+
+For other installation options, see [Installing the Skupper
+CLI]({{site.prefix}}/docs/installation/cli.html).
+
+[install-script]: https://github.com/skupperproject/skupper-website/blob/main/docs/install.sh
 
 ## Step 4: Create your sites
 
@@ -379,10 +387,10 @@ See the [Hello World example][example] for more detail.
 
     export KUBECONFIG=$HOME/.kube/config-west
     [Configure cluster access]
-    kubectl apply -f https://skupper.io/install.yaml
     kubectl create namespace west
     kubectl config set-context --current --namespace west
     kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
+    kubectl apply -f https://skupper.io/install.yaml
     skupper site create west --enable-link-access
     skupper token issue ~/west.token
     skupper listener create backend 8080
@@ -391,10 +399,10 @@ See the [Hello World example][example] for more detail.
 
     export KUBECONFIG=$HOME/.kube/config-east
     [Configure cluster access]
-    kubectl apply -f https://skupper.io/install.yaml
     kubectl create namespace east
     kubectl config set-context --current --namespace east
     kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 3
+    kubectl apply -f https://skupper.io/install.yaml
     skupper site create east
     skupper token redeem ~/west.token
     skupper connector create backend 8080
