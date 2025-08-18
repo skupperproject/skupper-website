@@ -10,6 +10,8 @@ latest_release_date = format_date(parse_timestamp(_latest_release["date"]))
 # XXX
 skupper_version = latest_release_version
 
+skupper_version_v1 = "1.9.2"
+
 skupper_site_url = "https://www.ssorj.net/skupper-website"
 
 def get_edit_url(page):

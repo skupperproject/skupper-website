@@ -7,5 +7,3 @@
 [Examples](examples/)
 
 [Documentation](docs/)
-
-[Community](community/)

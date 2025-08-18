@@ -12,7 +12,7 @@ to download and extract the command:
 <div class="code-label">Linux or Mac</div>
 
 ~~~ shell
-curl https://skupper.io/install.sh | sh
+curl https://skupper.io/install.sh | sh -s -- --version {{skupper_version_v1}}
 ~~~
 
 The script installs the command under your home directory.  It prompts
@@ -27,15 +27,15 @@ you to add the command to your path if necessary.
 Select the latest release for your platform:
 
 <nav class="button-group">
-  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{latest_release_version}}/skupper-cli-{{latest_release_version}}-linux-amd64.tgz"><span class="material-icons">get_app</span> Linux</a>
-  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{latest_release_version}}/skupper-cli-{{latest_release_version}}-mac-amd64.tgz"><span class="material-icons">get_app</span> Mac</a>
-  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{latest_release_version}}/skupper-cli-{{latest_release_version}}-windows-amd64.zip"><span class="material-icons">get_app</span> Windows</a>
+  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{skupper_version_v1}}/skupper-cli-{{skupper_version_v1}}-linux-amd64.tgz"><span class="material-icons">get_app</span> Linux</a>
+  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{skupper_version_v1}}/skupper-cli-{{skupper_version_v1}}-mac-amd64.tgz"><span class="material-icons">get_app</span> Mac</a>
+  <a class="button" href="https://github.com/skupperproject/skupper/releases/download/{{skupper_version_v1}}/skupper-cli-{{skupper_version_v1}}-windows-amd64.zip"><span class="material-icons">get_app</span> Windows</a>
 </nav>
 
 To get artifacts for other operating systems and architectures, see
 the [GitHub release page][release-page].
 
-[release-page]: https://github.com/skupperproject/skupper/releases/tag/{{latest_release_version}}
+[release-page]: https://github.com/skupperproject/skupper/releases/tag/{{skupper_version_v1}}
 
 #### Extract the Skupper command
 
@@ -44,13 +44,13 @@ Use `tar` or `unzip` to extract the command from the release archive:
 <div class="code-label">Linux or Mac</div>
 
 ~~~ shell
-tar -xf skupper-cli-{{latest_release_version}}-linux-amd64.tgz
+tar -xf skupper-cli-{{skupper_version_v1}}-linux-amd64.tgz
 ~~~
 
 <div class="code-label">Windows</div>
 
 ~~~ shell
-unzip skupper-cli-{{latest_release_version}}-windows-amd64.zip
+unzip skupper-cli-{{skupper_version_v1}}-windows-amd64.zip
 ~~~
 
 This produces an executable file named `skupper` in your current
@@ -85,7 +85,7 @@ should see output like this:
 
 ~~~ console
 $ skupper version
-client version                 {{latest_release_version}}
+client version                 {{skupper_version_v1}}
 transport version              not-found (no configuration has been provided)
 controller version             not-found (no configuration has been provided)
 ~~~
