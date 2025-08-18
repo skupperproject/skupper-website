@@ -22,7 +22,7 @@ you to add the command to your path if necessary.
 
 ## Installing manually
 
-### Download the latest release
+#### Download the latest release
 
 Select the latest release for your platform:
 
@@ -37,7 +37,7 @@ the [GitHub release page][release-page].
 
 [release-page]: https://github.com/skupperproject/skupper/releases/tag/{{latest_release_version}}
 
-### Extract the Skupper command
+#### Extract the Skupper command
 
 Use `tar` or `unzip` to extract the command from the release archive:
 
@@ -56,7 +56,7 @@ unzip skupper-cli-{{latest_release_version}}-windows-amd64.zip
 This produces an executable file named `skupper` in your current
 directory.
 
-### Place the command on your path
+#### Place the command on your path
 
 Move the executable file to your preferred location and make it
 available on your path.  For example, this is how you might install it
@@ -78,7 +78,7 @@ move skupper.exe %UserProfile%\bin
 set PATH=%PATH%;%UserProfile%\bin
 ~~~
 
-### Check the command
+#### Check the command
 
 To test your installation, run the `skupper version` command.  You
 should see output like this:
@@ -90,13 +90,13 @@ transport version              not-found (no configuration has been provided)
 controller version             not-found (no configuration has been provided)
 ~~~
 
-### Upgrade sites
+## Upgrade sites
 
 When you install a new version of the CLI, you can upgrade each site
 using the `skupper update` command.  While we try to make Skupper
 compatible between sites with different versions, we recommend
 updating all sites at the same time.
-Updating can take some time. Wait a minute before running the 
+Updating can take some time. Wait a minute before running the
 `skupper version` command to validate your upgrade.
 
 Do not use `skupper update` on sites created using the Skupper Operator. See [Using the Skupper Operator on Kubernetes](/docs/operator/index.html) for more information about using the Operator.

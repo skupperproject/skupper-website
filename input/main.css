@@ -31,6 +31,7 @@
     --line-color: hsl(0, 0%, 95%);
     --link-color: rgb(40, 100, 180);
     --accent-color-1: hsl(6, 80%, 70%);
+    --accent-color-2: hsl(140, 40%, 55%);
     --selected-item-background-color: hsla(6, 80%, 70%, 0.3);
     /* Fonts */
     --body-font-family: sans-serif;
@@ -661,4 +662,31 @@ nav.links > a::before {
 
 ul.column-list {
     columns: 2;
+}
+
+/* -- */
+
+a.button {
+    display: inline-block;
+    font-weight: 700;
+    padding: 0.6em 1.1em;
+    color: white;
+    background-color: var(--accent-color-2);
+    border-radius: 0.2em;
+    cursor: pointer;
+}
+
+a.button > span.material-icons {
+    margin-left: -0.1em;
+    margin-right: 0.2em;
+    vertical-align: -0.25em;
+}
+
+nav.button-group {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+nav.button-group > a {
+    margin-right: 1em;
 }

@@ -9,5 +9,3 @@
 [Documentation](docs/)
 
 [Community](community/)
-
-[News](news/)
