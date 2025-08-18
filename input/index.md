@@ -87,8 +87,8 @@ curl https://skupper.io/install.sh | sh
 ~~~
 
 <nav class="links">
-  <a href="docs/kube-install/index.html">Installing on Kubernetes</a>
-  <a href="docs/cli-install/index.html">Installing the CLI</a>
+  <a href="docs/installation/kubernetes.html">Installing on Kubernetes</a>
+  <a href="docs/installation/cli.html">Installing the CLI</a>
 </nav>
 
 ## The Skupper API
@@ -108,9 +108,8 @@ div.side-by-side {
 </div>
 
 <nav class="links">
-  <a href="docs/kube-yaml/index.html">Using the API on Kubernetes</a>
-  <a href="docs/system-yaml/index.html">Using the API on Docker, Podman, and Linux</a>
-  <a href="resources/index.html">API reference</a>
+  <a href="docs/operation/api/">Using the API</a>
+  <a href="resources/">API reference</a>
 </nav>
 
 ## The Skupper CLI
@@ -123,7 +122,6 @@ div.side-by-side {
 </div>
 
 <nav class="links">
-  <a href="docs/kube-cli/index.html">Using the CLI on Kubernetes</a>
-  <a href="docs/system-cli/index.html">Using the CLI on Docker, Podman, and Linux</a>
-  <a href="commands/index.html">CLI reference</a>
+  <a href="docs/operation/cli/">Using the CLI</a>
+  <a href="commands/">CLI reference</a>
 </nav>
