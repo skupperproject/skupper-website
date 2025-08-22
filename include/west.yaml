@@ -9,7 +9,7 @@ spec:
 kind: AccessGrant
 metadata:
   name: west-grant
-  namespace: west
+  namespace: hello-world-west
 spec:
   code: &lt;your-secret-code&gt;
 --
