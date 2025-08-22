@@ -4,13 +4,12 @@ title: Getting started
 
 # Getting started with Skupper
 
-## Overview
-
 To show Skupper in action, we need an application to work with.  This
 guide uses an HTTP Hello World application with a frontend service and
 a backend service.  The frontend uses the backend to process requests.
-In this scenario, the frontend is deployed in the `west`
-namespace, and the backend is deployed in the `east` namespace.
+In this scenario, the frontend is deployed in the `hello-world-west`
+namespace, and the backend is deployed in the `hello-world-east`
+namespace.
 
 <img style="margin: 2em; width: 80%;" src="/images/hello-world-entities.svg"/>
 
@@ -21,12 +20,12 @@ deployment.
 ## Prerequisites
 
 You must have access to at least two Kubernetes namespaces.  In the
-steps below, replace `west` and `east` with your chosen namespaces.
+steps below, you can replace `hello-world-west` and `hello-world-east`
+with your chosen namespaces.
 
-Each namespace can reside on **any cluster you choose**, and **you are
-not limited to two**.  You can have one on your laptop, another on
-Amazon, another on Google, and so on.  For convenience, you can have
-them all on one cluster.
+Each namespace can reside on any cluster you choose.  You can have one
+on your laptop and another on EKS or OpenShift.  For convenience, you
+can have them all on one cluster.
 
 Skupper works with any flavor of Kubernetes.  Here are some of your
 options for setting up Kubernetes clusters:
@@ -44,7 +43,7 @@ options for setting up Kubernetes clusters:
 These instructions require `kubectl` version 1.15 or later.  See the
 [kubectl installation guide][kubectl-install] for more information.
 
-[kubectl-install]: https://kubernetes.io/docs/tasks/tools/
+[kubectl-install]: https://kubernetes.io/docs/tasks/tools/#kubectl
 
 ## Step 1: Configure access to multiple namespaces
 
@@ -72,11 +71,11 @@ Start a console session for each of your namespaces.  Set the
 
 <div class="code-label session-2">Console for West</div>
 
-    export KUBECONFIG=$HOME/.kube/config-west
+    export KUBECONFIG=$HOME/.kube/config-hello-world-west
 
 <div class="code-label session-1">Console for East</div>
 
-    export KUBECONFIG=$HOME/.kube/config-east
+    export KUBECONFIG=$HOME/.kube/config-hello-world-east
 
 **Note:** On Windows, use the `set` command instead of `export`:
 
@@ -109,13 +108,13 @@ set the current namespace for each session.
 
 <div class="code-label session-2">Console for West</div>
 
-    kubectl create namespace west
-    kubectl config set-context --current --namespace west
+    kubectl create namespace hello-world-west
+    kubectl config set-context --current --namespace hello-world-west
 
 <div class="code-label session-1">Console for East</div>
 
-    kubectl create namespace east
-    kubectl config set-context --current --namespace east
+    kubectl create namespace hello-world-east
+    kubectl config set-context --current --namespace hello-world-east
 
 <!-- #### Check your configurations -->
 
@@ -126,12 +125,12 @@ set the current namespace for each session.
 <!-- <div class="code-label session-2">Console for West</div> -->
 
 <!--     $ skupper status -->
-<!--     Skupper is not enabled in namespace 'west' -->
+<!--     Skupper is not enabled in namespace 'hello-world-west' -->
 
 <!-- <div class="code-label session-1">Console for East</div> -->
 
 <!--     $ skupper status -->
-<!--     Skupper is not enabled in namespace 'east' -->
+<!--     Skupper is not enabled in namespace 'hello-world-east' -->
 
 ## Step 2: Install Skupper on your clusters
 
@@ -262,12 +261,10 @@ established.  You should see the following output:
 <div class="code-label session-1">East</div>
 
     $ skupper link status
-    NAME                                        STATUS  COST    MESSAGE
-    west-9b55e1b1-34b8-4520-bb40-5c63e2b27667   Ready   1       OK
+    NAME                       STATUS  COST    MESSAGE
+    hello-world-west-9b55e1b1  Ready   1       OK
 
 ## Step 6: Expose your services
-
-<!-- XXX Not skupper expose -->
 
 You now have a Skupper network capable of multi-cluster communication,
 but no services are attached to it.  This step uses the `skupper
@@ -360,7 +357,7 @@ send a greeting to the backend and get a greeting in response.
 
 <img style="width: 100%;" src="/images/hello-world-frontend.png"/>
 
-#### Summary
+## Summary
 
 Our simple HTTP application has two services.  We deployed each
 service to a different Kubernetes cluster.
@@ -377,18 +374,18 @@ See the [Hello World example][example] for more detail.
 
 [example]: https://github.com/skupperproject/skupper-example-hello-world/blob/main/README.md#what-just-happened
 
-## The condensed version
+#### The steps in condensed form
 
-<div class="code-label">Skupper command installation</div>
+<div class="code-label">Skupper CLI installation</div>
 
     curl https://skupper.io/install.sh | sh
 
 <div class="code-label session-2">West: Setup</div>
 
-    export KUBECONFIG=$HOME/.kube/config-west
+    export KUBECONFIG=$HOME/.kube/config-hello-world-west
     [Configure cluster access]
-    kubectl create namespace west
-    kubectl config set-context --current --namespace west
+    kubectl create namespace hello-world-west
+    kubectl config set-context --current --namespace hello-world-west
     kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
     kubectl apply -f https://skupper.io/install.yaml
     skupper site create west --enable-link-access
@@ -397,10 +394,10 @@ See the [Hello World example][example] for more detail.
 
 <div class="code-label session-1">East: Setup</div>
 
-    export KUBECONFIG=$HOME/.kube/config-east
+    export KUBECONFIG=$HOME/.kube/config-hello-world-east
     [Configure cluster access]
-    kubectl create namespace east
-    kubectl config set-context --current --namespace east
+    kubectl create namespace hello-world-east
+    kubectl config set-context --current --namespace hello-world-east
     kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 3
     kubectl apply -f https://skupper.io/install.yaml
     skupper site create east
