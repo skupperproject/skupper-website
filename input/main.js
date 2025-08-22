@@ -26,6 +26,26 @@ Element.prototype.$$ = function () {
     return this.querySelectorAll.apply(this, arguments);
 };
 
+window.addEventListener("load", () => {
+    let path = window.location.pathname;
+    let child = $("header > nav > a");
+
+    // Skip the first one, the logotype
+    child = child.nextElementSibling;
+
+    while (child) {
+        let prefix = new URL(child.href).pathname.slice(0, -10);
+
+	child.classList.remove("selected");
+
+        if (path.startsWith(prefix)) {
+	    child.classList.add("selected");
+        }
+
+	child = child.nextElementSibling;
+    }
+});
+
 function createLink(parent, href, text) {
     const elem = document.createElement("a");
     const textNode = document.createTextNode(text);
@@ -120,7 +140,7 @@ window.addEventListener("load", () => {
     const updateHeadingSelection = () => {
         const currHash = window.location.hash;
 
-        for (const elem of $$(".selected")) {
+        for (const elem of tocLinks.$$(".selected")) {
             elem.classList.remove("selected");
         }
 

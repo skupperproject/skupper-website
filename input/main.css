@@ -611,6 +611,16 @@ header > nav > a {
     display: flex;
     align-items: center;
     height: 70px;
+    border-bottom: 3px solid transparent;
+    position: relative;
+    top: 3px;
+}
+
+header > nav > a.selected {
+    color: inherit;
+    font-weight: 400;
+    border-bottom: 3px solid var(--accent-color-2);
+    cursor: default;
 }
 
 header > nav:first-child {
