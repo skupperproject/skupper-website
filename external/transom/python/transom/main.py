@@ -470,9 +470,13 @@ class TemplatePage(File):
 
         return self._convert_content(rendered)
 
-    def path_nav(self, start=None, end=None):
+    def path_nav(self, start=0, end=None, min=1):
         files = reversed(list(self.ancestors))
         links = [f"<a href=\"{x.url}\">{x.title}</a>" for x in files]
+        links = links[start:end]
+
+        if len(links) < min:
+            return ""
 
         return f"<nav class=\"path-nav\">{''.join(links)}</nav>"
 

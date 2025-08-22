@@ -1,5 +1,5 @@
 <a id="console"></a>
-# Using the Network console
+# Installing the Skupper Network Observer
 
 The Network console provides data and visualizations of the traffic flow between sites.
 
