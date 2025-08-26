@@ -199,6 +199,16 @@
         "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.8.5",
         "version": "1.8.5"
     },
+    "1.8.6": {
+        "date": "2025-06-18T16:27:39Z",
+        "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.8.6",
+        "version": "1.8.6"
+    },
+    "1.8.7": {
+        "date": "2025-06-23T17:58:45Z",
+        "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.8.7",
+        "version": "1.8.7"
+    },
     "1.9.0": {
         "date": "2025-04-08T17:26:33Z",
         "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.9.0",
@@ -214,9 +224,19 @@
         "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.9.2",
         "version": "1.9.2"
     },
+    "1.9.3": {
+        "date": "2025-07-31T21:36:50Z",
+        "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.9.3",
+        "version": "1.9.3"
+    },
+    "1.9.4": {
+        "date": "2025-08-06T18:40:31Z",
+        "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.9.4",
+        "version": "1.9.4"
+    },
     "latest": {
-        "date": "2025-06-17T17:18:58Z",
-        "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.9.2",
-        "version": "1.9.2"
+        "date": "2025-08-06T18:40:31Z",
+        "github_url": "https://github.com/skupperproject/skupper/releases/tag/1.9.4",
+        "version": "1.9.4"
     }
 }
