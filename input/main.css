@@ -27,12 +27,13 @@
     /* Colors */
     --body-background-color: hsl(0, 0%, 100%);
     --code-background-color: hsl(0, 0%, 97%);
+    --footer-background-color: #365263;
     --text-color: hsl(0, 0%, 20%);
     --disabled-text-color: hsl(0, 0%, 40%);
     --line-color: hsl(0, 0%, 95%);
-    --link-color: rgb(40, 100, 180);
-    --accent-color-1: hsl(6, 80%, 70%);
-    --accent-color-2: hsl(140, 40%, 55%);
+    --link-color: #306b8f;
+    --accent-color-1: #5eba7d;
+    --accent-color-2: #f08275;
     --selected-item-background-color: hsla(6, 80%, 70%, 0.3);
     /* Fonts */
     --body-font-family: sans-serif;
@@ -711,4 +712,15 @@ pre:hover > a.copy-button {
 
 a.copy-button > span {
     font-size: 1em;
+}
+
+/* -- */
+
+footer {
+    background-color: var(--footer-background-color);
+    color: white;
+}
+
+footer a {
+    color: white;
 }

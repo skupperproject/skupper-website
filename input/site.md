@@ -3,9 +3,9 @@
 ## Logos
 
 <div style="display: flex;">
-  <img style="width: 150px; margin-right: 4em;" src="/images/skupper-logo.svg"/>
-  <img style="width: 80px; margin-right: 4em;" src="/images/skupper-logo-vertical.svg"/>
-  <img style="width: 300px;" src="/images/skupper-logo-horizontal.svg"/>
+  <img style="width: 150px; margin-right: 4em;" src="{{site.prefix}}/images/skupper-logo.svg"/>
+  <img style="width: 80px; margin-right: 4em;" src="{{site.prefix}}/images/skupper-logo-vertical.svg"/>
+  <img style="width: 300px;" src="{{site.prefix}}/images/skupper-logo-horizontal.svg"/>
 </div>
 
 [More variants](https://design.jboss.org/skupper/)
@@ -13,11 +13,10 @@
 ## Colors
 
 <div style="display: flex;">
-  <div style="padding: 10px; width: 100px; height: 100px; background-color: var(--bg-color-3); color: var(--bg-color-2);">#365263</div>
-  <div style="padding: 10px; width: 100px; height: 100px; background-color: var(--bg-color-2); color: var(--bg-color-3);">#dee7ed</div>
-  <div style="padding: 10px; width: 100px; height: 100px; background-color: var(--link-color); color: var(--bg-color-1);">#085d91</div>
-  <div style="padding: 10px; width: 100px; height: 100px; background-color: var(--accent-color-2); color: var(--bg-color-1);">#5eba7d</div>
-  <div style="padding: 10px; width: 100px; height: 100px; background-color: var(--accent-color-1); color: var(--bg-color-1);">#f08275</div>
+  <div style="padding: 10px; width: 100px; height: 100px; background-color: var(--footer-background-color); color: white;">#365263</div>
+  <div style="padding: 10px; width: 100px; height: 100px; background-color: var(--link-color); color: white;">#085d91</div>
+  <div style="padding: 10px; width: 100px; height: 100px; background-color: var(--accent-color-1); color: white;">#5eba7d</div>
+  <div style="padding: 10px; width: 100px; height: 100px; background-color: var(--accent-color-2); color: white;">#f08275</div>
 </div>
 
 ## Typefaces

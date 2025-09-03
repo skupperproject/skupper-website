@@ -32,7 +32,7 @@ ul > li {
 </ul>
 
 <nav class="links">
-  <a href="docs/overview/index.html">Overview</a>
+  <a href="docs/introduction/index.html">Overview</a>
   <a href="concepts/index.html">Concepts</a>
   <a style="color: gray;">Architecture</a>
 </nav>
