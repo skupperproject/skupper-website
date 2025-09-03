@@ -11,10 +11,12 @@ After installation, you can create sites using the Skupper API or CLI:
 
 ## Using kubectl apply
 
-Prerequisites:
+#### Prerequisites
 
 - Cluster administrator access (`cluster-admin`)
-- kubectl (see [Installing kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl))
+- kubectl (see the [kubectl installation guide](https://kubernetes.io/docs/tasks/tools/#kubectl))
+
+#### Procedure
 
 To install the latest release, use `kubectl apply` with the [Skupper
 install YAML](https://skupper.io/install.yaml):
@@ -32,10 +34,12 @@ kubectl apply -f https://github.com/skupperproject/skupper/releases/download/<ve
 
 ## Using the Helm chart
 
-Prerequisites:
+#### Prerequisites
 
 - Cluster administrator access (`cluster-admin`)
 - Helm (see [Installing Helm](https://helm.sh/docs/intro/install/))
+
+#### Procedure
 
 To install the latest release, use the `helm install` command:
 
@@ -74,6 +78,6 @@ Using Helm:
 helm install skupper oci://quay.io/skupper/helm/skupper --set scope=namespace
 ~~~
 
-**NOTE**: If you install the controller at cluster scope, you can
+**Note**: If you install the controller at cluster scope, you can
 create sites in any namespace.  If you install the controller at
 namespace scope, you can create sites only in that namespace.

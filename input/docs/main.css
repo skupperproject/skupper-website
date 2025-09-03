@@ -248,7 +248,7 @@ ol, ul, dd {
     padding: 0 0 0 1em;
 }
 
-li {
+ul > li {
     list-style-type: disc;
 }
 

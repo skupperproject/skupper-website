@@ -234,6 +234,7 @@ pre {
     padding: 1em;
     background-color: var(--code-background-color);
     overflow: auto;
+    position: relative; /* Need relative positioning for the copy-button child */
 }
 
 /* Standard styles for lists */
@@ -682,4 +683,32 @@ nav.button-group {
 
 nav.button-group > a {
     margin-right: 1em;
+}
+
+/* -- */
+
+a.copy-button {
+    color: transparent;
+    background-color: transparent;
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+    top: 3px;
+    right: 3px;
+    padding: 1em;
+    line-height: 1em;
+}
+
+a.copy-button:active {
+    top: 5px;
+    right: 2px;
+}
+
+pre:hover > a.copy-button {
+    color: var(--code-foreground-color);
+    background-color: inherit;
+}
+
+a.copy-button > span {
+    font-size: 1em;
 }

@@ -1,8 +1,9 @@
 # Installing the Skupper CLI
 
-**Note:** With Skupper v2, you can install Skupper and deploy networks
-on Kubernetes without the Skupper CLI.  You can instead use the
-Skupper API directly.
+**Note:** As of Skupper v2, you have the option of installing Skupper
+and deploying application networks without using the Skupper CLI.  You
+can instead use the [Skupper API](../operation/api/index.html)
+directly.
 
 ## Using the install script
 
@@ -41,10 +42,16 @@ the [GitHub release page][release-page].
 
 Use `tar` or `unzip` to extract the command from the release archive:
 
-<div class="code-label">Linux or Mac</div>
+<div class="code-label">Linux</div>
 
 ~~~ shell
 tar -xf skupper-cli-{{skupper_version}}-linux-amd64.tgz
+~~~
+
+<div class="code-label">Mac</div>
+
+~~~ shell
+tar -xf skupper-cli-{{skupper_version}}-mac-arm64.tgz
 ~~~
 
 <div class="code-label">Windows</div>
@@ -83,12 +90,13 @@ set PATH=%PATH%;%UserProfile%\bin
 To test your installation, run the `skupper version` command.  You
 should see output like this:
 
-<!-- XXX Wrong output -->
 ~~~ console
 $ skupper version
-client version                 {{skupper_version}}
-transport version              not-found (no configuration has been provided)
-controller version             not-found (no configuration has been provided)
+COMPONENT           VERSION
+router              3.4.0
+controller          2.1.0
+network-observer    2.1.0
+cli                 2.1.0
 ~~~
 
 ## More resources

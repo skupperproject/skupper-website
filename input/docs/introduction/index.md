@@ -1,58 +1,120 @@
 # Skupper overview
 
-Hybrid clouds enable organizations to combine on-premises, private cloud, and public cloud resources.
-While such a solution provides many benefits, it also presents a unique challenge: enabling these resources to communicate with each other.
+Skupper is an over-the-top, multi-platform service interconnect.  Its
+core purpose is to provide secure communication between application
+components in disparate environments where general network
+connectivity is difficult or undesirable.
 
-Skupper provides a solution to this challenge with an Application Network that simply and securely connects applications running in different network locations.
+## Application networks
 
-## Application Networks
+Skupper solves communication challenges with something called an
+application network (also known as a virtual application network or
+VAN).  To understand the value of Skupper, it is helpful to understand
+what an application network is.
 
-Skupper solves multi-cluster communication challenges through something called a Virtual Application Network or just application network.
-To understand the value of Skupper, it is helpful to first understand what an application network is.
+An application network is made up of sites.  These are places where
+you have workloads running.  They can be on different platforms and in
+different parts of the world.
 
-An application network connects the applications and services in your hybrid cloud into a virtual network so that they can communicate with each other as if they were all running in the same site.
-In this diagram, an application network connects three services, each of which is running in a different cloud:
+The sites are securely linked to form a network.  Each site has an
+application router that is responsible for forwarding service traffic
+across the network.
 
 ![overview-clouds](../images/overview-clouds.png)
 
-In essence, the application network connects the services in a distributed application with a microservice architecture.
+XXX An application network connects the services in your hybrid cloud into
+a virtual network so that they can communicate with each other as if
+they were all running in the same site.  In this diagram, an
+application network connects three services, each of which is running
+in a different cloud:
 
-![overview-application](../images/overview-application.png)
+- XXX What the application sees.
+- XXX How it is isolated.
+- XXX The routers are in user space.
 
-Application networks are able to provide connectivity across the hybrid cloud because they operate at Layer 7 (the application layer).
-They use **Layer 7 application routers** to route communication between **Layer 7 application services**.
+## Comparing Skupper to other solutions
 
-## Layer 7 application routers
+**VPNs** - Unlike VPNs, Skupper does not expose IP networks.  Instead,
+Skupper exposes only the specific network interfaces (socket
+listeners) of application components.
 
-Layer 7 application routers form the backbone of an application network in the same way that conventional network routers form the backbone of a VPN.
-However, instead of routing IP packets between network endpoints, Layer 7 application routers route messages between application endpoints (called Layer 7 application services).
+**Service meshes** - Unlike service meshes, Skupper does not attempt
+to manage all aspects of service communication.  Instead, Skupper
+focuses on flexible, multi-platform connectivity.
 
-**Layer 7 application services**
+Compared to other solutions, Skupper is notably very easy to set up.
+Because it operates over-the-top, it does not require any changes to
+your existing networking.
 
-A Layer 7 application service represents an endpoint, or destination in the application network.
-When an application sends a communication to an service, the Layer 7 application routers distribute the communication to any other application in the application network that has the same service.
+## Components
 
-For example, in this diagram, **Service B** sends a message with an application service to its local application router.
-**Service A** and **Service C** are subscribed to the same service, so the application router routes copies of the message through the application network until they arrive at each destination.
+The Skupper router, Skupper controller, and Skupper Network Observer
+are indeed **key components** within the Skupper architecture, each
+playing a distinct role in establishing and managing the Virtual
+Application Network (VAN).
 
-![overview-routers](../images/overview-routers.png)
+Here's an overview of these components:
 
-In the diagram, `skupper-router` is a container or systemd process that acts as a software router for service communication.
+### The Skupper router
 
-Application networks provide multiple routing patterns, so communications can be distributed in anycast (balanced or closest) or multicast patterns.
+The Skupper router provides the data plane of an application network.
 
-## Skupper
+The router is responsible for routing application connections and
+requests between sites.  All inter-site communication is secured using
+mutual TLS (mTLS), and the router operates without elevated
+privileges, enhancing security.
 
-Skupper is an open source tool for creating application networks in Kubernetes or Linux.
-By using Skupper, you can create a distributed application consisting of microservices running in different sites.
+The router employs a global addressing system, sharing
+information about named destinations with peer routers to efficiently
+determine the next nearest router for a given service.
 
-This diagram illustrates a Skupper network that connects three services running in three different sites:
+The router also provides dynamic load balancing based on service
+capacity and supports cost- and locality-aware traffic forwarding.  It
+supports redundant network paths for high availability.
 
-![overview-clusters](../images/overview-clusters.png)
+### The Skupper controller
 
-In a Skupper network, each namespace contains a Skupper instance.
-When these Skupper instances connect, they continually share information about the services that each instance exposes.
-This means that each Skupper instance is always aware of every service that has been exposed to the Skupper network, regardless of the namespace in which each service resides.
+*   **Skupper Controller** (often referred to as the Kubernetes control plane or operator for non-Kubernetes sites):
+    *   The Skupper controller is responsible for **managing Kubernetes resources** such as Services, Deployments, Secrets, and ConfigMaps. In Skupper v2, this is achieved through a **declarative API using Custom Resource Definitions (CRDs)** for sites, links, listeners, and connectors.
+    *   The **Skupper Operator** manages the Skupper infrastructure, simplifying deployment and updates of Skupper components within a Kubernetes or OpenShift cluster.
+    *   In Skupper v2, there is a **unified controller** designed to combine the functionalities of the previous site and service controllers, and the "service-sync" mechanism of v1 is replaced with explicit listeners and connectors.
+    *   The controller also handles aspects like **policy control**, allowing cluster administrators to restrict Skupper usage.
+    * The API!
+    * Configuring the data plane (the router)
 
-Once a Skupper network is formed across Kubernetes namespaces, any of the services in those namespaces can be exposed (through annotation) to the Skupper network.
-When a service is exposed, Skupper creates proxy endpoints to make that service available on each namespace in the Skupper network.
+### The Skupper CLI
+
+The Skupper Command Line Interface (CLI) is a **primary tool for interacting with and administering Skupper deployments**, allowing users to manage various aspects of the Virtual Application Network (VAN). It is designed to provide a consistent experience across different platforms, including Kubernetes, container engines like Podman and Docker, and bare-metal hosts.
+
+Here's a detailed look at the Skupper CLI:
+
+*   **Core Functionality for Site Management and Connectivity:**
+    *   **Site Configuration:** Commands like `skupper init` are used to **create a Skupper site** and establish a Certificate Authority (CA) without requiring elevated privileges. In Skupper v2, configuration parameters are moving to standard Kubernetes resources.
+    *   **Site Linking:** The CLI facilitates linking Skupper sites. `skupper token create` generates **credentials (tokens)**, which are then used with `skupper link create` to establish a secure connection between sites. These tokens are typically single-use and time-limited, though options exist for unlimited use.
+    *   **Service Exposure:** `skupper expose` makes services available across the Skupper network. It **does not create an L3 connection** between namespaces but rather translates service protocols (TCP, HTTP1, HTTP2) into AMQP for secure inter-site communication. For more complex scenarios, `skupper service create` defines a service, and `skupper service bind` links that service to a cluster service (e.g., deployment, statefulset).
+    *   **Load Balancing:** The CLI supports configuring load balancing. For instance, `skupper service create` with `--mapping tcp` can enable **connection-level load balancing** instead of HTTP load balancing. Multiple `skupper service bind` commands for a single service can also be used for load balancing.
+    *   **Network Status and Monitoring:** Administrator-level network monitoring is available through the CLI. Commands like `skupper network status` provide an overview of the Skupper network.
+
+*   **Troubleshooting and Debugging:**
+    *   The CLI offers several commands for **diagnosing issues**. These include `skupper status` (for site status), `skupper service status -v` (for exposed services), and `skupper debug events` (for Skupper events).
+    *   The `skupper debug dump` command is crucial, creating a tarball that includes logs, configuration, and Kubernetes resource YAML for Skupper-related components, aiding in issue reporting.
+
+*   **Evolution with Skupper v2 and Non-Kubernetes Platforms:**
+    *   **Revamped and CRD-based:** Skupper v2 introduces a **revamped CLI that is CRD-based and blocking**, replacing the previous "service-sync" mechanism with explicit listeners and connectors.
+    *   **Non-Kubernetes Support:** For non-Kubernetes environments like Podman and Linux (using systemd), new commands such as `skupper system install`, `skupper system apply`, `skupper system start`, and `skupper system reload` are being developed to manage Skupper infrastructure. The `localhost` is often the default host value for `skupper connector create` on non-Kube platforms.
+    *   **YAML Integration:** The CLI is designed to **generate and apply YAML configurations** for resources like sites, links, listeners, and connectors.
+    *   **Improvements in v2:** Skupper v2 aims for a simplified CLI using the new model, with an OpenShift console plugin offering similar capabilities. There have been efforts to improve CLI usability, including a "big CLI redesign" in 2024.
+
+*   **Usability and Development Considerations:**
+    *   The CLI integrates with Kubernetes contexts, and understanding `kubectl` or `oc` contexts is important when working with multiple clusters.
+    *   Discussions around CLI design emphasize consistency, conventional naming, and avoiding arbitrary differences. For example, the utility of a `skupper token status` command in v2 has been debated, focusing on whether it should indicate if a token is valid and redeemable.
+    *   There is an ongoing effort to improve documentation for CLI commands, including overviews of concepts, resources, and command usage.
+
+### The Skupper Network Observer
+
+*   **Skupper Network Observer** (previously known as vFlow or Vanflow/flow-collector):
+    *   This component is responsible for **publishing and collecting events and metrics** within the Skupper network. It plays a crucial role in **observability**.
+    *   It **ingests events** from protocol observers within the Skupper router (e.g., HTTP/1 and HTTP/2 observers) and **exposes them as Prometheus metrics**. These metrics are then used in the Skupper console for network monitoring.
+    *   In Skupper v2, observability components are designed to be **deployed separately from site components**, offering more flexibility.
+
+Beyond these core components, a Skupper deployment also involves **Skupper sites** (representing deployment locations like Kubernetes clusters or Podman environments), **links** (connecting sites), **listeners** (enabling a site to receive connections for a service), and **connectors** (allowing a service on one site to connect to a service on another).

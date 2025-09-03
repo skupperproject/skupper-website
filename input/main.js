@@ -183,6 +183,32 @@ window.addEventListener("load", () => {
     }
 });
 
+if (navigator.clipboard) {
+    window.addEventListener("load", () => {
+        for (let pre of $$("pre")) {
+            const code = pre.$("code");
+
+            if (!code) continue;
+
+            if (code.textContent.trim().startsWith("$")) continue;
+
+            const button = document.createElement("a");
+            button.classList.add("copy-button");
+
+            const span = document.createElement("span");
+            span.textContent = "content_copy";
+            span.classList.add("material-icons");
+
+            button.appendChild(span);
+            pre.insertBefore(button, pre.firstChild);
+
+            button.addEventListener("click", () => {
+                navigator.clipboard.writeText(code.textContent.trim());
+            });
+        }
+    });
+}
+
 window.addEventListener("load", () => {
     for (const elem of $$("div.attribute > div.attribute-heading")) {
         elem.addEventListener("click", () => {
