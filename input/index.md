@@ -42,13 +42,14 @@ ul > li {
 
   <strong>Skupper v2</strong> is the latest generation of Skupper.  It
   has a new declarative API based on CRDs, a new CLI, improved
-  performance, and broader platform support.  {{lipsum(15)}}
+  performance, and broader platform support.
 </p>
 
 <nav class="links">
   <a href="v2/index.html">V2 overview</a>
-  <a href="v1/index.html">V1 resources</a>
 </nav>
+
+If you are using v1, see the [v1 resources](v1/index.html).
 
 ## Use cases
 
@@ -57,7 +58,9 @@ ul > li {
   resources from the public cloud.  Access cloud resources from the
   private cloud.</li>
 
-  <li><strong>Platform migration</strong> - {{lipsum(15)}}</li>
+  <li><strong>Platform migration</strong> - Move application
+  components one at a time to a new platform, with the ability to
+  rollback at any time.</li>
 
   <li><strong>Application resiliency</strong> - High availability and
   disaster recovery.  Data distribution and load balancing.</li>
