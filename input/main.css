@@ -625,6 +625,11 @@ header > nav > a.selected {
     cursor: default;
 }
 
+header > nav > a:not(#-logo):not(.selected):hover {
+    color: hsla(0, 0%, 0%, 0.6);
+    border-bottom: 3px solid hsla(0, 0%, 0%, 0.1);
+}
+
 header > nav:first-child {
     flex: 1;
 }
