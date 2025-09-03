@@ -9,7 +9,7 @@ Learn about the concepts and technology behind virtual application networks.
 - [Connectivity](overview/connectivity.html)
 - [Routing](overview/routing.html)
 - [Load balancing](overview/load.html)
-- [Getting started](/v1/start/index.html)
+- [Getting started]({{site.prefix}}/v1/start/index.html)
 
 ## Using Skupper with Kubernetes
 

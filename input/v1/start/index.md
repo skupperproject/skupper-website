@@ -12,7 +12,7 @@ a backend service.  The frontend uses the backend to process requests.
 In this scenario, the frontend is deployed in the `west`
 namespace, and the backend is deployed in the `east` namespace.
 
-<img style="margin: 2em; width: 80%;" src="/images/hello-world-entities.svg"/>
+<img style="margin: 2em; width: 80%;" src="{{site.prefix}}/images/hello-world-entities.svg"/>
 
 While these instructions use this particular application for
 demonstration purposes, the steps are the same for any Skupper
@@ -64,7 +64,7 @@ The script installs the command under your home directory.  It prompts
 you to add the command to your path if necessary.
 
 For Windows and other installation options, see [Installing
-Skupper](/install/index.html).
+Skupper]({{site.prefix}}/v1/install/index.html).
 
 [install-script]: https://github.com/skupperproject/skupper-website/blob/main/docs/install.sh
 
@@ -340,7 +340,7 @@ navigating to this URL in your browser:
 The frontend assigns each new user a name.  Click **Say hello** to
 send a greeting to the backend and get a greeting in response.
 
-<img style="width: 100%;" src="/images/hello-world-frontend.png"/>
+<img style="width: 100%;" src="{{site.prefix}}/images/hello-world-frontend.png"/>
 
 #### Summary
 
@@ -417,5 +417,4 @@ clusters, here are a few more things to look at:
 
  - [Check out the HTTP Hello World example in more detail](https://github.com/skupperproject/skupper-example-hello-world)
  - [See how you can connect any TCP-based service](https://github.com/skupperproject/skupper-example-tcp-echo)
- - [Explore the examples](/examples/index.html)
- - [Configuring Skupper sites using YAML](/docs/yaml/index.html)
+ - [Explore the examples]({{site.prefix}}/v1/examples/index.html)

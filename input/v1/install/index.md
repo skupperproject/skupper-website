@@ -99,7 +99,7 @@ updating all sites at the same time.
 Updating can take some time. Wait a minute before running the
 `skupper version` command to validate your upgrade.
 
-Do not use `skupper update` on sites created using the Skupper Operator. See [Using the Skupper Operator on Kubernetes](/docs/operator/index.html) for more information about using the Operator.
+Do not use `skupper update` on sites created using the Skupper Operator. See [Using the Skupper Operator on Kubernetes]({{site.prefix}}/v1/docs/operator/index.html) for more information about using the Operator.
 
 You can only use `skupper update` on Podman sites from version 1.5 and later. If
 you have an older version Podman site, delete the site and recreate it with the
