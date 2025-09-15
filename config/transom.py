@@ -1,7 +1,5 @@
 from plano import *
 
-site.prefix = "/skupper-website"
-
 _latest_release = read_json("input/data/releases.json")["latest"]
 
 latest_release_version = _latest_release["version"]
