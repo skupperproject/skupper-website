@@ -64,7 +64,7 @@ def transom_init():
 
         check_dir("config")
         check_dir("input")
-        check_file("config/config.py")
+        check_file("config/transom.py")
         check_file("input/index.md")
         check_file("input/main.css")
         check_file("input/main.js")
@@ -106,11 +106,11 @@ def transom_render():
     with test_site():
         touch("input/index.html") # A duplicate index file
 
-        with expect_exception():
+        with expect_system_exit():
             transom_command.main(["render", "--verbose"])
 
     with test_site():
-        remove("config/config.py") # No config.py
+        remove("config/transom.py") # No config.py
 
         transom_command.main(["render", "--verbose", "--init-only"])
 

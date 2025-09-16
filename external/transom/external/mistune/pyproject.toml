@@ -2,10 +2,12 @@
 name = "mistune"
 description = "A sane and fast Markdown parser with useful plugins and renderers"
 authors = [{name = "Hsiaoming Yang", email="me@lepture.com"}]
-dependencies = []
+dependencies = [
+  "typing-extensions; python_version<'3.11'",
+]
 license = {text = "BSD-3-Clause"}
 dynamic = ["version"]
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 readme = "README.rst"
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -16,11 +18,12 @@ classifiers = [
   "Operating System :: OS Independent",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
   "Topic :: Text Processing :: Markup",
@@ -35,6 +38,20 @@ Donate = "https://github.com/sponsors/lepture"
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
+[dependency-groups]
+dev = [
+    "mypy",
+    "pytest",
+    "pytest-cov",
+    "ruff",
+]
+docs = [
+    "shibuya",
+    "sphinx",
+    "sphinx-copybutton",
+    "sphinx-design",
+]
+
 [tool.setuptools.dynamic]
 version = {attr = "mistune.__version__"}
 
@@ -43,6 +60,9 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 mistune = ["py.typed"]
+
+[tool.ruff]
+line-length = 120
 
 [tool.pytest.ini_options]
 pythonpath = ["src", "."]

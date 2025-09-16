@@ -20,16 +20,6 @@
 from transom.planocommands import *
 
 @command
-def generate_docs(output_dir="input", owner="skupperproject", branch="main"):
-    """
-    Generate markdown docs from the skupper-docs repo
-    """
-
-    # check_program("downdoc")
-    print("Follow the instructions in README.")
-
-
-@command
 def generate_examples(output_dir="input"):
     """
     Generate the example index using data from GitHub and config/examples.yaml
@@ -37,62 +27,107 @@ def generate_examples(output_dir="input"):
 
     output_file = f"{output_dir}/examples/index.md"
     examples_data = read_yaml("config/examples.yaml")
-    github_data = http_get_json("https://api.github.com/orgs/skupperproject/repos?per_page=100")
     repos = dict()
 
-    for repo_data in github_data:
+    for repo_data in http_get_json("https://api.github.com/orgs/skupperproject/repos?per_page=100"):
         repos[repo_data["name"]] = repo_data
 
-    out = list()
+    append = StringBuilder()
 
-    for category in examples_data["categories"]:
-        category_title = category["title"]
-        category_id = category_title.lower().replace(" ", "-")
-        category_description = category.get("description")
+    for category_data in examples_data["categories"]:
+        category_title = category_data["title"]
+        category_description = category_data.get("description")
 
-        out.append(f"<h2 id=\"{category_id}\">{category_title}</h2>")
-        out.append("")
+        append(f"## {category_title}")
+        append()
 
         if category_description is not None:
-            out.append(f"<p>{category_description}</p>")
-            out.append("")
+            append(category_description)
+            append()
 
-        out.append("<div class=\"examples\">")
-        out.append("")
+        append("<div class=\"examples\">")
+        append()
 
-        for example_data in category["examples"]:
-            name = example_data["name"]
-            title = example_data["title"]
+        for example_data in category_data["examples"]:
+            example_name = example_data["name"]
+            example_title = example_data["title"]
 
             try:
-                repo_data = repos[name]
+                repo_data = repos[example_name]
             except:
                 description = example_data.get("description").strip()
                 url = example_data.get("url")
             else:
                 description = example_data.get("description", repo_data["description"])
-                url = example_data.get("url", repo_data["html_url"])
+                url = example_data.get("url", repo_data["html_url"] + "/tree/v2") # XXX v2
 
-            out.append("<div>")
-            out.append(f"<h3><a href=\"{url}\">{title}</a></h3>")
-            out.append(f"<p>{description}</p>")
-            out.append("<nav class=\"inline-links\">")
-            out.append(f"<a href=\"{url}\"><span class=\"fab fa-github fa-lg\"></span> Example</a>")
+            # out.append("<div>")
+            # out.append(f"<h3><a href=\"{url}\">{title}</a></h3>")
+            # out.append(f"<p>{description}</p>")
+            # out.append("<nav class=\"inline-links\">")
+            # out.append(f"<a href=\"{url}\"><span class=\"fab fa-github fa-lg\"></span> Example</a>")
+                #         if "video_url" in example_data:
+                # video_url = example_data["video_url"]
+                # out.append(f"<a href=\"{video_url}\"><span class=\"fab fa-youtube fa-lg\"></span> Video</a>")
 
-            if "video_url" in example_data:
-                video_url = example_data["video_url"]
-                out.append(f"<a href=\"{video_url}\"><span class=\"fab fa-youtube fa-lg\"></span> Video</a>")
+            # out.append("</nav>")
+            # out.append("</div>")
 
-            out.append("</nav>")
-            out.append("</div>")
+            append("<section>")
+            append()
+            append(f"#### {example_title}")
+            append()
+            append(description)
+            append()
+            append(f"<a href=\"{url}\"><span class=\"fab fa-github fa-lg\"></span> Example</a>")
+            append()
+            append("</section>")
+            append()
 
-        out.append("</div>")
-        out.append("")
+        append("</div>")
+        append()
 
-    examples = "\n".join(out)
-    markdown = read("config/examples.md.in").replace("@examples@", examples)
+    markdown = read("config/examples.md.in").replace("@examples@", str(append))
 
     write(output_file, markdown)
+
+@command
+def update_refs(output_dir="input"):
+    """
+    Update the concept, resource, and command references
+    """
+
+    output_dir = get_absolute_path(output_dir)
+    url = "https://github.com/skupperproject/refdog/archive/main.tar.gz"
+
+    with temp_file() as temp:
+        http_get(url, output_file=temp)
+
+        with working_dir(quiet=True):
+            extract_archive(temp)
+
+            extracted_dir = list_dir()[0]
+            assert is_dir(extracted_dir)
+
+            replace(join(output_dir, "concepts"), join(extracted_dir, "input", "concepts"))
+            replace(join(output_dir, "resources"), join(extracted_dir, "input", "resources"))
+            replace(join(output_dir, "commands"), join(extracted_dir, "input", "commands"))
+
+@command
+def update_docs(output_dir="input"):
+    output_dir = get_absolute_path(output_dir)
+    url = "https://github.com/skupperproject/skupper-docs/archive/main.tar.gz"
+
+    with temp_file() as temp:
+        http_get(url, output_file=temp)
+
+        with working_dir(quiet=True):
+            extract_archive(temp)
+
+            extracted_dir = list_dir()[0]
+            assert is_dir(extracted_dir)
+
+            replace(join(output_dir, "docs"), join(extracted_dir, "input"))
 
 @command
 def generate_releases(output_dir="input"):
@@ -109,8 +144,19 @@ def generate_releases(output_dir="input"):
     latest_version = releases["latest"]["version"]
     out = list()
 
+    def string_parse_re(string, pattern):
+        import re
+
+        result = re.match(pattern, string)
+
+        if not result:
+            raise Exception(f"Failed to match: {string}")
+
+        return result.groups()
+
     def sort(release):
-        return parse_timestamp(release["date"])
+        major, minor, patch, extra = string_parse_re(release["version"], r"(\d+)\.(\d+)\.(\d+)(.*)")
+        return int(major), int(minor), int(patch), extra
 
     for release in sorted(releases.values(), key=sort, reverse=True):
         version = release["version"]
@@ -120,6 +166,9 @@ def generate_releases(output_dir="input"):
         if version == latest_version:
             continue
 
+        if string_matches_glob(version, "*-rc*"):
+            continue
+
         out.append(f"* [{version}]({url}) - {format_date(date)}")
 
     releases = "\n".join(out)
@@ -127,27 +176,27 @@ def generate_releases(output_dir="input"):
 
     write(output_file, markdown)
 
+    # XXX
+
+    install_yaml = http_get(f"https://github.com/skupperproject/skupper/releases/download/{latest_version}/skupper-cluster-scope.yaml")
+
+    write(f"{output_dir}/install.yaml", install_yaml)
+
+    # End XXX
+
 def _update_release_data(output_dir):
     output_file = f"{output_dir}/data/releases.json"
     install_script_data_file = f"{output_dir}/data/install.json"
 
     releases = http_get_json("https://api.github.com/repos/skupperproject/skupper/releases?per_page=100")
+    latest_release = http_get_json("https://api.github.com/repos/skupperproject/skupper/releases/latest")
 
-    # Filter to stable 1.x.x releases only 
-    releases = [
-        r for r in releases
-        if not r["prerelease"] and not r["draft"] and r["tag_name"].startswith("1.")
-    ]
-
-    # Determine latest 1.x.x version by date
-    latest_release = max(
-        releases, key=lambda r: parse_timestamp(r["published_at"])
-    )
     latest_release_tag = latest_release["tag_name"]
 
     write_json(install_script_data_file, {"version": latest_release_tag})
 
     data = dict()
+
     data["latest"] = {
         "version": latest_release_tag,
         "github_url": f"https://github.com/skupperproject/skupper/releases/tag/{latest_release_tag}",
@@ -194,13 +243,6 @@ def test():
         generate_examples(output_dir=temp)
         generate_releases(output_dir=temp)
         generate_scripts(output_dir=temp)
-
-@command
-def update_skupper_docs():
-    """
-    Update the embedded Skupper docs repo
-    """
-    update_external_from_github("external/skupper-docs", "skupperproject", "skupper-docs", "v1")
 
 @command
 def update_transom():

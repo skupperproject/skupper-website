@@ -4,6 +4,39 @@ title: Community
 
 # Skupper community
 
+<style>
+
+form input {
+    font-size: inherit;
+    padding: 0.5em;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.2em;
+    margin-right: 0.4em;
+}
+
+form button {
+    font-size: inherit;
+    font-weight: 700;
+    padding: 0.6em 1.1em;
+    color: white;
+    background-color: hsl(140, 40%, 55%);
+    border: none;
+    border-radius: 0.2em;
+    cursor: pointer;
+}
+
+a.button {
+    display: inline-block;
+    font-weight: 700;
+    padding: 0.6em 1.1em;
+    color: white;
+    background-color: hsl(140, 40%, 55%);
+    border-radius: 0.2em;
+    cursor: pointer;
+}
+
+</style>
+
 ## Source code
 
 Skupper is an open source project.  The source is licensed under
@@ -59,9 +92,6 @@ ways you can help:
 <!-- https://github.com/skupperproject/skupper/wiki -->
 
 ## Social media
-
-Follow us on [Twitter](https://twitter.com/SkupperIO) to get news
-about Skupper.
 
 Subscribe to our [YouTube
 channel](https://www.youtube.com/channel/UCQxHN2Qq8koCatcmKCJ4OEA).

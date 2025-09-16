@@ -1,0 +1,13 @@
+kind: Site
+metadata:
+  name: east
+  namespace: hello-world-east
+--
+kind: Connector
+metadata:
+  name: backend
+  namespace: hello-world-east
+spec:
+  routingKey: backend
+  selector: app=backend
+  port: 8080

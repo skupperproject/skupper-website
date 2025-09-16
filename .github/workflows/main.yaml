@@ -1,23 +1,31 @@
-name: main
+# See https://github.com/actions/starter-workflows/blob/main/pages/static.yml
 on:
   push:
-  pull_request:
-  schedule:
-    - cron: "0 0 * * 0"
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
 jobs:
-  test:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-        python-version: [3.9, 3.x]
-    runs-on: ${{matrix.os}}
+  main:
+    environment:
+      name: github-pages
+      url: ${{steps.deployment.outputs.page_url}}
+    runs-on: ubuntu-latest
     steps:
+      - name: Set up environment
+        run: |
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          echo "PLANO_COLOR=1" >> "$GITHUB_ENV"
+          pip install pyyaml
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/configure-pages@v5
+      # - run: ./plano test
+      - run: ./plano render
+      - uses: actions/upload-pages-artifact@v3
         with:
-          python-version: ${{matrix.python-version}}
-      - run: pip install pyyaml
-      - run: ./plano test
-        env:
-          PLANO_COLOR: "1"
+          path: output
+      - uses: actions/deploy-pages@v4
+        id: deployment
