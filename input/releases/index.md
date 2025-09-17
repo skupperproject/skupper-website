@@ -24,7 +24,7 @@ For more options, see the [installation guide][install-docs].
 
 
 [release-page]: https://github.com/skupperproject/skupper/releases/tag/{{latest_release_version}}
-[install-docs]: http://localhost:8080/skupper-website/docs/install/
+[install-docs]: https://skupper.io/docs/install/index.html
 
 ## Previous releases
 
