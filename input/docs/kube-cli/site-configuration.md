@@ -15,7 +15,7 @@ Installing the skupper command-line interface (CLI) provides a simple method to 
 2. Verify the installation.
    ```bash
    skupper version
-
+   
    COMPONENT               VERSION
    cli                     {{skupper_cli_version}}
    ```
@@ -46,7 +46,7 @@ Installing the skupper command-line interface (CLI) provides a simple method to 
    For example:
    ```bash
    skupper site create my-site
-
+   
    Waiting for status...
    Site "my-site" is ready.
    ```
@@ -55,7 +55,7 @@ There are many options to consider when creating sites using the CLI, see [CLI R
 For example
 
 * `--enable-link-access`
-
+  
   If enabled, this option allows you create tokens and link *to* this site.
   By default, this option is disabled but you can change the setting later `skupper site update --enable-link-access`.
 
@@ -66,7 +66,7 @@ For example
   skupper site create my-site --timeout 2m
   ```
   The timeout option does not stop the site from being created, but if the site is not ready, the following is output:
-
+  
   ```
   Site "my-site" is not yet ready: Pending
   ```
