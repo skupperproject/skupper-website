@@ -344,9 +344,14 @@
         "github_url": "https://github.com/skupperproject/skupper/releases/tag/2.1.1",
         "version": "2.1.1"
     },
+    "2.1.2": {
+        "date": "2025-10-13T13:05:44Z",
+        "github_url": "https://github.com/skupperproject/skupper/releases/tag/2.1.2",
+        "version": "2.1.2"
+    },
     "latest": {
-        "date": "2025-08-13T14:02:33Z",
-        "github_url": "https://github.com/skupperproject/skupper/releases/tag/2.1.1",
-        "version": "2.1.1"
+        "date": "2025-10-13T13:05:44Z",
+        "github_url": "https://github.com/skupperproject/skupper/releases/tag/2.1.2",
+        "version": "2.1.2"
     }
 }

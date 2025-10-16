@@ -24,12 +24,13 @@ For more options, see the [installation guide][install-docs].
 
 
 [release-page]: https://github.com/skupperproject/skupper/releases/tag/{{latest_release_version}}
-[install-docs]: https://skupper.io/docs/install/index.html
+[install-docs]: http://localhost:8080/skupper-website/docs/install/
 
 ## Previous releases
 
 <div style="column-count: 3;">
 
+* [2.1.1](https://github.com/skupperproject/skupper/releases/tag/2.1.1) - 13 August 2025
 * [2.1.0](https://github.com/skupperproject/skupper/releases/tag/2.1.0) - 22 July 2025
 * [2.0.1](https://github.com/skupperproject/skupper/releases/tag/2.0.1) - 21 May 2025
 * [2.0.0](https://github.com/skupperproject/skupper/releases/tag/2.0.0) - 7 March 2025
