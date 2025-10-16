@@ -1999,14 +1999,14 @@ spec:
         - /app/controller
         env:
         - name: SKUPPER_KUBE_ADAPTOR_IMAGE
-          value: quay.io/skupper/kube-adaptor:2.1.1
+          value: quay.io/skupper/kube-adaptor:2.1.2
         - name: SKUPPER_KUBE_ADAPTOR_IMAGE_PULL_POLICY
           value: Always
         - name: SKUPPER_ROUTER_IMAGE
-          value: quay.io/skupper/skupper-router:3.4.0
+          value: quay.io/skupper/skupper-router:3.4.1
         - name: SKUPPER_ROUTER_IMAGE_PULL_POLICY
           value: Always
-        image: quay.io/skupper/controller:2.1.1
+        image: quay.io/skupper/controller:2.1.2
         imagePullPolicy: Always
         name: controller
         securityContext:
