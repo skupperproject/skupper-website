@@ -449,6 +449,7 @@ Options:
 
 Versions:
   latest              The latest release
+  v1-latest           The latest release in the 1.x line
   main                The latest CI/CD release from main
   X.Y.Z               A specific version
 
