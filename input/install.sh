@@ -339,7 +339,7 @@ fetch_skupper_release() {
     assert program_is_available curl
     assert program_is_available uname
 
-    log "Determining your OS an architecture"
+    log "Determining your OS and architecture"
 
     case $(uname -s) in
         # CYGWIN*) local operating_system=windows ;;
@@ -375,7 +375,22 @@ fetch_skupper_release() {
             echo "main-release" >| "${release_version_file}"
             ;;
         *)
-            echo "${version}" >| "${release_version_file}"
+            if expr "${version}" : '\([0-9]\+\(\.[0-9]\+\)\?\)$' > /dev/null
+            then
+              log "Looking up the latest release version in line ${version}"
+
+              assert program_is_available jq
+
+              run curl -sL \
+                -H "Accept: application/vnd.github+json" \
+                -H "X-GitHub-Api-Version: 2022-11-28" \
+                https://api.github.com/repos/skupperproject/skupper/releases \
+                | jq -r 'map(select( (.prerelease or .draft) | not )) | map(select(.name | startswith ("'"${version}"'."))) | map(select( .name | match("^[0-9.]+$") ) ) | sort_by (.name|split(".")|map(tonumber))[-1].name' \
+                >| "${release_version_file}"
+              test -n "$( grep -v null "${release_version_file}")" || fail "No releases found in line '${version}'"
+            else
+              echo "${version}" >| "${release_version_file}"
+            fi
             ;;
     esac
 
@@ -438,7 +453,8 @@ Options:
 Versions:
   latest              The latest release
   main                The latest CI/CD release from main
-  X.Y.Z               A specific version
+  X.Y.Z               A specific version (such as 1.9.4 or 2.0.0-rc1)
+  X or X.Y            The latest release in a version line (such as 1, 1.8, 2 or 2.1)
 
 Schemes:
   home                Install to ~/.local/bin
