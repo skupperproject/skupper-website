@@ -339,7 +339,7 @@ fetch_skupper_release() {
     assert program_is_available curl
     assert program_is_available uname
 
-    log "Determining your OS an architecture"
+    log "Determining your OS and architecture"
 
     case $(uname -s) in
         # CYGWIN*) local operating_system=windows ;;
@@ -364,6 +364,18 @@ fetch_skupper_release() {
     local release_version_file="${output_dir}/release-version.txt"
 
     case "${version}" in
+        v1-latest)
+            log "Looking up the latest v1 release version"
+
+            assert program_is_available jq
+
+            run curl -sL \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              https://api.github.com/repos/skupperproject/skupper/releases \
+              | jq -r 'map(select( (.prerelease or .draft) | not )) | map(select(.name | startswith ("1."))) | map(select( .name | match("[0-9.]+") ) ) | sort_by (.name|split(".")|map(tonumber))[-1].name' \
+              >| "${release_version_file}"
+            ;;
         latest)
             log "Looking up the latest release version"
 
