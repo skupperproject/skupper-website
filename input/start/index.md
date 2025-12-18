@@ -244,7 +244,7 @@ In West, use the `skupper token issue` command to generate a token.
 #### Use the token to create a link
 
 With the token in hand, you are ready to link the sites.  Pass
-the token from West to the `skupper tokek redeem` command in East.
+the token from West to the `skupper token redeem` command in East.
 
 <div class="code-label session-1">East</div>
 
