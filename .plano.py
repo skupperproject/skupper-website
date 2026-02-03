@@ -130,6 +130,18 @@ def update_docs(output_dir="input"):
             replace(join(output_dir, "docs"), join(extracted_dir, "input"))
 
 @command
+def update_openapi(output_dir="input"):
+    """
+    Update the network-observer OpenAPI spec
+    """
+    output_dir = get_absolute_path(output_dir)
+    version = read_json(join(output_dir, "data", "install.json"))["version"]
+    url = f"https://raw.githubusercontent.com/skupperproject/skupper/{version}/cmd/network-observer/spec/openapi.yaml"
+
+    make_dir(join(output_dir, "docs", "api-docs"))
+    write(join(output_dir, "docs", "api-docs", "openapi.yaml"), http_get(url))
+
+@command
 def generate_releases(output_dir="input"):
     """
     Generate the release index using data from GitHub
