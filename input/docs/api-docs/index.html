@@ -8,6 +8,14 @@
     <style>
       html, body { margin: 0; padding: 0; height: 100%; }
       #swagger-ui { height: 100%; }
+      .swagger-ui .info .title small,
+      .swagger-ui .info .title .version-stamp,
+      .swagger-ui .info .link,
+      .swagger-ui .info .info__contact,
+      .swagger-ui .info .info__license,
+      .swagger-ui .info .info__terms {
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -18,6 +26,7 @@
         SwaggerUIBundle({
           url: "openapi.yaml",
           dom_id: "#swagger-ui",
+          supportedSubmitMethods: [],
           presets: [SwaggerUIBundle.presets.apis],
           layout: "BaseLayout"
         });
