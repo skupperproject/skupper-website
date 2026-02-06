@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Skupper Network Observer API</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui@5.31.0/dist/swagger-ui.css"/>
+    <style>
+      html, body { margin: 0; padding: 0; height: 100%; }
+      #swagger-ui { height: 100%; }
+      .swagger-ui .info .title small,
+      .swagger-ui .info .title .version-stamp,
+      .swagger-ui .info .link,
+      .swagger-ui .info .info__contact,
+      .swagger-ui .info .info__license,
+      .swagger-ui .info .info__terms {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="swagger-ui"></div>
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui@5.31.0/dist/swagger-ui-bundle.js"></script>
+    <script>
+      window.onload = function () {
+        SwaggerUIBundle({
+          url: "openapi.yaml",
+          dom_id: "#swagger-ui",
+          supportedSubmitMethods: [],
+          presets: [SwaggerUIBundle.presets.apis],
+          layout: "BaseLayout"
+        });
+      };
+    </script>
+  </body>
+</html>

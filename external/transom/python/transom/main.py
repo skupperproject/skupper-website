@@ -172,29 +172,57 @@ class TransomSite:
         for file_ in self._files:
             file_._process_input()
 
-        proc_count = _os.cpu_count()
-        procs = list()
-        batch_size = _math.ceil(len(self._files) / proc_count)
+        proc_count = _os.cpu_count() or 1
+        env_workers = _os.environ.get("TRANSOM_WORKERS")
 
-        for i in range(proc_count):
-            start = i * batch_size
-            end = start + batch_size
+        if env_workers:
+            try:
+                proc_count = int(env_workers)
+            except ValueError:
+                self.warning("Invalid TRANSOM_WORKERS value '{}'; using {}", env_workers, proc_count)
+                proc_count = _os.cpu_count() or 1
 
-            procs.append(RenderProcess(self._files[start:end], force))
+        if proc_count < 1:
+            proc_count = 1
 
-        for proc in procs:
-            proc.start()
+        shm_available = _os.path.exists("/dev/shm")
+        use_multiproc = proc_count > 1 and shm_available
 
-        for proc in procs:
-            proc.join()
+        if proc_count > 1 and not shm_available:
+            self.notice("Multiprocessing disabled because /dev/shm is unavailable")
 
-            if proc.exitcode != 0:
-                raise TransomError("A child render process failed")
+        rendered_count = 0
+
+        if use_multiproc:
+            procs = list()
+            batch_size = _math.ceil(len(self._files) / proc_count)
+
+            for i in range(proc_count):
+                start = i * batch_size
+                end = start + batch_size
+
+                procs.append(RenderProcess(self._files[start:end], force))
+
+            for proc in procs:
+                proc.start()
+
+            for proc in procs:
+                proc.join()
+
+                if proc.exitcode != 0:
+                    raise TransomError("A child render process failed")
+
+            rendered_count = sum([x.rendered_count.value for x in procs])
+        else:
+            for file_ in self._files:
+                file_._render(force=force)
+
+                if file_._rendered:
+                    rendered_count += 1
 
         if _os.path.exists(self.output_dir):
             _os.utime(self.output_dir)
 
-        rendered_count = sum([x.rendered_count.value for x in procs])
         unchanged_count = len(self._files) - rendered_count
         unchanged_note = ""
 

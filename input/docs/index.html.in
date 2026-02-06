@@ -69,4 +69,7 @@ title: Documentation
 <p>Learn how to monitor traffic using the Skupper console.</p>
 <ul>
   <li><a href="console/index.html">Using the Skupper console</a></li>
+  <li><a href="api-docs/index.html">Network Observer API documentation</a></li>
+  
 </ul>
+
