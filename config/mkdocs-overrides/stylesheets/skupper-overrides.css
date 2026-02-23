@@ -99,36 +99,38 @@ body {
 /* Ensure header uses flexbox layout - Font 1.5x, Other params 1.3x */
 header {
     display: flex !important;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1.3em 2.6em;  /* 1.3x from 1em 2em */
+    width: 100%;
+    padding: 1.3em 0;  /* Remove horizontal padding */
+    position: sticky;
+    top: 0;
 }
 
-/* Logo on the left - Font 1.5x, Size 1.3x */
+/* Logo on the left - Fixed to left edge */
 header > a#-logo {
     display: flex;
     align-items: center;
-    gap: 0.65em;  /* 1.3x from 0.5em */
+    gap: 0.65em;
     text-decoration: none;
     color: var(--text-color);
-    font-size: 1.8em;  /* 1.5x from 1.2em - KEEP */
+    font-size: 1.8em;
     font-weight: 700;
     font-family: var(--heading-font-family);
+    margin-left: 2em;  /* Fixed distance from left edge */
 }
 
 header > a#-logo img {
-    height: 3.25em;  /* 1.3x from 2.5em */
+    height: 3.25em;
 }
 
-/* Center section with nav and GitHub - 1.3x spacing */
+/* Center section with nav and GitHub */
 header > div {
     display: flex;
     flex: 1;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    margin-left: 2.6em;  /* 1.3x from 2em */
+    margin: 0 2em;
 }
 
 /* Navigation tabs in center - Font 1.5x, Gap 1.3x */
@@ -154,7 +156,7 @@ header nav#-tabs a.selected {
     font-weight: 700;
 }
 
-/* GitHub link - Fixed to right edge of screen */
+/* GitHub link - Positioned at right edge */
 header > div > a[href*="github"] {
     text-decoration: none;
     color: var(--text-color);
@@ -162,10 +164,8 @@ header > div > a[href*="github"] {
     align-items: center;
     gap: 0.39em;
     font-size: 1.5em;
-    position: fixed;
+    position: absolute;
     right: 2em;
-    top: 1.5em;
-    z-index: 1001;
 }
 
 /* Hide "GitHub" text, show only icon */
