@@ -257,6 +257,39 @@ def test():
         generate_scripts(output_dir=temp)
 
 @command
+def render_docs():
+    """
+    Render documentation using MkDocs with Material theme
+    
+    This renders input/docs/ to output/docs/ with sidebar navigation.
+    It does NOT touch output/v1/ which is rendered by Transom.
+    """
+    notice("Installing MkDocs dependencies")
+    run("pip install -q mkdocs-material mkdocs-macros-plugin")
+    
+    notice("Building documentation with MkDocs")
+    run("mkdocs build --clean")
+
+@command
+def render_all():
+    """
+    Render the entire site: Transom (main site + v1) then MkDocs (v2 docs)
+    
+    Build order:
+    1. Transom renders everything from input/ to output/ (including v1)
+    2. MkDocs renders input/docs/ to output/docs/ (overwrites docs only)
+    
+    Result: output/v1/ preserved from Transom, output/docs/ enhanced by MkDocs
+    """
+    notice("Step 1: Rendering main site and v1 docs with Transom")
+    render()  # Call the transom render command
+    
+    notice("Step 2: Rendering v2 docs with MkDocs")
+    render_docs()
+    
+    notice("Build complete! Main site + v1 (Transom) + v2 docs (MkDocs)")
+
+@command
 def update_transom():
     """
     Update the embedded Transom repo
