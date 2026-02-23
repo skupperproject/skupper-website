@@ -61,7 +61,11 @@ def define_env(env):
     
     # Set other variables
     env.variables['skupper_version_v1'] = "1.9.2"
-    env.variables['site_prefix'] = ""  # Empty for production, can be overridden
+    
+    # Site prefix for navigation links
+    # Empty for production (https://skupper.io), can be set for local dev or staging
+    # Example: env.variables['site_prefix'] = "http://localhost:8000"
+    env.variables['site_prefix'] = env.conf.get('extra', {}).get('site_prefix', '')
     
     # Define helper macros if needed
     @env.macro

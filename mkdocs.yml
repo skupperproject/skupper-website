@@ -3,6 +3,20 @@ site_url: https://skupper.io/docs/
 docs_dir: doc-input
 site_dir: output/docs
 
+# Extra configuration
+# site_prefix controls navigation links in header/footer
+#
+# For production (skupper.io): use empty string (relative paths)
+# For staging/preview: use full URL without trailing slash
+# For local dev: use http://localhost:8000 or your local server
+#
+# Examples:
+#   Production:  site_prefix: ""
+#   Staging:     site_prefix: "https://skupper-mkdocs.netlify.app"
+#   Local:       site_prefix: "http://localhost:8000"
+extra:
+  site_prefix: "https://skupper-mkdocs.netlify.app"
+
 # Support .html links in markdown (Transom compatibility)
 use_directory_urls: false
 
