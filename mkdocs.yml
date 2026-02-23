@@ -1,6 +1,6 @@
 site_name: Skupper Documentation
 site_url: https://skupper.io/docs/
-docs_dir: input/docs
+docs_dir: doc-input
 site_dir: output/docs
 
 # Support .html links in markdown (Transom compatibility)

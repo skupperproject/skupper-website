@@ -277,7 +277,7 @@ def render_all():
     
     Build order:
     1. Transom renders everything from input/ to output/ (including v1)
-    2. MkDocs renders input/docs/ to output/docs/ (overwrites docs only)
+    2. MkDocs renders doc-input/ to output/docs/ (overwrites docs only)
     
     Result: output/v1/ preserved from Transom, output/docs/ enhanced by MkDocs
     """

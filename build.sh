@@ -14,7 +14,7 @@ echo "========================================="
 # Install Python dependencies
 echo ""
 echo "Installing Python dependencies..."
-pip install pyyaml mkdocs-material
+pip install pyyaml mkdocs-material mkdocs-macros-plugin
 
 # Verify installations
 echo ""
@@ -27,7 +27,7 @@ echo ""
 echo "Building complete site..."
 echo "  Step 1: Transom (main site + V1 docs)"
 echo "  Step 2: MkDocs (V2 docs with sidebar)"
-./plano render
+./plano render-all
 
 # Verify output
 echo ""
