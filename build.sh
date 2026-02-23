@@ -27,7 +27,7 @@ echo ""
 echo "Building complete site..."
 echo "  Step 1: Transom (main site + V1 docs)"
 echo "  Step 2: MkDocs (V2 docs with sidebar)"
-./plano render_all
+./plano render
 
 # Verify output
 echo ""
