@@ -99,9 +99,8 @@ validation:
 
 plugins:
   - search
-  # TODO: Enable macros plugin later for variable substitution
-  # - macros:
-  #     module_name: config/mkdocs_macros
+  - macros:
+      module_name: config/mkdocs_macros
 
 extra:
   # Static values for MVP - will be dynamic with macros plugin

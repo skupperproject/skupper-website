@@ -39,13 +39,21 @@ html {
     font-size: 1rem;  /* Match body text */
 }
 
-/* Hide Material's default header and footer */
+/* Hide Material's default header and footer visually but keep in DOM for JS */
 .md-header {
-    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
 }
 
 .md-footer {
-    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
 }
 
 /* Adjust main content area to account for Skupper header */
@@ -155,7 +163,7 @@ header > a#-logo {
 }
 
 header > a#-logo img {
-    height: 3.25em;
+    height: 3.9em;  /* 20% bigger than original 3.25em (3.25 * 1.2 = 3.9) */
 }
 
 /* Center section with nav and GitHub */
@@ -211,11 +219,48 @@ header > div > a[href*="github"] span {
     font-size: 1.5rem;  /* Restore icon size */
 }
 
-/* Center the footer content */
+/* Center the footer content and match home page styling */
+footer {
+    border: 0 !important;
+    background-color: var(--footer-background-color) !important;
+    color: white !important;
+    padding: 3em 1em !important;
+    display: flex !important;
+    justify-content: center !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+}
+
+footer a {
+    color: white !important;
+}
+
+footer h4 {
+    font-size: 1.1rem !important;
+    margin: 0.5em 0 !important;
+}
+
+footer p {
+    font-size: 1rem !important;
+    margin: 0.5em 0 !important;
+}
+
 footer > div {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2em;
+    max-width: 1200px !important;
+    width: var(--page-width) !important;
+    padding: 2em !important;
+    display: flex !important;
+    gap: 2em !important;
+}
+
+footer > div > div {
+    flex: 1;
+}
+
+footer > div > div:first-child {
+    flex: 0;
+    min-width: 10em;
 }
 
 /* Ensure sidebar navigation matches Skupper styling */

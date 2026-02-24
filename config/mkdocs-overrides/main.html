@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
-{# Override the header to use Skupper's existing header #}
+{# Keep Material header for JS but add Skupper header before it #}
 {% block header %}
   {% include "partials/skupper-header.html" %}
+  {{ super() }}
 {% endblock %}
 
-{# Override the footer to use Skupper's existing footer #}
+{# Keep Material footer for JS but add Skupper footer after it #}
 {% block footer %}
+  {{ super() }}
   {% include "partials/skupper-footer.html" %}
 {% endblock %}
 
@@ -14,7 +16,7 @@
 {% block styles %}
   <link rel="stylesheet" href="{{ config.site_url }}../main.css">
   {{ super() }}
-  <link rel="stylesheet" href="{{ 'assets/stylesheets/skupper-overrides.css' | url }}">
+  {# skupper-overrides.css is loaded via mkdocs.yml extra_css #}
 {% endblock %}
 
 {# Add Font Awesome for icons used in header/footer #}
