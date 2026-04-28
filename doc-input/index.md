@@ -1,33 +1,65 @@
-# Skupper Documentation
+# Skupper documentation
 
-Welcome to the Skupper v2 documentation.
+## Understanding the basics
 
-Skupper is an over-the-top, multi-platform application interconnect that makes it easy to deploy private application networks spanning multiple sites and platforms.
+Learn about the concepts and technology behind virtual application networks.
 
-## Getting Started
+- [Overview](overview/index.md)
+- [Security](overview/security.md)
+- [Connectivity](overview/connectivity.md)
+- [Routing](overview/routing.md)
+- [Load balancing](overview/load-balancing.md)
 
-- [Overview](overview/index.md) - Learn about Skupper's architecture and capabilities
-- [Installation](install/index.md) - Install Skupper on your platform
+## Installation
 
-## Using Skupper
+Learn about installing the Skupper CLI and the controller.
 
-### On Kubernetes
+- [Installation and upgrade](install/index.md)
 
-- [Kubernetes CLI Guide](kube-cli/index.md) - Use the Skupper CLI on Kubernetes
-- [Kubernetes YAML Guide](kube-yaml/index.md) - Use declarative YAML configuration
+## Using the Skupper CLI on Kubernetes
 
-### On Linux/Podman/Docker
+Learn how to use the CLI on Kubernetes.
 
-- [System CLI Guide](system-cli/index.md) - Use the Skupper CLI on Linux systems
-- [System YAML Guide](system-yaml/index.md) - Use declarative YAML configuration on Linux
+- [Overview](kube-cli/index.md)
+- [Configuring sites](kube-cli/site-configuration.md)
+- [Linking sites](kube-cli/site-linking.md)
+- [Exposing services on the network](kube-cli/service-exposure.md)
 
-## Additional Resources
+## Using the Skupper API on Kubernetes
 
-- [Network Console](console/index.md) - Monitor and visualize your Skupper network
-- [Troubleshooting](troubleshooting/index.md) - Common issues and solutions
+Learn how to use YAML API resources on Kubernetes.
 
-## Version Information
+- [Overview](kube-yaml/index.md)
+- [Configuring sites](kube-yaml/site-configuration.md)
+- [Linking sites](kube-yaml/site-linking.md)
+- [Exposing services on the network](kube-yaml/service-exposure.md)
 
-This documentation is for Skupper v2 (version {{ skupper_version }}).
+## Using the Skupper CLI on local systems
 
-For Skupper v1 documentation, see [V1 Documentation](../v1/index.html).
+Learn how to use the CLI on Docker, Podman or Linux systems.
+
+- [Overview](system-cli/index.md)
+- [Configuring sites](system-cli/site-configuration.md)
+- [Linking sites](system-cli/site-linking.md)
+- [Exposing services on the network](system-cli/service-exposure.md)
+
+## Using the Skupper API on local systems
+
+Learn how to use YAML on Docker, Podman or Linux systems.
+
+- [Overview](system-yaml/index.md)
+- [Configuring sites](system-yaml/site-configuration.md)
+- [Linking sites](system-yaml/site-linking.md)
+- [Exposing services on the network](system-yaml/service-exposure.md)
+
+## Observability
+
+Learn how to monitor traffic using the Skupper console.
+
+- [Using the Skupper console](console/index.md)
+
+## Troubleshooting
+
+Learn how to diagnose common application network problems.
+
+- [Troubleshooting an application network](troubleshooting/index.md)

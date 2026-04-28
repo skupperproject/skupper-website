@@ -1,5 +1,8 @@
 <a id="kube-linking-cli"></a>
 # Linking sites on Kubernetes using the Skupper CLI
+<!--ASSEMBLY-->
+
+Create links between sites on Kubernetes by using the CLI.
 
 Using the Skupper command-line interface (CLI) allows you to create links between sites.
 The link direction is not significant, and is typically determined by ease of connectivity. For example, if east is behind a firewall, linking from east to west is the easiest option.
@@ -8,6 +11,7 @@ Once sites are linked, services can be exposed and consumed across the applicati
 
 <a id="kube-token-cli"></a>
 ## Linking sites using a token
+<!--PROCEDURE-->
 
 A token provides a secure method to link sites.
 By default, a token can only be used once and must be used within 15 minutes to link sites.
@@ -66,7 +70,8 @@ To link sites, you create a token on one site and redeem that token on the other
    skupper link status
    ```
    You might need to issue the command multiple times before the link is ready:
-   ```
+
+   ```bash
    $ skupper link status
    NAME                                            STATUS  COST    MESSAGE
    west-12f75bc8-5dda-4256-88f8-9df48150281a       Pending 1       Not Operational
@@ -80,6 +85,7 @@ There are many options to consider when linking sites using the CLI, see [CLI Re
 
 <a id="kube-link-cli"></a>
 ## Linking sites using a `link` resource
+<!--PROCEDURE-->
 
 An alternative approach to linking sites using tokens is to create a `link` resource YAML file using the CLI, and to apply that resource to another site.
 
@@ -92,7 +98,7 @@ To link sites, you create a `link` resource YAML file on one site and apply that
 
 **Procedure**
 
-1. On the site where you want to create a link , make sure link access is enabled:
+1. On the site where you want to create a link, make sure link access is enabled:
    ```bash
    skupper site update --enable-link-access
    ```
@@ -101,6 +107,12 @@ To link sites, you create a `link` resource YAML file on one site and apply that
    skupper link generate > <filename>
    ```
    where `<filename>` is the name of a YAML file that is saved on your local filesystem.
+   The `link` YAML file contains the following information:
+   * The name of the link
+   * The certificate used to authenticate the link
+   * Two host and port entries for the listening site are included for each link.
+   
+   If the listening site uses high availability mode, two link resources are created.
 
 3. Apply the `link` resource YAML file on a different site to create a link:
    ```bash
@@ -113,7 +125,8 @@ To link sites, you create a `link` resource YAML file on one site and apply that
    skupper link status
    ```
    You might need to issue the command multiple times before the link is ready:
-   ```
+
+   ```bash
    $ skupper link status
    NAME                                            STATUS  COST    MESSAGE
    west-12f75bc8-5dda-4256-88f8-9df48150281a       Pending 1       Not Operational
@@ -124,4 +137,3 @@ To link sites, you create a `link` resource YAML file on one site and apply that
    You can now expose services on the application network.
 
 There are many options to consider when linking sites using the CLI, see [CLI Reference][cli-ref], including *frequently used* options.
-

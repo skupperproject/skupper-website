@@ -1,5 +1,8 @@
 <a id="overview-connectivity"></a>
 # Skupper connectivity
+<!--CONCEPT-->
+
+Skupper provides secure connectivity for services running across multiple clusters.
 
 Skupper represents a new approach to connecting services across multiple Kubernetes clusters.
 See how Skupper can give you the flexibility to deploy your services where you need them.
@@ -15,7 +18,7 @@ But if you want to deploy your application across multiple clusters, your option
 You have to either expose your services to the public internet or set up a VPN.
 
 Skupper offers a third way.
-It connects clusters to a secure layer 7 network.
+It connects clusters to a secure application network, also known as a virtual application network (VAN).
 It uses that network to forward local service traffic to remote clusters.
 
 **Secure hybrid cloud communication**
@@ -42,4 +45,3 @@ You can add and remove sites on demand.
 Build large, robust networks of connected clusters.
 
 ![many-clusters](../images/many-clusters.svg)
-

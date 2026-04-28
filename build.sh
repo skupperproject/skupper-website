@@ -14,7 +14,7 @@ echo "========================================="
 # Install Python dependencies
 echo ""
 echo "Installing Python dependencies..."
-pip install pyyaml mkdocs-material mkdocs-macros-plugin
+pip install pyyaml mkdocs-material mkdocs-macros-plugin mkdocs-awesome-pages-plugin
 
 # Verify installations
 echo ""

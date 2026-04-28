@@ -74,6 +74,7 @@ nav:
     - Service Exposure: system-yaml/service-exposure.md
   - Console: console/index.md
   - Troubleshooting: troubleshooting/index.md
+  - ...
 
 markdown_extensions:
   - admonition
@@ -99,13 +100,15 @@ validation:
 
 plugins:
   - search
+  - awesome-pages
   - macros:
       module_name: config/mkdocs_macros
 
 extra:
   # Static values for MVP - will be dynamic with macros plugin
-  skupper_version: "2.1.1"
-  skupper_cli_version: "2.1.1"
+  skupper_version: "2.1.4"
+  skupper_cli_version: "2.1.4"
   skupper_version_v1: "1.9.2"
   site_prefix: ""
 
+# Made with Bob
