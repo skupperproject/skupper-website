@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{# Keep Material header for JS but add Skupper header before it #}
+{% block header %}
+  {% include "partials/skupper-header.html" %}
+  {{ super() }}
+{% endblock %}
+
+{# Keep Material footer for JS but add Skupper footer after it #}
+{% block footer %}
+  {{ super() }}
+  {% include "partials/skupper-footer.html" %}
+{% endblock %}
+
+{# Add Skupper CSS before Material's styles #}
+{% block styles %}
+  <link rel="stylesheet" href="{{ config.site_url }}../main.css">
+  {{ super() }}
+  {# skupper-overrides.css is loaded via mkdocs.yml extra_css #}
+{% endblock %}
+
+{# Add Font Awesome for icons used in header/footer #}
+{% block libs %}
+  {{ super() }}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}

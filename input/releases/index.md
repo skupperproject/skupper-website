@@ -30,16 +30,20 @@ For more options, see the [installation guide][install-docs].
 
 <div style="column-count: 3;">
 
+* [2.1.4](https://github.com/skupperproject/skupper/releases/tag/2.1.4) - 23 April 2026
+* [2.1.3](https://github.com/skupperproject/skupper/releases/tag/2.1.3) - 12 December 2025
 * [2.1.2](https://github.com/skupperproject/skupper/releases/tag/2.1.2) - 13 October 2025
 * [2.1.1](https://github.com/skupperproject/skupper/releases/tag/2.1.1) - 13 August 2025
 * [2.1.0](https://github.com/skupperproject/skupper/releases/tag/2.1.0) - 22 July 2025
 * [2.0.1](https://github.com/skupperproject/skupper/releases/tag/2.0.1) - 21 May 2025
 * [2.0.0](https://github.com/skupperproject/skupper/releases/tag/2.0.0) - 7 March 2025
+* [1.9.5](https://github.com/skupperproject/skupper/releases/tag/1.9.5) - 13 March 2026
 * [1.9.4](https://github.com/skupperproject/skupper/releases/tag/1.9.4) - 6 August 2025
 * [1.9.3](https://github.com/skupperproject/skupper/releases/tag/1.9.3) - 31 July 2025
 * [1.9.2](https://github.com/skupperproject/skupper/releases/tag/1.9.2) - 17 June 2025
 * [1.9.1](https://github.com/skupperproject/skupper/releases/tag/1.9.1) - 7 May 2025
 * [1.9.0](https://github.com/skupperproject/skupper/releases/tag/1.9.0) - 8 April 2025
+* [1.8.8](https://github.com/skupperproject/skupper/releases/tag/1.8.8) - 13 March 2026
 * [1.8.7](https://github.com/skupperproject/skupper/releases/tag/1.8.7) - 23 June 2025
 * [1.8.6](https://github.com/skupperproject/skupper/releases/tag/1.8.6) - 18 June 2025
 * [1.8.5](https://github.com/skupperproject/skupper/releases/tag/1.8.5) - 10 April 2025
