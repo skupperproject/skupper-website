@@ -73,6 +73,7 @@ nav:
     - Site Linking: system-yaml/site-linking.md
     - Service Exposure: system-yaml/service-exposure.md
   - Console: console/index.md
+  - API Reference: /api/
   - Troubleshooting: troubleshooting/index.md
   - ...
 
