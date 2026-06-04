@@ -160,6 +160,63 @@ This section outlines some advanced options for checking links.
    There are no link resources in the namespace
    ```
 
+
+<a id="debug-dump"></a>
+## Creating a Skupper debug tar file
+<!--PROCEDURE-->
+
+Create a debug tar file containing diagnostic information about a Skupper site to troubleshoot issues or share with support.
+
+The `skupper debug dump` command creates a compressed tarball (`.tar.gz`) containing logs, configurations, and resource status from a site. The output file is named using the pattern `<filename>-<namespace>-<datetime>.tar.gz`. If no filename is provided, it defaults to `skupper-dump`.
+
+This procedure applies to both Kubernetes and local system sites.
+
+**Procedure**
+
+1. Create the debug tar file for a site:
+
+   ```bash
+   skupper debug dump
+   ```
+
+   Or specify a custom filename:
+
+   ```bash
+   skupper debug dump mysite-debug
+   ```
+
+   The command creates a file such as `skupper-dump-default-20250526-143022.tar.gz`.
+
+2. Extract the tar file to examine its contents:
+
+   ```bash
+   mkdir skupper-dump
+   tar -xzf skupper-dump-default-20250526-143022.tar.gz -C skupper-dump
+   cd skupper-dump
+   ```
+
+3. Check the Skupper and platform versions:
+
+   - `/versions/kubernetes.yaml` - Kubernetes version (on Kubernetes platforms)
+   - `/versions/skupper.yaml` - Versions of Skupper components
+
+4. Check the site configuration and ingress:
+
+   - `/site-namespace/resources/Site-<name>.yaml` - Site specification and status
+   - `/site-namespace/resources/RouterAccess-<name>.yaml` - Ingress and access type configured for the site
+
+5. Check linking and service configuration:
+
+   - `/site-namespace/resources/Link-<name>.yaml` - Link status between sites
+   - `/site-namespace/resources/Accessgrant-<name>.yaml` - Access grants for tokens
+   - `/site-namespace/resources/AccessTokens-<name>.yaml` - Token usage information
+   - `/site-namespace/resources/Connector-<name>.yaml` - Connector configuration and status
+   - `/site-namespace/resources/Listener-<name>.yaml` - Listener configuration and status
+
+
+
+
+
 <a id="resolving-common-problems"></a>
 ## Resolving common problems
 <!--REFERENCE-->
@@ -178,3 +235,61 @@ The following issues and workarounds might help you debug simple scenarios when 
   ```
   there is already a site created for this namespace
   ```
+
+<a id="dynamic-system-controller"></a>
+## Troubleshooting the Dynamic System Controller
+<!--PROCEDURE-->
+
+The Dynamic System Controller feature (available on Docker and Podman platforms only) enables automatic processing of YAML resources when `--reload-type=auto` is enabled during installation. 
+
+Use this section to diagnose issues when resources are not being automatically detected or processed.
+
+By default, the reload type is set to `manual`, meaning resources must be processed by using `skupper system start` and `skupper system reload` for subsequent changes.
+
+**Procedure**
+
+1. Verify the controller is configured for auto-reload:
+
+   Check the system controller container logs:
+   ```bash
+   podman logs <username>-skupper-controller
+   # or
+   docker logs <username>-skupper-controller
+   ```
+
+   Look for the configuration line:
+   ```
+   INFO System Reload: type=auto
+   ```
+
+2. Monitor resource detection:
+
+   When the controller detects a new resource file, it logs:
+   ```
+   Resource has been created: backend.yaml
+   ```
+
+   If you don't see this message after copying a YAML file to the `/input/resources` directory, check:
+   - The file is in the correct directory for the namespace
+   - The file has valid YAML syntax
+   - The file has correct permissions
+
+3. Verify resource processing:
+
+   Check that files copied to the `/input/resources` directory appear in the `/runtime/resources` directory after processing.
+
+   Check the status of resources using the CLI:
+   ```bash
+   skupper connector status
+   skupper listener status
+   skupper link status
+   ```
+
+4. Review controller logs for errors:
+
+   Look for processing errors or validation failures:
+   ```bash
+   podman logs <username>-skupper-controller | grep -i error
+   # or
+   docker logs <username>-skupper-controller | grep -i error
+   ```

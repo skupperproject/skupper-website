@@ -91,27 +91,6 @@ def generate_examples(output_dir="input"):
 
     write(output_file, markdown)
 
-@command
-def update_refs(output_dir="input"):
-    """
-    Update the concept, resource, and command references
-    """
-
-    output_dir = get_absolute_path(output_dir)
-    url = "https://github.com/skupperproject/refdog/archive/main.tar.gz"
-
-    with temp_file() as temp:
-        http_get(url, output_file=temp)
-
-        with working_dir(quiet=True):
-            extract_archive(temp)
-
-            extracted_dir = list_dir()[0]
-            assert is_dir(extracted_dir)
-
-            replace(join(output_dir, "concepts"), join(extracted_dir, "input", "concepts"))
-            replace(join(output_dir, "resources"), join(extracted_dir, "input", "resources"))
-            replace(join(output_dir, "commands"), join(extracted_dir, "input", "commands"))
 
 @command
 def update_docs(output_dir="doc-input"):
@@ -121,7 +100,7 @@ def update_docs(output_dir="doc-input"):
     This fetches the latest docs and places them in doc-input/ for MkDocs to build.
     """
     output_dir = get_absolute_path(output_dir)
-    url = "https://github.com/pwright/skupper-docs/archive/vale.tar.gz"
+    url = "https://github.com/skupperproject/skupper-docs/archive/main.tar.gz"
 
     with temp_file() as temp:
         http_get(url, output_file=temp)
