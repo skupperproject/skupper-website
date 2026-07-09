@@ -130,6 +130,7 @@ With multi-key listeners, you must choose a strategy which determines how the tr
 * priority - Uses the first routing key in list that is available for traffic. If the connector becomes unavailable, the listener matches with the next available routing key in list.
 * weighted - Uses the routing keys in proportion to the assigned weights. For example, if `backend1` is assigned 25 and `backend2` is assigned 75, then only a quarter of the TCP connections are directed to `backend1`.
 
+Multi-key listeners provide predictable traffic distribution from the client side and typically are not influenced by link costs.
 
 For configuration details, see [Listener resource][listener-resource].
 
@@ -187,7 +188,6 @@ For configuration details, see [Listener resource][listener-resource].
 
    where `<filename>` is the name of a YAML file that is saved on your local filesystem.
 
-   ```
 
    **📌 NOTE**
    If you need to change strategy after you created a multi-key listener, you must delete and recreate the resource. This does not affect changing routing keys or weights.
