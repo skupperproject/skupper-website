@@ -2317,14 +2317,14 @@ spec:
         - /app/controller
         env:
         - name: SKUPPER_KUBE_ADAPTOR_IMAGE
-          value: quay.io/skupper/kube-adaptor:2.2.2
+          value: quay.io/skupper/kube-adaptor:2.2.3
         - name: SKUPPER_KUBE_ADAPTOR_IMAGE_PULL_POLICY
           value: Always
         - name: SKUPPER_ROUTER_IMAGE
-          value: quay.io/skupper/skupper-router:3.5.2
+          value: quay.io/skupper/skupper-router:3.5.3
         - name: SKUPPER_ROUTER_IMAGE_PULL_POLICY
           value: Always
-        image: quay.io/skupper/controller:2.2.2
+        image: quay.io/skupper/controller:2.2.3
         imagePullPolicy: Always
         name: controller
         ports:
