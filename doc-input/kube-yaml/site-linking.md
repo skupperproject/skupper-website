@@ -3,7 +3,7 @@ render_macros: false
 ---
 <!-- Macro rendering is disabled because this page contains literal Go template expressions. -->
 <a id="kube-yaml-site-linking"></a>
-# Linking sites on Kubernetes using YAML
+# Link sites on Kubernetes using YAML
 <!--ASSEMBLY-->
 
 Once sites are linked, services can be exposed and consumed across the application network without the need to open ports or manage inter-site connectivity.
@@ -17,7 +17,7 @@ The link direction is not significant, and is typically determined by ease of co
 
 
 <a id="kube-access-yaml"></a>
-## Linking sites using `AccessGrant` and `AccessToken` resources
+## Link sites using `AccessGrant` and `AccessToken` resources
 <!--PROCEDURE-->
 
 Use `AccessGrant` and `AccessToken` resources to create a link between two Kubernetes sites using YAML.
@@ -60,7 +60,7 @@ A connecting site redeems this token for a `Link` resource to establish a link t
      expirationWindow: 25m        # default 15m
    ```
    For example, if you created `accessgrant.yaml`, apply and check status:
-   ```shell
+   ```bash
    kubectl apply -f accessgrant.yaml
    
    kubectl get accessgrants
@@ -84,7 +84,7 @@ A connecting site redeems this token for a `Link` resource to establish a link t
    * CA_RAW is the cert required to establish a HTTPS connection to the GrantServer
 
 3. On the listening site, create a token YAML file:
-   ```shell
+   ```bash
    cat > token.yaml <<EOF
    apiVersion: skupper.io/v2alpha1
    kind: AccessToken
@@ -99,32 +99,32 @@ A connecting site redeems this token for a `Link` resource to establish a link t
    ```
    where `token.yaml` is the name of the YAML file that is saved on your local filesystem.
 
-   **📌 NOTE**
-   Access to this file provides access to the application network. 
-   Protect it appropriately.
+   > **NOTE:**
+   > Access to this file provides access to the application network.
+   > Protect it appropriately.
 
 4. Securely transfer the `token.yaml` file to context of the connecting site.
    If you have both sites available from your terminal session, this step is not required.
 
 5. On the connecting site, apply the token and check status:
-   ```shell
+   ```bash
    kubectl apply -f token.yaml
    kubectl get accesstokens 
    NAME            URL                                                                REDEEMED   STATUS   MESSAGE
-   token-to-west   https://10.110.160.132:9090/87426fa9-5623-49af-a612-47d33b7a4200   true       Ready    OK
+   token-to-west   https://<host>:<port>/<grant-id>   true       Ready    OK
    ```
    The GrantServer has validated the AccessToken and redeemed it for a `Link` resource.
    The connecting site uses `Link` resource to establish an mTLS connection between routers.
 
 6. On the connecting site, check link status:
-   ```shell
+   ```bash
    kubectl get link
    NAME            STATUS   REMOTE SITE   MESSAGE
    token-to-west   Ready    my-site       OK
    ```
 
 <a id="kube-link-cost-yaml"></a>
-## Specifying link cost using YAML
+## Specify link cost using YAML
 <!--PROCEDURE-->
 
 Link cost is a configurable integer value that influences how Skupper routes
@@ -132,11 +132,11 @@ traffic across links between sites.
 The routing algorithm favors paths with the lowest total cost from client to
 target server.
 
-**📌 NOTE**
-For most load-balancing and failover use cases, a [multi-key listener][mkl]
-provides more predictable, per-service control than link cost.
-Link cost applies to **all services** that traverse a link; it is not
-possible to set different costs for distinct services on the same link.
+> **NOTE:**
+> For most load-balancing and failover use cases, a [multi-key listener][mkl]
+> provides more predictable, per-service control than link cost.
+> Link cost applies to **all services** that traverse a link; it is not
+> possible to set different costs for distinct services on the same link.
 
 Understanding link cost behavior:
 
@@ -161,55 +161,52 @@ The `AccessToken` resource also exposes `spec.linkCost`, which is applied to the
 
 **Procedure**
 
-**Option A — Set cost when redeeming a token**
+1. Choose one of the following options to set link cost:
 
-Add `linkCost` to the `AccessToken` resource before applying it. When the token is redeemed, the resulting `Link` is created with that cost.
+   **Option A — Set cost when redeeming a token:**
 
-```yaml
-apiVersion: skupper.io/v2alpha1
-kind: AccessToken
-metadata:
-  name: my-token
-spec:
-  url: <grant-url>
-  code: <secret-code>
-  ca: <ca-cert>
-  linkCost: 2
-```
+   Add `linkCost` to the `AccessToken` resource before applying it. When the token is redeemed, the resulting `Link` is created with that cost.
 
-Apply it:
+   ```yaml
+   apiVersion: skupper.io/v2alpha1
+   kind: AccessToken
+   metadata:
+     name: my-token
+   spec:
+     url: <grant-url>
+     code: <secret-code>
+     ca: <ca-cert>
+     linkCost: 2
+   ```
 
-```bash
-kubectl apply -f token.yaml
-```
+   Apply it:
 
-**Option B — Update cost on an existing link**
+   ```bash
+   kubectl apply -f token.yaml
+   ```
 
-1. Find the link name:
+   **Option B — Update cost on an existing link:**
+
+   Find the link name:
 
    ```bash
    kubectl get links
    ```
-   Example output:
-   ```
-   NAME          STATUS   REMOTE SITE   MESSAGE
-   west-6bfn6    Ready    west
-   ```
 
-2. Patch the cost on the link:
+   Patch the cost on the link:
 
    ```bash
    kubectl patch link west-6bfn6 --type merge -p '{"spec":{"cost":2}}'
    ```
-   
+
    Or edit the resource directly:
-   
+
    ```bash
    kubectl edit link west-6bfn6
    ```
-   
+
    Set the `cost` field in `spec`:
-   
+
    ```yaml
    apiVersion: skupper.io/v2alpha1
    kind: Link
@@ -227,42 +224,36 @@ kubectl apply -f token.yaml
      tlsCredentials: west-6bfn6
    ```
 
-**Verifying link cost**
+**Verification**
 
-Check the cost of a specific link:
+1. Check the cost of a specific link:
 
-```bash
-kubectl get link west-6bfn6 -o yaml
-```
+   ```bash
+   kubectl get link west-6bfn6 -o yaml
+   ```
 
-Look for `spec.cost` in the output. Alternatively, for a summary:
+   Look for `spec.cost` in the output. Alternatively, for a summary:
 
-```bash
-kubectl get links
-```
+   ```bash
+   kubectl get links
+   ```
 
-**Additional information**
+   The minimum enforced cost is `1`. If `spec.cost` is set to `0` or omitted, the router treats it as `1`.
+   For the failover pattern, set `spec.cost: 99999` on the backup site's `Link` resource.
 
-* The minimum enforced cost is `1`. If `spec.cost` is set to `0` or omitted, the router treats it as `1`.
-* For the failover pattern (primary cost `0`/local, backup cost `99999`), set `spec.cost: 99999` on the backup site's `Link` resource.
+   > **NOTE:**
+   > Skupper does not provide orchestrated failover for stateful applications that require control over the order in which traffic is redirected. For per-service failover or weighted traffic distribution, use a multi-key listener instead.
 
-A common use case for link cost is automatic failover.
-You can configure a primary site with an effective cost of `0` (local) and a
-backup site with a high link cost, for example `99999`:
+**Additional resources**
 
-- local server — effective cost `0`
-- remote backup server — link cost `99999`
-
-In this configuration, all connections are routed to the local server.
-If the local server becomes unavailable, traffic fails over to the remote
-server regardless of the high cost.
-
-**📌 NOTE**
-Skupper does not provide orchestrated failover for stateful applications that
-require control over the order in which traffic is redirected.
-You must implement that orchestration separately.
-
-For per-service failover or weighted traffic distribution, use a
-[multi-key listener][mkl] instead.
+* [Multi-key listener][mkl]
 
 [mkl]: ./service-exposure.html#kube-creating-multikeylistener-yaml
+
+<a id="kube-yaml-custom-certs-info"></a>
+## Custom certificates and YAML
+<!--CONCEPT-->
+
+You can link sites using custom TLS certificates instead of the default Skupper-generated certificates.
+Custom certificates allow integration with your existing PKI infrastructure.
+

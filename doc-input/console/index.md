@@ -1,5 +1,8 @@
+---
+skip: true
+---
 <a id="console"></a>
-# Using the Skupper network console
+# Maintain network health and service reachability
 <!--ASSEMBLY-->
 
 The Network console provides data and visualizations of the traffic flow between sites using the Network Observer component which also deploys an API endpoint.
@@ -7,8 +10,10 @@ The Network console provides data and visualizations of the traffic flow between
 See [API documentation](/api/) for the OpenAPI documentation.
 
 <a id="console-quickstart"></a>
-## Getting started with Skupper network console
+## Get started with Skupper network console
 <!--CONCEPT-->
+
+Install the Network Observer on a Kubernetes cluster.
 
 * Helm 3.8 or later
 * kubectl access to target Kubernetes cluster
@@ -119,6 +124,9 @@ For complete configuration details and examples, see [Network Observer Configura
 
 <a id="console-config-examples"></a>
 ### Configuration Examples
+<!--REFERENCE-->
+
+Reference examples for common configuration scenarios.
 
 **Persistent Storage**
 
@@ -133,7 +141,7 @@ prometheus:
     - --storage.tsdb.retention.size=18GB
 ```
 
-**Custom Prometheus Configuration**
+**Custom Prometheus configuration**
 
 ```yaml
 prometheus:
@@ -218,6 +226,9 @@ extraArgs:
 
 <a id="console-validation"></a>
 ### Validation and Troubleshooting
+<!--REFERENCE-->
+
+Verify the Network Observer installation and diagnose common issues.
 
 **Verify Installation**
 
@@ -248,7 +259,7 @@ kubectl get ingress skupper-network-observer
 kubectl get pvc skupper-network-observer-prometheus
 ```
 
-**Test Metrics Endpoint**
+**Test Metrics endpoint**
 
 ```bash
 kubectl run -it --rm curl --image=curlimages/curl --restart=Never -- \
@@ -270,6 +281,9 @@ kubectl logs deployment/skupper-network-observer -c prometheus
 
 <a id="console-upgrade"></a>
 ### Upgrade and Rollback
+<!--PROCEDURE-->
+
+Upgrade the Network Observer or roll back to a previous version.
 
 **Upgrade Release**
 
@@ -294,6 +308,9 @@ helm rollback skupper-network-observer
 
 <a id="console-uninstall"></a>
 ### Uninstallation
+<!--PROCEDURE-->
+
+Remove the Network Observer and associated resources.
 
 **Uninstall Release**
 
@@ -301,17 +318,18 @@ helm rollback skupper-network-observer
 helm uninstall skupper-network-observer
 ```
 
-**Note:** PVCs are NOT deleted automatically. To remove persistent storage:
+> **NOTE:**
+> PVCs are not deleted automatically. To remove persistent storage:
 
 ```bash
 kubectl delete pvc skupper-network-observer-prometheus
 ```
 
 <a id="console-exploring"></a>
-## Exploring the Network console
+## Explore the Network console
 <!--REFERENCE-->
 
-The Network console provides an overview of the following:
+The Network console provides an overview of:
 
 * Topology
 * Services
