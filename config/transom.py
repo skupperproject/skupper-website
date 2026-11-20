@@ -17,3 +17,5 @@ def get_edit_url(page):
     return f"https://github.com/ssorj/skupper-website/edit/main/{page.input_path}"
 
 skupper_api_ref = f"{{site.prefix}}/docs/reference/resources"
+
+site.ignored_link_patterns = ["/docs/*"]
